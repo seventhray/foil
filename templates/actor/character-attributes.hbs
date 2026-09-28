@@ -1,0 +1,38 @@
+<section class="attr-section">
+  <h3 class="section-head">Attributes</h3>
+  <div class="attr-cards">
+    {{#each attributes}}
+      <div class="attr-card {{#if this.incapacitated}}incap{{/if}}">
+        <div class="attr-card-head">
+          <a data-action="rollAttribute" data-key="{{this.key}}" title="Roll {{this.label}}">{{this.label}}</a>
+          <span class="kind-tag" title="Which kind of Resistance covers this Attribute — PHB §6.6.0">({{foil-capitalize this.kind}})</span>
+        </div>
+        <label>Attribute Dice</label>
+        {{> systems/foil/templates/actor/partials/dice-pool.hbs}}
+        <div class="card-divider"><span>Potential</span></div>
+        <div class="attr-card-row">
+          <div class="mini"><label title="Current Potential; falls as Stress lands">Current</label>
+            <input type="number" name="system.attributes.{{this.key}}.potential.current" value="{{this.potentialCurrent}}" /></div>
+          <div class="mini"><label>Max</label><span class="readout">{{this.potentialMax}}</span></div>
+
+        </div>
+        {{#if this.incapacitated}}<div class="state-tag" title="This Attribute rolls no dice, in any Aptitude that draws on it">Incapacitated</div>{{/if}}
+      </div>
+    {{/each}}
+  </div>
+
+  {{!-- Each field spans the two Attribute cards its kind covers, so Physical
+        sits under Might and Finesse and Mental under Wit and Presence. --}}
+  <div class="resistance-row">
+    <div class="res-field">
+      <label title="Covers Might and Finesse — PHB §6.6.0">Physical Resistance</label>
+      <span class="res-total">{{resistance.physicalTotal}}</span>
+      <span class="res-from" title="{{resistance.physicalFromLabel}}">{{resistance.physicalFromLabel}}</span>
+    </div>
+    <div class="res-field">
+      <label title="Covers Wit and Presence — PHB §6.6.0">Mental Resistance</label>
+      <span class="res-total">{{resistance.mentalTotal}}</span>
+      <span class="res-from" title="{{resistance.mentalFromLabel}}">{{resistance.mentalFromLabel}}</span>
+    </div>
+  </div>
+</section>

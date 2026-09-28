@@ -1,0 +1,32 @@
+<!doctype html><meta charset="utf-8">
+<!-- Optional visual check, not part of run.mjs since it needs a browser:
+     google-chrome --headless=new --screenshot=out.png file://$PWD/card-alignment.html
+     Prints the pixel offset between the Potential input's centre line and the
+     Max readout's. Should be 0.00px. -->
+<link rel="stylesheet" href="/home/connor/foundrydata/Data/systems/foil/styles/foil.css">
+<style>body{background:#fff;margin:0;padding:14px;font-family:sans-serif;width:300px}
+/* the ruled guide line only exists in this harness, to show alignment */
+.guide{position:absolute;left:0;right:0;border-top:1px dashed red;opacity:.6}</style>
+<div class="foil-sheet actor character">
+  <div class="attr-card">
+    <div class="attr-card-head"><a>Might</a></div>
+    <label>Attribute Dice <em>(count per size)</em></label>
+    <div class="attr-card-row">
+      <div class="mini"><label>Potential (cur)</label>
+        <input type="number" value="28" /></div>
+      <div class="mini"><label>Max</label><span class="readout">28</span></div>
+    </div>
+  </div>
+</div>
+<script>
+const inp = document.querySelector('input');
+const out = document.querySelector('.readout');
+const ir = inp.getBoundingClientRect(), or_ = out.getBoundingClientRect();
+const delta = (ir.top + ir.height/2) - (or_.top + or_.height/2);
+document.title = 'centre offset: ' + delta.toFixed(2) + 'px';
+const g = document.createElement('div'); g.className='guide';
+g.style.top = (ir.top + ir.height/2) + 'px'; document.body.appendChild(g);
+document.body.insertAdjacentHTML('beforeend',
+  '<p style="font:12px monospace;margin-top:18px">input mid '+(ir.top+ir.height/2).toFixed(1)+
+  ' · readout mid '+(or_.top+or_.height/2).toFixed(1)+' · delta '+delta.toFixed(2)+'px</p>');
+</script>

@@ -1,0 +1,190 @@
+{
+  "id": "foil",
+  "title": "Foilbound",
+  "description": "Foilbound: four Attribute dice pools, four FOIL value axes, and margin-derived Stress that runs blades and beliefs on one set of rules.",
+  "version": "0.3.0",
+  "compatibility": {
+    "minimum": "12",
+    "verified": "14"
+  },
+  "authors": [
+    {
+      "name": "Connor"
+    }
+  ],
+  "esmodules": [
+    "src/system.js"
+  ],
+  "styles": [
+    "styles/foil.css"
+  ],
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json"
+    }
+  ],
+  "documentTypes": {
+    "Actor": {
+      "character": {},
+      "creature": {}
+    },
+    "Item": {
+      "instrument": {},
+      "technique": {},
+      "feat": {},
+      "equipment": {},
+      "background": {},
+      "origin": {},
+      "instrumentType": {},
+      "quality": {},
+      "effect": {}
+    }
+  },
+  "packs": [
+    {
+      "name": "instruments",
+      "label": "FOIL Instruments",
+      "path": "packs/instruments",
+      "type": "Item",
+      "system": "foil",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      }
+    },
+    {
+      "name": "techniques",
+      "label": "FOIL Techniques",
+      "path": "packs/techniques",
+      "type": "Item",
+      "system": "foil",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      }
+    },
+    {
+      "name": "feats",
+      "label": "FOIL Feats",
+      "path": "packs/feats",
+      "type": "Item",
+      "system": "foil",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      }
+    },
+    {
+      "name": "equipment",
+      "label": "FOIL Equipment",
+      "path": "packs/equipment",
+      "type": "Item",
+      "system": "foil",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      }
+    },
+    {
+      "name": "backgrounds",
+      "label": "FOIL Backgrounds",
+      "path": "packs/backgrounds",
+      "type": "Item",
+      "system": "foil",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      }
+    },
+    {
+      "name": "origins",
+      "label": "FOIL Ancestries",
+      "path": "packs/origins",
+      "type": "Item",
+      "system": "foil",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      }
+    },
+    {
+      "name": "instrument-types",
+      "label": "FOIL Instrument Types",
+      "path": "packs/instrument-types",
+      "type": "Item",
+      "system": "foil",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      }
+    },
+    {
+      "name": "qualities",
+      "label": "FOIL Qualities",
+      "path": "packs/qualities",
+      "type": "Item",
+      "system": "foil",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      }
+    },
+    {
+      "name": "effects",
+      "label": "FOIL Effects",
+      "path": "packs/effects",
+      "type": "Item",
+      "system": "foil",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      }
+    },
+    {
+      "name": "guide",
+      "label": "Foilbound User Guide",
+      "path": "packs/guide",
+      "type": "JournalEntry",
+      "system": "foil",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      }
+    }
+  ],
+  "packFolders": [
+    {
+      "name": "Foilbound Guide",
+      "sorting": "m",
+      "packs": [
+        "guide"
+      ]
+    },
+    {
+      "name": "FOIL",
+      "sorting": "m",
+      "packs": [
+        "instruments",
+        "techniques",
+        "feats",
+        "equipment",
+        "backgrounds",
+        "origins"
+      ]
+    },
+    {
+      "name": "FOIL Vocabulary",
+      "sorting": "m",
+      "packs": [
+        "instrument-types",
+        "qualities",
+        "effects"
+      ]
+    }
+  ],
+  "primaryTokenAttribute": "ap",
+  "gridDistance": 5,
+  "gridUnits": "ft"
+}

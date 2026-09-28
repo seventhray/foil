@@ -1,0 +1,6 @@
+packs/*/LOCK
+packs/*/LOG
+packs/*/LOG.old
+node_modules/
+*.zip
+.DS_Store

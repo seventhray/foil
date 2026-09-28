@@ -1,0 +1,54 @@
+<div class="foil-sheet chargen-body">
+  <p class="chargen-intro">
+    Build <strong>{{actorName}}</strong> per the six steps (PHB §2.5.0). Assign each starting pool to a
+    different Attribute, pick an Ancestry and Background, and the innate Instruments and starting
+    Techniques are added automatically. Background Training and worn Equipment Resistance apply on their own.
+  </p>
+
+  <fieldset>
+    <legend>1 · Attribute Dice</legend>
+    <p class="hint">The four starting pools are 1d6, 1d8, 1d10, 1d12 — one per Attribute.</p>
+    {{#each attributes}}
+      <div class="chargen-row">
+        <label>{{this.label}}</label>
+        <select name="pool.{{this.key}}">
+          <option value="">—</option>
+          {{#each ../pools}}<option value="{{this.index}}">{{this.label}}</option>{{/each}}
+        </select>
+      </div>
+    {{/each}}
+  </fieldset>
+
+  <fieldset>
+    <legend>2 · Ancestry <em>(grants a Feat)</em></legend>
+    <select name="origin">
+      <option value="">— none —</option>
+      {{#each origins}}<option value="{{this.name}}">{{this.name}}</option>{{/each}}
+    </select>
+  </fieldset>
+
+  <fieldset>
+    <legend>3 · Background <em>(grants +1 Training ×3 and a kit)</em></legend>
+    <select name="background">
+      <option value="">— none —</option>
+      {{#each backgrounds}}<option value="{{this.name}}">{{this.name}}</option>{{/each}}
+    </select>
+  </fieldset>
+
+  <fieldset>
+    <legend>4 · Starting Point <em>(GMG §2.1.0 — pick for the whole party, sets Starting XP)</em></legend>
+    <select name="startingPoint">
+      <option value="">— custom —</option>
+      {{#each startingTiers}}<option value="{{this.key}}">{{this.label}}</option>{{/each}}
+    </select>
+  </fieldset>
+
+  <fieldset>
+    <legend>5 · Starting Coin <em>(override, optional — blank uses the Starting Point's guess)</em></legend>
+    <input type="text" name="coin" placeholder="e.g. 150p" />
+  </fieldset>
+
+  <footer class="chargen-foot">
+    <button type="submit"><i class="fas fa-wand-magic-sparkles"></i> Generate</button>
+  </footer>
+</div>

@@ -1,0 +1,803 @@
+/* FOIL Storytelling Game — sheet styling. Soft violet ink on pale lavender
+   paper, mirroring the PHB/GMG PDF export's palette (export_rules_pdf.py) so
+   the Foundry sheet and the printed book read as the same object. */
+
+@font-face {
+  font-family: "EB Garamond";
+  src: url("fonts/EBGaramond-Variable.ttf") format("truetype");
+  font-weight: 400 800;
+  font-style: normal;
+}
+@font-face {
+  font-family: "EB Garamond";
+  src: url("fonts/EBGaramond-Italic-Variable.ttf") format("truetype");
+  font-weight: 400 800;
+  font-style: italic;
+}
+
+.foil-sheet {
+  /* ── Palette (mirrors export_rules_pdf.py / build_sheet.py exactly) ─────── */
+  --ink: #1B1722;
+  --ink-soft: #6A6377;
+  --ink-faint: #9A93AC;
+  --parchment: #FDFCFE;
+  --parchment-deep: #EEE9F7;
+  --parchment-card: #F6F3FA;
+  --parchment-paper: #FFFFFF;
+  --accent: #6B4BA8;
+  --accent-glow: #B39DDB;
+  --accent-bright: #7B3FF2;
+  --accent-bright-soft: #A98CE8;
+  --line: #B7ABCE;
+  --line-soft: #D8D0E6;
+  --good: #2c5f2d;
+  --good-soft: #3a6b2f;
+  --bad: #7a0000;
+  --warn: #8a6d00;
+  --warn-bg: #fff6e0;
+  --warn-line: #c8a94a;
+
+  --font-display: "EB Garamond", "Modesto Condensed", serif;
+  --font-body: "Signika", sans-serif;
+}
+
+/* Paper theme. Foundry's dark UI theme tints text light by default, so the
+   sheet forces dark ink on a parchment background across the window content.
+   A faint two-layer gradient stands in for laid paper: a wide mottled wash
+   plus a fine linen crosshatch, both subtle enough to stay out of the way
+   of reading. */
+.application.foil .window-content,
+.foil-sheet {
+  background-color: var(--parchment);
+  background-image:
+    repeating-linear-gradient(90deg, rgba(27,23,34,0.012) 0 1px, transparent 1px 3px),
+    repeating-linear-gradient(0deg, rgba(27,23,34,0.012) 0 1px, transparent 1px 3px),
+    radial-gradient(ellipse at 15% 8%, rgba(107,75,168,0.05), transparent 40%),
+    radial-gradient(ellipse at 85% 92%, rgba(123,63,242,0.04), transparent 45%);
+  color: var(--ink);
+}
+.application.foil .window-content { padding: 0; }
+/* Actor sheets add the "foil-sheet" class to .window-content itself in
+   _onRender (see actor-sheet.js) rather than templating an inner wrapper div:
+   ApplicationV2's multi-PARTS rendering replaces each part's element
+   individually and leaves window-content itself untouched across re-renders,
+   so making it the actual scrolling/flex container is what keeps scroll
+   position and focus stable while typing instead of resetting on every
+   render. Item sheets still use a single "main" part and keep the templated
+   wrapper div, so they never get this class on window-content and keep the
+   padding:0 above (their own .foil-sheet div supplies the 10px instead). */
+.application.foil .window-content.foil-sheet { padding: 10px; }
+.application.foil .window-content::-webkit-scrollbar { width: 10px; }
+.application.foil .window-content::-webkit-scrollbar-thumb { background: var(--line); border-radius: 5px; }
+.application.foil .window-content::-webkit-scrollbar-track { background: transparent; }
+
+/* Window chrome: a thin violet seam under the titlebar ties the frame to the
+   page without repainting Foundry's own header chrome. */
+.application.foil .window-header {
+  border-bottom: 2px solid var(--accent-bright);
+}
+
+.foil-sheet {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px;
+  font-family: var(--font-body);
+  color: var(--ink);
+  height: 100%;
+  overflow-y: auto;
+}
+
+.foil-sheet h3,
+.foil-sheet label,
+.foil-sheet legend,
+.foil-sheet th,
+.foil-sheet td,
+.foil-sheet span,
+.foil-sheet a,
+.foil-sheet output {
+  color: var(--ink);
+}
+
+.foil-sheet input,
+.foil-sheet select,
+.foil-sheet textarea {
+  background: var(--parchment-paper);
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.foil-sheet input::placeholder { color: var(--ink-faint); }
+/* Foundry core (`body.game .app table tr:nth-child(even)`, specificity 0-3-3)
+   stripes every table's even rows with a translucent white overlay tuned for
+   its dark theme — on parchment that reads as a grey band. Neutralizing it
+   needs to out-specify that exact rule; specific tables (.item-table) restore
+   their own subtle tint below at higher selector specificity still. */
+.application.foil .foil-sheet tbody tr:nth-child(even) { background-color: transparent; }
+.foil-sheet input:focus,
+.foil-sheet select:focus,
+.foil-sheet textarea:focus {
+  outline: none;
+  border-color: var(--accent-bright);
+  box-shadow: 0 0 0 2px rgba(123,63,242,0.18);
+}
+.foil-sheet input[type="checkbox"],
+.foil-sheet input[type="radio"] { accent-color: var(--accent); }
+.foil-sheet.item select.multi option:checked {
+  background: var(--accent);
+  color: var(--parchment-paper);
+}
+
+/* ── Header ──────────────────────────────────────────────────────────────── */
+.foil-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  padding-bottom: 8px;
+  border-bottom: 3px double var(--accent);
+}
+.foil-header .char-name {
+  font-family: var(--font-display);
+  font-size: 1.9em;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  width: 100%;
+  border: none;
+  background: transparent;
+  color: var(--accent);
+}
+.foil-header .char-name::placeholder { color: var(--ink-faint); font-family: var(--font-body); }
+
+.xp-block {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 190px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 1px 2px rgba(27,23,34,0.08);
+}
+.xp-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 7px;
+  border-bottom: 1px solid var(--line-soft);
+}
+.xp-row.spent { background: rgba(27,23,34,0.05); }
+.xp-row:last-child { border-bottom: none; }
+.xp-row label { font-weight: bold; font-size: 0.85em; }
+.xp-row input { width: 70px; text-align: right; }
+.xp-row .readout { font-weight: bold; }
+
+.tier-block { display: flex; align-items: center; gap: 6px; }
+.tier-block label { font-weight: bold; font-size: 0.85em; }
+.tier-block input { width: 90px; }
+
+.destroyed-banner {
+  background: linear-gradient(180deg, #5a2323, #3a1414);
+  color: #f6dcdc;
+  font-family: var(--font-display);
+  font-weight: bold;
+  font-size: 1.15em;
+  letter-spacing: 3px;
+  text-align: center;
+  text-transform: uppercase;
+  padding: 6px;
+  border-radius: 3px;
+  margin-bottom: 6px;
+  border: 1px solid #7a3a3a;
+  text-shadow: 0 1px 1px rgba(0,0,0,0.6);
+}
+
+/* ── Character header identity grid ──────────────────────────────────────── */
+.char-header { flex-direction: column; align-items: stretch; gap: 6px; }
+.ident-grid {
+  display: grid;
+  grid-template-columns: auto 1fr auto 1fr;
+  gap: 3px 8px;
+  align-items: center;
+}
+.ident-grid label { font-weight: bold; font-size: 0.78em; text-transform: uppercase; letter-spacing: 0.5px; color: var(--ink-soft); }
+.ident-grid input { width: 100%; box-sizing: border-box; }
+.ident-grid .readout { font-weight: bold; }
+
+/* ── Section headings ────────────────────────────────────────────────────── */
+/* A small flanking diamond on each side reads as a printer's ornament
+   without needing an image asset. */
+.section-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 4px 0 4px;
+  font-family: var(--font-display);
+  font-size: 1.25em;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  color: var(--accent);
+}
+.section-head::before,
+.section-head::after {
+  content: "";
+  flex: 1 1 auto;
+  height: 0;
+  border-top: 1px solid var(--line);
+}
+.section-head::before { flex: 0 0 10px; }
+.section-head em { font-family: var(--font-body); font-weight: normal; font-size: 0.62em; color: var(--ink-soft); letter-spacing: 0; white-space: nowrap; }
+
+/* ── Attribute cards ─────────────────────────────────────────────────────── */
+.attr-cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+.attr-card {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--accent);
+  border-radius: 4px;
+  padding: 6px 8px;
+  background: var(--parchment-card);
+  box-shadow: 0 1px 3px rgba(27,23,34,0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.attr-card.incap { background: var(--warn-bg); border-top-color: var(--warn-line); }
+.attr-card label { font-weight: bold; font-size: 0.72em; text-transform: uppercase; letter-spacing: 0.4px; color: var(--ink-soft); }
+.attr-card .dice-in { text-align: center; }
+.attr-card .readout { font-weight: bold; }
+/* Which Resistance covers this Attribute, said once beside its name instead of
+   as a trailing row (PHB §6.6.0). */
+.attr-card .kind-tag {
+  font-size: 0.68em; font-weight: bold; text-transform: uppercase;
+  letter-spacing: 0.4px; color: var(--ink-faint); margin-left: 4px;
+}
+/* A titled rule inside a card: label centred, hairlines running out to the edges. */
+.card-divider {
+  display: flex; align-items: center; gap: 6px;
+  margin: 7px 0 3px;
+  font-weight: bold; font-size: 0.7em; text-transform: uppercase;
+  letter-spacing: 0.5px; color: var(--ink-soft);
+}
+.card-divider::before, .card-divider::after {
+  content: ""; flex: 1 1 auto; border-top: 1px solid var(--line-soft);
+}
+.attr-card-head a {
+  font-family: var(--font-display);
+  font-size: 1.3em;
+  font-weight: bold;
+  letter-spacing: 0.3px;
+  cursor: pointer;
+  color: var(--accent);
+  text-decoration: none;
+}
+.attr-card-head a:hover { text-shadow: 0 0 6px var(--accent-glow); }
+.attr-card.incap .attr-card-head a { color: var(--warn); }
+.attr-card-row { display: flex; gap: 8px; align-items: stretch; }
+.attr-card-row .mini { flex: 1 1 0; display: flex; flex-direction: column; }
+.attr-card-row .mini input { width: 100%; box-sizing: border-box; text-align: center; }
+/* Max is a readout beside an editable field. Let it fill the space its
+   sibling's input occupies and centre in it, so the two numbers sit on the
+   same line instead of Max riding up under its own label. */
+.attr-card-row .mini .readout {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+/* Attribute dice-pool editor: a small count box per die size, compact. */
+.dice-pool { display: flex; flex-wrap: wrap; gap: 4px; }
+.dice-pool .dp { display: flex; flex-direction: column; align-items: center; width: 26px; }
+.dice-pool .dp-lbl { font-size: 0.56em; text-transform: uppercase; letter-spacing: 0.2px; color: var(--ink-faint); }
+.dice-pool .dp input { width: 100%; box-sizing: border-box; text-align: center; padding: 1px 0; font-size: 0.85em; -moz-appearance: textfield; appearance: textfield; }
+.dice-pool .dp input::-webkit-outer-spin-button,
+.dice-pool .dp input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+.pool-formula { font-size: 0.72em; font-weight: bold; color: var(--accent); margin-top: 1px; }
+.pool-formula.invalid { color: #b00000; }
+.creature .dice-cell { vertical-align: top; }
+.creature .dice-cell .dice-pool { justify-content: center; }
+
+/* Item-modifier badge (Training/Resistance added by Backgrounds/Feats/Equipment). */
+.mod { font-size: 0.72em; font-weight: bold; color: var(--good-soft); white-space: nowrap; }
+.muted { color: var(--ink-faint); font-style: italic; }
+.training-cell { white-space: nowrap; }
+.training-cell input { width: 44px; }
+
+/* Character generator / advance buttons: a light bevel and a small lift on
+   hover so they read as pressable, not just clickable text. */
+.name-row { display: flex; align-items: center; gap: 8px; }
+.name-row .char-name { flex: 1 1 auto; }
+.chargen-btn {
+  flex: 0 0 auto; cursor: pointer; border: 1px solid var(--line); border-radius: 4px;
+  background: linear-gradient(180deg, var(--parchment-paper), var(--parchment-card));
+  color: var(--accent); font-weight: bold; font-size: 0.8em; padding: 4px 10px;
+  box-shadow: 0 1px 2px rgba(27,23,34,0.12);
+  transition: transform 0.1s ease, box-shadow 0.1s ease, background 0.15s ease;
+}
+.chargen-btn:hover { background: var(--parchment-deep); transform: translateY(-1px); box-shadow: 0 2px 4px rgba(27,23,34,0.18); }
+.chargen-btn:active { transform: translateY(0); box-shadow: 0 1px 1px rgba(27,23,34,0.12); }
+
+/* Aptitude table on the character sheet: match the parchment sections rather
+   than the heavy grey grid (default appearance). */
+.character .apt-table th,
+.character .apt-table td { border: none; border-bottom: 1px solid var(--line-soft); background: transparent; text-align: left; }
+.character .apt-table thead th {
+  /* Own the background rather than inheriting it: transparent here meant the
+     header's contrast depended on whatever theme Foundry painted behind the
+     sheet, which is unreadable under a dark one. */
+  background: var(--parchment-deep); color: var(--accent); font-size: 0.72em;
+  text-transform: uppercase; font-weight: bold;
+  letter-spacing: 0.5px; border-bottom: 2px solid var(--accent-bright);
+  padding: 3px 6px;
+}
+.character .apt-table .pair { background: transparent; font-weight: normal; color: var(--ink-soft); }
+.character .apt-table td.readout { background: transparent; font-weight: bold; }
+.attr-card .stress-cell input { width: 100%; box-sizing: border-box; text-align: center; }
+
+.health-bar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 8px;
+  padding: 4px 8px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: var(--parchment-deep);
+}
+.health-bar.lost { background: #f6dcdc; border-color: #a05050; }
+.health-bar .mini { display: flex; align-items: center; gap: 6px; }
+.health-bar label { font-weight: bold; font-size: 0.78em; text-transform: uppercase; }
+.health-bar .readout { font-size: 1.2em; font-weight: bold; }
+.health-bar .hint { font-size: 0.75em; color: var(--ink-soft); }
+
+.prompts { display: flex; flex-direction: column; gap: 2px; }
+.prompts label { font-weight: bold; font-size: 0.8em; color: var(--ink-soft); }
+.prompts textarea { width: 100%; box-sizing: border-box; font-family: var(--font-body); }
+
+/* ── Body layout ─────────────────────────────────────────────────────────── */
+.foil-body {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+.left-col { flex: 1 1 auto; min-width: 0; }
+.foil-col {
+  flex: 0 0 240px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* ── Attribute table ─────────────────────────────────────────────────────── */
+.attr-table, .apt-table, .item-table {
+  /* Foundry core paints a grey `background` directly on every <table> element
+     (not just its rows) — with border-collapse the transparent cells above
+     let it show straight through as a flat grey slab, so it needs resetting
+     here at the table level, not just on tr/td. */
+  background: transparent;
+}
+.attr-table, .apt-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.attr-table th, .attr-table td,
+.apt-table th, .apt-table td {
+  border: 1px solid var(--line-soft);
+  padding: 4px 6px;
+  text-align: center;
+}
+.attr-table .row-label, .apt-table .pair {
+  font-weight: bold;
+  text-align: left;
+  background: var(--parchment-deep);
+  color: var(--ink-soft);
+}
+.attr-table thead th {
+  background: var(--parchment-deep);
+  font-family: var(--font-display);
+  letter-spacing: 0.4px;
+  border-bottom: 2px solid var(--accent-bright);
+}
+.attr-head a, .apt-name a {
+  font-weight: bold;
+  cursor: pointer;
+  color: var(--accent);
+  text-decoration: none;
+}
+.attr-head a:hover, .apt-name a:hover { text-shadow: 0 0 6px var(--accent-glow); }
+.attr-head.incap a { color: var(--warn); }
+.attr-head.lost a { color: var(--bad); text-decoration: line-through; }
+
+.attr-table input[type="number"] { width: 56px; text-align: center; }
+/* The dice-pool partial's own per-die inputs must win over the rule above
+   (equal specificity, this comes later) — otherwise all six d4-d20 fields
+   render at a fixed 56px and overlap inside their 26px .dp cell. */
+.attr-table .dice-pool input[type="number"] { width: 100%; }
+.attr-table input[type="text"] { width: 100%; min-width: 120px; box-sizing: border-box; text-align: center; }
+.attr-table td.readout, .apt-table td.readout { font-weight: bold; background: rgba(107,75,168,0.06); }
+.attr-table input.invalid { border-color: #c00; background: #fff0f0; }
+
+.stress-cell { position: relative; }
+.stress-cell.incap { background: var(--warn-bg); }
+/* Incapacitated is the most consequential state on the sheet: the Attribute
+   contributes no dice to three of the six Aptitudes. It should be impossible
+   to miss, so it reads as a filled badge rather than fine print. */
+.state-tag {
+  display: block;
+  text-align: center;
+  margin-top: auto;          /* sits at the foot of the card, not mid-stack */
+  font-size: 0.95em;
+  font-weight: bold;
+  letter-spacing: 0.3px;
+  color: #fff;
+  background: var(--warn);
+  border-radius: 3px;
+  padding: 3px 6px;
+  margin: 2px 0 4px;
+  line-height: 1.3;
+  box-shadow: 0 1px 2px rgba(0,0,0,.25);
+}
+.state-tag.lost { background: var(--bad); color: #fff; }
+
+.apt-table input { width: 50px; text-align: center; }
+.apt-table th { background: var(--parchment-deep); }
+
+.ap-block {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: bold;
+  color: var(--ink-soft);
+}
+.ap-block input { width: 50px; text-align: center; }
+
+/* ── FOIL axes ───────────────────────────────────────────────────────────── */
+.axis {
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 6px 8px;
+  text-align: center;
+  background: var(--parchment-card);
+  box-shadow: 0 1px 2px rgba(27,23,34,0.08);
+}
+.axis.order { background: var(--parchment-deep); }
+.axis-name { font-family: var(--font-display); font-weight: bold; letter-spacing: 0.3px; }
+.axis-pos { font-size: 0.78em; color: var(--good); font-weight: bold; }
+.axis-neg { font-size: 0.78em; color: #7a3a1a; font-weight: bold; }
+.axis-slider {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 3px 0;
+}
+.axis-value {
+  flex: 1 1 auto;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+.axis-readout {
+  flex: 0 0 auto;
+  min-width: 28px;
+  font-size: 1.1em;
+  font-weight: bold;
+  text-align: right;
+}
+
+/* ── Item lists ──────────────────────────────────────────────────────────── */
+.items-body {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-top: 10px;
+  border-top: 3px double var(--accent);
+}
+.item-table-block { width: 100%; }
+.item-list-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.item-list-head h3.section-head { flex: 1 1 auto; margin: 0; }
+.item-create {
+  cursor: pointer; color: var(--accent); border: 1px solid var(--line); border-radius: 3px;
+  width: 22px; height: 22px; display: flex; align-items: center; justify-content: center;
+  transition: background 0.15s ease, transform 0.1s ease;
+}
+.item-create:hover { background: var(--parchment-deep); transform: translateY(-1px); }
+
+.item-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8em;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.item-table thead th {
+  background: var(--parchment-deep);
+  text-align: left;
+  font-weight: bold;
+  color: var(--ink-soft);
+  padding: 3px 6px;
+  border-bottom: 2px solid var(--accent-bright);
+  white-space: nowrap;
+}
+.application.foil .item-table tbody tr:nth-child(even) { background-color: var(--parchment-card); }
+.application.foil .item-table tbody tr:hover { background-color: rgba(123,63,242,0.08); }
+.item-table tbody td {
+  padding: 3px 6px;
+  border-bottom: 1px dashed var(--line-soft);
+  vertical-align: top;
+}
+.item-table .num { text-align: right; white-space: nowrap; }
+.item-table .item-name { font-weight: bold; cursor: pointer; white-space: nowrap; }
+.item-table .item-name:hover { text-shadow: 0 0 6px var(--accent-glow); }
+.item-table .quality-cell,
+.item-table .effect-cell { color: var(--ink-soft); }
+.item-table .item-actions { white-space: nowrap; text-align: right; }
+.item-roll { cursor: pointer; color: var(--good); }
+.item-roll:hover { text-shadow: 0 0 6px #8fbf8f; }
+.item-actions a[data-action="deleteItem"] { cursor: pointer; color: var(--bad); }
+.item-actions a[data-action="deleteItem"]:hover { text-shadow: 0 0 6px #d88; }
+
+/* .prompts + .biography are two sections inside one PART (character-biography.hbs
+   must render a single top-level element), so this wrapper supplies the same
+   10px gap they got for free as direct .foil-sheet flex children before the
+   PARTS split. */
+.foil-part-biography { display: flex; flex-direction: column; gap: 10px; }
+.biography { display: flex; flex-direction: column; }
+.biography label { font-weight: bold; color: var(--ink-soft); }
+.biography textarea { width: 100%; }
+
+/* ── Item sheets ─────────────────────────────────────────────────────────── */
+.foil-sheet.item .item-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 8px;
+  border-bottom: 3px double var(--accent);
+}
+/* Foundry core CSS sets a fixed single-row `height` on every <select> (an
+   unconditional rule, so it wins by default wherever we don't declare our
+   own height) — that clips a multi-select's `size` attribute back down to
+   one row regardless of size="12". Override height so size can do its job. */
+.foil-sheet.item select.multi { width: 100%; height: auto; box-sizing: border-box; }
+.foil-sheet.item .item-img {
+  cursor: pointer; border: 2px solid var(--line); border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(27,23,34,0.15);
+}
+.foil-sheet.item .item-title {
+  font-family: var(--font-display);
+  font-size: 1.6em;
+  font-weight: bold;
+  letter-spacing: 0.3px;
+  color: var(--accent);
+  flex: 1 1 auto;
+}
+.field-grid {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 5px 8px;
+  align-items: center;
+}
+.field-grid label { font-weight: bold; font-size: 0.85em; color: var(--ink-soft); }
+.field-grid .field-hint { grid-column: 1 / -1; font-size: 0.78em; color: var(--ink-soft); font-style: italic; margin: -2px 0 2px; }
+.foil-sheet.item fieldset { border: 1px solid var(--line); border-radius: 4px; padding: 6px 8px; }
+.foil-sheet.item legend { font-family: var(--font-display); font-weight: bold; color: var(--accent); padding: 0 6px; letter-spacing: 0.2px; }
+.foil-sheet.item legend em { font-family: var(--font-body); }
+.trait-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px 8px;
+}
+.trait { font-size: 0.85em; }
+.derived-line {
+  text-align: center;
+  font-size: 0.9em;
+  padding: 5px;
+  background: var(--parchment-deep);
+  border: 1px solid var(--line-soft);
+  border-radius: 3px;
+}
+.derived-line.hint { color: var(--ink-soft); font-style: italic; background: transparent; border-style: dashed; }
+.block-label { font-weight: bold; font-size: 0.85em; color: var(--ink-soft); }
+.foil-sheet.item textarea { width: 100%; }
+
+.modifier-row { display: flex; align-items: center; gap: 6px; margin: 3px 0; }
+.modifier-row .mini-text { flex: 1 1 auto; }
+.modifier-row .mini-num { width: 46px; }
+
+/* Effect rows (Technique effects / Instrument Enchantment effects): a
+   composed pricing entry (GMG §5.1.0) with several fields that only matter
+   for specific Effect kinds (area shape, Selective targets). Each gets its
+   own labeled column, with the full explanation on hover rather than
+   crammed into the label text, since most fields stay at 0 for most rows. */
+.effect-row-list { display: flex; flex-direction: column; gap: 2px; }
+.effect-row {
+  display: flex;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 4px 8px;
+  padding: 6px 4px;
+  border-bottom: 1px dashed var(--line-soft);
+}
+.effect-row:last-child { border-bottom: none; }
+.effect-row select.ef-key { flex: 1 1 130px; min-width: 110px; }
+.ef-field { display: flex; flex-direction: column; align-items: stretch; gap: 1px; width: 46px; }
+.ef-field .mini-label {
+  font-size: 0.62em; font-weight: bold; text-transform: uppercase; letter-spacing: 0.2px;
+  color: var(--ink-soft); text-align: center; cursor: help;
+  border-bottom: 1px dotted var(--line);
+}
+.ef-field .mini-num { width: 100%; box-sizing: border-box; text-align: center; padding: 1px 0; }
+.ef-field select { width: 100%; box-sizing: border-box; font-size: 0.85em; padding: 1px; }
+.effect-row .row-del { align-self: center; cursor: pointer; color: var(--bad); margin-bottom: 2px; }
+.effect-row .row-del:hover { text-shadow: 0 0 6px #d88; }
+
+/* Registry/vocabulary sheets (Instrument Type, Quality, Effect): a silver
+   seal in place of the violet spine marks these as glossary entries — words
+   other documents reference — distinct from carried gear. */
+.foil-sheet.definition {
+  --accent: #5B6472;
+  --accent-glow: #C7CBD1;
+}
+.foil-sheet.definition .item-title { font-style: italic; }
+.def-hint {
+  margin: 0;
+  font-size: 0.8em;
+  font-style: italic;
+  color: var(--ink-soft);
+  padding: 3px 8px;
+  border-left: 3px solid var(--accent);
+  background: rgba(91,100,114,0.08);
+}
+
+/* Data-problem warnings (e.g. an Instrument Type slug the registry no longer
+   recognizes) — surfaced both at-a-glance in the item list and as a banner
+   on the item's own sheet, so drift like this gets caught by looking at the
+   sheet instead of needing a manual audit. */
+.item-warning { color: var(--warn); cursor: help; }
+.type-warning-banner {
+  margin: 0;
+  font-size: 0.8em;
+  color: var(--warn);
+  padding: 3px 8px;
+  border-left: 3px solid var(--warn-line);
+  background: var(--warn-bg);
+}
+
+/* ── Character generator ─────────────────────────────────────────────────── */
+.chargen .chargen-body { display: flex; flex-direction: column; gap: 8px; padding: 6px; }
+.chargen .chargen-intro { font-size: 0.85em; color: var(--ink-soft); margin: 0; }
+.chargen fieldset { border: 1px solid var(--line); border-radius: 4px; padding: 6px 8px; }
+.chargen legend { font-family: var(--font-display); font-weight: bold; font-size: 1em; color: var(--accent); }
+.chargen legend em { font-family: var(--font-body); font-weight: normal; color: var(--ink-soft); }
+.chargen .hint { font-size: 0.75em; color: var(--ink-faint); margin: 0 0 4px; }
+.chargen .chargen-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin: 2px 0; }
+.chargen .chargen-row label { font-weight: bold; font-size: 0.85em; }
+.chargen .chargen-row select { flex: 0 0 55%; }
+.chargen select, .chargen input[type="text"] { width: 100%; box-sizing: border-box; }
+.chargen .chargen-foot { display: flex; justify-content: flex-end; }
+.chargen .chargen-foot button {
+  cursor: pointer; font-family: var(--font-display); font-weight: bold; font-size: 1.05em;
+  padding: 5px 16px; border: 1px solid var(--line); border-radius: 4px;
+  background: linear-gradient(180deg, var(--parchment-paper), var(--parchment-card));
+  color: var(--accent); box-shadow: 0 1px 2px rgba(27,23,34,0.12);
+}
+.chargen .chargen-foot button:hover { background: var(--parchment-deep); }
+
+/* ── Advancement ──────────────────────────────────────────────────────────── */
+.advancement .xp-summary {
+  display: flex; justify-content: space-around; gap: 8px;
+  background: var(--parchment-card); border: 1px solid var(--line); border-radius: 4px;
+  padding: 6px; font-size: 0.85em;
+}
+.advancement .xp-summary strong { font-family: var(--font-display); font-size: 1.25em; color: var(--accent); }
+.adv-attr-row { margin: 4px 0; }
+.adv-attr-row label { font-weight: bold; font-size: 0.85em; display: flex; justify-content: space-between; }
+.adv-btn-row { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 2px; }
+.adv-btn {
+  cursor: pointer; font-size: 0.78em; border: 1px solid var(--line); border-radius: 3px;
+  padding: 2px 7px; background: var(--parchment-paper);
+  transition: background 0.15s ease, transform 0.1s ease;
+}
+.adv-btn:hover { background: var(--parchment-deep); transform: translateY(-1px); }
+.adv-btn em { font-weight: normal; color: var(--ink-soft); }
+.adv-pick-row { display: flex; align-items: center; gap: 6px; }
+.adv-pick-row select { flex: 1 1 auto; }
+
+/* ── Chat cards ──────────────────────────────────────────────────────────── */
+/* Rolls post through core Foundry's chat-message chrome (not `.foil-sheet`),
+   so this targets the flavor wrapper directly rather than relying on the
+   parchment cascade above. */
+.chat-message .foil-flavor { font-family: var(--font-body); }
+.chat-message .foil-flavor strong {
+  font-family: "EB Garamond", "Modesto Condensed", "Signika", serif;
+  color: #6B4BA8;
+  font-size: 1.1em;
+  letter-spacing: 0.2px;
+}
+.chat-message .foil-flavor em { color: #6A6377; }
+
+.chat-message button.foil-stress-followup {
+  display: block;
+  width: 100%;
+  margin-top: 4px;
+  cursor: pointer;
+  font-family: "EB Garamond", "Modesto Condensed", "Signika", serif;
+  font-weight: bold;
+  font-size: 0.95em;
+  padding: 3px 8px;
+  border: 1px solid #B7ABCE;
+  border-radius: 3px;
+  background: linear-gradient(180deg, #FFFFFF, #F6F3FA);
+  color: #6B4BA8;
+}
+.chat-message button.foil-stress-followup:hover { background: #EEE9F7; }
+.chat-message button.foil-stress-followup:disabled { opacity: 0.6; cursor: default; }
+
+/* Stress computed from the opposed roll's margin (PHB §6.7.0). The chat card
+   asks for the one number it can't know and does the rest. */
+.foil-stress-followup { margin-top: 6px; width: 100%; }
+
+/* Resistance is two values on the actor, not four (PHB §6.6.0). */
+/* Resistance sits on the same 4-column grid as the Attribute cards above, each
+   field spanning the two Attributes its kind covers (PHB §6.6.0). */
+.resistance-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin-top: 8px;
+}
+.resistance-row .res-field {
+  grid-column: span 2;
+  display: flex;
+  align-items: center;      /* label, field and bonus all on one line */
+  gap: 8px;
+}
+/* A shared label width so both inputs start at the same offset inside their
+   halves, rather than one being pushed right by a longer word. */
+.resistance-row .res-field > label { flex: 0 0 13em; white-space: nowrap; }
+.resistance-row label {
+  font-weight: bold; font-size: 0.72em; text-transform: uppercase;
+  letter-spacing: 0.4px; color: var(--ink-soft);
+}
+/* Base field then item bonus, reading left to right on one line. */
+/* A character's Resistance is granted, never typed (PHB §6.6.0): the total
+   leads, and what granted it follows. */
+.res-value { flex: 1 1 auto; display: flex; align-items: center; gap: 8px; min-width: 0; }
+.resistance-row .res-total {
+  flex: 0 0 auto;
+  min-width: 1.4em;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.15em;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+.resistance-row .res-from {
+  flex: 1 1 auto;
+  min-width: 0;
+  color: var(--ink-soft);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* An Aptitude's live roll range, replacing the old single Net Potential. */
+.apt-table td.range, .creature .range { white-space: nowrap; font-variant-numeric: tabular-nums; }
+.range .sep { opacity: 0.4; margin: 0 3px; font-weight: normal; }
+.range .lo, .range .hi { opacity: 0.65; font-weight: normal; }
+.range .mid { font-weight: bold; }

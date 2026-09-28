@@ -1,0 +1,49 @@
+<div class="foil-body">
+
+  {{!-- Aptitudes + AP --}}
+  <section class="left-col">
+    <h3 class="section-head">Aptitudes <em>Roll both pools + Training.</em></h3>
+    <table class="apt-table">
+      <thead>
+        <tr><th>Aptitude</th><th>Pools</th><th>Training</th><th title="What this Aptitude can roll right now, Training included. Incapacitated Attributes contribute nothing.">Min / Avg / Max</th></tr>
+      </thead>
+      <tbody>
+        {{#each aptitudes}}
+          <tr>
+            <td class="apt-name"><a data-action="rollAptitude" data-key="{{this.key}}" title="Roll {{this.label}}">{{this.label}}</a></td>
+            <td class="pair">{{this.pairLabel}}</td>
+            <td class="training-cell">
+              <input type="number" name="system.aptitudes.{{this.key}}.training" value="{{this.training}}" title="Base Training" />
+              {{#if this.trainingBonus}}<span class="mod">+{{this.trainingBonus}}</span>{{/if}}
+            </td>
+            <td class="readout range"><span class="lo">{{this.rollMin}}</span><span class="sep">/</span><span class="mid">{{this.rollAvg}}</span><span class="sep">/</span><span class="hi">{{this.rollMax}}</span></td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+
+    <div class="ap-block">
+      <label>Action Points</label>
+      <input type="number" name="system.ap.value" value="{{system.ap.value}}" /> /
+      <input type="number" name="system.ap.max" value="{{system.ap.max}}" />
+    </div>
+  </section>
+
+  {{!-- FOIL axes --}}
+  <section class="foil-col">
+    <h3 class="section-head">FOIL</h3>
+    {{#each foil}}
+      <div class="axis {{#if this.isOrder}}order{{/if}}">
+        <div class="axis-name">{{this.label}}</div>
+        <div class="axis-pos">+5 {{this.pos}}</div>
+        <div class="axis-slider">
+          <input type="range" class="axis-value" name="system.foil.{{this.key}}" value="{{this.value}}"
+            min="-5" max="5" step="1" data-display="foil-{{this.key}}" />
+          <output class="axis-readout" id="foil-{{this.key}}">{{foil-signed this.value}}</output>
+        </div>
+        <div class="axis-neg">-5 {{this.neg}}</div>
+      </div>
+    {{/each}}
+  </section>
+
+</div>

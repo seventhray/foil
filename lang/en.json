@@ -1,0 +1,30 @@
+{
+  "TYPES.Actor.character": "Character",
+  "TYPES.Actor.creature": "Creature",
+  "TYPES.Item.instrument": "Instrument",
+  "TYPES.Item.technique": "Technique",
+  "TYPES.Item.feat": "Feat",
+  "TYPES.Item.equipment": "Equipment",
+  "TYPES.Item.background": "Background",
+  "TYPES.Item.origin": "Ancestry",
+  "TYPES.Item.instrumentType": "Instrument Type",
+  "TYPES.Item.quality": "Quality",
+  "TYPES.Item.effect": "Effect",
+
+  "FOIL.Attributes.might": "Might",
+  "FOIL.Attributes.finesse": "Finesse",
+  "FOIL.Attributes.wit": "Wit",
+  "FOIL.Attributes.presence": "Presence",
+
+  "FOIL.Aptitudes.prowess": "Prowess",
+  "FOIL.Aptitudes.fortitude": "Fortitude",
+  "FOIL.Aptitudes.command": "Command",
+  "FOIL.Aptitudes.acuity": "Acuity",
+  "FOIL.Aptitudes.guile": "Guile",
+  "FOIL.Aptitudes.resonance": "Resonance",
+
+  "FOIL.Axes.faith": "Faith",
+  "FOIL.Axes.order": "Order",
+  "FOIL.Axes.individualism": "Individualism",
+  "FOIL.Axes.levity": "Levity"
+}

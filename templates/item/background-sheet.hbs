@@ -1,0 +1,18 @@
+<div class="foil-sheet item background">
+  {{> systems/foil/templates/item/partials/item-head.hbs}}
+
+  <fieldset>
+    <legend>Training Granted <em>(a Background grants +1 in three Aptitudes)</em></legend>
+    <div class="field-grid">
+      {{#each bolsterAptitudeOptions}}
+        <label>{{this.label}}</label>
+        <input type="number" name="system.training.{{this.value}}" value="{{lookup ../system.training this.value}}" />
+      {{/each}}
+    </div>
+  </fieldset>
+
+  <label class="block-label">Equipment Kit</label>
+  <input type="text" name="system.equipmentKit" value="{{system.equipmentKit}}" placeholder="e.g. Longsword, Leather armor, Traveler Pack" />
+
+  {{> systems/foil/templates/item/partials/item-description.hbs rows=4}}
+</div>

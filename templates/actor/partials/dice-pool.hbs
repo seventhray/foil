@@ -1,0 +1,16 @@
+{{!--
+  Attribute dice-pool editor. Rendered inside {{#each attributes}}, so `this` is
+  an attribute row ({ key, dice:{d4..d20}, diceFormula, validPool }). One count
+  field per die size (rulebook §2.1.0); Potential (max) and the pool formula are
+  derived from these counts, and both the Attribute and every Aptitude that reads
+  it recompute and become rollable.
+--}}
+<div class="dice-pool" title="Number of dice of each size in this Attribute's pool">
+  <span class="dp"><span class="dp-lbl">d4</span><input type="number" min="0" step="1" name="system.attributes.{{key}}.dice.d4" value="{{dice.d4}}" /></span>
+  <span class="dp"><span class="dp-lbl">d6</span><input type="number" min="0" step="1" name="system.attributes.{{key}}.dice.d6" value="{{dice.d6}}" /></span>
+  <span class="dp"><span class="dp-lbl">d8</span><input type="number" min="0" step="1" name="system.attributes.{{key}}.dice.d8" value="{{dice.d8}}" /></span>
+  <span class="dp"><span class="dp-lbl">d10</span><input type="number" min="0" step="1" name="system.attributes.{{key}}.dice.d10" value="{{dice.d10}}" /></span>
+  <span class="dp"><span class="dp-lbl">d12</span><input type="number" min="0" step="1" name="system.attributes.{{key}}.dice.d12" value="{{dice.d12}}" /></span>
+  <span class="dp"><span class="dp-lbl">d20</span><input type="number" min="0" step="1" name="system.attributes.{{key}}.dice.d20" value="{{dice.d20}}" /></span>
+</div>
+<div class="pool-formula {{#unless validPool}}invalid{{/unless}}">{{#if diceFormula}}{{diceFormula}}{{else}}&mdash;{{/if}}</div>

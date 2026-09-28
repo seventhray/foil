@@ -1,0 +1,76 @@
+<div class="foil-sheet item equipment">
+  {{> systems/foil/templates/item/partials/item-head.hbs}}
+
+  <div class="field-grid">
+    <label>Category</label>
+    <select name="system.category">
+      {{#each categories}}<option value="{{this.value}}" {{#if (foil-eq this.value ../system.category)}}selected{{/if}}>{{this.label}}</option>{{/each}}
+    </select>
+
+    <label>Price (pennies)</label>
+    <input type="number" name="system.price" value="{{system.price}}" />
+
+    <label>Weight (shields)</label>
+    <select name="system.weight">
+      <option value="" {{#unless system.weight}}selected{{/unless}}>—</option>
+      {{#each weights}}<option value="{{this.value}}" {{#if (foil-eq this.value ../system.weight)}}selected{{/if}}>{{this.label}}</option>{{/each}}
+    </select>
+
+    <label>Impair Finesse (armor)</label>
+    <input type="number" name="system.impairFinesse" value="{{system.impairFinesse}}" />
+
+    <label>Equipped <em>(armor/shield/ward — applies Resistance)</em></label>
+    <input type="checkbox" name="system.equipped" {{#if system.equipped}}checked{{/if}} />
+
+    <label>Mends Stress <em>(potion / medicine)</em></label>
+    <input type="text" name="system.mend" value="{{system.mend}}" placeholder="e.g. 1d6 or 4" />
+
+    <label>Uses</label>
+    <input type="text" name="system.uses" value="{{system.uses}}" placeholder="e.g. 5 or 1 (consumed)" />
+  </div>
+
+  <fieldset>
+    <legend>Material <em>(PHB §7.4.2 — fiction-only name, Tier/Scarcity are the mechanics)</em></legend>
+    <div class="field-grid">
+      <label>Category</label>
+      <select name="system.materialCategory">
+        {{#each materialCategories}}<option value="{{this.value}}" {{#if (foil-eq this.value ../system.materialCategory)}}selected{{/if}}>{{this.label}}</option>{{/each}}
+      </select>
+      <label>Tier</label>
+      <input type="number" name="system.materialTier" value="{{system.materialTier}}" min="0" max="5" />
+      <label>Scarcity</label>
+      <select name="system.materialScarcity">
+        {{#each materialScarcities}}<option value="{{this.value}}" {{#if (foil-eq this.value ../system.materialScarcity)}}selected{{/if}}>{{this.label}}</option>{{/each}}
+      </select>
+    </div>
+    {{#if system.materialCategory}}<div class="derived-line">Standard price if bought: <strong>{{system.materialPrice}}p</strong></div>{{/if}}
+  </fieldset>
+
+  <fieldset>
+    <legend>Qualities <a class="inline-add" data-action="addQuality" title="Add quality"><i class="fas fa-plus"></i></a></legend>
+    {{#each qualityRows}}
+      <div class="quality-row">
+        <select name="system.qualities.{{this.idx}}.key">
+          <option value="" {{#unless this.key}}selected{{/unless}}>—</option>
+          {{#each ../qualityOptions}}<option value="{{this.key}}" {{#if (foil-eq this.key ../key)}}selected{{/if}}>{{this.label}}</option>{{/each}}
+        </select>
+        <label class="mini-label">value</label>
+        <input type="number" class="mini-num" name="system.qualities.{{this.idx}}.value" value="{{this.value}}" />
+        <label class="mini-label">to</label>
+        {{#if this.isKind}}
+          <select class="mini-text" name="system.qualities.{{this.idx}}.param">
+            {{#each this.kindOptions}}<option value="{{this.value}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>{{/each}}
+          </select>
+        {{else}}
+          <input type="text" class="mini-text" name="system.qualities.{{this.idx}}.param" value="{{this.param}}" placeholder="Attribute / Aptitude" />
+        {{/if}}
+        <a class="row-del" data-action="removeQuality" data-index="{{this.idx}}" title="Remove"><i class="fas fa-trash"></i></a>
+      </div>
+    {{/each}}
+  </fieldset>
+
+  <label class="block-label">Effect <em>(free text)</em></label>
+  <textarea name="system.effect" rows="2">{{system.effect}}</textarea>
+
+  {{> systems/foil/templates/item/partials/item-description.hbs rows=3}}
+</div>

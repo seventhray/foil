@@ -1,0 +1,35 @@
+<div class="foil-part-header">
+  {{#if system.destroyed}}<div class="destroyed-banner">Destroyed</div>{{/if}}
+
+  {{!-- Header: name + identity + coin/XP --}}
+  <header class="foil-header char-header">
+    <div class="name-row">
+      <input type="text" name="name" value="{{actor.name}}" placeholder="Name" class="char-name" />
+      <button type="button" class="chargen-btn" data-action="generateCharacter" title="Character generator (one-time creation)">
+        <i class="fas fa-wand-magic-sparkles"></i> Generate
+      </button>
+      <button type="button" class="chargen-btn" data-action="openAdvancement" title="Spend XP on Attribute dice, Training, Techniques, or Feats">
+        <i class="fas fa-arrow-trend-up"></i> Advance
+      </button>
+      <button type="button" class="chargen-btn" data-action="rest" title="Rest: physical Stress mends 1d6 an hour, mental 1d6 across a night (PHB §6.10.0)">
+        <i class="fas fa-campground"></i> Rest
+      </button>
+    </div>
+    <div class="ident-grid">
+      <label>Ancestry</label>
+      <span class="readout">{{#if originName}}{{originName}}{{else if system.origin}}{{system.origin}}{{else}}<em class="muted">— add an Ancestry item —</em>{{/if}}</span>
+      <label>Background</label>
+      <span class="readout">{{#if backgroundName}}{{backgroundName}}{{else if system.background}}{{system.background}}{{else}}<em class="muted">— add a Background item —</em>{{/if}}</span>
+      <label>Player</label>
+      <input type="text" name="system.player" value="{{system.player}}" />
+      <label>Coin (p / s)</label>
+      <input type="text" name="system.coin" value="{{system.coin}}" />
+      <label>XP Total</label>
+      <input type="number" name="system.xp.total" value="{{xp.total}}" />
+      <label>XP Spent</label>
+      <input type="number" name="system.xp.spent" value="{{xp.spent}}" />
+      <label>XP Unspent</label>
+      <span class="readout">{{xp.available}}</span>
+    </div>
+  </header>
+</div>

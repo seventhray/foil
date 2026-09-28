@@ -1,0 +1,72 @@
+<div class="foil-sheet item technique">
+  {{> systems/foil/templates/item/partials/item-head.hbs}}
+  {{> systems/foil/templates/item/partials/type-warning.hbs}}
+
+  <div class="derived-line price-readout">
+    <strong>{{system.xpCost}} XP</strong> · Strain <strong>{{system.strain}}</strong>
+    {{#if system.xpOverride}} <em>(recorded; auto-price {{system.xpComputed}})</em>
+    {{else}} <em>(auto-priced)</em>{{/if}}
+  </div>
+
+  <fieldset>
+    <legend>Requires Instrument Type <em>(any one of; none = any)</em></legend>
+    <select name="system.requires" multiple size="12" class="multi">
+      {{#each typeOptions}}<option value="{{this.key}}" {{#if this.checked}}selected{{/if}}>{{this.label}}</option>{{/each}}
+    </select>
+    <p class="derived-line hint">
+      Set by the required Instrument Type — Aptitude rolled: <strong>{{foil-capitalize system.aptitudeDisplay}}</strong>{{#if system.targetDisplay}} · Targets: <strong>{{system.targetDisplay}}</strong>{{/if}}{{#if system.opposeDisplay}} · Opposed with: <strong>{{system.opposeDisplay}}</strong>{{/if}}
+    </p>
+  </fieldset>
+
+  <div class="field-grid">
+    <label>XP Cost <em>(recorded)</em></label>
+    <input type="number" name="system.xpOverride" value="{{system.xpOverride}}" placeholder="blank = use auto-priced" />
+
+    <label>Floor Override</label>
+    <input type="number" name="system.floorOverride" value="{{system.floorOverride}}" title="Minimum XP for ward / answers-a-class Techniques" />
+  </div>
+
+  <fieldset>
+    <legend>Effects <a class="inline-add" data-action="addEffect" title="Add effect"><i class="fas fa-plus"></i></a></legend>
+    {{#each effectRows}}
+      <div class="effect-row">
+        <select class="ef-key" name="system.effects.{{this.idx}}.key" title="Which Effect this row applies (GMG §5.1.0 pricing catalog)">
+          <option value="" {{#unless this.key}}selected{{/unless}}>—</option>
+          {{#each ../effectOptions}}<option value="{{this.key}}" {{#if (foil-eq this.key ../key)}}selected{{/if}}>{{this.label}}</option>{{/each}}
+        </select>
+        <div class="ef-field">
+          <label class="mini-label" title="Magnitude — the effect's point value (e.g. Stress dealt, Impair amount). Multiplies its per-point XP cost.">Mag</label>
+          <input type="number" class="mini-num" name="system.effects.{{this.idx}}.magnitude" value="{{this.magnitude}}" title="Magnitude (point value)" />
+        </div>
+        <div class="ef-field">
+          <label class="mini-label" title="Area shape. Only priced if this row's Effect is an area/Pattern effect — leave Single otherwise.">Shape</label>
+          <select name="system.effects.{{this.idx}}.pattern" title="Area shape (Single = no area)">
+            {{#each ../patternShapes}}<option value="{{this.value}}" {{#if (foil-eq this.value ../pattern)}}selected{{/if}}>{{this.label}}</option>{{/each}}
+          </select>
+        </div>
+        <div class="ef-field">
+          <label class="mini-label" title="Bands — the area's reach for a Pattern effect, or the extra range bands bought for an Extend Range effect.">Bands</label>
+          <input type="number" class="mini-num" name="system.effects.{{this.idx}}.bands" value="{{this.bands}}" title="Bands (Pattern reach / Extend Range)" />
+        </div>
+        <div class="ef-field">
+          <label class="mini-label" title="Placement — how many bands the Pattern's origin point can be set away from the caster. Adds to the Pattern's XP cost.">Place</label>
+          <input type="number" class="mini-num" name="system.effects.{{this.idx}}.placement" value="{{this.placement}}" title="Placement bands (Pattern only)" />
+        </div>
+        <div class="ef-field">
+          <label class="mini-label" title="Selective N — how many separate targets this effect can strike (instead of one). Priced as N + R×N.">Sel N</label>
+          <input type="number" class="mini-num" name="system.effects.{{this.idx}}.selectiveN" value="{{this.selectiveN}}" title="Selective: number of targets" />
+        </div>
+        <div class="ef-field">
+          <label class="mini-label" title="Selective R — how many range bands apart those Selective targets may be.">Sel R</label>
+          <input type="number" class="mini-num" name="system.effects.{{this.idx}}.selectiveR" value="{{this.selectiveR}}" title="Selective: range bands between targets" />
+        </div>
+        <a class="row-del" data-action="removeEffect" data-index="{{this.idx}}" title="Remove"><i class="fas fa-trash"></i></a>
+      </div>
+    {{/each}}
+  </fieldset>
+
+  <label class="block-label">Effect Text <em>(flavor / summary; optional)</em></label>
+  <textarea name="system.effectText" rows="2">{{system.effectText}}</textarea>
+
+  {{> systems/foil/templates/item/partials/item-description.hbs rows=3}}
+</div>

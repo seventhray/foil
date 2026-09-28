@@ -1,0 +1,92 @@
+<div class="foil-body">
+  <section class="left-col">
+
+    <table class="attr-table">
+      <thead>
+        <tr>
+          <th class="row-label"></th>
+          {{#each attributes}}
+            <th class="attr-head {{#if this.incapacitated}}incap{{/if}}">
+              <a data-action="rollAttribute" data-key="{{this.key}}" title="Roll {{this.label}}">{{this.label}}</a>
+            </th>
+          {{/each}}
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th class="row-label">Attribute Dice</th>
+          {{#each attributes}}
+            <td class="dice-cell">{{> systems/foil/templates/actor/partials/dice-pool.hbs}}</td>
+          {{/each}}
+        </tr>
+        <tr>
+          <th class="row-label">Potential (cur)</th>
+          {{#each attributes}}
+            <td class="stress-cell {{#if this.incapacitated}}incap{{/if}}">
+              <input type="number" name="system.attributes.{{this.key}}.potential.current" value="{{this.potentialCurrent}}" />
+              {{#if this.incapacitated}}<span class="state-tag">Incapacitated</span>{{/if}}
+            </td>
+          {{/each}}
+        </tr>
+        <tr>
+          <th class="row-label">Max</th>
+          {{#each attributes}}<td class="readout">{{this.potentialMax}}</td>{{/each}}
+        </tr>
+        <tr>
+          <th class="row-label" title="Which kind of Resistance covers it — PHB §6.6.0">Covered by</th>
+          {{#each attributes}}<td class="readout">{{foil-capitalize this.kind}}</td>{{/each}}
+        </tr>
+        <tr>
+          <th class="row-label" title="Physical covers Might and Finesse; mental covers Wit and Presence — PHB §6.6.0">Resistance</th>
+          <td colspan="2"><label class="mini">Physical</label>
+            <input type="number" name="system.resistance.physical" value="{{resistance.physicalBase}}" />
+            {{#if resistance.physicalBonus}}<span class="mod">&rarr; {{resistance.physicalTotal}}</span>{{/if}}</td>
+          <td colspan="2"><label class="mini">Mental</label>
+            <input type="number" name="system.resistance.mental" value="{{resistance.mentalBase}}" />
+            {{#if resistance.mentalBonus}}<span class="mod">&rarr; {{resistance.mentalTotal}}</span>{{/if}}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <table class="apt-table">
+      <thead>
+        <tr><th>Contributing Attributes</th><th>Aptitude</th><th>Training</th><th title="What this Aptitude can roll right now, Training included. Incapacitated Attributes contribute nothing.">Min / Avg / Max</th></tr>
+      </thead>
+      <tbody>
+        {{#each aptitudes}}
+          <tr>
+            <td class="pair">{{this.pairLabel}}</td>
+            <td class="apt-name"><a data-action="rollAptitude" data-key="{{this.key}}" title="Roll {{this.label}}">{{this.label}}</a></td>
+            <td>
+              <input type="number" name="system.aptitudes.{{this.key}}.training" value="{{this.training}}" title="Base Training; Background and Feats add on top" />
+              {{#if this.trainingBonus}}<span class="mod">+{{this.trainingBonus}}</span>{{/if}}
+            </td>
+            <td class="readout range"><span class="lo">{{this.rollMin}}</span><span class="sep">/</span><span class="mid">{{this.rollAvg}}</span><span class="sep">/</span><span class="hi">{{this.rollMax}}</span></td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+
+    <div class="ap-block">
+      <label>Action Points</label>
+      <input type="number" name="system.ap.value" value="{{system.ap.value}}" /> /
+      <input type="number" name="system.ap.max" value="{{system.ap.max}}" />
+    </div>
+  </section>
+
+  {{!-- FOIL, compact: value only, no scale/slider (see character sheet for the full widget) --}}
+  <section class="foil-col">
+    <h3 class="section-head">FOIL</h3>
+    <table class="apt-table foil-compact-table">
+      <thead><tr><th>Axis</th><th>Value</th></tr></thead>
+      <tbody>
+        {{#each foil}}
+          <tr>
+            <td class="apt-name">{{this.label}}</td>
+            <td><input type="number" name="system.foil.{{this.key}}" value="{{this.value}}" min="-5" max="5" /></td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </section>
+</div>

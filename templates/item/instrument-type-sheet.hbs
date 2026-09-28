@@ -1,0 +1,28 @@
+<div class="foil-sheet item definition instrument-type">
+  {{> systems/foil/templates/item/partials/item-head.hbs titlePlaceholder="Instrument Type name"}}
+
+  <p class="def-hint">An Instrument Type is a vocabulary word: any Instrument or Technique can reference it by its key.</p>
+
+  <div class="field-grid">
+    <label>Key <em>(slug)</em></label>
+    <input type="text" name="system.key" value="{{system.key}}" placeholder="e.g. edged (blank = from name)" />
+
+    <label>Casting Aptitude</label>
+    <input type="text" name="system.aptitude" value="{{system.aptitude}}" placeholder="e.g. prowess, or varies" />
+
+    <label>Is a Tool type</label>
+    <input type="checkbox" name="system.isTool" {{#if system.isTool}}checked{{/if}} />
+
+    <label>Bonus Stress <em>(flat, on a landed hit; only Fired has one)</em></label>
+    <input type="number" name="system.bonusStress" value="{{system.bonusStress}}" min="0" placeholder="0" />
+  </div>
+
+  <fieldset>
+    <legend>Harms <em>(PHB §5.2.2 — physical is Might or Finesse, mental is Wit or Presence; the attacker picks which)</em></legend>
+    <select name="system.harms">
+      {{#each harmsOptions}}<option value="{{this.value}}" {{#if this.checked}}selected{{/if}}>{{this.label}}</option>{{/each}}
+    </select>
+  </fieldset>
+
+  {{> systems/foil/templates/item/partials/item-description.hbs rows=3}}
+</div>
