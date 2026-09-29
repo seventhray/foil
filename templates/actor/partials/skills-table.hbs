@@ -1,0 +1,22 @@
+<h3 class="section-head">Skills <em>Roll both pools + Training.</em></h3>
+<table class="apt-table">
+  <thead>
+    <tr><th>Skill</th><th>Pools</th><th title="Can't pass the dice in both pools, or +4 (PHB 2.2.1)">Training</th><th title="What it can roll now; Incapacitated Attributes add nothing">Min / Avg / Max</th><th title="Its Difficulty when it isn't pushing back (PHB 2.2.2)">Passive</th></tr>
+  </thead>
+  <tbody>
+    {{#each skills}}
+      <tr class="{{#unless this.usable}}muted{{/unless}}">
+        <td class="apt-name"><a data-action="rollSkill" data-key="{{this.key}}" title="Roll {{this.label}}">{{this.label}}</a> <span class="abbr">{{this.abbr}}</span></td>
+        <td class="pair">{{this.pairLabel}}</td>
+        <td class="training-cell">
+          <input type="number" name="system.skills.{{this.key}}.training" value="{{this.training}}" min="0" title="Cap +{{this.trainingCap}}" />
+          {{#if this.trainingBonus}}<span class="mod" title="Training from a Background or Feat">+{{this.trainingBonus}}</span>{{/if}}
+          {{#if this.skillBonus}}<span class="mod" title="+N to the Skill from worn gear; not Training">(+{{this.skillBonus}})</span>{{/if}}
+          {{#if this.overCap}}<i class="fas fa-triangle-exclamation item-warning" title="Over the cap of +{{this.trainingCap}}"></i>{{/if}}
+        </td>
+        <td class="readout range"><span class="lo">{{this.rollMin}}</span><span class="sep">/</span><span class="mid">{{this.rollAvg}}</span><span class="sep">/</span><span class="hi">{{this.rollMax}}</span></td>
+        <td class="readout num">{{this.passive}}</td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>

@@ -1,0 +1,24 @@
+{{!-- Composed Effect rows for pricing. `rows` are the entries, `path` the array's system path. --}}
+{{#each rows}}
+  <div class="effect-row">
+    <select class="ef-key" name="{{../path}}.{{this.idx}}.key" title="Which Effect (Fundamental Math, Effects table)">
+      <option value="" {{#unless this.key}}selected{{/unless}}>&mdash;</option>
+      {{#each ../effectOptions}}<option value="{{this.key}}" {{#if (foil-eq this.key ../key)}}selected{{/if}}>{{this.label}}</option>{{/each}}
+    </select>
+    <div class="ef-field"><label class="mini-label" title="N, for an Effect priced per point">N</label>
+      <input type="number" class="mini-num" name="{{../path}}.{{this.idx}}.magnitude" value="{{this.magnitude}}" /></div>
+    <div class="ef-field"><label class="mini-label" title="Pattern shape, for a Pattern Effect">Shape</label>
+      <select name="{{../path}}.{{this.idx}}.pattern">{{#each ../patternShapes}}<option value="{{this.value}}" {{#if (foil-eq this.value ../pattern)}}selected{{/if}}>{{this.label}}</option>{{/each}}</select></div>
+    <div class="ef-field"><label class="mini-label" title="Bands of reach (Close 1, Near 2, Short 3, Mid 4, Long 5)">Bands</label>
+      <input type="number" class="mini-num" name="{{../path}}.{{this.idx}}.bands" value="{{this.bands}}" /></div>
+    <div class="ef-field"><label class="mini-label" title="Placement R: a Radius or Wall set up to R bands away">Place</label>
+      <input type="number" class="mini-num" name="{{../path}}.{{this.idx}}.placement" value="{{this.placement}}" /></div>
+    <div class="ef-field"><label class="mini-label" title="Selective: N creatures">Sel N</label>
+      <input type="number" class="mini-num" name="{{../path}}.{{this.idx}}.selectiveN" value="{{this.selectiveN}}" /></div>
+    <div class="ef-field"><label class="mini-label" title="Selective: within R bands">Sel R</label>
+      <input type="number" class="mini-num" name="{{../path}}.{{this.idx}}.selectiveR" value="{{this.selectiveR}}" /></div>
+    <span class="ef-readout">{{this.label}}</span>
+    <a class="row-del" data-action="removeRow" data-path="{{../path}}" data-index="{{this.idx}}" title="Remove"><i class="fas fa-trash"></i></a>
+  </div>
+{{/each}}
+<a class="inline-add" data-action="addRow" data-path="{{path}}"><i class="fas fa-plus"></i> Add Effect</a>

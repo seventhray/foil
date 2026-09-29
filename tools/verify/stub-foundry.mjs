@@ -6,7 +6,7 @@ class DataField {
   clean(v) { return v; }
 }
 class StringField extends DataField { getInitial(){ return this.options.initial ?? ""; } }
-class NumberField extends DataField { getInitial(){ return this.options.initial ?? 0; } }
+class NumberField extends DataField { getInitial(){ return "initial" in this.options ? this.options.initial : 0; } }
 class BooleanField extends DataField { getInitial(){ return this.options.initial ?? false; } }
 class HTMLField extends StringField {}
 class ArrayField extends DataField { constructor(el,o){ super(o); this.element = el; } getInitial(){ return []; } }

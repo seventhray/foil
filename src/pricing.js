@@ -1,37 +1,32 @@
 /**
  * src/pricing.js
- * Custom-Technique pricing engine (GMG §5.1.0). PURE functions — no Foundry
- * globals — so they can be unit-tested headlessly. Given a Technique's composed
- * effect entries and the effect registry, derives XP, Strain, and the Potential
- * gate. This is authoring support (it prices a Technique at build time); it does
- * NOT resolve anything in play.
+ * Custom-Technique pricing engine (GMG 12.1.0, Fundamental Math's Effects
+ * table). Pure functions, no Foundry globals, so they run headlessly. Given a
+ * Technique's composed effect entries and the effect registry, derives XP and
+ * Strain. Authoring support only: nothing here resolves play.
  *
- * Pricing rules, reverse-engineered from and validated against the PHB
- * catalogue (rescaled 2026-07-28 from a 5-XP-per-point base to 4-XP-per-point;
- * die-pool advancement costs are a separate, non-linear table and are not
- * affected by this rescale):
- *  - Each effect costs `base + perPoint × magnitude` (a "linear" effect), or a
- *    special cost for area modifiers (Pattern, Selective) and Extend Range.
- *  - Combination premium: +4 XP per counted component beyond the first, where
- *    the count K = (non-exempt, non-area effects) + (1 if any area modifier is
- *    present). Upkeep and Reaction are exempt (they add their own cost/floor but
- *    are not counted).
- *  - Floors: an effect that `setsFloor` (Reaction) raises the total to at least
- *    its floor; a manual `floorOverride` covers ward / answers-a-class cases
- *    that aren't structurally detectable.
- *  - Strain = floor(XP / 16). Potential gate = 12 + 4 × floor(XP / 16) for any
- *    Technique of 12 XP or more (Fundamental Math): 12-15 ⇒ 12, 16-31 ⇒ 16,
- *    32-47 ⇒ 20, 48-63 ⇒ 24.
+ *  1. Sum every Effect's XP. Stress is an Effect like any other (4 XP).
+ *  2. A Pattern (Beam, Cone, Radius, Wall), Selective, or Extend Range is
+ *     priced by reach and counts as one of the Technique's Effects.
+ *  3. +4 XP for every Effect beyond the first. Quick and Upkeep don't count.
+ *  4. Floors: a Technique that answers a class of attack, grants a ward or a
+ *     roll bonus until the caster's next turn, is Quick with a trigger, or is
+ *     Fortifying costs at least 8 XP.
+ *  5. Strain = floor(XP / 8).
  */
 
-// Beam/Wall reach cost = running sum 1..bands (GMG Patterns table).
+export const PREMIUM_PER_EFFECT = 4;
+export const DEFENSIVE_FLOOR = 8;
+export const STRAIN_DIVISOR = 8;
+
+/** Running sum 1 + 2 + ... + N (the Beam reach cost). */
 function beamCost(bands) {
   let s = 0;
   for (let i = 1; i <= bands; i++) s += i;
   return s;
 }
 
-/** Cost of an area Pattern of a given shape and size (in bands), plus placement. */
+/** Pattern cost by shape and reach in bands, plus placement (Fundamental Math, Patterns). */
 export function patternCost(shape, bands, placement = 0) {
   const b = Math.max(0, Number(bands) || 0);
   const place = Math.max(0, Number(placement) || 0);
@@ -41,106 +36,99 @@ export function patternCost(shape, bands, placement = 0) {
     case "wall":   base = beamCost(b); break;
     case "cone":   base = 3 * beamCost(b); break;
     case "radius": base = 12 * beamCost(b); break;
-    default:       base = 0; break; // "single" or unknown
+    default:       base = 0; break;
   }
   return base + place;
 }
 
-/**
- * Selective cost: N targets within R bands = N + R × N (GMG §5.1.0). The
- * earlier 0.8× discount (2026-07-28) was removed 2026-07-29 at the user's
- * direction; N=4, R=2 now prices at 12 XP, not 10.
- */
+/** Selective: N creatures within R bands costs N + (R x N). */
 export function selectiveCost(n, r) {
   const N = Math.max(0, Number(n) || 0);
   const R = Math.max(0, Number(r) || 0);
   return N + R * N;
 }
 
-const isArea = shape => shape && shape !== "single";
+export function strainFor(xp) {
+  return Math.floor(Math.max(0, Number(xp) || 0) / STRAIN_DIVISOR);
+}
 
 /**
  * Price one composed effect entry against its definition.
- * @param {object} entry  { key, magnitude, pattern, bands, placement, selectiveN, selectiveR }
- * @param {object} def    effect definition (pricingKind, pricingParams, flags)
- * @returns {{ cost:number, counts:boolean, area:boolean, exempt:boolean, floor:number }}
+ * @returns {{ cost:number, counts:boolean, floor:number }}
  */
 export function priceEntry(entry, def) {
-  if (!def) return { cost: 0, counts: false, area: false, exempt: false, floor: 0 };
+  if (!def) return { cost: 0, counts: false, floor: 0 };
   const p = def.pricingParams ?? {};
   const mag = Math.max(0, Number(entry.magnitude ?? 1));
-  let cost = 0, area = false, exempt = !!def.exemptFromPremium, floor = 0;
+  let cost = 0, counts = !def.exemptFromPremium, floor = def.setsFloor ? DEFENSIVE_FLOOR : 0;
 
   switch (def.pricingKind) {
-    case "linear":
     case "perPoint":
-    case "flat":
-    case "condition":
-    case "counter":
-      cost = Number(p.base ?? 0) + Number(p.perPoint ?? 0) * (def.pricingKind === "flat" || def.pricingKind === "condition" || def.pricingKind === "counter" ? 0 : mag);
+      cost = Number(p.base ?? 0) + Number(p.perPoint ?? 0) * mag;
       break;
     case "extendRange":
-      cost = Number(p.perBand ?? 1) * Math.max(0, Number(entry.bands ?? 0));
+      cost = Number(p.perBand ?? 1) * Math.max(1, Number(entry.bands ?? 1));
       break;
     case "pattern":
       cost = patternCost(entry.pattern, entry.bands, entry.placement);
-      area = true;
       break;
     case "selective":
       cost = selectiveCost(entry.selectiveN, entry.selectiveR);
-      area = true;
       break;
     case "upkeep":
       cost = Number(p.base ?? 4);
-      exempt = true;
+      counts = false;
       break;
-    case "reaction":
+    case "quick":
       cost = 0;
-      exempt = true;
-      floor = Number(p.floor ?? 8);
+      counts = false;
       break;
     default:
       cost = Number(p.base ?? 0);
       break;
   }
-  return { cost, counts: !exempt && !area, area, exempt, floor };
+  return { cost, counts, floor };
 }
 
 /**
  * Price a whole Technique.
- * @param {Array}  effects   composed entries (each { key, magnitude, pattern, ... })
+ * @param {Array}  effects   composed entries ({ key, magnitude, pattern, bands, ... })
  * @param {object} registry  { slug: effectDefinition }
- * @param {object} opts       { floorOverride }
- * @returns {{ xp, strain, gate:{value,attribute}, breakdown:Array, premium, floor }}
+ * @param {object} opts      { floor: boolean } a stated defensive floor
+ * @returns {{ xp, strain, premium, floor, breakdown }}
  */
 export function priceTechnique(effects = [], registry = {}, opts = {}) {
   const breakdown = [];
-  let sum = 0, deliveredCount = 0, anyArea = false, floor = Number(opts.floorOverride ?? 0);
+  let sum = 0, counted = 0, floor = opts.floor ? DEFENSIVE_FLOOR : 0;
 
   for (const entry of effects) {
     const def = registry[entry.key];
     const r = priceEntry(entry, def);
     sum += r.cost;
-    if (r.counts) deliveredCount += 1;
-    if (r.area) anyArea = true;
-    if (r.floor) floor = Math.max(floor, r.floor);
-    breakdown.push({ key: entry.key, label: def?.label ?? entry.key, cost: r.cost });
+    if (r.counts) counted += 1;
+    floor = Math.max(floor, r.floor);
+    breakdown.push({ key: entry.key, label: entryLabel(entry, def), cost: r.cost });
   }
 
-  const K = deliveredCount + (anyArea ? 1 : 0);
-  const premium = 4 * Math.max(0, K - 1);
-  let xp = sum + premium;
-  if (floor) xp = Math.max(xp, floor);
+  const premium = PREMIUM_PER_EFFECT * Math.max(0, counted - 1);
+  const xp = Math.max(sum + premium, floor);
+  return { xp, strain: strainFor(xp), premium, floor, breakdown };
+}
 
-  const strain = Math.floor(xp / 16);
-  const gateVal = xp >= 12 ? 12 + 4 * Math.floor(xp / 16) : 0;
+const BAND_NAME = ["", "Close", "Near", "Short", "Mid", "Long"];
 
-  return {
-    xp,
-    strain,
-    gate: { value: gateVal, attribute: "" },
-    premium,
-    floor,
-    breakdown
-  };
+/** A readable label for one composed entry ("Pierce 2", "Cone (Near)"). */
+export function entryLabel(entry, def) {
+  const name = def?.label ?? entry.key;
+  const mag = Number(entry.magnitude ?? 1);
+  switch (def?.pricingKind) {
+    case "perPoint":
+      return def.magnitudeLabel ? def.magnitudeLabel.replace("N", mag) : name;
+    case "pattern":
+      return `${(entry.pattern ?? "").replace(/^./, c => c.toUpperCase())} (${BAND_NAME[entry.bands] ?? entry.bands})`;
+    case "selective":
+      return `Selective (${entry.selectiveN} within ${BAND_NAME[entry.selectiveR] ?? entry.selectiveR})`;
+    default:
+      return name;
+  }
 }

@@ -1,49 +1,56 @@
 // The in-app guide restates printed numbers, so it silently rots whenever the
-// books move. Parse it as XML to catch malformed markup, then check the figures
-// that matter against the Player's Handbook and Fundamental Math directly.
+// books move. Check its markup, then check the figures it states against the
+// Player's Handbook, the GM's Guide, and Fundamental Math directly.
 import { GUIDE } from "../guide-content.mjs";
-import fs from "node:fs";
-const BOOKS = "/home/connor/Documents/Foilbound Ombril/Foilbound";
-const phb = fs.readFileSync(`${BOOKS}/Foilbound TTRPG Player's Handbook v0.3.0.md`, "utf8");
-const fm  = fs.readFileSync(`${BOOKS}/Design Docs/Fundamental Math.md`, "utf8");
-const gmg = fs.readFileSync(`${BOOKS}/Foilbound TTRPG Game Master's Guide v0.3.0.md`, "utf8");
+import { readPHB, readGMG, readFM, BOOK_VERSION } from "../books.mjs";
+const phb = readPHB(), gmg = readGMG(), fm = readFM();
 
 let fails = 0;
-const ok = (label, cond, note="") => { console.log(`  ${cond?"PASS":"FAIL"}  ${label}${note?" — "+note:""}`); if(!cond) fails++; };
+const ok = (label, cond) => { console.log(`  ${cond ? "PASS" : "FAIL"}  ${label}`); if (!cond) fails++; };
 
-// 1. well-formedness: every page must parse as a fragment
-const VOID = new Set(["br","hr","img","input","meta","link"]);
+const VOID = new Set(["br", "hr", "img", "input", "meta", "link"]);
+let pages = 0;
 for (const j of GUIDE) for (const pg of j.pages) {
-  const stack=[]; let bad=null;
+  pages++;
+  const stack = []; let bad = null;
   for (const m of pg.html.matchAll(/<\/?([a-zA-Z][a-zA-Z0-9]*)\b[^>]*?(\/?)>/g)) {
     const [full, tag, selfClose] = m;
     if (VOID.has(tag.toLowerCase()) || selfClose) continue;
     if (full.startsWith("</")) { if (stack.pop() !== tag) { bad = `mismatched </${tag}>`; break; } }
     else stack.push(tag);
   }
-  if (!bad && stack.length) bad = `unclosed <${stack[stack.length-1]}>`;
-  if (bad) { console.log(`  FAIL  markup: ${j.name} / ${pg.name} — ${bad}`); fails++; }
+  if (!bad && stack.length) bad = `unclosed <${stack[stack.length - 1]}>`;
+  if (bad) { console.log(`  FAIL  markup: ${j.name} / ${pg.name}: ${bad}`); fails++; }
+  if (/§|→|—/.test(pg.html)) { console.log(`  FAIL  style: ${j.name} / ${pg.name} uses §, →, or an em-dash`); fails++; }
 }
-console.log(`  PASS  markup: all ${GUIDE.reduce((n,j)=>n+j.pages.length,0)} pages are balanced`);
+console.log(`  PASS  markup: ${pages} pages checked`);
 
 const all = GUIDE.flatMap(j => j.pages.map(p => p.html)).join("\n");
-console.log("\nfigures cross-checked against the books:");
-ok("Training is 4 XP, capped at +4", /Training by \+1 \(max \*\*\+4\*\*\)\s*\|\s*4 XP/.test(phb) && /costs 4 XP a point and stops at \+4/.test(all));
-ok("roll modifiers price at 6 x N", /\*\*\+N\*\* \(this roll\)\s*\|\s*6 x N/.test(fm) && /6 XP per point/.test(all));
-ok("Pierce and Resistance stay at 4", /\*\*Pierce N\*\*\s*\|\s*4 x N/.test(fm) && /Pierce, Resistance\) cost <strong>4/.test(all));
-ok("Strain is floor(XP / 16)", /\*\*Strain = floor\(XP \/ 16\)\.?\*\*/.test(fm) && /floor\(XP \/ 16\)/.test(all));
-ok("gate is 12 + 4 x floor(XP / 16)", /Gate = 12 \+ 4 x floor\(XP \/ 16\)/.test(fm) && /12 \+ 4 x floor\(XP \/ 16\)/.test(all));
-ok("starting Health is 36", /Health \(36, the sum/.test(fm) && /36 for a starting character/.test(all));
-ok("Fired's rider is a flat +2", /Fired adds a flat \*\*\+2 Stress\*\*/.test(phb) && /Only Fired has one, at \+2/.test(all));
-ok("Heavy carries inherent Pierce 1", /inherent \*\*Pierce 1\*\*/.test(phb) && /inherent Pierce 1/.test(all));
-ok("defensive floor is 8 XP", /costs at least \*\*8 XP\*\*/.test(fm) && /costs at least 8 XP/.test(all));
-ok("a die-size advance is 8 XP", /one size \(\*\*Talent[^|]*\|\s*8 XP/.test(phb) && /<td>8<\/td>/.test(all));
-ok("d12 to d20 is 36 XP", /Advance a d12 Attribute Die to d20[^|]*\|\s*36 XP/.test(phb) && /<td>36<\/td>/.test(all));
-ok("a new 1d4 is 18 XP", /Add a 1d4 to an .*?\|\s*18 XP/.test(phb) && /<td>18<\/td>/.test(all));
-ok("session award is 20 XP", /Award \*\*20 XP\*\* for a standard session/.test(gmg) && /20 XP for a standard session/.test(all));
-ok("FOIL axes run -5 to +5", /scale is -5 to \+5|<strong>Levity<\/strong>/.test(all) && /-5 to \+5/.test(all));
-ok("Tier 3 is Potential 8 / 1d8", /\|\s*3\s*\|\s*8\s*\|\s*1d8/.test(gmg) && /<td>3<\/td><td>8<\/td><td>1d8<\/td>/.test(all));
-ok("Tier 10 is Potential 34 / 1d20+1d8+1d6", /\|\s*10\s*\|\s*34\s*\|\s*1d20\+1d8\+1d6/.test(gmg) && /<td>1d20\+1d8\+1d6<\/td>/.test(all));
+console.log(`\nfigures cross-checked against the v${BOOK_VERSION} books:`);
+ok("Training 6 XP, capped at the dice in its two pools", /Training by \+1 \(max: the dice in its two pools\)\s*\|\s*6 XP/.test(phb) && /costs 6 XP a point/.test(all));
+ok("die size 8, d12 to d20 36, new 1d4 18", /one size \(\*\*Talent[^\n]*?\|\s*8 XP/.test(phb) && /d12 Attribute Die to d20[^|]*\|\s*36 XP/.test(phb)
+  && /Add a 1d4[^\n]*?Know-how\*\*\)\s*\|\s*18 XP/.test(phb) && /one size 8 XP, d12 to d20 36 XP, a new 1d4 18 XP/.test(all));
+ok("every Attribute starts at 2d4", /Every Attribute starts at 2d4/.test(phb) && /Every Attribute starts at 2d4/.test(all));
+ok("Training cap is the dice in the two pools", /more Training in a Skill than the number of dice in the Skill's two pools \(/.test(phb) && /can't pass the number of dice in the Skill's two pools\./.test(all));
+ok("+N Pierce is half the bonus", /Pierce equal to half its bonus, rounded down/.test(phb) && /Pierce equal to half the bonus, rounded down/.test(all));
+ok("Strain is floor(XP / 8)", /\*\*Strain = floor\(XP \/ 8\)\*\*/.test(fm) && /floor\(XP \/ 8\)/.test(all));
+ok("Strain lands on the Primary Attribute", /Strain applies to the Instrument's Primary Attribute/.test(phb) && /on the Instrument's Primary Attribute/.test(all));
+ok("margin capped at half the Primary Potential", /capped at half the Potential of the Instrument's Primary Attribute/.test(phb) && /half the Potential/.test(all));
+ok("Edged +3, nothing against any physical Resistance", /\| Edged \| \+3 Stress against a physical Attribute\. No bonus at all against a target with any physical Resistance/.test(phb) && /\+3 Stress against a physical Attribute; nothing against/.test(all));
+ok("Blunt Pierce 3", /\| Blunt \| Pierce 3/.test(phb) && /Pierce 3 against physical Resistance/.test(all));
+ok("Drawn +2, Fired +4", /\| Drawn \| \+2 Stress/.test(phb) && /\| Fired \| \+4 Stress/.test(phb) && /\+2 \/ \+4 Stress/.test(all));
+ok("weight classes 15/30/45p, 2/4/8 lbs, attack dice +1d6/+2d4", /Light 15p, Medium 30p, Heavy 45p/.test(phb) && /A Heavy Instrument \| 8 lbs/.test(phb) && /\(15p, 30p, 45p\)/.test(all) && /\(2, 4, 8 lbs\)/.test(all)
+  && /A Medium Instrument adds 1d6[\s\S]{0,200}?a Heavy one adds 2d4/.test(phb) && /A Medium Instrument adds 1d6[^.]*a Heavy one 2d4/.test(all));
+ok("Incapacitation lifts at half Potential, rounded down", /down to half its Potential or less, rounded down/.test(phb) && /half its Potential or less, rounded down/.test(all));
+ok("Foil Tokens: max four, absorb 4, reroll one die", /at most \*\*four\*\* Foil Tokens/.test(phb) && /absorbs up to 4 Stress/.test(phb) && /reroll any one die/.test(phb)
+  && /at most four/.test(all) && /absorb up to 4 Stress/.test(all));
+ok("rest 1d4 per 2 hours, one ration per 8", /\*\*1d4 Stress every 2 hours\*\*/.test(phb) && /one ration per 8 hours/.test(phb) && /1d4 Stress every 2 hours/.test(all));
+ok("carrying past 4x Might Potential", /Up to 4x Might Potential \| None/.test(phb) && /past 4x Might Potential/.test(all));
+ok("combination premium 4 XP per Effect beyond the first", /Add \*\*4 XP for every effect beyond the first\*\*/.test(gmg) && /4 XP for every Effect beyond the first/.test(all));
+ok("Effect prices match Fundamental Math", /\*\*Stress\*\*\s*\|\s*4\s*\|/.test(fm) && /\*\*-N\*\* \[target Attribute\]\s*\|\s*18 x N/.test(fm)
+  && /\*\*Mend Xd4\*\*\s*\|\s*16 x X/.test(fm) && /\*\*Counter\*\*\s*\|\s*12/.test(fm) && /<td>18 x N<\/td>/.test(all) && /<td>16 x X<\/td>/.test(all));
+ok("bonus price ladder", /\| \+4\s*\| \+200p\s*\| \+400p\s*\| \+800p/.test(phb) && /<td>\+4<\/td><td>200p<\/td><td>400p<\/td><td>800p<\/td>/.test(all));
+ok("Body and Voice kits", /\*\*Strike\*\* \(Prowess\)/.test(phb) && /\*\*Sway\*\* \(Resonance\)/.test(phb) && /Strike, Grapple, Menace/.test(all) && /Intimidate, Mislead, Sway/.test(all));
 
 console.log(fails ? `\n${fails} guide check(s) failed` : "\nguide matches the books");
 process.exit(fails ? 1 : 0);

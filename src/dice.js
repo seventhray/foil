@@ -12,7 +12,7 @@ export const DIE_SIZES = [4, 6, 8, 10, 12, 20];
  * Build a pool from per-size die counts.
  * @param {object} counts  e.g. { d4: 2, d8: 1 }
  * `min` is one per die, `avg` is each die's own average summed (a dN averages
- * (N+1)/2, PHB §2.2.3), and `max` is the sum of faces, which is Potential.
+ * (N+1)/2, PHB 2.2.3), and `max` is the sum of faces, which is Potential.
  * @returns {{ min:number, avg:number, max:number, dieCount:number, formula:string, valid:boolean }}
  */
 export function poolFromCounts(counts) {

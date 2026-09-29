@@ -36,8 +36,11 @@ export function html(initial = "") {
 }
 
 /**
- * The four core Attributes, each a dice pool + Resistance + current Potential.
- * Potential.max is derived (from the pool) and left out of the stored schema.
+ * One Attribute: a dice pool, its current Potential (lowered as Stress lands),
+ * and whether it is Incapacitated. Incapacitation is stored rather than derived:
+ * it starts when Stress reaches Potential but only lifts once healing brings
+ * Stress down to half Potential (PHB 6.8.1), so the same current value can mean
+ * either state depending on which way it was reached.
  */
 export function attributeSchema() {
   const die = () => new f.NumberField({ required: true, integer: true, initial: 0, min: 0 });
@@ -45,12 +48,13 @@ export function attributeSchema() {
     dice: new f.SchemaField({
       d4: die(), d6: die(), d8: die(), d10: die(), d12: die(), d20: die()
     }),
-    potential: new f.SchemaField({ current: int(8) })
+    potential: new f.SchemaField({ current: int(4) }),
+    incapacitated: bool(false)
   });
 }
 
-/** The six Aptitudes, each carrying Training. */
-export function aptitudeSchema() {
+/** One Skill: its Training. */
+export function skillSchema() {
   return new f.SchemaField({ training: int(0) });
 }
 

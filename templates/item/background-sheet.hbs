@@ -1,18 +1,27 @@
 <div class="foil-sheet item background">
   {{> systems/foil/templates/item/partials/item-head.hbs}}
-
   <fieldset>
-    <legend>Training Granted <em>(a Background grants +1 in three Aptitudes)</em></legend>
+    <legend>Training <em>(+1 in three Skills, PHB 2.5.2)</em></legend>
     <div class="field-grid">
-      {{#each bolsterAptitudeOptions}}
-        <label>{{this.label}}</label>
-        <input type="number" name="system.training.{{this.value}}" value="{{lookup ../system.training this.value}}" />
-      {{/each}}
+      {{#each trainingRows}}<label>{{this.label}}</label><input type="number" name="system.training.{{this.key}}" value="{{this.value}}" min="0" />{{/each}}
     </div>
   </fieldset>
-
-  <label class="block-label">Equipment Kit</label>
-  <input type="text" name="system.equipmentKit" value="{{system.equipmentKit}}" placeholder="e.g. Longsword, Leather armor, Traveler Pack" />
-
-  {{> systems/foil/templates/item/partials/item-description.hbs rows=4}}
+  <fieldset>
+    <legend>Know-how <em>(2d4, each die joins an Attribute)</em></legend>
+    {{#each knowHowRows}}
+      <div class="quality-row">
+        <span>1d4 to</span>
+        <select name="system.knowHow.{{this.idx}}">{{#each ../attributeOptions}}<option value="{{this.value}}" {{#if (foil-eq this.value ../attribute)}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>
+        <a class="row-del" data-action="removeRow" data-path="system.knowHow" data-index="{{this.idx}}"><i class="fas fa-trash"></i></a>
+      </div>
+    {{/each}}
+    <a class="inline-add" data-action="addRow" data-path="system.knowHow"><i class="fas fa-plus"></i> Add</a>
+  </fieldset>
+  <div class="field-grid">
+    <label>Coin</label>
+    <input type="text" name="system.coin" value="{{system.coin}}" />
+    <label>Equipment kit</label>
+    <input type="text" name="system.equipmentKit" value="{{system.equipmentKit}}" />
+  </div>
+  {{> systems/foil/templates/item/partials/item-description.hbs rows=3}}
 </div>

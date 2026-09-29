@@ -1,28 +1,28 @@
-<div class="foil-sheet item definition instrument-type">
-  {{> systems/foil/templates/item/partials/item-head.hbs titlePlaceholder="Instrument Type name"}}
-
-  <p class="def-hint">An Instrument Type is a vocabulary word: any Instrument or Technique can reference it by its key.</p>
-
+<div class="foil-sheet item definition">
+  {{> systems/foil/templates/item/partials/item-head.hbs titlePlaceholder="Instrument Type"}}
   <div class="field-grid">
-    <label>Key <em>(slug)</em></label>
-    <input type="text" name="system.key" value="{{system.key}}" placeholder="e.g. edged (blank = from name)" />
-
-    <label>Casting Aptitude</label>
-    <input type="text" name="system.aptitude" value="{{system.aptitude}}" placeholder="e.g. prowess, or varies" />
-
-    <label>Is a Tool type</label>
+    <label>Key (slug)</label>
+    <input type="text" name="system.key" value="{{system.key}}" />
+    <label>Family</label>
+    <select name="system.family">{{#each familyOptions}}<option value="{{this.value}}" {{#if (foil-eq this.value ../system.family)}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>
+    <label>Stress vs physical</label>
+    <input type="number" name="system.stressPhysical" value="{{system.stressPhysical}}" />
+    <label>Stress vs mental</label>
+    <input type="number" name="system.stressMental" value="{{system.stressMental}}" />
+    <label>Pierce vs physical Resistance</label>
+    <input type="number" name="system.pierce" value="{{system.pierce}}" />
+    <label>No bonus vs any Resistance <em>(Edged)</em></label>
+    <input type="checkbox" name="system.noBonusVsResistance" {{#if system.noBonusVsResistance}}checked{{/if}} />
+    <label>Deals no Stress <em>(Grappling)</em></label>
+    <input type="checkbox" name="system.dealsNoStress" {{#if system.dealsNoStress}}checked{{/if}} />
+    <label>Quick <em>(built-ins as a Quick Action)</em></label>
+    <input type="checkbox" name="system.quick" {{#if system.quick}}checked{{/if}} />
+    <label>Blocking <em>(+N to Oppose only)</em></label>
+    <input type="checkbox" name="system.blocking" {{#if system.blocking}}checked{{/if}} />
+    <label>Reload</label>
+    <select name="system.reload">{{#each reloadOptions}}<option value="{{this.value}}" {{#if (foil-eq this.value ../system.reload)}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>
+    <label>Tool or Craft <em>(a Trade)</em></label>
     <input type="checkbox" name="system.isTool" {{#if system.isTool}}checked{{/if}} />
-
-    <label>Bonus Stress <em>(flat, on a landed hit; only Fired has one)</em></label>
-    <input type="number" name="system.bonusStress" value="{{system.bonusStress}}" min="0" placeholder="0" />
   </div>
-
-  <fieldset>
-    <legend>Harms <em>(PHB §5.2.2 — physical is Might or Finesse, mental is Wit or Presence; the attacker picks which)</em></legend>
-    <select name="system.harms">
-      {{#each harmsOptions}}<option value="{{this.value}}" {{#if this.checked}}selected{{/if}}>{{this.label}}</option>{{/each}}
-    </select>
-  </fieldset>
-
-  {{> systems/foil/templates/item/partials/item-description.hbs rows=3}}
+  {{> systems/foil/templates/item/partials/item-description.hbs rows=4}}
 </div>

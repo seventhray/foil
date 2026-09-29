@@ -1,10 +1,26 @@
 <div class="foil-sheet item origin">
-  {{> systems/foil/templates/item/partials/item-head.hbs}}
-
-  <div class="field-grid">
-    <label>Grants Feat</label>
-    <input type="text" name="system.feat" value="{{system.feat}}" placeholder="e.g. Slipstream" />
-  </div>
-
-  {{> systems/foil/templates/item/partials/item-description.hbs rows=5}}
+  {{> systems/foil/templates/item/partials/item-head.hbs titlePlaceholder="Ancestry"}}
+  <fieldset>
+    <legend>Talent <em>(two Attribute dice advanced, PHB 2.5.1)</em></legend>
+    {{#each talentRows}}
+      <div class="quality-row">
+        <select name="system.talent.{{this.idx}}.attribute">{{#each ../attributeOptions}}<option value="{{this.value}}" {{#if (foil-eq this.value ../attribute)}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>
+        <span>to</span>
+        <select name="system.talent.{{this.idx}}.die">{{#each ../dieOptions}}<option value="{{this.value}}" {{#if (foil-eq this.value ../die)}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>
+        <a class="row-del" data-action="removeRow" data-path="system.talent" data-index="{{this.idx}}"><i class="fas fa-trash"></i></a>
+      </div>
+    {{/each}}
+    <a class="inline-add" data-action="addRow" data-path="system.talent"><i class="fas fa-plus"></i> Add</a>
+  </fieldset>
+  <fieldset>
+    <legend>Feats <em>(two, granted free)</em></legend>
+    {{#each featRows}}
+      <div class="quality-row">
+        <input type="text" name="system.feats.{{this.idx}}" value="{{this.name}}" />
+        <a class="row-del" data-action="removeRow" data-path="system.feats" data-index="{{this.idx}}"><i class="fas fa-trash"></i></a>
+      </div>
+    {{/each}}
+    <a class="inline-add" data-action="addRow" data-path="system.feats"><i class="fas fa-plus"></i> Add</a>
+  </fieldset>
+  {{> systems/foil/templates/item/partials/item-description.hbs rows=3}}
 </div>

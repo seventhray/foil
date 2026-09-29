@@ -1,122 +1,182 @@
+// Model, migration, pricing, and Stress checks against the 0.6.0 rules.
 import "./stub-foundry.mjs";
-const R = "/home/connor/foundrydata/Data/systems/foil/src";
-const { CharacterData, CreatureData } = await import(`${R}/data/actor-models.js`);
-const { InstrumentTypeData } = await import(`${R}/data/definition-models.js`);
-const { InstrumentData } = await import(`${R}/data/item-models.js`);
+import { SYSTEM_ROOT } from "../books.mjs";
+const R = `${SYSTEM_ROOT}/src`;
+const { CharacterData, CreatureData, recoveryThreshold } = await import(`${R}/data/actor-models.js`);
+const { InstrumentTypeData, EffectData } = await import(`${R}/data/definition-models.js`);
+const { InstrumentData, TechniqueData, EquipmentData } = await import(`${R}/data/item-models.js`);
+const { aggregateModifiers } = await import(`${R}/modifiers.js`);
+const { priceTechnique, strainFor, patternCost, selectiveCost } = await import(`${R}/pricing.js`);
+const { stressFor } = await import(`${R}/stress.js`);
 
 let fails = 0;
 const check = (label, fn) => { try { const r = fn(); console.log(`  PASS  ${label}${r ? " — " + r : ""}`); } catch (e) { console.log(`  FAIL  ${label}\n        ${e.message}`); fails++; } };
+const eq = (got, want, what = "") => { if (JSON.stringify(got) !== JSON.stringify(want)) throw new Error(`${what} got ${JSON.stringify(got)}, want ${JSON.stringify(want)}`); return JSON.stringify(got); };
+const char = (src, items = []) => { const c = new CharacterData(src, { parent: { items: { contents: items } } }); c.prepareDerivedData(); return c; };
+const pools = (m, f, w, p) => ({ might: { dice: m, potential: { current: 99 } }, finesse: { dice: f, potential: { current: 99 } },
+  wit: { dice: w, potential: { current: 99 } }, presence: { dice: p, potential: { current: 99 } } });
 
-console.log("migrateData on a pre-v0.2.0 actor (Resistance stored per Attribute):");
-check("character migrates Might+2/Finesse+0/Wit+1 -> physical 2, mental 1", () => {
-  const legacy = { attributes: { might:{resistance:2}, finesse:{resistance:0}, wit:{resistance:1}, presence:{resistance:0} } };
-  const out = CharacterData.migrateData(structuredClone(legacy));
-  if (out.resistance?.physical !== 2 || out.resistance?.mental !== 1) throw new Error(JSON.stringify(out.resistance));
-  if ("resistance" in (out.attributes.might ?? {})) throw new Error("legacy per-Attribute field not cleared");
-  return `physical ${out.resistance.physical}, mental ${out.resistance.mental}`;
+console.log("Migration from pre-0.6.0 worlds:");
+check("Aptitudes become Skills; Fortitude to Discipline, Command to Assertiveness", () => {
+  const out = CharacterData.migrateData({ aptitudes: { prowess: { training: 1 }, fortitude: { training: 2 }, command: { training: 3 } } });
+  if ("aptitudes" in out) throw new Error("aptitudes not removed");
+  return eq([out.skills.prowess.training, out.skills.discipline.training, out.skills.assertiveness.training], [1, 2, 3]);
 });
-check("creature with Might+4/Finesse+4 collapses to physical 4 (not 8)", () => {
-  const out = CreatureData.migrateData({ attributes:{ might:{resistance:4}, finesse:{resistance:4}, wit:{}, presence:{} } });
-  if (out.resistance?.physical !== 4) throw new Error(JSON.stringify(out.resistance));
-  return "physical 4";
+check("FOIL integers become a lean; Leniency becomes Levity", () => {
+  const out = CharacterData.migrateData({ foil: { faith: 3, order: -2, individualism: 0, leniency: 1 } });
+  return eq([out.foil.faith.lean, out.foil.order.lean, out.foil.individualism.lean, out.foil.levity.lean], ["high", "low", "", "high"]);
 });
-check("already-migrated actor is left alone (idempotent)", () => {
-  const cur = { attributes:{might:{},finesse:{},wit:{},presence:{}}, resistance:{physical:3,mental:0} };
-  const out = CharacterData.migrateData(structuredClone(cur));
-  if (out.resistance.physical !== 3) throw new Error("clobbered an existing value");
-  return "unchanged";
+check("Action Points are dropped", () => { const out = CharacterData.migrateData({ ap: 3 }); return eq("ap" in out, false); });
+check("per-Attribute Resistance collapses to physical and mental", () => {
+  const out = CreatureData.migrateData({ attributes: { might: { resistance: 4 }, finesse: { resistance: 4 }, wit: { resistance: 1 }, presence: {} } });
+  return eq(out.resistance, { physical: 4, mental: 1 });
 });
-check("actor with no attributes at all does not throw", () => { CharacterData.migrateData({}); return "no-op"; });
-
-console.log("\nmigrateData on a pre-v0.2.0 Instrument Type:");
-for (const [name, src, wantHarms, wantStress] of [
-  ["Edged (targets FS)",   { targets:"FS", opposes:"PW" }, "physical", 0],
-  ["Fired (MI + 1d4 die)", { targets:"MI", bonusDie:"1d4" }, "physical", 2],
-  ["Guile (targets WI)",   { targets:"WI" }, "mental", 0],
-  ["Command (targets PS)", { targets:"PS" }, "mental", 0],
-  ["Fortifying (support)", { targets:"ally / self" }, "", 0],
-]) check(`${name} -> harms "${wantHarms}", bonusStress ${wantStress}`, () => {
-  const o = InstrumentTypeData.migrateData(structuredClone(src));
-  if (o.harms !== wantHarms || o.bonusStress !== wantStress) throw new Error(JSON.stringify({harms:o.harms, bonusStress:o.bonusStress}));
+check("Origin becomes Ancestry", () => eq(CharacterData.migrateData({ origin: "Keshwick" }).ancestry, "Keshwick"));
+check("Instrument Type bonusStress becomes stressPhysical", () => eq(InstrumentTypeData.migrateData({ bonusStress: 2 }).stressPhysical, 2));
+check("Effect pricingKind linear/condition/reaction map to perPoint/flat/quick", () =>
+  eq(["linear", "condition", "reaction"].map(k => EffectData.migrateData({ pricingKind: k }).pricingKind), ["perPoint", "flat", "quick"]));
+check("legacy Sonic Instrument Types map to sonic", () => eq(new InstrumentData({ types: ["command", "guile", "resonance"] }).types, ["sonic"]));
+check("Bolster on a ward becomes a Skill-bonus charm", () => {
+  const out = EquipmentData.migrateData({ category: "ward", qualities: [{ key: "bolster", value: 1, param: "command" }] });
+  return eq([out.category, out.qualities[0].key, out.qualities[0].param], ["charm", "skill-bonus", "assertiveness"]);
 });
 
-console.log("\nprepareDerivedData on a live character:");
-check("Resistance totals and Attribute kinds derive", () => {
-  const c = new CharacterData({
-    attributes: { might:{dice:{d12:1},potential:{current:0}}, finesse:{dice:{d10:1},potential:{current:5}},
-                  wit:{dice:{d8:1},potential:{current:8}}, presence:{dice:{d6:1},potential:{current:6}} },
-    resistance: { physical: 2, mental: 1 }
-  }, { parent: { items: { contents: [] } } });
-  c.prepareDerivedData();
-  // An Incapacitated Attribute (PHB §6.8.1) needs no named summary state on
-  // top of itself, so guard against one creeping back in as a derived field.
-  if ("isBroken" in c) throw new Error("no derived summary flag for Incapacitated Attributes");
-  if (!c.attributes.might.incapacitated) throw new Error("Might at 0 current should be Incapacitated");
-  if (c.resistance.physicalTotal !== 2) throw new Error("physicalTotal " + c.resistance.physicalTotal);
-  if (c.attributes.might.kind !== "physical") throw new Error("kind not set");
-  return `physical ${c.resistance.physicalTotal}, mental ${c.resistance.mentalTotal}`;
-});
-check("an untouched character has no Incapacitated Attribute", () => {
-  const c = new CharacterData({ attributes:{ might:{dice:{d12:1},potential:{current:12}}, finesse:{dice:{d10:1},potential:{current:10}},
-    wit:{dice:{d8:1},potential:{current:8}}, presence:{dice:{d6:1},potential:{current:6}} } }, { parent:{items:{contents:[]}} });
-  c.prepareDerivedData();
-  if (Object.values(c.attributes).some(a => a.incapacitated)) throw new Error("nothing should be Incapacitated");
-  return "all four standing";
-});
-console.log("\nResistance sources (what granted it, not just how much):");
-const { aggregateModifiers } = await import(`${R}/modifiers.js`);
-const gear = [
-  { name:"Leather",      type:"equipment", system:{ category:"armor",  equipped:true,  qualities:[{key:"resistance",param:"physical",value:1}] } },
-  { name:"Tower Shield", type:"equipment", system:{ category:"shield", equipped:true,  qualities:[{key:"resistance",param:"physical",value:2}] } },
-  { name:"Half Plate",   type:"equipment", system:{ category:"armor",  equipped:false, qualities:[{key:"resistance",param:"physical",value:3}] } },
-  { name:"Warding Charm",type:"equipment", system:{ category:"ward",   equipped:true,  qualities:[{key:"resistance",param:"mental",  value:1}] } },
-  { name:"Legacy Mail",  type:"equipment", system:{ category:"armor",  equipped:true,  qualities:[{key:"resistance",param:"might",   value:2}] } },
-  { name:"Tempered",     type:"feat",      system:{ modifiers:[{type:"resistance",key:"physical",value:1}] } },
-];
-const mods = aggregateModifiers(gear);
-check("sources are named and summed per kind", () => {
-  if (mods.resistance.physical !== 6) throw new Error("physical " + mods.resistance.physical);
-  if (mods.resistance.mental !== 1) throw new Error("mental " + mods.resistance.mental);
-  return `physical 6 from ${mods.resistanceSources.physical.length} sources, mental 1 from 1`;
-});
-check("unequipped gear contributes nothing", () => {
-  if (mods.resistanceSources.physical.some(e => e.name === "Half Plate")) throw new Error("Half Plate counted while stowed");
-  return "Half Plate excluded";
-});
-check("a legacy Attribute param still maps onto a kind", () => {
-  const legacy = mods.resistanceSources.physical.find(e => e.name === "Legacy Mail");
-  if (!legacy || legacy.value !== 2) throw new Error("Legacy Mail (param 'might') did not map to physical");
-  return "might -> physical";
-});
-check("biggest contributor sorts first", () => {
-  const vals = mods.resistanceSources.physical.map(e => e.value);
-  if (vals.join() !== [...vals].sort((a,b)=>b-a).join()) throw new Error(vals.join());
-  return vals.join(" / ");
-});
-
-console.log("\nAptitude roll range (min / avg / max, Training included):");
-const mk = incap => new CharacterData({
-  attributes: { might:{dice:{d12:1},potential:{current: incap?0:12}}, finesse:{dice:{d10:1},potential:{current:10}},
-                wit:{dice:{d8:1},potential:{current:8}}, presence:{dice:{d6:1},potential:{current:6}} },
-  aptitudes: { prowess:{training:1} } }, { parent:{items:{contents:[]}} });
-const rng = (c,k) => { const a=c.aptitudes[k]; return `${a.rollMin} / ${a.rollAvg} / ${a.rollMax}`; };
+console.log("\nAttributes, Skills, Training (PHB 2.1-2.2):");
 check("Prowess on 1d12 + 1d10 with Training +1 reads 3 / 13 / 23", () => {
-  const c = mk(false); c.prepareDerivedData();
-  // PHB §2.2.3 prints 1d10+1d12 at average 12.0; +1 Training is 13.
-  if (rng(c,"prowess") !== "3 / 13 / 23") throw new Error(rng(c,"prowess"));
-  return rng(c,"prowess");
+  const c = char({ attributes: pools({ d12: 1 }, { d10: 1 }, { d8: 1 }, { d6: 1 }), skills: { prowess: { training: 1 } } });
+  const s = c.skills.prowess; return eq(`${s.rollMin} / ${s.rollAvg} / ${s.rollMax}`, "3 / 13 / 23");
 });
-check("max is the sum of faces, not just Training", () => {
-  const c = mk(false); c.prepareDerivedData();
-  if (c.aptitudes.fortitude.rollMax !== 20) throw new Error("Fortitude max " + c.aptitudes.fortitude.rollMax);
-  return "Fortitude 2 / 11 / 20";
+check("Training cap is the dice in the two pools", () => {
+  const c = char({ attributes: pools({ d6: 2, d4: 1 }, { d8: 1, d4: 2 }, { d4: 2 }, { d4: 2 }) });
+  return eq([c.skills.prowess.trainingCap, c.skills.resonance.trainingCap, c.skills.discipline.trainingCap], [6, 4, 5]);
 });
-check("an Incapacitated Attribute drops out of every Aptitude it feeds", () => {
-  const c = mk(true); c.prepareDerivedData();
-  if (rng(c,"prowess") !== "2 / 6.5 / 11") throw new Error("Prowess " + rng(c,"prowess"));
-  if (rng(c,"acuity") !== "2 / 10 / 18") throw new Error("Acuity should be untouched: " + rng(c,"acuity"));
-  return "Prowess narrows, Acuity untouched";
+check("passive value is floor(average) + Training", () => {
+  const c = char({ attributes: pools({ d8: 1 }, { d10: 1 }, { d4: 1 }, { d4: 1 }), skills: { prowess: { training: 1 } } });
+  return eq(c.skills.prowess.passive, 11);
 });
+check("an Incapacitated Attribute drops out of every Skill it feeds", () => {
+  const src = { attributes: pools({ d12: 1 }, { d10: 1 }, { d8: 1 }, { d6: 1 }) };
+  src.attributes.might.potential.current = 0;
+  const c = char(src);
+  return eq([c.skills.prowess.formula, c.skills.discipline.formula, c.skills.acuity.formula], ["1d10", "1d8", "1d10 + 1d8"]);
+});
+check("Incapacitation lifts at Stress half Potential or less, rounded down", () =>
+  eq([10, 11, 12, 36].map(recoveryThreshold), [5, 6, 6, 18]));
+
+console.log("\nModifiers (PHB 2.5.2, 6.6.0, 7.5.x):");
+const gear = [
+  { name: "Leather", type: "equipment", system: { category: "armor", equipped: true, qualities: [{ key: "resistance", param: "physical", value: 1 }] } },
+  { name: "Half Plate", type: "equipment", system: { category: "armor", equipped: false, qualities: [{ key: "resistance", param: "physical", value: 3 }] } },
+  { name: "Warding Charm", type: "equipment", system: { category: "ward", equipped: true, qualities: [{ key: "resistance", param: "mental", value: 1 }] } },
+  { name: "Watcher's Lens", type: "equipment", system: { category: "charm", equipped: true, qualities: [{ key: "skill-bonus", param: "acuity", value: 1 }] } },
+  { name: "Tough Hide", type: "feat", system: { modifiers: [{ type: "resistance", key: "physical", value: 2 }] } },
+  { name: "Soldier", type: "background", system: { training: { prowess: 1, discipline: 1, assertiveness: 1 } } }
+];
+check("worn Resistance and Feats stack; stowed gear doesn't count", () => {
+  const m = aggregateModifiers(gear); return eq([m.resistance.physical, m.resistance.mental], [3, 1]);
+});
+check("Background Training counts as Training; a charm's +1 is a Skill bonus", () => {
+  const m = aggregateModifiers(gear); return eq([m.training.prowess, m.training.acuity, m.skillBonus.acuity], [1, 0, 1]);
+});
+check("a charm adds to rolls but not toward the Training cap", () => {
+  const c = char({ attributes: pools({ d4: 2 }, { d4: 2 }, { d4: 2 }, { d4: 2 }), skills: { acuity: { training: 2 } } }, [gear[3]]);
+  const s = c.skills.acuity; return eq([s.trainingTotal, s.skillBonus, s.overCap, s.rollMax], [2, 1, false, 19]);
+});
+
+console.log("\nCarrying (PHB 7.5.8):");
+check("past 4x Might Potential, -1 per extra multiple", () => {
+  const armor = { system: { carriedWeight: 55 } };
+  const c = char({ attributes: pools({ d6: 2 }, { d4: 1 }, { d4: 1 }, { d4: 1 }), rations: 3 }, [armor]);
+  return eq([c.carry.limit, c.carry.weight, c.carry.penalty], [48, 61, 2]);
+});
+
+console.log("\nInstrument pricing (PHB 7.4.1):");
+globalThis.CONFIG.FOIL.instrumentTypes = Object.fromEntries([
+  ["quick", "other"], ["edged", "melee"], ["pointed", "melee"], ["blunt", "melee"], ["parry", "melee"], ["grappling", "melee"],
+  ["thrown", "ranged"], ["drawn", "ranged"], ["fired", "ranged"], ["kinetic", "arcane"], ["incorporeal", "arcane"],
+  ["fortifying", "arcane"], ["sonic", "sonic"], ["blocking", "other"], ["tool", "other"]
+].map(([k, fam]) => [k, { key: k, label: k, family: fam, blocking: k === "blocking" }]));
+for (const [name, cat, weight, types, range, price] of [
+  ["Longsword", "melee", "medium", ["edged", "pointed", "parry"], "Close", 45],
+  ["Quarterstaff", "melee", "medium", ["blunt", "blocking"], "Near", 45],
+  ["Greatsword", "melee", "heavy", ["edged", "pointed"], "Close", 60],
+  ["Halberd", "melee", "heavy", ["edged", "pointed"], "Near", 70],
+  ["Longbow", "ranged", "medium", ["pointed", "drawn"], "Long Range", 75],
+  ["Arbalest", "ranged", "heavy", ["pointed", "fired"], "Long Range", 105],
+  ["Sling", "ranged", "light", ["quick", "thrown"], "Mid Range", 25],
+  ["Grand Staff", "arcane", "heavy", ["kinetic", "incorporeal", "fortifying"], "Long Range", 70],
+  ["Siege Horn", "sonic", "heavy", ["sonic"], "Long Range", 55]
+]) check(`${name} prices at ${price}p`, () => {
+  const i = new InstrumentData({ category: cat, weight, types, range, price }); i.prepareDerivedData();
+  return eq(i.formulaPrice, price);
+});
+check("+2 Medium Instrument adds 45p, +2 to rolls, Pierce +1, crafts from 46p", () => {
+  const i = new InstrumentData({ category: "melee", weight: "medium", types: ["edged", "pointed"], bonus: 2, size: "medium" }); i.prepareDerivedData();
+  return eq([i.bonusPrice, i.bonusRoll, i.bonusPierce, i.craftCost], [45, 2, 1, 46]);
+});
+check("+0 Large item crafts from 3 Tier 0 batches (6p)", () => {
+  const i = new InstrumentData({ category: "sonic", weight: "heavy", types: ["sonic"], size: "large" }); i.prepareDerivedData();
+  return eq(i.craftCost, 6);
+});
+check("a Blocking-only +N applies to Oppose only", () => {
+  const i = new InstrumentData({ category: "arcane", weight: "light", types: ["blocking", "fortifying"], bonus: 1 }); i.prepareDerivedData();
+  return eq([i.bonusRoll, i.bonusPierce, i.bonusOppose], [0, 0, 1]);
+});
+
+console.log("\nTechnique pricing (GMG 12.1.0):");
+const REG = {
+  stress: { pricingKind: "flat", pricingParams: { base: 4 } },
+  pierce: { pricingKind: "perPoint", pricingParams: { perPoint: 4 } },
+  weaken: { pricingKind: "perPoint", pricingParams: { perPoint: 18 } },
+  "skill-mod": { pricingKind: "perPoint", pricingParams: { perPoint: 6 } },
+  resistance: { pricingKind: "perPoint", pricingParams: { perPoint: 4 } },
+  pattern: { pricingKind: "pattern", pricingParams: {} },
+  selective: { pricingKind: "selective", pricingParams: {} },
+  upkeep: { pricingKind: "upkeep", pricingParams: { base: 4 }, exemptFromPremium: true },
+  quick: { pricingKind: "quick", pricingParams: {}, exemptFromPremium: true, setsFloor: true }
+};
+const x = (effects, opts) => priceTechnique(effects, REG, opts).xp;
+check("Sunder (Stress, Pierce 1) is 12", () => eq(x([{ key: "stress" }, { key: "pierce", magnitude: 1 }]), 12));
+check("Gutting Blow (Stress, Pierce 1, -1 Attribute) is 34", () => eq(x([{ key: "stress" }, { key: "pierce", magnitude: 1 }, { key: "weaken", magnitude: 1 }]), 34));
+check("Harrow (Stress, -1 Attribute, Cone Near) is 39", () => eq(x([{ key: "stress" }, { key: "weaken", magnitude: 1 }, { key: "pattern", pattern: "cone", bands: 2 }]), 39));
+check("Roaring Fireball (Stress, Radius Near) is 44", () => eq(x([{ key: "stress" }, { key: "pattern", pattern: "radius", bands: 2 }]), 44));
+check("Hallowed Circle (Resistance +1, Selective 4 Near, Upkeep) is 24", () =>
+  eq(x([{ key: "resistance", magnitude: 1 }, { key: "selective", selectiveN: 4, selectiveR: 2 }, { key: "upkeep" }]), 24));
+check("Warding Stance (+1, Fortifying floor) is 8", () => eq(x([{ key: "skill-mod", magnitude: 1 }], { floor: true }), 8));
+check("pattern and selective costs", () => eq([patternCost("beam", 3), patternCost("cone", 2), patternCost("radius", 2), selectiveCost(3, 2)], [6, 9, 36, 9]));
+check("Strain is floor(XP / 8)", () => eq([7, 8, 16, 39, 66].map(strainFor), [0, 1, 2, 4, 8]));
+check("Fortifying in Requires sets the 8 XP floor on its own", () => {
+  globalThis.CONFIG.FOIL.effects = REG;
+  const t = new TechniqueData({ requires: ["fortifying"], effects: [{ key: "resistance", magnitude: 1 }] }); t.prepareDerivedData();
+  return eq([t.xpCost, t.strain], [8, 1]);
+});
+
+console.log("\nStress (PHB 6.7.0):");
+const edged = { label: "Edged", physical: 3, mental: 0, pierce: 0, noBonusVsResistance: true };
+const pointed = { label: "Pointed", physical: 1, mental: 0, pierce: 1 };
+const sonic = { label: "Sonic", physical: -1, mental: 1, pierce: 0 };
+check("PHB 6.7.0 Dagger: margin 10 under cap 12, Edged nullified by Resistance 1: 9", () =>
+  eq(stressFor({ attack: 16, oppose: 6, cap: 12, resistance: 1, type: edged }).stress, 9));
+check("the same through Greatsword Heavy Swing +2: 11", () =>
+  eq(stressFor({ attack: 16, oppose: 6, cap: 12, resistance: 1, type: edged, bespoke: 2 }).stress, 11));
+check("Wren round 1: margin 4, Sonic +1, Resistance 1: 4", () =>
+  eq(stressFor({ attack: 16, oppose: 12, cap: 6, kind: "mental", resistance: 1, type: sonic }).stress, 4));
+check("margin caps at half the Primary Potential", () => eq(stressFor({ attack: 30, oppose: 10, cap: 6 }).stress, 6));
+check("a tie lands at margin 0; a lost roll doesn't land", () =>
+  eq([stressFor({ attack: 10, oppose: 10, cap: 6 }).landed, stressFor({ attack: 9, oppose: 10, cap: 6 }).landed], [true, false]));
+check("Pointed's Pierce 1 plus a Technique's Pierce 1 against Mail 2: margin 5 lands 6", () =>
+  eq(stressFor({ attack: 15, oppose: 10, cap: 10, resistance: 2, type: pointed, pierce: 1 }).stress, 6));
+check("weight dice: Light none, Medium 1d6, Heavy 2d4 and two hands", () => {
+  const d = ["light", "medium", "heavy"].map(w => { const i = new InstrumentData({ category: "melee", weight: w, types: ["edged"] }); i.prepareDerivedData(); return [i.weightDice, i.twoHanded]; });
+  return eq(d, [["", false], ["1d6", false], ["2d4", true]]);
+});
+check("weight dice apply to targeted Techniques only", () => {
+  const a = new TechniqueData({ effects: [{ key: "stress" }] }); a.prepareDerivedData();
+  const b = new TechniqueData({ requires: ["fortifying"], effects: [{ key: "resistance", magnitude: 1 }] }); b.prepareDerivedData();
+  return eq([a.offensive, b.offensive], [true, false]);
+});
+check("Pierce never makes Resistance negative", () => eq(stressFor({ attack: 15, oppose: 10, cap: 10, resistance: 1, pierce: 4 }).stress, 5));
+check("Vulnerable 2 adds 2", () => eq(stressFor({ attack: 15, oppose: 10, cap: 10, resistance: -2 }).stress, 7));
 
 console.log(fails ? `\n${fails} FAILURE(S)` : "\nall model checks passed");
 process.exit(fails ? 1 : 0);

@@ -1,594 +1,492 @@
 /**
  * tools/populate-packs.mjs
- * Catalogue seeder for the modular FOIL system (v0.2.0). Writes the authorable
- * VOCABULARY packs (instrument-types, qualities, effects) and the CONTENT packs
- * (instruments, techniques, feats, equipment, backgrounds, origins) in their new
- * referenced form: instruments carry Instrument Type slugs, techniques carry
- * composed effect entries (decomposed from the PHB Effect prose) plus an
- * authoritative xpOverride, equipment carries composed Quality entries.
+ * Seeds every FOIL compendium from the books (Foilbound 0.6.0). Content comes
+ * from the vault's Catalog notes (Techniques, Feats, Instruments, Tools) and
+ * the Player's Handbook tables (Equipment, Backgrounds, Ancestries, Focus
+ * Gems, item sizes); the vocabulary (Instrument Types, Qualities, Effects)
+ * mirrors PHB 4.1.2 and Fundamental Math's Effects table.
  *
- * Run with Foundry CLOSED:
- *   cd /home/connor/foundryvtt
- *   node /home/connor/foundrydata/Data/systems/foil/tools/populate-packs.mjs
+ * Run with Foundry STOPPED (LevelDB is single-writer):
+ *   node tools/populate-packs.mjs
+ * Env: FOUNDRY_APP (default /mnt/data/foundry/foundryvtt), FOIL_BOOKS, FOIL_VERSION.
  *
- * The technique decomposition is self-checked: the pricing engine (src/pricing.js)
- * re-derives each technique's XP from its composed effects and asserts it matches
- * the catalogue value, printing any mismatch.
+ * Every catalog Technique is decomposed into priced Effects and re-priced by
+ * src/pricing.js. Its printed XP stays authoritative (xpOverride); rows whose
+ * Effects don't add up to the printed XP are listed at the end.
  */
 
-import { ClassicLevel } from "/home/connor/foundryvtt/node_modules/classic-level/index.js";
-import { priceTechnique } from "../src/pricing.js";
+import path from "node:path";
+import { pathToFileURL } from "node:url";
+import { priceTechnique, strainFor } from "../src/pricing.js";
 import { GUIDE } from "./guide-content.mjs";
+import {
+  SYSTEM_ROOT, SYSTEM_VERSION, readPHB, readCatalog, tableAfter, sectionText
+} from "./books.mjs";
 
-const PACK_ROOT = "/home/connor/foundrydata/Data/systems/foil/packs";
+const FOUNDRY_APP = process.env.FOUNDRY_APP ?? "/mnt/data/foundry/foundryvtt";
+const { ClassicLevel } = await import(pathToFileURL(path.join(FOUNDRY_APP, "node_modules/classic-level/index.js")).href);
+
+const PACK_ROOT = process.env.FOIL_PACK_ROOT ?? path.join(SYSTEM_ROOT, "packs");
 const NOW = Date.now();
 const STATS = {
-  coreVersion: "14.361", systemId: "foil", systemVersion: "0.3.0",
+  coreVersion: "14.367", systemId: "foil", systemVersion: SYSTEM_VERSION,
   createdTime: NOW, modifiedTime: NOW, lastModifiedBy: null,
   compendiumSource: null, duplicateSource: null, exportSource: null
 };
 
 const ID_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 function makeId() { let s = ""; for (let i = 0; i < 16; i++) s += ID_CHARS[Math.floor(Math.random() * ID_CHARS.length)]; return s; }
+const slug = name => String(name ?? "").toLowerCase().trim().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+const lc = s => String(s ?? "").trim().toLowerCase();
+const num = s => Number(String(s ?? "").replace(/[^0-9.-]/g, "")) || 0;
 
-// ─── Vocabulary: Instrument Types (PHB §7.11.0) ─────────────────────────────
-// [name, aptitude, harms, isTool, bonusStress]
-// `harms` is "physical" (Might or Finesse), "mental" (Wit or Presence), or ""
-// for support and Tools. The attacker picks which Attribute of the pair, and a
-// target Opposes with any Aptitude built on the Attribute under attack, so
-// neither a Target nor an Oppose column is stored any more (PHB §5.2.2).
-// bonusStress is a flat rider on a landed hit; only Fired carries one.
+const PHB = readPHB();
+const CAT = readCatalog();
+const warnings = [];
+
+// ─── Vocabulary: Instrument Types (PHB 4.1.2) ───────────────────────────────
+// [name, key, family, {stressPhysical, stressMental, pierce, flags...}, description]
+const CRAFT_MATERIALS = ["Metal", "Wood", "Leather", "Gemstone", "Textile", "Reagent", "Stone"];
 const INSTRUMENT_TYPES = [
-  ["Edged", "prowess", "physical", false],
-  ["Pointed", "prowess", "physical", false],
-  ["Blunt", "prowess", "physical", false],
-  ["Grappling", "prowess", "physical", false],
-  // Active use rolls Fortitude; the passive "+N Blocking Instrument" Item
-  // Upgrade (PHB §7.4.0) still Bolsters Prowess on the Oppose side.
-  ["Blocking", "fortitude", "", false],
-  ["Parry", "prowess", "", false],
-  ["Thrown", "acuity", "physical", false],
-  ["Drawn", "acuity", "physical", false],
-  ["Fired", "acuity", "physical", false, 2],
-  ["Command", "command", "mental", false],
-  ["Guile", "guile", "mental", false],
-  ["Resonance", "resonance", "", false],
-  ["Kinetic", "command / guile", "physical", false],
-  ["Incorporeal", "guile / resonance", "mental", false],
-  ["Fortifying", "command / resonance", "", false],
-  ["Survival", "acuity", "", true],
-  ["Alchemy", "acuity", "", true],
-  ["Craft", "prowess", "", true],
-  ["Performance", "resonance", "", true],
-  ["Subterfuge", "guile", "", true],
-  ["Athletics", "prowess", "", true]
+  ["Quick", "quick", "other", { quick: true }, "Its built-in Techniques may be used as a Quick Action, on top of the Action they can always be paid with."],
+  ["Edged", "edged", "melee", { stressPhysical: 3, noBonusVsResistance: true }, "+3 Stress against a physical Attribute. No bonus at all against a target with any physical Resistance."],
+  ["Pointed", "pointed", "melee", { stressPhysical: 1, pierce: 1 }, "Pierce 1 against physical Resistance. +1 Stress against a physical Attribute."],
+  ["Blunt", "blunt", "melee", { pierce: 3 }, "Pierce 3 against physical Resistance."],
+  ["Thrown", "thrown", "ranged", {}, "No type effect. No reload."],
+  ["Drawn", "drawn", "ranged", { stressPhysical: 2, stressMental: 2, reload: "quick" }, "+2 Stress. Reload: Quick Action."],
+  ["Fired", "fired", "ranged", { stressPhysical: 4, stressMental: 4, reload: "action" }, "+4 Stress. Reload: Action."],
+  ["Kinetic", "kinetic", "arcane", { stressPhysical: 1, stressMental: -1 }, "+1 Stress against a physical Attribute. -1 against a mental Attribute."],
+  ["Incorporeal", "incorporeal", "arcane", { stressPhysical: -1, stressMental: 1 }, "+1 Stress against a mental Attribute. -1 against a physical Attribute."],
+  ["Sonic", "sonic", "sonic", { stressPhysical: -1, stressMental: 1 }, "+1 Stress against a mental Attribute. -1 against a physical Attribute."],
+  ["Fortifying", "fortifying", "arcane", {}, "Support, aimed at an ally or the caster."],
+  ["Grappling", "grappling", "melee", { dealsNoStress: true }, "Deals no Stress."],
+  ["Parry", "parry", "melee", {}, "Spend the Quick Action reactively for physical Resistance +1 against a Melee or Ranged Technique (PHB 6.5.2)."],
+  ["Blocking", "blocking", "other", { blocking: true }, "+N applies to Oppose rolls. Guard with the Quick Action (PHB 6.5.1)."],
+  ["Immobile", "immobile", "other", { stressPhysical: 2, stressMental: 2 }, "+2 Stress. Fixed at a location; using it means being there."],
+  ["Tool", "tool", "other", { isTool: true }, "A Trade roll against a Difficulty (PHB 4.2.6)."],
+  ["Craft", "craft", "other", { isTool: true }, "A Trade roll for general work in no single Material."],
+  ...CRAFT_MATERIALS.map(m => [`Craft [${m}]`, `craft-${slug(m)}`, "other", { isTool: true }, `A Craft Trade roll working ${m}.`])
 ];
-const slug = name => name.toLowerCase().trim().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
-function instrumentTypeDoc([name, aptitude, harms, isTool, bonusStress]) {
+const TYPE_KEYS = new Set(INSTRUMENT_TYPES.map(t => t[1]));
+function instrumentTypeDoc([name, key, family, o, desc]) {
   return { name, type: "instrumentType", img: "icons/svg/upgrade.svg",
     system: {
-      key: slug(name), aptitude, harms, isTool,
-      bonusStress: bonusStress ?? 0, description: ""
+      key, family,
+      stressPhysical: o.stressPhysical ?? 0, stressMental: o.stressMental ?? 0, pierce: o.pierce ?? 0,
+      noBonusVsResistance: !!o.noBonusVsResistance, dealsNoStress: !!o.dealsNoStress,
+      quick: !!o.quick, blocking: !!o.blocking, reload: o.reload ?? "", isTool: !!o.isTool,
+      description: `<p>${desc}</p>`
     } };
 }
 
-// ─── Vocabulary: Qualities ──────────────────────────────────────────────────
-// [name, key, kind, scope, valueLabel]
+// ─── Vocabulary: Qualities (PHB 7.5.1, Fundamental Math Passive Properties) ─
 const QUALITIES = [
-  ["Resistance", "resistance", "resistance", "resistanceKind", "+N physical or mental"],
-  ["Bolster", "bolster", "bolster", "aptitude", "+N to an Aptitude"],
-  ["Aid", "aid", "aid", "free", "+N to a named task"],
-  ["Blocking", "blocking", "blocking", "none", "a Blocking Instrument"]
+  ["Resistance", "resistance", "resistance", "resistanceKind", "+N physical or mental", "Reduce the Stress of every Technique of that kind by N."],
+  ["Skill Bonus", "skill-bonus", "skill", "skill", "+N to a Skill", "Add N to the named Skill's rolls."],
+  ["Weakened", "weakened", "skill", "attribute", "-N to an Attribute", "The named Attribute takes Weakened, -N to its rolls."],
+  ["Aid", "aid", "aid", "free", "+N to a named task", "Add N to a named task outside of conflict."]
 ];
-function qualityDoc([name, key, kind, scope, valueLabel]) {
+function qualityDoc([name, key, kind, scope, valueLabel, desc]) {
   return { name, type: "quality", img: "icons/svg/shield.svg",
-    system: { key, kind, scope, valueLabel, description: "" } };
+    system: { key, kind, scope, valueLabel, description: `<p>${desc}</p>` } };
 }
 
-// ─── Vocabulary: Effects (GMG §5.1.0) ───────────────────────────────────────
-// [name, key, pricingKind, params, {requires, exempt, setsFloor}]
-// Rescaled 2026-07-28: base per-point rate 5 XP → 4 XP (all flat/per-point costs
-// here are ×0.8 of their pre-rescale value). Pattern/Selective/Extend Range stay
-// on their own band-based (1 XP/band) system and are unaffected.
-const L = (base, perPoint = 0) => ({ base, perPoint });
-const EFFECTS = [
-  // Stress is a priced effect and counts toward the combination premium
-  // (Fundamental Math, Techniques preamble: "A Technique's own listed price
-  // already includes it").
-  ["Stress", "stress", "linear", L(4, 0), {}],
-  // The merged sign-keyed roll modifier. Positive adds to a named Skill; negative
-  // on an Attribute applies Weakened (PHB 6.8.4), negative on an Oppose applies
-  // Stunned (PHB 6.8.6). Replaces the retired Accuracy / Bolster / Impair split.
-  ["\u00b1N [Skill, Attribute, or Oppose]", "mod", "linear", L(0, 6), {}],
-  ["Pierce", "pierce", "linear", L(0, 4), {}],
-  ["Resistance +N", "resistance", "linear", L(0, 4), {}],
-  ["Hasten +N AP", "hasten", "linear", L(0, 4), {}],
-  ["Mend Xd6", "mend", "linear", L(4, 4), { requires: ["fortifying", "resonance"] }],
-  ["Lingering N", "lingering", "linear", L(0, 8), {}],
-  ["Move", "move", "flat", L(4), {}],
-  ["Drain", "drain", "flat", L(8), {}],
-  ["Illusion", "illusion", "flat", L(8), {}],
-  ["Evade", "evade", "flat", L(4), {}],
-  ["Negate Failure", "negate", "flat", L(16), {}],
-  ["Redirect", "redirect", "flat", L(8), {}],
-  ["Counter", "counter", "flat", L(16), {}],
-  ["Reaction", "reaction", "flat", L(8), {}],
-  // Conditions, repriced 2026-09 (Fundamental Math, Condition [name] row).
-  ["Grappled", "grappled", "flat", L(4), {}],
-  ["Prone", "prone", "flat", L(8), {}],
-  ["Restrained", "restrained", "flat", L(16), {}],
-  ["Charmed", "charmed", "flat", L(8), {}],
-  ["Frightened", "frightened", "flat", L(8), {}],
-  ["Controlled", "controlled", "flat", L(24), {}],
-  ["Intimidated", "intimidated", "flat", L(10), {}],
-  ["Baited", "baited", "flat", L(8), {}],
-  ["Angered", "angered", "flat", L(8), {}],
-  ["Relaxed", "relaxed", "flat", L(8), {}],
-  ["Impressed", "impressed", "flat", L(10), {}],
-  ["Wary", "wary", "flat", L(8), {}],
-  ["Enthralled", "enthralled", "flat", L(20), {}],
-  ["Extend Range", "extendRange", "extendRange", { perBand: 1 }, {}],
-  ["Pattern", "pattern", "pattern", {}, {}],
-  ["Selective", "selective", "selective", {}, {}],
-  ["Upkeep", "upkeep", "upkeep", { base: 4 }, { exempt: true }]
-];
-function effectDoc([name, key, pricingKind, params, opt]) {
-  return { name, type: "effect", img: "icons/svg/aura.svg",
-    system: {
-      key, requires: opt.requires ?? [], pricingKind,
-      pricingParams: { base: params.base ?? 0, perPoint: params.perPoint ?? 0, perBand: params.perBand ?? 1, floor: params.floor ?? 8 },
-      exemptFromPremium: !!opt.exempt, setsFloor: !!opt.setsFloor, noStrain: false, description: ""
-    } };
-}
-// A registry mirror for the self-check.
-const EFFECT_REG = Object.fromEntries(EFFECTS.map(([name, key, pricingKind, params, opt]) => [key, {
-  label: name, pricingKind, pricingParams: { base: params.base ?? 0, perPoint: params.perPoint ?? 0, perBand: params.perBand ?? 1, floor: params.floor ?? 8 },
-  exemptFromPremium: !!opt.exempt
-}]));
-
-// The effect-prose parser was retired 2026-09: Fundamental Math's current syntax
-// (sign-keyed ±N, inline Strain, implicit Stress) is not round-trippable from prose,
-// so every Technique below ships an explicit composed effect list instead, still
-// re-priced against its catalogue XP by the self-check at the bottom of this file.
-
-// ─── Techniques (PHB §7.6.x + §2.5.3) ───────────────────────────────────────
-// [name, xp, [requireSlugs], aptitude, target, oppose, effectProse, {desc, floorOverride, decompose:false}]
-// `decompose:false` = keep xpOverride only (irregular prose the parser can't price); no assertion.
-const M = ["edged", "pointed", "blunt"];
+// ─── Vocabulary: Effects (Fundamental Math, Technique Effects) ─────────────
+const MELEE = ["edged", "pointed", "blunt", "grappling", "parry"];
 const RANGED = ["thrown", "drawn", "fired"];
-// XP costs rescaled 2026-07-28 (4 XP/point base; see src/pricing.js docstring).
-// [name, xp, [requireSlugs], effectProse, {effects, decompose, desc}]
-// Regenerated from Design Docs/Fundamental Math.md (the source of truth; the PHB
-// catalogue is a transclusion of it). Every row below carries an explicit composed
-// effect list, re-priced by src/pricing.js against the catalogue XP.
-const TECHNIQUES = [
-  ["Sunder", 12, ["edged", "pointed"], "Pierce 1",
-    { effects: [{ key: "stress" }, { key: "pierce", magnitude: 1 }], desc: "A heavy blow that splits guard and armor." }],
-  ["Rend", 16, ["edged", "pointed"], "Pierce 2, Strain 1",
-    { effects: [{ key: "stress" }, { key: "pierce", magnitude: 2 }], desc: "A tearing cut that splits armor wide." }],
-  ["Concuss", 14, ["blunt"], "-1 Wit",
-    { effects: [{ key: "stress" }, { key: "mod", magnitude: 1 }], desc: "A blow to the head that leaves the world spinning." }],
-  ["Hamstring", 14, ["edged"], "-1 Finesse",
-    { effects: [{ key: "stress" }, { key: "mod", magnitude: 1 }], desc: "A slash behind the knee that steals their footing." }],
-  ["Break", 20, ["blunt"], "-2 [target Attribute], Strain 1",
-    { effects: [{ key: "stress" }, { key: "mod", magnitude: 2 }], desc: "A brutal strike that cripples the target." }],
-  ["Trip", 16, ["edged", "pointed", "blunt"], "Prone, Strain 1",
-    { effects: [{ key: "stress" }, { key: "prone" }], desc: "A low sweep that drops them to the ground." }],
-  ["Pommel Strike", 32, ["blunt"], "-4 Oppose, Strain 2",
-    { effects: [{ key: "stress" }, { key: "mod", magnitude: 4 }], desc: "A crack to the skull that leaves them reeling." }],
-  ["Gutting Blow", 22, ["edged", "pointed"], "Pierce 1, -1 [target Attribute], Strain 1",
-    { effects: [{ key: "stress" }, { key: "pierce", magnitude: 1 }, { key: "mod", magnitude: 1 }], desc: "A deep wound that bleeds away strength." }],
-  ["Maiming Strike", 26, ["edged", "pointed"], "Pierce 2, -1 [target Attribute], Strain 1",
-    { effects: [{ key: "stress" }, { key: "pierce", magnitude: 2 }, { key: "mod", magnitude: 1 }], desc: "A crippling blow through armor and sinew." }],
-  ["Piercing Shot", 12, ["thrown", "drawn", "fired"], "Pierce 1",
-    { effects: [{ key: "stress" }, { key: "pierce", magnitude: 1 }], desc: "A bolt driven clean through armor." }],
-  ["Aim", 20, ["thrown", "drawn", "fired"], "+2, Strain 1",
-    { effects: [{ key: "stress" }, { key: "mod", magnitude: 2 }], desc: "You steady your aim and strike true." }],
-  ["Snipe", 26, ["thrown", "drawn", "fired"], "+3, Strain 1",
-    { effects: [{ key: "stress" }, { key: "mod", magnitude: 3 }], desc: "A patient shot that finds the gap." }],
-  ["Called Shot", 28, ["thrown", "drawn", "fired"], "Pierce 1, +2, Strain 1",
-    { effects: [{ key: "stress" }, { key: "pierce", magnitude: 1 }, { key: "mod", magnitude: 2 }], desc: "A precise shot through the weak point." }],
-  ["Crippling Shot", 14, ["thrown", "drawn", "fired"], "-1 [target Attribute]",
-    { effects: [{ key: "stress" }, { key: "mod", magnitude: 1 }], desc: "A shot to a joint that slows them." }],
-  ["Pinning Shot", 20, ["thrown", "drawn", "fired"], "-2 [target Attribute], Strain 1",
-    { effects: [{ key: "stress" }, { key: "mod", magnitude: 2 }], desc: "A shaft that nails them in place." }],
-  ["Bola Shot", 16, ["thrown", "drawn", "fired"], "Prone, Strain 1",
-    { effects: [{ key: "stress" }, { key: "prone" }], desc: "Whirling cords tangle their legs and drop them." }],
-  ["Volley", 17, ["thrown", "drawn", "fired"], "Cone (Near), Strain 1",
-    { effects: [{ key: "stress" }, { key: "pattern", pattern: "cone", bands: 2 }], desc: "A spray of shots that catches a whole group." }],
-  ["Bind", 12, ["grappling", "kinetic"], "-2 [target Attribute], no Stress",
-    { effects: [{ key: "mod", magnitude: 2 }], desc: "You tie up the target and sap their strength." }],
-  ["Grapple", 12, ["grappling"], "Grappled",
-    { effects: [{ key: "stress" }, { key: "grappled" }], desc: "You seize the target and hold them fast." }],
-  ["Takedown", 16, ["grappling"], "Prone, Strain 1",
-    { effects: [{ key: "stress" }, { key: "prone" }], desc: "A throw that puts them on the ground." }],
-  ["Pin", 24, ["grappling"], "Restrained (break free as Grappled), Strain 1",
-    { effects: [{ key: "stress" }, { key: "restrained" }], desc: "You bear the target down and hold them helpless." }],
-  ["Suplex", 32, ["grappling"], "Prone, -2 [target Attribute], Strain 2",
-    { effects: [{ key: "stress" }, { key: "prone" }, { key: "mod", magnitude: 2 }], desc: "A brutal slam that leaves them reeling on the ground." }],
-  ["Hobble", 14, ["command"], "-1 [target Attribute]",
-    { effects: [{ key: "stress" }, { key: "mod", magnitude: 1 }], desc: "A barbed remark that leaves the target shaken." }],
-  ["Dread Cry", 16, ["command"], "Frightened, Strain 1",
-    { effects: [{ key: "stress" }, { key: "frightened" }], desc: "A cry that wounds and fills them with dread." }],
-  ["Beguile", 8, ["guile"], "Charmed",
-    { effects: [{ key: "charmed" }], desc: "Honeyed words that stay their hand." }],
-  ["Ghost Sound", 8, ["guile"], "Illusion",
-    { effects: [{ key: "illusion" }], desc: "A false sound thrown to draw eye and ear." }],
-  ["Feint", 6, ["guile"], "+1 [Skill] (self, 1 round)",
-    { effects: [{ key: "mod", magnitude: 1 }], desc: "A false opening, taken before they realize it isn't real." }],
-  ["Retort", 8, ["command"], "Reaction (trigger: a Sonic Technique fails against you): Jeer against that attacker with +1 Stress.",
-    { effects: [{ key: "reaction" }], desc: "You turn a failed insult back on its speaker." }],
-  ["Harrow", 27, ["command"], "-1 [target Attribute], Cone (Near), Strain 1",
-    { effects: [{ key: "stress" }, { key: "mod", magnitude: 1 }, { key: "pattern", pattern: "cone", bands: 2 }], desc: "Words that cut through a whole crowd at once." }],
-  ["Steady", 8, ["resonance"], "Remove 1d6 Stress from an ally's Attribute",
-    { effects: [{ key: "mend", magnitude: 1 }], desc: "A word held steady until they can hold themselves." }],
-  ["Talk Down", 12, ["resonance"], "Remove 2d6 Stress from an ally's Attribute",
-    { effects: [{ key: "mend", magnitude: 2 }], desc: "The long version, and it takes as long as it takes." }],
-  ["Rally", 6, ["resonance"], "+1 to self or an ally",
-    { effects: [{ key: "mod", magnitude: 1 }], desc: "A word timed exactly right, and someone stands a little taller." }],
-  ["Riposte", 8, ["parry"], "Reaction (trigger: a Melee Technique fails against you): use a Melee Technique against that attacker through this Instrument.",
-    { effects: [{ key: "reaction" }], desc: "You answer a failed attack with one of your own." }],
-  ["Deflect", 24, ["parry"], "Counter, Strain 1",
-    { effects: [{ key: "stress" }, { key: "counter" }], desc: "You read the blow or spell and turn it aside before it lands." }],
-  ["Shielding Ward", 8, ["blocking"], "Gain Resistance +1 of the kind your block covers until your next turn.",
-    { floorOverride: 8, effects: [{ key: "resistance", magnitude: 1 }], desc: "You brace your block and harden against a blow." }],
-  ["Steady Nerve", 8, ["blocking"], "Gain +1 to your Opposes until your next turn.",
-    { floorOverride: 8, effects: [{ key: "mod", magnitude: 1 }], desc: "You settle your nerves against the arcane." }],
-  ["Intercept", 16, ["blocking"], "Reaction (trigger: an ally within reach takes Might or Finesse Stress from a physical Technique your block covers): Redirect that Stress onto your Might, reduced by your physical Resistance.",
-    { effects: [{ key: "stress" }, { key: "reaction" }], desc: "You throw yourself in the way for an ally." }],
-  ["Perfect Guard", 24, ["blocking"], "Negate Failure, Strain 1",
-    { effects: [{ key: "stress" }, { key: "negate" }], desc: "Your block turns a failed defense into a clean one." }],
-  ["Gale Shove", 4, ["kinetic"], "Move the target 1 band, no Stress",
-    { effects: [{ key: "move" }], desc: "A wall of wind hurls the target back a band." }],
-  ["Blink", 4, ["kinetic"], "Evade",
-    { effects: [{ key: "evade" }], desc: "A flick of force carries you a band away untouched." }],
-  ["Rending Lance", 12, ["kinetic"], "Pierce 1",
-    { effects: [{ key: "stress" }, { key: "pierce", magnitude: 1 }], desc: "A spear of force punches through armor and guard." }],
-  ["Guided Bolt", 20, ["kinetic"], "+2, Strain 1",
-    { effects: [{ key: "stress" }, { key: "mod", magnitude: 2 }], desc: "A homing dart of force that rarely misses." }],
-  ["Annihilating Beam", 16, ["kinetic"], "Pierce 2, Strain 1",
-    { effects: [{ key: "stress" }, { key: "pierce", magnitude: 2 }], desc: "A searing ray shears through armor and flesh together." }],
-  ["Telekinetic Grasp", 17, ["kinetic"], "Grappled, Extend Range, Strain 1",
-    { effects: [{ key: "stress" }, { key: "grappled" }, { key: "extendRange", bands: 1 }], desc: "An unseen hand seizes a body at range and holds it." }],
-  ["Crushing Grip", 12, ["kinetic"], "Grappled",
-    { effects: [{ key: "stress" }, { key: "grappled" }], desc: "Unseen hands clamp down and pin the target fast." }],
-  ["Thunderclap", 12, ["kinetic"], "Move the target 1 band",
-    { effects: [{ key: "stress" }, { key: "move" }], desc: "The air cracks and the target staggers back a band." }],
-  ["Shockwave", 16, ["kinetic"], "Prone, Strain 1",
-    { effects: [{ key: "stress" }, { key: "prone" }], desc: "Force hammers them off their feet." }],
-  ["Grasp of Dread", 24, ["kinetic"], "Restrained, Strain 1",
-    { effects: [{ key: "stress" }, { key: "restrained" }], desc: "Force roots the target in place, unable to flee." }],
-  ["Cage of Force", 29, ["kinetic"], "Restrained, Extend Range, Strain 1",
-    { effects: [{ key: "stress" }, { key: "restrained" }, { key: "extendRange", bands: 1 }], desc: "Bars of hard light snap shut and lock the target in place." }],
-  ["Searing Cinders", 16, ["kinetic"], "Lingering 1, Strain 1",
-    { effects: [{ key: "stress" }, { key: "lingering", magnitude: 1 }], desc: "Clinging embers gnaw for two rounds and bite past Resistance." }],
-  ["Wall of Flame", 15, ["kinetic"], "Wall (Near), Upkeep",
-    { effects: [{ key: "stress" }, { key: "pattern", pattern: "wall", bands: 2 }, { key: "upkeep" }], desc: "A standing curtain of fire that burns any who linger." }],
-  ["Ember Storm", 16, ["kinetic"], "Lingering 1, Strain 1",
-    { effects: [{ key: "stress" }, { key: "lingering", magnitude: 1 }], desc: "A burst of fire that lands hard and keeps burning." }],
-  ["Hammer of Force", 20, ["kinetic"], "Pierce 1, Move the target 1 band, Strain 1",
-    { effects: [{ key: "stress" }, { key: "pierce", magnitude: 1 }, { key: "move" }], desc: "A driving blow that punches through and knocks back." }],
-  ["Cataclysmic Wave", 25, ["kinetic"], "Cone (Near), Move each target 1 band, Strain 1",
-    { effects: [{ key: "stress" }, { key: "pattern", pattern: "cone", bands: 2 }, { key: "move" }], desc: "A shockwave of fire that scatters and burns all it reaches." }],
-  ["Roaring Fireball", 44, ["kinetic"], "Radius (Near), Strain 2",
-    { effects: [{ key: "stress" }, { key: "pattern", pattern: "radius", bands: 2 }], desc: "A bloom of fire swallows every foe it reaches." }],
-  ["Concussive Repulsion", 52, ["kinetic"], "Radius (Near), Move each target 1 band, Strain 3",
-    { effects: [{ key: "stress" }, { key: "pattern", pattern: "radius", bands: 2 }, { key: "move" }], desc: "A ring of force throws everyone nearby back a band." }],
-  ["Devastating Detonation", 52, ["kinetic"], "Radius (Near), Pierce 1, Strain 3",
-    { effects: [{ key: "stress" }, { key: "pattern", pattern: "radius", bands: 2 }, { key: "pierce", magnitude: 1 }], desc: "A detonation that rips armor apart and flattens a field." }],
-  ["Seismic Slam", 56, ["kinetic"], "Prone, Radius (Near), Strain 3",
-    { effects: [{ key: "stress" }, { key: "prone" }, { key: "pattern", pattern: "radius", bands: 2 }], desc: "The ground erupts, flattening everyone near." }],
-  ["Phantom Step", 4, ["incorporeal"], "Evade",
-    { effects: [{ key: "evade" }], desc: "You slip through the unseen and reappear a band away." }],
-  ["Seed of Doubt", 14, ["incorporeal"], "-1 [target Attribute]",
-    { effects: [{ key: "stress" }, { key: "mod", magnitude: 1 }], desc: "A flicker of doubt dulls one Attribute." }],
-  ["Ray of Enfeeblement", 20, ["incorporeal"], "-2 [target Attribute], Strain 1",
-    { effects: [{ key: "stress" }, { key: "mod", magnitude: 2 }], desc: "A gray ray saps strength with no wound to show." }],
-  ["Mark of Misfortune", 14, ["incorporeal"], "-1 [target Attribute]",
-    { effects: [{ key: "stress" }, { key: "mod", magnitude: 1 }], desc: "A brand of ill luck that wounds and drags an Attribute down." }],
-  ["Hexing Bolt", 20, ["incorporeal"], "+2, Strain 1",
-    { effects: [{ key: "stress" }, { key: "mod", magnitude: 2 }], desc: "A curse-dart that seldom misses its mark." }],
-  ["Grievous Curse", 20, ["incorporeal"], "-2 [target Attribute], Strain 1",
-    { effects: [{ key: "stress" }, { key: "mod", magnitude: 2 }], desc: "A deep curse that cripples an Attribute." }],
-  ["Withering Blight", 16, ["incorporeal"], "Lingering 1, Strain 1",
-    { effects: [{ key: "stress" }, { key: "lingering", magnitude: 1 }], desc: "A rot of the spirit that wears at the mind for two rounds." }],
-  ["Deathly Touch", 16, ["incorporeal"], "Lingering 1, Strain 1",
-    { effects: [{ key: "stress" }, { key: "lingering", magnitude: 1 }], desc: "A touch of death that bites now and festers after." }],
-  ["Soul Leech", 16, ["incorporeal"], "Drain, Strain 1",
-    { effects: [{ key: "stress" }, { key: "drain" }], desc: "You draw their vitality into yourself." }],
-  ["Vampiric Blight", 28, ["incorporeal"], "Drain, Lingering 1, Strain 1",
-    { effects: [{ key: "stress" }, { key: "drain" }, { key: "lingering", magnitude: 1 }], desc: "A rot that feeds you as it wastes them." }],
-  ["Soul Harvest", 56, ["incorporeal"], "Drain, Radius (Near), Strain 3",
-    { effects: [{ key: "stress" }, { key: "drain" }, { key: "pattern", pattern: "radius", bands: 2 }], desc: "You reap vitality from all around into yourself." }],
-  ["Mirror Image", 16, ["incorporeal"], "Illusion, Strain 1",
-    { effects: [{ key: "stress" }, { key: "illusion" }], desc: "Phantom doubles confuse the eye." }],
-  ["Charm", 16, ["incorporeal"], "Charmed, Strain 1",
-    { effects: [{ key: "stress" }, { key: "charmed" }], desc: "A whisper that bends their will to friendship." }],
-  ["Phantasmal Killer", 26, ["incorporeal"], "Illusion, -1 [target Attribute], Strain 1",
-    { effects: [{ key: "stress" }, { key: "illusion" }, { key: "mod", magnitude: 1 }], desc: "A vision of death that guts the mind that believes it." }],
-  ["Creeping Dread", 12, ["incorporeal"], "Move the target 1 band",
-    { effects: [{ key: "stress" }, { key: "move" }], desc: "Cold fear wounds the target and drives them back." }],
-  ["Iron Command", 37, ["incorporeal"], "-4 Oppose, Extend Range, Strain 2",
-    { effects: [{ key: "stress" }, { key: "mod", magnitude: 4 }, { key: "extendRange", bands: 1 }], desc: "Your will clamps down and freezes the target rigid." }],
-  ["Cause Fear", 16, ["incorporeal"], "Frightened, Strain 1",
-    { effects: [{ key: "stress" }, { key: "frightened" }], desc: "Terror that wounds and drives them back." }],
-  ["Dominate", 32, ["incorporeal"], "Controlled, Strain 2",
-    { effects: [{ key: "stress" }, { key: "controlled" }], desc: "You seize command of their body." }],
-  ["Phantasmal Terror", 22, ["incorporeal"], "-1 [target Attribute], Move the target 1 band, Strain 1",
-    { effects: [{ key: "stress" }, { key: "mod", magnitude: 1 }, { key: "move" }], desc: "Terror that wounds, weakens, and scatters." }],
-  ["Waking Nightmare", 28, ["incorporeal"], "-2 [target Attribute], Move the target 1 band, Strain 1",
-    { effects: [{ key: "stress" }, { key: "mod", magnitude: 2 }, { key: "move" }], desc: "A vision of horror that guts the will and sends them fleeing." }],
-  ["Counterspell", 24, ["incorporeal"], "Counter, Strain 1",
-    { effects: [{ key: "stress" }, { key: "counter" }], desc: "You unravel a Technique as it forms." }],
-  ["Fog of Madness", 54, ["incorporeal"], "-1 [target Attribute], Radius (Near), Strain 3",
-    { effects: [{ key: "stress" }, { key: "mod", magnitude: 1 }, { key: "pattern", pattern: "radius", bands: 2 }], desc: "A creeping fog muddles the minds of all it catches." }],
-  ["Mass Malediction", 54, ["incorporeal"], "-1 [target Attribute], Radius (Near), Strain 3",
-    { effects: [{ key: "stress" }, { key: "mod", magnitude: 1 }, { key: "pattern", pattern: "radius", bands: 2 }], desc: "A curse that falls on a whole knot of foes at once." }],
-  ["Force Ward", 8, ["fortifying"], "Resistance +1, physical or mental, self or ally",
-    { floorOverride: 8, effects: [{ key: "resistance", magnitude: 1 }], desc: "A skin of force that turns aside a blow." }],
-  ["Warding Stance", 8, ["fortifying"], "+1 to Prowess and Discipline opposes until your next turn",
-    { floorOverride: 8, effects: [{ key: "mod", magnitude: 1 }], desc: "You steel your body against the physical world." }],
-  ["Guiding Light", 8, ["fortifying"], "+1 to one ally",
-    { floorOverride: 8, effects: [{ key: "mod", magnitude: 1 }], desc: "A glimmer of guidance steadies an ally's hand." }],
-  ["Healing Word", 8, ["fortifying"], "Remove 1d6 Stress from an ally's Attribute, take 1d6 Stress yourself",
-    { effects: [{ key: "mend", magnitude: 1 }], desc: "A knitting warmth that closes what conflict opened." }],
-  ["Restoring Light", 12, ["fortifying"], "Remove 2d6 Stress from an ally's Attribute, take 2d6 Stress yourself",
-    { effects: [{ key: "mend", magnitude: 2 }], desc: "A deep light that pulls an ally back from the edge." }],
-  ["Quickening", 8, ["fortifying"], "Hasten +2 AP to an ally",
-    { effects: [{ key: "hasten", magnitude: 2 }], desc: "Time bends to give an ally room to act." }],
-  ["Rousing Haste", 18, ["fortifying"], "Hasten +2 AP to an ally and +1, Strain 1",
-    { effects: [{ key: "hasten", magnitude: 2 }, { key: "mod", magnitude: 1 }], desc: "Speed and courage fill an ally at once." }],
-  ["Rite of Blessing", 22, ["fortifying"], "+1 to up to 4 allies within Near (Selective), Strain 1",
-    { effects: [{ key: "selective", selectiveN: 4, selectiveR: 2 }, { key: "mod", magnitude: 1 }], desc: "A wave of favor lifts every ally near." }],
-  ["Hallowed Circle", 24, ["fortifying"], "Resistance +1 to up to 4 allies within Near (Selective), Upkeep, Strain 1",
-    { effects: [{ key: "resistance", magnitude: 1 }, { key: "selective", selectiveN: 4, selectiveR: 2 }, { key: "upkeep" }],
-      desc: "A ring of calm that shields allies who hold it." }],
-  ["Aegis of Force", 20, ["fortifying"], "Resistance +1 to up to 4 allies within Near (Selective), Strain 1",
-    { effects: [{ key: "selective", selectiveN: 4, selectiveR: 2 }, { key: "resistance", magnitude: 1 }], desc: "A dome of force hardens all beneath it." }],
-  ["Renewing Tide", 24, ["fortifying"], "Remove 1d6 Stress from up to 4 allies within Near (Selective), take the summed Stress yourself, Strain 1",
-    { effects: [{ key: "selective", selectiveN: 4, selectiveR: 2 }, { key: "mend", magnitude: 1 }], desc: "A tide of life eases the wounds of the whole line." }],
-  ["Bulwark of Iron", 24, ["fortifying"], "Resistance +2 to up to 4 allies within Near (Selective), Strain 1",
-    { effects: [{ key: "selective", selectiveN: 4, selectiveR: 2 }, { key: "resistance", magnitude: 2 }], desc: "A fortress of force hardens the allies deeply." }],
-  ["Vanguard's Blessing", 30, ["fortifying"], "+1 and Resistance +1 to up to 4 allies within Near (Selective), Strain 1",
-    { effects: [{ key: "mod", magnitude: 1 }, { key: "selective", selectiveN: 4, selectiveR: 2 }, { key: "resistance", magnitude: 1 }], desc: "Favor and force settle over the whole line at once." }],
-  ["Fated Ward", 24, ["fortifying"], "Negate Failure, Strain 1",
-    { effects: [{ key: "stress" }, { key: "negate" }], desc: "You will a failed Oppose into a success." }]
+const ARCANE = ["kinetic", "incorporeal", "fortifying"];
+// [name, key, pricingKind, {base, perPoint, perBand}, {requires, label, exempt, floor}, description]
+const EFFECTS = [
+  ["Stress", "stress", "flat", { base: 4 }, {}, "Deal the margin to an Attribute of the Target."],
+  ["+1 Stress (hit-count rider)", "stress-rider", "flat", { base: 8 }, {}, "+1 Stress on a landed hit."],
+  ["±N [Skill or Oppose]", "skill-mod", "perPoint", { perPoint: 6 }, { label: "±N" }, "Positive: +N to a named Skill. Negative on an Oppose: Reeling (PHB 6.8.6)."],
+  ["-N [target Attribute]", "weaken", "perPoint", { perPoint: 18 }, { requires: ["incorporeal", ...MELEE], label: "-N [target Attribute]" }, "Weakened: the named Attribute's rolls take -N (PHB 6.8.4)."],
+  ["+N (this roll)", "roll-bonus", "perPoint", { perPoint: 6 }, { label: "+N" }, "+N to this Technique's own roll."],
+  ["Pierce N", "pierce", "perPoint", { perPoint: 4 }, { requires: [...MELEE, ...RANGED, "kinetic"], label: "Pierce N" }, "Ignore N of the target's Resistance."],
+  ["Resistance +N", "resistance", "perPoint", { perPoint: 4 }, { requires: ["parry", "blocking", "fortifying"], label: "Resistance +N" }, "Physical or mental Resistance +N."],
+  ["Mend Xd4", "mend", "perPoint", { perPoint: 16 }, { requires: ["fortifying", "sonic"], label: "Mend Nd4" }, "Remove Xd4 Stress from an ally's Attribute. Takes ten minutes and a ration."],
+  ["Lingering N", "lingering", "perPoint", { perPoint: 8 }, { requires: ["kinetic", "incorporeal"], label: "Lingering N" }, "N more Stress at the start of the target's next turns."],
+  ["Redirect", "redirect", "flat", { base: 8 }, { requires: ["blocking"] }, "Take an ally's incoming Stress instead."],
+  ["Move", "move", "flat", { base: 4 }, { requires: ["grappling", "kinetic", "incorporeal"] }, "Move the target one band."],
+  ["Evade", "evade", "flat", { base: 4 }, { requires: ["kinetic", "incorporeal"] }, "Move without provoking."],
+  ["Illusion", "illusion", "flat", { base: 8 }, { requires: ["incorporeal", "sonic"] }, "A false sight or sound."],
+  ["Drain", "drain", "flat", { base: 8 }, { requires: ["incorporeal"] }, "Heal what the Technique deals."],
+  ["Counter", "counter", "flat", { base: 12 }, {}, "Contest another Technique as it lands."],
+  ["Hasten (Action)", "hasten-action", "flat", { base: 8 }, { requires: ["fortifying"] }, "Grant an ally an extra Action."],
+  ["Hasten (Quick Action)", "hasten-quick", "flat", { base: 4 }, { requires: ["fortifying"] }, "Grant an ally an extra Quick Action."],
+  ["Extend Range", "extend-range", "extendRange", { perBand: 1 }, { requires: ["kinetic", "incorporeal"] }, "1 XP per band of extra reach."],
+  ["Pattern", "pattern", "pattern", {}, { requires: [...RANGED, "sonic", ...ARCANE] }, "Beam or Wall: 1 + 2 + ... per band. Cone 3x, Radius 12x the Beam cost."],
+  ["Selective", "selective", "selective", {}, { requires: [...RANGED, "sonic", ...ARCANE] }, "N creatures within R bands: N + (R x N)."],
+  ["Upkeep", "upkeep", "upkeep", { base: 4 }, { requires: ARCANE, exempt: true }, "Keep the Technique active by paying its Action and Strain each turn."],
+  ["Quick", "quick", "quick", {}, { exempt: true, floor: true }, "A free tag. A stated trigger sets the 8 XP floor."],
+  // Conditions (PHB 6.8.x), priced flat.
+  ["Grappled", "grappled", "flat", { base: 4 }, { requires: ["grappling", "kinetic"] }, "PHB 6.8.3."],
+  ["Prone", "prone", "flat", { base: 8 }, { requires: [...MELEE, ...RANGED, "kinetic"] }, "PHB 6.8.7."],
+  ["Restrained", "restrained", "flat", { base: 16 }, { requires: ["grappling", "kinetic"] }, "PHB 6.8.5."],
+  ["Charmed", "charmed", "flat", { base: 8 }, { requires: ["incorporeal", "sonic"] }, "PHB 6.8.8."],
+  ["Frightened", "frightened", "flat", { base: 8 }, { requires: ["incorporeal", "sonic"] }, "PHB 6.8.9."],
+  ["Controlled", "controlled", "flat", { base: 24 }, { requires: ["incorporeal"] }, "PHB 6.8.10."],
+  ["Intimidated", "intimidated", "flat", { base: 10 }, { requires: ["incorporeal", "sonic"] }, "PHB 6.8.11."],
+  ["Baited", "baited", "flat", { base: 8 }, {}, "PHB 6.8.12."],
+  ["Angered", "angered", "flat", { base: 8 }, {}, "PHB 6.8.13."],
+  ["Relaxed", "relaxed", "flat", { base: 8 }, {}, "PHB 6.8.14."],
+  ["Impressed", "impressed", "flat", { base: 10 }, {}, "PHB 6.8.15."],
+  ["Wary", "wary", "flat", { base: 8 }, {}, "PHB 6.8.16."],
+  ["Enthralled", "enthralled", "flat", { base: 20 }, {}, "PHB 6.8.17."]
 ];
+const effectSystem = ([, key, pricingKind, p, o, desc]) => ({
+  key, requires: o.requires ?? [], pricingKind,
+  pricingParams: { base: p.base ?? 0, perPoint: p.perPoint ?? 0, perBand: p.perBand ?? 1 },
+  magnitudeLabel: o.label ?? "", exemptFromPremium: !!o.exempt, setsFloor: !!o.floor,
+  description: `<p>${desc}</p>`
+});
+function effectDoc(row) {
+  return { name: row[0], type: "effect", img: "icons/svg/aura.svg", system: effectSystem(row) };
+}
+const EFFECT_REG = Object.fromEntries(EFFECTS.map(r => [r[1], { label: r[0], ...effectSystem(r) }]));
 
-const priceFails = [];
-function techniqueDoc([name, xp, requires, prose, opt]) {
-  const decompose = opt.decompose !== false;
-  // `opt.effects`: a hand-composed effect list for prose the auto-parser can't
-  // read (e.g. "Reaction: Redirect an ally's Stress onto your Might" doesn't
-  // match any regex below), still re-priced against the catalogue XP like an
-  // auto-decomposed one — verified by hand, checked by the same self-check.
-  const effects = opt.effects ?? [];
-  const floorOverride = opt.floorOverride ?? 0;
-  // `decompose: false` opts a row out of the self-check: it ships a composed effect
-  // list for the sheet, but its catalogue XP is authoritative and is not re-derived.
-  if (decompose) {
-    const { xp: computed } = priceTechnique(effects, EFFECT_REG, { floorOverride });
-    if (computed !== xp) priceFails.push(`${name}: catalogue ${xp}, computed ${computed}  [${prose}]`);
+// ─── Requires text → Instrument Type slugs ─────────────────────────────────
+const FAMILY_TYPES = {
+  melee: MELEE, ranged: RANGED, arcane: ARCANE, "any arcane": ARCANE,
+  sonic: ["sonic"], kinetic: ["kinetic"], incorporeal: ["incorporeal"], fortifying: ["fortifying"],
+  edged: ["edged"], pointed: ["pointed"], blunt: ["blunt"], grappling: ["grappling"],
+  parry: ["parry"], blocking: ["blocking"], thrown: ["thrown"], drawn: ["drawn"], fired: ["fired"]
+};
+function parseRequires(text) {
+  const t = lc(text);
+  if (/\binnate\b/.test(t)) return { requires: [], innate: true };
+  // "Blocking AND any Arcane": the first term is the Instrument the Technique rolls through.
+  const first = t.split(/\s+and\s+/)[0];
+  const out = new Set();
+  for (const part of first.split(/\s*(?:,|\bor\b)\s*/).filter(Boolean)) {
+    const types = FAMILY_TYPES[part.trim()];
+    if (types) types.forEach(k => out.add(k));
+    else warnings.push(`Requires term not recognized: "${part}" in "${text}"`);
   }
-  // aptitude/target/oppose are intentionally NOT written: the DataModel derives
-  // them from the required Instrument Type(s) at prepare time (PHB §5.2.1).
+  return { requires: [...out], innate: false };
+}
+
+// ─── Effect text → composed Effects ────────────────────────────────────────
+const BAND = { close: 1, near: 2, short: 3, mid: 4, long: 5 };
+const CONDITION_KEYS = ["grappled", "prone", "restrained", "charmed", "frightened", "controlled", "intimidated",
+  "baited", "angered", "relaxed", "impressed", "wary", "enthralled"];
+const e = (key, extra = {}) => ({ key, magnitude: 1, pattern: "single", bands: 0, placement: 0, selectiveN: 0, selectiveR: 0, ...extra });
+
+/** Split on top-level commas (not inside parentheses). */
+function splitTop(s) {
+  const out = []; let depth = 0, cur = "";
+  for (const ch of s) {
+    if (ch === "(") depth++;
+    if (ch === ")") depth--;
+    if (ch === "," && depth === 0) { out.push(cur); cur = ""; continue; }
+    cur += ch;
+  }
+  if (cur.trim()) out.push(cur);
+  return out.map(x => x.trim()).filter(Boolean);
+}
+
+/**
+ * Decompose a catalog Effect line. Returns the Effects other than Stress, plus
+ * whether the line forbids Stress outright ("no Stress"). Unparsed clauses are
+ * returned for the report.
+ */
+function parseEffects(text) {
+  const list = [], unparsed = [];
+  let noStress = false, quick = false, rider = false;
+  let src = String(text ?? "").replace(/\.$/, "").replace(/\.\s*Strain \d+$/i, "");
+  const trig = src.match(/^Quick \(trigger:[^)]*\):\s*(.*)$/i);
+  if (trig) { quick = true; src = trig[1]; }
+  if (/\+1 Stress\b/.test(src)) rider = true;
+  // "+1 and Resistance +1" is two Effects sharing one target clause.
+  const clauses = splitTop(src).flatMap(c => /^\+\d+ and Resistance/i.test(c) ? c.split(/ and /) : [c]);
+  for (const raw of clauses) {
+    let c = raw.replace(/\.$/, "").trim();
+    const sel = c.match(/(?:to )?up to (\d+) allies within (\w+) \(Selective\)/i);
+    if (sel) {
+      list.push(e("selective", { selectiveN: Number(sel[1]), selectiveR: BAND[lc(sel[2])] ?? 0 }));
+      c = c.replace(sel[0], "").trim();
+      if (!c) continue;
+    }
+    let m;
+    if (/^Strain \d+$/i.test(c)) continue;
+    if (/^(deal Stress to that attacker|\+1 Stress|physical or mental|self or ally|reduced by your physical Resistance)$/i.test(c)) continue;
+    if (/^no Stress$/i.test(c)) { noStress = true; continue; }
+    if (/^Upkeep$/i.test(c)) { list.push(e("upkeep")); continue; }
+    if ((m = c.match(/^Pierce (\d+)$/i))) { list.push(e("pierce", { magnitude: +m[1] })); continue; }
+    if ((m = c.match(/^-(\d+) \[target Attribute\]$/i))) { list.push(e("weaken", { magnitude: +m[1] })); continue; }
+    if ((m = c.match(/^-(\d+) Oppose$/i))) { list.push(e("skill-mod", { magnitude: +m[1] })); continue; }
+    if ((m = c.match(/^\+(\d+)$/))) { list.push(e("roll-bonus", { magnitude: +m[1] })); continue; }
+    if ((m = c.match(/^(?:Gain )?\+(\d+)\b/i))) { list.push(e("skill-mod", { magnitude: +m[1] })); continue; }
+    if ((m = c.match(/^(?:Gain )?Resistance \+(\d+)/i))) { list.push(e("resistance", { magnitude: +m[1] })); continue; }
+    if ((m = c.match(/^Mend (\d+)d4/i))) { list.push(e("mend", { magnitude: +m[1] })); continue; }
+    if ((m = c.match(/^Lingering (\d+)$/i))) { list.push(e("lingering", { magnitude: +m[1] })); continue; }
+    if ((m = c.match(/^(Beam|Cone|Radius|Wall) \((\w+)\)$/i))) { list.push(e("pattern", { pattern: lc(m[1]), bands: BAND[lc(m[2])] ?? 0 })); continue; }
+    if (/^Extend Range$/i.test(c)) { list.push(e("extend-range", { bands: 1 })); continue; }
+    if (/^Move (the|each) target 1 band$/i.test(c)) { list.push(e("move")); continue; }
+    if (/^Hasten \(Action\)/i.test(c)) { list.push(e("hasten-action")); if (/\band \+1$/.test(c)) list.push(e("skill-mod")); continue; }
+    if (/^Hasten \(Quick Action\)/i.test(c)) { list.push(e("hasten-quick")); continue; }
+    if ((m = c.match(/^(Evade|Illusion|Drain|Counter|Redirect)\b/i))) { list.push(e(lc(m[1]))); continue; }
+    if ((m = c.match(/^(\w+)(?: \(.*\))?$/)) && CONDITION_KEYS.includes(lc(m[1]))) { list.push(e(lc(m[1]))); continue; }
+    if (/^Redirect that Stress/i.test(c)) { list.push(e("redirect")); continue; }
+    if (/^use a Melee Technique against that attacker/i.test(c)) continue;
+    unparsed.push(c);
+  }
+  if (rider) list.push(e("stress-rider"));
+  if (quick) list.push(e("quick"));
+  return { list, noStress, unparsed };
+}
+
+// Families whose Techniques never deal Stress on their own.
+const SUPPORT_FAMILIES = new Set(["Fortifying", "Block", "Blocking", "Innate"]);
+// New capabilities sustained by Upkeep (PHB 7.7.3). No Effect in the table
+// prices the capability itself, so these carry their printed XP only.
+const MOVEMENT_TRAITS = new Set(["Fly", "Swim", "Burrow", "Climb", "Incorporeal Movement"]);
+// Quick-trigger rows where the 8 XP floor hides whether Stress is implied:
+// composed by hand so Stress is never guessed.
+const HAND_EFFECTS = {
+  Riposte: () => [e("quick")],
+  Intercept: () => [e("redirect"), e("quick")],
+  Retort: () => [e("stress"), e("stress-rider"), e("quick")]
+};
+const priceFails = [];
+
+function techniqueDoc(n) {
+  const { requires, innate } = parseRequires(n.requires);
+  const { list, noStress, unparsed } = parseEffects(n.effect);
+  const xp = Number(n.xp) || 0;
+  // GMG 12.1.0 step 4: Fortifying, a ward or bonus until the caster's next turn, or a stated trigger.
+  const floor = requires.includes("fortifying") || /until your next turn|Quick \(trigger/i.test(n.effect ?? "");
+  const price = effects => priceTechnique(effects, EFFECT_REG, { floor }).xp;
+
+  // Stress is implicit in the printed line. Include it when the line prices out
+  // that way; otherwise take the reading that matches the printed XP.
+  const withStress = [e("stress"), ...list];
+  let effects;
+  if (MOVEMENT_TRAITS.has(n.name)) { effects = []; unparsed.length = 0; }
+  else if (HAND_EFFECTS[n.name]) effects = HAND_EFFECTS[n.name]();
+  else if (noStress || SUPPORT_FAMILIES.has(n.family)) effects = list;
+  else if (price(withStress) === xp) effects = withStress;
+  else if (price(list) === xp) effects = list;
+  else effects = withStress;
+
+  const computed = price(effects);
+  if (effects.length && (computed !== xp || unparsed.length)) {
+    priceFails.push(`${n.name}: printed ${xp}, Effects price ${computed}  [${n.effect}]${unparsed.length ? `  unparsed: ${unparsed.join(" | ")}` : ""}`);
+  }
+  if (n.strain !== undefined && n.strain !== null && Number(n.strain) !== strainFor(xp)) {
+    warnings.push(`${n.name}: printed Strain ${n.strain}, floor(${xp}/8) = ${strainFor(xp)}`);
+  }
+  const skillMatch = String(n.requires ?? "").match(/\b(Prowess|Discipline|Assertiveness|Acuity|Guile|Resonance)\b/);
   return {
-    name, type: "technique", img: "icons/svg/aura.svg",
+    name: n.name, type: "technique", img: "icons/svg/aura.svg",
     system: {
-      requires,
-      effects: effects.map(e => ({
-        key: e.key, magnitude: e.magnitude ?? 1, pattern: e.pattern ?? "single",
-        bands: e.bands ?? 0, placement: e.placement ?? 0,
-        selectiveN: e.selectiveN ?? 0, selectiveR: e.selectiveR ?? 0
-      })),
-      floorOverride,
-      xpOverride: xp,          // authoritative catalogue value
-      effectText: prose,
-      description: opt.desc ?? ""
+      requires, requiresText: n.requires ?? "", innate,
+      skill: skillMatch ? lc(skillMatch[1]) : "",
+      family: n.family ?? "", subgroup: n.subgroup ?? "",
+      effects, floor,
+      xpOverride: xp,
+      effectText: n.effect ?? "",
+      ancestryGrant: n.ancestry_grant ?? "",
+      description: n.description ? `<p>${n.description}</p>` : ""
     }
   };
 }
 
-// ─── Instruments (PHB §7.2.x, §7.3.0, §2.5.3) ───────────────────────────────
-const ARCANE = ["kinetic", "incorporeal", "fortifying"];
-const SONIC = ["command", "guile", "resonance"];
-const INSTRUMENTS = [
-  ["Unarmed", "light", ["blunt", "grappling"], "Close", 0],
-  ["Mouth", "light", SONIC, "Mid Range", 0],
-  ["Dagger", "light", ["edged", "pointed", "parry"], "Close", 15],
-  ["Hand Axe", "light", ["edged"], "Close", 10],
-  ["Shortsword", "light", ["edged", "pointed", "parry"], "Close", 15],
-  ["Sabre", "medium", ["edged", "parry"], "Close", 40],
-  ["Quarterstaff", "medium", ["blunt", "blocking"], "Near", 15],
-  ["Longsword", "medium", ["edged", "pointed", "parry"], "Close", 45],
-  ["Spear", "medium", ["pointed", "parry"], "Near", 45],
-  ["Mace", "medium", ["blunt"], "Close", 40],
-  ["Battleaxe", "heavy", ["edged"], "Close", 130],
-  ["Greatsword", "heavy", ["edged", "pointed"], "Close", 135],
-  ["Maul", "heavy", ["blunt"], "Close", 130],
-  ["Halberd", "heavy", ["edged", "pointed"], "Near", 140],
-  ["Net", "light", ["grappling"], "Short Range", 15],
-  // Ranged split into Thrown/Drawn/Fired by delivery method (PHB §7.11.1),
-  // each with its own Bonus Attribute mix; Drawn and Fired both carry Reload.
-  ["Throwing Knife", "light", ["pointed", "thrown"], "Short Range", 10],
-  ["Sling", "light", ["thrown"], "Mid Range", 5],
-  ["Shortbow", "medium", ["pointed", "drawn"], "Mid Range", 40, { reload: true }],
-  ["Longbow", "medium", ["pointed", "drawn"], "Long Range", 50, { reload: true }],
-  ["Crossbow", "medium", ["pointed", "fired"], "Long Range", 50, { reload: true }],
-  ["Arbalest", "heavy", ["pointed", "fired"], "Long Range", 135, { reload: true }],
-  ["Ward Focus", "light", ["blocking", "fortifying"], "Close", 15],
-  // A Focus holds one channel (PHB §7.2.3); Wand ships Kinetic by default (the
-  // catalogue's own "wand that casts Force Bolt" example, PHB §5.4.2) — edit
-  // this Instrument's Types to Incorporeal or Fortifying for a different channel.
-  ["Wand", "light", ["kinetic"], "Short Range", 15],
-  ["Mending Focus", "light", ["fortifying"], "Short Range", 15],
-  ["Magic Staff", "medium", ["kinetic", "incorporeal"], "Mid Range", 50],
-  ["Holy Staff", "medium", ["fortifying"], "Mid Range", 45],
-  ["Warstaff", "heavy", ["kinetic"], "Mid Range", 135],
-  ["Grim Tome", "heavy", ["incorporeal"], "Mid Range", 135],
-  ["Grand Staff", "heavy", ARCANE, "Long Range", 150],
-  ["Lute", "light", ["performance", ...SONIC], "Mid Range", 14],
-  ["Drum", "light", ["performance", ...SONIC], "Mid Range", 12],
-  ["Flute", "light", ["performance", ...SONIC], "Mid Range", 10],
-  ["Speaking Trumpet", "light", SONIC, "Long Range", 20],
-  ["War Drum", "medium", ["performance", ...SONIC], "Long Range", 24],
-  ["War Horn", "medium", SONIC, "Long Range", 50],
-  ["Hunting Kit", "light", ["survival"], "Close", 10],
-  ["Fishing Tackle", "light", ["survival"], "Close", 8],
-  ["Trapper's Snares", "light", ["survival"], "Close", 10],
-  ["Alchemist's Kit", "medium", ["alchemy"], "Close", 20],
-  ["Herbalist's Satchel", "light", ["alchemy"], "Close", 12],
-  ["Poisoner's Kit", "medium", ["alchemy"], "Close", 24],
-  ["Smithing Tools", "medium", ["craft"], "Close", 20],
-  ["Carpenter's Tools", "medium", ["craft"], "Close", 16],
-  ["Leatherworker's Tools", "light", ["craft"], "Close", 14],
-  ["Mason's Tools", "medium", ["craft"], "Close", 18],
-  ["Jeweler's Tools", "light", ["craft"], "Close", 22],
-  ["Tinkerer's Tools", "light", ["craft"], "Close", 14],
-  ["Lockpicks", "light", ["subterfuge"], "Close", 10],
-  ["Disguise Kit", "light", ["subterfuge"], "Close", 14],
-  ["Writing Kit", "light", ["subterfuge"], "Close", 5],
-  ["Climbing Kit", "light", ["athletics"], "Close", 10]
-];
-function instrumentDoc([name, weight, types, range, price, opt]) {
-  return { name, type: "instrument", img: "icons/svg/sword.svg",
-    system: { weight, range, price, types, reload: !!opt?.reload, description: "" } };
+// ─── Instruments (Catalog notes, PHB 7.2.x, 7.3.0, 2.5.3) ──────────────────
+const SIZE_TABLE = tableAfter(PHB, /^### 5\.3\.2 Crafting/);
+const sizeOf = {}, materialsOf = {};
+for (const row of SIZE_TABLE) {
+  for (const item of row.Items.split(",").map(s => s.trim())) {
+    sizeOf[lc(item)] = lc(row.Size);
+    materialsOf[lc(item)] = row.Materials;
+  }
+}
+const WEIGHT_WORDS = { light: "light", medium: "medium", heavy: "heavy" };
+function typeSlug(t) {
+  const craft = t.match(/^Craft \[(\w+)\]$/i);
+  if (craft) return `craft-${slug(craft[1])}`;
+  return slug(t);
 }
 
-// ─── Equipment (PHB §7.5.x) ─────────────────────────────────────────────────
+function instrumentDoc(n) {
+  const words = (n.types ?? []).map(String);
+  const weight = words.map(lc).find(w => WEIGHT_WORDS[w]) ?? "light";
+  let types = words.filter(w => !WEIGHT_WORDS[lc(w)]).map(typeSlug);
+  // A Wand holds one channel, picked when made; the seeded one is Kinetic.
+  if (n.name === "Wand") types = ["quick", "kinetic"];
+  for (const t of types) if (!TYPE_KEYS.has(t)) warnings.push(`${n.name}: unknown Instrument Type "${t}"`);
+  const kit = [1, 2, 3].map(i => ({
+    name: n[`kit_${i}_name`] ?? "", skill: lc(n[`kit_${i}_skill`] ?? "prowess"), effect: n[`kit_${i}_effect`] ?? ""
+  })).filter(k => k.name);
+  const key = lc(n.name);
+  return {
+    name: n.name, type: "instrument", img: "icons/svg/sword.svg",
+    system: {
+      category: lc(n.category ?? "melee"), weight, primaryAttribute: lc(n.primary_attribute),
+      range: n.range ?? "Close", types, typesDisplay: n.name === "Wand" ? "" : (n.types_display ?? ""),
+      price: Number(n.price) || 0, rider: n.rider ?? "", kit,
+      innate: false, bonus: 0, size: sizeOf[key] ?? "medium", materials: materialsOf[key] ?? "",
+      description: ""
+    }
+  };
+}
+
+function toolDoc(n) {
+  const types = String(n.instrument_type ?? "Tool").split(",").map(s => typeSlug(s.trim()));
+  const key = lc(n.name);
+  const craft = String(n.instrument_type ?? "").match(/Craft \[(\w+)\]/);
+  return {
+    name: n.name, type: "instrument", img: "icons/svg/pick.svg",
+    system: {
+      category: "tool", weight: "light", primaryAttribute: lc(n.primary_attribute), range: "Touching",
+      types, typesDisplay: n.instrument_type ?? "", price: Number(n.price) || 0, rider: "", kit: [],
+      innate: false, bonus: 0, size: key === "smithing tools" ? "large" : "medium",
+      materials: craft ? craft[1] : "Metal", description: ""
+    }
+  };
+}
+
+// Body and Voice (PHB 2.5.3), the two innate Instruments every character starts with.
+const INNATE_INSTRUMENTS = [
+  { name: "Body", primaryAttribute: "might", types: ["quick", "blunt", "grappling"], range: "Close",
+    kit: [
+      { name: "Strike", skill: "prowess", effect: "Deals Stress to Might or Finesse." },
+      { name: "Grapple", skill: "discipline", effect: "Applies Grappled." },
+      { name: "Menace", skill: "assertiveness", effect: "Deals Stress to Presence or Wit." }
+    ] },
+  { name: "Voice", primaryAttribute: "presence", types: ["quick", "sonic"], range: "Mid Range",
+    kit: [
+      { name: "Intimidate", skill: "assertiveness", effect: "Applies Intimidated." },
+      { name: "Mislead", skill: "guile", effect: "Applies Misled." },
+      { name: "Sway", skill: "resonance", effect: "Applies Swayed." }
+    ] }
+];
+function innateDoc(i) {
+  return {
+    name: i.name, type: "instrument", img: i.name === "Body" ? "icons/svg/combat.svg" : "icons/svg/sound.svg",
+    system: {
+      category: "innate", weight: "light", primaryAttribute: i.primaryAttribute, range: i.range,
+      types: i.types, typesDisplay: "", price: 0, rider: "Innate: every character has it, free (PHB 2.5.3).",
+      kit: i.kit, innate: true, bonus: 0, size: "medium", materials: "", description: ""
+    }
+  };
+}
+
+// ─── Equipment (PHB 7.5.x, 7.4.4) ───────────────────────────────────────────
 const q = (key, value = 0, param = "") => ({ key, value, param });
-// [name, category, price, {weight, impairFinesse, qualities, effect, uses}]
-const EQUIPMENT = [
-  ["Leather", "armor", 30, { qualities: [q("resistance", 1, "might")] }],
-  ["Mail", "armor", 90, { impairFinesse: 1, qualities: [q("resistance", 2, "might")] }],
-  ["Half Plate", "armor", 270, { impairFinesse: 2, qualities: [q("resistance", 3, "might")] }],
-  ["Full Plate", "armor", 800, { impairFinesse: 3, qualities: [q("resistance", 4, "might")] }],
-  ["Fitted Leathers", "armor", 30, { qualities: [q("resistance", 1, "finesse")] }],
-  ["Duelist's Coat", "armor", 90, { qualities: [q("resistance", 2, "finesse")] }],
-  ["Buckler", "shield", 30, { weight: "light", qualities: [q("blocking"), q("bolster", 1, "prowess")], effect: "Easy to carry." }],
-  ["Round Shield", "shield", 30, { weight: "light", qualities: [q("blocking"), q("resistance", 1, "might")] }],
-  ["Kite Shield", "shield", 45, { weight: "medium", qualities: [q("blocking"), q("resistance", 1, "might"), q("bolster", 1, "prowess")] }],
-  ["Tower Shield", "shield", 45, { weight: "medium", qualities: [q("blocking"), q("resistance", 2, "might")], effect: "Full-body cover." }],
-  ["Warding Charm", "ward", 15, { qualities: [q("resistance", 1, "wit")], effect: "Steadies the thoughts." }],
-  ["Icon of Faith", "ward", 15, { qualities: [q("resistance", 1, "presence")], effect: "Anchors a conviction." }],
-  ["Stoic's Token", "ward", 15, { qualities: [q("resistance", 1, "presence")] }],
-  ["Traveler Pack", "gear", 5, { effect: "Bedroll, rations, flint, waterskin." }],
-  ["Rope (50ft)", "gear", 2, { effect: "Climbing, binding, hauling." }],
-  ["Torch", "gear", 1, { effect: "Light in the dark." }],
-  ["Bandages", "medicine", 3, { effect: "During a rest, remove an extra 1d6 Stress from one Attribute of one character.", uses: "1 (consumed)" }],
-  ["Herbal Poultice", "medicine", 4, { effect: "Out of conflict, remove 1d6 Stress from one Attribute at once.", uses: "1 (consumed)" }],
-  ["Healer's Kit", "medicine", 20, { effect: "During a rest, grant one character +1d6 recovery to each Attribute that hour.", uses: "5" }],
-  ["Antitoxin", "medicine", 6, { effect: "Out of conflict, end one poison or sickness effect.", uses: "1 (consumed)" }],
-  ["Healing Draught", "potion", 10, { effect: "Mend 1d6 (instant).", uses: "1" }],
-  ["Greater Healing Draught", "potion", 15, { effect: "Mend 2d6 (instant).", uses: "1" }],
-  ["Draught of Vigor", "potion", 5, { effect: "Bolster +1 to one Aptitude (1 hour).", uses: "1" }],
-  ["Oil of Warding", "potion", 5, { effect: "Resistance +1 to one Attribute (1 hour).", uses: "1" }],
-  ["Alchemist's Fire", "potion", 5, { effect: "Stress (Light), thrown (instant).", uses: "1" }],
-  ["Vial of Venom", "potion", 10, { effect: "Lingering 1, coats a weapon (instant).", uses: "1" }],
-  ["Draught of Weakness", "potion", 10, { effect: "Impair [Attribute] 2 (1 hour).", uses: "1" }]
-];
-const EQUIP_IMG = { armor: "icons/svg/shield.svg", shield: "icons/svg/shield.svg", ward: "icons/svg/holy-shield.svg", gear: "icons/svg/item-bag.svg", medicine: "icons/svg/heal.svg", potion: "icons/svg/potion.svg" };
-function equipmentDoc([name, category, price, opt]) {
-  return { name, type: "equipment", img: EQUIP_IMG[category] ?? "icons/svg/item-bag.svg",
-    system: { category, weight: opt.weight ?? "", price, impairFinesse: opt.impairFinesse ?? 0,
-      qualities: opt.qualities ?? [], uses: opt.uses ?? "", effect: opt.effect ?? "", description: "" } };
+const SKILLS = ["prowess", "discipline", "assertiveness", "acuity", "guile", "resonance"];
+const EQUIP_IMG = { armor: "icons/svg/shield.svg", shield: "icons/svg/shield.svg", ward: "icons/svg/holy-shield.svg",
+  charm: "icons/svg/holy-shield.svg", gear: "icons/svg/item-bag.svg", medicine: "icons/svg/heal.svg",
+  potion: "icons/svg/pill.svg", gem: "icons/svg/ice-aura.svg" };
+const equip = (name, category, price, o = {}) => ({
+  name, type: "equipment", img: EQUIP_IMG[category] ?? "icons/svg/item-bag.svg",
+  system: {
+    category, price, weight: o.weight ?? 0, weightClass: o.weightClass ?? "", size: o.size ?? sizeOf[lc(name)] ?? "small",
+    materials: o.materials ?? materialsOf[lc(name)] ?? "", equipped: false, qualities: o.qualities ?? [],
+    uses: o.uses ?? "", duration: o.duration ?? "", effect: o.effect ?? "",
+    gemType: o.gemType ?? "", tier: o.tier ?? 1, notes: o.notes ?? "", description: ""
+  }
+});
+
+function equipmentDocs() {
+  const out = [];
+  for (const r of tableAfter(PHB, /^### 7\.5\.2 Armor/)) {
+    out.push(equip(r.Armor, "armor", num(r.Price), {
+      weight: num(r.Weight), size: "large", qualities: [q("resistance", num(r.Resistance), "physical")], notes: r.Notes
+    }));
+  }
+  for (const r of tableAfter(PHB, /^### 7\.5\.3 Shields/)) {
+    const quals = [];
+    const res = r.Properties.match(/physical Resistance \+(\d)/i);
+    if (res) quals.push(q("resistance", +res[1], "physical"));
+    const sk = r.Properties.match(/\+(\d) (\w+)/);
+    if (sk && SKILLS.includes(lc(sk[2]))) quals.push(q("skill-bonus", +sk[1], lc(sk[2])));
+    out.push(equip(r.Shield, "shield", num(r.Price), {
+      weightClass: lc(r.Weight), qualities: quals, effect: "Blocking", notes: r.Notes
+    }));
+  }
+  const ward = sectionText(PHB, /^### 7\.5\.4 Wards and charms/);
+  const wardTables = ward.split(/\n(?=\| Item)/).filter(s => s.startsWith("| Item"));
+  const wardRows = tableAfter("#### x\n" + wardTables[0], /^#### x/);
+  for (const r of wardRows) {
+    out.push(equip(r.Item, "ward", num(r.Price), { qualities: [q("resistance", num(r.Resistance), "mental")], notes: r.Notes, size: "small", materials: "Metal" }));
+  }
+  const charmRows = tableAfter("#### x\n" + wardTables[1], /^#### x/);
+  for (const r of charmRows) {
+    out.push(equip(r.Item, "charm", num(r.Price), { qualities: [q("skill-bonus", 1, lc(r.Skill))], notes: r.Notes, size: "small", materials: "Metal" }));
+  }
+  for (const r of tableAfter(PHB, /^### 7\.5\.5 Adventuring Gear/)) {
+    out.push(equip(r.Item, "gear", num(r.Price), { effect: r["Helps with"], size: "small", materials: "" }));
+  }
+  for (const r of tableAfter(PHB, /^### 7\.5\.6 Medicine/)) {
+    out.push(equip(r.Item, "medicine", num(r.Price), { effect: r.Effect, uses: r.Uses, size: "small", materials: "" }));
+  }
+  for (const r of tableAfter(PHB, /^### 7\.5\.7 Potions and Poisons/)) {
+    out.push(equip(r.Item, "potion", num(r.Price), { effect: r.Effect, duration: r.Duration, uses: r.Uses, size: "small", materials: "Reagent" }));
+  }
+  for (const r of tableAfter(PHB, /^### 7\.4\.4 Focus Gems/)) {
+    out.push(equip(`${r.Gem} (Tier 1)`, "gem", num(r["Price per Tier"]), {
+      gemType: lc(r.Gem), tier: 1, size: "small", materials: "Gemstone",
+      effect: `${r["Damage Type"] === "None" ? "" : r["Damage Type"] + "; "}${r["Adds, per Tier"]} per Tier`
+    }));
+  }
+  return out;
 }
 
-// ─── Feats, Backgrounds, Origins ────────────────────────────────────────────
-// Two Feats per Ancestry (PHB 7.9.1-7.9.9). Names are the formal compound
-// Ancestry titles. Gabrol Sandkin is the tenth Ancestry and has no Feats yet.
-const ORIGIN_FEATS = [
-  ["River Walk", "Keshwick Riverkin", "You learn the River Walk Technique. Evade (Acuity, no Instrument needed): move up to 20 feet without spending the normal Disengage AP and without provoking an Attack of Opportunity. If this repositions you to Close range of a foe, your next Technique against them this turn gains +2."],
-  ["Bartering Culture", "Keshwick Riverkin", "+3 on Presence rolls. A people who grew up reading a stranger across a market stall read everyone else the same way."],
-  ["Headbutt", "Guttabi Highlanders", "You learn the Headbutt Technique: Melee, Prone. Thick-skulled and low to the ground, a Guttabi headbutt drops most anyone."],
-  ["Tough Hide", "Guttabi Highlanders", "Gain Physical Resistance +3 while you haven't moved since the start of your turn, stacking with Equipment Resistance."],
-  ["Marked Prey", "Votwalder Woodlanders", "You learn the Marked Prey Technique: Ranged, +2, Pierce 1. A called shot from a hunter who never wastes an arrow."],
-  ["Camouflaged Skin", "Votwalder Woodlanders", "+2 on Sneak rolls, and +2 on Techniques against any creature that has not yet acted this round. Mottled hide breaks your outline until the moment you choose to be seen."],
-  ["Stonebreaker", "Tushmont Stonedwellers", "Your Blunt Techniques have +4 Pierce."],
-  ["Tremor Sense", "Tushmont Stonedwellers", "+3 to Initiative rolls."],
-  ["Cowing Rebuke", "Tuyakkar Frostlanders", "You learn the Cowing Rebuke Technique: Sonic, -3 Presence."],
-  ["Dark Sight", "Tuyakkar Frostlanders", "+2 on Acuity rolls, and a further +3 on Acuity rolls made in darkness or poor light."],
-  ["Fen Curse", "Maran Boglanders", "You learn the Fen Curse Technique: Ranged, Pierce 1, -2 [target Attribute]. A thrown dart tipped in bog-toxin."],
-  ["Bog Sense", "Maran Boglanders", "+1 on Acuity rolls, and a further +3 to notice a trap or environmental hazard before it triggers."],
-  ["Warding Chant", "Ngyenha Treedwellers", "You learn the Warding Chant Technique: Sonic, +1 to one Skill of your choice, for up to 3 allies within Near Range, until your next turn."],
-  ["Wide Sight", "Ngyenha Treedwellers", "+3 on Acuity rolls, Initiative included. Nothing crosses the edge of a Ngyenha's vision unremarked."],
-  ["Charge", "Tashtars Plainfolk", "When you move at least 20 feet and use a Melee Technique against a Target in the same turn, the target takes -4 to Oppose rolls for 1 round."],
-  ["Relentless Blow", "Tashtars Plainfolk", "You learn the Relentless Blow Technique: Melee, Pierce 4. A strike with the weight of someone who's never once had to stop."],
-  ["Salt-Toughened", "Shardani Islanders", "Gain Physical Resistance +1 while you have taken Stress this conflict, stacking with Equipment Resistance. Skin cured by salt and weather closes over a wound before it slows you."],
-  ["Undertow", "Shardani Islanders", "You learn the Undertow Technique: Grappling, Prone, -1 [target Attribute]. A lifetime finding footing on rolling decks and shifting sand taught you how to take it out from under someone else."]
-];
-// XP costs rescaled 2026-07-28 (×0.8: 15→12, 30→24, 60→48). The Potential
-// thresholds in "Requires" (12/16/18/20) are a separate axis, unaffected.
-// A 5th tuple element, when present, is a hand-authored `modifiers` template
-// (PHB §2.5.0 / src/modifiers.js aggregateModifiers()) for a Feat whose bonus
-// is a flat, unconditional Training/Resistance grant. Every other Feat below
-// is conditional prose (only applies in a stated circumstance) and correctly
-// carries no modifiers — a flat entry would silently over-apply it everywhere.
-const LEARNED_FEATS = [
-  ["Tempered [Might]", 12, "12 Might", "Physical Resistance +1, stacking with Equipment Resistance. Calloused and heavy, unmoved by blows that would stagger someone lighter.",
-    [{ type: "resistance", key: "might", value: 1 }]],
-  ["Tempered [Finesse]", 12, "12 Finesse", "Physical Resistance +1, stacking with Equipment Resistance. Rarely hit square enough for a blow to matter.",
-    [{ type: "resistance", key: "finesse", value: 1 }]],
-  ["Tempered [Wit]", 12, "12 Wit", "Mental Resistance +1, stacking with Equipment Resistance. Doubt finds no purchase on a mind that's already reasoned its way past it.",
-    [{ type: "resistance", key: "wit", value: 1 }]],
-  ["Tempered [Presence]", 12, "12 Presence", "Mental Resistance +1, stacking with Equipment Resistance. Cruelty aimed at someone this certain of themselves lands soft.",
-    [{ type: "resistance", key: "presence", value: 1 }]],
-  ["Brawler", 12, "12 Might, 12 Finesse", "Your Techniques within Close range gain +1. You crowd a fight until there's nowhere left for a blow to miss."],
-  ["Deadeye", 12, "12 Finesse, 12 Wit", "Your Techniques at Short Range or beyond gain +1. Every shot earns its aim before it earns its distance."],
-  ["Silver Tongue", 12, "12 Wit, 12 Presence", "Your Techniques that target Wit or Presence gain +1. The right word finds the soft part of anyone's resolve."],
-  ["Fleet", 12, "12 Finesse", "Closing all the way into Touching range costs no extra AP. Ground that slows everyone else barely touches your stride."],
-  ["Vigilant", 12, "12 Finesse, 12 Wit", "Add +2 to your Acuity roll for Initiative. You're already moving before the moment asks you to."],
-  ["Counterstrike", 12, "12 Might, 12 Finesse", "When you Oppose a melee Technique within Close range using Prowess and beat it, deal 1d4 Stress to the attacker's Might. Let them commit to the swing; that's when they're open."],
-  ["Opportunist", 12, "12 Finesse, 12 Presence", "Enemies cannot Disengage from your Touching or Close reach; leaving it always provokes your Attack of Opportunity. Nobody leaves your reach on their own terms."],
-  ["Lend Conviction", 48, "20 Presence", "Once per round, when an ally within Short Range fails a roll that includes Presence, add one of your Presence dice to their total; if the new total beats the opposition, their roll succeeds. Your certainty is loud enough to carry someone else's."],
-  ["Overwhelm", 24, "16 Might, 16 Finesse, 16 Presence", "When you land a second Technique this round on an Attribute you already hit, that Technique gains Pierce 1. The first blow finds the gap. The second finds what's behind it."],
-  ["Bodyguard", 12, "12 Might", "While you Guard an ally, once per round when a Technique lands on their Might or Finesse, redirect its Stress onto your Might, reduced by your physical Resistance. Whatever's coming for them goes through you first."],
-  ["Bulwark", 24, "16 Might, 16 Wit", "When you Guard an ally, they gain +2 to their Opposes until the start of your next turn. Standing beside you is safer than standing alone."],
-  ["Unbreakable", 48, "20 in all four", "When a Technique would bring an Attribute's Stress to its Potential, negate it; it deals 0 Stress. Once per conflict. Something in you refuses to go down on someone else's schedule."],
-  ["Regeneration", 12, "12 in that Attribute", "At the start of each of your turns in conflict, recover 1d4 Stress from that Attribute, unless a GM-stated counter-condition (a damage type or Instrument fitting your story, fire for a troll, silver for some undead) applied that round."],
-  ["Rejuvenation", 48, "20 in all four", "If you would be Destroyed, your Health instead returns to full after a GM-set span (typically 1d10 days) unless a stated counter-condition (a phylactery destroyed, a body burned and scattered, whatever anchors your return) is met first."],
-  ["Hunter's Mark", 12, "12 Finesse, 12 Wit", "When using a Ranged Technique that deals Stress to the Target, deal +1 additional Stress. You don't miss twice, and the first shot was never really a miss."],
-  ["Heavy Hand", 12, "12 Might, 12 Finesse", "When using a Melee Technique that deals Stress to the Target, deal +1 additional Stress. Every swing carries a little more than it needs to."],
-  ["Focused Blast", 12, "12 Might, 12 Presence", "When using a Kinetic Technique that deals Stress to the Target, deal +1 additional Stress. You've learned exactly where force does the most damage."],
-  ["Cutting Word", 12, "12 Finesse, 12 Presence", "When using a Sonic Technique that deals Stress to the Target, deal +1 additional Stress. Words aimed well don't need to be loud."],
-  ["Cruel Whisper", 12, "12 Wit, 12 Presence", "When using an Incorporeal Technique that deals Stress to the Target, deal +1 additional Stress."],
-  ["Slipstream", 12, "12 Might, 12 Finesse", "When using a Melee Technique, you may Move yourself one range (up to Short Range) for no AP cost."]
-];
-function originFeatDoc([name, origin, effect]) {
-  return { name, type: "feat", img: "icons/svg/upgrade.svg", system: { featKind: "origin", xpCost: 0, origin, requirements: "", effect, description: "" } };
+// ─── Feats (Catalog notes, PHB 7.7.x, 7.8.x) ───────────────────────────────
+// Flat, always-on grants become sheet modifiers; conditional Feats stay prose.
+function featModifiers(effect) {
+  const mods = [];
+  let m;
+  if ((m = effect.match(/^(?:Gain )?(Physical|Mental) Resistance \+(\d)/i))) mods.push({ type: "resistance", key: lc(m[1]), value: +m[2] });
+  if ((m = effect.match(/^\+(\d) Training in (\w+)/i))) mods.push({ type: "training", key: lc(m[2]), value: +m[1] });
+  return mods;
 }
-function learnedFeatDoc([name, xp, requirements, effect, modifiers]) {
-  return { name, type: "feat", img: "icons/svg/upgrade.svg", system: { featKind: "learned", xpCost: xp, origin: "", requirements, effect, modifiers: modifiers ?? [], description: "" } };
+const ANCESTRY_FULL = {};
+function featDoc(n) {
+  const type = lc(n.feat_type) === "ancestry" ? "ancestry" : lc(n.feat_type) === "trait" ? "trait" : "learned";
+  const grants = String(n.grants_technique ?? "").replace(/^\[\[|\]\]$/g, "");
+  const effect = n.effect ?? "";
+  return {
+    name: n.name, type: "feat", img: "icons/svg/upgrade.svg",
+    system: {
+      featType: type, xpCost: Number(n.xp) || 0, requirements: n.requires ?? "", effect,
+      ancestry: ANCESTRY_FULL[n.ancestry] ?? n.ancestry ?? "", grantsTechnique: grants,
+      modifiers: featModifiers(effect), description: ""
+    }
+  };
 }
 
-const APT_KEYS = ["prowess", "fortitude", "command", "acuity", "guile", "resonance"];
-const BACKGROUNDS = [
-  ["Soldier", ["prowess", "fortitude", "command"], "Longsword, Leather armor, Traveler Pack.", "Veterans who rely on strict discipline and tactical coordination to survive mass combat."],
-  ["Scout", ["prowess", "acuity", "guile"], "Shortbow, Fitted Leathers, Rope (50ft).", "Forward observers who map unfamiliar terrain and identify hidden threats."],
-  ["Scholar", ["fortitude", "acuity", "resonance"], "Wand, Fitted Leathers, Writing Kit.", "Academic researchers leveraging deep reservoirs of historical and theoretical knowledge."],
-  ["Courtier", ["command", "guile", "resonance"], "Dagger, Fitted Leathers, Lute.", "Political operators manipulating alliances and social influence within the halls of power."],
-  ["Hunter", ["prowess", "fortitude", "acuity"], "Longbow, Fitted Leathers, Hunting Kit.", "Wilderness experts using acute survival instincts to pursue evasive quarry."],
-  ["Duelist", ["prowess", "command", "guile"], "Sabre, Fitted Leathers, Traveler Pack.", "Specialized combatants resolving disputes through precise and ritualized single combat."],
-  ["Zealot", ["fortitude", "command", "resonance"], "Mace, Leather armor, Icon of Faith.", "Driven fundamentalists projecting their unwavering dogma into every conflict."],
-  ["Diplomat", ["acuity", "guile", "resonance"], "Dagger, Fitted Leathers, Traveler Pack.", "Official state representatives brokering treaties to manage fragile international relations."]
-];
-function backgroundDoc([name, apts, kit, desc]) {
-  const training = {}; for (const k of APT_KEYS) training[k] = apts.includes(k) ? 1 : 0;
-  return { name, type: "background", img: "icons/svg/book.svg", system: { training, equipmentKit: kit, description: desc } };
+// ─── Ancestries (PHB 7.8.x) and Backgrounds (PHB 7.9.0) ────────────────────
+function ancestryDocs() {
+  const body = sectionText(PHB, /^## 7\.8\.0 Ancestries/);
+  const out = [];
+  for (const block of body.split(/\n(?=### 7\.8\.\d+ )/).slice(1)) {
+    const head = block.match(/^### (7\.8\.\d+) (.+)$/m);
+    const name = head[2].trim();
+    const desc = (block.match(/^\*(.+)\*$/m) ?? [])[1] ?? "";
+    const feats = [...block.matchAll(/^\*\*Feat:\*\* ([^.]+)\./gm)].map(m => m[1].trim());
+    const talent = [...(block.match(/^\*\*Talent:\*\* (.+)$/m)?.[1] ?? "").matchAll(/(\w+) to d(\d+)/g)]
+      .map(m => ({ attribute: lc(m[1]), die: +m[2] }));
+    ANCESTRY_FULL[name.split(" ")[0]] = name;
+    out.push({ name, type: "origin", img: "icons/svg/village.svg",
+      system: { talent, feats, feat: feats[0] ?? "", section: head[1], description: desc ? `<p>${desc}</p>` : "" } });
+  }
+  return out;
 }
-const ORIGINS = [
-  ["Keshwick Riverkin", "River Walk", "Thriving along silty floodplains, these river merchants build prosperous networks connecting inland communities to the coast."],
-  ["Guttabi Highlanders", "Headbutt", "Isolated by terraced highlands, independent pastoral clans drive their herds across steep and stony pastures."],
-  ["Votwalder Woodlanders", "Marked Prey", "Dwelling in shadowed old-growth woodlands, these insular communities rely on ancestral hunting grounds and fortified earthworks."],
-  ["Tushmont Stonedwellers", "Stonebreaker", "Carving monumental strongholds into the highest peaks, these alpine architects command vast mineral wealth and unyielding defenses."],
-  ["Tuyakkar Frostlanders", "Cowing Rebuke", "Enduring a landscape of unforgiving permafrost, tight-knit bands pass down harsh traditions of collective survival."],
-  ["Maran Boglanders", "Fen Curse", "Building stilt-villages over tidal bogs, these reclusive settlers cultivate rare marsh flora and preserve superstitious folklore."],
-  ["Ngyenha Treedwellers", "Warding Chant", "Surrounded by impenetrable tropical canopies, elaborate societies thrive on wet-rice agriculture and intricate communal ceremonies."],
-  ["Tashtars Plainfolk", "Charge", "Roaming the endless expanse of the grassy steppe, this mobile equestrian society moves in tandem with massive grazing herds."],
-  ["Shardani Islanders", "Salt-Toughened", "Originating from windswept archipelagos, these maritime republics exert influence through naval supremacy and deep-water trade."]
-];
-function originDoc([name, feat, desc]) {
-  return { name, type: "origin", img: "icons/svg/village.svg", system: { feat, description: desc } };
+
+function backgroundDocs() {
+  return tableAfter(PHB, /^## 7\.9\.0 Backgrounds/).map(r => {
+    const training = Object.fromEntries(SKILLS.map(k => [k, 0]));
+    for (const s of r.Skills.replace(/^\+1 Training in /, "").split(",").map(x => lc(x))) {
+      if (s in training) training[s] = 1;
+      else warnings.push(`${r.Background}: unknown Skill "${s}"`);
+    }
+    const knowHow = [];
+    for (const m of r.Attribute.matchAll(/(\d)d4 (\w+)/g)) for (let i = 0; i < +m[1]; i++) knowHow.push(lc(m[2]));
+    return { name: r.Background, type: "background", img: "icons/svg/book.svg",
+      system: { training, knowHow, coin: r.Coin, equipmentKit: r.Equipment, description: `<p>${r.Description}</p>` } };
+  });
 }
 
 // ─── Writer ─────────────────────────────────────────────────────────────────
@@ -596,30 +494,24 @@ function finalize(doc, sort) {
   const _id = makeId();
   return [`!items!${_id}`, { _id, ...doc, effects: [], folder: null, sort, ownership: { default: 0 }, flags: {}, _stats: { ...STATS } }];
 }
-/**
- * JournalEntry packs store their pages as separate embedded documents, keyed
- * `!journal.pages!{journalId}.{pageId}`, so a journal is written as one entry
- * plus one row per page rather than a single nested document.
- */
+
 async function writeGuidePack(packName, journals) {
-  const db = new ClassicLevel(`${PACK_ROOT}/${packName}`, { valueEncoding: "json" });
+  const db = new ClassicLevel(path.join(PACK_ROOT, packName), { valueEncoding: "json" });
   await db.open();
   const old = [];
   for await (const key of db.keys()) if (key.startsWith("!journal")) old.push(key);
   if (old.length) await db.batch(old.map(key => ({ type: "del", key })));
-
   const ops = [];
   journals.forEach((j, ji) => {
     const jid = makeId();
     const pageIds = j.pages.map(() => makeId());
     ops.push({ type: "put", key: `!journal!${jid}`, value: {
-      _id: jid, name: j.name, pages: [], folder: null, sort: (ji + 1) * 100000,
+      _id: jid, name: j.name, pages: pageIds, folder: null, sort: (ji + 1) * 100000,
       ownership: { default: 2 }, flags: {}, _stats: { ...STATS }
     }});
     j.pages.forEach((pg, pi) => {
-      const pid = pageIds[pi];
-      ops.push({ type: "put", key: `!journal.pages!${jid}.${pid}`, value: {
-        _id: pid, name: pg.name, type: "text",
+      ops.push({ type: "put", key: `!journal.pages!${jid}.${pageIds[pi]}`, value: {
+        _id: pageIds[pi], name: pg.name, type: "text",
         title: { show: true, level: 1 },
         text: { format: 1, content: pg.html.trim(), markdown: "" },
         image: {}, video: { controls: true, volume: 0.5 }, src: null,
@@ -635,10 +527,10 @@ async function writeGuidePack(packName, journals) {
 }
 
 async function writePack(packName, docs) {
-  const db = new ClassicLevel(`${PACK_ROOT}/${packName}`, { valueEncoding: "json" });
+  const db = new ClassicLevel(path.join(PACK_ROOT, packName), { valueEncoding: "json" });
   await db.open();
   const oldKeys = [];
-  for await (const key of db.keys({ gte: "!items!", lt: "!items!￿" })) oldKeys.push(key);
+  for await (const key of db.keys()) if (key.startsWith("!items")) oldKeys.push(key);
   if (oldKeys.length) await db.batch(oldKeys.map(key => ({ type: "del", key })));
   const ops = docs.map((doc, i) => { const [key, value] = finalize(doc, (i + 1) * 100000); return { type: "put", key, value }; });
   await db.batch(ops);
@@ -646,43 +538,67 @@ async function writePack(packName, docs) {
   console.log(`  ${packName}: wrote ${ops.length} items (cleared ${oldKeys.length}).`);
 }
 
-console.log("FOIL | Seeding vocabulary + catalogue packs…");
-await writePack("instrument-types", INSTRUMENT_TYPES.map(instrumentTypeDoc));
-await writePack("qualities", QUALITIES.map(qualityDoc));
-await writePack("effects", EFFECTS.map(effectDoc));
-const techDocs = TECHNIQUES.map(techniqueDoc);
-await writePack("instruments", INSTRUMENTS.map(instrumentDoc));
-await writePack("techniques", techDocs);
-await writePack("feats", [...ORIGIN_FEATS.map(originFeatDoc), ...LEARNED_FEATS.map(learnedFeatDoc)]);
-await writePack("equipment", EQUIPMENT.map(equipmentDoc));
-await writePack("backgrounds", BACKGROUNDS.map(backgroundDoc));
-await writePack("origins", ORIGINS.map(originDoc));
-await writeGuidePack("guide", GUIDE);
+// ─── Build and check ────────────────────────────────────────────────────────
+const byOrder = (a, b) => String(a.family ?? a.category ?? "").localeCompare(String(b.family ?? b.category ?? ""))
+  || (Number(a.order) || 0) - (Number(b.order) || 0) || String(a.name).localeCompare(String(b.name));
 
-const decomposed = TECHNIQUES.filter(t => t[4].effects && t[4].decompose !== false).length;
+const ancestries = ancestryDocs();
+const techniques = [...CAT.techniques].sort(byOrder).map(techniqueDoc);
+const instruments = [
+  ...INNATE_INSTRUMENTS.map(innateDoc),
+  ...[...CAT.instruments].sort(byOrder).map(instrumentDoc),
+  ...[...CAT.tools].sort((a, b) => (a.order ?? 0) - (b.order ?? 0)).map(toolDoc)
+];
+const feats = [...CAT.feats].sort((a, b) =>
+  String(a.feat_type).localeCompare(String(b.feat_type)) || String(a.ancestry ?? "").localeCompare(String(b.ancestry ?? ""))
+  || (a.order ?? 0) - (b.order ?? 0)).map(featDoc);
+const equipment = equipmentDocs();
+const backgrounds = backgroundDocs();
+
+// Every Background kit item should resolve to something in the packs.
+const known = new Set([...instruments, ...equipment].map(d => lc(d.name)));
+for (const bg of backgrounds) {
+  for (const raw of bg.system.equipmentKit.replace(/\.$/, "").split(",").map(s => s.trim())) {
+    const name = lc(raw);
+    const bare = name.replace(/^50ft of rope$/, "rope (50ft)").replace(/\s+armor$/, "");
+    if (!known.has(name) && !known.has(bare)) warnings.push(`${bg.name}: kit item "${raw}" not in any pack`);
+  }
+}
+// Every Ancestry Feat named in 7.8.x should exist as a Feat.
+const featNames = new Set(feats.map(f => f.name));
+for (const a of ancestries) for (const f of a.system.feats) if (!featNames.has(f)) warnings.push(`${a.name}: Feat "${f}" not in the Catalog`);
+
+const expect = { techniques: 106, feats: 51, instruments: 34, tools: 17 };
+for (const [k, n] of Object.entries(expect)) {
+  if (CAT[k].length !== n) warnings.push(`Catalog/${k}: ${CAT[k].length} notes, expected ${n}`);
+}
+
+console.log(`FOIL | Seeding packs from ${path.basename(process.env.FOIL_BOOKS ?? "the vault")} (system ${SYSTEM_VERSION})…`);
+if (process.argv.includes("--dry-run")) {
+  console.log(`  dry run: ${INSTRUMENT_TYPES.length} types, ${QUALITIES.length} qualities, ${EFFECTS.length} effects, `
+    + `${instruments.length} instruments, ${techniques.length} techniques, ${feats.length} feats, ${equipment.length} equipment, `
+    + `${backgrounds.length} backgrounds, ${ancestries.length} ancestries, ${GUIDE.length} guide journals`);
+} else {
+  await writePack("instrument-types", INSTRUMENT_TYPES.map(instrumentTypeDoc));
+  await writePack("qualities", QUALITIES.map(qualityDoc));
+  await writePack("effects", EFFECTS.map(effectDoc));
+  await writePack("instruments", instruments);
+  await writePack("techniques", techniques);
+  await writePack("feats", feats);
+  await writePack("equipment", equipment);
+  await writePack("backgrounds", backgrounds);
+  await writePack("origins", ancestries);
+  await writeGuidePack("guide", GUIDE);
+}
+
 if (priceFails.length) {
-  console.log(`\nPRICING MISMATCHES (${priceFails.length}/${decomposed} decomposed techniques):`);
+  console.log(`\nPRINTED XP THAT THE EFFECTS DON'T REPRODUCE (${priceFails.length}/${techniques.length}; printed XP kept):`);
   for (const m of priceFails) console.log("  " + m);
 } else {
-  console.log(`\nPricing self-check: all ${decomposed} decomposed techniques match the catalogue XP.`);
+  console.log(`\nPricing: all ${techniques.length} Techniques reproduce their printed XP.`);
 }
-
-// Aptitude/Target/Oppose are derived from the required Instrument Type(s). Verify
-// every technique either names no Type (a Skill → "varies" prompt at roll) or
-// names Types that all resolve, yielding a non-empty Aptitude set. This is what
-// keeps rolls working now that aptitude is no longer stored per Technique.
-const TYPE_APT = Object.fromEntries(INSTRUMENT_TYPES.map(t => [slug(t[0]), t[1]]));
-const aptFails = [];
-for (const [name, , requires] of TECHNIQUES) {
-  if (!requires.length) continue;                 // Skill w/o Tool → prompts
-  const bad = requires.filter(k => !(k in TYPE_APT));
-  if (bad.length) aptFails.push(`${name}: unknown Instrument Type(s) ${bad.join(", ")}`);
-  else if (!requires.some(k => TYPE_APT[k])) aptFails.push(`${name}: requires resolve to no Aptitude`);
-}
-if (aptFails.length) {
-  console.log(`\nAPTITUDE-DERIVATION FAILURES (${aptFails.length}):`);
-  for (const m of aptFails) console.log("  " + m);
-} else {
-  console.log(`Aptitude derivation: all ${TECHNIQUES.length} techniques resolve their required Instrument Type(s).`);
+if (warnings.length) {
+  console.log(`\nWARNINGS (${warnings.length}):`);
+  for (const w of warnings) console.log("  " + w);
 }
 console.log("FOIL | Done.");

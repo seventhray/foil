@@ -255,7 +255,7 @@
 .attr-card .dice-in { text-align: center; }
 .attr-card .readout { font-weight: bold; }
 /* Which Resistance covers this Attribute, said once beside its name instead of
-   as a trailing row (PHB §6.6.0). */
+   as a trailing row (PHB 6.6.0). */
 .attr-card .kind-tag {
   font-size: 0.68em; font-weight: bold; text-transform: uppercase;
   letter-spacing: 0.4px; color: var(--ink-faint); margin-left: 4px;
@@ -327,7 +327,7 @@
 .chargen-btn:hover { background: var(--parchment-deep); transform: translateY(-1px); box-shadow: 0 2px 4px rgba(27,23,34,0.18); }
 .chargen-btn:active { transform: translateY(0); box-shadow: 0 1px 1px rgba(27,23,34,0.12); }
 
-/* Aptitude table on the character sheet: match the parchment sections rather
+/* Skill table on the character sheet: match the parchment sections rather
    than the heavy grey grid (default appearance). */
 .character .apt-table th,
 .character .apt-table td { border: none; border-bottom: 1px solid var(--line-soft); background: transparent; text-align: left; }
@@ -433,7 +433,7 @@
 .stress-cell { position: relative; }
 .stress-cell.incap { background: var(--warn-bg); }
 /* Incapacitated is the most consequential state on the sheet: the Attribute
-   contributes no dice to three of the six Aptitudes. It should be impossible
+   contributes no dice to three of the six Skills. It should be impossible
    to miss, so it reads as a filled badge rather than fine print. */
 .state-tag {
   display: block;
@@ -454,15 +454,6 @@
 
 .apt-table input { width: 50px; text-align: center; }
 .apt-table th { background: var(--parchment-deep); }
-
-.ap-block {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-weight: bold;
-  color: var(--ink-soft);
-}
-.ap-block input { width: 50px; text-align: center; }
 
 /* ── FOIL axes ───────────────────────────────────────────────────────────── */
 .axis {
@@ -620,7 +611,7 @@
 .modifier-row .mini-num { width: 46px; }
 
 /* Effect rows (Technique effects / Instrument Enchantment effects): a
-   composed pricing entry (GMG §5.1.0) with several fields that only matter
+   composed pricing entry (GMG 12.0.0) with several fields that only matter
    for specific Effect kinds (area shape, Selective targets). Each gets its
    own labeled column, with the full explanation on hover rather than
    crammed into the label text, since most fields stay at 0 for most rows. */
@@ -748,13 +739,13 @@
 .chat-message button.foil-stress-followup:hover { background: #EEE9F7; }
 .chat-message button.foil-stress-followup:disabled { opacity: 0.6; cursor: default; }
 
-/* Stress computed from the opposed roll's margin (PHB §6.7.0). The chat card
+/* Stress computed from the opposed roll's margin (PHB 6.7.0). The chat card
    asks for the one number it can't know and does the rest. */
 .foil-stress-followup { margin-top: 6px; width: 100%; }
 
-/* Resistance is two values on the actor, not four (PHB §6.6.0). */
+/* Resistance is two values on the actor, not four (PHB 6.6.0). */
 /* Resistance sits on the same 4-column grid as the Attribute cards above, each
-   field spanning the two Attributes its kind covers (PHB §6.6.0). */
+   field spanning the two Attributes its kind covers (PHB 6.6.0). */
 .resistance-row {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -775,7 +766,7 @@
   letter-spacing: 0.4px; color: var(--ink-soft);
 }
 /* Base field then item bonus, reading left to right on one line. */
-/* A character's Resistance is granted, never typed (PHB §6.6.0): the total
+/* A character's Resistance is granted, never typed (PHB 6.6.0): the total
    leads, and what granted it follows. */
 .res-value { flex: 1 1 auto; display: flex; align-items: center; gap: 8px; min-width: 0; }
 .resistance-row .res-total {
@@ -796,8 +787,36 @@
   text-overflow: ellipsis;
 }
 
-/* An Aptitude's live roll range, replacing the old single Net Potential. */
+/* A Skill's live roll range, replacing the old single Net Potential. */
 .apt-table td.range, .creature .range { white-space: nowrap; font-variant-numeric: tabular-nums; }
 .range .sep { opacity: 0.4; margin: 0 3px; font-weight: normal; }
 .range .lo, .range .hi { opacity: 0.65; font-weight: normal; }
 .range .mid { font-weight: bold; }
+
+/* ─── 0.6.0: trackers, kit rows, conditions, row editors ─────────────────── */
+.tracker-row { display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: center; margin-top: 6px; }
+.tracker { display: flex; align-items: center; gap: 5px; }
+.tracker label { font-weight: bold; font-size: 0.85em; text-transform: uppercase; letter-spacing: 0.04em; }
+.tracker input[type="number"] { width: 52px; text-align: center; }
+.tracker a { cursor: pointer; color: var(--accent); }
+.tracker.warn .readout, .warn { color: var(--bad); font-weight: bold; }
+.token-tracker .readout.big { font-size: 1.15em; min-width: 3.2em; text-align: center; }
+.mini-btn {
+  flex: 0 0 auto; width: auto; line-height: 1.2; padding: 1px 7px; font-size: 0.8em;
+  border: 1px solid var(--line); border-radius: 3px; cursor: pointer;
+}
+.axis-trait { width: 100%; box-sizing: border-box; font-style: italic; }
+.abbr { font-size: 0.75em; color: var(--ink-faint); margin-left: 3px; }
+.kit-row { display: flex; gap: 6px; align-items: baseline; padding: 1px 0; }
+.kit-cell { flex: 1 1 auto; font-size: 0.9em; }
+.kit-roll { cursor: pointer; color: var(--accent); white-space: nowrap; }
+.kit-roll:hover { text-shadow: 0 0 6px var(--accent-bright); }
+.ef-readout { font-size: 0.85em; color: var(--ink-faint); }
+.condition-table { width: 100%; border-collapse: collapse; }
+.condition-table td, .condition-table th { padding: 2px 4px; border-bottom: 1px solid var(--line); }
+.condition-table input[type="number"] { width: 48px; text-align: center; }
+.quality-row { display: flex; gap: 5px; align-items: center; margin: 2px 0; }
+.quality-row select, .quality-row input[type="text"] { flex: 1 1 110px; min-width: 80px; }
+.quality-row .mini-num { width: 52px; flex: 0 0 52px; text-align: center; }
+.quality-row .row-del { cursor: pointer; color: var(--bad); }
+.inline-add { cursor: pointer; font-size: 0.85em; color: var(--accent); display: inline-block; margin-top: 3px; }

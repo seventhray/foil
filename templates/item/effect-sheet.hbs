@@ -1,44 +1,28 @@
-<div class="foil-sheet item definition effect">
-  {{> systems/foil/templates/item/partials/item-head.hbs titlePlaceholder="Effect name"}}
-
-  <p class="def-hint">A Technique Effect with a pricing rule (GMG §5.1.0). Techniques compose these; XP derives automatically.</p>
-
+<div class="foil-sheet item definition">
+  {{> systems/foil/templates/item/partials/item-head.hbs titlePlaceholder="Effect"}}
   <div class="field-grid">
-    <label>Key <em>(slug)</em></label>
-    <input type="text" name="system.key" value="{{system.key}}" placeholder="e.g. stress (blank = from name)" />
-
-    <label>Pricing Kind</label>
-    <select name="system.pricingKind">
-      {{#each pricingKinds}}<option value="{{this.value}}" title="{{this.hint}}" {{#if (foil-eq this.value ../system.pricingKind)}}selected{{/if}}>{{this.label}}</option>{{/each}}
-    </select>
-    <span class="field-hint">{{#each pricingKinds}}{{#if (foil-eq this.value ../system.pricingKind)}}{{this.hint}}{{/if}}{{/each}}</span>
-
+    <label>Key (slug)</label>
+    <input type="text" name="system.key" value="{{system.key}}" />
+    <label>Priced as</label>
+    <select name="system.pricingKind">{{#each pricingKinds}}<option value="{{this.value}}" title="{{this.hint}}" {{#if (foil-eq this.value ../system.pricingKind)}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>
     <label>Base XP</label>
     <input type="number" name="system.pricingParams.base" value="{{system.pricingParams.base}}" />
-
-    <label>Per-point XP</label>
+    <label>XP per point</label>
     <input type="number" name="system.pricingParams.perPoint" value="{{system.pricingParams.perPoint}}" />
-
-    <label>Per-band XP</label>
+    <label>XP per band</label>
     <input type="number" name="system.pricingParams.perBand" value="{{system.pricingParams.perBand}}" />
-
-    <label>Reaction Floor</label>
-    <input type="number" name="system.pricingParams.floor" value="{{system.pricingParams.floor}}" />
-  </div>
-
-  <div class="field-grid">
-    <label>Exempt from premium</label>
+    <label>Reads as <em>(N for the magnitude)</em></label>
+    <input type="text" name="system.magnitudeLabel" value="{{system.magnitudeLabel}}" placeholder="Pierce N" />
+    <label>Doesn't count toward the +4 premium</label>
     <input type="checkbox" name="system.exemptFromPremium" {{#if system.exemptFromPremium}}checked{{/if}} />
-    <label>Sets a floor</label>
+    <label>Sets the 8 XP floor</label>
     <input type="checkbox" name="system.setsFloor" {{#if system.setsFloor}}checked{{/if}} />
   </div>
-
   <fieldset>
-    <legend>Deliverable by <em>(Instrument Types; blank = any)</em></legend>
-    <select name="system.requires" multiple size="10" class="multi">
+    <legend>Instrument Types that can deliver it <em>(none = any)</em></legend>
+    <select name="system.requires" multiple size="8" class="multi">
       {{#each typeOptions}}<option value="{{this.key}}" {{#if this.checked}}selected{{/if}}>{{this.label}}</option>{{/each}}
     </select>
   </fieldset>
-
-  {{> systems/foil/templates/item/partials/item-description.hbs rows=3}}
+  {{> systems/foil/templates/item/partials/item-description.hbs rows=4}}
 </div>

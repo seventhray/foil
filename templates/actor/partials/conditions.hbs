@@ -1,0 +1,18 @@
+<div class="item-list-head">
+  <h3 class="section-head">Active Conditions</h3>
+  <a class="item-create" data-action="addCondition" title="Add a Condition"><i class="fas fa-plus"></i></a>
+</div>
+<table class="item-table condition-table">
+  <thead><tr><th>Condition</th><th>Rounds</th><th>Note</th><th></th></tr></thead>
+  <tbody>
+    {{#each conditions}}
+      <tr>
+        <td><input type="text" name="system.conditions.{{this.idx}}.name" value="{{this.name}}" list="foil-conditions" /></td>
+        <td><input type="text" name="system.conditions.{{this.idx}}.rounds" value="{{this.rounds}}" /></td>
+        <td><input type="text" name="system.conditions.{{this.idx}}.note" value="{{this.note}}" /></td>
+        <td class="item-actions"><a data-action="removeCondition" data-index="{{this.idx}}" title="Remove"><i class="fas fa-trash"></i></a></td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>
+<datalist id="foil-conditions">{{#each conditionNames}}<option value="{{this}}"></option>{{/each}}</datalist>

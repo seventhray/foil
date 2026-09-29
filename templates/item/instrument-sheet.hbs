@@ -1,129 +1,77 @@
 <div class="foil-sheet item instrument">
   {{> systems/foil/templates/item/partials/item-head.hbs}}
   {{> systems/foil/templates/item/partials/type-warning.hbs}}
-
   <div class="field-grid">
-    <label>Weight</label>
-    <select name="system.weight">
-      {{#each weights}}<option value="{{this.value}}" {{#if (foil-eq this.value ../system.weight)}}selected{{/if}}>{{this.label}}</option>{{/each}}
-    </select>
-
+    <label>Category</label>
+    <select name="system.category">{{#each categoryOptions}}<option value="{{this.value}}" {{#if (foil-eq this.value ../system.category)}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>
+    <label>Weight class <em>(price, weight, attack dice: Medium +1d6, Heavy +2d4 and two hands)</em></label>
+    <select name="system.weight">{{#each weightOptions}}<option value="{{this.value}}" {{#if (foil-eq this.value ../system.weight)}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>
+    <label>Primary Attribute <em>(sets its three Skills)</em></label>
+    <select name="system.primaryAttribute">{{#each attributeOptions}}<option value="{{this.value}}" {{#if (foil-eq this.value ../system.primaryAttribute)}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>
     <label>Range</label>
-    <select name="system.range">
-      {{#each ranges}}<option value="{{this}}" {{#if (foil-eq this ../system.range)}}selected{{/if}}>{{this}}</option>{{/each}}
-    </select>
-
-    <label>Price (pennies)</label>
+    <input type="text" name="system.range" value="{{system.range}}" placeholder="Close, Near, Short Range..." />
+    <label>Price (p)</label>
     <input type="number" name="system.price" value="{{system.price}}" />
-
     <label>Bonus (+N)</label>
     <input type="number" name="system.bonus" value="{{system.bonus}}" min="0" max="5" />
-
-    <label>Reload <em>(PHB §7.11.1 — 1 AP to reload before the next attack)</em></label>
-    <input type="checkbox" name="system.reload" {{#if system.reload}}checked{{/if}} />
+    <label>Size <em>(bonus price, crafting batches)</em></label>
+    <select name="system.size">{{#each sizeOptions}}<option value="{{this.value}}" {{#if (foil-eq this.value ../system.size)}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>
+    <label>Materials</label>
+    <input type="text" name="system.materials" value="{{system.materials}}" placeholder="Metal + Leather" />
+    <label>Innate <em>(Body, Voice)</em></label>
+    <input type="checkbox" name="system.innate" {{#if system.innate}}checked{{/if}} />
   </div>
-
   <fieldset>
-    <legend>Instrument Types <em>(Ctrl/Cmd-click to select several)</em></legend>
-    <select name="system.types" multiple size="12" class="multi">
+    <legend>Instrument Types <em>(Ctrl/Cmd-click for several)</em></legend>
+    <select name="system.types" multiple size="10" class="multi">
       {{#each typeOptions}}<option value="{{this.key}}" {{#if this.checked}}selected{{/if}}>{{this.label}}</option>{{/each}}
     </select>
+    <label class="block-label">Types as printed <em>(only when it isn't a plain list)</em></label>
+    <input type="text" name="system.typesDisplay" value="{{system.typesDisplay}}" />
   </fieldset>
-
-  <div class="derived-line">Stress <strong>{{system.weightMult}}</strong> the margin · base AP <strong>{{system.baseAP}}</strong></div>
-  {{#if system.bonusByType.length}}
-  <div class="derived-line hint">
-    {{#each system.bonusByType}}
-      <strong>{{this.label}}</strong>: +{{this.bonusStress}} Stress on a landed hit{{#unless @last}} · {{/unless}}
-    {{/each}}
-    {{#if system.reload}} · <strong>Reload</strong>{{/if}}
-  </div>
-  {{/if}}
-  {{#if system.bonus}}
   <div class="derived-line">
-    {{#if system.bonusAccuracy}}Accuracy +{{system.bonusAccuracy}}{{/if}}
-    {{#if system.bonusPierce}} · Pierce +{{system.bonusPierce}}{{/if}}
-    {{#if system.bonusBolsterProwess}}Bolster +{{system.bonusBolsterProwess}} Prowess · Resistance +{{system.bonusResistance}} (to what it protects){{/if}}
+    Formula price <strong>{{system.formulaPrice}}p</strong>{{#if system.priceMismatch}} <i class="fas fa-triangle-exclamation item-warning" title="Listed price differs from the PHB 7.4.1 formula"></i>{{/if}}
+    {{#if system.bonus}} &middot; +{{system.bonus}} adds <strong>{{system.bonusPrice}}p</strong>{{/if}}
+    &middot; crafts from <strong>{{system.craftCost}}p</strong> of materials
+    &middot; carries <strong>{{system.carriedWeight}} lbs</strong>{{#if system.weightDice}} &middot; attacks add <strong>{{system.weightDice}}</strong>{{/if}}{{#if system.twoHanded}} &middot; two hands{{/if}}
   </div>
-  {{/if}}
-
+  {{#if system.bonus}}<div class="derived-line">
+    {{#if system.bonusRoll}}+{{system.bonusRoll}} to rolls{{/if}}{{#if system.bonusPierce}} &middot; Pierce +{{system.bonusPierce}}{{/if}}{{#if system.bonusOppose}}+{{system.bonusOppose}} to Oppose rolls only{{/if}}
+  </div>{{/if}}
   <fieldset>
-    <legend>Material <em>(PHB §7.4.2 — fiction-only name, Tier/Scarcity are the mechanics)</em></legend>
-    <div class="field-grid">
-      <label>Category</label>
-      <select name="system.materialCategory">
-        {{#each materialCategories}}<option value="{{this.value}}" {{#if (foil-eq this.value ../system.materialCategory)}}selected{{/if}}>{{this.label}}</option>{{/each}}
-      </select>
-      <label>Tier</label>
-      <input type="number" name="system.materialTier" value="{{system.materialTier}}" min="0" max="5" />
-      <label>Scarcity</label>
-      <select name="system.materialScarcity">
-        {{#each materialScarcities}}<option value="{{this.value}}" {{#if (foil-eq this.value ../system.materialScarcity)}}selected{{/if}}>{{this.label}}</option>{{/each}}
-      </select>
-    </div>
-    {{#if system.materialCategory}}<div class="derived-line">Standard price if bought: <strong>{{system.materialPrice}}p</strong></div>{{/if}}
+    <legend>Built-in Techniques <em>(one per Skill its Primary Attribute reaches)</em></legend>
+    {{#each kitRows}}
+      <div class="kit-row">
+        <input type="text" name="system.kit.{{this.idx}}.name" value="{{this.name}}" placeholder="Name" />
+        <select name="system.kit.{{this.idx}}.skill">{{#each ../skillOptions}}<option value="{{this.value}}" {{#if (foil-eq this.value ../skill)}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>
+        <input type="text" name="system.kit.{{this.idx}}.effect" value="{{this.effect}}" placeholder="Deals Stress to Might or Finesse." />
+        <a class="row-del" data-action="removeRow" data-path="system.kit" data-index="{{this.idx}}"><i class="fas fa-trash"></i></a>
+      </div>
+    {{/each}}
+    <a class="inline-add" data-action="addRow" data-path="system.kit"><i class="fas fa-plus"></i> Add</a>
+    <label class="block-label">Note</label>
+    <input type="text" name="system.rider" value="{{system.rider}}" />
   </fieldset>
-
   <fieldset>
-    <legend>Enchantment <em>(PHB §5.4.2 — a Technique effect bound to this item, usable by anyone)</em></legend>
+    <legend>Focus Gem <em>(Arcane Instruments only, PHB 7.4.4)</em></legend>
+    <div class="field-grid">
+      <label>Gem</label>
+      <select name="system.gem.type">{{#each gemOptions}}<option value="{{this.value}}" {{#if (foil-eq this.value ../system.gem.type)}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>
+      <label>Tier</label>
+      <input type="number" name="system.gem.tier" value="{{system.gem.tier}}" min="1" max="5" />
+    </div>
+    {{#if system.gemSummary}}<div class="derived-line">{{system.gemSummary}}</div>{{/if}}
+    {{#if system.gemWarning}}<p class="type-warning-banner">{{system.gemWarning}}</p>{{/if}}
+  </fieldset>
+  <fieldset>
+    <legend>Enchantment <em>(GMG 8.2.0)</em></legend>
     <label><input type="checkbox" name="system.enchantment.enabled" {{#if system.enchantment.enabled}}checked{{/if}} /> Enchanted</label>
     {{#if system.enchantment.enabled}}
-      <div class="effect-row-list">
-        {{#each enchantEffectRows}}
-          <div class="effect-row">
-            <select class="ef-key" name="system.enchantment.effects.{{this.idx}}.key" title="Which Effect this row applies (GMG §5.1.0 pricing catalog)">
-              <option value="" {{#unless this.key}}selected{{/unless}}>—</option>
-              {{#each ../effectOptions}}<option value="{{this.key}}" {{#if (foil-eq this.key ../key)}}selected{{/if}}>{{this.label}}</option>{{/each}}
-            </select>
-            <div class="ef-field">
-              <label class="mini-label" title="Magnitude — the effect's point value (e.g. Stress dealt, Impair amount). Multiplies its per-point XP cost.">Mag</label>
-              <input type="number" class="mini-num" name="system.enchantment.effects.{{this.idx}}.magnitude" value="{{this.magnitude}}" title="Magnitude (point value)" />
-            </div>
-            <div class="ef-field">
-              <label class="mini-label" title="Area shape. Only priced if this row's Effect is an area/Pattern effect — leave Single otherwise.">Shape</label>
-              <select name="system.enchantment.effects.{{this.idx}}.pattern" title="Area shape (Single = no area)">
-                {{#each ../patternShapes}}<option value="{{this.value}}" {{#if (foil-eq this.value ../pattern)}}selected{{/if}}>{{this.label}}</option>{{/each}}
-              </select>
-            </div>
-            <div class="ef-field">
-              <label class="mini-label" title="Bands — the area's reach for a Pattern effect, or the extra range bands bought for an Extend Range effect.">Bands</label>
-              <input type="number" class="mini-num" name="system.enchantment.effects.{{this.idx}}.bands" value="{{this.bands}}" title="Bands (Pattern reach / Extend Range)" />
-            </div>
-            <div class="ef-field">
-              <label class="mini-label" title="Placement — how many bands the Pattern's origin point can be set away from the caster. Adds to the Pattern's XP cost.">Place</label>
-              <input type="number" class="mini-num" name="system.enchantment.effects.{{this.idx}}.placement" value="{{this.placement}}" title="Placement bands (Pattern only)" />
-            </div>
-            <div class="ef-field">
-              <label class="mini-label" title="Selective N — how many separate targets this effect can strike (instead of one). Priced as N + R×N.">Sel N</label>
-              <input type="number" class="mini-num" name="system.enchantment.effects.{{this.idx}}.selectiveN" value="{{this.selectiveN}}" title="Selective: number of targets" />
-            </div>
-            <div class="ef-field">
-              <label class="mini-label" title="Selective R — how many range bands apart those Selective targets may be.">Sel R</label>
-              <input type="number" class="mini-num" name="system.enchantment.effects.{{this.idx}}.selectiveR" value="{{this.selectiveR}}" title="Selective: range bands between targets" />
-            </div>
-            <a class="row-del" data-action="removeEnchantEffect" data-index="{{this.idx}}" title="Remove"><i class="fas fa-trash"></i></a>
-          </div>
-        {{/each}}
-        <a class="inline-add" data-action="addEnchantEffect" title="Add effect"><i class="fas fa-plus"></i> Add effect</a>
-      </div>
-      <label class="block-label">Effect Text <em>(flavor / summary; optional)</em></label>
-      <textarea name="system.enchantment.effectText" rows="2">{{system.enchantment.effectText}}</textarea>
-      <div class="field-grid">
-        <label>Floor Override</label>
-        <input type="number" name="system.enchantment.floorOverride" value="{{system.enchantment.floorOverride}}" title="Minimum XP for ward / answers-a-class effects" />
-      </div>
-      <div class="derived-line">
-        <strong>{{system.enchantment.xpCost}} XP</strong> · Strain <strong>{{system.enchantment.strain}}</strong> ·
-        Price <strong>{{system.enchantment.price}}p</strong> ·
-        Aptitude rolled: <strong>{{foil-capitalize system.enchantment.aptitudeDisplay}}</strong>
-      </div>
-      {{#if system.enchantment.difficulty}}
-      <div class="derived-line hint">
-        To craft: Difficulty <strong>{{system.enchantment.difficulty}}</strong> · two batches of Gemstone at Tier <strong>{{system.enchantment.craftMaterialTier}}</strong> (GMG §8.2.0)
-      </div>
-      {{/if}}
+      <div class="effect-row-list">{{> systems/foil/templates/item/partials/effect-rows.hbs rows=enchantEffectRows path="system.enchantment.effects"}}</div>
+      <label class="block-label">Effect as printed</label>
+      <input type="text" name="system.enchantment.effectText" value="{{system.enchantment.effectText}}" />
+      <div class="derived-line"><strong>{{system.enchantment.xpCost}} XP</strong> &middot; Strain {{system.enchantment.strain}} &middot; {{system.enchantment.price}}p &middot; crafted at Difficulty {{system.enchantment.difficulty}} from Tier {{system.enchantment.materialTier}} Gemstone</div>
     {{/if}}
   </fieldset>
-
-  {{> systems/foil/templates/item/partials/item-description.hbs rows=4}}
+  {{> systems/foil/templates/item/partials/item-description.hbs rows=3}}
 </div>

@@ -2,7 +2,7 @@
 // _prepareContext that renders it. This is the class of bug that renders blank
 // instead of erroring, so nothing else catches it.
 import fs from "node:fs"; import path from "node:path";
-const ROOT="/home/connor/foundrydata/Data/systems/foil";
+import { SYSTEM_ROOT as ROOT } from "../books.mjs";
 const src = f => fs.readFileSync(path.join(ROOT,f),"utf8");
 
 const ctxKeys = (file, marker, count) => {
@@ -15,13 +15,16 @@ const ctxKeys = (file, marker, count) => {
   }
   return out;
 };
-const actorCtx = ctxKeys("src/actor/actor-sheet.js", "async _prepareContext(options) {", 2);
+const actorCtx = new Set([...ctxKeys("src/actor/actor-sheet.js", "async _prepareContext(options) {", 2),
+                          ...ctxKeys("src/actor/actor-sheet.js", "_commonContext() {", 1)]);
+// Keys spread inline: "return { ...this._commonContext(), health: ... }".
+for (const m of src("src/actor/actor-sheet.js").matchAll(/_commonContext\(\),\s*([A-Za-z]+):/g)) actorCtx.add(m[1]);
 const itemCtx  = ctxKeys("src/item/item-sheet.js",  "async _prepareContext(", 3);
 const appCtx   = new Set([...ctxKeys("src/apps/advancement.js", "async _prepareContext(", 2),
                           ...ctxKeys("src/apps/chargen.js",     "async _prepareContext(", 2)]);
 // keys the item sheet adds conditionally, plus block-scoped locals
-const EXTRA = new Set(["harmsOptions","qualityRows","weightOptions","rangeOptions","aptitudeOptions",
-  "typeOptions","effectRows","kindOptions","scopeOptions","pricingKindOptions","grantRows","itemTypeOptions",
+const EXTRA = new Set(["qualityRows","effectRows","enchantEffectRows","kitRows","modifierRows","talentRows",
+  "featRows","knowHowRows","trainingRows",
   "this","else","idx","key","label","value","checked","cfg","editor","tab","fields","source","document","item","buttons"]);
 const BLOCK = new Set(["if","unless","each","with","log","lookup","foil-eq","foil-signed","foil-capitalize"]);
 

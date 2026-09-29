@@ -1,9 +1,8 @@
 /**
  * src/constants.js
- * Shared constants: the fixed spine of the system (Attributes, Aptitude pairs,
- * Weight profiles). The *extensible* vocabulary — Instrument Types, Qualities,
- * Effects — is NOT here; it lives in the registry (src/registry.js), built from
- * authorable definition documents.
+ * The fixed spine of the system, matching the Foilbound 0.6.0 rules. The
+ * extensible vocabulary (Instrument Types, Qualities, Effects) lives in the
+ * registry (src/registry.js), built from authorable definition documents.
  */
 
 export const ATTRIBUTE_KEYS = ["might", "finesse", "wit", "presence"];
@@ -12,95 +11,170 @@ export const ATTR_LABEL = {
   might: "Might", finesse: "Finesse", wit: "Wit", presence: "Presence"
 };
 
-// Each Aptitude is the pair of Attributes that feed it (rulebook 2.2.0).
-export const APTITUDE_ATTRS = {
-  prowess:   ["might", "finesse"],
-  fortitude: ["might", "wit"],
-  command:   ["might", "presence"],
-  acuity:    ["finesse", "wit"],
-  guile:     ["finesse", "presence"],
-  resonance: ["wit", "presence"]
+// Physical Attributes are Might and Finesse; mental are Wit and Presence (PHB 4.1.2).
+export const ATTRIBUTE_KIND = { might: "physical", finesse: "physical", wit: "mental", presence: "mental" };
+
+// Each Skill rolls the pair of Attributes that feed it (PHB 2.2.0).
+export const SKILL_ATTRS = {
+  prowess:       ["might", "finesse"],
+  discipline:    ["might", "wit"],
+  assertiveness: ["might", "presence"],
+  acuity:        ["finesse", "wit"],
+  guile:         ["finesse", "presence"],
+  resonance:     ["wit", "presence"]
 };
 
-export const APT_LABEL = {
-  prowess: "Prowess", fortitude: "Fortitude", command: "Command",
+export const SKILL_KEYS = Object.keys(SKILL_ATTRS);
+
+export const SKILL_LABEL = {
+  prowess: "Prowess", discipline: "Discipline", assertiveness: "Assertiveness",
   acuity: "Acuity", guile: "Guile", resonance: "Resonance"
 };
 
-export const APTITUDE_KEYS = Object.keys(APTITUDE_ATTRS);
-
-// Weight → how much of a landed Technique's margin becomes Stress, and the
-// base AP a Technique costs through it (PHB §5.2.1). There is no Stress die
-// and no minimum: Light takes half the margin rounding up, Medium the whole
-// margin, Heavy the margin plus half again rounding down.
-// `mult` is how Weight is written everywhere it appears as a label or a
-// reference. The longhand ("the margin plus half again") belongs only where the
-// rule is first taught, in PHB §5.2.1.
-export const WEIGHT_PROFILE = {
-  light:  { term: m => Math.ceil(m / 2),      label: "Light",  mult: "0.5x", baseAP: 1 },
-  medium: { term: m => m,                     label: "Medium", mult: "1.0x", baseAP: 2 },
-  heavy:  { term: m => m + Math.floor(m / 2), label: "Heavy",  mult: "1.5x", baseAP: 3 }
+export const SKILL_ABBR = {
+  prowess: "PW", discipline: "DI", assertiveness: "AS", acuity: "AC", guile: "GL", resonance: "RS"
 };
 
-export const WEIGHT_KEYS = Object.keys(WEIGHT_PROFILE);
+// A Primary Attribute allows the three Skills built on it (PHB 4.1.0, 7.10.0).
+export const PRIMARY_SKILLS = Object.fromEntries(ATTRIBUTE_KEYS.map(a =>
+  [a, SKILL_KEYS.filter(s => SKILL_ATTRS[s].includes(a))]));
 
-export const RANGE_BANDS = ["Touching", "Close", "Near", "Short Range", "Mid Range", "Long Range", "Sight"];
+// Pre-0.6.0 worlds named two Skills differently and called them Aptitudes.
+export const LEGACY_SKILL_KEY = { fortitude: "discipline", command: "assertiveness" };
 
-// Instrument Types that can target a creature offensively (PHB §7.4.0): an
-// Instrument carrying one of these keeps the ordinary Accuracy/Pierce +N
-// bonus even if it also carries Blocking (e.g. a Quarterstaff). Ranged split
-// into Thrown/Drawn/Fired subtypes (PHB §7.11.1); all three replace it here.
-export const ATTACK_TYPES = ["edged", "pointed", "blunt", "grappling", "thrown", "drawn", "fired"];
 
-// The subset of ATTACK_TYPES whose +N also grants Pierce +N (PHB §7.4.0:
-// "A Melee or Ranged Instrument also grants Pierce +N" — Grappling doesn't).
-export const PIERCE_TYPES = ["edged", "pointed", "blunt", "thrown", "drawn", "fired"];
+// Weight class sets an Instrument's base price and carried weight only (PHB 7.4.1, 7.5.8).
+// Weight class (PHB 4.1.2, 7.4.1): base price, carried weight, and the dice it adds to a
+// Technique used against a target (never an Oppose, support, or Trade). Heavy takes both hands.
+export const WEIGHT_CLASS = {
+  light:  { label: "Light",  price: 15,  lbs: 2, dice: "" },
+  medium: { label: "Medium", price: 30,  lbs: 4, dice: "1d6" },
+  heavy:  { label: "Heavy",  price: 45,  lbs: 8, dice: "2d4" }
+};
+export const WEIGHT_KEYS = Object.keys(WEIGHT_CLASS);
 
-export const EQUIPMENT_CATEGORY_LABEL = {
-  armor: "Armor", shield: "Shield", ward: "Ward", gear: "Gear",
-  medicine: "Medicine", potion: "Potion"
+// Range bands, in order; a range includes those under it (PHB 4.1.3).
+export const RANGE_BANDS = ["touching", "close", "near", "short", "mid", "long", "sight"];
+export const RANGE_LABEL = {
+  touching: "Touching", close: "Close", near: "Near", short: "Short",
+  mid: "Mid", long: "Long", sight: "Sight"
+};
+export const RANGE_FEET = {
+  touching: "0-4 ft", close: "5-9 ft", near: "10-19 ft", short: "20-39 ft",
+  mid: "40-99 ft", long: "100-299 ft", sight: "300 ft +"
 };
 
-// Materials (PHB §7.4.2, §5.4.1): six categories, Tier 0-5, Scarcity price
-// multiplier. Category/Tier are the mechanical axes; the named material
-// (Iron, Mithril, Ebony...) is fiction-only and not tracked here.
-export const MATERIAL_CATEGORIES = ["metal", "wood", "gemstone", "cloth", "leather", "reagent"];
+/** The furthest band a free-text range names ("Touching to Close" -> close). */
+export function rangeBandOf(text) {
+  const words = String(text ?? "").toLowerCase().match(/[a-z]+/g) ?? [];
+  let best = -1;
+  for (const w of words) best = Math.max(best, RANGE_BANDS.indexOf(w));
+  return best >= 0 ? RANGE_BANDS[best] : "";
+}
 
+// Instrument price surcharges by Instrument Type, and reach pricing (PHB 7.4.1).
+export const TYPE_SURCHARGE = {
+  edged: 5, blunt: 5, kinetic: 5, incorporeal: 5, fortifying: 5, pointed: 10, drawn: 25, fired: 50
+};
+export const REACH_PRICE_PER_BAND = 10;
+
+/** The usual Range for an Instrument's kind; reach past it adds 10p a band (PHB 7.4.1). */
+export function usualRange(category, weight, types = []) {
+  if (category === "melee") return "close";
+  if (types.includes("fired")) return "long";
+  if (types.includes("drawn")) return "mid";
+  if (category === "ranged") return "short";
+  if (category === "sonic") return "mid";
+  return weight === "light" ? "short" : "mid";
+}
+
+// Item size sets crafting batches (PHB 5.3.2) and the +N bonus price (PHB 7.4.1).
+// A Large item crafts from 3 batches but its bonus price stays at 4 batches' worth.
+export const SIZE = {
+  small:  { label: "Small",  batches: 1 },
+  medium: { label: "Medium", batches: 2 },
+  large:  { label: "Large",  batches: 3 }
+};
+export const SIZE_KEYS = Object.keys(SIZE);
+export const BONUS_PRICE = {
+  small:  [0, 8, 23, 68, 200, 600],
+  medium: [0, 15, 45, 135, 400, 1200],
+  large:  [0, 30, 90, 270, 800, 2400]
+};
+
+// Materials (PHB 5.3.1, 7.4.2): Tier price by Scarcity. The named material is description.
+export const MATERIAL_CATEGORIES = ["metal", "gemstone", "wood", "textile", "leather", "reagent", "stone"];
 export const MATERIAL_CATEGORY_LABEL = {
-  metal: "Metal", wood: "Wood", gemstone: "Gemstone",
-  cloth: "Cloth", leather: "Leather", reagent: "Reagent"
+  metal: "Metal", gemstone: "Gemstone", wood: "Wood", textile: "Textile",
+  leather: "Leather", reagent: "Reagent", stone: "Stone"
 };
-
+export const MATERIAL_TIER_PRICE = [2, 8, 23, 68, 200, 600];
 export const MATERIAL_SCARCITY_KEYS = ["common", "uncommon", "rare", "exotic"];
+export const MATERIAL_SCARCITY_LABEL = { common: "Common", uncommon: "Uncommon", rare: "Rare", exotic: "Exotic" };
+export const MATERIAL_SCARCITY_MULT = { common: 1, uncommon: 1.5, rare: 2, exotic: 3 };
 
-export const MATERIAL_SCARCITY_LABEL = {
-  common: "Common", uncommon: "Uncommon", rare: "Rare", exotic: "Exotic"
-};
-
-// Price multiplier by Scarcity (GMG §8.1.0).
-export const MATERIAL_SCARCITY_MULT = {
-  common: 1, uncommon: 1.5, rare: 2, exotic: 3
-};
-
-// Standard ladder price by Tier, index = tier (GMG §8.1.0 / PHB §5.4.1).
-export const MATERIAL_TIER_PRICE = [0, 15, 45, 135, 400, 1200];
-
-// Resistance is physical (Might + Finesse) or mental (Wit + Presence),
-// one value each rather than one per Attribute (PHB §6.6.0).
+// Resistance is physical (Might + Finesse) or mental (Wit + Presence) (PHB 6.6.0).
 export const RESISTANCE_KINDS = ["physical", "mental"];
 export const RESISTANCE_LABEL = { physical: "Physical", mental: "Mental" };
-export const ATTRIBUTE_KIND = { might: "physical", finesse: "physical", wit: "mental", presence: "mental" };
 
-// What a creature does when an Attribute is Incapacitated (GMG §4.1.0). Declarative, never rolled.
-export const BEHAVIOR_TRAITS = [
-  "craven", "simpleminded", "disciplined", "packBound", "opportunist",
-  "territorial", "venal", "zealous", "mindless", "bound", "emboldening"
-];
-export const BEHAVIOR_LABEL = {
-  craven: "Craven", simpleminded: "Simpleminded", disciplined: "Disciplined [commander]",
-  packBound: "Pack-Bound [pack]", opportunist: "Opportunist", territorial: "Territorial [place]",
-  venal: "Venal", zealous: "Zealous", mindless: "Mindless", bound: "Bound [binding]",
-  emboldening: "Emboldening"
+// Damage types (PHB 4.1.2): what a creature can be Vulnerable or resistant to by name.
+export const DAMAGE_TYPES = {
+  edged: "physical", pointed: "physical", blunt: "physical",
+  thermal: "physical", concussive: "physical", corrosive: "physical",
+  spiritual: "mental", psychic: "mental", entropic: "mental"
 };
+
+// Focus Gems (PHB 7.4.4): Arcane Instruments only; each adds its Tier to one Effect.
+export const FOCUS_GEMS = {
+  ruby:      { label: "Ruby",      damageType: "thermal",    adds: "Lingering +1",                                 pricePerTier: 80 },
+  carnelian: { label: "Carnelian", damageType: "concussive", adds: "Move goes 1 more band",                        pricePerTier: 40 },
+  emerald:   { label: "Emerald",   damageType: "corrosive",  adds: "Pierce +1",                                    pricePerTier: 40 },
+  sapphire:  { label: "Sapphire",  damageType: "psychic",    adds: "Illusion: -1 to the Oppose to see through it", pricePerTier: 60 },
+  amethyst:  { label: "Amethyst",  damageType: "spiritual",  adds: "Condition: -1 to the Oppose against it",       pricePerTier: 60 },
+  tanzanite: { label: "Tanzanite", damageType: "entropic",   adds: "Drain heals 1 more",                           pricePerTier: 60 },
+  citrine:   { label: "Citrine",   damageType: "",           adds: "Mend removes 1 more Stress",                   pricePerTier: 60 },
+  diamond:   { label: "Diamond",   damageType: "",           adds: "Resistance it grants +1",                      pricePerTier: 40 }
+};
+
+export const EQUIPMENT_CATEGORY_LABEL = {
+  armor: "Armor", shield: "Shield", ward: "Ward", charm: "Charm", gear: "Gear",
+  medicine: "Medicine", potion: "Potion", gem: "Focus Gem"
+};
+export const EQUIPMENT_CATEGORIES = Object.keys(EQUIPMENT_CATEGORY_LABEL);
+
+// FOIL axes and their poles (PHB 3.1.0). A trait leans High, Low, or Neutral (PHB 3.4.0).
+export const FOIL_AXES = [
+  { key: "faith",         label: "Faith",         high: "Trusting",   low: "Mistrusting" },
+  { key: "order",         label: "Order",         high: "Ordered",    low: "Disordered" },
+  { key: "individualism", label: "Individualism", high: "Individual", low: "Communal" },
+  { key: "levity",        label: "Levity",        high: "Light",      low: "Grave" }
+];
+export const FOIL_LEANS = ["", "low", "neutral", "high"];
+export const FOIL_TOKEN_MAX = 4;
+export const FOIL_TOKEN_ABSORB = 4;
+
+// Conditions (PHB 6.8.3-6.8.19), for the active-conditions tracker.
+export const CONDITIONS = [
+  "Grappled", "Weakened", "Restrained", "Reeling", "Prone", "Charmed", "Frightened",
+  "Controlled", "Intimidated", "Baited", "Angered", "Relaxed", "Impressed", "Wary",
+  "Enthralled", "Swayed", "Misled"
+];
+
+// Carrying capacity (PHB 7.5.8): past 4x Might Potential, -1 to rolls per multiple.
+export const CARRY_FREE_MULTIPLE = 4;
+export const RATION_LBS = 2;
+
+// Rest (PHB 6.10.0): 1d4 per 2 hours, one ration per 8 hours.
+export const REST_BLOCK_HOURS = 2;
+export const REST_RATION_HOURS = 8;
+
+// Advancement costs (PHB 2.3.0).
+export const XP_COST = { talent: 8, d12ToD20: 36, knowHow: 18, training: 6 };
+
+// Behavior Traits (GMG 4.8.0). Declarative, never rolled.
+export const BEHAVIOR_TRAITS = [
+  "Craven", "Simpleminded", "Disciplined [commander]", "Pack-Bound [pack]", "Opportunist",
+  "Territorial [place]", "Venal", "Zealous", "Mindless", "Bound [binding]"
+];
 
 export const cap = s => s ? String(s).charAt(0).toUpperCase() + String(s).slice(1) : "";

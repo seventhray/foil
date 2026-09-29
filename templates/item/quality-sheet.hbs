@@ -1,25 +1,14 @@
-<div class="foil-sheet item definition quality">
-  {{> systems/foil/templates/item/partials/item-head.hbs titlePlaceholder="Quality name"}}
-
-  <p class="def-hint">A passive Quality that Equipment can carry (Resistance, Bolster, Aid, …). Equipment references it by key and sets its value/target.</p>
-
+<div class="foil-sheet item definition">
+  {{> systems/foil/templates/item/partials/item-head.hbs titlePlaceholder="Property"}}
   <div class="field-grid">
-    <label>Key <em>(slug)</em></label>
-    <input type="text" name="system.key" value="{{system.key}}" placeholder="e.g. resistance (blank = from name)" />
-
+    <label>Key (slug)</label>
+    <input type="text" name="system.key" value="{{system.key}}" />
     <label>Kind</label>
-    <select name="system.kind">
-      {{#each qualityKinds}}<option value="{{this.value}}" {{#if (foil-eq this.value ../system.kind)}}selected{{/if}}>{{this.label}}</option>{{/each}}
-    </select>
-
-    <label>Scope</label>
-    <select name="system.scope">
-      {{#each qualityScopes}}<option value="{{this.value}}" {{#if (foil-eq this.value ../system.scope)}}selected{{/if}}>{{this.label}}</option>{{/each}}
-    </select>
-
-    <label>Value Label</label>
-    <input type="text" name="system.valueLabel" value="{{system.valueLabel}}" placeholder="e.g. +N Might" />
+    <select name="system.kind">{{#each qualityKinds}}<option value="{{this.value}}" {{#if (foil-eq this.value ../system.kind)}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>
+    <label>Its parameter names</label>
+    <select name="system.scope">{{#each qualityScopes}}<option value="{{this.value}}" {{#if (foil-eq this.value ../system.scope)}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>
+    <label>Value label</label>
+    <input type="text" name="system.valueLabel" value="{{system.valueLabel}}" />
   </div>
-
-  {{> systems/foil/templates/item/partials/item-description.hbs rows=3}}
+  {{> systems/foil/templates/item/partials/item-description.hbs rows=4}}
 </div>

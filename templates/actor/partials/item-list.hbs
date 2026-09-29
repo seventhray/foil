@@ -5,57 +5,43 @@
   </div>
   <table class="item-table {{type}}-table">
     <thead>
-      {{#if (foil-eq type "instrument")}}
-        <tr><th>Name</th><th>Weight</th><th>Qualities</th><th>Range</th><th>Stress</th><th>Price</th><th></th></tr>
-      {{/if}}
-      {{#if (foil-eq type "technique")}}
-        <tr><th>Name</th><th>XP</th><th>Requires</th><th>Aptitude</th><th>Target</th><th>Effect</th><th></th></tr>
-      {{/if}}
-      {{#if (foil-eq type "feat")}}
-        <tr><th>Name</th><th>XP</th><th>Effect</th><th></th></tr>
-      {{/if}}
-      {{#if (foil-eq type "equipment")}}
-        <tr><th>Name</th><th>Category</th><th>Effect</th><th>Price</th><th></th></tr>
-      {{/if}}
-      {{#if (foil-eq type "origin")}}
-        <tr><th>Name</th><th>Grants Feat</th><th></th></tr>
-      {{/if}}
-      {{#if (foil-eq type "background")}}
-        <tr><th>Name</th><th>Training</th><th></th></tr>
-      {{/if}}
+      {{#if (foil-eq type "instrument")}}<tr><th>Instrument</th><th>Types</th><th>Primary</th><th>Range</th><th>Built-in Techniques</th><th></th></tr>{{/if}}
+      {{#if (foil-eq type "technique")}}<tr><th>Technique</th><th>XP</th><th>Requires</th><th>Effect</th><th></th></tr>{{/if}}
+      {{#if (foil-eq type "feat")}}<tr><th>Feat</th><th>XP</th><th>Effect</th><th></th></tr>{{/if}}
+      {{#if (foil-eq type "equipment")}}<tr><th>Item</th><th>Category</th><th>Effect</th><th>Price</th><th></th></tr>{{/if}}
+      {{#if (foil-eq type "origin")}}<tr><th>Ancestry</th><th>Talent</th><th>Feats</th><th></th></tr>{{/if}}
+      {{#if (foil-eq type "background")}}<tr><th>Background</th><th>Training</th><th>Know-how</th><th></th></tr>{{/if}}
     </thead>
     <tbody>
       {{#each list}}
         <tr class="item-row" data-item-id="{{this.id}}">
           {{#if (foil-eq ../type "instrument")}}
-            <td class="item-name" data-action="editItem">{{this.name}}{{#if this.system.typeWarning}} <i class="fas fa-triangle-exclamation item-warning" title="{{this.system.typeWarning}}"></i>{{/if}}{{#if this.enchanted}} <i class="fas fa-wand-magic-sparkles" title="Enchanted: {{this.enchantmentSummary}}"></i>{{/if}}</td>
-            <td>{{this.system.weightLabel}}</td>
-            <td class="quality-cell">{{this.typeLabelStr}}</td>
+            <td class="item-name" data-action="editItem">{{this.name}}{{#if this.system.bonus}} +{{this.system.bonus}}{{/if}}{{#if this.system.typeWarning}} <i class="fas fa-triangle-exclamation item-warning" title="{{this.system.typeWarning}}"></i>{{/if}}{{#if this.system.gemSummary}} <i class="fas fa-gem" title="{{this.system.gemSummary}}"></i>{{/if}}</td>
+            <td class="quality-cell">{{this.system.typesLabel}}</td>
+            <td>{{this.primaryLabel}}</td>
             <td>{{this.system.range}}</td>
-            <td><a data-action="rollInstrument" class="item-roll" title="Show this Instrument's card">{{this.system.weightLabel}}</a></td>
-            <td class="num">{{this.system.price}}p</td>
+            <td class="kit-cell">
+              {{#each this.kit}}<a class="kit-roll" data-action="rollKit" data-index="{{this.idx}}" title="{{this.effect}}"><i class="fas fa-dice-d20"></i> {{this.name}} <span class="abbr">{{this.skillLabel}}</span></a>{{/each}}
+            </td>
             <td class="item-actions">
-              {{#if this.enchanted}}<a data-action="rollEnchantment" class="item-roll" title="Cast Enchantment: {{this.enchantmentSummary}}"><i class="fas fa-wand-magic-sparkles"></i></a>{{/if}}
-              <a data-action="rollInstrument" class="item-roll" title="Roll Stress"><i class="fas fa-dice-d20"></i></a>
+              {{#if this.system.enchantment.enabled}}<a data-action="rollEnchantment" title="Enchantment: {{this.system.enchantment.effectSummary}}"><i class="fas fa-wand-magic-sparkles"></i></a>{{/if}}
               <a data-action="deleteItem" title="Delete"><i class="fas fa-trash"></i></a>
             </td>
           {{/if}}
           {{#if (foil-eq ../type "technique")}}
             <td class="item-name" data-action="editItem">{{this.name}}{{#if this.system.typeWarning}} <i class="fas fa-triangle-exclamation item-warning" title="{{this.system.typeWarning}}"></i>{{/if}}</td>
             <td class="num">{{this.system.xpCost}}</td>
-            <td>{{this.requiresLabel}}</td>
-            <td title="Rolled to attack">{{this.aptitudeLabel}}</td>
-            <td title="Attribute(s) targeted; a defender Opposes with {{this.opposeLabel}}">{{this.targetLabel}}</td>
+            <td>{{this.system.requiresLabel}}</td>
             <td class="effect-cell">{{this.effectDisplay}}</td>
             <td class="item-actions">
-              <a data-action="rollTechnique" class="item-roll" title="Roll {{this.name}}"><i class="fas fa-dice-d20"></i></a>
+              <a data-action="rollTechnique" class="item-roll" title="Use {{this.name}}"><i class="fas fa-dice-d20"></i></a>
               <a data-action="deleteItem" title="Delete"><i class="fas fa-trash"></i></a>
             </td>
           {{/if}}
           {{#if (foil-eq ../type "feat")}}
             <td class="item-name" data-action="editItem">{{this.name}}</td>
-            <td class="num">{{this.system.xpCost}}</td>
-            <td class="effect-cell">{{#if this.system.effect}}{{this.system.effect}}{{else}}{{this.system.description}}{{/if}}</td>
+            <td class="num">{{#if this.system.xpCost}}{{this.system.xpCost}}{{else}}&mdash;{{/if}}</td>
+            <td class="effect-cell">{{this.system.effect}}</td>
             <td class="item-actions"><a data-action="deleteItem" title="Delete"><i class="fas fa-trash"></i></a></td>
           {{/if}}
           {{#if (foil-eq ../type "equipment")}}
@@ -63,16 +49,21 @@
             <td>{{this.categoryLabel}}</td>
             <td class="effect-cell">{{this.effectSummary}}</td>
             <td class="num">{{this.system.price}}p</td>
-            <td class="item-actions"><a data-action="deleteItem" title="Delete"><i class="fas fa-trash"></i></a></td>
+            <td class="item-actions">
+              {{#if this.wearable}}<a data-action="toggleEquipped" title="{{#if this.system.equipped}}Worn: click to stow{{else}}Stowed: click to wear{{/if}}"><i class="fas {{#if this.system.equipped}}fa-shirt{{else}}fa-box{{/if}}"></i></a>{{/if}}
+              <a data-action="deleteItem" title="Delete"><i class="fas fa-trash"></i></a>
+            </td>
           {{/if}}
           {{#if (foil-eq ../type "origin")}}
             <td class="item-name" data-action="editItem">{{this.name}}</td>
-            <td>{{this.system.feat}}</td>
+            <td>{{this.system.talentSummary}}</td>
+            <td class="effect-cell">{{this.system.featsSummary}}</td>
             <td class="item-actions"><a data-action="deleteItem" title="Delete"><i class="fas fa-trash"></i></a></td>
           {{/if}}
           {{#if (foil-eq ../type "background")}}
             <td class="item-name" data-action="editItem">{{this.name}}</td>
             <td class="effect-cell">{{this.system.grantsSummary}}</td>
+            <td>{{this.system.knowHowSummary}}</td>
             <td class="item-actions"><a data-action="deleteItem" title="Delete"><i class="fas fa-trash"></i></a></td>
           {{/if}}
         </tr>

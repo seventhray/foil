@@ -1,7 +1,7 @@
 <div class="foil-sheet chargen-body advancement-body">
   <p class="chargen-intro">
-    Spend <strong>{{actorName}}</strong>'s XP (PHB §4.0.0 XP &amp; Advancement). Buy one thing at a time —
-    this stays open so you can spend a whole session's award in one sitting.
+    Spend <strong>{{actorName}}</strong>'s XP (PHB 2.3.0). Buy one thing at a time; this stays open so a whole
+    session's award can be spent in one sitting.
   </p>
 
   <div class="xp-summary">
@@ -17,12 +17,12 @@
         <label>{{this.label}} <span class="readout">{{this.diceFormula}}</span></label>
         <div class="adv-btn-row">
           {{#each this.steps}}
-            <a class="adv-btn" data-action="advanceDie" data-attr="{{../key}}" data-size="{{this.size}}" data-next="{{this.next}}" data-cost="{{this.cost}}">
-              {{this.label}} <em>({{this.cost}} XP)</em>
+            <a class="adv-btn" data-action="advanceDie" data-attr="{{../key}}" data-size="{{this.size}}" data-next="{{this.next}}">
+              Talent: {{this.label}} <em>({{this.cost}} XP)</em>
             </a>
           {{/each}}
           <a class="adv-btn" data-action="addDie" data-attr="{{this.key}}">
-            Add a new 1d4 <em>({{this.newDieCost}} XP)</em>
+            Know-how: add 1d4 <em>({{this.newDieCost}} XP)</em>
           </a>
         </div>
       </div>
@@ -30,12 +30,16 @@
   </fieldset>
 
   <fieldset>
-    <legend>Aptitude Training</legend>
-    {{#each aptitudeRows}}
+    <legend>Skill Training <em>(cap: dice in the two pools, or +4)</em></legend>
+    {{#each skillRows}}
       <div class="adv-attr-row">
-        <label>{{this.label}} <span class="readout">+{{this.training}}</span></label>
+        <label>{{this.label}} <span class="readout">+{{this.training}} of +{{this.cap}}</span></label>
         <div class="adv-btn-row">
-          <a class="adv-btn" data-action="train" data-apt="{{this.key}}">+1 Training <em>({{this.cost}} XP)</em></a>
+          {{#if this.capped}}
+            <span class="hint">At cap</span>
+          {{else}}
+            <a class="adv-btn" data-action="train" data-skill="{{this.key}}">+1 Training <em>({{this.cost}} XP)</em></a>
+          {{/if}}
         </div>
       </div>
     {{/each}}
@@ -45,7 +49,7 @@
     <legend>Learn a Technique</legend>
     <select>
       {{#each techniques}}
-        <option value="{{this.id}}">{{this.name}} — {{this.xp}} XP{{#if this.gate}} (needs Potential {{this.gate}}){{/if}}</option>
+        <option value="{{this.id}}">{{this.name}}: {{this.xp}} XP ({{this.requires}})</option>
       {{/each}}
     </select>
     <a class="adv-btn" data-action="learnTechnique">Learn</a>
@@ -55,7 +59,7 @@
     <legend>Learn a Feat</legend>
     <select>
       {{#each feats}}
-        <option value="{{this.id}}" title="{{this.requirements}}">{{this.name}} — {{this.xp}} XP{{#if this.requirements}} (requires {{this.requirements}}){{/if}}</option>
+        <option value="{{this.id}}" title="{{this.requirements}}">{{this.name}}: {{this.xp}} XP{{#if this.requirements}} (requires {{this.requirements}}){{/if}}</option>
       {{/each}}
     </select>
     <a class="adv-btn" data-action="learnFeat">Learn</a>

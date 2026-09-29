@@ -1,20 +1,23 @@
 <div class="foil-part-header">
   {{#if system.destroyed}}<div class="destroyed-banner">Destroyed</div>{{/if}}
-
   <header class="foil-header creature-header">
     <div class="name-block">
       <input type="text" name="name" value="{{actor.name}}" placeholder="Name" class="char-name" />
     </div>
-    <button type="button" class="chargen-btn" data-action="rest" title="Rest: physical Stress mends 1d6 an hour, mental 1d6 across a night (PHB §6.10.0)">
-      <i class="fas fa-campground"></i> Rest
-    </button>
+    <button type="button" class="chargen-btn" data-action="rest" title="1d4 Stress off one Attribute per 2 hours (PHB 6.10.0)"><i class="fas fa-campground"></i> Rest</button>
     <div class="tier-block">
       <label>Tier</label>
-      <input type="text" name="system.tier" value="{{system.tier}}" placeholder="minor" />
-      <label>Threat</label>
-      <input type="text" name="system.threat" value="{{system.threat}}" />
-      <label title="What it does when it Breaks — GMG §4.1.0">Behavior</label>
-      <input type="text" name="system.behavior" value="{{system.behavior}}" placeholder="e.g. Territorial [its lair], Craven" />
+      <input type="number" name="system.tier" value="{{system.tier}}" min="1" />
+      <label>CR</label>
+      <input type="text" name="system.cr" value="{{system.cr}}" />
+      <label title="The four Potentials added together, creature-building shorthand">Health</label>
+      <span class="readout">{{health}}</span>
+      <label title="What it does once an Attribute is Incapacitated (GMG 4.8.0); blank means it Holds">Behavior</label>
+      <input type="text" name="system.behavior" value="{{system.behavior}}" placeholder="e.g. Territorial [its lair]" />
+      <label title="Vulnerable N to an Instrument Type, a Material, or a damage type (PHB 6.6.0)">Vulnerable</label>
+      <input type="text" name="system.vulnerable" value="{{system.vulnerable}}" placeholder="e.g. Thermal 2" />
+      <label title="Earned by invoking a FOIL trait, spent to absorb Stress or reroll a die (PHB 3.2.0)">Foil Tokens</label>
+      <span class="readout"><a data-action="earnToken" data-delta="-1"><i class="fas fa-minus"></i></a> {{tokens.value}} / {{tokens.max}} <a data-action="earnToken" data-delta="1"><i class="fas fa-plus"></i></a> <button type="button" class="mini-btn" data-action="absorbStress">Absorb</button></span>
     </div>
   </header>
 </div>

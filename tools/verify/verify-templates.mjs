@@ -1,8 +1,11 @@
-import Handlebars from "/home/connor/foundryvtt/node_modules/handlebars/lib/index.js";
+import { pathToFileURL } from "node:url";
+import { SYSTEM_ROOT } from "../books.mjs";
+const FOUNDRY_APP = process.env.FOUNDRY_APP ?? "/mnt/data/foundry/foundryvtt";
+const { default: Handlebars } = await import(pathToFileURL(`${FOUNDRY_APP}/node_modules/handlebars/lib/index.js`).href);
 import fs from "node:fs";
 import path from "node:path";
 
-const ROOT = "/home/connor/foundrydata/Data/systems/foil";
+const ROOT = SYSTEM_ROOT;
 const files = [];
 (function walk(d){ for (const e of fs.readdirSync(d,{withFileTypes:true})) {
   const p = path.join(d, e.name);

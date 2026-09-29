@@ -1,40 +1,30 @@
 <div class="foil-sheet item feat">
   {{> systems/foil/templates/item/partials/item-head.hbs}}
-
   <div class="field-grid">
     <label>Kind</label>
-    <select name="system.featKind">
-      {{#each featKinds}}<option value="{{this.value}}" {{#if (foil-eq this.value ../system.featKind)}}selected{{/if}}>{{this.label}}</option>{{/each}}
-    </select>
-
-    <label>XP Cost</label>
+    <select name="system.featType">{{#each featTypeOptions}}<option value="{{this.value}}" {{#if (foil-eq this.value ../system.featType)}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>
+    <label>XP</label>
     <input type="number" name="system.xpCost" value="{{system.xpCost}}" />
-
+    <label>Requires</label>
+    <input type="text" name="system.requirements" value="{{system.requirements}}" />
     <label>Ancestry</label>
-    <input type="text" name="system.origin" value="{{system.origin}}" placeholder="Granting Ancestry, if any" />
+    <input type="text" name="system.ancestry" value="{{system.ancestry}}" />
+    <label>Grants Technique</label>
+    <input type="text" name="system.grantsTechnique" value="{{system.grantsTechnique}}" />
   </div>
-
-  <fieldset>
-    <legend>Stat Modifiers <em>(flat Training / Resistance; leave empty for prose-only Feats)</em> <a class="inline-add" data-action="addModifier" title="Add modifier"><i class="fas fa-plus"></i></a></legend>
-    {{#each modifierRows}}
-      <div class="modifier-row">
-        <select name="system.modifiers.{{this.idx}}.type">
-          <option value="training" {{#if (foil-eq this.type "training")}}selected{{/if}}>Training</option>
-          <option value="resistance" {{#if (foil-eq this.type "resistance")}}selected{{/if}}>Resistance</option>
-        </select>
-        <input type="text" class="mini-text" name="system.modifiers.{{this.idx}}.key" value="{{this.key}}" placeholder="aptitude / attribute" />
-        <label class="mini-label">+</label>
-        <input type="number" class="mini-num" name="system.modifiers.{{this.idx}}.value" value="{{this.value}}" />
-        <a class="row-del" data-action="removeModifier" data-index="{{this.idx}}" title="Remove"><i class="fas fa-trash"></i></a>
-      </div>
-    {{/each}}
-  </fieldset>
-
   <label class="block-label">Effect</label>
   <textarea name="system.effect" rows="3">{{system.effect}}</textarea>
-
-  <label class="block-label">Requirements</label>
-  <textarea name="system.requirements" rows="2">{{system.requirements}}</textarea>
-
-  {{> systems/foil/templates/item/partials/item-description.hbs rows=4}}
+  <fieldset>
+    <legend>Flat modifiers <em>(Training or Resistance it grants)</em></legend>
+    {{#each modifierRows}}
+      <div class="quality-row">
+        <select name="system.modifiers.{{this.idx}}.type">{{#each ../modifierTypeOptions}}<option value="{{this.value}}" {{#if (foil-eq this.value ../type)}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>
+        <input type="text" name="system.modifiers.{{this.idx}}.key" value="{{this.key}}" placeholder="guile / physical" />
+        <input type="number" class="mini-num" name="system.modifiers.{{this.idx}}.value" value="{{this.value}}" />
+        <a class="row-del" data-action="removeRow" data-path="system.modifiers" data-index="{{this.idx}}"><i class="fas fa-trash"></i></a>
+      </div>
+    {{/each}}
+    <a class="inline-add" data-action="addRow" data-path="system.modifiers"><i class="fas fa-plus"></i> Add</a>
+  </fieldset>
+  {{> systems/foil/templates/item/partials/item-description.hbs rows=3}}
 </div>

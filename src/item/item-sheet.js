@@ -1,20 +1,17 @@
 /**
  * src/item/item-sheet.js
- * FoilItemSheet — one ItemSheetV2 dispatching by type. Content sheets
- * (instrument/technique/equipment) render registry-driven pickers and array
- * composers; definition sheets (instrumentType/quality/effect) edit the
+ * FoilItemSheet: one ItemSheetV2 dispatching by type. Content sheets render
+ * registry-driven pickers and array editors; definition sheets edit the
  * vocabulary itself.
  */
 
+import { typeOptions, effectOptions, qualityOptions, effectMap, qualityMap } from "../registry.js";
 import {
-  typeOptions, effectOptions, qualityOptions, effectMap, qualityMap
-} from "../registry.js";
-import {
-  WEIGHT_KEYS, WEIGHT_PROFILE, RANGE_BANDS, APTITUDE_KEYS, ATTRIBUTE_KEYS, cap,
-  MATERIAL_CATEGORIES, MATERIAL_CATEGORY_LABEL, MATERIAL_SCARCITY_KEYS, MATERIAL_SCARCITY_LABEL,
-  RESISTANCE_KINDS, RESISTANCE_LABEL
+  WEIGHT_KEYS, WEIGHT_CLASS, ATTRIBUTE_KEYS, ATTR_LABEL, SKILL_KEYS, SKILL_LABEL, SIZE, SIZE_KEYS,
+  FOCUS_GEMS, EQUIPMENT_CATEGORY_LABEL, RESISTANCE_KINDS, RESISTANCE_LABEL, cap
 } from "../constants.js";
-import { QualityData, EffectData } from "../data/definition-models.js";
+import { QualityData, EffectData, InstrumentTypeData } from "../data/definition-models.js";
+import { entryLabel } from "../pricing.js";
 
 const { HandlebarsApplicationMixin } = foundry.applications.api;
 const ItemSheetV2Base = foundry.applications.sheets.ItemSheetV2;
@@ -31,68 +28,35 @@ const TEMPLATE_MAP = {
   effect:         "systems/foil/templates/item/effect-sheet.hbs"
 };
 
-const EQUIP_CATEGORIES = [
-  { value: "armor", label: "Armor" }, { value: "shield", label: "Shield" },
-  { value: "ward", label: "Ward" }, { value: "gear", label: "Gear" },
-  { value: "medicine", label: "Medicine" }, { value: "potion", label: "Potion" }
-];
-
-const WEIGHTS = WEIGHT_KEYS.map(k => ({
-  value: k, label: `${WEIGHT_PROFILE[k].label} (${WEIGHT_PROFILE[k].mult} Stress, AP ${WEIGHT_PROFILE[k].baseAP})`
-}));
-
-const APTITUDES = [...APTITUDE_KEYS, "varies"];
-const TARGETS = [...ATTRIBUTE_KEYS, "ally", "self"];
+const opt = (value, label) => ({ value, label });
 const PATTERN_SHAPES = ["single", "beam", "cone", "radius", "wall"];
-const FEAT_KINDS = [
-  { value: "origin", label: "Ancestry (granted, free)" },
-  { value: "learned", label: "Learned (bought with XP)" }
-];
 
-// Full names + a one-line rule explanation for each pricing archetype, shown
-// in the Effect definition sheet's dropdown (was raw camelCase keys before).
 const PRICING_KIND_INFO = {
-  perPoint:    { label: "Per Point",    hint: "Base XP + Per-point XP × the effect's magnitude N (e.g. Pierce N, Accuracy +N)." },
-  linear:      { label: "Linear",       hint: "Same rule as Per Point — base + per-point × N. The seeded catalogue's name for it." },
-  flat:        { label: "Flat",         hint: "A fixed Base XP cost, unaffected by magnitude." },
-  condition:   { label: "Condition",    hint: "A fixed Base XP cost for a named condition (Grappled, Stunned, Charmed...)." },
-  pattern:     { label: "Pattern",      hint: "Priced by area shape and reach: Beam/Wall by bands, Cone 3x, Radius 12x, plus placement." },
-  selective:   { label: "Selective",    hint: "N targets within R bands, priced as N + R × N XP." },
-  extendRange: { label: "Extend Range", hint: "Per-band XP for each range band the Technique's reach is extended." },
-  upkeep:      { label: "Upkeep",       hint: "A flat Base XP cost, exempt from the combination premium — a recurring, sustained effect." },
-  reaction:    { label: "Reaction",     hint: "Sets the Technique's floor to Reaction Floor XP, exempt from the combination premium." },
-  counter:     { label: "Counter",      hint: "A fixed Base XP cost to negate or counter another Technique." }
+  perPoint:    "Base XP + per-point XP x the magnitude N (Pierce N, +N, -N [target Attribute]).",
+  flat:        "A fixed XP cost (Stress 4, a Condition, Illusion, Drain).",
+  pattern:     "Beam or Wall: 1 + 2 + ... per band. Cone 3x, Radius 12x the Beam cost. Placement adds R.",
+  selective:   "N creatures within R bands: N + (R x N).",
+  extendRange: "Per-band XP for each band of extra reach.",
+  upkeep:      "Flat XP; doesn't count toward the +4 per extra Effect.",
+  quick:       "A free tag; doesn't count toward the premium. A stated trigger sets the 8 XP floor.",
+  counter:     "A fixed XP cost to contest another Technique."
 };
-
-const MATERIAL_CATEGORY_OPTIONS = [
-  { value: "", label: "— none —" },
-  ...MATERIAL_CATEGORIES.map(k => ({ value: k, label: MATERIAL_CATEGORY_LABEL[k] }))
-];
-const MATERIAL_SCARCITY_OPTIONS = MATERIAL_SCARCITY_KEYS.map(k => ({ value: k, label: MATERIAL_SCARCITY_LABEL[k] }));
 
 export class FoilItemSheet extends HandlebarsApplicationMixin(ItemSheetV2Base) {
 
   static DEFAULT_OPTIONS = {
     classes: ["foil", "sheet", "item"],
     window: { resizable: true },
-    position: { width: 520, height: 720 },
+    position: { width: 540, height: 720 },
     form: { submitOnChange: true, closeOnSubmit: false },
     actions: {
-      editImage:    FoilItemSheet._onEditImage,
-      addEffect:    FoilItemSheet._onAddEffect,
-      removeEffect: FoilItemSheet._onRemoveEffect,
-      addQuality:   FoilItemSheet._onAddQuality,
-      removeQuality: FoilItemSheet._onRemoveQuality,
-      addModifier:   FoilItemSheet._onAddModifier,
-      removeModifier: FoilItemSheet._onRemoveModifier,
-      addEnchantEffect:    FoilItemSheet._onAddEnchantEffect,
-      removeEnchantEffect: FoilItemSheet._onRemoveEnchantEffect
+      editImage:           FoilItemSheet._onEditImage,
+      addRow:              FoilItemSheet._onAddRow,
+      removeRow:           FoilItemSheet._onRemoveRow
     }
   };
 
-  static PARTS = {
-    main: { template: "systems/foil/templates/item/feat-sheet.hbs" }
-  };
+  static PARTS = { main: { template: "systems/foil/templates/item/feat-sheet.hbs" } };
 
   _configureRenderParts(options) {
     const parts = super._configureRenderParts(options);
@@ -102,121 +66,89 @@ export class FoilItemSheet extends HandlebarsApplicationMixin(ItemSheetV2Base) {
 
   async _prepareContext(options) {
     const sys = this.item.system;
+    const em = effectMap();
+    const qm = qualityMap();
     const ctx = {
       item: this.item,
       system: sys,
-      weights: WEIGHTS,
-      ranges: RANGE_BANDS,
-      categories: EQUIP_CATEGORIES,
-      featKinds: FEAT_KINDS,
-      patternShapes: PATTERN_SHAPES.map(s => ({ value: s, label: cap(s) })),
-      aptitudeOptions: APTITUDES.map(a => ({ value: a, label: cap(a) })),
-      bolsterAptitudeOptions: APTITUDE_KEYS.map(a => ({ value: a, label: cap(a) })),
-      targetOptions: TARGETS.map(a => ({ value: a, label: cap(a) })),
-      attributeOptions: ATTRIBUTE_KEYS.map(a => ({ value: a, label: cap(a) })),
-      // Registry-driven vocabulary (post-ready, always available at render).
-      // Instruments carry `types`; Techniques and Effects require `requires`.
+      weightOptions: WEIGHT_KEYS.map(k => opt(k, WEIGHT_CLASS[k].label)),
+      weightClassOptions: [opt("", "None"), ...WEIGHT_KEYS.map(k => opt(k, WEIGHT_CLASS[k].label))],
+      sizeOptions: SIZE_KEYS.map(k => opt(k, `${SIZE[k].label} (${SIZE[k].batches} batch${SIZE[k].batches > 1 ? "es" : ""})`)),
+      attributeOptions: ATTRIBUTE_KEYS.map(k => opt(k, ATTR_LABEL[k])),
+      skillOptions: SKILL_KEYS.map(k => opt(k, SKILL_LABEL[k])),
+      skillOrNoneOptions: [opt("", "Chosen when rolled"), ...SKILL_KEYS.map(k => opt(k, SKILL_LABEL[k]))],
+      categoryOptions: ["melee", "ranged", "arcane", "sonic", "tool", "innate"].map(k => opt(k, cap(k))),
+      equipmentCategoryOptions: Object.entries(EQUIPMENT_CATEGORY_LABEL).map(([k, l]) => opt(k, l)),
+      gemOptions: [opt("", "None"), ...Object.entries(FOCUS_GEMS).map(([k, g]) => opt(k, `${g.label}${g.damageType ? ` (${g.damageType})` : ""}`))],
+      featTypeOptions: [opt("learned", "Learned (bought with XP)"), opt("trait", "Trait (bought with XP)"), opt("ancestry", "Ancestry (granted, free)")],
+      dieOptions: [6, 8, 10, 12, 20].map(n => opt(n, `d${n}`)),
+      patternShapes: PATTERN_SHAPES.map(s => opt(s, cap(s))),
       typeOptions: typeOptions(sys.requires ?? sys.types ?? []),
       effectOptions: effectOptions(),
       qualityOptions: qualityOptions(),
-      // Definition-sheet enums:
-      qualityKinds: QualityData.KINDS.map(k => ({ value: k, label: cap(k) })),
-      qualityScopes: QualityData.SCOPES.map(k => ({ value: k, label: cap(k) })),
-      pricingKinds: EffectData.PRICING_KINDS.map(k => ({
-        value: k, label: PRICING_KIND_INFO[k]?.label ?? cap(k), hint: PRICING_KIND_INFO[k]?.hint ?? ""
-      })),
-      materialCategories: MATERIAL_CATEGORY_OPTIONS,
-      materialScarcities: MATERIAL_SCARCITY_OPTIONS
+      familyOptions: InstrumentTypeData.FAMILIES.map(k => opt(k, cap(k))),
+      reloadOptions: [opt("", "None"), opt("quick", "Quick Action"), opt("action", "Action")],
+      qualityKinds: QualityData.KINDS.map(k => opt(k, cap(k))),
+      qualityScopes: QualityData.SCOPES.map(k => opt(k, cap(k))),
+      pricingKinds: EffectData.PRICING_KINDS.map(k => ({ value: k, label: cap(k), hint: PRICING_KIND_INFO[k] ?? "" })),
+      modifierTypeOptions: [opt("training", "Training"), opt("resistance", "Resistance")]
     };
 
-    // Technique: resolve each composed effect entry's label for display.
-    if (this.item.type === "technique") {
-      const m = effectMap();
-      ctx.effectRows = (sys.effects ?? []).map((e, i) => ({
-        idx: i, ...e, label: m[e.key]?.label ?? e.key
-      }));
-    }
+    const effectRows = list => (list ?? []).map((e, idx) => ({ idx, ...e, label: entryLabel(e, em[e.key]) }));
+    if (this.item.type === "technique") ctx.effectRows = effectRows(sys.effects);
     if (this.item.type === "instrument") {
-      const m = effectMap();
-      ctx.enchantEffectRows = (sys.enchantment?.effects ?? []).map((e, i) => ({
-        idx: i, ...e, label: m[e.key]?.label ?? e.key
-      }));
+      ctx.enchantEffectRows = effectRows(sys.enchantment?.effects);
+      ctx.kitRows = (sys.kit ?? []).map((k, idx) => ({ idx, ...k }));
     }
     if (this.item.type === "equipment") {
-      const qm = qualityMap();
-      ctx.qualityRows = (sys.qualities ?? []).map((q, i) => {
-        // A Quality's own scope decides what its parameter is: Resistance names
-        // a kind, so it gets a dropdown rather than a box you can typo into.
-        const scope = qm[q.key]?.scope ?? "free";
-        // Key check as well as scope, so this works against a world whose
-        // Quality pack predates the resistanceKind scope.
-        const isKind = scope === "resistanceKind" || q.key === "resistance";
-        return {
-          idx: i, ...q, scope, isKind,
-          kindOptions: isKind ? RESISTANCE_KINDS.map(k => ({
-            value: k, label: RESISTANCE_LABEL[k], selected: q.param === k
-          })) : []
-        };
+      ctx.qualityRows = (sys.qualities ?? []).map((q, idx) => {
+        const scope = qm[q.key]?.scope ?? (q.key === "resistance" ? "resistanceKind" : q.key === "skill-bonus" ? "skill" : "free");
+        const choices = scope === "resistanceKind" ? RESISTANCE_KINDS.map(k => opt(k, RESISTANCE_LABEL[k]))
+                      : scope === "skill" ? SKILL_KEYS.map(k => opt(k, SKILL_LABEL[k]))
+                      : scope === "attribute" ? ATTRIBUTE_KEYS.map(k => opt(k, ATTR_LABEL[k])) : null;
+        return { idx, ...q, choices: choices?.map(c => ({ ...c, selected: c.value === q.param })) ?? null };
       });
     }
-    if (this.item.type === "instrumentType") {
-      ctx.harmsOptions = [
-        { value: "",         label: "Neither (support or Tool)", checked: !sys.harms },
-        { value: "physical", label: "The body (Might or Finesse)", checked: sys.harms === "physical" },
-        { value: "mental",   label: "The mind (Wit or Presence)",  checked: sys.harms === "mental" }
-      ];
-    }
     if (this.item.type === "feat") {
-      ctx.modifierRows = (sys.modifiers ?? []).map((m, i) => ({ idx: i, ...m }));
+      ctx.modifierRows = (sys.modifiers ?? []).map((m, idx) => ({ idx, ...m }));
+    }
+    if (this.item.type === "origin") {
+      ctx.talentRows = (sys.talent ?? []).map((t, idx) => ({ idx, ...t }));
+      ctx.featRows = (sys.feats ?? []).map((name, idx) => ({ idx, name }));
+    }
+    if (this.item.type === "background") {
+      ctx.knowHowRows = (sys.knowHow ?? []).map((attribute, idx) => ({ idx, attribute }));
+      ctx.trainingRows = SKILL_KEYS.map(k => ({ key: k, label: SKILL_LABEL[k], value: sys.training?.[k] ?? 0 }));
     }
     return ctx;
   }
 
-  // ─── Array composer actions ─────────────────────────────────────────────────
+  // ─── Array editors: one add/remove pair keyed by the array's path ───────────
 
-  static async _onAddEffect() {
-    const effects = foundry.utils.deepClone(this.item.system.effects ?? []);
-    effects.push({ key: "", magnitude: 1, pattern: "single", bands: 0, placement: 0, selectiveN: 0, selectiveR: 0 });
-    await this.item.update({ "system.effects": effects });
+  static ROW_DEFAULTS = {
+    "system.effects": { key: "", magnitude: 1, pattern: "single", bands: 0, placement: 0, selectiveN: 0, selectiveR: 0 },
+    "system.enchantment.effects": { key: "", magnitude: 1, pattern: "single", bands: 0, placement: 0, selectiveN: 0, selectiveR: 0 },
+    "system.qualities": { key: "", value: 0, param: "" },
+    "system.modifiers": { type: "training", key: "", value: 0 },
+    "system.kit": { name: "", skill: "prowess", effect: "" },
+    "system.talent": { attribute: "might", die: 8 },
+    "system.feats": "",
+    "system.knowHow": "might"
+  };
+
+  static async _onAddRow(event, target) {
+    const path = target.dataset.path;
+    if (!(path in FoilItemSheet.ROW_DEFAULTS)) return;
+    const list = foundry.utils.deepClone(foundry.utils.getProperty(this.item, path) ?? []);
+    list.push(foundry.utils.deepClone(FoilItemSheet.ROW_DEFAULTS[path]));
+    await this.item.update({ [path]: list });
   }
-  static async _onRemoveEffect(event, target) {
-    const idx = Number(target.dataset.index);
-    const effects = foundry.utils.deepClone(this.item.system.effects ?? []);
-    effects.splice(idx, 1);
-    await this.item.update({ "system.effects": effects });
-  }
-  static async _onAddQuality() {
-    const qualities = foundry.utils.deepClone(this.item.system.qualities ?? []);
-    qualities.push({ key: "", value: 0, param: "" });
-    await this.item.update({ "system.qualities": qualities });
-  }
-  static async _onRemoveQuality(event, target) {
-    const idx = Number(target.dataset.index);
-    const qualities = foundry.utils.deepClone(this.item.system.qualities ?? []);
-    qualities.splice(idx, 1);
-    await this.item.update({ "system.qualities": qualities });
-  }
-  static async _onAddEnchantEffect() {
-    const effects = foundry.utils.deepClone(this.item.system.enchantment?.effects ?? []);
-    effects.push({ key: "", magnitude: 1, pattern: "single", bands: 0, placement: 0, selectiveN: 0, selectiveR: 0 });
-    await this.item.update({ "system.enchantment.effects": effects });
-  }
-  static async _onRemoveEnchantEffect(event, target) {
-    const idx = Number(target.dataset.index);
-    const effects = foundry.utils.deepClone(this.item.system.enchantment?.effects ?? []);
-    effects.splice(idx, 1);
-    await this.item.update({ "system.enchantment.effects": effects });
-  }
-  static async _onAddModifier() {
-    const modifiers = foundry.utils.deepClone(this.item.system.modifiers ?? []);
-    modifiers.push({ type: "training", key: "", value: 0 });
-    await this.item.update({ "system.modifiers": modifiers });
-  }
-  static async _onRemoveModifier(event, target) {
-    const idx = Number(target.dataset.index);
-    const modifiers = foundry.utils.deepClone(this.item.system.modifiers ?? []);
-    modifiers.splice(idx, 1);
-    await this.item.update({ "system.modifiers": modifiers });
+
+  static async _onRemoveRow(event, target) {
+    const path = target.dataset.path;
+    const list = foundry.utils.deepClone(foundry.utils.getProperty(this.item, path) ?? []);
+    list.splice(Number(target.dataset.index), 1);
+    await this.item.update({ [path]: list });
   }
 
   static _onEditImage(event, target) {

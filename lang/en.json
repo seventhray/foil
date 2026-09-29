@@ -8,7 +8,7 @@
   "TYPES.Item.background": "Background",
   "TYPES.Item.origin": "Ancestry",
   "TYPES.Item.instrumentType": "Instrument Type",
-  "TYPES.Item.quality": "Quality",
+  "TYPES.Item.quality": "Property",
   "TYPES.Item.effect": "Effect",
 
   "FOIL.Attributes.might": "Might",
@@ -16,12 +16,12 @@
   "FOIL.Attributes.wit": "Wit",
   "FOIL.Attributes.presence": "Presence",
 
-  "FOIL.Aptitudes.prowess": "Prowess",
-  "FOIL.Aptitudes.fortitude": "Fortitude",
-  "FOIL.Aptitudes.command": "Command",
-  "FOIL.Aptitudes.acuity": "Acuity",
-  "FOIL.Aptitudes.guile": "Guile",
-  "FOIL.Aptitudes.resonance": "Resonance",
+  "FOIL.Skills.prowess": "Prowess",
+  "FOIL.Skills.discipline": "Discipline",
+  "FOIL.Skills.assertiveness": "Assertiveness",
+  "FOIL.Skills.acuity": "Acuity",
+  "FOIL.Skills.guile": "Guile",
+  "FOIL.Skills.resonance": "Resonance",
 
   "FOIL.Axes.faith": "Faith",
   "FOIL.Axes.order": "Order",

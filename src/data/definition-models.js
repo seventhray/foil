@@ -1,33 +1,30 @@
 /**
  * src/data/definition-models.js
- * DataModels for the authorable *vocabulary* documents. These are the pieces a
- * GM creates and recombines: an Instrument Type, a Quality, an Effect. Content
- * items (instruments, techniques, equipment) reference them by `key` slug via
- * the registry (src/registry.js).
+ * DataModels for the authorable vocabulary: Instrument Types, Qualities, and
+ * Effects. Content items reference them by `key` slug through the registry
+ * (src/registry.js), so a new definition shows up everywhere without code.
  */
 
 import { f, slugField, str, int, bool, html, slugArray } from "./fields.js";
-import { APTITUDE_KEYS, ATTRIBUTE_KEYS } from "../constants.js";
+
+// Pre-0.6.0 slugs that no longer name an Instrument Type.
+export const LEGACY_TYPE_KEY = {
+  command: "sonic", guile: "sonic", resonance: "sonic",
+  survival: "tool", alchemy: "tool", craft: "craft", performance: "tool",
+  subterfuge: "tool", athletics: "tool"
+};
 
 /**
- * An Instrument Type (PHB §7.11.1): the casting Aptitude(s), Target(s), and
- * Oppose(s) an Instrument carrying it lends, and whether it is a Tool type.
+ * An Instrument Type (PHB 4.1.2): a tag with a type effect on a landed hit's
+ * Stress, or on how the Instrument is used.
  */
 export class InstrumentTypeData extends foundry.abstract.TypeDataModel {
-  /**
-   * Pre-v0.2.0 Instrument Types stored a Target, an Oppose list, an Attribute
-   * Bonus, and a Bonus Die. Target became a body-or-mind call, Oppose became
-   * derived, and the Attribute Bonus was retired (PHB §5.2.2). Infer `harms`
-   * from whichever Attributes the old Target column named, and turn Fired's
-   * 1d4 Bonus Die into its flat +2.
-   */
+  static FAMILIES = ["melee", "ranged", "arcane", "sonic", "other"];
+  static RELOADS = ["", "quick", "action"];
+
   static migrateData(source) {
-    if (source && source.harms === undefined) {
-      const t = String(source.targets ?? "").toUpperCase();
-      source.harms = /\b(MI|FS)\b/.test(t) ? "physical" : (/\b(WI|PS)\b/.test(t) ? "mental" : "");
-    }
-    if (source && source.bonusStress === undefined) {
-      source.bonusStress = source.bonusDie ? 2 : 0;
+    if (source && source.stressPhysical === undefined && source.bonusStress !== undefined) {
+      source.stressPhysical = Number(source.bonusStress) || 0;
     }
     return super.migrateData(source);
   }
@@ -35,35 +32,35 @@ export class InstrumentTypeData extends foundry.abstract.TypeDataModel {
   static defineSchema() {
     return {
       key: slugField(""),
-      // Display/reference strings (the roll reads the Technique's own aptitude,
-      // not these). "varies" is allowed for `aptitude`.
-      aptitude: str("varies"),
-      // What kind of harm this type does (PHB §5.2.2): "physical" harms Might
-      // or Finesse, "mental" harms Wit or Presence, "" is support or a Tool.
-      // The attacker picks which Attribute of the pair. Oppose is no longer
-      // stored: a target Opposes with any Aptitude built on the Attribute
-      // under attack, which is derived, not looked up.
-      harms: str(""),
+      family: new f.StringField({ required: true, initial: "other", choices: InstrumentTypeData.FAMILIES }),
+      // Stress this Type adds against a physical or a mental Attribute (may be negative).
+      stressPhysical: int(0),
+      stressMental: int(0),
+      // Pierce against physical Resistance (Pointed 1, Blunt 3).
+      pierce: int(0),
+      // Edged: no bonus at all against a target with any physical Resistance.
+      noBonusVsResistance: bool(false),
+      // Grappling deals no Stress.
+      dealsNoStress: bool(false),
+      // Built-in Techniques usable as a Quick Action too.
+      quick: bool(false),
+      // Blocking: its +N applies to Oppose rolls only.
+      blocking: bool(false),
+      reload: new f.StringField({ required: true, blank: true, initial: "", choices: InstrumentTypeData.RELOADS }),
+      // Tool and Craft roll against a Difficulty as a Trade (PHB 4.2.6).
       isTool: bool(false),
-      // A flat Stress rider a landed Technique adds on top of the Weight term
-      // (PHB §5.2.2). Only Fired carries one, at +2; 0 everywhere else. The
-      // Attribute Bonus this used to sit beside was retired in v0.2.0, since
-      // margin-derived Stress already converts Potential into damage.
-      bonusStress: new f.NumberField({ required: true, integer: true, initial: 0 }),
       description: html("")
     };
   }
 }
 
 /**
- * A passive Quality carried by Equipment (or an Instrument): Resistance +N to an
- * kind, Bolster +N to an Aptitude, Aid +N to a task, etc. `kind` picks how it
- * reads; `scope` says what its parameter names, which is what decides whether
- * the item sheet offers a dropdown or a text box.
+ * A passive Quality carried by Equipment (PHB 7.5.1): Resistance +N of a kind,
+ * +N to a Skill, Aid +N to a task.
  */
 export class QualityData extends foundry.abstract.TypeDataModel {
-  static KINDS = ["resistance", "bolster", "aid", "impair", "blocking", "custom"];
-  static SCOPES = ["resistanceKind", "attribute", "aptitude", "free", "none"];
+  static KINDS = ["resistance", "skill", "aid", "custom"];
+  static SCOPES = ["resistanceKind", "skill", "attribute", "free", "none"];
 
   static defineSchema() {
     return {
@@ -77,41 +74,42 @@ export class QualityData extends foundry.abstract.TypeDataModel {
 }
 
 /**
- * A Technique Effect (GMG §5.1.0). Carries its pricing archetype and the
- * Instrument Types allowed to deliver it. The pricing engine (src/pricing.js)
- * reads `pricingKind` + `pricingParams` to derive a composed Technique's XP.
- * Consumed only at build time — nothing resolves effects in play.
+ * A Technique Effect (Fundamental Math's Effects table, GMG 12.0.0). Carries
+ * its price and the Instrument Types allowed to deliver it.
  */
 export class EffectData extends foundry.abstract.TypeDataModel {
   static PRICING_KINDS = [
-    "perPoint",     // base + perPoint × N (params: base, perPoint)
-    "linear",       // same rule as perPoint — the seeder's name for it; both
-                     // must stay valid choices or a compendium doc authored
-                     // with one silently resets to the schema default on load
-    "flat",         // fixed XP (params: base)
-    "condition",    // fixed XP, a named condition (params: base)
-    "pattern",      // Beam/Cone/Radius/Wall by bands (params: none; read from entry)
-    "selective",    // N + R × N (params: none; read from entry)
-    "extendRange",  // 1 per band (params: perBand default 1)
-    "upkeep",       // flat, premium-exempt (params: base default 5)
-    "reaction",     // sets a floor, premium-exempt (params: floor default 10)
-    "counter"       // flat (params: base)
+    "perPoint",     // base + perPoint x N
+    "flat",         // fixed XP
+    "pattern",      // Beam/Cone/Radius/Wall by reach, plus placement
+    "selective",    // N + (R x N)
+    "extendRange",  // perBand x bands
+    "upkeep",       // flat, doesn't count toward the premium
+    "quick",        // free tag, doesn't count; a stated trigger sets the 8 XP floor
+    "counter"       // flat
   ];
+
+  static migrateData(source) {
+    if (source?.pricingKind === "linear") source.pricingKind = "perPoint";
+    if (source?.pricingKind === "condition") source.pricingKind = "flat";
+    if (source?.pricingKind === "reaction") source.pricingKind = "quick";
+    return super.migrateData(source);
+  }
 
   static defineSchema() {
     return {
       key: slugField(""),
-      requires: slugArray(), // Instrument Type slugs allowed to deliver it; empty = any
+      requires: slugArray(),
       pricingKind: new f.StringField({ required: true, initial: "flat", choices: EffectData.PRICING_KINDS }),
       pricingParams: new f.SchemaField({
-        base: int(0),      // flat / condition / counter base XP
-        perPoint: int(5),  // perPoint rate (× magnitude)
-        perBand: int(1),   // extendRange rate
-        floor: int(10)     // reaction floor
+        base: int(0),
+        perPoint: int(0),
+        perBand: int(1)
       }),
-      exemptFromPremium: bool(false), // Upkeep, Reaction: no combination premium
-      setsFloor: bool(false),         // Reaction: raises the Technique floor, doesn't add
-      noStrain: bool(false),          // effects that never contribute (informational)
+      // How a magnitude reads, with N standing in for it ("Pierce N").
+      magnitudeLabel: str(""),
+      exemptFromPremium: bool(false),
+      setsFloor: bool(false),
       description: html("")
     };
   }

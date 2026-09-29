@@ -1,51 +1,59 @@
 /**
  * src/data/actor-models.js
- * TypeDataModels for the character and creature actors. Both share the core
- * Attribute/Aptitude/AP schema and the same derivation (Potential max from the
- * dice pool, incapacitation, Aptitude nets, roll formulas). Attribute state is
- * Potential {current, max}: max is derived, current is stored and counted down
- * as Stress lands. No pooled Health — Destroyed is read off the four Attributes.
+ * TypeDataModels for the character and creature actors (Foilbound 0.6.0).
+ * Both share the four Attributes, six Skills, FOIL traits, Foil Tokens,
+ * Resistance, and active Conditions. Attribute state is Potential
+ * {current, max}: max is derived from the dice pool, current is stored and
+ * lowered as Stress lands. No pooled Health for characters (PHB Key Terms);
+ * creatures show it as GM shorthand.
  */
 
-import { f, attributeSchema, aptitudeSchema, int, str, html } from "./fields.js";
+import { f, attributeSchema, skillSchema, int, str, html } from "./fields.js";
 import { poolFromCounts } from "../dice.js";
-import { ATTRIBUTE_KEYS, APTITUDE_ATTRS, ATTRIBUTE_KIND, RESISTANCE_KINDS } from "../constants.js";
+import {
+  ATTRIBUTE_KEYS, SKILL_ATTRS, SKILL_KEYS, ATTRIBUTE_KIND, RESISTANCE_KINDS, FOIL_AXES,
+  FOIL_LEANS, FOIL_TOKEN_MAX, LEGACY_SKILL_KEY, CARRY_FREE_MULTIPLE, RATION_LBS
+} from "../constants.js";
 import { aggregateModifiers } from "../modifiers.js";
+
+function foilSchema() {
+  const axes = {};
+  for (const a of FOIL_AXES) {
+    axes[a.key] = new f.SchemaField({
+      lean: new f.StringField({ required: true, blank: true, initial: "", choices: FOIL_LEANS }),
+      trait: str("")
+    });
+  }
+  return new f.SchemaField(axes);
+}
 
 function coreSchema() {
   const attrs = {};
   for (const k of ATTRIBUTE_KEYS) attrs[k] = attributeSchema();
-  const apts = {};
-  for (const k of Object.keys(APTITUDE_ATTRS)) apts[k] = aptitudeSchema();
+  const skills = {};
+  for (const k of SKILL_KEYS) skills[k] = skillSchema();
   return {
     attributes: new f.SchemaField(attrs),
-    aptitudes: new f.SchemaField(apts),
-    ap: new f.SchemaField({ value: int(3), max: int(3) }),
-    // FOIL Values (PHB §3.0.0): shared by characters and creatures alike, so
-    // an NPC's convictions guide behaviour and give players something to press on (GMG §7.0.0).
-    foil: new f.SchemaField({
-      faith: int(0), order: int(0), individualism: int(0), levity: int(0)
-    }),
-    // Resistance is physical (Might + Finesse) or mental (Wit + Presence),
-    // one value each (PHB §6.6.0). One suit of armor covers the body; one
-    // ward covers the mind.
-    resistance: new f.SchemaField({ physical: int(0), mental: int(0) })
+    skills: new f.SchemaField(skills),
+    // One trait per FOIL axis, leaning High, Low, or Neutral; blank until declared (PHB 3.4.0).
+    foil: foilSchema(),
+    // Earned by invoking a held trait, spent to absorb Stress or reroll a die (PHB 3.2.0).
+    foilTokens: int(0, { min: 0, max: FOIL_TOKEN_MAX }),
+    // A stated base; Equipment and Feats add on top (PHB 6.6.0).
+    resistance: new f.SchemaField({ physical: int(0), mental: int(0) }),
+    conditions: new f.ArrayField(new f.SchemaField({
+      name: str(""), rounds: str(""), note: str("")
+    }))
   };
 }
 
-/**
- * Every FOIL axis moves a flat 1 point, Order included (PHB §3.2.0). Order's
- * variable Step was retired in v0.2.0, so there is nothing left to derive here.
- */
-function prepareFoil(_sys) {}
+/** Stress down to half Potential or less lifts Incapacitation (PHB 6.8.1). */
+export function recoveryThreshold(max) {
+  return max - Math.floor(max / 2);
+}
 
-/**
- * Shared derivation for both actor types. `doc` is the DataModel; its parent
- * document's items feed the Training/Resistance modifier aggregation.
- */
-function prepareCore(doc) {
-  const sys = doc;
-  const items = doc.parent?.items?.contents ?? [];
+function prepareCore(sys) {
+  const items = sys.parent?.items?.contents ?? [];
   const mods = aggregateModifiers(items);
 
   const attrs = sys.attributes ?? {};
@@ -60,80 +68,74 @@ function prepareCore(doc) {
     a.diceFormula   = pool.formula;
     a.min           = pool.min;
     a.avg           = pool.avg;
-    a.max           = pool.max;   // same number as potential.max, named to match min/avg
-    a.incapacitated = pool.max > 0 && current <= 0;
+    a.max           = pool.max;
+    // Stored flag, plus a floor: a bar at zero is always Incapacitated.
+    a.down          = pool.max > 0 && (!!a.incapacitated || current <= 0);
+    a.recoverAt     = recoveryThreshold(pool.max);
     a.validPool     = pool.valid;
-    a.kind = ATTRIBUTE_KIND[key];
+    a.kind          = ATTRIBUTE_KIND[key];
   }
 
-  // Resistance: stored base + worn-Equipment / Feat modifiers, per kind.
   sys.resistance ??= {};
   for (const kind of RESISTANCE_KINDS) {
     const base  = Number(sys.resistance[kind] ?? 0);
     const bonus = Number(mods.resistance[kind] ?? 0);
-    // A character's Resistance comes from Equipment and Feats (PHB §6.6.0), so
-    // the total leads and the contributors follow it. A stored base only turns
-    // up on a GM-stated creature or a migrated actor; it rides along as a named
-    // contributor rather than vanishing into an untraceable total.
     const from = base ? [{ name: "Base", value: base }, ...(mods.resistanceSources?.[kind] ?? [])]
                       : (mods.resistanceSources?.[kind] ?? []);
     sys.resistance[`${kind}Base`]  = base;
     sys.resistance[`${kind}Bonus`] = bonus;
     sys.resistance[`${kind}Total`] = base + bonus;
-    sys.resistance[`${kind}From`]  = from;
-    sys.resistance[`${kind}FromLabel`] =
-      from.map(e => `+${e.value} ${e.name}`).join(", ");
+    sys.resistance[`${kind}FromLabel`] = from.map(e => `+${e.value} ${e.name}`).join(", ");
   }
 
-  // An Incapacitated Attribute (PHB §6.8.1) needs no summary status on top of
-  // itself; the Incapacitated badges already say it. Destruction, below, is
-  // a real state.
+  // Carrying capacity (PHB 7.5.8): everything carried, worn Armor included.
+  const might = attrs.might?.potential?.max ?? 0;
+  const carried = items.reduce((n, it) => n + Number(it.system?.carriedWeight ?? 0), 0)
+                + Number(sys.rations ?? 0) * RATION_LBS;
+  sys.carry = {
+    weight: carried,
+    limit: CARRY_FREE_MULTIPLE * might,
+    penalty: might > 0 && carried > CARRY_FREE_MULTIPLE * might
+      ? Math.ceil(carried / might) - CARRY_FREE_MULTIPLE : 0
+  };
 
-  const apts = sys.aptitudes ?? {};
-  for (const [key, pair] of Object.entries(APTITUDE_ATTRS)) {
-    const ap = apts[key];
-    if (!ap) continue;
-    ap.attributes = pair;
-    // Training: stored base + Background / Feat modifiers.
-    ap.trainingBase  = Number(ap.training ?? 0);
-    ap.trainingBonus = Number(mods.training[key] ?? 0);
-    ap.trainingTotal = ap.trainingBase + ap.trainingBonus;
+  const skills = sys.skills ?? {};
+  for (const [key, pair] of Object.entries(SKILL_ATTRS)) {
+    const sk = skills[key];
+    if (!sk) continue;
+    sk.attributes    = pair;
+    sk.trainingBase  = Number(sk.training ?? 0);
+    sk.trainingBonus = Number(mods.training[key] ?? 0);
+    sk.trainingTotal = sk.trainingBase + sk.trainingBonus;
+    // Gear's +N to a Skill adds to rolls without being Training (PHB 7.5.4).
+    sk.skillBonus    = Number(mods.skillBonus?.[key] ?? 0);
+    const flat       = sk.trainingTotal + sk.skillBonus;
+    // Training can't pass the dice in the Skill's two pools (PHB 2.2.1).
+    sk.trainingCap  = pair.reduce((n, ak) => n + (attrs[ak]?.dieCount ?? 0), 0);
+    sk.overCap      = sk.trainingTotal > sk.trainingCap;
 
-    const potOf = ak => (attrs[ak]?.incapacitated ? 0 : (attrs[ak]?.potential?.max ?? 0));
-    // What this Aptitude can actually roll right now, Training included.
-    // Incapacitated Attributes contribute nothing, so the range narrows as a
-    // character takes damage, which is the point of showing it.
-    const live = ak => (attrs[ak]?.incapacitated ? null : attrs[ak]);
-    const sum  = f => pair.reduce((n, ak) => n + (live(ak) ? Number(live(ak)[f] ?? 0) : 0), 0);
-    ap.rollMin      = sum("min") + ap.trainingTotal;
-    ap.rollAvg      = sum("avg") + ap.trainingTotal;
-    ap.rollMax      = sum("max") + ap.trainingTotal;
-    ap.netPotential = ap.rollMax;   // kept: same number, older name
+    const live = ak => (attrs[ak]?.down ? null : attrs[ak]);
+    const sum  = field => pair.reduce((n, ak) => n + (live(ak) ? Number(live(ak)[field] ?? 0) : 0), 0);
+    sk.rollMin = sum("min") + flat;
+    sk.rollAvg = sum("avg") + flat;
+    sk.rollMax = sum("max") + flat;
+    // A creature that isn't pushing back sets its passive value as the Difficulty (PHB 2.2.2).
+    sk.passive = Math.floor(sum("avg")) + flat;
 
-    const parts = [];
-    for (const ak of pair) {
-      const a = attrs[ak];
-      if (!a?.diceFormula || a.incapacitated) continue;
-      parts.push(a.diceFormula);
-    }
-    if (ap.trainingTotal) parts.push(String(ap.trainingTotal));
-    ap.formula = parts.join(" + ") || "0";
+    const parts = pair.filter(ak => live(ak)?.diceFormula).map(ak => attrs[ak].diceFormula);
+    if (flat) parts.push(String(flat));
+    sk.formula = parts.join(" + ") || "0";
+    sk.usable  = pair.some(ak => live(ak)?.diceFormula);
   }
 
-  // Destroyed (PHB §6.8.2): every Attribute's Stress at its Potential at once.
-  // Read off the four Attributes, not a separate pooled Health field.
+  // Destroyed (PHB 6.8.2): every Attribute at zero Potential at once.
   const active = ATTRIBUTE_KEYS.filter(k => (attrs[k]?.potential?.max ?? 0) > 0);
-  sys.destroyed = active.length > 0 && active.every(k => attrs[k].incapacitated);
+  sys.destroyed = active.length > 0 && active.every(k => attrs[k].down);
 }
 
-/**
- * Pre-v0.2.0 worlds stored Resistance per Attribute. It is now one physical
- * value covering Might and Finesse and one mental value covering Wit and
- * Presence (PHB §6.6.0). Carry the old numbers across by taking the higher of
- * each pair, which is how the printed Bestiary was converted: a creature listed
- * as "Might +4, Finesse +4" and one listed as "Might +2" both mean the armor
- * it was wearing, and the higher value is the one that was doing the work.
- */
+// ─── Migration from pre-0.6.0 worlds ─────────────────────────────────────────
+
+/** Pre-0.2.0 stored Resistance per Attribute; take the higher of each pair. */
 function migrateResistance(source) {
   if (!source?.attributes || source.resistance) return source;
   const at = source.attributes;
@@ -145,27 +147,66 @@ function migrateResistance(source) {
   return source;
 }
 
-// The fourth FOIL axis was Leniency (Unforgiving to Forgiving) before it became
-// Levity (Grave to Light). The axes are not equivalent, so a stored value is
-// carried across rather than converted; a GM re-answering it is the intent.
-function migrateFoilLevity(source) {
-  const foil = source?.foil;
-  if (!foil || !("leniency" in foil)) return source;
-  if (!("levity" in foil)) foil.levity = foil.leniency;
-  delete foil.leniency;
+/** Aptitudes became Skills, and Fortitude and Command were renamed. */
+function migrateSkills(source) {
+  if (!source?.aptitudes) return source;
+  source.skills ??= {};
+  for (const [old, value] of Object.entries(source.aptitudes)) {
+    const key = LEGACY_SKILL_KEY[old] ?? old;
+    if (SKILL_KEYS.includes(key) && !source.skills[key]) source.skills[key] = { training: Number(value?.training ?? 0) };
+  }
+  delete source.aptitudes;
   return source;
 }
 
+/** FOIL axes were -5..+5 integers; they are now a lean and a written trait. */
+function migrateFoil(source) {
+  const foil = source?.foil;
+  if (!foil) return source;
+  if ("leniency" in foil && !("levity" in foil)) foil.levity = foil.leniency;
+  delete foil.leniency;
+  for (const a of FOIL_AXES) {
+    const v = foil[a.key];
+    if (typeof v === "number") foil[a.key] = { lean: v > 0 ? "high" : v < 0 ? "low" : "", trait: "" };
+  }
+  return source;
+}
+
+/** Action Points were retired for one Action and one Quick Action (PHB 6.1.0). */
+function migrateActions(source) {
+  if (source && "ap" in source) delete source.ap;
+  return source;
+}
+
+/** A bar at zero is Incapacitated. */
+function migrateIncapacitated(source) {
+  for (const k of ATTRIBUTE_KEYS) {
+    const a = source?.attributes?.[k];
+    if (a && a.incapacitated === undefined && a.potential && Number(a.potential.current) <= 0
+        && Object.values(a.dice ?? {}).some(n => Number(n) > 0)) a.incapacitated = true;
+  }
+  return source;
+}
+
+function migrateCore(source) {
+  return migrateIncapacitated(migrateActions(migrateFoil(migrateSkills(migrateResistance(source)))));
+}
+
 export class CharacterData extends foundry.abstract.TypeDataModel {
-  static migrateData(source) { return super.migrateData(migrateFoilLevity(migrateResistance(source))); }
+  static migrateData(source) {
+    migrateCore(source);
+    if (source && "origin" in source && !("ancestry" in source)) source.ancestry = source.origin;
+    return super.migrateData(source);
+  }
 
   static defineSchema() {
     return {
       ...coreSchema(),
       player: str(""),
-      origin: str(""),
+      ancestry: str(""),
       background: str(""),
       coin: str(""),
+      rations: int(0, { min: 0 }),
       xp: new f.SchemaField({ total: int(0), spent: int(0) }),
       prompts: new f.SchemaField({
         whoTheyAre: str(""), wants: str(""), fightFor: str(""), fears: str("")
@@ -177,28 +218,35 @@ export class CharacterData extends foundry.abstract.TypeDataModel {
   prepareDerivedData() {
     prepareCore(this);
     this.xp.available = Number(this.xp.total ?? 0) - Number(this.xp.spent ?? 0);
-    prepareFoil(this);
   }
 }
 
 export class CreatureData extends foundry.abstract.TypeDataModel {
-  static migrateData(source) { return super.migrateData(migrateFoilLevity(migrateResistance(source))); }
+  static migrateData(source) {
+    migrateCore(source);
+    if (source && typeof source.tier === "string") {
+      const n = parseInt(source.tier, 10);
+      source.tier = Number.isFinite(n) ? n : 1;
+    }
+    return super.migrateData(source);
+  }
 
   static defineSchema() {
     return {
       ...coreSchema(),
-      tier: str("minor"),
-      threat: str(""),
-      // What it does when an Attribute is Incapacitated (GMG §4.1.0). Free
-      // text so a conditional Trait can name its own bracket: "Territorial
-      // [its lair], Craven". Blank means it simply fights on, the unstated default.
+      tier: int(1, { min: 1 }),
+      cr: str(""),
+      // What it does once an Attribute is Incapacitated (GMG 4.8.0). Blank: it Holds.
       behavior: str(""),
+      // Vulnerable N to an Instrument Type, Material, or damage type (PHB 6.6.0, GMG 4.3.0).
+      vulnerable: str(""),
       notes: html("")
     };
   }
 
   prepareDerivedData() {
     prepareCore(this);
-    prepareFoil(this);
+    // Health: the four Potentials added together, creature-building shorthand (PHB Key Terms).
+    this.health = ATTRIBUTE_KEYS.reduce((n, k) => n + (this.attributes[k]?.potential?.max ?? 0), 0);
   }
 }

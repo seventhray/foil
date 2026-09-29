@@ -52,7 +52,7 @@ export async function buildRegistry() {
 }
 
 // Item types whose derived data depends on the registry: Technique pricing,
-// and an Instrument's bound Enchantment pricing (same engine, PHB §5.4.2).
+// and an Instrument's bound Enchantment pricing (same engine, GMG 8.2.0).
 const REGISTRY_DEPENDENT_TYPES = new Set(["technique", "instrument"]);
 
 /** Re-prepare items whose derived data depends on the registry, and re-render open sheets. */
@@ -110,22 +110,22 @@ export function typeLabels(slugs = []) {
   return slugs.map(s => m[s]?.label ?? s);
 }
 
-/** Compose an equipment item's Qualities (+ impair/effect) into a one-line summary. */
+/** Compose an equipment item's Qualities, weight, and effect into a one-line summary. */
 export function equipmentSummary(sys) {
   const m = qualityMap();
   const cap = s => s ? s.charAt(0).toUpperCase() + s.slice(1) : "";
   const parts = [];
-  if (sys.category === "shield" && sys.weightLabel) parts.push(sys.weightLabel);
+  if (sys.category === "gem" && sys.gemSummary) parts.push(sys.gemSummary);
   for (const q of sys.qualities ?? []) {
     const def = m[q.key];
     const name = def?.label ?? cap(q.key);
     const val = Number(q.value) ? ` +${q.value}` : "";
-    const param = q.param ? ` ${cap(q.param)}` : "";
+    const param = q.param ? ` (${cap(q.param)})` : "";
     parts.push(`${name}${val}${param}`);
   }
-  if (Number(sys.impairFinesse)) parts.push(`Impair Finesse ${sys.impairFinesse}`);
-  if (sys.mend) parts.push(`Mends ${sys.mend} Stress`);
   if (sys.effect) parts.push(sys.effect);
-  if (sys.uses) parts.push(`(${sys.uses})`);
+  if (sys.duration) parts.push(sys.duration);
+  if (sys.uses) parts.push(`Uses: ${sys.uses}`);
+  if (sys.carriedWeight) parts.push(`${sys.carriedWeight} lbs`);
   return parts.join(" · ");
 }

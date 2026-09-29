@@ -1,47 +1,28 @@
 /**
  * src/data/item-models.js
- * DataModels for the content items: instrument, technique, equipment, feat,
- * background, origin. These REFERENCE the authorable vocabulary (Instrument
- * Types, Qualities, Effects) by slug via the registry, so new definitions
- * recombine into them without code changes.
- *
- * Registry-dependent *display* (type/quality labels) is resolved at sheet-render
- * time, where CONFIG.FOIL is guaranteed built. Registry-dependent *pricing*
- * (Technique XP, and an Instrument's bound Enchantment XP) is computed here in
- * prepareDerivedData when the registry is ready; the registry re-preps both
- * item types (src/registry.js REGISTRY_DEPENDENT_TYPES) once it finishes loading.
+ * DataModels for the content items (Foilbound 0.6.0): instrument, technique,
+ * equipment, feat, background, and origin (shown as Ancestry). Instruments and
+ * Techniques reference the authorable vocabulary by slug through the registry;
+ * registry-dependent values are derived when the registry is ready, and the
+ * registry re-prepares these items once it finishes loading.
  */
 
 import { f, slugField, slugArray, str, int, bool, html } from "./fields.js";
 import {
-  WEIGHT_PROFILE, WEIGHT_KEYS, RANGE_BANDS, APTITUDE_KEYS, ATTACK_TYPES, PIERCE_TYPES,
-  MATERIAL_CATEGORIES, MATERIAL_SCARCITY_KEYS, MATERIAL_SCARCITY_MULT, MATERIAL_TIER_PRICE,
-  MATERIAL_CATEGORY_LABEL, MATERIAL_SCARCITY_LABEL
+  WEIGHT_CLASS, WEIGHT_KEYS, ATTRIBUTE_KEYS, SKILL_KEYS, PRIMARY_SKILLS, SIZE_KEYS, BONUS_PRICE,
+  MATERIAL_TIER_PRICE, SIZE, TYPE_SURCHARGE, REACH_PRICE_PER_BAND, RANGE_BANDS, rangeBandOf, usualRange,
+  FOCUS_GEMS, EQUIPMENT_CATEGORIES, LEGACY_SKILL_KEY
 } from "../constants.js";
-import { priceTechnique } from "../pricing.js";
+import { priceTechnique, strainFor } from "../pricing.js";
+import { LEGACY_TYPE_KEY } from "./definition-models.js";
 
-const EQUIP_CATEGORIES = ["armor", "shield", "ward", "gear", "medicine", "potion"];
+const INSTRUMENT_CATEGORIES = ["melee", "ranged", "arcane", "sonic", "tool", "innate"];
+const ARCANE_TYPES = ["kinetic", "incorporeal", "fortifying"];
+const GEM_KEYS = ["", ...Object.keys(FOCUS_GEMS)];
 
-/** Shared Material schema (PHB §7.4.2, §5.4.1): Category/Tier/Scarcity are the
- *  mechanical axes; the named material is fiction-only and not stored. */
-function materialSchema() {
-  return {
-    materialCategory: new f.StringField({ required: true, blank: true, initial: "", choices: ["", ...MATERIAL_CATEGORIES] }),
-    materialTier: new f.NumberField({ required: true, integer: true, initial: 0, min: 0, max: 5 }),
-    materialScarcity: new f.StringField({ required: true, initial: "common", choices: MATERIAL_SCARCITY_KEYS })
-  };
-}
+const mapTypes = arr => [...new Set((arr ?? []).map(t => LEGACY_TYPE_KEY[t] ?? t))];
 
-/** Derive the display label + ladder price (GMG §8.1.0) for a Material schema. */
-function deriveMaterial(sys) {
-  sys.materialCategoryLabel = MATERIAL_CATEGORY_LABEL[sys.materialCategory] ?? "";
-  sys.materialScarcityLabel = MATERIAL_SCARCITY_LABEL[sys.materialScarcity] ?? "";
-  const tierPrice = MATERIAL_TIER_PRICE[sys.materialTier] ?? 0;
-  sys.materialPrice = Math.round(tierPrice * (MATERIAL_SCARCITY_MULT[sys.materialScarcity] ?? 1));
-}
-
-/** Composed-effects schema shared by a Technique's own effects and an
- *  Instrument's bound Enchantment (PHB §5.4.2) — same shape, same pricing. */
+/** Composed-effects schema, shared by a Technique and an Instrument's Enchantment. */
 function effectsArraySchema() {
   return new f.ArrayField(new f.SchemaField({
     key: slugField(""),
@@ -54,27 +35,54 @@ function effectsArraySchema() {
   }));
 }
 
+function sizeField(initial = "medium") {
+  return new f.StringField({ required: true, initial, choices: SIZE_KEYS });
+}
+
+/** The Instrument Types an item carries, resolved against the registry. */
+function resolveTypes(types) {
+  const reg = globalThis.CONFIG?.FOIL?.instrumentTypes ?? {};
+  return { reg, defs: types.map(k => reg[k]).filter(Boolean), unknown: types.filter(k => !reg[k]) };
+}
+
 export class InstrumentData extends foundry.abstract.TypeDataModel {
+  static migrateData(source) {
+    if (source?.types) source.types = mapTypes(source.types);
+    if (source && "weight" in source && !WEIGHT_KEYS.includes(source.weight)) source.weight = "light";
+    return super.migrateData(source);
+  }
+
   static defineSchema() {
     return {
+      category: new f.StringField({ required: true, initial: "melee", choices: INSTRUMENT_CATEGORIES }),
       weight: new f.StringField({ required: true, initial: "light", choices: WEIGHT_KEYS }),
-      range: new f.StringField({ required: true, initial: "Close", choices: RANGE_BANDS }),
+      primaryAttribute: new f.StringField({ required: true, initial: "might", choices: ATTRIBUTE_KEYS }),
+      range: str("Close"),
+      types: slugArray(),
+      // Verbatim Types line when it isn't a plain list (a Wand's "or Fortifying (pick one)").
+      typesDisplay: str(""),
       price: int(0),
-      types: slugArray(),          // Instrument Type slugs
-      // Item Upgrade bonus, +0 to +5 (PHB §7.4.0). 0 = Tier 0 baseline, no bonus.
+      rider: str(""),
+      // Three built-in Techniques, one per Skill its Primary Attribute reaches (PHB 7.2.0).
+      kit: new f.ArrayField(new f.SchemaField({
+        name: str(""),
+        skill: new f.StringField({ required: true, initial: "prowess", choices: SKILL_KEYS }),
+        effect: str("")
+      })),
+      // Body and Voice: every character knows them, free (PHB 2.5.3).
+      innate: bool(false),
       bonus: new f.NumberField({ required: true, integer: true, initial: 0, min: 0, max: 5 }),
-      // Reload (PHB §7.11.1): loaded at the start of a conflict; 1 AP to
-      // reload before the next attack with it. Informational only, same as
-      // Strain/Pierce — nothing here tracks a loaded/unloaded state.
-      reload: bool(false),
-      ...materialSchema(),
-      // Enchantment (PHB §5.4.2): a Technique effect bound to the item. Usable
-      // by anyone wielding it — no Technique-known requirement, no Potential
-      // gate; the wielder rolls their own dice, Strain still applies to them.
+      size: sizeField("medium"),
+      materials: str(""),
+      // One Focus Gem slot on an Arcane Instrument (PHB 7.4.4).
+      gem: new f.SchemaField({
+        type: new f.StringField({ required: true, blank: true, initial: "", choices: GEM_KEYS }),
+        tier: new f.NumberField({ required: true, integer: true, initial: 1, min: 1, max: 5 })
+      }),
+      // A Technique effect bound to the item (GMG 8.2.0).
       enchantment: new f.SchemaField({
         enabled: bool(false),
         effects: effectsArraySchema(),
-        floorOverride: int(0),
         effectText: str("")
       }),
       description: html("")
@@ -82,204 +90,223 @@ export class InstrumentData extends foundry.abstract.TypeDataModel {
   }
 
   prepareDerivedData() {
-    const w = WEIGHT_PROFILE[this.weight] ?? WEIGHT_PROFILE.light;
-    this.weightLabel = w.label;
-    this.weightMult  = w.mult;          // "0.5x" / "1.0x" / "1.5x" (PHB §5.2.1)
-    this.baseAP      = w.baseAP;
-
-    // +N Item Upgrade (PHB §7.4.0). A Blocking Instrument with no attack type
-    // works like Armor instead (Bolster Prowess / Resistance); one that also
-    // carries an attack type (e.g. a Quarterstaff) keeps the ordinary grant.
     const types = this.types ?? [];
-    const hasBlocking = types.includes("blocking");
-    const hasAttackType = types.some(t => ATTACK_TYPES.includes(t));
-    const isBlockingOnly = hasBlocking && !hasAttackType;
+    const { defs, unknown } = resolveTypes(types);
+    const w = WEIGHT_CLASS[this.weight] ?? WEIGHT_CLASS.light;
+    this.weightLabel = w.label;
+    // Weight dice on offensive rolls; Heavy takes both hands (PHB 4.1.2).
+    this.twoHanded = this.weight === "heavy";
+    this.weightDice = this.innate ? "" : (w.dice ?? "");
+    this.carriedWeight = this.innate ? 0 : w.lbs;
+    this.rangeBand = rangeBandOf(this.range);
+    this.primarySkills = PRIMARY_SKILLS[this.primaryAttribute] ?? [];
+    this.typesLabel = this.typesDisplay || types.map(k => defs.find(d => d.key === k)?.label ?? k).join(", ");
 
-    if (isBlockingOnly) {
-      this.bonusAccuracy = 0;
-      this.bonusPierce = 0;
-      this.bonusBolsterProwess = this.bonus;
-      this.bonusResistance = this.bonus;
-    } else {
-      this.bonusAccuracy = this.bonus;
-      this.bonusPierce = types.some(t => PIERCE_TYPES.includes(t)) ? this.bonus : 0;
-      this.bonusBolsterProwess = 0;
-      this.bonusResistance = 0;
-    }
+    // Price formula (PHB 7.4.1): weight class + Type surcharges + 10p per band past the usual Range.
+    const channels = types.filter(t => ARCANE_TYPES.includes(t));
+    const surcharge = types.reduce((n, t) => n + (TYPE_SURCHARGE[t] ?? 0), 0)
+      - (this.typesDisplay && channels.length > 1 ? (channels.length - 1) * 5 : 0);
+    const usual = usualRange(this.category, this.weight, types);
+    const extra = Math.max(0, RANGE_BANDS.indexOf(this.rangeBand) - RANGE_BANDS.indexOf(usual));
+    // Tools sit on their own cheap penny scale, outside the formula (Fundamental Math).
+    const formulaApplies = !this.innate && this.category !== "tool";
+    this.formulaPrice = formulaApplies ? w.price + surcharge + REACH_PRICE_PER_BAND * extra : this.price;
+    this.priceMismatch = formulaApplies && this.price !== this.formulaPrice;
+    this.bonusPrice = (BONUS_PRICE[this.size] ?? BONUS_PRICE.medium)[this.bonus] ?? 0;
+    // Crafting (PHB 5.3.2): the size's batches at the item's Tier (its bonus).
+    this.craftCost = (SIZE[this.size]?.batches ?? 2) * (MATERIAL_TIER_PRICE[this.bonus] ?? 0);
 
-    deriveMaterial(this);
+    // Type effects (PHB 4.1.2).
+    this.quick = defs.some(d => d.quick);
+    this.reload = defs.find(d => d.reload)?.reload ?? "";
+    this.blockingOnly = defs.some(d => d.blocking) && !defs.some(d => d.family === "melee" || d.family === "ranged");
+    this.stressTypes = defs.filter(d => d.stressPhysical || d.stressMental || d.pierce || d.dealsNoStress)
+      .map(d => ({ key: d.key, label: d.label, physical: d.stressPhysical, mental: d.stressMental,
+                   pierce: d.pierce, noBonusVsResistance: d.noBonusVsResistance, dealsNoStress: d.dealsNoStress }));
 
-    // What this Instrument can harm, and any flat Stress rider, per matched
-    // Instrument Type. Kept per-type rather than unioned: a multi-type
-    // Instrument (a Crossbow's Pointed + Fired) represents different MODES of
-    // use, and only Fired carries the +2.
-    const typeReg = globalThis.CONFIG?.FOIL?.instrumentTypes ?? {};
-    const matchedTypes = types.map(k => typeReg[k]).filter(Boolean);
-    this.harms = [...new Set(matchedTypes.map(t => t.harms).filter(Boolean))];
-    this.bonusByType = matchedTypes
-      .filter(t => Number(t.bonusStress ?? 0) > 0)
-      .map(t => ({ label: t.label, bonusStress: Number(t.bonusStress) }));
+    // +N (PHB 7.4.0): +N to rolls, Pierce half of N (rounded down) for Melee or Ranged;
+    // Blocking-only is Oppose-only.
+    const meleeOrRanged = defs.some(d => d.family === "melee" || d.family === "ranged");
+    this.bonusRoll   = this.blockingOnly ? 0 : this.bonus;
+    this.bonusPierce = !this.blockingOnly && meleeOrRanged ? Math.floor(this.bonus / 2) : 0;
+    this.bonusOppose = this.blockingOnly ? this.bonus : 0;
 
-    // Warn when this Instrument can't actually be used: no Type at all, or a
-    // Type slug the registry doesn't recognize (e.g. left over from a rename/
-    // split — this is exactly the class of bug an earlier live audit had to
-    // find by hand; surfacing it here catches it automatically instead).
-    const badTypes = types.filter(t => !typeReg[t]);
-    this.typeWarning = types.length === 0
-      ? "No Instrument Types set — this Instrument can't be wielded for anything."
-      : badTypes.length
-        ? `Unresolved Instrument Type(s): ${badTypes.join(", ")} — pick a valid type from the list.`
-        : "";
+    // Focus Gem (PHB 7.4.4).
+    this.isArcane = channels.length > 0;
+    const gem = FOCUS_GEMS[this.gem?.type];
+    this.gemActive = !!gem && this.isArcane;
+    this.gemSummary = gem ? `${gem.label} (Tier ${this.gem.tier})${gem.damageType ? `, ${gem.damageType}` : ""}: `
+      + gem.adds.replace(/(\+|-|)1\b/, (m, s) => `${s || ""}${this.gem.tier}`) : "";
+    this.gemWarning = gem && !this.isArcane ? "A Focus Gem only works in an Arcane Instrument." : "";
+    this.damageTypes = [...types.filter(t => ["edged", "pointed", "blunt"].includes(t)),
+                        ...(this.gemActive && gem.damageType ? [gem.damageType] : [])];
 
-    // Enchantment pricing (GMG §5.1.0/§8.2.0): same engine as a Technique.
-    const registry = globalThis.CONFIG?.FOIL?.effects ?? null;
+    this.typeWarning = types.length === 0 && !this.innate
+      ? "No Instrument Types set: this Instrument can't be used for anything."
+      : unknown.length ? `Unresolved Instrument Type(s): ${unknown.join(", ")}.` : "";
+
+    // Enchanting (GMG 8.2.0): priced like a custom Technique, sold at 10p per XP.
     const ench = this.enchantment ?? {};
-    let computed = { xp: 0, strain: 0, breakdown: [] };
-    if (registry && ench.enabled) {
-      computed = priceTechnique(ench.effects ?? [], registry, { floorOverride: ench.floorOverride });
-    }
-    ench.xpCost = computed.xp;
-    ench.strain = Math.floor(computed.xp / 16);
-    // Price = effect XP × 10p (PHB §5.4.2).
-    ench.price = computed.xp * 10;
-    // Difficulty and required Gemstone Tier by effect XP (GMG §8.2.0).
-    ench.difficulty = computed.xp <= 0 ? 0 : computed.xp <= 8 ? 12 : computed.xp <= 16 ? 16 : computed.xp <= 24 ? 20 : 25;
-    ench.craftMaterialTier = computed.xp <= 0 ? 0 : computed.xp <= 8 ? 1 : computed.xp <= 16 ? 2 : computed.xp <= 24 ? 3 : 4;
-
-    // The Aptitude an Enchantment rolls comes from the Instrument's own carried
-    // Instrument Type(s) — it is cast through this specific Instrument.
-    const distinctApts = [...new Set(matchedTypes.map(t => t.aptitude).filter(v => v && v !== "None"))];
-    ench.aptitudeDisplay = (distinctApts.length === 1 && distinctApts[0] !== "varies") ? distinctApts[0] : "varies";
-
-    const enchBase = ench.effectText || (computed.breakdown ?? []).map(b => b.label).join(", ");
-    ench.effectSummary = ench.strain > 0
-      ? (enchBase ? `${enchBase}, Strain ${ench.strain}` : `Strain ${ench.strain}`)
-      : enchBase;
-
-    // Accuracy/Pierce from the bound effects, same scan TechniqueData does —
-    // the wielder's roll adds these plus the Instrument's own +N (PHB §7.4.0),
-    // exactly as if the effect were an ordinary Technique through this item.
-    ench.accuracyTotal = (ench.effects ?? [])
-      .filter(e => e.key === "accuracy")
-      .reduce((n, e) => n + Number(e.magnitude ?? 0), 0);
-    ench.pierceTotal = (ench.effects ?? [])
-      .filter(e => e.key === "pierce")
-      .reduce((n, e) => n + Number(e.magnitude ?? 0), 0);
+    const registry = globalThis.CONFIG?.FOIL?.effects ?? null;
+    const priced = registry && ench.enabled ? priceTechnique(ench.effects ?? [], registry) : { xp: 0, breakdown: [] };
+    ench.xpCost = priced.xp;
+    ench.strain = strainFor(priced.xp);
+    ench.price  = priced.xp * 10;
+    const x = priced.xp;
+    ench.difficulty = !x ? 0 : x <= 8 ? 16 : x <= 16 ? 20 : x <= 24 ? 24 : 28;
+    ench.materialTier = !x ? 0 : x <= 8 ? 1 : x <= 16 ? 2 : x <= 24 ? 3 : 4;
+    const text = ench.effectText || (priced.breakdown ?? []).map(b => b.label).join(", ");
+    ench.effectSummary = ench.strain ? (text ? `${text}, Strain ${ench.strain}` : `Strain ${ench.strain}`) : text;
   }
 }
 
 export class TechniqueData extends foundry.abstract.TypeDataModel {
+  static migrateData(source) {
+    if (source?.requires) source.requires = mapTypes(source.requires);
+    if (source && source.floorOverride !== undefined && source.floor === undefined) {
+      source.floor = Number(source.floorOverride) > 0;
+    }
+    return super.migrateData(source);
+  }
+
   static defineSchema() {
     return {
-      requires: slugArray(),        // Instrument Type slugs (any one of); empty = any.
-      // Aptitude / Target / Oppose are NOT stored: per PHB §5.2.1 the required
-      // Instrument Type dictates them. They are derived below for display.
-      // Composed effects (GMG §5.1.0). XP/Strain derive from these.
+      // Instrument Type slugs, any one of; empty with `innate` means no Instrument at all.
+      requires: slugArray(),
+      requiresText: str(""),
+      innate: bool(false),
+      // A Skill the Technique names outright (River Walk rolls Acuity).
+      skill: new f.StringField({ required: true, blank: true, initial: "", choices: ["", ...SKILL_KEYS] }),
+      family: str(""),
+      subgroup: str(""),
       effects: effectsArraySchema(),
-      floorOverride: int(0),        // manual floor for ward / answers-a-class cases
-      // Optional authoritative override (catalogue entries, Skills that don't
-      // decompose). null ⇒ use the computed price.
+      // A stated defensive floor (GMG 12.1.0 step 4) the effects can't show on their own.
+      floor: bool(false),
+      // The printed XP; blank uses the computed price.
       xpOverride: new f.NumberField({ required: false, nullable: true, integer: true, initial: null }),
-      effectText: str(""),          // free-text flavor / summary override
+      // The printed Effect line, Strain included.
+      effectText: str(""),
+      ancestryGrant: str(""),
       description: html("")
     };
   }
 
   prepareDerivedData() {
     const registry = globalThis.CONFIG?.FOIL?.effects ?? null;
-    let computed = { xp: 0, strain: 0, gate: { value: 0, attribute: "" }, breakdown: [] };
-    if (registry) {
-      computed = priceTechnique(this.effects ?? [], registry, { floorOverride: this.floorOverride });
-    }
-    this.xpComputed = computed.xp;
-    this.xpCost = (this.xpOverride ?? null) !== null ? this.xpOverride : computed.xp;
-    // Rescaled 2026-07-28 (4 XP/point base): Strain = floor(XP/16); gate 12 XP ⇒ 12, 16+ ⇒ 16.
-    this.strain = Math.floor(this.xpCost / 16);
-    this.potentialGate = this.xpCost >= 16 ? { value: 16, attribute: "" }
-                       : this.xpCost >= 12 ? { value: 12, attribute: "" }
-                       : { value: 0, attribute: "" };
-    this.pricingBreakdown = computed.breakdown;
+    const types = this.requires ?? [];
+    const { defs, unknown } = resolveTypes(types);
+    const fortifying = types.includes("fortifying");
+    const priced = registry ? priceTechnique(this.effects ?? [], registry, { floor: this.floor || fortifying })
+                            : { xp: 0, breakdown: [] };
+    this.xpComputed = priced.xp;
+    this.xpCost = this.xpOverride ?? priced.xp;
+    this.priceMismatch = this.xpOverride !== null && this.xpOverride !== undefined && !!registry
+      && (this.effects ?? []).length > 0 && this.xpOverride !== priced.xp;
+    this.strain = strainFor(this.xpCost);
+    this.pricingBreakdown = priced.breakdown;
 
-    // Accuracy total feeds the roll formula; scan composed effects.
-    this.accuracyTotal = (this.effects ?? [])
-      .filter(e => e.key === "accuracy")
-      .reduce((n, e) => n + Number(e.magnitude ?? 0), 0);
+    const has = key => (this.effects ?? []).filter(e => e.key === key);
+    const sum = key => has(key).reduce((n, e) => n + Number(e.magnitude ?? 0), 0);
+    this.quick      = has("quick").length > 0 || /^Quick\b/.test(this.effectText);
+    this.upkeep     = has("upkeep").length > 0;
+    this.dealsStress = has("stress").length > 0;
+    this.rollBonus  = sum("roll-bonus");
+    this.pierceTotal = sum("pierce");
+    this.stressRider = has("stress-rider").length;
+    // Used against a target (PHB 6.4.0): the weight dice apply only to these.
+    const TARGETED = new Set(["stress", "stress-rider", "weaken", "move", "drain", "lingering", "illusion", "counter",
+      "grappled", "prone", "restrained", "charmed", "frightened", "controlled", "intimidated", "baited",
+      "angered", "relaxed", "impressed", "wary", "enthralled"]);
+    this.offensive = (this.effects ?? []).some(e => TARGETED.has(e.key)) || /-\d+ Oppose/.test(this.effectText);
 
-    // Aptitude / Target / Oppose are read from the required Instrument Type(s)
-    // (PHB §5.2.1, §7.11.1) — the Technique names the Type, the Type supplies the
-    // rest. Display-only: the actual roll aptitude is fixed by the *wielded*
-    // Instrument's matching Type at roll time (see actor-sheet _onRollTechnique).
-    const typeReg = globalThis.CONFIG?.FOIL?.instrumentTypes ?? {};
-    const reqs = this.requires ?? [];
-    const resolved = reqs.map(k => typeReg[k]).filter(Boolean);
-    const distinct = vals => [...new Set(vals.filter(v => v && v !== "None"))];
-    const apts = distinct(resolved.map(t => t.aptitude));
-    this.aptitudeDisplay = reqs.length === 0 ? "varies"
-      : (apts.includes("varies") || apts.length !== 1) ? "varies" : apts[0];
-    this.targetDisplay = distinct(resolved.map(t => t.targets)).join(" / ")
-      || (resolved.length && resolved.every(t => t.targets === "None") ? "None" : "");
-    this.opposeDisplay = distinct(resolved.map(t => t.opposes)).join(" / ")
-      || (resolved.length && resolved.every(t => t.opposes === "None") ? "None" : "");
+    this.requiresLabel = this.requiresText
+      || (this.innate ? "Innate" : types.length ? types.map(k => defs.find(d => d.key === k)?.label ?? k).join(" or ") : "Any");
+    this.typeWarning = unknown.length ? `Unresolved Instrument Type(s) in Requires: ${unknown.join(", ")}.` : "";
 
-    // Warn on an unresolved Requires slug (empty Requires is fine — it's the
-    // legitimate "any Instrument Type" umbrella meaning, not a problem).
-    const badReqs = reqs.filter(k => !typeReg[k]);
-    this.typeWarning = badReqs.length
-      ? `Unresolved Instrument Type(s) in Requires: ${badReqs.join(", ")} — pick a valid type from the list.`
-      : "";
-
-    // Strain is an Effect, not a separate field (PHB §7 catalogue): fold the
-    // derived Strain N into the effect summary the lists/roll display show.
-    const base = this.effectText || (this.pricingBreakdown ?? []).map(b => b.label).join(", ");
-    this.effectSummary = this.strain > 0
-      ? (base ? `${base}, Strain ${this.strain}` : `Strain ${this.strain}`)
-      : base;
+    const base = this.effectText || (priced.breakdown ?? []).map(b => b.label).join(", ");
+    this.effectSummary = this.effectText ? base
+      : (this.strain ? (base ? `${base}, Strain ${this.strain}` : `Strain ${this.strain}`) : base);
   }
 }
 
 export class EquipmentData extends foundry.abstract.TypeDataModel {
+  static migrateData(source) {
+    if (source?.category === "ward" && (source.qualities ?? []).some(q => q.key === "bolster" || q.key === "skill-bonus")) {
+      source.category = "charm";
+    }
+    for (const q of source?.qualities ?? []) {
+      if (q.key === "bolster") q.key = "skill-bonus";
+      if (q.param in LEGACY_SKILL_KEY) q.param = LEGACY_SKILL_KEY[q.param];
+    }
+    if (source && typeof source.weight === "string") {
+      source.weightClass = source.weight;
+      source.weight = 0;
+    }
+    return super.migrateData(source);
+  }
+
   static defineSchema() {
     return {
-      category: new f.StringField({ required: true, initial: "armor", choices: EQUIP_CATEGORIES }),
-      weight: new f.StringField({ required: true, blank: true, initial: "" }), // shields
+      category: new f.StringField({ required: true, initial: "gear", choices: EQUIPMENT_CATEGORIES }),
       price: int(0),
-      impairFinesse: int(0),
-      ...materialSchema(),
-      // Worn state: only equipped armor/shield/ward contributes its Resistance.
+      // Carried weight in pounds (PHB 7.5.2, 7.5.8).
+      weight: new f.NumberField({ required: true, initial: 0, min: 0 }),
+      // A Shield's weight class (PHB 7.5.3).
+      weightClass: new f.StringField({ required: true, blank: true, initial: "", choices: ["", ...WEIGHT_KEYS] }),
+      size: sizeField("medium"),
+      materials: str(""),
       equipped: bool(false),
-      // Composed passive Qualities: each references a Quality def by slug.
       qualities: new f.ArrayField(new f.SchemaField({
         key: slugField(""),
         value: int(0),
-        param: str("")   // Attribute / Aptitude / free target the quality applies to
+        param: str("")
       })),
-      // Potions/Medicine that restore Stress: the amount they Mend (e.g. "1d6" or "4").
-      mend: str(""),
       uses: str(""),
+      duration: str(""),
       effect: str(""),
+      // A Focus Gem's Type and Tier (PHB 7.4.4).
+      gemType: new f.StringField({ required: true, blank: true, initial: "", choices: GEM_KEYS }),
+      tier: new f.NumberField({ required: true, integer: true, initial: 1, min: 1, max: 5 }),
+      notes: str(""),
       description: html("")
     };
   }
 
   prepareDerivedData() {
-    this.weightLabel = this.weight ? (WEIGHT_PROFILE[this.weight]?.label ?? this.weight) : "";
-    deriveMaterial(this);
+    const wc = WEIGHT_CLASS[this.weightClass];
+    this.carriedWeight = Number(this.weight) || (wc ? wc.lbs : 0);
+    this.weightClassLabel = wc?.label ?? "";
+    const gem = FOCUS_GEMS[this.gemType];
+    if (this.category === "gem" && gem) {
+      this.gemPrice = gem.pricePerTier * this.tier;
+      this.gemSummary = `${gem.damageType ? `${gem.damageType}; ` : ""}${gem.adds.replace(/(\+|-|)1\b/, (m, s) => `${s || ""}${this.tier}`)}`;
+    } else {
+      this.gemPrice = 0;
+      this.gemSummary = "";
+    }
+    this.materialPrice = MATERIAL_TIER_PRICE[this.tier] ?? 0;
   }
 }
 
 export class FeatData extends foundry.abstract.TypeDataModel {
+  static migrateData(source) {
+    if (source?.featKind === "origin") source.featType = "ancestry";
+    else if (source?.featKind === "learned" && !source.featType) source.featType = "learned";
+    for (const m of source?.modifiers ?? []) if (m.key in LEGACY_SKILL_KEY) m.key = LEGACY_SKILL_KEY[m.key];
+    return super.migrateData(source);
+  }
+
   static defineSchema() {
     return {
-      featKind: new f.StringField({ required: true, initial: "learned", choices: ["origin", "learned"] }),
+      featType: new f.StringField({ required: true, initial: "learned", choices: ["learned", "trait", "ancestry"] }),
       xpCost: int(0),
-      origin: str(""),
       requirements: str(""),
       effect: str(""),
-      // Flat stat modifiers (e.g. Iron [Attribute] → Resistance +1). Most Feats
-      // are conditional prose and leave this empty. Feeds aggregateModifiers().
+      ancestry: str(""),
+      grantsTechnique: str(""),
       modifiers: new f.ArrayField(new f.SchemaField({
         type: new f.StringField({ required: true, initial: "training", choices: ["training", "resistance"] }),
-        key: slugField(""),   // aptitude slug (training) or attribute slug (resistance)
+        key: slugField(""),
         value: int(0)
       })),
       description: html("")
@@ -288,11 +315,22 @@ export class FeatData extends foundry.abstract.TypeDataModel {
 }
 
 export class BackgroundData extends foundry.abstract.TypeDataModel {
+  static migrateData(source) {
+    const t = source?.training;
+    if (t) for (const [old, neu] of Object.entries(LEGACY_SKILL_KEY)) {
+      if (old in t) { t[neu] = Number(t[neu] ?? 0) + Number(t[old] ?? 0); delete t[old]; }
+    }
+    return super.migrateData(source);
+  }
+
   static defineSchema() {
     const training = {};
-    for (const k of APTITUDE_KEYS) training[k] = int(0);
+    for (const k of SKILL_KEYS) training[k] = int(0);
     return {
       training: new f.SchemaField(training),
+      // The two d4s of Know-how, by the Attribute each one joins (PHB 2.5.2).
+      knowHow: new f.ArrayField(new f.StringField({ required: true, choices: ATTRIBUTE_KEYS })),
+      coin: str(""),
       equipmentKit: str(""),
       description: html("")
     };
@@ -301,18 +339,32 @@ export class BackgroundData extends foundry.abstract.TypeDataModel {
   prepareDerivedData() {
     const t = this.training ?? {};
     const cap = s => s.charAt(0).toUpperCase() + s.slice(1);
-    this.grantsSummary = APTITUDE_KEYS
-      .filter(k => Number(t[k]) > 0)
-      .map(k => `+${t[k]} ${cap(k)}`)
-      .join(", ");
+    this.grantsSummary = SKILL_KEYS.filter(k => Number(t[k]) > 0).map(k => `+${t[k]} ${cap(k)}`).join(", ");
+    const counts = {};
+    for (const a of this.knowHow ?? []) counts[a] = (counts[a] ?? 0) + 1;
+    this.knowHowSummary = Object.entries(counts).map(([a, n]) => `${n}d4 ${cap(a)}`).join(", ");
   }
 }
 
+/** An Ancestry (PHB 2.5.1, 7.8.0). The document type stays `origin` for existing worlds. */
 export class OriginData extends foundry.abstract.TypeDataModel {
   static defineSchema() {
     return {
+      // Talent: two Attribute dice advanced to a set size ("Finesse to d10").
+      talent: new f.ArrayField(new f.SchemaField({
+        attribute: new f.StringField({ required: true, initial: "might", choices: ATTRIBUTE_KEYS }),
+        die: new f.NumberField({ required: true, integer: true, initial: 8, choices: [6, 8, 10, 12, 20] })
+      })),
+      feats: new f.ArrayField(new f.StringField({ required: true, blank: false })),
       feat: str(""),
+      section: str(""),
       description: html("")
     };
+  }
+
+  prepareDerivedData() {
+    const cap = s => s.charAt(0).toUpperCase() + s.slice(1);
+    this.talentSummary = (this.talent ?? []).map(t => `${cap(t.attribute)} to d${t.die}`).join(", ");
+    this.featsSummary = (this.feats?.length ? this.feats : [this.feat].filter(Boolean)).join(", ");
   }
 }
