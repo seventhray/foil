@@ -107,7 +107,7 @@ const EFFECTS = [
   ["Pierce N", "pierce", "perPoint", { perPoint: 4 }, { requires: [...MELEE, ...RANGED, "kinetic"], label: "Pierce N" }, "Ignore N of the target's Resistance."],
   ["Resistance +N", "resistance", "perPoint", { perPoint: 4 }, { requires: ["parry", "blocking", "fortifying"], label: "Resistance +N" }, "Physical or mental Resistance +N."],
   ["Mend Xd4", "mend", "perPoint", { perPoint: 16 }, { requires: ["fortifying", "sonic"], label: "Mend Nd4" }, "Remove Xd4 Stress from an ally's Attribute. Takes ten minutes and a ration."],
-  ["Lingering N", "lingering", "perPoint", { perPoint: 8 }, { requires: ["kinetic", "incorporeal"], label: "Lingering N" }, "N more Stress at the start of the target's next turns."],
+  ["Lingering N", "lingering", "perPoint", { perPoint: 8 }, { requires: ["kinetic", "incorporeal", "pointed", "edged"], label: "Lingering N" }, "N more Stress at the start of the target's next turns."],
   ["Redirect", "redirect", "flat", { base: 8 }, { requires: ["blocking"] }, "Take an ally's incoming Stress instead."],
   ["Move", "move", "flat", { base: 4 }, { requires: ["grappling", "kinetic", "incorporeal"] }, "Move the target one band."],
   ["Evade", "evade", "flat", { base: 4 }, { requires: ["kinetic", "incorporeal"] }, "Move without provoking."],
