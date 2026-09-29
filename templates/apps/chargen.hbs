@@ -1,36 +1,97 @@
 <div class="foil-sheet chargen-body">
   <p class="chargen-intro">
-    Build <strong>{{actorName}}</strong> (PHB 2.5.0). Every Attribute starts at 2d4; the Ancestry and Background
-    add to them. Body and Voice are added automatically. This replaces the character's Attribute dice.
+    Build <strong>{{actorName}}</strong> (PHB 2.5.0). Every Attribute starts at 2d4; the Ancestry and Background add to them.
+    Body and Voice are added automatically. This replaces the character's Attribute dice, Ancestry, and Background.
   </p>
 
+  <div class="chargen-grid">
+    <fieldset>
+      <legend>1 · Ancestry</legend>
+      <select name="ancestry">
+        <option value="">&mdash; pick one &mdash;</option>
+        {{#each ancestries}}<option value="{{this.name}}" {{#if this.selected}}selected{{/if}}>{{this.name}}</option>{{/each}}
+      </select>
+      {{#if ancestryInfo}}
+        <div class="chargen-detail">
+          {{#if ancestryInfo.description}}<div class="muted">{{{ancestryInfo.description}}}</div>{{/if}}
+          <p><strong>Talent:</strong> {{ancestryInfo.talent}}</p>
+          {{#each ancestryInfo.feats}}
+            <p><strong>{{this.name}}.</strong> {{this.effect}}{{#if this.technique}} <em>({{this.technique}})</em>{{/if}}</p>
+          {{/each}}
+        </div>
+      {{else}}<p class="hint">Sets two dice by Talent and grants two Feats.</p>{{/if}}
+    </fieldset>
+
+    <fieldset>
+      <legend>2 · Background</legend>
+      <select name="background">
+        <option value="">&mdash; pick one &mdash;</option>
+        {{#each backgrounds}}<option value="{{this.name}}" {{#if this.selected}}selected{{/if}}>{{this.name}}</option>{{/each}}
+      </select>
+      {{#if backgroundInfo}}
+        <div class="chargen-detail">
+          {{#if backgroundInfo.description}}<div class="muted">{{{backgroundInfo.description}}}</div>{{/if}}
+          <p><strong>Training:</strong> {{backgroundInfo.training}}</p>
+          <p><strong>Know-how:</strong> {{backgroundInfo.knowHow}}</p>
+          <p><strong>Coin:</strong> {{backgroundInfo.coin}}</p>
+          <p><strong>Kit:</strong></p>
+          <ul>{{#each backgroundInfo.kit}}<li><strong>{{this.name}}</strong>: {{this.line}}</li>{{/each}}</ul>
+        </div>
+      {{else}}<p class="hint">+1 Training in three Skills, 2d4 Know-how, coin, and a kit.</p>{{/if}}
+    </fieldset>
+  </div>
+
   <fieldset>
-    <legend>1 · Ancestry <em>(Talent on two dice, two Feats)</em></legend>
-    <select name="ancestry">
-      <option value="">&mdash;</option>
-      {{#each ancestries}}<option value="{{this.name}}" title="{{this.detail}}">{{this.name}}</option>{{/each}}
-    </select>
+    <legend>Result</legend>
+    <div class="chargen-preview">
+      <table>
+        <thead><tr>{{#each preview.attributes}}<th>{{this.label}}</th>{{/each}}<th>Total</th></tr></thead>
+        <tbody><tr>{{#each preview.attributes}}<td>{{this.formula}} <span class="muted">({{this.potential}})</span></td>{{/each}}<td>{{preview.total}}</td></tr></tbody>
+      </table>
+      <table>
+        <thead><tr>{{#each preview.skills}}<th>{{this.label}}</th>{{/each}}</tr></thead>
+        <tbody><tr>{{#each preview.skills}}<td>+{{this.training}}</td>{{/each}}</tr></tbody>
+      </table>
+      <p>Resistance: physical +{{preview.resistance.physical}}, mental +{{preview.resistance.mental}}</p>
+    </div>
+  </fieldset>
+
+  <div class="chargen-grid">
+    <fieldset>
+      <legend>3 · Starting Point <em>(GMG 2.1.0)</em></legend>
+      <select name="startingPoint">
+        <option value="">&mdash; keep current XP &mdash;</option>
+        {{#each startingTiers}}<option value="{{this.key}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>{{/each}}
+      </select>
+    </fieldset>
+    <fieldset>
+      <legend>4 · Coin <em>(blank uses the Background's)</em></legend>
+      <input type="text" name="coin" value="{{state.coin}}" placeholder="e.g. 10p" />
+    </fieldset>
+  </div>
+
+  <fieldset>
+    <legend>5 · FOIL traits <em>(pick, roll, or leave undeclared; PHB 3.4.0)</em></legend>
+    {{#each axes}}
+      <div class="chargen-axis">
+        <label>{{this.label}}</label>
+        <select name="foil.{{this.key}}.lean">{{#each this.leanOptions}}<option value="{{this.value}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>
+        <select name="pick.{{this.key}}" title="Pick from the table">
+          <option value="">&mdash; table &mdash;</option>
+          {{#each this.table}}<option value="{{this.value}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>{{/each}}
+        </select>
+        <a class="mini-btn" data-action="rollTrait" data-axis="{{this.key}}" title="Roll 1d10"><i class="fas fa-dice-d10"></i></a>
+        <input type="text" name="foil.{{this.key}}.trait" value="{{this.trait}}" placeholder="or write your own" />
+      </div>
+    {{/each}}
   </fieldset>
 
   <fieldset>
-    <legend>2 · Background <em>(+1 Training ×3, 2d4 Know-how, coin, kit)</em></legend>
-    <select name="background">
-      <option value="">&mdash;</option>
-      {{#each backgrounds}}<option value="{{this.name}}" title="{{this.detail}}">{{this.name}}</option>{{/each}}
-    </select>
-  </fieldset>
-
-  <fieldset>
-    <legend>3 · Starting Point <em>(GMG 2.1.0, one for the whole party)</em></legend>
-    <select name="startingPoint">
-      <option value="">&mdash; keep current XP &mdash;</option>
-      {{#each startingTiers}}<option value="{{this.key}}">{{this.label}}</option>{{/each}}
-    </select>
-  </fieldset>
-
-  <fieldset>
-    <legend>4 · Coin <em>(blank uses the Background's)</em></legend>
-    <input type="text" name="coin" placeholder="e.g. 10p" />
+    <legend>6 · Prompts</legend>
+    {{#each prompts}}
+      <label class="block-label">{{this.label}}</label>
+      <textarea name="prompts.{{this.key}}" rows="2">{{this.value}}</textarea>
+    {{/each}}
   </fieldset>
 
   <footer class="chargen-foot">

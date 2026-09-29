@@ -449,8 +449,25 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
   }
 
   /** Make window-content the scroll container so re-renders keep scroll position. */
-  _onRender(context, options) {
+  async _onRender(context, options) {
+    // The base class binds drag-and-drop here; skipping it breaks dropping Items on the sheet.
+    await super._onRender(context, options);
     this.element.querySelector(".window-content")?.classList.add("foil-sheet", this.actor.type);
+  }
+
+  /** A character has one Ancestry and one Background (PHB 2.5.0): dropping one replaces the old. */
+  async _onDropItem(event, item) {
+    const single = this.actor.type === "character" && ["origin", "background"].includes(item.type)
+      && this.actor.uuid !== item.parent?.uuid;
+    if (!single) return super._onDropItem(event, item);
+    const old = this.actor.items.filter(i => i.type === item.type).map(i => i.id);
+    if (old.length) await this.actor.deleteEmbeddedDocuments("Item", old);
+    const created = await super._onDropItem(event, item);
+    if (created) {
+      await this.actor.update({ [`system.${item.type === "origin" ? "ancestry" : "background"}`]: created.name });
+      ui.notifications?.info(`${created.name} added. Its Training applies now; Create applies its dice, Feats, coin, and kit.`);
+    }
+    return created;
   }
 }
 
