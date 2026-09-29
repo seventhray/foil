@@ -246,7 +246,8 @@ const MOVEMENT_TRAITS = new Set(["Fly", "Swim", "Burrow", "Climb", "Incorporeal 
 const HAND_EFFECTS = {
   Riposte: () => [e("quick")],
   Intercept: () => [e("redirect"), e("quick")],
-  Retort: () => [e("stress"), e("stress-rider"), e("quick")]
+  Retort: () => [e("stress"), e("stress-rider"), e("quick")],
+  "River Walk": () => [e("evade")]
 };
 const priceFails = [];
 
@@ -263,7 +264,7 @@ function techniqueDoc(n) {
   const withStress = [e("stress"), ...list];
   let effects;
   if (MOVEMENT_TRAITS.has(n.name)) { effects = []; unparsed.length = 0; }
-  else if (HAND_EFFECTS[n.name]) effects = HAND_EFFECTS[n.name]();
+  else if (HAND_EFFECTS[n.name]) { effects = HAND_EFFECTS[n.name](); unparsed.length = 0; }
   else if (noStress || SUPPORT_FAMILIES.has(n.family)) effects = list;
   else if (price(withStress) === xp) effects = withStress;
   else if (price(list) === xp) effects = list;
@@ -392,7 +393,7 @@ function equipmentDocs() {
   const out = [];
   for (const r of tableAfter(PHB, /^### 7\.5\.2 Armor/)) {
     out.push(equip(r.Armor, "armor", num(r.Price), {
-      weight: num(r.Weight), size: "large", qualities: [q("resistance", num(r.Resistance), "physical")], notes: r.Notes
+      weight: num(r.Weight), size: "large", qualities: [q("resistance", num(r.Resistance), "physical")], notes: r.Notes ?? ""
     }));
   }
   for (const r of tableAfter(PHB, /^### 7\.5\.3 Shields/)) {
@@ -402,18 +403,18 @@ function equipmentDocs() {
     const sk = r.Properties.match(/\+(\d) (\w+)/);
     if (sk && SKILLS.includes(lc(sk[2]))) quals.push(q("skill-bonus", +sk[1], lc(sk[2])));
     out.push(equip(r.Shield, "shield", num(r.Price), {
-      weightClass: lc(r.Weight), qualities: quals, effect: "Blocking", notes: r.Notes
+      weightClass: lc(r.Weight), qualities: quals, effect: "Blocking", notes: r.Notes ?? ""
     }));
   }
   const ward = sectionText(PHB, /^### 7\.5\.4 Wards and charms/);
   const wardTables = ward.split(/\n(?=\| Item)/).filter(s => s.startsWith("| Item"));
   const wardRows = tableAfter("#### x\n" + wardTables[0], /^#### x/);
   for (const r of wardRows) {
-    out.push(equip(r.Item, "ward", num(r.Price), { qualities: [q("resistance", num(r.Resistance), "mental")], notes: r.Notes, size: "small", materials: "Metal" }));
+    out.push(equip(r.Item, "ward", num(r.Price), { qualities: [q("resistance", num(r.Resistance), "mental")], notes: r.Notes ?? "", size: "small", materials: "Metal" }));
   }
   const charmRows = tableAfter("#### x\n" + wardTables[1], /^#### x/);
   for (const r of charmRows) {
-    out.push(equip(r.Item, "charm", num(r.Price), { qualities: [q("skill-bonus", 1, lc(r.Skill))], notes: r.Notes, size: "small", materials: "Metal" }));
+    out.push(equip(r.Item, "charm", num(r.Price), { qualities: [q("skill-bonus", 1, lc(r.Skill))], notes: r.Notes ?? "", size: "small", materials: "Metal" }));
   }
   for (const r of tableAfter(PHB, /^### 7\.5\.5 Adventuring Gear/)) {
     out.push(equip(r.Item, "gear", num(r.Price), { effect: r["Helps with"], size: "small", materials: "" }));
