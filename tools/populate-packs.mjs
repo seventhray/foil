@@ -258,7 +258,7 @@ function techniqueDoc(n) {
   const { requires, innate } = parseRequires(n.requires);
   const { list, stress, unparsed } = parseEffects(n.effect);
   const xp = Number(n.xp) || 0;
-  // GMG 12.1.0 step 4: Fortifying, a ward or bonus until the caster's next turn, or a stated trigger.
+  // GMG 5.2.0 step 4: Fortifying, a ward or bonus until the caster's next turn, or a stated trigger.
   const floor = requires.includes("fortifying") || /until your next turn|Quick \(trigger/i.test(n.effect ?? "");
   const price = effects => priceTechnique(effects, EFFECT_REG, { floor }).xp;
 

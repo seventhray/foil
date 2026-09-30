@@ -1,6 +1,6 @@
 /**
  * src/pricing.js
- * Custom-Technique pricing engine (GMG 12.1.0, Fundamental Math's Effects
+ * Custom-Technique pricing engine (GMG 5.2.0, Fundamental Math's Effects
  * table). Pure functions, no Foundry globals, so they run headlessly. Given a
  * Technique's composed effect entries and the effect registry, derives XP and
  * Strain. Authoring support only: nothing here resolves play.

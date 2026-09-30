@@ -131,7 +131,7 @@ p("The vocabulary", `
 </ul>`),
 
 p("Pricing a Technique", `
-<p>A Technique's XP is priced from its Effects (GMG 12.1.0), and the sheet shows the computed price beside the printed one.</p>
+<p>A Technique's XP is priced from its Effects (GMG 5.2.0), and the sheet shows the computed price beside the printed one.</p>
 <ol>
 <li>Sum the Effects. Stress is an Effect at 4 XP.</li>
 <li>A Pattern, Selective, or Extend Range is priced by reach and counts as an Effect.</li>

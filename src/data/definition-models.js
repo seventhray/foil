@@ -78,7 +78,7 @@ export class QualityData extends foundry.abstract.TypeDataModel {
 }
 
 /**
- * A Technique Effect (Fundamental Math's Effects table, GMG 12.0.0). Carries
+ * A Technique Effect (Fundamental Math's Effects table, GMG 5.1.0). Carries
  * its price and the Instrument Types allowed to deliver it.
  */
 export class EffectData extends foundry.abstract.TypeDataModel {

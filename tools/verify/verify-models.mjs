@@ -132,7 +132,7 @@ check("a Blocking-only +N applies to Oppose only", () => {
   return eq([i.bonusRoll, i.bonusPierce, i.bonusOppose], [0, 0, 1]);
 });
 
-console.log("\nTechnique pricing (GMG 12.1.0):");
+console.log("\nTechnique pricing (GMG 5.2.0):");
 const REG = {
   stress: { pricingKind: "flat", pricingParams: { base: 4 } },
   pierce: { pricingKind: "perPoint", pricingParams: { perPoint: 4 } },
