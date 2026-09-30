@@ -29,9 +29,9 @@ const all = GUIDE.flatMap(j => j.pages.map(p => p.html)).join("\n");
 console.log(`\nfigures cross-checked against the v${BOOK_VERSION} books:`);
 ok("Training 6 XP plus 2 per point held, capped at the dice in its two pools", /Training by \+1 \(max: the dice in its two pools\)\s*\|\s*6 XP, plus 2 for each point of Training it already has/.test(phb) && /costs 6 XP, plus 2 for each point the Skill already has/.test(all));
 ok("die steps 8/12/16/20, d12 to d20 100 as a Transformation, new 1d4 20 with its limit",
-  /d4 to d6: 8 XP\. d6 to d8: 12 XP\. d8 to d10: 16 XP\. d10 to d12: 20 XP\./.test(phb) && /\*\*Transformation\*\*: advance a d12 Attribute die to d20[^|]*\|\s*100 XP/.test(phb)
+  /d4 to d6: 8 XP\. d6 to d8: 12 XP\. d8 to d10: 16 XP\. d10 to d12: 20 XP\./.test(phb) && /\*\*Transformation\*\*: advance a d12 Attribute die to d20 and gain one gift[^|]*\|\s*100 XP/.test(phb) && /## 7\.12\.0 Transformations/.test(phb)
   && /Add a 1d4[^\n]*?Know-how\*\*\)\s*\|\s*20 XP/.test(phb) && /2 Know-how dice, plus 1 for each of its dice at d12 or larger/.test(phb)
-  && /8, 12, 16, or 20 XP by its size, d12 to d20 100 XP as a Transformation, which also adds or changes an innate Instrument, a new 1d4 20 XP/.test(all));
+  && /8, 12, 16, or 20 XP by its size, d12 to d20 100 XP as a Transformation, which also grants a gift \(PHB 7\.12\.0\), a new 1d4 20 XP/.test(all));
 ok("every Attribute starts at 2d4", /Every Attribute starts at 2d4/.test(phb) && /Every Attribute starts at 2d4/.test(all));
 ok("Training cap is the dice in the two pools", /more Training in a Skill than the number of dice in the Skill's two pools \(/.test(phb) && /can't pass the number of dice in the Skill's two pools\./.test(all));
 ok("+N Pierce is half the bonus", /Pierce equal to half its bonus, rounded down/.test(phb) && /Pierce equal to half the bonus, rounded down/.test(all));
