@@ -24,12 +24,12 @@
       <span class="readout">{{xp.available}}</span>
     </div>
     <div class="tracker-row">
-      <div class="tracker token-tracker" title="Earned by invoking a held FOIL trait, once a scene; spent to absorb up to 4 Stress or to reroll one die (PHB 3.2.0)">
+      <div class="tracker token-tracker" title="Earned by invoking a held FOIL trait, once a scene; spent to halve the Stress from one source or to reroll one die (PHB 3.2.0)">
         <label>Foil Tokens</label>
         <a data-action="earnToken" data-delta="-1" title="Remove one"><i class="fas fa-minus"></i></a>
         <span class="readout big">{{tokens.value}} / {{tokens.max}}</span>
         <a data-action="earnToken" data-delta="1" title="Earn one"><i class="fas fa-plus"></i></a>
-        <button type="button" class="mini-btn" data-action="absorbStress" title="Spend one to absorb up to 4 Stress">Absorb Stress</button>
+        <button type="button" class="mini-btn" data-action="absorbStress" title="Spend one to halve the Stress from one source">Halve Stress</button>
       </div>
       <div class="tracker">
         <label title="One per 8 hours of rest or per Travel leg (PHB 6.10.0)">Rations</label>

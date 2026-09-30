@@ -78,7 +78,7 @@ p("Actions and Strain", `
 p("FOIL and Foil Tokens", `
 <p>Four axes describe how a character responds in the moment: <strong>Faith</strong> (Trusting or Mistrusting), <strong>Order</strong> (Ordered or Disordered), <strong>Individualism</strong> (Individual or Communal), and <strong>Levity</strong> (Light or Grave). Each leans toward one end, sits deliberately between them, or stays undeclared (PHB 3.1.0).</p>
 <p>Once per scene a player may <strong>invoke</strong> a trait their character holds. If the table agrees the trait drives what the character is doing, they earn a <strong>Foil Token</strong>. A character holds at most four.</p>
-<p>A Foil Token is spent at will: absorb up to 4 Stress from any mix of Attributes, or reroll any one die right after rolling a Skill. The new result stands.</p>`),
+<p>A Foil Token is spent at will: halve the Stress from one source, rounded down, or reroll any one die right after rolling a Skill. The new result stands.</p>`),
 
 p("Ending a conflict, resting, travel", `
 <p>A conflict ends when one side stops contesting it. <strong>Flee</strong>: Disengage and move away; each chaser rolls Prowess against the fleer every round, and the winner moves one range band. <strong>Yield</strong>: stop fighting and accept terms. <strong>Destroy</strong>: keep going until every Attribute is at zero. <strong>Terms</strong>: press for an end with social Conditions.</p>
@@ -99,7 +99,7 @@ p("Character sheet", `
 <tr><td><strong>Current Potential</strong></td><td>Falls as Stress lands. At 0 the Attribute is Incapacitated; it recovers at the threshold shown.</td></tr>
 <tr><td><strong>Resistance</strong></td><td>Derived from equipped armor, shields, wards, and Feats, with what granted it.</td></tr>
 <tr><td><strong>Skills</strong></td><td>Formula, Training (with its cap), passive value, and roll range. Click to roll.</td></tr>
-<tr><td><strong>Foil Tokens</strong></td><td>Earn one on an invoke; <em>Absorb Stress</em> spends one.</td></tr>
+<tr><td><strong>Foil Tokens</strong></td><td>Earn one on an invoke; <em>Halve Stress</em> spends one.</td></tr>
 <tr><td><strong>Rations, Carried</strong></td><td>Rations weigh 2 lbs each. Carried turns red with its roll penalty once over 4x Might Potential.</td></tr>
 <tr><td><strong>FOIL</strong></td><td>A lean and a trait line per axis.</td></tr>
 <tr><td><strong>Conditions</strong></td><td>Active Conditions, with rounds and a note.</td></tr>
@@ -114,7 +114,7 @@ p("What the system does for you", `
 <ul>
 <li><strong>Strain</strong> lands on the Instrument's Primary Attribute when a learned Technique is rolled.</li>
 <li>A Stress Technique's chat card has a <strong>Stress</strong> button. Enter the target's Oppose and Resistance, pick the Type effect, and it reports the Stress. Applying it to the target stays manual.</li>
-<li><strong>Foil Token</strong> spends: absorb Stress from the sheet, or reroll one die from any roll's chat card.</li>
+<li><strong>Foil Token</strong> spends: halve one source's Stress from the sheet, or reroll one die from any roll's chat card.</li>
 </ul>
 <p>It does not roll Opposes, apply Stress to a target, adjudicate Conditions, or move FOIL traits.</p>`),
 ]},

@@ -6,14 +6,14 @@
  *     rolled (PHB 4.2.3).
  *   - A landed Technique's chat card computes its Stress once the target's
  *     Oppose total is entered (PHB 6.7.0). Applying it to the target stays manual.
- *   - Foil Token spends: absorb up to 4 Stress, or reroll one die of a posted
+ *   - Foil Token spends: halve one source's Stress, or reroll one die of a posted
  *     roll (PHB 3.2.0).
  * Everything else (opposed rolls, Conditions, FOIL traits) stays with the table.
  */
 
 import {
   ATTRIBUTE_KEYS, ATTR_LABEL, SKILL_ATTRS, SKILL_KEYS, SKILL_LABEL, SKILL_ABBR, FOIL_AXES,
-  FOIL_TOKEN_MAX, FOIL_TOKEN_ABSORB, CONDITIONS, EQUIPMENT_CATEGORY_LABEL,
+  FOIL_TOKEN_MAX, CONDITIONS, EQUIPMENT_CATEGORY_LABEL,
   REST_BLOCK_HOURS, REST_RATION_HOURS
 } from "../constants.js";
 import { equipmentSummary } from "../registry.js";
@@ -325,30 +325,33 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
     await this.actor.setFoilTokens(this.actor.foilTokens + delta);
   }
 
-  /** Spend a Token: absorb up to 4 Stress, from any mix of Attributes. */
+  /** Spend a Token: halve the Stress one source dealt, rounded down (PHB 3.2.0). */
   static async _onAbsorbStress() {
     if (this.actor.foilTokens < 1) return ui.notifications?.warn("No Foil Tokens to spend.");
     const attrs = this.actor.system.attributes ?? {};
     const rows = ATTRIBUTE_KEYS.map(k => {
       const a = attrs[k];
       return `<div class="form-group"><label>${ATTR_LABEL[k]} (${a.potential.current}/${a.potential.max})</label>`
-        + `<input type="number" name="${k}" value="0" min="0" max="${FOIL_TOKEN_ABSORB}" /></div>`;
+        + `<input type="number" name="${k}" value="0" min="0" /></div>`;
     }).join("");
-    const answer = await ask("Spend a Foil Token", `<p>Absorb up to ${FOIL_TOKEN_ABSORB} Stress, split however you like.</p>${rows}`, "Absorb");
+    const answer = await ask("Spend a Foil Token",
+      `<p>Enter the Stress one source put on each Attribute. The token halves it, rounded down.</p>${rows}`, "Halve");
     if (!answer) return;
     const amounts = Object.fromEntries(ATTRIBUTE_KEYS.map(k => [k, Math.max(0, Math.trunc(Number(answer[k]) || 0))]));
     const total = Object.values(amounts).reduce((n, v) => n + v, 0);
     if (!total) return;
-    if (total > FOIL_TOKEN_ABSORB) return ui.notifications?.warn(`A Foil Token absorbs at most ${FOIL_TOKEN_ABSORB} Stress.`);
+    let back = total - Math.floor(total / 2);
     const lines = [];
     for (const k of ATTRIBUTE_KEYS) {
-      if (!amounts[k]) continue;
-      const { before, after } = await this.actor.heal(k, amounts[k]);
+      if (!amounts[k] || !back) continue;
+      const take = Math.min(amounts[k], back);
+      back -= take;
+      const { before, after } = await this.actor.heal(k, take);
       lines.push(`${ATTR_LABEL[k]} ${before} &rarr; ${after}`);
     }
     await this.actor.setFoilTokens(this.actor.foilTokens - 1);
     await ChatMessage.create({ speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-      content: `<div class="foil-flavor"><strong>Foil Token spent: absorbs ${total} Stress</strong><br><em>${lines.join(", ")}</em></div>` });
+      content: `<div class="foil-flavor"><strong>Foil Token spent: ${total} Stress halved to ${Math.floor(total / 2)}</strong><br><em>${lines.join(", ")}</em></div>` });
   }
 
   // ─── Conditions, gear, rest ─────────────────────────────────────────────────

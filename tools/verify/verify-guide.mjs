@@ -44,8 +44,8 @@ ok("Drawn +2, Fired +4", /\| Drawn \| \+2 Stress/.test(phb) && /\| Fired \| \+4 
 ok("weight classes 15/30/45p, 2/4/8 lbs, attack dice +1d6/+2d4", /Light 15p, Medium 30p, Heavy 45p/.test(phb) && /A Heavy Instrument \| 8 lbs/.test(phb) && /\(15p, 30p, 45p\)/.test(all) && /\(2, 4, 8 lbs\)/.test(all)
   && /Light none, Medium 1d6, Heavy 2d4/.test(phb) && /A Heavy Instrument takes both hands/.test(phb) && /A Medium Instrument adds 1d6[^.]*a Heavy one 2d4/.test(all));
 ok("Incapacitation lifts at half Potential, rounded down", /down to half its Potential or less, rounded down/.test(phb) && /half its Potential or less, rounded down/.test(all));
-ok("Foil Tokens: max four, absorb 4, reroll one die", /at most \*\*four\*\* Foil Tokens/.test(phb) && /absorbs up to 4 Stress/.test(phb) && /reroll any one die/.test(phb)
-  && /at most four/.test(all) && /absorb up to 4 Stress/.test(all));
+ok("Foil Tokens: max four, halve one source, reroll one die", /at most \*\*four\*\* Foil Tokens/.test(phb) && /halves the Stress from one source/.test(phb) && /reroll any one die/.test(phb)
+  && /at most four/.test(all) && /halve the Stress from one source, rounded down/.test(all));
 ok("rest 1d4 per 2 hours, one ration per 8", /\*\*1d4 Stress every 2 hours\*\*/.test(phb) && /one ration per 8 hours/.test(phb) && /1d4 Stress every 2 hours/.test(all));
 ok("carrying past 4x Might Potential", /Up to 4x Might Potential \| None/.test(phb) && /past 4x Might Potential/.test(all));
 ok("combination premium 4 XP per Effect beyond the first", /Add \*\*4 XP for every effect beyond the first\*\*/.test(gmg) && /4 XP for every Effect beyond the first/.test(all));

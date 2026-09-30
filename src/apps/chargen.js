@@ -19,10 +19,10 @@ import { CONVICTIONS } from "../convictions.js";
 // Starting Points (GMG 2.1.0): picked for the whole party, sets Starting XP.
 export const STARTING_TIERS = [
   { key: "fresh",     label: "Fresh Start (0 XP)",   xp: 0 },
-  { key: "blooded",   label: "Blooded (60 XP)",      xp: 60 },
-  { key: "hardened",  label: "Hardened (150 XP)",    xp: 150 },
-  { key: "storied",   label: "Storied (300 XP)",     xp: 300 },
-  { key: "legendary", label: "Legendary (600+ XP)",  xp: 600 }
+  { key: "blooded",   label: "Blooded (175 XP)",     xp: 175 },
+  { key: "hardened",  label: "Hardened (400 XP)",    xp: 400 },
+  { key: "storied",   label: "Storied (825 XP)",     xp: 825 },
+  { key: "legendary", label: "Legendary (1600+ XP)", xp: 1600 }
 ];
 
 const PROMPTS = [

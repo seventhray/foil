@@ -151,7 +151,6 @@ export const FOIL_AXES = [
 ];
 export const FOIL_LEANS = ["", "low", "neutral", "high"];
 export const FOIL_TOKEN_MAX = 4;
-export const FOIL_TOKEN_ABSORB = 4;
 
 // Conditions (PHB 6.8.3-6.8.21), for the active-conditions tracker.
 export const CONDITIONS = [

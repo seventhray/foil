@@ -37,7 +37,7 @@ function coreSchema() {
     skills: new f.SchemaField(skills),
     // One trait per FOIL axis, leaning High, Low, or Neutral; blank until declared (PHB 3.4.0).
     foil: foilSchema(),
-    // Earned by invoking a held trait, spent to absorb Stress or reroll a die (PHB 3.2.0).
+    // Earned by invoking a held trait, spent to halve one source's Stress or reroll a die (PHB 3.2.0).
     foilTokens: int(0, { min: 0, max: FOIL_TOKEN_MAX }),
     // A stated base; Equipment and Feats add on top (PHB 6.6.0).
     resistance: new f.SchemaField({ physical: int(0), mental: int(0) }),
