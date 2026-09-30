@@ -4,8 +4,8 @@
  * raise a Skill's Training, or learn a Technique or Feat from the compendium.
  * Stays open across purchases so a session's award can be spent in one sitting.
  *
- * Costs (PHB 2.3.0): a die one size 8/12/16/20 XP by its size, d12 to d20 96 XP
- * (needs a Transformation, noted, not enforced), a Know-how 1d4 20 XP (limit: 2,
+ * Costs (PHB 2.3.0): a die one size 8/12/16/20 XP by its size, d12 to d20 100 XP
+ * (a Transformation, noted, not enforced; its innate Instrument is added by hand), a Know-how 1d4 20 XP (limit: 2,
  * plus 1 per die at d12 or larger), +1 Training 6 XP plus 2 per point held
  * (capped at the dice in the Skill's two pools, PHB 2.2.1), a Technique or Feat
  * its listed XP. A Feat's Requires is shown, and checked by the table.
@@ -54,7 +54,7 @@ export class FoilAdvancement extends HandlebarsApplicationMixin(ApplicationV2) {
         .filter(size => Number(dice[`d${size}`] ?? 0) > 0)
         .map(size => {
           const next = DIE_SIZES[DIE_SIZES.indexOf(size) + 1];
-          const note = size >= 12 ? " (needs a Transformation)" : "";
+          const note = size >= 12 ? " (a Transformation; add or change an innate Instrument)" : "";
           return { size, next, cost: dieStepCost(size), label: `d${size} to d${next}${note}` };
         });
       const kh = knowHowState(dice);
