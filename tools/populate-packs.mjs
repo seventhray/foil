@@ -109,7 +109,8 @@ const EFFECTS = [
   ["Mend Xd4", "mend", "perPoint", { perPoint: 16 }, { requires: ["fortifying", "sonic"], label: "Mend Nd4" }, "Remove Xd4 Stress from an ally's Attribute. Takes ten minutes and a ration."],
   ["Lingering N", "lingering", "perPoint", { perPoint: 8 }, { requires: ["kinetic", "incorporeal", "pointed", "edged"], label: "Lingering N" }, "N more Stress at the start of the target's next turns."],
   ["Redirect", "redirect", "flat", { base: 8 }, { requires: ["blocking"] }, "Take an ally's incoming Stress instead."],
-  ["Move", "move", "flat", { base: 4 }, { requires: ["grappling", "kinetic", "incorporeal"] }, "Move the target one band."],
+  ["Move", "move", "flat", { base: 4 }, { requires: ["grappling", "blunt", "kinetic", "incorporeal"] }, "Move the target one band."],
+  ["Disarm", "disarm", "flat", { base: 8 }, { requires: [...MELEE, "kinetic"] }, "The target drops the Instrument it used last. Innate Instruments can't be dropped."],
   ["Evade", "evade", "flat", { base: 4 }, { requires: ["kinetic", "incorporeal"] }, "Move without provoking."],
   ["Illusion", "illusion", "flat", { base: 8 }, { requires: ["incorporeal", "sonic"] }, "A false sight or sound."],
   ["Drain", "drain", "flat", { base: 8 }, { requires: ["incorporeal"] }, "Heal what the Technique deals."],
@@ -129,12 +130,14 @@ const EFFECTS = [
   ["Frightened", "frightened", "flat", { base: 8 }, { requires: ["incorporeal", "sonic"] }, "PHB 6.8.9."],
   ["Controlled", "controlled", "flat", { base: 24 }, { requires: ["incorporeal"] }, "PHB 6.8.10."],
   ["Intimidated", "intimidated", "flat", { base: 10 }, { requires: ["incorporeal", "sonic"] }, "PHB 6.8.11."],
-  ["Baited", "baited", "flat", { base: 8 }, {}, "PHB 6.8.12."],
-  ["Angered", "angered", "flat", { base: 8 }, {}, "PHB 6.8.13."],
-  ["Relaxed", "relaxed", "flat", { base: 8 }, {}, "PHB 6.8.14."],
-  ["Impressed", "impressed", "flat", { base: 10 }, {}, "PHB 6.8.15."],
-  ["Wary", "wary", "flat", { base: 8 }, {}, "PHB 6.8.16."],
-  ["Enthralled", "enthralled", "flat", { base: 20 }, {}, "PHB 6.8.17."]
+  ["Baited", "baited", "flat", { base: 8 }, { requires: ["incorporeal", "sonic"] }, "PHB 6.8.12."],
+  ["Angered", "angered", "flat", { base: 8 }, { requires: ["incorporeal", "sonic"] }, "PHB 6.8.13."],
+  ["Relaxed", "relaxed", "flat", { base: 8 }, { requires: ["incorporeal", "sonic"] }, "PHB 6.8.14."],
+  ["Impressed", "impressed", "flat", { base: 10 }, { requires: ["incorporeal", "sonic"] }, "PHB 6.8.15."],
+  ["Wary", "wary", "flat", { base: 8 }, { requires: ["sonic", "fortifying"] }, "PHB 6.8.16."],
+  ["Enthralled", "enthralled", "flat", { base: 20 }, { requires: ["incorporeal", "sonic"] }, "PHB 6.8.17."],
+  ["Blinded", "blinded", "flat", { base: 16 }, { requires: [...MELEE, ...RANGED, "kinetic", "incorporeal"] }, "PHB 6.8.20."],
+  ["Slowed", "slowed", "flat", { base: 4 }, { requires: [...MELEE, ...RANGED, "kinetic", "incorporeal"] }, "PHB 6.8.21."]
 ];
 const effectSystem = ([, key, pricingKind, p, o, desc]) => ({
   key, requires: o.requires ?? [], pricingKind,
@@ -171,7 +174,7 @@ function parseRequires(text) {
 // ─── Effect text → composed Effects ────────────────────────────────────────
 const BAND = { close: 1, near: 2, short: 3, mid: 4, long: 5 };
 const CONDITION_KEYS = ["grappled", "prone", "restrained", "charmed", "frightened", "controlled", "intimidated",
-  "baited", "angered", "relaxed", "impressed", "wary", "enthralled"];
+  "baited", "angered", "relaxed", "impressed", "wary", "enthralled", "blinded", "slowed"];
 const e = (key, extra = {}) => ({ key, magnitude: 1, pattern: "single", bands: 0, placement: 0, selectiveN: 0, selectiveR: 0, ...extra });
 
 /** Split on top-level commas (not inside parentheses). */
@@ -227,7 +230,7 @@ function parseEffects(text) {
     if (/^Move (the|each) target 1 band$/i.test(c)) { list.push(e("move")); continue; }
     if (/^Hasten \(Action\)/i.test(c)) { list.push(e("hasten-action")); if (/\band \+1$/.test(c)) list.push(e("skill-mod")); continue; }
     if (/^Hasten \(Quick Action\)/i.test(c)) { list.push(e("hasten-quick")); continue; }
-    if ((m = c.match(/^(Evade|Illusion|Drain|Counter|Redirect)\b/i))) { list.push(e(lc(m[1]))); continue; }
+    if ((m = c.match(/^(Evade|Illusion|Drain|Counter|Redirect|Disarm)\b/i))) { list.push(e(lc(m[1]))); continue; }
     if ((m = c.match(/^(\w+)(?: \(.*\))?$/)) && CONDITION_KEYS.includes(lc(m[1]))) { list.push(e(lc(m[1]))); continue; }
     if (/^Redirect that Stress/i.test(c)) { list.push(e("redirect")); continue; }
     if (/^use a Melee Technique against that attacker/i.test(c)) continue;

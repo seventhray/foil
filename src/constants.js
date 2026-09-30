@@ -153,11 +153,11 @@ export const FOIL_LEANS = ["", "low", "neutral", "high"];
 export const FOIL_TOKEN_MAX = 4;
 export const FOIL_TOKEN_ABSORB = 4;
 
-// Conditions (PHB 6.8.3-6.8.19), for the active-conditions tracker.
+// Conditions (PHB 6.8.3-6.8.21), for the active-conditions tracker.
 export const CONDITIONS = [
   "Grappled", "Weakened", "Restrained", "Reeling", "Prone", "Charmed", "Frightened",
   "Controlled", "Intimidated", "Baited", "Angered", "Relaxed", "Impressed", "Wary",
-  "Enthralled", "Swayed", "Misled"
+  "Enthralled", "Swayed", "Misled", "Blinded", "Slowed"
 ];
 
 // Carrying capacity (PHB 7.5.8): past 4x Might Potential, -1 to rolls per multiple.
