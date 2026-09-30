@@ -13,11 +13,14 @@
 
 import {
   ATTRIBUTE_KEYS, ATTR_LABEL, SKILL_ATTRS, SKILL_KEYS, SKILL_LABEL, SKILL_ABBR, FOIL_AXES,
-  FOIL_TOKEN_MAX, CONDITIONS, EQUIPMENT_CATEGORY_LABEL,
+  FOIL_TOKEN_MAX, CONDITIONS, EQUIPMENT_CATEGORY_LABEL, ITEM_LOCATIONS, LOCATION_LABEL,
   REST_BLOCK_HOURS, REST_RATION_HOURS
 } from "../constants.js";
 import { equipmentSummary } from "../registry.js";
 import { stressFor } from "../stress.js";
+
+const LOCATION_ICON = { equipped: "fa-hand", carried: "fa-suitcase", stored: "fa-box-archive" };
+const locationView = loc => ({ key: loc, icon: LOCATION_ICON[loc] ?? "fa-suitcase", label: LOCATION_LABEL[loc] ?? loc });
 
 const { HandlebarsApplicationMixin } = foundry.applications.api;
 const ActorSheetV2Base = foundry.applications.sheets.ActorSheetV2;
@@ -58,7 +61,7 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
       absorbStress:     FoilActorSheet._onAbsorbStress,
       addCondition:     FoilActorSheet._onAddCondition,
       removeCondition:  FoilActorSheet._onRemoveCondition,
-      toggleEquipped:   FoilActorSheet._onToggleEquipped,
+      cycleLocation:    FoilActorSheet._onCycleLocation,
       rest:             FoilActorSheet._onRest,
       generateCharacter: FoilActorSheet._onGenerateCharacter,
       openAdvancement:  FoilActorSheet._onOpenAdvancement,
@@ -119,7 +122,7 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
   }
 
   _itemGroups() {
-    const groups = { origin: [], background: [], instrument: [], technique: [], feat: [], equipment: [] };
+    const groups = { origin: [], background: [], instrument: [], technique: [], feat: [], equipment: [], builtin: [] };
     for (const item of this.actor.items) {
       if (!(item.type in groups)) continue;
       const s = item.system;
@@ -127,16 +130,33 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
       if (item.type === "instrument") {
         view.primaryLabel = ATTR_LABEL[s.primaryAttribute] ?? "";
         view.kit = (s.kit ?? []).map((k, idx) => ({ idx, name: k.name, skillLabel: SKILL_LABEL[k.skill] ?? k.skill, effect: k.effect }));
+        if (!s.innate) view.place = locationView(s.location);
+        // An Instrument's built-in Techniques join the Techniques tab, with their source (PHB 7.2.0).
+        for (const k of view.kit) groups.builtin.push({ ...k, id: item.id, source: item.name, ready: s.innate || s.location === "equipped" });
       } else if (item.type === "technique") {
         view.effectDisplay = s.effectSummary;
+        const valid = this._validInstruments(item);
+        view.usableWith = s.innate ? "Innate (no Instrument)"
+          : valid.length ? valid.map(i => i.system.location === "equipped" || i.system.innate ? i.name : `${i.name} (${LOCATION_LABEL[i.system.location].toLowerCase()})`).join(", ")
+          : "no Instrument it has";
+        view.unusable = !s.innate && !valid.length;
       } else if (item.type === "equipment") {
         view.categoryLabel = EQUIPMENT_CATEGORY_LABEL[s.category] ?? "";
         view.effectSummary = equipmentSummary(s);
-        view.wearable = ["armor", "shield", "ward", "charm"].includes(s.category);
+        view.place = locationView(s.location);
       }
       groups[item.type].push(view);
     }
+    // A Heavy Instrument takes both hands: nothing else in hand while it's ready (PHB 4.1.2).
+    const inHand = [...this.actor.items].filter(i => (i.type === "instrument" && !i.system.innate && i.system.location === "equipped")
+      || (i.type === "equipment" && i.system.category === "shield" && i.system.location === "equipped"));
+    for (const v of groups.instrument) {
+      if (v.system.twoHanded && v.system.location === "equipped" && inHand.length > 1) {
+        v.handsWarning = "Heavy: takes both hands, but another Instrument or a shield is also equipped (PHB 4.1.2).";
+      }
+    }
     for (const k of Object.keys(groups)) groups[k].sort((a, b) => a.name.localeCompare(b.name));
+    groups.builtin.sort((a, b) => (b.ready - a.ready) || a.source.localeCompare(b.source) || a.idx - b.idx);
     return groups;
   }
 
@@ -190,6 +210,7 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
     if (!inst || !kit) return;
     const notes = this._rollNotes(kit.skill);
     notes.unshift(`${inst.name}: ${kit.effect}`);
+    if (!inst.system.innate && inst.system.location !== "equipped") notes.push(`${inst.name} isn't equipped: switching to it costs the Quick Action (PHB 4.1.0).`);
     if (inst.system.quick) notes.push("Quick: may be paid with the Quick Action.");
     if (inst.system.reload) notes.push(`Reload: ${inst.system.reload === "quick" ? "Quick Action" : "Action"}.`);
     const stress = /Deals Stress/i.test(kit.effect);
@@ -201,14 +222,16 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
       }) : null);
   }
 
-  /** Instruments able to deliver a Technique: any one of its required Types. */
+  /** Instruments able to deliver a Technique: any one of its required Types; equipped ones first, stored ones never. */
   _validInstruments(tech) {
     const req = tech.system.requires ?? [];
+    const ready = i => (i.system.innate || i.system.location === "equipped") ? 0 : 1;
     return this.actor.items.filter(i => {
+      if (i.system.location === "stored") return false;
       if (i.type === "instrument") return req.length === 0 || req.some(k => i.system.types?.includes(k));
       if (i.type === "equipment" && i.system.category === "shield") return req.includes("blocking");
       return false;
-    });
+    }).sort((a, b) => ready(a) - ready(b));
   }
 
   static async _onRollTechnique(event, target) {
@@ -374,9 +397,12 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
     await this.actor.update({ "system.conditions": list });
   }
 
-  static async _onToggleEquipped(event, target) {
+  /** Equipped, carried, stored, and round again (PHB 4.1.0, 7.5.8). */
+  static async _onCycleLocation(event, target) {
     const item = this.actor.items.get(target.closest("[data-item-id]")?.dataset.itemId);
-    if (item) await item.update({ "system.equipped": !item.system.equipped });
+    if (!item || item.system.innate) return;
+    const next = ITEM_LOCATIONS[(ITEM_LOCATIONS.indexOf(item.system.location) + 1) % ITEM_LOCATIONS.length];
+    await item.update({ "system.location": next });
   }
 
   /**

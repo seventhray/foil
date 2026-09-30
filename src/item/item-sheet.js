@@ -8,7 +8,7 @@
 import { typeOptions, effectOptions, qualityOptions, effectMap, qualityMap } from "../registry.js";
 import {
   WEIGHT_KEYS, WEIGHT_CLASS, ATTRIBUTE_KEYS, ATTR_LABEL, SKILL_KEYS, SKILL_LABEL, SIZE, SIZE_KEYS,
-  FOCUS_GEMS, EQUIPMENT_CATEGORY_LABEL, RESISTANCE_KINDS, RESISTANCE_LABEL, cap
+  FOCUS_GEMS, EQUIPMENT_CATEGORY_LABEL, RESISTANCE_KINDS, RESISTANCE_LABEL, cap, ITEM_LOCATIONS, LOCATION_LABEL
 } from "../constants.js";
 import { QualityData, EffectData, InstrumentTypeData } from "../data/definition-models.js";
 import { entryLabel } from "../pricing.js";
@@ -72,6 +72,7 @@ export class FoilItemSheet extends HandlebarsApplicationMixin(ItemSheetV2Base) {
       item: this.item,
       system: sys,
       weightOptions: WEIGHT_KEYS.map(k => opt(k, WEIGHT_CLASS[k].label)),
+      locationOptions: ITEM_LOCATIONS.map(k => opt(k, LOCATION_LABEL[k])),
       weightClassOptions: [opt("", "None"), ...WEIGHT_KEYS.map(k => opt(k, WEIGHT_CLASS[k].label))],
       sizeOptions: SIZE_KEYS.map(k => opt(k, `${SIZE[k].label} (${SIZE[k].batches} batch${SIZE[k].batches > 1 ? "es" : ""})`)),
       attributeOptions: ATTRIBUTE_KEYS.map(k => opt(k, ATTR_LABEL[k])),

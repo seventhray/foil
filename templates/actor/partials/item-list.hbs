@@ -6,13 +6,24 @@
   <table class="item-table {{type}}-table">
     <thead>
       {{#if (foil-eq type "instrument")}}<tr><th>Instrument</th><th>Types</th><th>Primary</th><th>Range</th><th>Built-in Techniques</th><th></th></tr>{{/if}}
-      {{#if (foil-eq type "technique")}}<tr><th>Technique</th><th>XP</th><th>Requires</th><th>Effect</th><th></th></tr>{{/if}}
+      {{#if (foil-eq type "technique")}}<tr><th>Technique</th><th>XP</th><th>Source / usable with</th><th>Effect</th><th></th></tr>{{/if}}
       {{#if (foil-eq type "feat")}}<tr><th>Feat</th><th>XP</th><th>Effect</th><th></th></tr>{{/if}}
       {{#if (foil-eq type "equipment")}}<tr><th>Item</th><th>Category</th><th>Effect</th><th>Price</th><th></th></tr>{{/if}}
       {{#if (foil-eq type "origin")}}<tr><th>Ancestry</th><th>Talent</th><th>Feats</th><th></th></tr>{{/if}}
       {{#if (foil-eq type "background")}}<tr><th>Background</th><th>Training</th><th>Know-how</th><th></th></tr>{{/if}}
     </thead>
     <tbody>
+      {{#if (foil-eq type "technique")}}
+        {{#each builtin}}
+          <tr class="item-row builtin-row{{#unless this.ready}} not-ready{{/unless}}" data-item-id="{{this.id}}">
+            <td class="item-name">{{this.name}} <span class="abbr">{{this.skillLabel}}</span></td>
+            <td class="num">&mdash;</td>
+            <td>{{this.source}} <em>(built-in{{#unless this.ready}}, not equipped{{/unless}})</em></td>
+            <td class="effect-cell">{{this.effect}}</td>
+            <td class="item-actions"><a data-action="rollKit" data-index="{{this.idx}}" class="item-roll" title="Use {{this.name}}"><i class="fas fa-dice-d20"></i></a></td>
+          </tr>
+        {{/each}}
+      {{/if}}
       {{#each list}}
         <tr class="item-row" data-item-id="{{this.id}}">
           {{#if (foil-eq ../type "instrument")}}
@@ -24,6 +35,8 @@
               {{#each this.kit}}<a class="kit-roll" data-action="rollKit" data-index="{{this.idx}}" title="{{this.effect}}"><i class="fas fa-dice-d20"></i> {{this.name}} <span class="abbr">{{this.skillLabel}}</span></a>{{/each}}
             </td>
             <td class="item-actions">
+              {{#if this.handsWarning}}<i class="fas fa-triangle-exclamation item-warning" title="{{this.handsWarning}}"></i>{{/if}}
+              {{#if this.place}}<a data-action="cycleLocation" title="{{this.place.label}}: click to change"><i class="fas {{this.place.icon}}"></i></a>{{/if}}
               {{#if this.system.enchantment.enabled}}<a data-action="rollEnchantment" title="Enchantment: {{this.system.enchantment.effectSummary}}"><i class="fas fa-wand-magic-sparkles"></i></a>{{/if}}
               <a data-action="deleteItem" title="Delete"><i class="fas fa-trash"></i></a>
             </td>
@@ -31,7 +44,7 @@
           {{#if (foil-eq ../type "technique")}}
             <td class="item-name" data-action="editItem">{{this.name}}{{#if this.system.typeWarning}} <i class="fas fa-triangle-exclamation item-warning" title="{{this.system.typeWarning}}"></i>{{/if}}</td>
             <td class="num">{{this.system.xpCost}}</td>
-            <td>{{this.system.requiresLabel}}</td>
+            <td{{#if this.unusable}} class="warn"{{/if}} title="Requires {{this.system.requiresLabel}}">{{this.usableWith}}</td>
             <td class="effect-cell">{{this.effectDisplay}}</td>
             <td class="item-actions">
               <a data-action="rollTechnique" class="item-roll" title="Use {{this.name}}"><i class="fas fa-dice-d20"></i></a>
@@ -50,7 +63,7 @@
             <td class="effect-cell">{{this.effectSummary}}</td>
             <td class="num">{{this.system.price}}p</td>
             <td class="item-actions">
-              {{#if this.wearable}}<a data-action="toggleEquipped" title="{{#if this.system.equipped}}Worn: click to stow{{else}}Stowed: click to wear{{/if}}"><i class="fas {{#if this.system.equipped}}fa-shirt{{else}}fa-box{{/if}}"></i></a>{{/if}}
+              <a data-action="cycleLocation" title="{{this.place.label}}: click to change"><i class="fas {{this.place.icon}}"></i></a>
               <a data-action="deleteItem" title="Delete"><i class="fas fa-trash"></i></a>
             </td>
           {{/if}}

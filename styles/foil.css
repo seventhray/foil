@@ -834,3 +834,8 @@
 .chargen .chargen-axis input[type="text"] { grid-column: 2 / -1; }
 .chargen .chargen-axis .mini-btn { cursor: pointer; text-align: center; }
 .chargen textarea { width: 100%; box-sizing: border-box; }
+
+/* Built-in Techniques in the Techniques list; an Instrument not in hand reads dimmer. */
+.foil-sheet .builtin-row .item-name { font-style: italic; }
+.foil-sheet .builtin-row.not-ready { opacity: 0.6; }
+.foil-sheet td.warn { color: var(--foil-warn, #a33); }

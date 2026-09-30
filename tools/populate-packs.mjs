@@ -381,7 +381,7 @@ const equip = (name, category, price, o = {}) => ({
   name, type: "equipment", img: EQUIP_IMG[category] ?? "icons/svg/item-bag.svg",
   system: {
     category, price, weight: o.weight ?? 0, weightClass: o.weightClass ?? "", size: o.size ?? sizeOf[lc(name)] ?? "small",
-    materials: o.materials ?? materialsOf[lc(name)] ?? "", equipped: false, qualities: o.qualities ?? [],
+    materials: o.materials ?? materialsOf[lc(name)] ?? "", location: "carried", qualities: o.qualities ?? [],
     uses: o.uses ?? "", duration: o.duration ?? "", effect: o.effect ?? "",
     gemType: o.gemType ?? "", tier: o.tier ?? 1, notes: o.notes ?? "", description: ""
   }

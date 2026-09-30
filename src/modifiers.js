@@ -48,7 +48,7 @@ export function aggregateModifiers(items = []) {
         for (const [k, v] of Object.entries(s.training ?? {})) addTraining(k, v);
         break;
       case "equipment":
-        if (!WORN.has(s.category) || !s.equipped) break;
+        if (!WORN.has(s.category) || s.location !== "equipped") break;
         for (const q of s.qualities ?? []) {
           if (q.key === "resistance") addResistance(q.param, q.value, it.name);
           else if (q.key === "skill-bonus" && skillKey(q.param) in skillBonus) skillBonus[skillKey(q.param)] += Number(q.value ?? 0);

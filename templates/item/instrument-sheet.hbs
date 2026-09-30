@@ -6,6 +6,10 @@
     <select name="system.category">{{#each categoryOptions}}<option value="{{this.value}}" {{#if (foil-eq this.value ../system.category)}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>
     <label>Weight class <em>(price, weight, attack dice: Medium +1d6, Heavy +2d4 and two hands)</em></label>
     <select name="system.weight">{{#each weightOptions}}<option value="{{this.value}}" {{#if (foil-eq this.value ../system.weight)}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>
+    {{#unless system.innate}}
+    <label>Location <em>(equipped is ready in hand; switching costs the Quick Action)</em></label>
+    <select name="system.location">{{#each locationOptions}}<option value="{{this.value}}" {{#if (foil-eq this.value ../system.location)}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>
+    {{/unless}}
     <label>Primary Attribute <em>(sets its three Skills)</em></label>
     <select name="system.primaryAttribute">{{#each attributeOptions}}<option value="{{this.value}}" {{#if (foil-eq this.value ../system.primaryAttribute)}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>
     <label>Range</label>

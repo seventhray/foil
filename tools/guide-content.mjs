@@ -96,11 +96,13 @@ p("Character sheet", `
 <tr><td><strong>Drag and drop</strong></td><td>Drop any Item from the sidebar or a compendium onto the sheet. A dropped Ancestry or Background replaces the old one.</td></tr>
 <tr><td><strong>Advance</strong></td><td>Spends XP: a die one size 8, 12, 16, or 20 XP by its size, d12 to d20 100 XP as a Transformation, which also grants a gift (PHB 2.3.1), a new 1d4 20 XP (at most 4 dice, plus 1 per die at d12 or larger), +1 Training 6 XP plus 2 per point held, or a Technique or Feat at its listed XP.</td></tr>
 <tr><td><strong>Attribute Dice</strong></td><td>How many of each die size sit in the pool. The system builds the formula and Potential.</td></tr>
-<tr><td><strong>Current Potential</strong></td><td>Falls as Stress lands. At 0 the Attribute is Incapacitated; it recovers at the threshold shown.</td></tr>
+<tr><td><strong>Current Potential</strong></td><td>Potential less the Stress on the Attribute. At 0 the Attribute is Incapacitated; it recovers at the threshold shown.</td></tr>
 <tr><td><strong>Resistance</strong></td><td>Derived from equipped armor, shields, wards, and Feats, with what granted it.</td></tr>
 <tr><td><strong>Skills</strong></td><td>Formula, Training (with its cap), passive value, and roll range. Click to roll.</td></tr>
 <tr><td><strong>Foil Tokens</strong></td><td>Earn one on an invoke; <em>Halve Stress</em> spends one.</td></tr>
 <tr><td><strong>Rations, Carried</strong></td><td>Rations weigh 2 lbs each. Carried turns red with its roll penalty once over 4x Might Potential.</td></tr>
+<tr><td><strong>Location</strong></td><td>Each Instrument and piece of Equipment is equipped, carried, or stored; click its icon to change it. Only equipped gear grants its Resistance or bonus, stored gear weighs nothing, and a Heavy Instrument warns when something else is also in hand. Switching to a carried Instrument costs the Quick Action.</td></tr>
+<tr><td><strong>Techniques</strong></td><td>Lists every built-in Technique of the character's Instruments, with the Instrument it comes from, above the learned ones. Each learned Technique lists the Instruments it can be used with, equipped ones first; stored ones never count.</td></tr>
 <tr><td><strong>FOIL</strong></td><td>A lean and a trait line per axis.</td></tr>
 <tr><td><strong>Conditions</strong></td><td>Active Conditions, with rounds and a note.</td></tr>
 </tbody></table>

@@ -11,7 +11,7 @@ import { f, slugField, slugArray, str, int, bool, html } from "./fields.js";
 import {
   WEIGHT_CLASS, WEIGHT_KEYS, ATTRIBUTE_KEYS, SKILL_KEYS, PRIMARY_SKILLS, SIZE_KEYS, BONUS_PRICE,
   MATERIAL_TIER_PRICE, SIZE, TYPE_SURCHARGE, REACH_PRICE_PER_BAND, RANGE_BANDS, rangeBandOf, usualRange,
-  FOCUS_GEMS, EQUIPMENT_CATEGORIES, LEGACY_SKILL_KEY
+  FOCUS_GEMS, EQUIPMENT_CATEGORIES, LEGACY_SKILL_KEY, ITEM_LOCATIONS
 } from "../constants.js";
 import { priceTechnique, strainFor } from "../pricing.js";
 import { LEGACY_TYPE_KEY } from "./definition-models.js";
@@ -71,6 +71,8 @@ export class InstrumentData extends foundry.abstract.TypeDataModel {
       })),
       // Body and Voice: every character knows them, free (PHB 2.5.3).
       innate: bool(false),
+      // Equipped (ready), carried, or stored (PHB 4.1.0, 7.5.8). Innate Instruments are always equipped.
+      location: new f.StringField({ required: true, initial: "equipped", choices: ITEM_LOCATIONS }),
       bonus: new f.NumberField({ required: true, integer: true, initial: 0, min: 0, max: 5 }),
       size: sizeField("medium"),
       materials: str(""),
@@ -97,7 +99,9 @@ export class InstrumentData extends foundry.abstract.TypeDataModel {
     // Weight dice on offensive rolls; Heavy takes both hands (PHB 4.1.2).
     this.twoHanded = this.weight === "heavy";
     this.weightDice = this.innate ? "" : (w.dice ?? "");
-    this.carriedWeight = this.innate ? 0 : w.lbs;
+    if (this.innate) this.location = "equipped";
+    this.equipped = this.location === "equipped";
+    this.carriedWeight = (this.innate || this.location === "stored") ? 0 : w.lbs;
     this.rangeBand = rangeBandOf(this.range);
     this.primarySkills = PRIMARY_SKILLS[this.primaryAttribute] ?? [];
     this.typesLabel = this.typesDisplay || types.map(k => defs.find(d => d.key === k)?.label ?? k).join(", ");
@@ -242,6 +246,10 @@ export class EquipmentData extends foundry.abstract.TypeDataModel {
       source.weightClass = source.weight;
       source.weight = 0;
     }
+    if (source && typeof source.equipped === "boolean" && !source.location) {
+      source.location = source.equipped ? "equipped" : "carried";
+      delete source.equipped;
+    }
     return super.migrateData(source);
   }
 
@@ -255,7 +263,8 @@ export class EquipmentData extends foundry.abstract.TypeDataModel {
       weightClass: new f.StringField({ required: true, blank: true, initial: "", choices: ["", ...WEIGHT_KEYS] }),
       size: sizeField("medium"),
       materials: str(""),
-      equipped: bool(false),
+      // Equipped (worn or in hand), carried, or stored (PHB 7.5.8).
+      location: new f.StringField({ required: true, initial: "carried", choices: ITEM_LOCATIONS }),
       qualities: new f.ArrayField(new f.SchemaField({
         key: slugField(""),
         value: int(0),
@@ -274,7 +283,8 @@ export class EquipmentData extends foundry.abstract.TypeDataModel {
 
   prepareDerivedData() {
     const wc = WEIGHT_CLASS[this.weightClass];
-    this.carriedWeight = Number(this.weight) || (wc ? wc.lbs : 0);
+    this.equipped = this.location === "equipped";
+    this.carriedWeight = this.location === "stored" ? 0 : (Number(this.weight) || (wc ? wc.lbs : 0));
     this.weightClassLabel = wc?.label ?? "";
     const gem = FOCUS_GEMS[this.gemType];
     if (this.category === "gem" && gem) {

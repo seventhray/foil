@@ -74,13 +74,15 @@ check("Incapacitation lifts at Stress half Potential or less, rounded down", () 
 
 console.log("\nModifiers (PHB 2.5.2, 6.6.0, 7.5.x):");
 const gear = [
-  { name: "Leather", type: "equipment", system: { category: "armor", equipped: true, qualities: [{ key: "resistance", param: "physical", value: 1 }] } },
-  { name: "Half Plate", type: "equipment", system: { category: "armor", equipped: false, qualities: [{ key: "resistance", param: "physical", value: 3 }] } },
-  { name: "Warding Charm", type: "equipment", system: { category: "ward", equipped: true, qualities: [{ key: "resistance", param: "mental", value: 1 }] } },
-  { name: "Watcher's Lens", type: "equipment", system: { category: "charm", equipped: true, qualities: [{ key: "skill-bonus", param: "acuity", value: 1 }] } },
+  { name: "Leather", type: "equipment", system: { category: "armor", location: "equipped", qualities: [{ key: "resistance", param: "physical", value: 1 }] } },
+  { name: "Half Plate", type: "equipment", system: { category: "armor", location: "carried", qualities: [{ key: "resistance", param: "physical", value: 3 }] } },
+  { name: "Warding Charm", type: "equipment", system: { category: "ward", location: "equipped", qualities: [{ key: "resistance", param: "mental", value: 1 }] } },
+  { name: "Watcher's Lens", type: "equipment", system: { category: "charm", location: "equipped", qualities: [{ key: "skill-bonus", param: "acuity", value: 1 }] } },
   { name: "Tough Hide", type: "feat", system: { modifiers: [{ type: "resistance", key: "physical", value: 2 }] } },
   { name: "Soldier", type: "background", system: { training: { prowess: 1, discipline: 1, assertiveness: 1 } } }
 ];
+check("old equipped flags migrate to a location", () => eq(
+  [EquipmentData.migrateData({ equipped: true }).location, EquipmentData.migrateData({ equipped: false }).location], ["equipped", "carried"]));
 check("worn Resistance and Feats stack; stowed gear doesn't count", () => {
   const m = aggregateModifiers(gear); return eq([m.resistance.physical, m.resistance.mental], [3, 1]);
 });

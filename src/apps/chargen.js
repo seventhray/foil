@@ -302,7 +302,7 @@ export class FoilChargen extends HandlebarsApplicationMixin(ApplicationV2) {
     const { found, missing } = await matchKitItems(parseKit(background.system.equipmentKit));
     for (const doc of found) {
       // Worn kit starts equipped so its Resistance or Skill bonus applies at once.
-      if (["armor", "shield", "ward", "charm"].includes(doc.system?.category)) doc.system.equipped = true;
+      if (["armor", "shield", "ward", "charm"].includes(doc.system?.category)) doc.system.location = "equipped";
       add(doc);
     }
     if (missing.length) notes.push(`Kit not found: ${missing.join(", ")}`);

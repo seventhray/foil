@@ -187,3 +187,8 @@ export const BEHAVIOR_TRAITS = [
 ];
 
 export const cap = s => s ? String(s).charAt(0).toUpperCase() + String(s).slice(1) : "";
+
+// Where an item is (PHB 4.1.0, 7.5.8): equipped (worn, or in hand and ready), carried
+// (on the character, not ready), or stored (left behind, no weight).
+export const ITEM_LOCATIONS = ["equipped", "carried", "stored"];
+export const LOCATION_LABEL = { equipped: "Equipped", carried: "Carried", stored: "Stored" };
