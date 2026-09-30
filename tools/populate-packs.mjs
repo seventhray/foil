@@ -114,7 +114,7 @@ const EFFECTS = [
   ["Evade", "evade", "flat", { base: 4 }, { requires: ["kinetic", "incorporeal"] }, "Move without provoking."],
   ["Illusion", "illusion", "flat", { base: 8 }, { requires: ["incorporeal", "sonic"] }, "A false sight or sound."],
   ["Drain", "drain", "flat", { base: 8 }, { requires: ["incorporeal"] }, "Heal what the Technique deals."],
-  ["Counter", "counter", "flat", { base: 12 }, {}, "Contest another Technique as it lands."],
+  ["Counter", "counter", "flat", { base: 12 }, {}, "Contest another Technique as it lands, minus its Strain. A countered upkeep ends the Technique."],
   ["Hasten (Action)", "hasten-action", "flat", { base: 8 }, { requires: ["fortifying"] }, "Grant an ally an extra Action."],
   ["Hasten (Quick Action)", "hasten-quick", "flat", { base: 4 }, { requires: ["fortifying"] }, "Grant an ally an extra Quick Action."],
   ["Extend Range", "extend-range", "extendRange", { perBand: 1 }, { requires: ["kinetic", "incorporeal"] }, "1 XP per band of extra reach."],
