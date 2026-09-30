@@ -4,7 +4,8 @@
  *   1. Every Attribute starts at 2d4.
  *   2. Ancestry: Talent on two dice, two Feats (and any Technique a Feat teaches).
  *   3. Background: +1 Training in three Skills, 2d4 Know-how, coin, and a kit.
- *   4. Starting Point (GMG 2.1.0) sets Starting XP; coin comes from the Background.
+ *   4. Starting Point (GMG 2.1.0) sets Starting XP and suggests Starting Coin;
+ *      a blank coin field takes the Background's.
  *   5. FOIL traits, picked or rolled from the Convictions tables (PHB 3.4.x).
  *   6. The character prompts.
  * Each choice shows what it grants, and a preview shows the finished dice,
@@ -16,13 +17,13 @@ import { poolFromCounts } from "../dice.js";
 import { equipmentSummary } from "../registry.js";
 import { CONVICTIONS } from "../convictions.js";
 
-// Starting Points (GMG 2.1.0): picked for the whole party, sets Starting XP.
+// Starting Points (GMG 2.1.0): picked for the whole party, sets Starting XP and suggests Starting Coin.
 export const STARTING_TIERS = [
   { key: "fresh",     label: "Fresh Start (0 XP)",   xp: 0 },
-  { key: "blooded",   label: "Blooded (175 XP)",     xp: 175 },
-  { key: "hardened",  label: "Hardened (400 XP)",    xp: 400 },
-  { key: "storied",   label: "Storied (825 XP)",     xp: 825 },
-  { key: "legendary", label: "Legendary (1600+ XP)", xp: 1600 }
+  { key: "blooded",   label: "Blooded (175 XP, 175p to 350p)",     xp: 175 },
+  { key: "hardened",  label: "Hardened (400 XP, 400p to 800p)",    xp: 400 },
+  { key: "storied",   label: "Storied (825 XP, 825p to 1650p)",     xp: 825 },
+  { key: "legendary", label: "Legendary (1600+ XP, 1600p to 3200p)", xp: 1600 }
 ];
 
 const PROMPTS = [
@@ -111,7 +112,7 @@ export class FoilChargen extends HandlebarsApplicationMixin(ApplicationV2) {
     this.actor = options.actor;
     const sys = this.actor?.system ?? {};
     // Choices survive re-renders; FOIL and prompts start from what the sheet already has.
-    this.state = {
+    this.choices = {
       ancestry: "", background: "", startingPoint: "", coin: "",
       foil: Object.fromEntries(FOIL_AXES.map(a => [a.key, {
         lean: sys.foil?.[a.key]?.lean ?? "", trait: sys.foil?.[a.key]?.trait ?? ""
@@ -136,7 +137,7 @@ export class FoilChargen extends HandlebarsApplicationMixin(ApplicationV2) {
   async _prepareContext() {
     const [origins, backgrounds, feats, techniques, instruments, equipment] = await Promise.all(
       ["foil.origins", "foil.backgrounds", "foil.feats", "foil.techniques", "foil.instruments", "foil.equipment"].map(packDocsByName));
-    const st = this.state;
+    const st = this.choices;
     const ancestry = origins.get(st.ancestry.toLowerCase()) ?? null;
     const background = backgrounds.get(st.background.toLowerCase()) ?? null;
     const sortByName = m => [...m.values()].sort((a, b) => a.name.localeCompare(b.name));
@@ -215,16 +216,16 @@ export class FoilChargen extends HandlebarsApplicationMixin(ApplicationV2) {
     this.element.addEventListener("change", event => {
       const data = foundry.utils.expandObject(new foundry.applications.ux.FormDataExtended(this.element).object);
       const picked = event.target.name?.match(/^pick\.(\w+)$/);
-      Object.assign(this.state, {
+      Object.assign(this.choices, {
         ancestry: data.ancestry ?? "", background: data.background ?? "",
         startingPoint: data.startingPoint ?? "", coin: data.coin ?? ""
       });
-      for (const a of FOIL_AXES) this.state.foil[a.key] = { lean: data.foil?.[a.key]?.lean ?? "", trait: data.foil?.[a.key]?.trait ?? "" };
-      for (const p of PROMPTS) this.state.prompts[p.key] = data.prompts?.[p.key] ?? "";
+      for (const a of FOIL_AXES) this.choices.foil[a.key] = { lean: data.foil?.[a.key]?.lean ?? "", trait: data.foil?.[a.key]?.trait ?? "" };
+      for (const p of PROMPTS) this.choices.prompts[p.key] = data.prompts?.[p.key] ?? "";
       // Picking from a Convictions table fills the trait and its lean.
       if (picked) {
         const row = (CONVICTIONS[picked[1]] ?? []).find(r => r.trait === event.target.value);
-        if (row) this.state.foil[picked[1]] = { lean: row.lean, trait: row.trait };
+        if (row) this.choices.foil[picked[1]] = { lean: row.lean, trait: row.trait };
       }
       if (["ancestry", "background", "startingPoint"].includes(event.target.name) || picked) this.render();
     });
@@ -235,7 +236,7 @@ export class FoilChargen extends HandlebarsApplicationMixin(ApplicationV2) {
     const axis = target.dataset.axis;
     const roll = await new Roll("1d10").evaluate();
     const row = (CONVICTIONS[axis] ?? []).find(r => r.roll === roll.total);
-    if (row) this.state.foil[axis] = { lean: row.lean, trait: row.trait };
+    if (row) this.choices.foil[axis] = { lean: row.lean, trait: row.trait };
     this.render();
   }
 

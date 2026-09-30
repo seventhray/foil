@@ -13,7 +13,7 @@ import { spawnSync } from "node:child_process";
 import path from "node:path";
 const HERE = path.dirname(new URL(import.meta.url).pathname);
 let failed = 0;
-for (const f of ["verify-templates.mjs", "verify-keys.mjs", "verify-context.mjs", "verify-models.mjs", "verify-guide.mjs"]) {
+for (const f of ["verify-templates.mjs", "verify-keys.mjs", "verify-context.mjs", "verify-models.mjs", "verify-guide.mjs", "verify-app-fields.mjs"]) {
   console.log(`\n─── ${f} ${"─".repeat(Math.max(0, 46 - f.length))}`);
   const r = spawnSync(process.execPath, [path.join(HERE, f)], { stdio: "inherit" });
   if (r.status !== 0) failed++;

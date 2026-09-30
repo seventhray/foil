@@ -2,7 +2,7 @@
  * src/dice.js
  * Attribute-pool parsing. A pool is expressed as per-size die counts
  * ({ d4, d6, d8, d10, d12, d20 }). Potential is the pool's maximum possible roll
- * (sum of die faces). parsePool also reads legacy formula strings like "2d4".
+ * (sum of die faces).
  */
 
 // Die sizes a pool can hold, smallest to largest (rulebook 2.1.0).
@@ -28,42 +28,4 @@ export function poolFromCounts(counts) {
     parts.push(`${n}d${faces}`);
   }
   return { min: dieCount, avg, max, dieCount, formula: parts.join(" + "), valid: dieCount > 0 };
-}
-
-/**
- * Parse a pool formula.
- * @param {string} formula
- * @returns {{ max:number, dieCount:number, flat:number, terms:Array, valid:boolean }}
- */
-export function parsePool(formula) {
-  const f = String(formula ?? "").toLowerCase().replace(/\s+/g, "");
-  if (!f) return { max: 0, dieCount: 0, flat: 0, terms: [], valid: false };
-
-  // Normalize subtraction so every term can be split on "+".
-  const parts = f.replace(/-/g, "+-").split("+").filter(Boolean);
-
-  let max = 0, dieCount = 0, flat = 0, valid = true;
-  const terms = [];
-
-  for (const part of parts) {
-    const dm = part.match(/^(-?)(\d*)d(\d+)$/);
-    if (dm) {
-      const sign  = dm[1] === "-" ? -1 : 1;
-      const count = dm[2] === "" ? 1 : Number(dm[2]);
-      const faces = Number(dm[3]);
-      terms.push({ count, faces, sign });
-      max      += sign * count * faces;
-      dieCount += count;
-      continue;
-    }
-    const nm = part.match(/^(-?\d+)$/);
-    if (nm) {
-      flat += Number(nm[1]);
-      max  += Number(nm[1]);
-      continue;
-    }
-    valid = false;
-  }
-
-  return { max, dieCount, flat, terms, valid };
 }

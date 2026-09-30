@@ -3,11 +3,17 @@
 A Foundry VTT game system for **Foilbound**, a tabletop RPG with four Attribute dice pools, four FOIL value axes, and Stress set by the margin of an opposed roll. It follows the Foilbound v0.6.0 rules. The rulebooks themselves are not in this repository.
 
 - System id: `foil`
-- Foundry: v12 minimum, verified on v14
+- Foundry: v13 minimum, verified on v14
 
 ## Install
 
-There is no manifest URL yet. Clone the repository into Foundry's systems folder, then restart Foundry and create a world with the Foilbound system:
+In Foundry's Setup screen, open Game Systems, click Install System, and paste this manifest URL:
+
+```
+https://github.com/seventhray/foil/releases/latest/download/system.json
+```
+
+To track unreleased changes instead, clone the repository into Foundry's systems folder:
 
 ```sh
 cd <Foundry user data>/Data/systems
@@ -30,6 +36,8 @@ The tools in `tools/` rebuild the compendiums from the rulebook Markdown and che
 
 - `node tools/populate-packs.mjs` rebuilds the compendiums. Close Foundry first; its compendiums can't be written while it's running. `--dry-run` writes nothing.
 - `node tools/verify/run.mjs` runs the headless checks.
+
+To publish a release, bump `version` and the `download` URL in `system.json`, commit, and run `tools/release.sh`.
 
 ## License
 
