@@ -61,7 +61,7 @@ const INSTRUMENT_TYPES = [
   ["Incorporeal", "incorporeal", "arcane", { stressPhysical: -1, stressMental: 1 }, "+1 Stress against a mental Attribute. -1 against a physical Attribute."],
   ["Sonic", "sonic", "sonic", { stressPhysical: -1, stressMental: 1 }, "+1 Stress against a mental Attribute. -1 against a physical Attribute."],
   ["Fortifying", "fortifying", "arcane", {}, "Support, aimed at an ally or the caster."],
-  ["Grappling", "grappling", "melee", { dealsNoStress: true }, "Deals no Stress."],
+  ["Grappling", "grappling", "melee", { dealsNoStress: true }, "Adds no Stress."],
   ["Parry", "parry", "melee", {}, "Spend the Quick Action reactively for physical Resistance +1 against a Melee or Ranged Technique (PHB 6.5.2)."],
   ["Blocking", "blocking", "other", { blocking: true }, "+N applies to Oppose rolls. Guard with the Quick Action (PHB 6.5.1)."],
   ["Immobile", "immobile", "other", { stressPhysical: 2, stressMental: 2 }, "+2 Stress. Fixed at a location; using it means being there."],

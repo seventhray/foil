@@ -170,15 +170,14 @@ export const REST_RATION_HOURS = 8;
 
 // Advancement costs (PHB 2.3.0).
 // Advancement (PHB 2.3.0). A Talent step costs by the die's current size; d12 to d20
-// is a Transformation, which also grants a gift (PHB 7.12.0). Training climbs 2 per point already held.
+// is a Transformation, which also grants a gift (PHB 2.3.1). Training climbs 2 per point already held.
 export const XP_COST = { talent: { 4: 8, 6: 12, 8: 16, 10: 20 }, d12ToD20: 100, knowHow: 20, training: 6, trainingStep: 2 };
-export const KNOW_HOW_BASE_LIMIT = 2;
+export const DICE_BASE_LIMIT = 4;
 export const trainingCost = held => XP_COST.training + XP_COST.trainingStep * Math.max(0, Number(held) || 0);
-/** Know-how dice are every die past the first two; the limit is 2, plus 1 per die at d12 or larger. */
+/** An Attribute holds at most 4 dice, plus 1 per die at d12 or larger (PHB 2.3.0). */
 export function knowHowState(dice = {}) {
-  const total = Object.values(dice).reduce((n, c) => n + (Number(c) || 0), 0);
-  const held = Math.max(0, total - 2);
-  const limit = KNOW_HOW_BASE_LIMIT + Number(dice.d12 ?? 0) + Number(dice.d20 ?? 0);
+  const held = Object.values(dice).reduce((n, c) => n + (Number(c) || 0), 0);
+  const limit = DICE_BASE_LIMIT + Number(dice.d12 ?? 0) + Number(dice.d20 ?? 0);
   return { held, limit, atLimit: held >= limit };
 }
 
