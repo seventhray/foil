@@ -192,12 +192,12 @@ function splitTop(s) {
 
 /**
  * Decompose a catalog Effect line. Returns the Effects other than Stress, plus
- * whether the line forbids Stress outright ("no Stress"). Unparsed clauses are
+ * whether the line deals Stress ("Stress"). Unparsed clauses are
  * returned for the report.
  */
 function parseEffects(text) {
   const list = [], unparsed = [];
-  let noStress = false, quick = false, rider = false;
+  let stress = false, quick = false, rider = false;
   let src = String(text ?? "").replace(/\.$/, "").replace(/\.\s*Strain \d+$/i, "");
   const trig = src.match(/^Quick \(trigger:[^)]*\):\s*(.*)$/i);
   if (trig) { quick = true; src = trig[1]; }
@@ -215,7 +215,7 @@ function parseEffects(text) {
     let m;
     if (/^Strain \d+$/i.test(c)) continue;
     if (/^(deal Stress to that attacker|\+1 Stress|physical or mental|self or ally|reduced by your physical Resistance)$/i.test(c)) continue;
-    if (/^no Stress$/i.test(c)) { noStress = true; continue; }
+    if (/^Stress$/i.test(c)) { stress = true; continue; }
     if (/^Upkeep$/i.test(c)) { list.push(e("upkeep")); continue; }
     if ((m = c.match(/^Pierce (\d+)$/i))) { list.push(e("pierce", { magnitude: +m[1] })); continue; }
     if ((m = c.match(/^-(\d+) \[target Attribute\]$/i))) { list.push(e("weaken", { magnitude: +m[1] })); continue; }
@@ -238,11 +238,9 @@ function parseEffects(text) {
   }
   if (rider) list.push(e("stress-rider"));
   if (quick) list.push(e("quick"));
-  return { list, noStress, unparsed };
+  return { list, stress, unparsed };
 }
 
-// Families whose Techniques never deal Stress on their own.
-const SUPPORT_FAMILIES = new Set(["Fortifying", "Block", "Blocking", "Innate"]);
 // New capabilities sustained by Upkeep (PHB 7.7.3). No Effect in the table
 // prices the capability itself, so these carry their printed XP only.
 const MOVEMENT_TRAITS = new Set(["Fly", "Swim", "Burrow", "Climb", "Incorporeal Movement"]);
@@ -258,22 +256,17 @@ const priceFails = [];
 
 function techniqueDoc(n) {
   const { requires, innate } = parseRequires(n.requires);
-  const { list, noStress, unparsed } = parseEffects(n.effect);
+  const { list, stress, unparsed } = parseEffects(n.effect);
   const xp = Number(n.xp) || 0;
   // GMG 12.1.0 step 4: Fortifying, a ward or bonus until the caster's next turn, or a stated trigger.
   const floor = requires.includes("fortifying") || /until your next turn|Quick \(trigger/i.test(n.effect ?? "");
   const price = effects => priceTechnique(effects, EFFECT_REG, { floor }).xp;
 
-  // Stress is implicit in the printed line. Include it when the line prices out
-  // that way; otherwise take the reading that matches the printed XP.
-  const withStress = [e("stress"), ...list];
+  // A Technique deals Stress only when its line says so (PHB 7.6.0).
   let effects;
   if (MOVEMENT_TRAITS.has(n.name)) { effects = []; unparsed.length = 0; }
   else if (HAND_EFFECTS[n.name]) { effects = HAND_EFFECTS[n.name](); unparsed.length = 0; }
-  else if (noStress || SUPPORT_FAMILIES.has(n.family)) effects = list;
-  else if (price(withStress) === xp) effects = withStress;
-  else if (price(list) === xp) effects = list;
-  else effects = withStress;
+  else effects = stress ? [e("stress"), ...list] : list;
 
   const computed = price(effects);
   if (effects.length && (computed !== xp || unparsed.length)) {
