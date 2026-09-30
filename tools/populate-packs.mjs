@@ -9,7 +9,7 @@
  * Run with Foundry STOPPED (LevelDB is single-writer):
  *   node tools/populate-packs.mjs
  * Flags: --dry-run writes nothing; --convictions-only writes src/convictions.js and stops.
- * Env: FOUNDRY_APP (default /mnt/data/foundry/foundryvtt), FOIL_BOOKS, FOIL_VERSION.
+ * Env (or tools/local-paths.json): FOUNDRY_APP, FOIL_BOOKS; optional FOIL_VERSION, FOIL_PACK_ROOT.
  *
  * Every catalog Technique is decomposed into priced Effects and re-priced by
  * src/pricing.js. Its printed XP stays authoritative (xpOverride); rows whose
@@ -22,10 +22,10 @@ import { pathToFileURL } from "node:url";
 import { priceTechnique, strainFor } from "../src/pricing.js";
 import { GUIDE } from "./guide-content.mjs";
 import {
-  SYSTEM_ROOT, SYSTEM_VERSION, readPHB, readCatalog, tableAfter, sectionText
+  SYSTEM_ROOT, SYSTEM_VERSION, readPHB, readCatalog, tableAfter, sectionText, setting
 } from "./books.mjs";
 
-const FOUNDRY_APP = process.env.FOUNDRY_APP ?? "/mnt/data/foundry/foundryvtt";
+const FOUNDRY_APP = setting("FOUNDRY_APP");
 const { ClassicLevel } = await import(pathToFileURL(path.join(FOUNDRY_APP, "node_modules/classic-level/index.js")).href);
 
 const PACK_ROOT = process.env.FOIL_PACK_ROOT ?? path.join(SYSTEM_ROOT, "packs");

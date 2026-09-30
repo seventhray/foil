@@ -1,8 +1,12 @@
 /**
  * tools/books.mjs
  * Where the rulebooks live, and small readers shared by the seeder and the
- * verify scripts. Set FOIL_BOOKS to point elsewhere; FOIL_VERSION picks the
- * book version (defaults to the system's own version).
+ * verify scripts. Local paths come from environment variables, or from
+ * tools/local-paths.json (not committed), e.g.
+ *   { "FOIL_BOOKS": "/path/to/Foilbound", "FOUNDRY_APP": "/path/to/foundryvtt" }
+ * FOIL_BOOKS is the folder holding the rulebook .md files; FOUNDRY_APP is the
+ * Foundry install, for its bundled node_modules. FOIL_VERSION picks the book
+ * version (defaults to the system's own version).
  */
 
 import fs from "node:fs";
@@ -12,16 +16,27 @@ import { execFileSync } from "node:child_process";
 const HERE = path.dirname(new URL(import.meta.url).pathname);
 export const SYSTEM_ROOT = path.resolve(HERE, "..");
 export const SYSTEM_VERSION = JSON.parse(fs.readFileSync(path.join(SYSTEM_ROOT, "system.json"), "utf8")).version;
-export const BOOKS = process.env.FOIL_BOOKS ?? "/home/connor/Vaults/Foilbound Ombril/Foilbound";
+const LOCAL = (() => {
+  try { return JSON.parse(fs.readFileSync(path.join(HERE, "local-paths.json"), "utf8")); }
+  catch { return {}; }
+})();
+/** A local path setting; throws with a clear message only when a script actually needs it. */
+export function setting(name) {
+  const value = process.env[name] ?? LOCAL[name];
+  if (!value) throw new Error(`${name} is not set: export it, or add it to tools/local-paths.json.`);
+  return value;
+}
+export const BOOKS = process.env.FOIL_BOOKS ?? LOCAL.FOIL_BOOKS ?? "";
 export const BOOK_VERSION = process.env.FOIL_VERSION ?? SYSTEM_VERSION;
 
 export const PHB_PATH = path.join(BOOKS, `Foilbound TTRPG Player's Handbook v${BOOK_VERSION}.md`);
 export const GMG_PATH = path.join(BOOKS, `Foilbound TTRPG Game Master's Guide v${BOOK_VERSION}.md`);
 export const FM_PATH = path.join(BOOKS, "Design Docs", "Fundamental Math.md");
 
-export const readPHB = () => fs.readFileSync(PHB_PATH, "utf8");
-export const readGMG = () => fs.readFileSync(GMG_PATH, "utf8");
-export const readFM = () => fs.readFileSync(FM_PATH, "utf8");
+const readBook = file => { setting("FOIL_BOOKS"); return fs.readFileSync(file, "utf8"); };
+export const readPHB = () => readBook(PHB_PATH);
+export const readGMG = () => readBook(GMG_PATH);
+export const readFM = () => readBook(FM_PATH);
 
 /**
  * Every Catalog note's frontmatter, grouped by folder. The notes are YAML;

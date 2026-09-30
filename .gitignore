@@ -3,4 +3,5 @@ packs/*/LOG
 packs/*/LOG.old
 node_modules/
 *.zip
+tools/local-paths.json
 .DS_Store

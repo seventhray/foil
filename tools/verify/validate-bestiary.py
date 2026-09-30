@@ -8,7 +8,7 @@ actually follow.
 Check every printed creature against the proposed framework, so the rule
 being written into the GMG is one the Bestiary actually follows."""
 import re, glob, os
-D = "/home/connor/Documents/Foilbound Ombril/Campaign/Creatures"
+D = os.environ.get("FOIL_CREATURES") or exit("Set FOIL_CREATURES to the Campaign/Creatures folder.")
 BASE = {"Pest":4,"Minor":6,"Moderate":8,"Serious":10,"Dangerous":12,"Major":20}
 RES  = {"Pest":0,"Minor":0,"Moderate":1,"Serious":2,"Dangerous":2,"Major":3,"Legendary":4}
 TRN  = {"Pest":0,"Minor":1,"Moderate":1,"Serious":2,"Dangerous":2,"Major":3,"Legendary":4}

@@ -1,6 +1,6 @@
 import { pathToFileURL } from "node:url";
-import { SYSTEM_ROOT } from "../books.mjs";
-const FOUNDRY_APP = process.env.FOUNDRY_APP ?? "/mnt/data/foundry/foundryvtt";
+import { SYSTEM_ROOT, setting } from "../books.mjs";
+const FOUNDRY_APP = setting("FOUNDRY_APP");
 const { default: Handlebars } = await import(pathToFileURL(`${FOUNDRY_APP}/node_modules/handlebars/lib/index.js`).href);
 import fs from "node:fs";
 import path from "node:path";
