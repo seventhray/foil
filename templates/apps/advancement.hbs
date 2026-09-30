@@ -21,16 +21,20 @@
               Talent: {{this.label}} <em>({{this.cost}} XP)</em>
             </a>
           {{/each}}
-          <a class="adv-btn" data-action="addDie" data-attr="{{this.key}}">
-            Know-how: add 1d4 <em>({{this.newDieCost}} XP)</em>
-          </a>
+          {{#if this.knowHowAtLimit}}
+            <span class="hint">Know-how at limit ({{this.knowHowHeld}} of {{this.knowHowLimit}})</span>
+          {{else}}
+            <a class="adv-btn" data-action="addDie" data-attr="{{this.key}}">
+              Know-how: add 1d4 <em>({{this.newDieCost}} XP, {{this.knowHowHeld}} of {{this.knowHowLimit}})</em>
+            </a>
+          {{/if}}
         </div>
       </div>
     {{/each}}
   </fieldset>
 
   <fieldset>
-    <legend>Skill Training <em>(cap: dice in the two pools, or +4)</em></legend>
+    <legend>Skill Training <em>(cap: dice in the two pools)</em></legend>
     {{#each skillRows}}
       <div class="adv-attr-row">
         <label>{{this.label}} <span class="readout">+{{this.training}} of +{{this.cap}}</span></label>

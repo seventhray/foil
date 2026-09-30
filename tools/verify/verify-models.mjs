@@ -8,6 +8,7 @@ const { InstrumentData, TechniqueData, EquipmentData } = await import(`${R}/data
 const { aggregateModifiers } = await import(`${R}/modifiers.js`);
 const { priceTechnique, strainFor, patternCost, selectiveCost } = await import(`${R}/pricing.js`);
 const { stressFor } = await import(`${R}/stress.js`);
+const { XP_COST, trainingCost, knowHowState } = await import(`${R}/constants.js`);
 
 let fails = 0;
 const check = (label, fn) => { try { const r = fn(); console.log(`  PASS  ${label}${r ? " — " + r : ""}`); } catch (e) { console.log(`  FAIL  ${label}\n        ${e.message}`); fails++; } };
@@ -15,6 +16,14 @@ const eq = (got, want, what = "") => { if (JSON.stringify(got) !== JSON.stringif
 const char = (src, items = []) => { const c = new CharacterData(src, { parent: { items: { contents: items } } }); c.prepareDerivedData(); return c; };
 const pools = (m, f, w, p) => ({ might: { dice: m, potential: { current: 99 } }, finesse: { dice: f, potential: { current: 99 } },
   wit: { dice: w, potential: { current: 99 } }, presence: { dice: p, potential: { current: 99 } } });
+
+console.log("Advancement costs (PHB 2.3.0):");
+check("Talent steps 8/12/16/20 by size, d12 to d20 96", () => eq([XP_COST.talent[4], XP_COST.talent[6], XP_COST.talent[8], XP_COST.talent[10], XP_COST.d12ToD20], [8, 12, 16, 20, 96]));
+check("Know-how 20 XP", () => eq(XP_COST.knowHow, 20));
+check("Training 6 XP plus 2 per point held", () => eq([0, 1, 2, 3].map(trainingCost), [6, 8, 10, 12]));
+check("Know-how limit: 2, plus 1 per die at d12 or larger", () => eq([
+  knowHowState({ d4: 4 }).atLimit, knowHowState({ d12: 1, d4: 3 }).atLimit, knowHowState({ d12: 1, d4: 4 }).atLimit, knowHowState({ d20: 1, d12: 1, d4: 4 }).limit
+], [true, false, true, 4]));
 
 console.log("Migration from pre-0.6.0 worlds:");
 check("Aptitudes become Skills; Fortitude to Discipline, Command to Assertiveness", () => {

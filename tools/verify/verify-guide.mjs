@@ -27,9 +27,11 @@ console.log(`  PASS  markup: ${pages} pages checked`);
 
 const all = GUIDE.flatMap(j => j.pages.map(p => p.html)).join("\n");
 console.log(`\nfigures cross-checked against the v${BOOK_VERSION} books:`);
-ok("Training 6 XP, capped at the dice in its two pools", /Training by \+1 \(max: the dice in its two pools\)\s*\|\s*6 XP/.test(phb) && /costs 6 XP a point/.test(all));
-ok("die size 8, d12 to d20 36, new 1d4 18", /one size \(\*\*Talent[^\n]*?\|\s*8 XP/.test(phb) && /d12 Attribute Die to d20[^|]*\|\s*36 XP/.test(phb)
-  && /Add a 1d4[^\n]*?Know-how\*\*\)\s*\|\s*18 XP/.test(phb) && /one size 8 XP, d12 to d20 36 XP, a new 1d4 18 XP/.test(all));
+ok("Training 6 XP plus 2 per point held, capped at the dice in its two pools", /Training by \+1 \(max: the dice in its two pools\)\s*\|\s*6 XP, plus 2 for each point of Training it already has/.test(phb) && /costs 6 XP, plus 2 for each point the Skill already has/.test(all));
+ok("die steps 8/12/16/20, d12 to d20 96 behind a Transformation, new 1d4 20 with its limit",
+  /d4 to d6: 8 XP\. d6 to d8: 12 XP\. d8 to d10: 16 XP\. d10 to d12: 20 XP\./.test(phb) && /d12 Attribute Die to d20[^|]*Transformation[^|]*\|\s*96 XP/.test(phb)
+  && /Add a 1d4[^\n]*?Know-how\*\*\)\s*\|\s*20 XP/.test(phb) && /2 Know-how dice, plus 1 for each of its dice at d12 or larger/.test(phb)
+  && /8, 12, 16, or 20 XP by its size, d12 to d20 96 XP after a Transformation, a new 1d4 20 XP/.test(all));
 ok("every Attribute starts at 2d4", /Every Attribute starts at 2d4/.test(phb) && /Every Attribute starts at 2d4/.test(all));
 ok("Training cap is the dice in the two pools", /more Training in a Skill than the number of dice in the Skill's two pools \(/.test(phb) && /can't pass the number of dice in the Skill's two pools\./.test(all));
 ok("+N Pierce is half the bonus", /Pierce equal to half its bonus, rounded down/.test(phb) && /Pierce equal to half the bonus, rounded down/.test(all));

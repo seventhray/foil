@@ -39,7 +39,7 @@ p("Attributes, Potential, and Skills", `
 <tr><td>Guile</td><td>Finesse + Presence</td><td>Maneuvering, deception, performance, misdirection</td></tr>
 <tr><td>Resonance</td><td>Wit + Presence</td><td>Insight, persuasion, connection, encouragement</td></tr>
 </tbody></table>
-<p><strong>Training</strong> costs 6 XP a point. It can't pass the number of dice in the Skill's two pools.</p>
+<p><strong>Training</strong> costs 6 XP, plus 2 for each point the Skill already has. It can't pass the number of dice in the Skill's two pools.</p>
 <p>A creature that isn't pushing back has a <strong>passive</strong> value in each Skill: the Average of its two Attributes, rounded down, plus Training. It stands in as the Difficulty.</p>`),
 
 p("Instruments and Types", `
@@ -94,7 +94,7 @@ p("Character sheet", `
 <table><thead><tr><th>Field</th><th>What it is</th></tr></thead><tbody>
 <tr><td><strong>Create</strong></td><td>Builds a starting character in one window, following PHB 2.5.0: pick an Ancestry and a Background and see what each grants, preview the dice, Training, and Resistance, set FOIL traits (pick, roll, or write), and answer the prompts. Adds Body and Voice.</td></tr>
 <tr><td><strong>Drag and drop</strong></td><td>Drop any Item from the sidebar or a compendium onto the sheet. A dropped Ancestry or Background replaces the old one.</td></tr>
-<tr><td><strong>Advance</strong></td><td>Spends XP: a die one size 8 XP, d12 to d20 36 XP, a new 1d4 18 XP, +1 Training 6 XP, or a Technique or Feat at its listed XP.</td></tr>
+<tr><td><strong>Advance</strong></td><td>Spends XP: a die one size 8, 12, 16, or 20 XP by its size, d12 to d20 96 XP after a Transformation, a new 1d4 20 XP (2 Know-how dice, plus 1 per die at d12 or larger), +1 Training 6 XP plus 2 per point held, or a Technique or Feat at its listed XP.</td></tr>
 <tr><td><strong>Attribute Dice</strong></td><td>How many of each die size sit in the pool. The system builds the formula and Potential.</td></tr>
 <tr><td><strong>Current Potential</strong></td><td>Falls as Stress lands. At 0 the Attribute is Incapacitated; it recovers at the threshold shown.</td></tr>
 <tr><td><strong>Resistance</strong></td><td>Derived from equipped armor, shields, wards, and Feats, with what granted it.</td></tr>

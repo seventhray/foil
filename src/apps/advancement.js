@@ -4,16 +4,18 @@
  * raise a Skill's Training, or learn a Technique or Feat from the compendium.
  * Stays open across purchases so a session's award can be spent in one sitting.
  *
- * Costs (PHB 2.3.0): advance a die one size 8 XP, d12 to d20 36 XP, add a 1d4
- * 18 XP, +1 Training 4 XP (capped at the dice in the Skill's two pools or +4,
- * whichever is lower, PHB 2.2.1), a Technique or Feat its listed XP. Nothing
- * gates on Potential; a Feat's Requires is shown, and checked by the table.
+ * Costs (PHB 2.3.0): a die one size 8/12/16/20 XP by its size, d12 to d20 96 XP
+ * (needs a Transformation, noted, not enforced), a Know-how 1d4 20 XP (limit: 2,
+ * plus 1 per die at d12 or larger), +1 Training 6 XP plus 2 per point held
+ * (capped at the dice in the Skill's two pools, PHB 2.2.1), a Technique or Feat
+ * its listed XP. A Feat's Requires is shown, and checked by the table.
  */
 
-import { ATTRIBUTE_KEYS, ATTR_LABEL, SKILL_KEYS, SKILL_LABEL, XP_COST } from "../constants.js";
+import { ATTRIBUTE_KEYS, ATTR_LABEL, SKILL_KEYS, SKILL_LABEL, XP_COST, knowHowState, trainingCost } from "../constants.js";
 import { DIE_SIZES } from "../dice.js";
 
-const dieStepCost = size => size >= 12 ? XP_COST.d12ToD20 : XP_COST.talent;
+const dieStepCost = size => size >= 12 ? XP_COST.d12ToD20 : XP_COST.talent[size];
+
 
 const { HandlebarsApplicationMixin, ApplicationV2 } = foundry.applications.api;
 
@@ -52,9 +54,12 @@ export class FoilAdvancement extends HandlebarsApplicationMixin(ApplicationV2) {
         .filter(size => Number(dice[`d${size}`] ?? 0) > 0)
         .map(size => {
           const next = DIE_SIZES[DIE_SIZES.indexOf(size) + 1];
-          return { size, next, cost: dieStepCost(size), label: `d${size} to d${next}` };
+          const note = size >= 12 ? " (needs a Transformation)" : "";
+          return { size, next, cost: dieStepCost(size), label: `d${size} to d${next}${note}` };
         });
-      return { key, label: ATTR_LABEL[key], diceFormula: a.diceFormula || "none", steps, newDieCost: XP_COST.knowHow };
+      const kh = knowHowState(dice);
+      return { key, label: ATTR_LABEL[key], diceFormula: a.diceFormula || "none", steps,
+        newDieCost: XP_COST.knowHow, knowHowHeld: kh.held, knowHowLimit: kh.limit, knowHowAtLimit: kh.atLimit };
     });
 
     const skills = sys.skills ?? {};
@@ -62,7 +67,7 @@ export class FoilAdvancement extends HandlebarsApplicationMixin(ApplicationV2) {
       const s = skills[key] ?? {};
       const total = Number(s.trainingTotal ?? s.training ?? 0);
       const cap = Number(s.trainingCap ?? 4);
-      return { key, label: SKILL_LABEL[key], training: total, cap, capped: total >= cap, cost: XP_COST.training };
+      return { key, label: SKILL_LABEL[key], training: total, cap, capped: total >= cap, cost: trainingCost(total) };
     });
 
     const owned = new Set(this.actor.items.map(i => i.name.toLowerCase()));
@@ -114,6 +119,11 @@ export class FoilAdvancement extends HandlebarsApplicationMixin(ApplicationV2) {
   static async _onAddDie(event, target) {
     const key = target.dataset.attr;
     const dice = this.actor.system.attributes?.[key]?.dice ?? {};
+    const kh = knowHowState(dice);
+    if (kh.atLimit) {
+      ui.notifications?.warn(`${ATTR_LABEL[key]} holds ${kh.held} Know-how dice, its limit: 2, plus 1 per die at d12 or larger (PHB 2.3.0).`);
+      return;
+    }
     const ok = await this._spend(XP_COST.knowHow, {
       [`system.attributes.${key}.dice.d4`]: Number(dice.d4 ?? 0) + 1
     });
@@ -126,10 +136,10 @@ export class FoilAdvancement extends HandlebarsApplicationMixin(ApplicationV2) {
     const total = Number(s?.trainingTotal ?? 0);
     const cap = Number(s?.trainingCap ?? 4);
     if (total >= cap) {
-      ui.notifications?.warn(`${SKILL_LABEL[key]} Training is capped at +${cap}: the dice in its two pools, or +4, whichever is lower (PHB 2.2.1).`);
+      ui.notifications?.warn(`${SKILL_LABEL[key]} Training is capped at +${cap}: the dice in its two pools (PHB 2.2.1).`);
       return;
     }
-    const ok = await this._spend(XP_COST.training, { [`system.skills.${key}.training`]: Number(s?.trainingBase ?? 0) + 1 });
+    const ok = await this._spend(trainingCost(total), { [`system.skills.${key}.training`]: Number(s?.trainingBase ?? 0) + 1 });
     if (ok) this.render();
   }
 
