@@ -120,9 +120,9 @@ export class InstrumentData extends foundry.abstract.TypeDataModel {
     this.quick = defs.some(d => d.quick);
     this.reload = defs.find(d => d.reload)?.reload ?? "";
     this.blockingOnly = defs.some(d => d.blocking) && !defs.some(d => d.family === "melee" || d.family === "ranged");
-    this.stressTypes = defs.filter(d => d.stressPhysical || d.stressMental || d.pierce || d.dealsNoStress)
+    this.stressTypes = defs.filter(d => d.stressPhysical || d.stressMental || d.pierce || d.dealsNoStress || d.doubleResistance)
       .map(d => ({ key: d.key, label: d.label, physical: d.stressPhysical, mental: d.stressMental,
-                   pierce: d.pierce, noBonusVsResistance: d.noBonusVsResistance, dealsNoStress: d.dealsNoStress }));
+                   pierce: d.pierce, doubleResistance: d.doubleResistance, dealsNoStress: d.dealsNoStress }));
 
     // +N (PHB 7.4.0): +N to rolls, Pierce half of N (rounded down) for Melee or Ranged;
     // Blocking-only is Oppose-only.

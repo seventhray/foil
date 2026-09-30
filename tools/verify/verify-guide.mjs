@@ -36,7 +36,7 @@ ok("+N Pierce is half the bonus", /Pierce equal to half its bonus, rounded down/
 ok("Strain is floor(XP / 8)", /\*\*Strain = floor\(XP \/ 8\)\*\*/.test(fm) && /floor\(XP \/ 8\)/.test(all));
 ok("Strain lands on the Primary Attribute", /Strain applies to the Instrument's Primary Attribute/.test(phb) && /on the Instrument's Primary Attribute/.test(all));
 ok("margin capped at half the Primary Potential", /capped at half the Potential of the Instrument's Primary Attribute/.test(phb) && /half the Potential/.test(all));
-ok("Edged +3, nothing against any physical Resistance", /\| Edged \| \+3 Stress against a physical Attribute, unless the target has any physical Resistance/.test(phb) && /\+3 Stress against a physical Attribute; nothing against/.test(all));
+ok("Edged +3, physical Resistance counts double", /\| Edged \| \+3 Stress against a physical Attribute\. Physical Resistance, after Pierce, counts double against it/.test(phb) && /Physical Resistance counts double against Edged/.test(all));
 ok("Blunt Pierce 3", /\| Blunt \| Pierce 3/.test(phb) && /Pierce 3 against physical Resistance/.test(all));
 ok("Drawn +2, Fired +4", /\| Drawn \| \+2 Stress/.test(phb) && /\| Fired \| \+4 Stress/.test(phb) && /\+2 \/ \+4 Stress/.test(all));
 ok("weight classes 15/30/45p, 2/4/8 lbs, attack dice +1d6/+2d4", /Light 15p, Medium 30p, Heavy 45p/.test(phb) && /A Heavy Instrument \| 8 lbs/.test(phb) && /\(15p, 30p, 45p\)/.test(all) && /\(2, 4, 8 lbs\)/.test(all)

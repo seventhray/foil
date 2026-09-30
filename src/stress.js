@@ -4,7 +4,7 @@
  *
  *   margin (attack - Oppose; a tie lands at 0), capped at half the Instrument's
  *   Primary Potential
- *   + one Stress-dealing Type's bonus (Edged: none against any physical Resistance)
+ *   + one Stress-dealing Type's bonus (Edged: physical Resistance, after Pierce, counts double)
  *   + the Technique's own bonus, and any other stated bonus
  *   - Resistance after Pierce (Pierce never takes it below 0; Vulnerable is
  *     negative Resistance and adds, PHB 6.6.0), to a minimum of 0.
@@ -17,7 +17,7 @@
  * @param {number} a.cap          half the Primary Attribute's Potential
  * @param {"physical"|"mental"} a.kind  the kind of Attribute aimed at
  * @param {number} a.resistance   the target's Resistance of that kind (negative = Vulnerable)
- * @param {object|null} a.type    { label, physical, mental, pierce, noBonusVsResistance }
+ * @param {object|null} a.type    { label, physical, mental, pierce, doubleResistance }
  * @param {number} a.bespoke      the Technique's own bonus
  * @param {number} a.other        any other bonus (a Feat such as Heavy Hand)
  * @param {number} a.pierce       Pierce from the Technique, the Instrument's +N, a Focus Gem
@@ -33,16 +33,15 @@ export function stressFor({ attack, oppose, cap, kind = "physical", resistance =
   let typeBonus = 0, totalPierce = Number(pierce) || 0;
   if (type) {
     typeBonus = kind === "physical" ? Number(type.physical ?? 0) : Number(type.mental ?? 0);
-    if (type.noBonusVsResistance && kind === "physical" && res > 0) {
-      typeBonus = 0;
-      parts.push(`${type.label}: no bonus against any Resistance`);
-    } else if (typeBonus) parts.push(`${type.label} ${typeBonus > 0 ? "+" : ""}${typeBonus}`);
+    if (typeBonus) parts.push(`${type.label} ${typeBonus > 0 ? "+" : ""}${typeBonus}`);
     if (kind === "physical") totalPierce += Number(type.pierce ?? 0);
   }
   if (bespoke) parts.push(`+${bespoke} from ${name}`);
   if (other) parts.push(`${other > 0 ? "+" : ""}${other} other`);
-  const effRes = res > 0 ? Math.max(0, res - totalPierce) : res;
-  if (res > 0) parts.push(`Resistance ${res}${totalPierce ? `, Pierce ${totalPierce} leaves ${effRes}` : ""}`);
+  let effRes = res > 0 ? Math.max(0, res - totalPierce) : res;
+  const doubled = !!type?.doubleResistance && kind === "physical" && effRes > 0;
+  if (doubled) effRes *= 2;
+  if (res > 0) parts.push(`Resistance ${res}${totalPierce ? `, Pierce ${totalPierce} leaves ${res > totalPierce ? res - totalPierce : 0}` : ""}${doubled ? `, doubled against ${type.label} to ${effRes}` : ""}`);
   else if (res < 0) parts.push(`Vulnerable ${-res}`);
   const stress = Math.max(0, capped + typeBonus + Number(bespoke || 0) + Number(other || 0) - effRes);
   return { landed: true, stress, margin, capped, parts };

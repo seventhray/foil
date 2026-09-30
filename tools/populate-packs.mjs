@@ -51,7 +51,7 @@ const warnings = [];
 const CRAFT_MATERIALS = ["Metal", "Wood", "Leather", "Gemstone", "Textile", "Reagent", "Stone"];
 const INSTRUMENT_TYPES = [
   ["Quick", "quick", "other", { quick: true }, "Its built-in Techniques may be used as a Quick Action, on top of the Action they can always be paid with."],
-  ["Edged", "edged", "melee", { stressPhysical: 3, noBonusVsResistance: true }, "+3 Stress against a physical Attribute. No bonus at all against a target with any physical Resistance."],
+  ["Edged", "edged", "melee", { stressPhysical: 3, doubleResistance: true }, "+3 Stress against a physical Attribute. Physical Resistance, after Pierce, counts double against it."],
   ["Pointed", "pointed", "melee", { stressPhysical: 1, pierce: 1 }, "Pierce 1 against physical Resistance. +1 Stress against a physical Attribute."],
   ["Blunt", "blunt", "melee", { pierce: 3 }, "Pierce 3 against physical Resistance."],
   ["Thrown", "thrown", "ranged", {}, "No type effect. No reload."],
@@ -75,7 +75,7 @@ function instrumentTypeDoc([name, key, family, o, desc]) {
     system: {
       key, family,
       stressPhysical: o.stressPhysical ?? 0, stressMental: o.stressMental ?? 0, pierce: o.pierce ?? 0,
-      noBonusVsResistance: !!o.noBonusVsResistance, dealsNoStress: !!o.dealsNoStress,
+      doubleResistance: !!o.doubleResistance, dealsNoStress: !!o.dealsNoStress,
       quick: !!o.quick, blocking: !!o.blocking, reload: o.reload ?? "", isTool: !!o.isTool,
       description: `<p>${desc}</p>`
     } };

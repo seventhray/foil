@@ -152,13 +152,16 @@ check("Fortifying in Requires sets the 8 XP floor on its own", () => {
 });
 
 console.log("\nStress (PHB 6.7.0):");
-const edged = { label: "Edged", physical: 3, mental: 0, pierce: 0, noBonusVsResistance: true };
+const edged = { label: "Edged", physical: 3, mental: 0, pierce: 0, doubleResistance: true };
 const pointed = { label: "Pointed", physical: 1, mental: 0, pierce: 1 };
 const sonic = { label: "Sonic", physical: -1, mental: 1, pierce: 0 };
-check("PHB 6.7.0 Dagger: margin 10 under cap 12, Edged nullified by Resistance 1: 9", () =>
-  eq(stressFor({ attack: 16, oppose: 6, cap: 12, resistance: 1, type: edged }).stress, 9));
-check("the same through Greatsword Heavy Swing +2: 11", () =>
-  eq(stressFor({ attack: 16, oppose: 6, cap: 12, resistance: 1, type: edged, bespoke: 2 }).stress, 11));
+check("PHB 6.7.0 Hand Axe: margin 10, +3 Edged, Mail 2 counts double: 9; unarmored: 13", () =>
+  eq([stressFor({ attack: 16, oppose: 6, cap: 12, resistance: 2, type: edged }).stress,
+      stressFor({ attack: 16, oppose: 6, cap: 12, resistance: 0, type: edged }).stress], [9, 13]));
+check("Edged after Pierce: Resistance 2, Pierce 1 leaves 1, doubled to 2", () =>
+  eq(stressFor({ attack: 16, oppose: 6, cap: 12, resistance: 2, type: edged, pierce: 1 }).stress, 11));
+check("Edged doubling applies only against physical Resistance", () =>
+  eq(stressFor({ attack: 16, oppose: 6, cap: 12, kind: "mental", resistance: 2, type: edged }).stress, 8));
 check("Wren round 1: margin 4, Sonic +1, Resistance 1: 4", () =>
   eq(stressFor({ attack: 16, oppose: 12, cap: 6, kind: "mental", resistance: 1, type: sonic }).stress, 4));
 check("margin caps at half the Primary Potential", () => eq(stressFor({ attack: 30, oppose: 10, cap: 6 }).stress, 6));

@@ -26,6 +26,10 @@ export class InstrumentTypeData extends foundry.abstract.TypeDataModel {
     if (source && source.stressPhysical === undefined && source.bonusStress !== undefined) {
       source.stressPhysical = Number(source.bonusStress) || 0;
     }
+    // Edged went from no bonus against any Resistance to Resistance counting double (2026-09-29).
+    if (source && source.doubleResistance === undefined && source.noBonusVsResistance !== undefined) {
+      source.doubleResistance = !!source.noBonusVsResistance;
+    }
     return super.migrateData(source);
   }
 
@@ -38,8 +42,8 @@ export class InstrumentTypeData extends foundry.abstract.TypeDataModel {
       stressMental: int(0),
       // Pierce against physical Resistance (Pointed 1, Blunt 3).
       pierce: int(0),
-      // Edged: no bonus at all against a target with any physical Resistance.
-      noBonusVsResistance: bool(false),
+      // Edged: physical Resistance, after Pierce, counts double against it.
+      doubleResistance: bool(false),
       // Grappling deals no Stress.
       dealsNoStress: bool(false),
       // Built-in Techniques usable as a Quick Action too.
