@@ -1,6 +1,6 @@
 # Foilbound for Foundry VTT
 
-A Foundry VTT game system for **Foilbound**, a tabletop RPG with four Attribute dice pools, four FOIL value axes, and Stress set by the margin of an opposed roll. It follows the Foilbound v0.6.0 rules. The rulebooks themselves are not in this repository.
+A Foundry VTT game system for **Foilbound**, a tabletop RPG with four Attribute dice pools, four FOIL value axes, and Stress set by the margin of an opposed roll. Its version matches the Foilbound rulebook version it follows. The rulebooks themselves are not in this repository.
 
 - System id: `foil`
 - Foundry: v13 minimum, verified on v14
