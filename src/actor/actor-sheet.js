@@ -79,8 +79,11 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
       const a = attrs[key] ?? {};
       return {
         key, label: ATTR_LABEL[key], dice: a.dice ?? {}, diceFormula: a.diceFormula ?? "",
-        potentialCurrent: a.potential?.current ?? 0, potentialMax: a.potential?.max ?? 0,
-        kind: a.kind ?? "", incapacitated: !!a.down, recoverAt: a.recoverAt ?? 0,
+        potentialMax: a.potential?.max ?? 0,
+        // Stored as current Potential; the sheet shows and edits the Stress taken.
+        stress: Math.max(0, (a.potential?.max ?? 0) - (a.potential?.current ?? 0)),
+        recoverStress: Math.floor((a.potential?.max ?? 0) / 2),
+        kind: a.kind ?? "", incapacitated: !!a.down,
         validPool: a.validPool !== false
       };
     });
@@ -482,6 +485,16 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
     // The base class binds drag-and-drop here; skipping it breaks dropping Items on the sheet.
     await super._onRender(context, options);
     this.element.querySelector(".window-content")?.classList.add("foil-sheet", this.actor.type);
+    // A Stress field writes back current Potential: max minus the Stress entered.
+    for (const input of this.element.querySelectorAll("input[data-stress]")) {
+      input.addEventListener("change", event => {
+        event.stopPropagation();
+        const key = input.dataset.stress;
+        const max = Number(this.actor.system.attributes?.[key]?.potential?.max ?? 0);
+        const stress = Math.max(0, Math.trunc(Number(input.value)) || 0);
+        this.actor.update({ [`system.attributes.${key}.potential.current`]: Math.max(0, max - stress) });
+      });
+    }
   }
 
   /** A character has one Ancestry and one Background (PHB 2.5.0): dropping one replaces the old. */

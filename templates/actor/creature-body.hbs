@@ -7,11 +7,11 @@
       <tbody>
         <tr><th class="row-label">Attribute Dice</th>{{#each attributes}}<td class="dice-cell">{{> systems/foil/templates/actor/partials/dice-pool.hbs}}</td>{{/each}}</tr>
         <tr>
-          <th class="row-label">Potential</th>
+          <th class="row-label" title="Stress taken / Potential (PHB 6.7.0)">Stress</th>
           {{#each attributes}}
             <td class="stress-cell {{#if this.incapacitated}}incap{{/if}}">
-              <input type="number" name="system.attributes.{{this.key}}.potential.current" value="{{this.potentialCurrent}}" /> / {{this.potentialMax}}
-              {{#if this.incapacitated}}<span class="state-tag" title="Lifts at {{this.recoverAt}}">Incapacitated</span>{{/if}}
+              <input type="number" data-stress="{{this.key}}" value="{{this.stress}}" min="0" /> / {{this.potentialMax}}
+              {{#if this.incapacitated}}<span class="state-tag" title="Lifts at {{this.recoverStress}} Stress">Incapacitated</span>{{/if}}
             </td>
           {{/each}}
         </tr>

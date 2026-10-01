@@ -11,11 +11,11 @@
         {{> systems/foil/templates/actor/partials/dice-pool.hbs}}
         <div class="card-divider"><span>Potential</span></div>
         <div class="attr-card-row">
-          <div class="mini"><label title="Falls as Stress lands">Current</label>
-            <input type="number" name="system.attributes.{{this.key}}.potential.current" value="{{this.potentialCurrent}}" /></div>
+          <div class="mini"><label title="Stress taken; Incapacitated once it reaches Max (PHB 6.7.0)">Stress</label>
+            <input type="number" data-stress="{{this.key}}" value="{{this.stress}}" min="0" /></div>
           <div class="mini"><label>Max</label><span class="readout">{{this.potentialMax}}</span></div>
         </div>
-        {{#if this.incapacitated}}<div class="state-tag" title="Rolls no dice. Lifts once healing brings it back to {{this.recoverAt}} (PHB 6.8.1)">Incapacitated &middot; lifts at {{this.recoverAt}}</div>{{/if}}
+        {{#if this.incapacitated}}<div class="state-tag" title="Rolls no dice. Lifts once healing brings its Stress down to {{this.recoverStress}} (PHB 6.8.1)">Incapacitated &middot; lifts at {{this.recoverStress}} Stress</div>{{/if}}
       </div>
     {{/each}}
   </div>
