@@ -21,7 +21,7 @@
   --ink-soft: #6A6377;
   --ink-faint: #9A93AC;
   --parchment: #FDFCFE;
-  --parchment-deep: #EEE9F7;
+  --parchment-deep: #E6E0EC;
   --parchment-card: #F6F3FA;
   --parchment-paper: #FFFFFF;
   --accent: #6B4BA8;
@@ -637,6 +637,13 @@
 .effect-row .row-del { align-self: center; cursor: pointer; color: var(--bad); margin-bottom: 2px; }
 .effect-row .row-del:hover { text-shadow: 0 0 6px #d88; }
 
+/* Creature sheets take the stat blocks' sage and dark olive (Color Schema). */
+.foil-sheet.creature {
+  --accent: #556B2F;
+  --accent-glow: #B5C49A;
+  --parchment-deep: #E2E8DC;
+}
+
 /* Registry/vocabulary sheets (Instrument Type, Quality, Effect): a silver
    seal in place of the violet spine marks these as glossary entries — words
    other documents reference — distinct from carried gear. */
@@ -736,7 +743,7 @@
   background: linear-gradient(180deg, #FFFFFF, #F6F3FA);
   color: #6B4BA8;
 }
-.chat-message button.foil-stress-followup:hover { background: #EEE9F7; }
+.chat-message button.foil-stress-followup:hover { background: #E6E0EC; }
 .chat-message button.foil-stress-followup:disabled { opacity: 0.6; cursor: default; }
 
 /* Stress computed from the opposed roll's margin (PHB 6.7.0). The chat card

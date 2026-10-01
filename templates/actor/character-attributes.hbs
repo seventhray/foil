@@ -9,11 +9,10 @@
         </div>
         <label>Attribute Dice</label>
         {{> systems/foil/templates/actor/partials/dice-pool.hbs}}
-        <div class="card-divider"><span>Potential</span></div>
         <div class="attr-card-row">
-          <div class="mini"><label title="Stress taken; Incapacitated once it reaches Max (PHB 6.7.0)">Stress</label>
+          <div class="mini"><label title="Stress taken; Incapacitated once it reaches Potential (PHB 6.7.0)">Stress</label>
             <input type="number" data-stress="{{this.key}}" value="{{this.stress}}" min="0" /></div>
-          <div class="mini"><label>Max</label><span class="readout">{{this.potentialMax}}</span></div>
+          <div class="mini"><label title="The most this Attribute's dice can roll; Stress up to it (PHB 6.7.0)">Potential</label><span class="readout">{{this.potentialMax}}</span></div>
         </div>
         {{#if this.incapacitated}}<div class="state-tag" title="Rolls no dice. Lifts once healing brings its Stress down to {{this.recoverStress}} (PHB 6.8.1)">Incapacitated &middot; lifts at {{this.recoverStress}} Stress</div>{{/if}}
       </div>
