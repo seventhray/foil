@@ -33,7 +33,7 @@ ok("die steps 8/12/16/20, d12 to d20 100 as a Transformation, new 1d4 20 with it
   && /Add a 1d4[^\n]*?Know-how\*\*\)\s*\|\s*20 XP/.test(phb) && /at most 4 dice, plus 1 for each of its dice at d12 or larger/.test(phb)
   && /8, 12, 16, or 20 XP by its size, d12 to d20 100 XP as a Transformation, which also grants a gift \(PHB 2\.3\.1\), a new 1d4 20 XP/.test(all));
 ok("every Attribute starts at 2d4", /Every Attribute starts at 2d4/.test(phb) && /Every Attribute starts at 2d4/.test(all));
-ok("Training cap is the dice in the two pools", /more Training in a Skill than the number of dice in the Skill's two pools \(/.test(phb) && /can't pass the number of dice in the Skill's two pools\./.test(all));
+ok("Training cap is the dice in the two pools", /Training can't exceed the number of dice in its two pools \(/.test(phb) && /can't pass the number of dice in the Skill's two pools\./.test(all));
 ok("+N Pierce is half the bonus", /Pierce equal to half its bonus, rounded down/.test(phb) && /Pierce equal to half the bonus, rounded down/.test(all));
 ok("Strain is floor(XP / 8)", /\*\*Strain = floor\(XP \/ 8\)\*\*/.test(fm) && /floor\(XP \/ 8\)/.test(all));
 ok("Strain lands on the Primary Attribute", /Strain applies to the Instrument's Primary Attribute/.test(phb) && /on the Instrument's Primary Attribute/.test(all));
@@ -42,8 +42,8 @@ ok("Edged +3, physical Resistance counts double", /\| Edged \| \+3 Stress agains
 ok("Blunt Pierce 3", /\| Blunt \| Pierce 3/.test(phb) && /Pierce 3 against physical Resistance/.test(all));
 ok("Drawn +2, Fired +4", /\| Drawn \| \+2 Stress/.test(phb) && /\| Fired \| \+4 Stress/.test(phb) && /\+2 \/ \+4 Stress/.test(all));
 ok("weight classes 15/30/45p, 2/4/8 lbs, attack dice +1d6/+2d4", /Light 15p, Medium 30p, Heavy 45p/.test(phb) && /A Heavy Instrument \| 8 lbs/.test(phb) && /\(15p, 30p, 45p\)/.test(all) && /\(2, 4, 8 lbs\)/.test(all)
-  && /Light none, Medium 1d6, Heavy 2d4/.test(phb) && /A Heavy Instrument takes both hands/.test(phb) && /A Medium Instrument adds 1d6[^.]*a Heavy one 2d4/.test(all));
-ok("Incapacitation lifts at half Potential, rounded down", /down to half its Potential or less, rounded down/.test(phb) && /half its Potential or less, rounded down/.test(all));
+  && /Medium 1d6, Heavy 2d4/.test(phb) && /A Heavy Instrument takes both hands/.test(phb) && /A Medium Instrument adds 1d6[^.]*a Heavy one 2d4/.test(all));
+ok("Incapacitation lifts at half Potential, rounded down", /down to half its Potential, rounded down/.test(phb) && /half its Potential or less, rounded down/.test(all));
 ok("Foil Tokens: max four, halve one source, reroll one die", /at most \*\*four\*\* Foil Tokens/.test(phb) && /halves the Stress from one source/.test(phb) && /reroll any one die/.test(phb)
   && /at most four/.test(all) && /halve the Stress from one source, rounded down/.test(all));
 ok("rest 1d4 per 2 hours, one ration per 8", /\*\*1d4 Stress every 2 hours\*\*/.test(phb) && /one ration per 8 hours/.test(phb) && /1d4 Stress every 2 hours/.test(all));
