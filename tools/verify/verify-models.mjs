@@ -94,14 +94,14 @@ check("a charm adds to rolls but not toward the Training cap", () => {
   const s = c.skills.acuity; return eq([s.trainingTotal, s.skillBonus, s.overCap, s.rollMax], [2, 1, false, 19]);
 });
 
-console.log("\nCarrying (PHB 7.5.8):");
+console.log("\nCarrying (PHB 5.2.6):");
 check("past 4x Might Potential, -1 per extra multiple", () => {
   const armor = { system: { carriedWeight: 55 } };
   const c = char({ attributes: pools({ d6: 2 }, { d4: 1 }, { d4: 1 }, { d4: 1 }), rations: 3 }, [armor]);
   return eq([c.carry.limit, c.carry.weight, c.carry.penalty], [48, 61, 2]);
 });
 
-console.log("\nInstrument pricing (PHB 7.4.1):");
+console.log("\nInstrument pricing (PHB 5.2.2):");
 globalThis.CONFIG.FOIL.instrumentTypes = Object.fromEntries([
   ["quick", "other"], ["edged", "melee"], ["pointed", "melee"], ["blunt", "melee"], ["parry", "melee"], ["grappling", "melee"],
   ["thrown", "ranged"], ["drawn", "ranged"], ["fired", "ranged"], ["kinetic", "arcane"], ["incorporeal", "arcane"],

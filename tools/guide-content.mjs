@@ -154,7 +154,7 @@ p("Pricing a Technique", `
 <p>Beam or Wall reach costs 1 + 2 + ... per band; a Cone 3x that, a Radius 12x. Selective costs N + (R x N).</p>`),
 
 p("Pricing an Instrument", `
-<p>Base price by weight class: Light 15p, Medium 30p, Heavy 45p. Each Type adds: Edged, Blunt, or a Channel 5p; Pointed 10p; Drawn 25p; Fired 50p. Reach past the usual Range adds 10p a band (PHB 7.4.1).</p>
+<p>Base price by weight class: Light 15p, Medium 30p, Heavy 45p. Each Type adds: Edged, Blunt, Kinetic, Incorporeal, or Fortifying 5p; Pointed 10p; Drawn 25p; Fired 50p. Reach past the usual Range adds 10p a band (PHB 5.2.2).</p>
 <p>A +N bonus adds by the item's size, and grants +N to rolls, plus Pierce equal to half the bonus, rounded down, on a Melee or Ranged Instrument. A Blocking-only Instrument's +N applies to Oppose rolls.</p>
 <table><thead><tr><th>Bonus</th><th>Small</th><th>Medium</th><th>Large</th></tr></thead><tbody>
 <tr><td>+1</td><td>8p</td><td>15p</td><td>30p</td></tr>
@@ -163,6 +163,6 @@ p("Pricing an Instrument", `
 <tr><td>+4</td><td>200p</td><td>400p</td><td>800p</td></tr>
 <tr><td>+5</td><td>600p</td><td>1200p</td><td>2400p</td></tr>
 </tbody></table>
-<p>An Arcane Instrument holds one <strong>Focus Gem</strong>, which gives its Techniques a damage type and adds its Tier to one Effect they already carry (PHB 7.4.4).</p>`),
+<p>An Arcane Instrument holds one <strong>Focus Gem</strong>, which gives its Techniques a damage type and adds its Tier to one Effect they already carry (PHB 5.2.3).</p>`),
 ]}
 ];

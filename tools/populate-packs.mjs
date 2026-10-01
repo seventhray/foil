@@ -262,7 +262,7 @@ function techniqueDoc(n) {
   const floor = requires.includes("fortifying") || /until your next turn|Quick \(trigger/i.test(n.effect ?? "");
   const price = effects => priceTechnique(effects, EFFECT_REG, { floor }).xp;
 
-  // A Technique deals Stress only when its line says so (PHB 7.6.0).
+  // A Technique deals Stress only when its line says so (PHB 4.2.1).
   let effects;
   if (MOVEMENT_TRAITS.has(n.name)) { effects = []; unparsed.length = 0; }
   else if (HAND_EFFECTS[n.name]) { effects = HAND_EFFECTS[n.name](); unparsed.length = 0; }

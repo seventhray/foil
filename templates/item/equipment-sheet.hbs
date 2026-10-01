@@ -5,7 +5,7 @@
     <select name="system.category">{{#each equipmentCategoryOptions}}<option value="{{this.value}}" {{#if (foil-eq this.value ../system.category)}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>
     <label>Price (p)</label>
     <input type="number" name="system.price" value="{{system.price}}" />
-    <label>Weight (lbs) <em>(counts toward carrying, PHB 7.5.8)</em></label>
+    <label>Weight (lbs) <em>(counts toward carrying, PHB 5.2.6)</em></label>
     <input type="number" name="system.weight" value="{{system.weight}}" min="0" step="0.5" />
     {{#if (foil-eq system.category "shield")}}
       <label>Weight class</label>
@@ -24,7 +24,7 @@
   </div>
   {{#if (foil-eq system.category "gem")}}
   <fieldset>
-    <legend>Focus Gem <em>(PHB 7.4.4)</em></legend>
+    <legend>Focus Gem <em>(PHB 5.2.3)</em></legend>
     <div class="field-grid">
       <label>Gem</label>
       <select name="system.gemType">{{#each gemOptions}}<option value="{{this.value}}" {{#if (foil-eq this.value ../system.gemType)}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>

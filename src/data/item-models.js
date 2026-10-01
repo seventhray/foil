@@ -71,12 +71,12 @@ export class InstrumentData extends foundry.abstract.TypeDataModel {
       })),
       // Body and Voice: every character knows them, free (PHB 2.5.3).
       innate: bool(false),
-      // Equipped (ready), carried, or stored (PHB 4.1.0, 7.5.8). Innate Instruments are always equipped.
+      // Equipped (ready), carried, or stored (PHB 4.1.0, 5.2.6). Innate Instruments are always equipped.
       location: new f.StringField({ required: true, initial: "equipped", choices: ITEM_LOCATIONS }),
       bonus: new f.NumberField({ required: true, integer: true, initial: 0, min: 0, max: 5 }),
       size: sizeField("medium"),
       materials: str(""),
-      // One Focus Gem slot on an Arcane Instrument (PHB 7.4.4).
+      // One Focus Gem slot on an Arcane Instrument (PHB 5.2.3).
       gem: new f.SchemaField({
         type: new f.StringField({ required: true, blank: true, initial: "", choices: GEM_KEYS }),
         tier: new f.NumberField({ required: true, integer: true, initial: 1, min: 1, max: 5 })
@@ -106,7 +106,7 @@ export class InstrumentData extends foundry.abstract.TypeDataModel {
     this.primarySkills = PRIMARY_SKILLS[this.primaryAttribute] ?? [];
     this.typesLabel = this.typesDisplay || types.map(k => defs.find(d => d.key === k)?.label ?? k).join(", ");
 
-    // Price formula (PHB 7.4.1): weight class + Type surcharges + 10p per band past the usual Range.
+    // Price formula (PHB 5.2.2): weight class + Type surcharges + 10p per band past the usual Range.
     const channels = types.filter(t => ARCANE_TYPES.includes(t));
     const surcharge = types.reduce((n, t) => n + (TYPE_SURCHARGE[t] ?? 0), 0)
       - (this.typesDisplay && channels.length > 1 ? (channels.length - 1) * 5 : 0);
@@ -128,14 +128,14 @@ export class InstrumentData extends foundry.abstract.TypeDataModel {
       .map(d => ({ key: d.key, label: d.label, physical: d.stressPhysical, mental: d.stressMental,
                    pierce: d.pierce, doubleResistance: d.doubleResistance, dealsNoStress: d.dealsNoStress }));
 
-    // +N (PHB 7.4.0): +N to rolls, Pierce half of N (rounded down) for Melee or Ranged;
+    // +N (PHB 5.2.1): +N to rolls, Pierce half of N (rounded down) for Melee or Ranged;
     // Blocking-only is Oppose-only.
     const meleeOrRanged = defs.some(d => d.family === "melee" || d.family === "ranged");
     this.bonusRoll   = this.blockingOnly ? 0 : this.bonus;
     this.bonusPierce = !this.blockingOnly && meleeOrRanged ? Math.floor(this.bonus / 2) : 0;
     this.bonusOppose = this.blockingOnly ? this.bonus : 0;
 
-    // Focus Gem (PHB 7.4.4).
+    // Focus Gem (PHB 5.2.3).
     this.isArcane = channels.length > 0;
     const gem = FOCUS_GEMS[this.gem?.type];
     this.gemActive = !!gem && this.isArcane;
@@ -257,13 +257,13 @@ export class EquipmentData extends foundry.abstract.TypeDataModel {
     return {
       category: new f.StringField({ required: true, initial: "gear", choices: EQUIPMENT_CATEGORIES }),
       price: int(0),
-      // Carried weight in pounds (PHB 7.5.2, 7.5.8).
+      // Carried weight in pounds (PHB 5.2.4, 5.2.6).
       weight: new f.NumberField({ required: true, initial: 0, min: 0 }),
       // A Shield's weight class (PHB 7.5.3).
       weightClass: new f.StringField({ required: true, blank: true, initial: "", choices: ["", ...WEIGHT_KEYS] }),
       size: sizeField("medium"),
       materials: str(""),
-      // Equipped (worn or in hand), carried, or stored (PHB 7.5.8).
+      // Equipped (worn or in hand), carried, or stored (PHB 5.2.6).
       location: new f.StringField({ required: true, initial: "carried", choices: ITEM_LOCATIONS }),
       qualities: new f.ArrayField(new f.SchemaField({
         key: slugField(""),
@@ -273,7 +273,7 @@ export class EquipmentData extends foundry.abstract.TypeDataModel {
       uses: str(""),
       duration: str(""),
       effect: str(""),
-      // A Focus Gem's Type and Tier (PHB 7.4.4).
+      // A Focus Gem's Type and Tier (PHB 5.2.3).
       gemType: new f.StringField({ required: true, blank: true, initial: "", choices: GEM_KEYS }),
       tier: new f.NumberField({ required: true, integer: true, initial: 1, min: 1, max: 5 }),
       notes: str(""),

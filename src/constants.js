@@ -43,8 +43,8 @@ export const PRIMARY_SKILLS = Object.fromEntries(ATTRIBUTE_KEYS.map(a =>
 export const LEGACY_SKILL_KEY = { fortitude: "discipline", command: "assertiveness" };
 
 
-// Weight class sets an Instrument's base price and carried weight only (PHB 7.4.1, 7.5.8).
-// Weight class (PHB 4.1.2, 7.4.1): base price, carried weight, and the dice it adds to a
+// Weight class sets an Instrument's base price and carried weight only (PHB 5.2.2, 5.2.6).
+// Weight class (PHB 4.1.2, 5.2.2): base price, carried weight, and the dice it adds to a
 // Technique used against a target (never an Oppose, support, or Trade). Heavy takes both hands.
 export const WEIGHT_CLASS = {
   light:  { label: "Light",  price: 15,  lbs: 2, dice: "" },
@@ -72,13 +72,13 @@ export function rangeBandOf(text) {
   return best >= 0 ? RANGE_BANDS[best] : "";
 }
 
-// Instrument price surcharges by Instrument Type, and reach pricing (PHB 7.4.1).
+// Instrument price surcharges by Instrument Type, and reach pricing (PHB 5.2.2).
 export const TYPE_SURCHARGE = {
   edged: 5, blunt: 5, kinetic: 5, incorporeal: 5, fortifying: 5, pointed: 10, drawn: 25, fired: 50
 };
 export const REACH_PRICE_PER_BAND = 10;
 
-/** The usual Range for an Instrument's kind; reach past it adds 10p a band (PHB 7.4.1). */
+/** The usual Range for an Instrument's kind; reach past it adds 10p a band (PHB 5.2.2). */
 export function usualRange(category, weight, types = []) {
   if (category === "melee") return "close";
   if (types.includes("fired")) return "long";
@@ -88,7 +88,7 @@ export function usualRange(category, weight, types = []) {
   return weight === "light" ? "short" : "mid";
 }
 
-// Item size sets crafting batches (PHB 5.3.2) and the +N bonus price (PHB 7.4.1).
+// Item size sets crafting batches (PHB 5.3.2) and the +N bonus price (PHB 5.2.2).
 // A Large item crafts from 3 batches but its bonus price stays at 4 batches' worth.
 export const SIZE = {
   small:  { label: "Small",  batches: 1 },
@@ -124,7 +124,7 @@ export const DAMAGE_TYPES = {
   spiritual: "mental", psychic: "mental", entropic: "mental"
 };
 
-// Focus Gems (PHB 7.4.4): Arcane Instruments only; each adds its Tier to one Effect.
+// Focus Gems (PHB 5.2.3): Arcane Instruments only; each adds its Tier to one Effect.
 export const FOCUS_GEMS = {
   ruby:      { label: "Ruby",      damageType: "thermal",    adds: "Lingering +1",                                 pricePerTier: 80 },
   carnelian: { label: "Carnelian", damageType: "concussive", adds: "Move goes 1 more band",                        pricePerTier: 40 },
@@ -159,7 +159,7 @@ export const CONDITIONS = [
   "Enthralled", "Swayed", "Misled", "Blinded", "Slowed"
 ];
 
-// Carrying capacity (PHB 7.5.8): past 4x Might Potential, -1 to rolls per multiple.
+// Carrying capacity (PHB 5.2.6): past 4x Might Potential, -1 to rolls per multiple.
 export const CARRY_FREE_MULTIPLE = 4;
 export const RATION_LBS = 2;
 
@@ -188,7 +188,7 @@ export const BEHAVIOR_TRAITS = [
 
 export const cap = s => s ? String(s).charAt(0).toUpperCase() + String(s).slice(1) : "";
 
-// Where an item is (PHB 4.1.0, 7.5.8): equipped (worn, or in hand and ready), carried
+// Where an item is (PHB 4.1.0, 5.2.6): equipped (worn, or in hand and ready), carried
 // (on the character, not ready), or stored (left behind, no weight).
 export const ITEM_LOCATIONS = ["equipped", "carried", "stored"];
 export const LOCATION_LABEL = { equipped: "Equipped", carried: "Carried", stored: "Stored" };

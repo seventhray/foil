@@ -88,7 +88,7 @@ function prepareCore(sys) {
     sys.resistance[`${kind}FromLabel`] = from.map(e => `+${e.value} ${e.name}`).join(", ");
   }
 
-  // Carrying capacity (PHB 7.5.8): everything equipped or carried, worn Armor included; stored items weigh nothing.
+  // Carrying capacity (PHB 5.2.6): everything equipped or carried, worn Armor included; stored items weigh nothing.
   const might = attrs.might?.potential?.max ?? 0;
   const carried = items.reduce((n, it) => n + Number(it.system?.carriedWeight ?? 0), 0)
                 + Number(sys.rations ?? 0) * RATION_LBS;

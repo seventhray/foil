@@ -34,7 +34,7 @@
     <input type="text" name="system.typesDisplay" value="{{system.typesDisplay}}" />
   </fieldset>
   <div class="derived-line">
-    Formula price <strong>{{system.formulaPrice}}p</strong>{{#if system.priceMismatch}} <i class="fas fa-triangle-exclamation item-warning" title="Listed price differs from the PHB 7.4.1 formula"></i>{{/if}}
+    Formula price <strong>{{system.formulaPrice}}p</strong>{{#if system.priceMismatch}} <i class="fas fa-triangle-exclamation item-warning" title="Listed price differs from the PHB 5.2.2 formula"></i>{{/if}}
     {{#if system.bonus}} &middot; +{{system.bonus}} adds <strong>{{system.bonusPrice}}p</strong>{{/if}}
     &middot; crafts from <strong>{{system.craftCost}}p</strong> of materials
     &middot; carries <strong>{{system.carriedWeight}} lbs</strong>{{#if system.weightDice}} &middot; attacks add <strong>{{system.weightDice}}</strong>{{/if}}{{#if system.twoHanded}} &middot; two hands{{/if}}
@@ -57,7 +57,7 @@
     <input type="text" name="system.rider" value="{{system.rider}}" />
   </fieldset>
   <fieldset>
-    <legend>Focus Gem <em>(Arcane Instruments only, PHB 7.4.4)</em></legend>
+    <legend>Focus Gem <em>(Arcane Instruments only, PHB 5.2.3)</em></legend>
     <div class="field-grid">
       <label>Gem</label>
       <select name="system.gem.type">{{#each gemOptions}}<option value="{{this.value}}" {{#if (foil-eq this.value ../system.gem.type)}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>

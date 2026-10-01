@@ -181,7 +181,7 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
 
   // ─── Rolling ────────────────────────────────────────────────────────────────
 
-  /** A Skill formula with the carrying penalty folded in (PHB 7.5.8), plus any weight dice (PHB 4.1.2). */
+  /** A Skill formula with the carrying penalty folded in (PHB 5.2.6), plus any weight dice (PHB 4.1.2). */
   _skillFormula(skill, extra = 0, dice = "") {
     const sys = this.actor.system;
     const parts = [sys.skills?.[skill]?.formula || "0"];
@@ -400,7 +400,7 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
     await this.actor.update({ "system.conditions": list });
   }
 
-  /** Equipped, carried, stored, and round again (PHB 4.1.0, 7.5.8). */
+  /** Equipped, carried, stored, and round again (PHB 4.1.0, 5.2.6). */
   static async _onCycleLocation(event, target) {
     const item = this.actor.items.get(target.closest("[data-item-id]")?.dataset.itemId);
     if (!item || item.system.innate) return;
