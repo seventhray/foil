@@ -49,7 +49,7 @@ export const LEGACY_SKILL_KEY = { fortitude: "discipline", command: "assertivene
 export const WEIGHT_CLASS = {
   light:  { label: "Light",  price: 15,  lbs: 2, dice: "" },
   medium: { label: "Medium", price: 30,  lbs: 4, dice: "1d6" },
-  heavy:  { label: "Heavy",  price: 45,  lbs: 8, dice: "2d4" }
+  heavy:  { label: "Heavy",  price: 45,  lbs: 8, dice: "" }  // no dice: its margin doubles, and it takes the whole turn (PHB 4.1.2)
 };
 export const WEIGHT_KEYS = Object.keys(WEIGHT_CLASS);
 

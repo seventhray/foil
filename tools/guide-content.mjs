@@ -57,7 +57,7 @@ p("Instruments and Types", `
 <tr><td>Blocking</td><td>Its +N applies to Oppose rolls; Guard with it</td></tr>
 <tr><td>Immobile</td><td>+2 Stress; fixed in place</td></tr>
 </tbody></table>
-<p>Light, Medium, and Heavy are weight classes, not Types. They set an Instrument's base price (15p, 30p, 45p) and its carried weight (2, 4, 8 lbs). A Medium Instrument adds 1d6 to a Technique used through it against a target, a Heavy one 2d4, never to an Oppose, support, or a Trade. A Heavy Instrument takes both hands.</p>`),
+<p>Light, Medium, and Heavy are weight classes, not Types. They set an Instrument's base price (15p, 30p, 45p) and its carried weight (2, 4, 8 lbs). A Medium Instrument adds 1d6 to a Technique used through it against a target, never to an Oppose, support, or a Trade. A Heavy Instrument takes both hands, costs the Action and the Quick Action, and doubles the margin before the cap. After an Action through a Light Instrument, the Quick Action can use a Light Instrument's built-in Technique.</p>`),
 
 p("Stress, Resistance, and Incapacitation", `
 <p>When a Stress Technique lands (PHB 6.7.0):</p>

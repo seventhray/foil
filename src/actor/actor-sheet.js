@@ -219,7 +219,8 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
     const notes = this._rollNotes(kit.skill);
     notes.unshift(`${inst.name}: ${kit.effect}`);
     if (!inst.system.innate && inst.system.location !== "equipped") notes.push(`${inst.name} isn't equipped: switching to it costs the Quick Action (PHB 4.1.0).`);
-    if (inst.system.quick) notes.push("Quick: may be paid with the Quick Action.");
+    if (inst.system.quick) notes.push("Light: after an Action through a Light Instrument, the Quick Action can pay for this (PHB 4.2.2).");
+    if (inst.system.doublesMargin) notes.push("Heavy: costs the Action and the Quick Action; the margin doubles (PHB 4.1.2).");
     if (inst.system.reload) notes.push(`Reload: ${inst.system.reload === "quick" ? "Quick Action" : "Action"}.`);
     const stress = /Deals Stress/i.test(kit.effect);
     const targeted = stress || /^Applies\b/i.test(kit.effect);
@@ -285,6 +286,7 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
     const notes = this._rollNotes(skill);
     notes.unshift(`${inst ? `Through ${inst.name}` : "Innate"}. ${sys.effectSummary}`);
     if (sys.quick) notes.push("Quick: may be paid with the Quick Action.");
+    if (inst?.system.doublesMargin) notes.push("Heavy: costs the Action and the Quick Action; the margin doubles (PHB 4.1.2).");
 
     // Strain lands on the Instrument's Primary Attribute, ignoring Resistance (PHB 4.2.3).
     if (sys.strain > 0) {
@@ -336,7 +338,8 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
       stress: {
         actorId: this.actor.id, name, attackTotal: total, instrument: inst.name,
         cap: marginCap(potential, weight), capLabel: label(weight),
-        canQuick: !!(quick || inst.system.quick), capQuick: marginCap(potential, "quick"), capQuickLabel: label("quick"),
+        canQuick: !inst.system.doublesMargin && !!(quick || inst.system.quick), capQuick: marginCap(potential, "quick"), capQuickLabel: label("quick"),
+        double: !!inst.system.doublesMargin,
         types: inst.system.stressTypes ?? [], bespoke, pierce
       }
     };
@@ -624,6 +627,7 @@ async function computeStress(flag) {
   const r = stressFor({
     attack: flag.attackTotal, oppose, name: flag.name,
     cap: answer.quick ? flag.capQuick : flag.cap, capLabel: answer.quick ? flag.capQuickLabel : flag.capLabel, capAttr: flag.capAttr,
+    double: !!flag.double,
     kind: answer.kind === "mental" ? "mental" : "physical",
     resistance: Number(answer.resistance) || 0,
     type: answer.type === "" || answer.type === undefined ? null : flag.types?.[Number(answer.type)] ?? null,

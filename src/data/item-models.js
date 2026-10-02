@@ -98,6 +98,8 @@ export class InstrumentData extends foundry.abstract.TypeDataModel {
     this.weightLabel = w.label;
     // Weight dice on offensive rolls; Heavy takes both hands (PHB 4.1.2).
     this.twoHanded = this.weight === "heavy";
+    // Heavy: the Action and the Quick Action, margin doubled before the cap (PHB 4.1.2, 6.7.0).
+    this.doublesMargin = !this.innate && this.weight === "heavy";
     this.weightDice = this.innate ? "" : (w.dice ?? "");
     if (this.innate) this.location = "equipped";
     this.equipped = this.location === "equipped";
