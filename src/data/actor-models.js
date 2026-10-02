@@ -1,7 +1,7 @@
 /**
  * src/data/actor-models.js
  * TypeDataModels for the character and creature actors (Foilbound 0.6.0).
- * Both share the four Attributes, six Skills, FOIL traits, Foil Tokens,
+ * Both share the four Attributes, six Skills, Habits, Foil Tokens,
  * Resistance, and active Conditions. Attribute state is Potential
  * {current, max}: max is derived from the dice pool, current is stored and
  * lowered as Stress lands. No pooled Health for characters (PHB Key Terms);
@@ -35,9 +35,9 @@ function coreSchema() {
   return {
     attributes: new f.SchemaField(attrs),
     skills: new f.SchemaField(skills),
-    // One trait per FOIL axis, leaning High, Low, or Neutral; blank until declared (PHB 3.4.0).
+    // One Habit per FOIL axis (stored as `trait`), leaning High, Low, or Neutral; blank until declared (PHB 3.4.0).
     foil: foilSchema(),
-    // Earned by invoking a held trait, spent to halve one source's Stress or reroll a die (PHB 3.2.0).
+    // Earned by invoking a held Habit, spent to halve one source's Stress or reroll a die (PHB 3.2.0).
     foilTokens: int(0, { min: 0, max: FOIL_TOKEN_MAX }),
     // A stated base; Equipment and Feats add on top (PHB 6.6.0).
     resistance: new f.SchemaField({ physical: int(0), mental: int(0) }),

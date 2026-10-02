@@ -8,7 +8,8 @@
  *  1. Sum every Effect's XP. Stress is an Effect like any other (4 XP).
  *  2. A Pattern (Beam, Cone, Radius, Wall), Selective, or Extend Range is
  *     priced by reach and counts as one of the Technique's Effects.
- *  3. +4 XP for every Effect beyond the first. Quick and Upkeep don't count.
+ *  3. +4 XP for every Effect beyond the first. Quick and Upkeep don't count;
+ *     each has its own flat price (4 XP).
  *  4. Floors: a Technique that answers a class of attack, grants a ward or a
  *     roll bonus until the caster's next turn, is Quick with a trigger, or is
  *     Fortifying costs at least 8 XP.
@@ -80,7 +81,7 @@ export function priceEntry(entry, def) {
       counts = false;
       break;
     case "quick":
-      cost = 0;
+      cost = Number(p.base ?? 4);
       counts = false;
       break;
     default:

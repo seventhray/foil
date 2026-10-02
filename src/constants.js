@@ -142,7 +142,7 @@ export const EQUIPMENT_CATEGORY_LABEL = {
 };
 export const EQUIPMENT_CATEGORIES = Object.keys(EQUIPMENT_CATEGORY_LABEL);
 
-// FOIL axes and their poles (PHB 3.1.0). A trait leans High, Low, or Neutral (PHB 3.4.0).
+// FOIL axes and their poles (PHB 3.1.0). A Habit leans High, Low, or Neutral (PHB 3.4.0).
 export const FOIL_AXES = [
   { key: "faith",         label: "Faith",         high: "Trusting",   low: "Mistrusting" },
   { key: "order",         label: "Order",         high: "Ordered",    low: "Disordered" },
@@ -170,7 +170,7 @@ export const REST_RATION_HOURS = 8;
 // Advancement costs (PHB 2.3.0).
 // Advancement (PHB 2.3.0). A Talent step costs by the die's current size; d12 to d20
 // is a Transformation (PHB 2.3.1, 7.12.0). Training climbs 2 per point already held.
-export const XP_COST = { talent: { 4: 8, 6: 12, 8: 16, 10: 20 }, d12ToD20: 100, knowHow: 20, training: 6, trainingStep: 2 };
+export const XP_COST = { talent: { 4: 8, 6: 12, 8: 16, 10: 20 }, d12ToD20: 100, knowHow: 20, training: 8, trainingStep: 2 };
 export const DICE_BASE_LIMIT = 4;
 export const trainingCost = held => XP_COST.training + XP_COST.trainingStep * Math.max(0, Number(held) || 0);
 /** An Attribute holds at most 4 dice, plus 1 per die at d12 or larger (PHB 2.3.0). */

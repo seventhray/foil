@@ -8,7 +8,7 @@
  *     Oppose total is entered (PHB 6.7.0). Applying it to the target stays manual.
  *   - Foil Token spends: halve one source's Stress, or reroll one die of a posted
  *     roll (PHB 3.2.0).
- * Everything else (opposed rolls, Conditions, FOIL traits) stays with the table.
+ * Everything else (opposed rolls, Conditions, Habits) stays with the table.
  */
 
 import {

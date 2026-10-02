@@ -4,12 +4,12 @@
     {{> systems/foil/templates/actor/partials/conditions.hbs}}
   </section>
   <section class="foil-col">
-    <h3 class="section-head">FOIL <em>One trait per axis; blank until it matters (PHB 3.4.0).</em></h3>
+    <h3 class="section-head">FOIL <em>One Habit per axis; blank until it matters (PHB 3.4.0).</em></h3>
     {{#each foil}}
       <div class="axis-trait">
         <div class="axis-trait-head">
           <span class="axis-name">{{this.label}}</span>
-          <select name="system.foil.{{this.key}}.lean" title="Which end the trait leans toward">
+          <select name="system.foil.{{this.key}}.lean" title="Which end the Habit leans toward">
             {{#each this.leanOptions}}<option value="{{this.value}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>{{/each}}
           </select>
         </div>

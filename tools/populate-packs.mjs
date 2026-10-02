@@ -106,8 +106,8 @@ const EFFECTS = [
   ["+N (this roll)", "roll-bonus", "perPoint", { perPoint: 6 }, { label: "+N" }, "+N to this Technique's own roll."],
   ["Pierce N", "pierce", "perPoint", { perPoint: 4 }, { requires: [...MELEE, ...RANGED, "kinetic"], label: "Pierce N" }, "Ignore N of the target's Resistance."],
   ["Resistance +N", "resistance", "perPoint", { perPoint: 4 }, { requires: ["parry", "blocking", "fortifying"], label: "Resistance +N" }, "Physical or mental Resistance +N."],
-  ["Mend Xd4", "mend", "perPoint", { perPoint: 16 }, { requires: ["fortifying", "sonic", "tool"], label: "Mend Nd4" }, "Remove Xd4 Stress from an ally's Attribute. Takes ten minutes and a ration. Through a Tool: a Trade at Difficulty 12, no Strain."],
-  ["Lingering N", "lingering", "perPoint", { perPoint: 8 }, { requires: ["kinetic", "incorporeal", "pointed", "edged"], label: "Lingering N" }, "N more Stress at the start of the target's next turns."],
+  ["Mend Xd4", "mend", "perPoint", { perPoint: 10 }, { requires: ["fortifying", "sonic", "tool"], label: "Mend Nd4" }, "Remove Xd4 Stress from an ally's Attribute. Takes ten minutes and a ration. Through a Tool: a Trade at Difficulty 12, no Strain."],
+  ["Lingering N", "lingering", "perPoint", { perPoint: 7 }, { requires: ["kinetic", "incorporeal", "pointed", "edged"], label: "Lingering N" }, "N more Stress at the start of the target's next turns."],
   ["Redirect", "redirect", "flat", { base: 8 }, { requires: ["blocking"] }, "Take an ally's incoming Stress instead."],
   ["Move", "move", "flat", { base: 4 }, { requires: ["grappling", "blunt", "kinetic", "incorporeal"] }, "Move the target one band."],
   ["Disarm", "disarm", "flat", { base: 8 }, { requires: [...MELEE, "kinetic"] }, "The target drops the Instrument it used last. Innate Instruments can't be dropped."],
@@ -115,16 +115,16 @@ const EFFECTS = [
   ["Illusion", "illusion", "flat", { base: 8 }, { requires: ["incorporeal", "sonic"] }, "A false sight or sound."],
   ["Drain", "drain", "flat", { base: 8 }, { requires: ["incorporeal"] }, "Heal what the Technique deals."],
   ["Counter", "counter", "flat", { base: 12 }, {}, "Contest another Technique as it lands, minus its Strain. A countered upkeep ends the Technique."],
-  ["Hasten (Action)", "hasten-action", "flat", { base: 8 }, { requires: ["fortifying"] }, "Grant an ally an extra Action."],
-  ["Hasten (Quick Action)", "hasten-quick", "flat", { base: 4 }, { requires: ["fortifying"] }, "Grant an ally an extra Quick Action."],
+  ["Hasten (Action)", "hasten-action", "flat", { base: 14 }, { requires: ["fortifying"] }, "Grant an ally an extra Action."],
+  ["Hasten (Quick Action)", "hasten-quick", "flat", { base: 10 }, { requires: ["fortifying"] }, "Grant an ally an extra Quick Action."],
   ["Extend Range", "extend-range", "extendRange", { perBand: 1 }, { requires: ["kinetic", "incorporeal"] }, "1 XP per band of extra reach."],
   ["Pattern", "pattern", "pattern", {}, { requires: [...MELEE, ...RANGED, "sonic", ...ARCANE] }, "Beam or Wall: 1 + 2 + ... per band. Cone 3x, Radius 12x the Beam cost. A Melee Pattern reaches no farther than its Instrument's Range."],
   ["Selective", "selective", "selective", {}, { requires: [...RANGED, "sonic", ...ARCANE] }, "N creatures within R bands: N + (R x N)."],
   ["Upkeep", "upkeep", "upkeep", { base: 4 }, { requires: ARCANE, exempt: true }, "Keep the Technique active by paying its Action and Strain each turn."],
-  ["Quick", "quick", "quick", {}, { exempt: true, floor: true }, "A free tag. A stated trigger sets the 8 XP floor."],
+  ["Quick", "quick", "quick", { base: 4 }, { exempt: true, floor: true }, "4 XP, outside the combination premium. A stated trigger sets the 8 XP floor."],
   // Conditions (PHB 6.8.x), priced flat.
   ["Grappled", "grappled", "flat", { base: 4 }, { requires: ["grappling", "kinetic"] }, "PHB 6.8.3."],
-  ["Prone", "prone", "flat", { base: 8 }, { requires: [...MELEE, ...RANGED, "kinetic"] }, "PHB 6.8.7."],
+  ["Prone", "prone", "flat", { base: 10 }, { requires: [...MELEE, ...RANGED, "kinetic"] }, "PHB 6.8.7."],
   ["Restrained", "restrained", "flat", { base: 16 }, { requires: ["grappling", "kinetic"] }, "PHB 6.8.5."],
   ["Charmed", "charmed", "flat", { base: 8 }, { requires: ["incorporeal", "sonic"] }, "PHB 6.8.8."],
   ["Frightened", "frightened", "flat", { base: 8 }, { requires: ["incorporeal", "sonic"] }, "PHB 6.8.9."],
@@ -504,7 +504,7 @@ function convictionsModule() {
     const rows = tableAfter(PHB, new RegExp(`^### 3\\.4\\.\\d+ ${label}\\s*$`));
     out[key] = rows.map(r => {
       const lean = r.Lean === high ? "high" : r.Lean === low ? "low" : "neutral";
-      return { roll: Number(r["1d10"]), trait: r.Trait, lean };
+      return { roll: Number(r["1d10"]), trait: r.Habit, lean };
     });
     if (out[key].length !== 10) warnings.push(`Convictions ${label}: ${out[key].length} rows, expected 10`);
   }

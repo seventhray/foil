@@ -39,7 +39,7 @@ p("Attributes, Potential, and Skills", `
 <tr><td>Guile</td><td>Finesse + Presence</td><td>Maneuvering, deception, performance, misdirection</td></tr>
 <tr><td>Resonance</td><td>Wit + Presence</td><td>Insight, persuasion, connection, encouragement</td></tr>
 </tbody></table>
-<p><strong>Training</strong> costs 6 XP, plus 2 for each point the Skill already has. It can't pass the number of dice in the Skill's two pools.</p>
+<p><strong>Training</strong> costs 8 XP, plus 2 for each point the Skill already has. It can't pass the number of dice in the Skill's two pools.</p>
 <p>A creature that isn't pushing back has a <strong>passive</strong> value in each Skill: the Average of its two Attributes, rounded down, plus Training. It stands in as the Difficulty.</p>`),
 
 p("Instruments and Types", `
@@ -77,7 +77,7 @@ p("Actions and Strain", `
 
 p("FOIL and Foil Tokens", `
 <p>Four axes describe how a character responds in the moment: <strong>Faith</strong> (Trusting or Mistrusting), <strong>Order</strong> (Ordered or Disordered), <strong>Individualism</strong> (Individual or Communal), and <strong>Levity</strong> (Light or Grave). Each leans toward one end, sits deliberately between them, or stays undeclared (PHB 3.1.0).</p>
-<p>Once per scene a player may <strong>invoke</strong> a trait their character holds. If the table agrees the trait drives what the character is doing, they earn a <strong>Foil Token</strong>. A character holds at most four.</p>
+<p>Once per scene a player may <strong>invoke</strong> a Habit their character holds. If the table agrees the Habit drives what the character is doing, they earn a <strong>Foil Token</strong>. A character holds at most four.</p>
 <p>A Foil Token is spent at will: halve the Stress from one source, rounded down, or reroll any one die right after rolling a Skill. The new result stands.</p>`),
 
 p("Ending a conflict, resting, travel", `
@@ -103,7 +103,7 @@ p("Character sheet", `
 <tr><td><strong>Rations, Carried</strong></td><td>Rations weigh 2 lbs each. Carried turns red with its roll penalty once over 4x Might Potential.</td></tr>
 <tr><td><strong>Location</strong></td><td>Each Instrument and piece of Equipment is equipped, carried, or stored; click its icon to change it. Only equipped gear grants its Resistance or bonus, stored gear weighs nothing, and a Heavy Instrument warns when something else is also in hand. Switching to a carried Instrument costs the Quick Action.</td></tr>
 <tr><td><strong>Techniques</strong></td><td>Lists every built-in Technique of the character's Instruments, with the Instrument it comes from, above the learned ones. Each learned Technique lists the Instruments it can be used with, equipped ones first; stored ones never count.</td></tr>
-<tr><td><strong>FOIL</strong></td><td>A lean and a trait line per axis.</td></tr>
+<tr><td><strong>FOIL</strong></td><td>A lean and a Habit per axis.</td></tr>
 <tr><td><strong>Conditions</strong></td><td>Active Conditions, with rounds and a note.</td></tr>
 </tbody></table>
 <p>There is no Health field on a character: the four Potentials are the same information.</p>`),
@@ -118,7 +118,7 @@ p("What the system does for you", `
 <li>A Stress Technique's chat card has a <strong>Stress</strong> button. Enter the target's Oppose and Resistance, pick the Type effect, and it reports the Stress. Applying it to the target stays manual.</li>
 <li><strong>Foil Token</strong> spends: halve one source's Stress from the sheet, or reroll one die from any roll's chat card.</li>
 </ul>
-<p>It does not roll Opposes, apply Stress to a target, adjudicate Conditions, or move FOIL traits.</p>`),
+<p>It does not roll Opposes, apply Stress to a target, adjudicate Conditions, or move Habits.</p>`),
 ]},
 
 {
@@ -137,7 +137,7 @@ p("Pricing a Technique", `
 <ol>
 <li>Sum the Effects. Stress is an Effect at 4 XP.</li>
 <li>A Pattern, Selective, or Extend Range is priced by reach and counts as an Effect.</li>
-<li>Add 4 XP for every Effect beyond the first. Quick and Upkeep don't count.</li>
+<li>Add 4 XP for every Effect beyond the first. Quick and Upkeep don't count; each costs a flat 4 XP.</li>
 <li>A Fortifying Technique, a ward or bonus until the caster's next turn, or a Quick trigger costs at least 8 XP.</li>
 <li>Strain is floor(XP / 8).</li>
 </ol>
@@ -146,9 +146,11 @@ p("Pricing a Technique", `
 <tr><td>+N (this roll), &pm;N [Skill or Oppose]</td><td>6 x N</td></tr>
 <tr><td>-N [target Attribute]</td><td>18 x N</td></tr>
 <tr><td>Pierce N, Resistance +N</td><td>4 x N</td></tr>
-<tr><td>Mend Xd4</td><td>16 x X</td></tr>
-<tr><td>Lingering N</td><td>8 x N</td></tr>
-<tr><td>Upkeep</td><td>4</td></tr>
+<tr><td>Mend Xd4</td><td>10 x X</td></tr>
+<tr><td>Lingering N</td><td>7 x N</td></tr>
+<tr><td>Upkeep, Quick</td><td>4</td></tr>
+<tr><td>Hasten (Action) / (Quick Action)</td><td>14 / 10</td></tr>
+<tr><td>Prone</td><td>10</td></tr>
 <tr><td>Counter</td><td>12</td></tr>
 </tbody></table>
 <p>Beam or Wall reach costs 1 + 2 + ... per band; a Cone 3x that, a Radius 12x. Selective costs N + (R x N).</p>`),
