@@ -127,7 +127,7 @@ for (const [name, cat, weight, types, range, price] of [
   ["Halberd", "melee", "heavy", ["edged", "pointed"], "Near", 70],
   ["Longbow", "ranged", "medium", ["pointed", "drawn"], "Long Range", 75],
   ["Arbalest", "ranged", "heavy", ["pointed", "fired"], "Long Range", 105],
-  ["Sling", "ranged", "light", ["quick", "thrown"], "Mid Range", 25],
+  ["Sling", "ranged", "light", ["thrown"], "Mid Range", 25],
   ["Grand Staff", "arcane", "heavy", ["kinetic", "incorporeal", "fortifying"], "Long Range", 70],
   ["Siege Horn", "sonic", "heavy", ["sonic"], "Long Range", 55]
 ]) check(`${name} prices at ${price}p`, () => {
@@ -141,6 +141,10 @@ check("+2 Medium Instrument adds 45p, +2 to rolls, Pierce +1, crafts from 46p", 
 check("+0 Large item crafts from 3 Tier 0 batches (6p)", () => {
   const i = new InstrumentData({ category: "sonic", weight: "heavy", types: ["sonic"], size: "large" }); i.prepareDerivedData();
   return eq(i.craftCost, 6);
+});
+check("a Light Instrument works on the Quick Action; a Medium or Heavy one doesn't (PHB 4.1.2)", () => {
+  const q = weight => { const i = new InstrumentData({ category: "melee", weight, types: ["edged"] }); i.prepareDerivedData(); return i.quick; };
+  return eq([q("light"), q("medium"), q("heavy")], [true, false, false]);
 });
 check("a Blocking-only +N applies to Oppose only", () => {
   const i = new InstrumentData({ category: "arcane", weight: "light", types: ["blocking", "fortifying"], bonus: 1 }); i.prepareDerivedData();

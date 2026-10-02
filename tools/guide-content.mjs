@@ -44,7 +44,7 @@ p("Attributes, Potential, and Skills", `
 
 p("Instruments and Types", `
 <p>An <strong>Instrument</strong> has one Range, one <strong>Primary Attribute</strong>, and one or more <strong>Instrument Types</strong>. The Primary Attribute sets which three Skills can roll it. Every Instrument carries three built-in Techniques, one per Skill, free.</p>
-<p>Every character has two innate Instruments. <strong>Body</strong> is Might Primary, Quick, Light, Blunt, Grappling, Close: Strike, Grapple, Menace. <strong>Voice</strong> is Presence Primary, Quick, Light, Sonic, Mid Range: Intimidate, Mislead, Sway.</p>
+<p>Every character has two innate Instruments. <strong>Body</strong> is Might Primary, Light, Blunt, Grappling, Close: Strike, Grapple, Menace. <strong>Voice</strong> is Presence Primary, Light, Sonic, Mid Range: Intimidate, Mislead, Sway.</p>
 <table><thead><tr><th>Type</th><th>Type effect</th></tr></thead><tbody>
 <tr><td>Edged</td><td>+3 Stress against a physical Attribute. Physical Resistance counts double against Edged, after Pierce</td></tr>
 <tr><td>Pointed</td><td>Pierce 1 against physical Resistance, +1 Stress against a physical Attribute</td></tr>

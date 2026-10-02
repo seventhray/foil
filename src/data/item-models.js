@@ -121,7 +121,9 @@ export class InstrumentData extends foundry.abstract.TypeDataModel {
     this.craftCost = (SIZE[this.size]?.batches ?? 2) * (MATERIAL_TIER_PRICE[this.bonus] ?? 0);
 
     // Type effects (PHB 4.1.2).
-    this.quick = defs.some(d => d.quick);
+    // A Light Instrument's built-ins can use the Quick Action (PHB 4.1.2). The Quick Type
+    // survives only for a creature's natural weapon chosen to work that way (GMG 4.6.0).
+    this.quick = this.weight === "light" || defs.some(d => d.quick);
     this.reload = defs.find(d => d.reload)?.reload ?? "";
     this.blockingOnly = defs.some(d => d.blocking) && !defs.some(d => d.family === "melee" || d.family === "ranged");
     this.stressTypes = defs.filter(d => d.stressPhysical || d.stressMental || d.pierce || d.dealsNoStress || d.doubleResistance)
