@@ -14,7 +14,7 @@
 import {
   ATTRIBUTE_KEYS, ATTR_LABEL, SKILL_ATTRS, SKILL_KEYS, SKILL_LABEL, SKILL_ABBR, FOIL_AXES,
   FOIL_TOKEN_MAX, CONDITIONS, EQUIPMENT_CATEGORY_LABEL, ITEM_LOCATIONS, LOCATION_LABEL,
-  REST_BLOCK_HOURS, REST_RATION_HOURS
+  REST_BLOCK_HOURS, REST_RATION_HOURS, MARGIN_CAP, marginCap
 } from "../constants.js";
 import { equipmentSummary } from "../registry.js";
 import { stressFor } from "../stress.js";
@@ -299,7 +299,8 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
     if (wdice) notes.push(`${inst.system.weightLabel}: +${wdice}.`);
     await this._postRoll(this._skillFormula(skill, bonus, wdice), `${tech.name} (${SKILL_LABEL[skill]})`, notes.join("<br>"),
       sys.dealsStress && inst ? roll => this._stressFlag(inst, tech.name, roll.total, {
-        bespoke: Number(sys.stressRider ?? 0), pierce: Number(sys.pierceTotal ?? 0) + Number(inst.system.bonusPierce ?? 0) + gemPierce
+        bespoke: Number(sys.stressRider ?? 0), pierce: Number(sys.pierceTotal ?? 0) + Number(inst.system.bonusPierce ?? 0) + gemPierce,
+        quick: !!sys.quick
       }) : null);
   }
 
@@ -321,15 +322,21 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
     await this._postRoll(this._skillFormula(answer.skill, inst.system.bonusRoll), `${inst.name} (${SKILL_LABEL[answer.skill]})`, notes.join("<br>"));
   }
 
-  /** The chat-card payload the Stress button reads. */
-  _stressFlag(inst, name, total, { bespoke = 0, pierce = 0 } = {}) {
+  /**
+   * The chat-card payload the Stress button reads. The margin cap follows the
+   * Instrument's weight; a Quick Action attack caps at a quarter (PHB 6.7.0).
+   */
+  _stressFlag(inst, name, total, { bespoke = 0, pierce = 0, quick = false } = {}) {
     const primary = inst.system.primaryAttribute;
     const a = this.actor.system.attributes?.[primary];
     const potential = Number(a?.potential?.max ?? 0);
+    const weight = inst.system.weight || inst.system.weightClass || "light";
+    const label = key => `${MARGIN_CAP[key][2]} ${ATTR_LABEL[primary] ?? ""} Potential`;
     return {
       stress: {
         actorId: this.actor.id, name, attackTotal: total, instrument: inst.name,
-        cap: Math.floor(potential / 2), capAttr: ATTR_LABEL[primary] ?? "",
+        cap: marginCap(potential, weight), capLabel: label(weight),
+        canQuick: !!(quick || inst.system.quick), capQuick: marginCap(potential, "quick"), capQuickLabel: label("quick"),
         types: inst.system.stressTypes ?? [], bespoke, pierce
       }
     };
@@ -607,14 +614,16 @@ async function computeStress(flag) {
     + `<div class="form-group"><label>Attribute aimed at</label><select name="kind"><option value="physical">Might or Finesse</option><option value="mental">Wit or Presence</option></select></div>`
     + `<div class="form-group"><label>Target's Resistance of that kind <em>(negative for Vulnerable)</em></label><input type="number" name="resistance" value="0" /></div>`
     + ((flag.types ?? []).length ? `<div class="form-group"><label>Type effect <em>(one, your choice)</em></label><select name="type">${typeOpts}</select></div>` : "")
-    + `<div class="form-group"><label>Other Stress bonus <em>(a Feat such as Heavy Hand)</em></label><input type="number" name="other" value="0" /></div>`,
+    + `<div class="form-group"><label>Other Stress bonus <em>(a Feat such as Heavy Hand)</em></label><input type="number" name="other" value="0" /></div>`
+    + (flag.canQuick ? `<div class="form-group"><label>Paid with the Quick Action <em>(margin cap ${flag.capQuick}, not ${flag.cap})</em></label><input type="checkbox" name="quick" /></div>` : ""),
     "Compute");
   if (!answer) return;
   const oppose = Number(answer.oppose);
   if (answer.oppose === "" || answer.oppose === null || Number.isNaN(oppose)) return;
   const speaker = ChatMessage.getSpeaker({ actor: game.actors.get(flag.actorId) });
   const r = stressFor({
-    attack: flag.attackTotal, oppose, cap: flag.cap, capAttr: flag.capAttr, name: flag.name,
+    attack: flag.attackTotal, oppose, name: flag.name,
+    cap: answer.quick ? flag.capQuick : flag.cap, capLabel: answer.quick ? flag.capQuickLabel : flag.capLabel, capAttr: flag.capAttr,
     kind: answer.kind === "mental" ? "mental" : "physical",
     resistance: Number(answer.resistance) || 0,
     type: answer.type === "" || answer.type === undefined ? null : flag.types?.[Number(answer.type)] ?? null,

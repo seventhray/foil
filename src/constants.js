@@ -172,6 +172,12 @@ export const REST_RATION_HOURS = 8;
 // is a Transformation (PHB 2.3.1, 7.12.0). Training climbs 2 per point already held.
 export const XP_COST = { talent: { 4: 8, 6: 12, 8: 16, 10: 20 }, d12ToD20: 100, knowHow: 20, training: 8, trainingStep: 2 };
 export const DICE_BASE_LIMIT = 4;
+/** Margin cap as a share of the Primary Attribute's Potential, by weight; a Quick Action attack caps at a quarter (PHB 6.7.0). */
+export const MARGIN_CAP = { light: [1, 2, "half"], medium: [3, 4, "three quarters of"], heavy: [1, 1, "all of"], quick: [1, 4, "a quarter of"] };
+export const marginCap = (potential, key) => {
+  const [n, d] = MARGIN_CAP[key] ?? MARGIN_CAP.light;
+  return Math.floor((Number(potential) || 0) * n / d);
+};
 export const trainingCost = held => XP_COST.training + XP_COST.trainingStep * Math.max(0, Number(held) || 0);
 /** An Attribute holds at most 4 dice, plus 1 per die at d12 or larger (PHB 2.3.0). */
 export function knowHowState(dice = {}) {

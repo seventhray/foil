@@ -2,8 +2,9 @@
  * src/stress.js
  * A landed Technique's Stress (PHB 6.7.0). Pure, so it runs headlessly.
  *
- *   margin (attack - Oppose; a tie lands at 0), capped at half the Instrument's
- *   Primary Potential
+ *   margin (attack - Oppose; a tie lands at 0), capped by the Instrument's weight:
+ *   half, three quarters, or all of its Primary Potential for Light, Medium, or
+ *   Heavy, and a quarter for a Technique paid with the Quick Action
  *   + one Stress-dealing Type's bonus (Edged: physical Resistance, after Pierce, counts double)
  *   + the Technique's own bonus, and any other stated bonus
  *   - Resistance after Pierce (Pierce never takes it below 0; Vulnerable is
@@ -14,7 +15,8 @@
  * @param {object} a
  * @param {number} a.attack       the Technique's roll
  * @param {number} a.oppose       the target's Oppose roll
- * @param {number} a.cap          half the Primary Attribute's Potential
+ * @param {number} a.cap          the margin cap (see above)
+ * @param {string} a.capLabel     how the cap was set, such as "three quarters of Might Potential"
  * @param {"physical"|"mental"} a.kind  the kind of Attribute aimed at
  * @param {number} a.resistance   the target's Resistance of that kind (negative = Vulnerable)
  * @param {object|null} a.type    { label, physical, mental, pierce, doubleResistance }
@@ -24,11 +26,11 @@
  * @returns {{ landed:boolean, stress:number, margin:number, capped:number, parts:string[] }}
  */
 export function stressFor({ attack, oppose, cap, kind = "physical", resistance = 0, type = null,
-                            bespoke = 0, other = 0, pierce = 0, name = "the Technique", capAttr = "" }) {
+                            bespoke = 0, other = 0, pierce = 0, name = "the Technique", capAttr = "", capLabel = "" }) {
   const margin = Number(attack) - Number(oppose);
   if (margin < 0) return { landed: false, stress: 0, margin, capped: 0, parts: ["the Oppose beat it"] };
   const capped = Math.min(margin, Math.max(0, Number(cap) || 0));
-  const parts = [`margin ${margin}${capped < margin ? `, capped at ${cap}${capAttr ? ` (half ${capAttr} Potential)` : ""}` : ""}`];
+  const parts = [`margin ${margin}${capped < margin ? `, capped at ${cap}${capLabel ? ` (${capLabel})` : capAttr ? ` (half ${capAttr} Potential)` : ""}` : ""}`];
   const res = Number(resistance) || 0;
   let typeBonus = 0, totalPierce = Number(pierce) || 0;
   if (type) {

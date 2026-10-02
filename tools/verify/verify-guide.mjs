@@ -37,7 +37,7 @@ ok("Training cap is the dice in the two pools", /Training can't exceed the numbe
 ok("+N Pierce is half the bonus", /Pierce equal to half its bonus, rounded down/.test(phb) && /Pierce equal to half the bonus, rounded down/.test(all));
 ok("Strain is floor(XP / 8)", /\*\*Strain = floor\(XP \/ 8\)\*\*/.test(fm) && /floor\(XP \/ 8\)/.test(all));
 ok("Strain lands on the Primary Attribute", /Strain applies to the Instrument's Primary Attribute/.test(phb) && /on the Instrument's Primary Attribute/.test(all));
-ok("margin capped at half the Primary Potential", /capped at half the Potential of the Instrument's Primary Attribute/.test(phb) && /half the Potential/.test(all));
+ok("margin cap by weight: half Light, three quarters Medium, all Heavy, a quarter on the Quick Action", /half for a Light Instrument, three quarters for Medium, and all of it for Heavy\. A Technique paid with the Quick Action caps at a quarter/.test(phb) && /<strong>three quarters<\/strong> for Medium/.test(all));
 ok("Edged +3, physical Resistance counts double", /\| Edged \| \+3 Stress against a physical Attribute\. Physical Resistance, after Pierce, counts double against it/.test(phb) && /Physical Resistance counts double against Edged/.test(all));
 ok("Blunt Pierce 3", /\| Blunt \| Pierce 3/.test(phb) && /Pierce 3 against physical Resistance/.test(all));
 ok("Drawn +2, Fired +4", /\| Drawn \| \+2 Stress/.test(phb) && /\| Fired \| \+4 Stress/.test(phb) && /\+2 \/ \+4 Stress/.test(all));

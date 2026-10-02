@@ -62,7 +62,7 @@ p("Instruments and Types", `
 p("Stress, Resistance, and Incapacitation", `
 <p>When a Stress Technique lands (PHB 6.7.0):</p>
 <ol>
-<li>Take the margin, capped at <strong>half the Potential</strong> of the Instrument's Primary Attribute.</li>
+<li>Take the margin, capped at a share of the Instrument's Primary Potential by its weight: <strong>half</strong> for Light, <strong>three quarters</strong> for Medium, <strong>all</strong> for Heavy, and <strong>a quarter</strong> when paid with the Quick Action. The Stress button asks which action paid.</li>
 <li>Add one Type's Stress effect, the attacker's choice.</li>
 <li>Add the Technique's own bonus.</li>
 <li>Subtract the target's Resistance, less any Pierce, to a minimum of 0.</li>
