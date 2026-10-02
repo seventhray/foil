@@ -104,10 +104,13 @@ export class FoilItemSheet extends HandlebarsApplicationMixin(ItemSheetV2Base) {
     if (this.item.type === "equipment") {
       ctx.qualityRows = (sys.qualities ?? []).map((q, idx) => {
         const scope = qm[q.key]?.scope ?? (q.key === "resistance" ? "resistanceKind" : q.key === "skill-bonus" ? "skill" : "free");
-        const choices = scope === "resistanceKind" ? RESISTANCE_KINDS.map(k => opt(k, RESISTANCE_LABEL[k]))
+        const choices = scope === "resistanceKind"
+                        ? [...RESISTANCE_KINDS.map(k => opt(k, RESISTANCE_LABEL[k])), ...ATTRIBUTE_KEYS.map(k => opt(k, `${ATTR_LABEL[k]} only`))]
                       : scope === "skill" ? SKILL_KEYS.map(k => opt(k, SKILL_LABEL[k]))
                       : scope === "attribute" ? ATTRIBUTE_KEYS.map(k => opt(k, ATTR_LABEL[k])) : null;
-        return { idx, ...q, choices: choices?.map(c => ({ ...c, selected: c.value === q.param })) ?? null };
+        // A blank choice for generic gear (a one-Attribute Ward, a charm) until the player picks one.
+        const withBlank = choices && !q.param ? [opt("", "Choose..."), ...choices] : choices;
+        return { idx, ...q, choices: withBlank?.map(c => ({ ...c, selected: c.value === q.param })) ?? null };
       });
     }
     if (this.item.type === "feat") {

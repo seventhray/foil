@@ -451,6 +451,15 @@
   box-shadow: 0 1px 2px rgba(0,0,0,.25);
 }
 .state-tag.lost { background: var(--bad); color: #fff; }
+/* Resistance made for this Attribute alone (PHB 5.2.4), shown only when one is worn. */
+.attr-res {
+  font-size: 0.82em;
+  text-align: center;
+  margin: 2px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
 .apt-table input { width: 50px; text-align: center; }
 .apt-table th { background: var(--parchment-deep); }

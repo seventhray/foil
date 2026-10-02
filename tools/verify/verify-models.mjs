@@ -76,8 +76,8 @@ console.log("\nModifiers (PHB 2.5.2, 6.6.0, 7.5.x):");
 const gear = [
   { name: "Leather", type: "equipment", system: { category: "armor", location: "equipped", qualities: [{ key: "resistance", param: "physical", value: 1 }] } },
   { name: "Half Plate", type: "equipment", system: { category: "armor", location: "carried", qualities: [{ key: "resistance", param: "physical", value: 3 }] } },
-  { name: "Warding Charm", type: "equipment", system: { category: "ward", location: "equipped", qualities: [{ key: "resistance", param: "mental", value: 1 }] } },
-  { name: "Watcher's Lens", type: "equipment", system: { category: "charm", location: "equipped", qualities: [{ key: "skill-bonus", param: "acuity", value: 1 }] } },
+  { name: "Mental Ward +1", type: "equipment", system: { category: "ward", location: "equipped", qualities: [{ key: "resistance", param: "mental", value: 1 }] } },
+  { name: "Charm", type: "equipment", system: { category: "charm", location: "equipped", qualities: [{ key: "skill-bonus", param: "acuity", value: 1 }] } },
   { name: "Tough Hide", type: "feat", system: { modifiers: [{ type: "resistance", key: "physical", value: 2 }] } },
   { name: "Soldier", type: "background", system: { training: { prowess: 1, discipline: 1, assertiveness: 1 } } }
 ];
@@ -85,6 +85,19 @@ check("old equipped flags migrate to a location", () => eq(
   [EquipmentData.migrateData({ equipped: true }).location, EquipmentData.migrateData({ equipped: false }).location], ["equipped", "carried"]));
 check("worn Resistance and Feats stack; stowed gear doesn't count", () => {
   const m = aggregateModifiers(gear); return eq([m.resistance.physical, m.resistance.mental], [3, 1]);
+});
+check("a one-Attribute Ward counts only for that Attribute; a blank one counts for nothing", () => {
+  const m = aggregateModifiers([
+    { name: "Wit Ward +2", type: "equipment", system: { category: "ward", location: "equipped", qualities: [{ key: "resistance", param: "wit", value: 2 }] } },
+    { name: "Tailored Mail", type: "equipment", system: { category: "armor", location: "equipped", qualities: [{ key: "resistance", param: "might", value: 1 }] } },
+    { name: "Unset Ward +1", type: "equipment", system: { category: "ward", location: "equipped", qualities: [{ key: "resistance", param: "", value: 1 }] } }
+  ]);
+  return eq([m.resistance.physical, m.resistance.mental, m.attributeResistance.wit, m.attributeResistance.might, m.attributeResistance.presence], [0, 0, 2, 1, 0]);
+});
+check("one Ward and one armor count at a time, the strongest", () => {
+  const w = (name, cat, param, value) => ({ name, type: "equipment", system: { category: cat, location: "equipped", qualities: [{ key: "resistance", param, value }] } });
+  const m = aggregateModifiers([w("Mental Ward +1", "ward", "mental", 1), w("Mental Ward +2", "ward", "mental", 2), w("Leather", "armor", "physical", 1), w("Mail", "armor", "physical", 2)]);
+  return eq([m.resistance.mental, m.resistance.physical], [2, 2]);
 });
 check("Background Training counts as Training; a charm's +1 is a Skill bonus", () => {
   const m = aggregateModifiers(gear); return eq([m.training.prowess, m.training.acuity, m.skillBonus.acuity], [1, 0, 1]);

@@ -84,6 +84,8 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
         stress: Math.max(0, (a.potential?.max ?? 0) - (a.potential?.current ?? 0)),
         recoverStress: Math.floor((a.potential?.max ?? 0) / 2),
         kind: a.kind ?? "", incapacitated: !!a.down,
+        resistanceExtra: a.resistanceExtra ?? 0, resistanceTotal: a.resistanceTotal ?? 0,
+        resistanceFromLabel: a.resistanceFromLabel ?? "",
         validPool: a.validPool !== false
       };
     });
@@ -405,6 +407,13 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
     const item = this.actor.items.get(target.closest("[data-item-id]")?.dataset.itemId);
     if (!item || item.system.innate) return;
     const next = ITEM_LOCATIONS[(ITEM_LOCATIONS.indexOf(item.system.location) + 1) % ITEM_LOCATIONS.length];
+    // One worn armor and one Ward at a time (PHB 6.6.0): equipping one carries the other.
+    const cat = item.system.category;
+    if (next === "equipped" && ["armor", "ward"].includes(cat)) {
+      const others = this.actor.items.filter(i => i.id !== item.id && i.type === "equipment"
+        && i.system.category === cat && i.system.location === "equipped");
+      if (others.length) await this.actor.updateEmbeddedDocuments("Item", others.map(i => ({ _id: i.id, "system.location": "carried" })));
+    }
     await item.update({ "system.location": next });
   }
 

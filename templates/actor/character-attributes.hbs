@@ -14,6 +14,7 @@
             <input type="number" data-stress="{{this.key}}" value="{{this.stress}}" min="0" /></div>
           <div class="mini"><label title="The most this Attribute's dice can roll; Stress up to it (PHB 6.7.0)">Potential</label><span class="readout">{{this.potentialMax}}</span></div>
         </div>
+        {{#if this.resistanceExtra}}<div class="attr-res" title="Resistance for this Attribute only: {{this.resistanceFromLabel}} (PHB 5.2.4)">Resistance {{this.resistanceTotal}} &middot; {{this.resistanceFromLabel}}</div>{{/if}}
         {{#if this.incapacitated}}<div class="state-tag" title="Rolls no dice. Lifts once healing brings its Stress down to {{this.recoverStress}} (PHB 6.8.1)">Incapacitated &middot; lifts at {{this.recoverStress}} Stress</div>{{/if}}
       </div>
     {{/each}}

@@ -87,6 +87,15 @@ function prepareCore(sys) {
     sys.resistance[`${kind}Total`] = base + bonus;
     sys.resistance[`${kind}FromLabel`] = from.map(e => `+${e.value} ${e.name}`).join(", ");
   }
+  // Resistance made for one Attribute (PHB 5.2.4) adds to its kind's total for that Attribute only.
+  for (const key of ATTRIBUTE_KEYS) {
+    const a = attrs[key];
+    if (!a) continue;
+    const extra = Number(mods.attributeResistance?.[key] ?? 0);
+    a.resistanceExtra = extra;
+    a.resistanceTotal = Number(sys.resistance[`${a.kind}Total`] ?? 0) + extra;
+    a.resistanceFromLabel = (mods.attributeResistanceSources?.[key] ?? []).map(e => `+${e.value} ${e.name}`).join(", ");
+  }
 
   // Carrying capacity (PHB 5.2.6): everything equipped or carried, worn Armor included; stored items weigh nothing.
   const might = attrs.might?.potential?.max ?? 0;

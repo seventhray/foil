@@ -157,7 +157,7 @@ export class InstrumentData extends foundry.abstract.TypeDataModel {
     ench.strain = strainFor(priced.xp);
     ench.price  = priced.xp * 10;
     const x = priced.xp;
-    ench.difficulty = !x ? 0 : x <= 8 ? 16 : x <= 16 ? 20 : x <= 24 ? 24 : 28;
+    ench.difficulty = !x ? 0 : x <= 8 ? 16 : x <= 16 ? 20 : x <= 24 ? 24 : 32;
     ench.materialTier = !x ? 0 : x <= 8 ? 1 : x <= 16 ? 2 : x <= 24 ? 3 : 4;
     const text = ench.effectText || (priced.breakdown ?? []).map(b => b.label).join(", ");
     ench.effectSummary = ench.strain ? (text ? `${text}, Strain ${ench.strain}` : `Strain ${ench.strain}`) : text;

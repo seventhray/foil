@@ -404,24 +404,31 @@ function equipmentDocs() {
       weightClass: lc(r.Weight), qualities: quals, effect: "Blocking", notes: r.Notes ?? ""
     }));
   }
-  const ward = sectionText(PHB, /^### 7\.5\.4 Wards and charms/);
-  const wardTables = ward.split(/\n(?=\| Item)/).filter(s => s.startsWith("| Item"));
-  const wardRows = tableAfter("#### x\n" + wardTables[0], /^#### x/);
-  for (const r of wardRows) {
-    out.push(equip(r.Item, "ward", num(r.Price), { qualities: [q("resistance", num(r.Resistance), "mental")], notes: r.Notes ?? "", size: "small", materials: "Metal" }));
+  // Wards and charms (PHB 5.2.4): one row per kind, a price per bonus. A Mental Ward covers
+  // Wit and Presence; a Wit or Presence Ward covers that Attribute alone.
+  // A charm leaves its Skill blank for the player to choose.
+  for (const r of tableAfter(PHB, /^### 5\.2\.4 Armor, Shields, and Wards/)) {
+    for (const n of [1, 2, 3, 4]) {
+      const price = num(r[`+${n}`]);
+      if (!price) continue;
+      const base = { size: "small", materials: "Metal", notes: r.Gives };
+      if (r.Item === "Mental Ward") out.push(equip(`Mental Ward +${n}`, "ward", price, { ...base, qualities: [q("resistance", n, "mental")] }));
+      else if (/ Ward$/.test(r.Item)) for (const a of r.Item.replace(/ Ward$/, "").split(/,? or |, /))
+        out.push(equip(`${a} Ward +${n}`, "ward", price, { ...base, qualities: [q("resistance", n, lc(a))] }));
+      else if (r.Item === "Charm") out.push(equip("Charm", "charm", price, { ...base, qualities: [q("skill-bonus", n, "")] }));
+      else warnings.push(`5.2.4: unknown row "${r.Item}"`);
+    }
   }
-  const charmRows = tableAfter("#### x\n" + wardTables[1], /^#### x/);
-  for (const r of charmRows) {
-    out.push(equip(r.Item, "charm", num(r.Price), { qualities: [q("skill-bonus", 1, lc(r.Skill))], notes: r.Notes ?? "", size: "small", materials: "Metal" }));
-  }
-  for (const r of tableAfter(PHB, /^### 7\.5\.5 Adventuring Gear/)) {
+  for (const r of tableAfter(PHB, /^### 7\.5\.4 Adventuring Gear/)) {
     out.push(equip(r.Item, "gear", num(r.Price), { effect: r["Helps with"], size: "small", materials: "" }));
   }
-  for (const r of tableAfter(PHB, /^### 7\.5\.6 Medicine/)) {
-    out.push(equip(r.Item, "medicine", num(r.Price), { effect: r.Effect, uses: r.Uses, size: "small", materials: "" }));
-  }
-  for (const r of tableAfter(PHB, /^### 7\.5\.7 Potions and Poisons/)) {
-    out.push(equip(r.Item, "potion", num(r.Price), { effect: r.Effect, duration: r.Duration, uses: r.Uses, size: "small", materials: "Reagent" }));
+  // Consumables (PHB 7.5.5): poisons and throwables are Reagent; medicine heals; the rest is gear.
+  for (const r of tableAfter(PHB, /^### 7\.5\.5 Consumables/)) {
+    const category = /thrown|coats a weapon/.test(r.Effect) ? "potion"
+                   : /Stress|poison or sickness/.test(r.Effect) ? "medicine" : "gear";
+    out.push(equip(r.Item, category, num(r.Price), {
+      effect: r.Effect, duration: r.Duration, uses: r.Uses, size: "small", materials: category === "potion" ? "Reagent" : ""
+    }));
   }
   for (const r of tableAfter(PHB, /^### 7\.4\.4 Focus Gems/)) {
     out.push(equip(`${r.Gem} (Tier 1)`, "gem", num(r["Price per Tier"]), {
