@@ -106,7 +106,7 @@ const EFFECTS = [
   ["+N (this roll)", "roll-bonus", "perPoint", { perPoint: 6 }, { label: "+N" }, "+N to this Technique's own roll."],
   ["Pierce N", "pierce", "perPoint", { perPoint: 4 }, { requires: [...MELEE, ...RANGED, "kinetic"], label: "Pierce N" }, "Ignore N of the target's Resistance."],
   ["Resistance +N", "resistance", "perPoint", { perPoint: 4 }, { requires: ["parry", "blocking", "fortifying"], label: "Resistance +N" }, "Physical or mental Resistance +N."],
-  ["Mend Xd4", "mend", "perPoint", { perPoint: 10 }, { requires: ["fortifying", "sonic", "tool"], label: "Mend Nd4" }, "Remove Xd4 Stress from an ally's Attribute. Takes ten minutes and a ration. Through a Tool: a Trade at Difficulty 12, no Strain."],
+  ["Mend Xd4", "mend", "perPoint", { perPoint: 10 }, { requires: ["fortifying", "sonic"], label: "Mend Nd4" }, "Remove Xd4 Stress from an ally's Attribute. Takes ten minutes and one medicine item per d4 (Bandages, a Herbal Poultice, or a Healer's Kit use)."],
   ["Lingering N", "lingering", "perPoint", { perPoint: 7 }, { requires: ["kinetic", "incorporeal", "pointed", "edged"], label: "Lingering N" }, "N more Stress at the start of the target's next turns."],
   ["Redirect", "redirect", "flat", { base: 8 }, { requires: ["blocking"] }, "Take an ally's incoming Stress instead."],
   ["Move", "move", "flat", { base: 4 }, { requires: ["grappling", "blunt", "kinetic", "incorporeal"] }, "Move the target one band."],
