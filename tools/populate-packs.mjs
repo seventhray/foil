@@ -472,7 +472,7 @@ function ancestryDocs() {
     const name = head[2].trim();
     const desc = (block.match(/^\*(.+)\*$/m) ?? [])[1] ?? "";
     const feats = [...block.matchAll(/^\*\*Feat:\*\* ([^.]+)\./gm)].map(m => m[1].trim());
-    const talent = [...(block.match(/^\*\*Talent:\*\* (.+)$/m)?.[1] ?? "").matchAll(/(\w+) to d(\d+)/g)]
+    const talent = [...(block.match(/^\*\*Talent:\*\* (.+)$/m)?.[1] ?? "").matchAll(/(?:one )?(\w+)(?: die)? to d(\d+)/g)]
       .map(m => ({ attribute: lc(m[1]), die: +m[2] }));
     ANCESTRY_FULL[name.split(" ")[0]] = name;
     out.push({ name, type: "origin", img: "icons/svg/village.svg",

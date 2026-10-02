@@ -84,6 +84,7 @@ p("Ending a conflict, resting, travel", `
 <p>A conflict ends when one side stops contesting it. <strong>Flee</strong>: Disengage and move away; each chaser rolls Prowess against the fleer every round, and the winner moves one range band. <strong>Yield</strong>: stop fighting and accept terms. <strong>Destroy</strong>: keep going until every Attribute is at zero. <strong>Terms</strong>: press for an end with social Conditions.</p>
 <p><strong>Rest</strong> removes 1d4 Stress every 2 hours from one Attribute of the character's choice. It eats one ration per 8 hours; without one, the time passes but heals nothing.</p>
 <p>A <strong>Travel</strong> leg is one roll for the party: Prowess through very difficult terrain, Acuity to find the way, Discipline otherwise. It costs 1 Stress to every Attribute and one ration per character, and 1 more Stress on a failure.</p>
+<p><strong>Gathering</strong> (PHB 5.3.3) takes 4 hours and a Trade roll through a gathering Tool: food yields 2 rations plus 1 per 4 points of margin, and a Herbalist's Satchel or Craft Tool finds a batch of material at a Tier the region holds.</p>
 <p><strong>Carrying</strong>: past 4x Might Potential in pounds, every roll takes -1 per extra multiple, and each Travel leg adds that much Stress.</p>`),
 ]},
 
