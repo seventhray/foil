@@ -100,6 +100,7 @@ export class InstrumentData extends foundry.abstract.TypeDataModel {
     this.twoHanded = this.weight === "heavy";
     // Heavy: the Action and the Quick Action, margin doubled before the cap (PHB 4.1.2, 6.7.0).
     this.doublesMargin = !this.innate && this.weight === "heavy";
+    this.marginMultiplier = this.innate ? 1 : (w.mult ?? 1);
     this.weightDice = this.innate ? "" : (w.dice ?? "");
     if (this.innate) this.location = "equipped";
     this.equipped = this.location === "equipped";

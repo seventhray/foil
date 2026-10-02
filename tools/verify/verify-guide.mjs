@@ -37,13 +37,13 @@ ok("Training cap is the dice in the two pools", /Training can't exceed the numbe
 ok("+N Pierce is half the bonus", /Pierce equal to half its bonus, rounded down/.test(phb) && /Pierce equal to half the bonus, rounded down/.test(all));
 ok("Strain is floor(XP / 8)", /\*\*Strain = floor\(XP \/ 8\)\*\*/.test(fm) && /floor\(XP \/ 8\)/.test(all));
 ok("Strain lands on the Primary Attribute", /Strain applies to the Instrument's Primary Attribute/.test(phb) && /on the Instrument's Primary Attribute/.test(all));
-ok("margin cap by weight: half Light, three quarters Medium, all Heavy, a quarter on the Quick Action", /half for a Light Instrument, three quarters for Medium, and all of it for Heavy\. A Heavy Instrument doubles the margin before the cap\. A Technique paid with the Quick Action alone caps at a quarter/.test(phb) && /<strong>three quarters<\/strong> for Medium/.test(all));
+ok("margin cap by weight: half Light, three quarters Medium, all Heavy, a quarter on the Quick Action", /half for a Light Instrument, three quarters for Medium, and all of it for Heavy\. Before the cap, a Medium Instrument multiplies the margin by 1\.5, rounded down, and a Heavy one doubles it\. A Technique paid with the Quick Action alone caps at a quarter/.test(phb) && /<strong>three quarters<\/strong> for Medium/.test(all));
 ok("Edged +3, physical Resistance counts double", /\| Edged \| \+3 Stress against a physical Attribute\. Physical Resistance, after Pierce, counts double against it/.test(phb) && /Physical Resistance counts double against Edged/.test(all));
 ok("Blunt Pierce 3", /\| Blunt \| Pierce 3/.test(phb) && /Pierce 3 against physical Resistance/.test(all));
 ok("Drawn +2, Fired +4", /\| Drawn \| \+2 Stress/.test(phb) && /\| Fired \| \+4 Stress/.test(phb) && /\+2 \/ \+4 Stress/.test(all));
-ok("weight classes 15/30/45p, 2/4/8 lbs, Medium +1d6, Heavy whole turn with the margin doubled", /Light 15p, Medium 30p, Heavy 45p/.test(phb) && /A Heavy Instrument \| 8 lbs/.test(phb) && /\(15p, 30p, 45p\)/.test(all) && /\(2, 4, 8 lbs\)/.test(all)
-  && /\*\*Medium\*\*: adds 1d6/.test(phb) && /\*\*Heavy\*\*: a Technique through it costs the Action and the Quick Action, and its margin is doubled\. It takes both hands/.test(phb)
-  && /A Medium Instrument adds 1d6/.test(all) && /doubles the margin before the cap/.test(all));
+ok("weight classes 15/30/45p, 2/4/8 lbs, Medium margin x1.5, Heavy whole turn with the margin doubled", /Light 15p, Medium 30p, Heavy 45p/.test(phb) && /A Heavy Instrument \| 8 lbs/.test(phb) && /\(15p, 30p, 45p\)/.test(all) && /\(2, 4, 8 lbs\)/.test(all)
+  && /\*\*Medium\*\*: its margin is multiplied by 1\.5, rounded down/.test(phb) && /\*\*Heavy\*\*: a Technique through it costs the Action and the Quick Action, and its margin is doubled\. It takes both hands/.test(phb)
+  && /multiplies a landed Technique's margin by 1\.5/.test(all) && /Both multiply before the cap/.test(all));
 ok("Incapacitation lifts at half Potential, rounded down", /down to half its Potential, rounded down/.test(phb) && /half its Potential or less, rounded down/.test(all));
 ok("Foil Tokens: max four, halve one source, reroll one die", /at most \*\*four\*\* Foil Tokens/.test(phb) && /halves the Stress from one source/.test(phb) && /reroll any one die/.test(phb)
   && /at most four/.test(all) && /halve the Stress from one source, rounded down/.test(all));

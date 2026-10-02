@@ -199,10 +199,12 @@ check("a tie lands at margin 0; a lost roll doesn't land", () =>
   eq([stressFor({ attack: 10, oppose: 10, cap: 6 }).landed, stressFor({ attack: 9, oppose: 10, cap: 6 }).landed], [true, false]));
 check("Pointed's Pierce 1 plus a Technique's Pierce 1 against Mail 2: margin 5 lands 6", () =>
   eq(stressFor({ attack: 15, oppose: 10, cap: 10, resistance: 2, type: pointed, pierce: 1 }).stress, 6));
-check("weight classes: Light no dice, Medium 1d6, Heavy no dice, two hands, margin doubled", () => {
-  const d = ["light", "medium", "heavy"].map(w => { const i = new InstrumentData({ category: "melee", weight: w, types: ["edged"] }); i.prepareDerivedData(); return [i.weightDice, i.twoHanded, i.doublesMargin]; });
-  return eq(d, [["", false, false], ["1d6", false, false], ["", true, true]]);
+check("weight classes: no dice; margin x1 / x1.5 / x2; Heavy two hands and the whole turn", () => {
+  const d = ["light", "medium", "heavy"].map(w => { const i = new InstrumentData({ category: "melee", weight: w, types: ["edged"] }); i.prepareDerivedData(); return [i.weightDice, i.twoHanded, i.doublesMargin, i.marginMultiplier]; });
+  return eq(d, [["", false, false, 1], ["", false, false, 1.5], ["", true, true, 2]]);
 });
+check("a Medium margin x1.5 rounds down before the cap: margin 7 is 10, margin 10 at a cap of 15 is 15", () =>
+  eq([stressFor({ attack: 17, oppose: 10, cap: 18, mult: 1.5 }).stress, stressFor({ attack: 20, oppose: 10, cap: 15, mult: 1.5 }).stress], [10, 15]));
 check("a Heavy margin doubles before the cap: margin 5 through a cap of 24 is 10", () =>
   eq([stressFor({ attack: 15, oppose: 10, cap: 24, double: true }).stress, stressFor({ attack: 30, oppose: 10, cap: 24, double: true }).stress], [10, 24]));
 check("weight dice apply to targeted Techniques only", () => {

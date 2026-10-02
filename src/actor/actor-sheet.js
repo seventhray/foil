@@ -339,7 +339,7 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
         actorId: this.actor.id, name, attackTotal: total, instrument: inst.name,
         cap: marginCap(potential, weight), capLabel: label(weight),
         canQuick: !inst.system.doublesMargin && !!(quick || inst.system.quick), capQuick: marginCap(potential, "quick"), capQuickLabel: label("quick"),
-        double: !!inst.system.doublesMargin,
+        mult: Number(inst.system.marginMultiplier ?? 1),
         types: inst.system.stressTypes ?? [], bespoke, pierce
       }
     };
@@ -627,7 +627,7 @@ async function computeStress(flag) {
   const r = stressFor({
     attack: flag.attackTotal, oppose, name: flag.name,
     cap: answer.quick ? flag.capQuick : flag.cap, capLabel: answer.quick ? flag.capQuickLabel : flag.capLabel, capAttr: flag.capAttr,
-    double: !!flag.double,
+    mult: Number(flag.mult ?? (flag.double ? 2 : 1)),
     kind: answer.kind === "mental" ? "mental" : "physical",
     resistance: Number(answer.resistance) || 0,
     type: answer.type === "" || answer.type === undefined ? null : flag.types?.[Number(answer.type)] ?? null,

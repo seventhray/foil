@@ -47,9 +47,9 @@ export const LEGACY_SKILL_KEY = { fortitude: "discipline", command: "assertivene
 // Weight class (PHB 4.1.2, 5.2.2): base price, carried weight, and the dice it adds to a
 // Technique used against a target (never an Oppose, support, or Trade). Heavy takes both hands.
 export const WEIGHT_CLASS = {
-  light:  { label: "Light",  price: 15,  lbs: 2, dice: "" },
-  medium: { label: "Medium", price: 30,  lbs: 4, dice: "1d6" },
-  heavy:  { label: "Heavy",  price: 45,  lbs: 8, dice: "" }  // no dice: its margin doubles, and it takes the whole turn (PHB 4.1.2)
+  light:  { label: "Light",  price: 15,  lbs: 2, dice: "", mult: 1 },
+  medium: { label: "Medium", price: 30,  lbs: 4, dice: "", mult: 1.5 },  // margin x1.5, rounded down (PHB 4.1.2)
+  heavy:  { label: "Heavy",  price: 45,  lbs: 8, dice: "", mult: 2 }    // margin x2; takes the Action and the Quick Action (PHB 4.1.2)
 };
 export const WEIGHT_KEYS = Object.keys(WEIGHT_CLASS);
 
