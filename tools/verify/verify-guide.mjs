@@ -47,7 +47,7 @@ ok("weight classes 15/30/45p, 2/4/8 lbs, Medium margin x1.5, Heavy whole turn wi
 ok("Incapacitation lifts at half Potential, rounded down", /down to half its Potential, rounded down/.test(phb) && /half its Potential or less, rounded down/.test(all));
 ok("Foil Tokens: max four, halve one source, reroll one die", /at most \*\*four\*\* Foil Tokens/.test(phb) && /halves the Stress from one source/.test(phb) && /reroll any one die/.test(phb)
   && /at most four/.test(all) && /halve the Stress from one source, rounded down/.test(all));
-ok("rest 1d4 per 2 hours, one ration per 8", /\*\*1d4 Stress every 2 hours\*\*/.test(phb) && /one ration per 8 hours/.test(phb) && /1d4 Stress every 2 hours/.test(all));
+ok("rest 1d4 per 2 hours, one ration per 8", /Every 2 hours of rest removes \*\*1d4 Stress\*\*/.test(phb) && /Each 8 hours uses one ration/.test(phb) && /1d4 Stress every 2 hours/.test(all));
 ok("carrying past 4x Might Potential", /Up to 4x Might Potential \| None/.test(phb) && /past 4x Might Potential/.test(all));
 ok("combination premium 4 XP per Effect beyond the first", /Add \*\*4 XP for every effect beyond the first\*\*/.test(gmg) && /4 XP for every Effect beyond the first/.test(all));
 ok("Effect prices match Fundamental Math", /\*\*Stress\*\*\s*\|\s*4\s*\|/.test(fm) && /\*\*-N\*\* \[target Attribute\]\s*\|\s*18 x N/.test(fm)
