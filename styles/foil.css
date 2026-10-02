@@ -855,3 +855,7 @@
 .foil-sheet .builtin-row .item-name { font-style: italic; }
 .foil-sheet .builtin-row.not-ready { opacity: 0.6; }
 .foil-sheet td.warn { color: var(--foil-warn, #a33); }
+
+/* The equipped checkbox leads Instrument and Equipment rows (PHB 4.1.0). */
+.item-table .equip-cell { width: 22px; text-align: center; padding: 0 2px; }
+.item-table .equip-cell input[type="checkbox"] { margin: 0; cursor: pointer; }

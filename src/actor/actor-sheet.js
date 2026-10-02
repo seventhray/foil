@@ -62,6 +62,7 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
       addCondition:     FoilActorSheet._onAddCondition,
       removeCondition:  FoilActorSheet._onRemoveCondition,
       cycleLocation:    FoilActorSheet._onCycleLocation,
+      toggleEquipped:   FoilActorSheet._onToggleEquipped,
       rest:             FoilActorSheet._onRest,
       generateCharacter: FoilActorSheet._onGenerateCharacter,
       openAdvancement:  FoilActorSheet._onOpenAdvancement,
@@ -136,6 +137,7 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
         view.primaryLabel = ATTR_LABEL[s.primaryAttribute] ?? "";
         view.kit = (s.kit ?? []).map((k, idx) => ({ idx, name: k.name, skillLabel: SKILL_LABEL[k.skill] ?? k.skill, effect: k.effect }));
         if (!s.innate) view.place = locationView(s.location);
+        view.stowable = !s.innate && s.location !== "equipped";
         // An Instrument's built-in Techniques join the Techniques tab, with their source (PHB 7.2.0).
         for (const k of view.kit) groups.builtin.push({ ...k, id: item.id, source: item.name, ready: s.innate || s.location === "equipped" });
       } else if (item.type === "technique") {
@@ -149,6 +151,7 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
         view.categoryLabel = EQUIPMENT_CATEGORY_LABEL[s.category] ?? "";
         view.effectSummary = equipmentSummary(s);
         view.place = locationView(s.location);
+        view.stowable = s.location !== "equipped";
       }
       groups[item.type].push(view);
     }
@@ -402,11 +405,21 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
     await this.actor.update({ "system.conditions": list });
   }
 
-  /** Equipped, carried, stored, and round again (PHB 4.1.0, 5.2.6). */
+  /** The row's checkbox: equipped when checked, carried when not (PHB 4.1.0). */
+  static async _onToggleEquipped(event, target) {
+    const item = this.actor.items.get(target.closest("[data-item-id]")?.dataset.itemId);
+    if (!item || item.system.innate) return;
+    await this._setLocation(item, item.system.location === "equipped" ? "carried" : "equipped");
+  }
+
+  /** An unequipped item is carried or stored; the icon swaps the two (PHB 5.2.6). */
   static async _onCycleLocation(event, target) {
     const item = this.actor.items.get(target.closest("[data-item-id]")?.dataset.itemId);
     if (!item || item.system.innate) return;
-    const next = ITEM_LOCATIONS[(ITEM_LOCATIONS.indexOf(item.system.location) + 1) % ITEM_LOCATIONS.length];
+    await this._setLocation(item, item.system.location === "carried" ? "stored" : "carried");
+  }
+
+  async _setLocation(item, next) {
     // One worn armor and one Ward at a time (PHB 6.6.0): equipping one carries the other.
     const cat = item.system.category;
     if (next === "equipped" && ["armor", "ward"].includes(cat)) {

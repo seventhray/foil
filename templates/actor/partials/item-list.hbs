@@ -5,10 +5,10 @@
   </div>
   <table class="item-table {{type}}-table">
     <thead>
-      {{#if (foil-eq type "instrument")}}<tr><th>Instrument</th><th>Types</th><th>Primary</th><th>Range</th><th>Built-in Techniques</th><th></th></tr>{{/if}}
+      {{#if (foil-eq type "instrument")}}<tr><th class="equip-cell" title="Equipped">&#10003;</th><th>Instrument</th><th>Types</th><th>Primary</th><th>Range</th><th>Built-in Techniques</th><th></th></tr>{{/if}}
       {{#if (foil-eq type "technique")}}<tr><th>Technique</th><th>XP</th><th>Source / usable with</th><th>Effect</th><th></th></tr>{{/if}}
       {{#if (foil-eq type "feat")}}<tr><th>Feat</th><th>XP</th><th>Effect</th><th></th></tr>{{/if}}
-      {{#if (foil-eq type "equipment")}}<tr><th>Item</th><th>Category</th><th>Effect</th><th>Price</th><th></th></tr>{{/if}}
+      {{#if (foil-eq type "equipment")}}<tr><th class="equip-cell" title="Equipped">&#10003;</th><th>Item</th><th>Category</th><th>Effect</th><th>Price</th><th></th></tr>{{/if}}
       {{#if (foil-eq type "origin")}}<tr><th>Ancestry</th><th>Talent</th><th>Feats</th><th></th></tr>{{/if}}
       {{#if (foil-eq type "background")}}<tr><th>Background</th><th>Training</th><th>Know-how</th><th></th></tr>{{/if}}
     </thead>
@@ -27,6 +27,7 @@
       {{#each list}}
         <tr class="item-row" data-item-id="{{this.id}}">
           {{#if (foil-eq ../type "instrument")}}
+            <td class="equip-cell">{{#if this.place}}<input type="checkbox" data-action="toggleEquipped" title="Equipped" {{#if (foil-eq this.place.key "equipped")}}checked{{/if}} />{{/if}}</td>
             <td class="item-name" data-action="editItem">{{this.name}}{{#if this.system.bonus}} +{{this.system.bonus}}{{/if}}{{#if this.system.typeWarning}} <i class="fas fa-triangle-exclamation item-warning" title="{{this.system.typeWarning}}"></i>{{/if}}{{#if this.system.gemSummary}} <i class="fas fa-gem" title="{{this.system.gemSummary}}"></i>{{/if}}</td>
             <td class="quality-cell">{{this.system.typesLabel}}</td>
             <td>{{this.primaryLabel}}</td>
@@ -36,7 +37,7 @@
             </td>
             <td class="item-actions">
               {{#if this.handsWarning}}<i class="fas fa-triangle-exclamation item-warning" title="{{this.handsWarning}}"></i>{{/if}}
-              {{#if this.place}}<a data-action="cycleLocation" title="{{this.place.label}}: click to change"><i class="fas {{this.place.icon}}"></i></a>{{/if}}
+              {{#if this.stowable}}<a data-action="cycleLocation" title="{{this.place.label}}: click to {{#if (foil-eq this.place.key "stored")}}carry{{else}}store{{/if}}"><i class="fas {{this.place.icon}}"></i></a>{{/if}}
               {{#if this.system.enchantment.enabled}}<a data-action="rollEnchantment" title="Enchantment: {{this.system.enchantment.effectSummary}}"><i class="fas fa-wand-magic-sparkles"></i></a>{{/if}}
               <a data-action="deleteItem" title="Delete"><i class="fas fa-trash"></i></a>
             </td>
@@ -58,12 +59,13 @@
             <td class="item-actions"><a data-action="deleteItem" title="Delete"><i class="fas fa-trash"></i></a></td>
           {{/if}}
           {{#if (foil-eq ../type "equipment")}}
+            <td class="equip-cell"><input type="checkbox" data-action="toggleEquipped" title="Equipped" {{#if (foil-eq this.place.key "equipped")}}checked{{/if}} /></td>
             <td class="item-name" data-action="editItem">{{this.name}}</td>
             <td>{{this.categoryLabel}}</td>
             <td class="effect-cell">{{this.effectSummary}}</td>
             <td class="num">{{this.system.price}}p</td>
             <td class="item-actions">
-              <a data-action="cycleLocation" title="{{this.place.label}}: click to change"><i class="fas {{this.place.icon}}"></i></a>
+              {{#if this.stowable}}<a data-action="cycleLocation" title="{{this.place.label}}: click to {{#if (foil-eq this.place.key "stored")}}carry{{else}}store{{/if}}"><i class="fas {{this.place.icon}}"></i></a>{{/if}}
               <a data-action="deleteItem" title="Delete"><i class="fas fa-trash"></i></a>
             </td>
           {{/if}}
