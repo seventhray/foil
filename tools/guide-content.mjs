@@ -137,7 +137,7 @@ p("Pricing a Technique", `
 <ol>
 <li>Sum the Effects. Stress is an Effect at 4 XP.</li>
 <li>A Pattern, Selective, or Extend Range is priced by reach and counts as an Effect.</li>
-<li>Add 4 XP for every Effect beyond the first. Quick and Upkeep don't count; each costs a flat 4 XP.</li>
+<li>Add 4 XP for every Effect beyond the first. Quick and Upkeep don't count; Upkeep costs a flat 4 XP and Quick 7.</li>
 <li>A Fortifying Technique, a ward or bonus until the caster's next turn, or a Quick trigger costs at least 8 XP.</li>
 <li>Strain is floor(XP / 8).</li>
 </ol>
@@ -148,9 +148,9 @@ p("Pricing a Technique", `
 <tr><td>Pierce N, Resistance +N</td><td>4 x N</td></tr>
 <tr><td>Mend Xd4</td><td>10 x X</td></tr>
 <tr><td>Lingering N</td><td>7 x N</td></tr>
-<tr><td>Upkeep, Quick</td><td>4</td></tr>
-<tr><td>Hasten (Action) / (Quick Action)</td><td>14 / 10</td></tr>
-<tr><td>Prone</td><td>10</td></tr>
+<tr><td>Upkeep / Quick</td><td>4 / 7</td></tr>
+<tr><td>Hasten (Action) / (Quick Action)</td><td>14 / 7</td></tr>
+<tr><td>Prone / Controlled</td><td>7 / 21</td></tr>
 <tr><td>Counter</td><td>12</td></tr>
 </tbody></table>
 <p>Beam or Wall reach costs 1 + 2 + ... per band; a Cone 3x that, a Radius 12x. Selective costs N + (R x N).</p>`),
