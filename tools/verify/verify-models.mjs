@@ -8,7 +8,7 @@ const { InstrumentData, TechniqueData, EquipmentData } = await import(`${R}/data
 const { aggregateModifiers } = await import(`${R}/modifiers.js`);
 const { priceTechnique, strainFor, patternCost, selectiveCost } = await import(`${R}/pricing.js`);
 const { stressFor } = await import(`${R}/stress.js`);
-const { XP_COST, trainingCost, marginCap, CONDITION_OPPOSE, CONDITIONS } = await import(`${R}/constants.js`);
+const { XP_COST, trainingCost, knowHowCost, marginCap, CONDITION_OPPOSE, CONDITIONS } = await import(`${R}/constants.js`);
 
 let fails = 0;
 const check = (label, fn) => { try { const r = fn(); console.log(`  PASS  ${label}${r ? " — " + r : ""}`); } catch (e) { console.log(`  FAIL  ${label}\n        ${e.message}`); fails++; } };
@@ -19,7 +19,7 @@ const pools = (m, f, w, p) => ({ might: { dice: m, potential: { current: 99 } },
 
 console.log("Advancement costs (PHB 2.3.0):");
 check("Talent steps 8/12/16/20 by size, d12 to d20 100", () => eq([XP_COST.talent[4], XP_COST.talent[6], XP_COST.talent[8], XP_COST.talent[10], XP_COST.d12ToD20], [8, 12, 16, 20, 100]));
-check("Know-how 20 XP", () => eq(XP_COST.knowHow, 20));
+check("Know-how 12 XP plus 4 per die in the pool", () => eq([{ d4: 2 }, { d4: 3, d12: 1 }, {}].map(knowHowCost), [20, 28, 12]));
 check("Training 8 XP plus 2 per point held", () => eq([0, 1, 2, 3].map(trainingCost), [8, 10, 12, 14]));
 
 

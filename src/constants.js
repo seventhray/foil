@@ -179,13 +179,16 @@ export const REST_RATION_HOURS = 8;
 // Advancement costs (PHB 2.3.0).
 // Advancement (PHB 2.3.0). A Talent step costs by the die's current size; d12 to d20
 // is a Transformation (PHB 2.3.1, 7.12.0). Training climbs 2 per point already held.
-export const XP_COST = { talent: { 4: 8, 6: 12, 8: 16, 10: 20 }, d12ToD20: 100, knowHow: 20, training: 8, trainingStep: 2 };
+export const XP_COST = { talent: { 4: 8, 6: 12, 8: 16, 10: 20 }, d12ToD20: 100, knowHow: { base: 12, perDie: 4 }, training: 8, trainingStep: 2 };
 /** Margin cap as a share of the Primary Attribute's Potential, by weight; Heavy doubles first (PHB 6.7.0). */
 export const MARGIN_CAP = { light: [1, 2, "half"], medium: [1, 1, "all of"], heavy: [1, 1, "all of"] };
 export const marginCap = (potential, key) => {
   const [n, d] = MARGIN_CAP[key] ?? MARGIN_CAP.light;
   return Math.floor((Number(potential) || 0) * n / d);
 };
+/** Know-how: 12 XP plus 4 per die already in the Attribute's pool (PHB 2.3.0). */
+export const knowHowCost = (dice = {}) =>
+  XP_COST.knowHow.base + XP_COST.knowHow.perDie * Object.values(dice).reduce((n, c) => n + (Number(c) || 0), 0);
 export const trainingCost = held => XP_COST.training + XP_COST.trainingStep * Math.max(0, Number(held) || 0);
 
 // Behavior Traits (GMG 4.8.0). Declarative, never rolled.

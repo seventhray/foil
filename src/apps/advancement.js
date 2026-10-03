@@ -5,12 +5,12 @@
  * Stays open across purchases so a session's award can be spent in one sitting.
  *
  * Costs (PHB 2.3.0): a die one size 8/12/16/20 XP by its size, d12 to d20 100 XP
- * (a Transformation, noted, not enforced; what it gives, PHB 7.12.0, is added by hand), a Know-how 1d4 20 XP, +1 Training 8 XP plus 2 per point held
+ * (a Transformation, noted, not enforced; what it gives, PHB 7.12.0, is added by hand), a Know-how 1d4 12 XP plus 4 per die in the pool, +1 Training 8 XP plus 2 per point held
  * (capped at the dice in the Skill's two pools, PHB 2.2.1), a Technique or Feat
  * its listed XP. A Feat's Requires is shown, and checked by the table.
  */
 
-import { ATTRIBUTE_KEYS, ATTR_LABEL, SKILL_KEYS, SKILL_LABEL, XP_COST, trainingCost } from "../constants.js";
+import { ATTRIBUTE_KEYS, ATTR_LABEL, SKILL_KEYS, SKILL_LABEL, XP_COST, trainingCost, knowHowCost } from "../constants.js";
 import { DIE_SIZES } from "../dice.js";
 
 const dieStepCost = size => size >= 12 ? XP_COST.d12ToD20 : XP_COST.talent[size];
@@ -57,7 +57,7 @@ export class FoilAdvancement extends HandlebarsApplicationMixin(ApplicationV2) {
           return { size, next, cost: dieStepCost(size), label: `d${size} to d${next}${note}` };
         });
       return { key, label: ATTR_LABEL[key], diceFormula: a.diceFormula || "none", steps,
-        newDieCost: XP_COST.knowHow };
+        newDieCost: knowHowCost(dice) };
     });
 
     const skills = sys.skills ?? {};
@@ -117,7 +117,7 @@ export class FoilAdvancement extends HandlebarsApplicationMixin(ApplicationV2) {
   static async _onAddDie(event, target) {
     const key = target.dataset.attr;
     const dice = this.actor.system.attributes?.[key]?.dice ?? {};
-    const ok = await this._spend(XP_COST.knowHow, {
+    const ok = await this._spend(knowHowCost(dice), {
       [`system.attributes.${key}.dice.d4`]: Number(dice.d4 ?? 0) + 1
     });
     if (ok) this.render();
