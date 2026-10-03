@@ -6,7 +6,7 @@
  *   3. Background: +1 Training in three Skills, 2d4 Know-how, coin, and a kit.
  *   4. Starting Point (GMG 2.1.0) sets Starting XP and suggests Starting Coin;
  *      a blank coin field takes the Background's.
- *   5. Habits, picked or rolled from the Convictions tables (PHB 3.4.x).
+ *   5. Habits, picked or rolled from the Habit Tables (PHB 3.4.x).
  *   6. The character prompts.
  * Each choice shows what it grants, and a preview shows the finished dice,
  * Training, and Resistance before anything is written to the actor.
@@ -222,7 +222,7 @@ export class FoilChargen extends HandlebarsApplicationMixin(ApplicationV2) {
       });
       for (const a of FOIL_AXES) this.choices.foil[a.key] = { lean: data.foil?.[a.key]?.lean ?? "", trait: data.foil?.[a.key]?.trait ?? "" };
       for (const p of PROMPTS) this.choices.prompts[p.key] = data.prompts?.[p.key] ?? "";
-      // Picking from a Convictions table fills the Habit and its lean.
+      // Picking from a Habit Table fills the Habit and its lean.
       if (picked) {
         const row = (CONVICTIONS[picked[1]] ?? []).find(r => r.trait === event.target.value);
         if (row) this.choices.foil[picked[1]] = { lean: row.lean, trait: row.trait };
@@ -231,7 +231,7 @@ export class FoilChargen extends HandlebarsApplicationMixin(ApplicationV2) {
     });
   }
 
-  /** Roll 1d10 on an axis's Convictions table (PHB 3.4.0). */
+  /** Roll 1d10 on an axis's Habit Table (PHB 3.4.0). */
   static async _onRollTrait(event, target) {
     const axis = target.dataset.axis;
     const roll = await new Roll("1d10").evaluate();

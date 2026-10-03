@@ -11,7 +11,7 @@ export const ATTR_LABEL = {
   might: "Might", finesse: "Finesse", wit: "Wit", presence: "Presence"
 };
 
-// Physical Attributes are Might and Finesse; mental are Wit and Presence (PHB 4.1.2).
+// Physical Attributes are Might and Finesse; mental are Wit and Presence (PHB 4.1.1).
 export const ATTRIBUTE_KIND = { might: "physical", finesse: "physical", wit: "mental", presence: "mental" };
 
 // Each Skill rolls the pair of Attributes that feed it (PHB 2.2.0).
@@ -44,16 +44,16 @@ export const LEGACY_SKILL_KEY = { fortitude: "discipline", command: "assertivene
 
 
 // Weight class sets an Instrument's base price and carried weight only (PHB 5.2.2, 5.2.6).
-// Weight class (PHB 4.1.2, 5.2.2): base price, carried weight, and the dice it adds to a
+// Weight class (PHB 4.1.1, 5.2.2): base price, carried weight, and the dice it adds to a
 // Technique used against a target (never an Oppose, support, or Trade). Heavy takes both hands.
 export const WEIGHT_CLASS = {
   light:  { label: "Light",  price: 15,  lbs: 2, dice: "", mult: 1 },
-  medium: { label: "Medium", price: 30,  lbs: 4, dice: "", mult: 1 },    // margin caps at the full Primary Potential (PHB 4.1.2)
-  heavy:  { label: "Heavy",  price: 45,  lbs: 8, dice: "", mult: 2 }    // margin x2; takes the Action and the Quick Action (PHB 4.1.2)
+  medium: { label: "Medium", price: 30,  lbs: 4, dice: "", mult: 1 },    // margin caps at the full Primary Potential (PHB 4.1.1)
+  heavy:  { label: "Heavy",  price: 45,  lbs: 8, dice: "", mult: 2 }    // margin x2; takes the Action and the Quick Action (PHB 4.1.1)
 };
 export const WEIGHT_KEYS = Object.keys(WEIGHT_CLASS);
 
-// Range bands, in order; a range includes those under it (PHB 4.1.3).
+// Range bands, in order; a range includes those under it (PHB 4.1.2).
 export const RANGE_BANDS = ["touching", "close", "near", "short", "mid", "long", "sight"];
 export const RANGE_LABEL = {
   touching: "Touching", close: "Close", near: "Near", short: "Short",
@@ -117,7 +117,7 @@ export const MATERIAL_SCARCITY_MULT = { common: 1, uncommon: 1.5, rare: 2, exoti
 export const RESISTANCE_KINDS = ["physical", "mental"];
 export const RESISTANCE_LABEL = { physical: "Physical", mental: "Mental" };
 
-// Damage types (PHB 4.1.2): what a creature can be Vulnerable or resistant to by name.
+// Damage types (PHB 4.1.1): what a creature can be Vulnerable or resistant to by name.
 export const DAMAGE_TYPES = {
   edged: "physical", pointed: "physical", blunt: "physical",
   thermal: "physical", concussive: "physical", corrosive: "physical",

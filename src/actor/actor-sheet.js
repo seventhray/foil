@@ -155,12 +155,12 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
       }
       groups[item.type].push(view);
     }
-    // A Heavy Instrument takes both hands: nothing else in hand while it's ready (PHB 4.1.2).
+    // A Heavy Instrument takes both hands: nothing else in hand while it's ready (PHB 4.1.1).
     const inHand = [...this.actor.items].filter(i => (i.type === "instrument" && !i.system.innate && i.system.location === "equipped")
       || (i.type === "equipment" && i.system.category === "shield" && i.system.location === "equipped"));
     for (const v of groups.instrument) {
       if (v.system.twoHanded && v.system.location === "equipped" && inHand.length > 1) {
-        v.handsWarning = "Heavy: takes both hands, but another Instrument or a shield is also equipped (PHB 4.1.2).";
+        v.handsWarning = "Heavy: takes both hands, but another Instrument or a shield is also equipped (PHB 4.1.1).";
       }
     }
     for (const k of Object.keys(groups)) groups[k].sort((a, b) => a.name.localeCompare(b.name));
@@ -186,7 +186,7 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
 
   // ─── Rolling ────────────────────────────────────────────────────────────────
 
-  /** A Skill formula with the carrying penalty folded in (PHB 5.2.6), plus any weight dice (PHB 4.1.2). */
+  /** A Skill formula with the carrying penalty folded in (PHB 5.2.6), plus any weight dice (PHB 4.1.1). */
   _skillFormula(skill, extra = 0, dice = "") {
     const sys = this.actor.system;
     const parts = [sys.skills?.[skill]?.formula || "0"];
@@ -220,7 +220,7 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
     notes.unshift(`${inst.name}: ${kit.effect}`);
     if (!inst.system.innate && inst.system.location !== "equipped") notes.push(`${inst.name} isn't equipped: switching to it costs the Quick Action (PHB 4.1.0).`);
     if (inst.system.quick) notes.push("Light: after an Action through a Light Instrument, the Quick Action can pay for this (PHB 4.2.2).");
-    if (inst.system.doublesMargin) notes.push("Heavy: costs the Action and the Quick Action; the margin doubles (PHB 4.1.2).");
+    if (inst.system.doublesMargin) notes.push("Heavy: costs the Action and the Quick Action; the margin doubles (PHB 4.1.1).");
     if (inst.system.reload) notes.push(`Reload: ${inst.system.reload === "quick" ? "Quick Action" : "Action"}.`);
     const stress = /Deals Stress/i.test(kit.effect);
     const applied = !stress && kit.effect.match(/^Applies (\w+)/i)?.[1];
@@ -288,7 +288,7 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
     const notes = this._rollNotes(skill);
     notes.unshift(`${inst ? `Through ${inst.name}` : "Innate"}. ${sys.effectSummary}`);
     if (sys.quick) notes.push("Quick: may be paid with the Quick Action.");
-    if (inst?.system.doublesMargin) notes.push("Heavy: costs the Action and the Quick Action; the margin doubles (PHB 4.1.2).");
+    if (inst?.system.doublesMargin) notes.push("Heavy: costs the Action and the Quick Action; the margin doubles (PHB 4.1.1).");
 
     // Strain lands on the Instrument's Primary Attribute, ignoring Resistance (PHB 4.2.3).
     if (sys.strain > 0) {

@@ -107,7 +107,7 @@ p("Character sheet", `
 <tr><td><strong>FOIL</strong></td><td>A lean and a Habit per axis.</td></tr>
 <tr><td><strong>Conditions</strong></td><td>Active Conditions, with rounds and a note.</td></tr>
 </tbody></table>
-<p>There is no Health field on a character: the four Potentials are the same information.</p>`),
+`),
 
 p("Creature sheet", `
 <p>A creature uses the same Attributes, Skills, Stress, and Incapacitation. Its own fields: <strong>Tier</strong>, <strong>Behavior</strong> (what it does once an Attribute is Incapacitated, GMG 4.8.0), <strong>Vulnerable</strong>, and a typed <strong>Resistance</strong>. <strong>Health</strong>, the four Potentials summed, shows as GM shorthand.</p>`),

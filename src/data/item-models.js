@@ -96,9 +96,9 @@ export class InstrumentData extends foundry.abstract.TypeDataModel {
     const { defs, unknown } = resolveTypes(types);
     const w = WEIGHT_CLASS[this.weight] ?? WEIGHT_CLASS.light;
     this.weightLabel = w.label;
-    // Weight dice on offensive rolls; Heavy takes both hands (PHB 4.1.2).
+    // Weight dice on offensive rolls; Heavy takes both hands (PHB 4.1.1).
     this.twoHanded = this.weight === "heavy";
-    // Heavy: the Action and the Quick Action, margin doubled before the cap (PHB 4.1.2, 6.7.0).
+    // Heavy: the Action and the Quick Action, margin doubled before the cap (PHB 4.1.1, 6.7.0).
     this.doublesMargin = !this.innate && this.weight === "heavy";
     this.marginMultiplier = this.innate ? 1 : (w.mult ?? 1);
     this.weightDice = this.innate ? "" : (w.dice ?? "");
@@ -123,8 +123,8 @@ export class InstrumentData extends foundry.abstract.TypeDataModel {
     // Crafting (PHB 5.3.2): the size's batches at the item's Tier (its bonus).
     this.craftCost = (SIZE[this.size]?.batches ?? 2) * (MATERIAL_TIER_PRICE[this.bonus] ?? 0);
 
-    // Type effects (PHB 4.1.2).
-    // A Light Instrument's built-ins can use the Quick Action (PHB 4.1.2). The Quick Type
+    // Type effects (PHB 4.1.1).
+    // A Light Instrument's built-ins can use the Quick Action (PHB 4.1.1). The Quick Type
     // survives only for a creature's natural weapon chosen to work that way (GMG 4.6.0).
     this.quick = this.weight === "light" || defs.some(d => d.quick);
     this.reload = defs.find(d => d.reload)?.reload ?? "";

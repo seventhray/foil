@@ -142,7 +142,7 @@ check("+0 Large item crafts from 3 Tier 0 batches (6p)", () => {
   const i = new InstrumentData({ category: "sonic", weight: "heavy", types: ["sonic"], size: "large" }); i.prepareDerivedData();
   return eq(i.craftCost, 6);
 });
-check("a Light Instrument works on the Quick Action; a Medium or Heavy one doesn't (PHB 4.1.2)", () => {
+check("a Light Instrument works on the Quick Action; a Medium or Heavy one doesn't (PHB 4.1.1)", () => {
   const q = weight => { const i = new InstrumentData({ category: "melee", weight, types: ["edged"] }); i.prepareDerivedData(); return i.quick; };
   return eq([q("light"), q("medium"), q("heavy")], [true, false, false]);
 });

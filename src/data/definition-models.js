@@ -15,7 +15,7 @@ export const LEGACY_TYPE_KEY = {
 };
 
 /**
- * An Instrument Type (PHB 4.1.2): a tag with a type effect on a landed hit's
+ * An Instrument Type (PHB 4.1.1): a tag with a type effect on a landed hit's
  * Stress, or on how the Instrument is used.
  */
 export class InstrumentTypeData extends foundry.abstract.TypeDataModel {
