@@ -29,9 +29,9 @@ console.log(`  PASS  markup: ${pages} pages checked`);
 const all = GUIDE.flatMap(j => j.pages.map(p => p.html)).join("\n");
 console.log(`\nfigures cross-checked against the v${BOOK_VERSION} books:`);
 ok("Training 8 XP plus 2 per point held, capped at the dice in its two pools", /Training by \+1 \(max: the dice in its two pools\)\s*\|\s*8 XP, plus 2 for each point of Training it already has/.test(phb) && /costs 8 XP, plus 2 for each point the Skill already has/.test(all));
-ok("die steps 8/12/16/20, d12 to d20 100 as a Transformation, new 1d4 20 with its limit",
+ok("die steps 8/12/16/20, d12 to d20 100 as a Transformation, new 1d4 20",
   /d4 to d6: 8 XP\. d6 to d8: 12 XP\. d8 to d10: 16 XP\. d10 to d12: 20 XP\./.test(phb) && /\*\*Transformation\*\*: a lasting change that advances a d12 Attribute die to d20[^|]*\|\s*100 XP/.test(phb) && /### 2\.3\.1 Transformations/.test(phb) && /## 7\.12\.0 Transformations/.test(phb)
-  && /Add a 1d4[^\n]*?Know-how\*\*\)\s*\|\s*20 XP/.test(phb) && /at most 4 dice, plus 1 for each of its dice at d12 or larger/.test(phb)
+  && /Add a 1d4[^\n]*?Know-how\*\*\)\s*\|\s*20 XP/.test(phb)
   && /8, 12, 16, or 20 XP by its size, d12 to d20 100 XP as a Transformation \(PHB 2\.3\.1\), a new 1d4 20 XP/.test(all));
 ok("every Attribute starts at 2d4", /Every Attribute starts at 2d4/.test(phb) && /Every Attribute starts at 2d4/.test(all));
 ok("Training cap is the dice in the two pools", /Training can't exceed the number of dice in its two pools \(/.test(phb) && /can't pass the number of dice in the Skill's two pools\./.test(all));
@@ -50,7 +50,7 @@ ok("Foil Tokens: max four, halve one source, reroll one die", /at most \*\*four\
   && /at most four/.test(all) && /halve the Stress from one source, rounded down/.test(all));
 ok("rest 1d4 per 2 hours, one ration per 8", /Every 2 hours of rest removes \*\*1d4 Stress\*\*/.test(phb) && /Each 8 hours uses one ration/.test(phb) && /1d4 Stress every 2 hours/.test(all));
 ok("carrying past 4x Might Potential", /Up to 4x Might Potential \| None/.test(phb) && /past 4x Might Potential/.test(all));
-ok("combination premium 4 XP per Effect beyond the first", /Add \*\*4 XP for every effect beyond the first\*\*/.test(gmg) && /4 XP for every Effect beyond the first/.test(all));
+ok("combination premium 4 XP per Effect beyond the first", /plus 4 XP for each Effect past the first/.test(phb) && /4 XP for every Effect beyond the first/.test(all));
 ok("Effect prices match Fundamental Math", /\*\*Stress\*\*\s*\|\s*4\s*\|/.test(fm) && /\*\*-N\*\* \[target Attribute\]\s*\|\s*18 x N/.test(fm)
   && /\*\*Mend Xd4\*\*\s*\|\s*10 x X/.test(fm) && /\*\*Counter\*\*\s*\|\s*12/.test(fm) && /<td>18 x N<\/td>/.test(all) && /<td>10 x X<\/td>/.test(all)
   && /\*\*Lingering N\*\*\s*\|\s*7 x N/.test(fm) && /\*\*Hasten \(Action\)\*\*\s*\|\s*14/.test(fm) && /\*\*Quick\*\*\s*\|\s*7/.test(fm) && /<td>7 x N<\/td>/.test(all));

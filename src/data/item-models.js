@@ -189,7 +189,7 @@ export class TechniqueData extends foundry.abstract.TypeDataModel {
       family: str(""),
       subgroup: str(""),
       effects: effectsArraySchema(),
-      // A stated defensive floor (GMG 5.2.0 step 4) the effects can't show on their own.
+      // A stated defensive floor (PHB 4.2.1) the effects can't show on their own.
       floor: bool(false),
       // The printed XP; blank uses the computed price.
       xpOverride: new f.NumberField({ required: false, nullable: true, integer: true, initial: null }),

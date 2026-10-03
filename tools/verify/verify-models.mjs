@@ -8,7 +8,7 @@ const { InstrumentData, TechniqueData, EquipmentData } = await import(`${R}/data
 const { aggregateModifiers } = await import(`${R}/modifiers.js`);
 const { priceTechnique, strainFor, patternCost, selectiveCost } = await import(`${R}/pricing.js`);
 const { stressFor } = await import(`${R}/stress.js`);
-const { XP_COST, trainingCost, knowHowState, marginCap, CONDITION_OPPOSE, CONDITIONS } = await import(`${R}/constants.js`);
+const { XP_COST, trainingCost, marginCap, CONDITION_OPPOSE, CONDITIONS } = await import(`${R}/constants.js`);
 
 let fails = 0;
 const check = (label, fn) => { try { const r = fn(); console.log(`  PASS  ${label}${r ? " — " + r : ""}`); } catch (e) { console.log(`  FAIL  ${label}\n        ${e.message}`); fails++; } };
@@ -21,9 +21,7 @@ console.log("Advancement costs (PHB 2.3.0):");
 check("Talent steps 8/12/16/20 by size, d12 to d20 100", () => eq([XP_COST.talent[4], XP_COST.talent[6], XP_COST.talent[8], XP_COST.talent[10], XP_COST.d12ToD20], [8, 12, 16, 20, 100]));
 check("Know-how 20 XP", () => eq(XP_COST.knowHow, 20));
 check("Training 8 XP plus 2 per point held", () => eq([0, 1, 2, 3].map(trainingCost), [8, 10, 12, 14]));
-check("Dice limit: 4, plus 1 per die at d12 or larger", () => eq([
-  knowHowState({ d4: 4 }).atLimit, knowHowState({ d12: 1, d4: 3 }).atLimit, knowHowState({ d12: 1, d4: 4 }).atLimit, knowHowState({ d20: 1, d12: 1, d4: 4 }).limit
-], [true, false, true, 6]));
+
 
 console.log("Migration from pre-0.6.0 worlds:");
 check("Aptitudes become Skills; Fortitude to Discipline, Command to Assertiveness", () => {
@@ -151,7 +149,7 @@ check("a Blocking-only +N applies to Oppose only", () => {
   return eq([i.bonusRoll, i.bonusPierce, i.bonusOppose], [0, 0, 1]);
 });
 
-console.log("\nTechnique pricing (GMG 5.2.0):");
+console.log("\nTechnique pricing (PHB 4.2.1):");
 const REG = {
   stress: { pricingKind: "flat", pricingParams: { base: 4 } },
   pierce: { pricingKind: "perPoint", pricingParams: { perPoint: 4 } },

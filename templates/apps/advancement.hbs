@@ -21,13 +21,9 @@
               Talent: {{this.label}} <em>({{this.cost}} XP)</em>
             </a>
           {{/each}}
-          {{#if this.knowHowAtLimit}}
-            <span class="hint">At the dice limit ({{this.knowHowHeld}} of {{this.knowHowLimit}})</span>
-          {{else}}
-            <a class="adv-btn" data-action="addDie" data-attr="{{this.key}}">
-              Know-how: add 1d4 <em>({{this.newDieCost}} XP, {{this.knowHowHeld}} of {{this.knowHowLimit}} dice)</em>
-            </a>
-          {{/if}}
+          <a class="adv-btn" data-action="addDie" data-attr="{{this.key}}">
+            Know-how: add 1d4 <em>({{this.newDieCost}} XP)</em>
+          </a>
         </div>
       </div>
     {{/each}}
