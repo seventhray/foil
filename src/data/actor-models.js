@@ -137,7 +137,7 @@ function prepareCore(sys) {
     sk.usable  = pair.some(ak => live(ak)?.diceFormula);
   }
 
-  // Destroyed (PHB 6.8.2): every Attribute at zero Potential at once.
+  // Destroyed (PHB 6.8.2): every Attribute Incapacitated at once.
   const active = ATTRIBUTE_KEYS.filter(k => (attrs[k]?.potential?.max ?? 0) > 0);
   sys.destroyed = active.length > 0 && active.every(k => attrs[k].down);
 }

@@ -69,7 +69,7 @@ p("Stress, Resistance, and Incapacitation", `
 </ol>
 <p><strong>Resistance</strong> comes in two kinds. Physical covers Might and Finesse; mental covers Wit and Presence. A creature <strong>Vulnerable</strong> to something has negative Resistance against it, which adds Stress.</p>
 <p>An Attribute is <strong>Incapacitated</strong> when its Stress reaches its Potential. It contributes no dice. Incapacitation lifts once healing brings its Stress down to half its Potential or less, rounded down. Stress past a full bar <strong>overflows</strong> onto another Attribute, the defender's choice, and the receiving Attribute's Resistance doesn't reduce it.</p>
-<p><strong>Destroyed</strong> is all four Attributes at zero at once. It is permanent, and a choice a side makes.</p>`),
+<p><strong>Destroyed</strong> is all four Attributes Incapacitated at once. It is permanent, and a choice a side makes.</p>`),
 
 p("Actions and Strain", `
 <p>Each round a character gets one <strong>Action</strong> and one <strong>Quick Action</strong>. The Quick Action is spent on your turn or held to use reactively, one use either way. Moving up to 20 feet is free; another 20 costs the Quick Action. Initiative is an Acuity roll.</p>
