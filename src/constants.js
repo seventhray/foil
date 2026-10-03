@@ -162,8 +162,8 @@ export const CONDITIONS = [
 export const CONDITION_OPPOSE = {
   Grappled: ["prowess", "discipline"], Restrained: ["prowess", "discipline"], Prone: ["prowess", "acuity"],
   Slowed: ["prowess", "discipline"], Blinded: ["acuity", "discipline"], Reeling: ["acuity", "discipline"],
-  Swayed: ["acuity", "resonance"], Misled: ["acuity", "guile"], Frightened: ["discipline", "assertiveness"],
-  Controlled: ["discipline", "resonance"], Baited: ["discipline", "acuity"], Intimidated: ["assertiveness", "discipline"],
+  Swayed: ["acuity", "resonance"], Misled: ["acuity", "guile"], Frightened: ["discipline", "resonance"],
+  Controlled: ["discipline", "resonance"], Baited: ["discipline", "acuity"], Intimidated: ["assertiveness", "resonance"],
   Impressed: ["assertiveness", "acuity"], Relaxed: ["guile", "discipline"], Charmed: ["resonance", "acuity"],
   Enthralled: ["resonance", "discipline"], Angered: ["resonance", "discipline"]
 };

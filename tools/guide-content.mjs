@@ -21,7 +21,7 @@ p("Resolving a Technique", `
 <li>Declare the <strong>Instrument</strong> and the <strong>Technique</strong>: one of the Instrument's three built-in Techniques, or one the character has learned.</li>
 <li>Name the Attribute it harms. Describe the action; the GM judges whether it fits.</li>
 <li>Pick any of the three Skills the Instrument's Primary Attribute allows.</li>
-<li>Pay the <strong>Action</strong>, or the <strong>Quick Action</strong> if the Technique is Quick.</li>
+<li>Pay the <strong>Action</strong>, or the <strong>Quick Action</strong> for a Quick-tagged Technique or a Light built-in after a Light Action. A Heavy Instrument takes both.</li>
 <li>Roll the Skill. The target Opposes with any Skill built on the Attribute under attack, or, against a Technique that deals no Stress, with one of the two Skills its Condition names. A kit roll that only applies a Condition says which.</li>
 <li>If the Oppose beats the roll, the Technique fails. Otherwise it lands, a tie landing at a margin of 0.</li>
 </ol>
