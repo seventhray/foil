@@ -7,7 +7,7 @@
     "featType": "trait",
     "xpCost": 0,
     "requirements": "Night eyes",
-    "effect": "See in dim light and darkness as though it were lit. Doesn't help against no light at all.",
+    "effect": "See in darkness as though it were lit, as long as some light reaches it.",
     "ancestry": "",
     "grantsTechnique": "",
     "modifiers": [],

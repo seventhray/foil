@@ -30,7 +30,7 @@ for f in sorted(glob.glob(f"{D}/*.md")):
     bad = []
     if tier != "Legendary":
         want = BASE[tier]*4
-        # A step is 2 Potential (GMG §10.2.0). Steps up and down rarely cancel
+        # A step is 2 Potential (GMG §9.2.0). Steps up and down rarely cancel
         # exactly, so the tier's Health is a centre with a step of give either way.
         if abs(hp - want) > 4: bad.append(f"Health {hp} more than a step off tier baseline {want}")
         # shading: each Attribute within 2 steps (4 Potential) of baseline
