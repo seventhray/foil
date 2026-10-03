@@ -40,7 +40,7 @@ Setup needs Node and `npm install`, which brings in the official [Foundry VTT CL
 - `npm run build` compiles `packs/` from `src/packs/` alone.
 - `npm run verify` runs the headless checks.
 
-To publish a release, bump `version` and the `download` URL in `system.json`, commit, and run `npm run release`. It builds the packs and zips them with the runtime files.
+To publish a release, bump `version` and the `download` URL in `system.json`, commit, and run `npm run release`. It pushes a version tag, and the release workflow (`.github/workflows/release.yml`) builds the packs and publishes `foil.zip` and `system.json`. `npm run package` builds the same zip locally.
 
 ## License
 

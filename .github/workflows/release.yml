@@ -1,0 +1,47 @@
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:  # a build-only run: packages foil.zip as an artifact, publishes nothing
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Check the tag matches system.json
+        if: github.ref_type == 'tag'
+        run: |
+          v=$(node -p "require('./system.json').version")
+          [ "v$v" = "$GITHUB_REF_NAME" ] || { echo "Tag $GITHUB_REF_NAME doesn't match system.json version $v"; exit 1; }
+          grep -q "releases/download/v$v/foil.zip" system.json || { echo "system.json's download URL isn't v$v"; exit 1; }
+
+      - run: npm ci --no-audit --no-fund
+
+      - run: sh tools/package.sh
+
+      - name: Keep the zip from a build-only run
+        if: github.ref_type != 'tag'
+        uses: actions/upload-artifact@v7
+        with:
+          name: foil
+          path: foil.zip
+
+      - name: Publish the release
+        if: github.ref_type == 'tag'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: >
+          gh release create "$GITHUB_REF_NAME" foil.zip system.json
+          --title "Foilbound $GITHUB_REF_NAME"
+          --notes "Foilbound $GITHUB_REF_NAME for Foundry VTT. Install with the manifest URL in the README."
