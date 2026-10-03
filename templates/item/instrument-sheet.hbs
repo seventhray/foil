@@ -37,7 +37,7 @@
     Formula price <strong>{{system.formulaPrice}}p</strong>{{#if system.priceMismatch}} <i class="fas fa-triangle-exclamation item-warning" title="Listed price differs from the PHB 5.2.2 formula"></i>{{/if}}
     {{#if system.bonus}} &middot; +{{system.bonus}} adds <strong>{{system.bonusPrice}}p</strong>{{/if}}
     &middot; crafts from <strong>{{system.craftCost}}p</strong> of materials
-    &middot; carries <strong>{{system.carriedWeight}} lbs</strong>{{#if system.weightDice}} &middot; attacks add <strong>{{system.weightDice}}</strong>{{/if}}{{#if system.twoHanded}} &middot; two hands{{/if}}{{#if system.doublesMargin}} &middot; takes the Action and the Quick Action{{/if}}{{#if (foil-eq system.marginMultiplier 1.5)}} &middot; margin x1.5{{/if}}{{#if (foil-eq system.marginMultiplier 2)}} &middot; margin x2{{/if}}
+    &middot; Mass <strong>{{system.carriedWeight}} lbs</strong>{{#if system.weightDice}} &middot; attacks add <strong>{{system.weightDice}}</strong>{{/if}}{{#if system.twoHanded}} &middot; two hands{{/if}}{{#if system.doublesMargin}} &middot; takes the Action and the Quick Action{{/if}}{{#if (foil-eq system.marginMultiplier 1.5)}} &middot; margin x1.5{{/if}}{{#if (foil-eq system.marginMultiplier 2)}} &middot; margin x2{{/if}}
   </div>
   {{#if system.bonus}}<div class="derived-line">
     {{#if system.bonusRoll}}+{{system.bonusRoll}} to rolls{{/if}}{{#if system.bonusPierce}} &middot; Pierce +{{system.bonusPierce}}{{/if}}{{#if system.bonusOppose}}+{{system.bonusOppose}} to Oppose rolls only{{/if}}

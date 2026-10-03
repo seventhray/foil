@@ -5,7 +5,7 @@
     <select name="system.category">{{#each equipmentCategoryOptions}}<option value="{{this.value}}" {{#if (foil-eq this.value ../system.category)}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>
     <label>Price (p)</label>
     <input type="number" name="system.price" value="{{system.price}}" />
-    <label>Weight (lbs) <em>(counts toward carrying, PHB 5.2.6)</em></label>
+    <label>Mass (lbs) <em>(PHB 5.2.6)</em></label>
     <input type="number" name="system.weight" value="{{system.weight}}" min="0" step="0.5" />
     {{#if (foil-eq system.category "shield")}}
       <label>Weight class</label>

@@ -201,7 +201,7 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
     const notes = [];
     const dropped = SKILL_ATTRS[skill].filter(ak => sys.attributes?.[ak]?.down).map(ak => ATTR_LABEL[ak]);
     if (dropped.length) notes.push(`${dropped.join(" and ")} Incapacitated: no dice from it.`);
-    if (sys.carry?.penalty) notes.push(`Carrying ${sys.carry.weight} lbs: -${sys.carry.penalty}.`);
+    if (sys.carry?.penalty) notes.push(`Mass ${sys.carry.weight} lbs: -${sys.carry.penalty}.`);
     return notes;
   }
 

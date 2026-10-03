@@ -35,8 +35,8 @@
         <label title="One per 8 hours of rest or per Travel leg (PHB 6.10.0)">Rations</label>
         <input type="number" name="system.rations" value="{{system.rations}}" min="0" />
       </div>
-      <div class="tracker {{#if carry.penalty}}warn{{/if}}" title="Everything carried, worn Armor included; past 4x Might Potential, every roll takes a penalty (PHB 5.2.6)">
-        <label>Carried</label>
+      <div class="tracker {{#if carry.penalty}}warn{{/if}}" title="The Mass of everything carried, worn Armor included; past 4x Might Potential, every roll takes a penalty (PHB 5.2.6)">
+        <label>Mass</label>
         <span class="readout">{{carry.weight}} / {{carry.limit}} lbs</span>
         {{#if carry.penalty}}<span class="state-tag">-{{carry.penalty}} to rolls</span>{{/if}}
       </div>

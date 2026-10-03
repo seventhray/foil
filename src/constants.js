@@ -168,7 +168,7 @@ export const CONDITION_OPPOSE = {
   Enthralled: ["resonance", "discipline"], Angered: ["resonance", "discipline"]
 };
 
-// Carrying capacity (PHB 5.2.6): past 4x Might Potential, -1 to rolls per multiple.
+// Mass (PHB 5.2.6): past 4x Might Potential, -1 to rolls per multiple.
 export const CARRY_FREE_MULTIPLE = 4;
 export const RATION_LBS = 2;
 
