@@ -8,7 +8,7 @@ const { InstrumentData, TechniqueData, EquipmentData } = await import(`${R}/data
 const { aggregateModifiers } = await import(`${R}/modifiers.js`);
 const { priceTechnique, strainFor, patternCost, selectiveCost } = await import(`${R}/pricing.js`);
 const { stressFor } = await import(`${R}/stress.js`);
-const { XP_COST, trainingCost, knowHowState, marginCap } = await import(`${R}/constants.js`);
+const { XP_COST, trainingCost, knowHowState, marginCap, CONDITION_OPPOSE, CONDITIONS } = await import(`${R}/constants.js`);
 
 let fails = 0;
 const check = (label, fn) => { try { const r = fn(); console.log(`  PASS  ${label}${r ? " — " + r : ""}`); } catch (e) { console.log(`  FAIL  ${label}\n        ${e.message}`); fails++; } };
@@ -192,6 +192,8 @@ check("Edged doubling applies only against physical Resistance", () =>
   eq(stressFor({ attack: 16, oppose: 6, cap: 12, kind: "mental", resistance: 2, type: edged }).stress, 8));
 check("Wren round 1: margin 4, Sonic +1, Resistance 1: 4", () =>
   eq(stressFor({ attack: 16, oppose: 12, cap: 6, kind: "mental", resistance: 1, type: sonic }).stress, 4));
+check("every opposed Condition names two Skills (PHB 6.8.x); Weakened and Wary don't", () =>
+  eq(CONDITIONS.filter(c => !CONDITION_OPPOSE[c]), ["Weakened", "Wary"]) && Object.values(CONDITION_OPPOSE).every(v => v.length === 2));
 check("margin caps at half the Primary Potential", () => eq(stressFor({ attack: 30, oppose: 10, cap: 6 }).stress, 6));
 check("margin cap by weight: half Light, three quarters Medium, all Heavy, a quarter on the Quick Action (PHB 6.7.0)", () =>
   eq(["light", "medium", "heavy", "quick"].map(k => marginCap(24, k)), [12, 18, 24, 6]));

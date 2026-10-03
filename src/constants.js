@@ -158,6 +158,15 @@ export const CONDITIONS = [
   "Controlled", "Intimidated", "Baited", "Angered", "Relaxed", "Impressed", "Wary",
   "Enthralled", "Swayed", "Misled", "Blinded", "Slowed"
 ];
+/** The two Skills that resist each Condition when a Technique deals no Stress (PHB 6.5.0, 6.8.x). */
+export const CONDITION_OPPOSE = {
+  Grappled: ["prowess", "discipline"], Restrained: ["prowess", "discipline"], Prone: ["prowess", "acuity"],
+  Slowed: ["prowess", "discipline"], Blinded: ["acuity", "discipline"], Reeling: ["acuity", "discipline"],
+  Swayed: ["acuity", "resonance"], Misled: ["acuity", "guile"], Frightened: ["discipline", "assertiveness"],
+  Controlled: ["discipline", "resonance"], Baited: ["discipline", "acuity"], Intimidated: ["assertiveness", "discipline"],
+  Impressed: ["assertiveness", "acuity"], Relaxed: ["guile", "discipline"], Charmed: ["resonance", "acuity"],
+  Enthralled: ["resonance", "discipline"], Angered: ["resonance", "discipline"]
+};
 
 // Carrying capacity (PHB 5.2.6): past 4x Might Potential, -1 to rolls per multiple.
 export const CARRY_FREE_MULTIPLE = 4;
