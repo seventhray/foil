@@ -668,7 +668,9 @@ Hooks.on("renderChatMessageHTML", (message, html) => {
   const stress = message.getFlag("foil", "stress");
   if (stress) addButton(html, `Stress: ${stress.name}`, "foil-stress-followup", () => computeStress(stress));
   const reroll = message.getFlag("foil", "reroll");
-  if (reroll && game.actors.get(reroll.actorId)?.isOwner) {
+  const owner = game.actors.get(reroll?.actorId);
+  // Only characters hold Foil Tokens (PHB 3.2.0).
+  if (reroll && owner?.isOwner && owner.type === "character") {
     addButton(html, "Foil Token: reroll a die", "foil-token-reroll", () => rerollDie(message, reroll));
   }
 });
