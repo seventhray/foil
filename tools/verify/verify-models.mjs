@@ -195,8 +195,8 @@ check("Wren round 1: margin 4, Sonic +1, Resistance 1: 4", () =>
 check("every opposed Condition names two Skills (PHB 6.8.x); Weakened and Wary don't", () =>
   eq(CONDITIONS.filter(c => !CONDITION_OPPOSE[c]), ["Weakened", "Wary"]) && Object.values(CONDITION_OPPOSE).every(v => v.length === 2));
 check("margin caps at half the Primary Potential", () => eq(stressFor({ attack: 30, oppose: 10, cap: 6 }).stress, 6));
-check("margin cap by weight: half Light, all Medium, all Heavy, a quarter on the Quick Action (PHB 6.7.0)", () =>
-  eq(["light", "medium", "heavy", "quick"].map(k => marginCap(24, k)), [12, 24, 24, 6]));
+check("margin cap by weight: half Light, all Medium, all Heavy (PHB 6.7.0)", () =>
+  eq(["light", "medium", "heavy"].map(k => marginCap(24, k)), [12, 24, 24]));
 check("a tie lands at margin 0; a lost roll doesn't land", () =>
   eq([stressFor({ attack: 10, oppose: 10, cap: 6 }).landed, stressFor({ attack: 9, oppose: 10, cap: 6 }).landed], [true, false]));
 check("Pointed's Pierce 1 plus a Technique's Pierce 1 against Mail 2: margin 5 lands 6", () =>

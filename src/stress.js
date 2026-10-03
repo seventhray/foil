@@ -4,7 +4,7 @@
  *
  *   margin (attack - Oppose; a tie lands at 0), doubled through a Heavy Instrument,
  *   then capped by its weight: half its Primary Potential for Light, all of it for
- *   Medium or Heavy, and a quarter for a Technique paid with the Quick Action.
+ *   Medium or Heavy.
  *   Only the margin is capped; the bonuses below add after it
  *   + one Stress-dealing Type's bonus (Edged: physical Resistance, after Pierce, counts double)
  *   + the Technique's own bonus, and any other stated bonus

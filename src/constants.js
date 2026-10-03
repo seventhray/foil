@@ -181,8 +181,8 @@ export const REST_RATION_HOURS = 8;
 // is a Transformation (PHB 2.3.1, 7.12.0). Training climbs 2 per point already held.
 export const XP_COST = { talent: { 4: 8, 6: 12, 8: 16, 10: 20 }, d12ToD20: 100, knowHow: 20, training: 8, trainingStep: 2 };
 export const DICE_BASE_LIMIT = 4;
-/** Margin cap as a share of the Primary Attribute's Potential, by weight; Heavy doubles first; a Quick Action attack caps at a quarter (PHB 6.7.0). */
-export const MARGIN_CAP = { light: [1, 2, "half"], medium: [1, 1, "all of"], heavy: [1, 1, "all of"], quick: [1, 4, "a quarter of"] };
+/** Margin cap as a share of the Primary Attribute's Potential, by weight; Heavy doubles first (PHB 6.7.0). */
+export const MARGIN_CAP = { light: [1, 2, "half"], medium: [1, 1, "all of"], heavy: [1, 1, "all of"] };
 export const marginCap = (potential, key) => {
   const [n, d] = MARGIN_CAP[key] ?? MARGIN_CAP.light;
   return Math.floor((Number(potential) || 0) * n / d);

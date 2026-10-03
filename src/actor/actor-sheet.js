@@ -328,7 +328,7 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
 
   /**
    * The chat-card payload the Stress button reads. The margin cap follows the
-   * Instrument's weight; a Quick Action attack caps at a quarter (PHB 6.7.0).
+   * Instrument's weight (PHB 6.7.0).
    */
   _stressFlag(inst, name, total, { bespoke = 0, pierce = 0, quick = false } = {}) {
     const primary = inst.system.primaryAttribute;
@@ -340,7 +340,6 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
       stress: {
         actorId: this.actor.id, name, attackTotal: total, instrument: inst.name,
         cap: marginCap(potential, weight), capLabel: label(weight),
-        canQuick: !inst.system.doublesMargin && !!(quick || inst.system.quick), capQuick: marginCap(potential, "quick"), capQuickLabel: label("quick"),
         mult: Number(inst.system.marginMultiplier ?? 1),
         types: inst.system.stressTypes ?? [], bespoke, pierce
       }
@@ -619,8 +618,7 @@ async function computeStress(flag) {
     + `<div class="form-group"><label>Attribute aimed at</label><select name="kind"><option value="physical">Might or Finesse</option><option value="mental">Wit or Presence</option></select></div>`
     + `<div class="form-group"><label>Target's Resistance of that kind <em>(negative for Vulnerable)</em></label><input type="number" name="resistance" value="0" /></div>`
     + ((flag.types ?? []).length ? `<div class="form-group"><label>Type effect <em>(one, your choice)</em></label><select name="type">${typeOpts}</select></div>` : "")
-    + `<div class="form-group"><label>Other Stress bonus <em>(a Feat such as Heavy Hand)</em></label><input type="number" name="other" value="0" /></div>`
-    + (flag.canQuick ? `<div class="form-group"><label>Paid with the Quick Action <em>(margin cap ${flag.capQuick}, not ${flag.cap})</em></label><input type="checkbox" name="quick" /></div>` : ""),
+    + `<div class="form-group"><label>Other Stress bonus <em>(a Feat such as Heavy Hand)</em></label><input type="number" name="other" value="0" /></div>`,
     "Compute");
   if (!answer) return;
   const oppose = Number(answer.oppose);
@@ -628,7 +626,7 @@ async function computeStress(flag) {
   const speaker = ChatMessage.getSpeaker({ actor: game.actors.get(flag.actorId) });
   const r = stressFor({
     attack: flag.attackTotal, oppose, name: flag.name,
-    cap: answer.quick ? flag.capQuick : flag.cap, capLabel: answer.quick ? flag.capQuickLabel : flag.capLabel, capAttr: flag.capAttr,
+    cap: flag.cap, capLabel: flag.capLabel, capAttr: flag.capAttr,
     mult: Number(flag.mult ?? (flag.double ? 2 : 1)),
     kind: answer.kind === "mental" ? "mental" : "physical",
     resistance: Number(answer.resistance) || 0,
