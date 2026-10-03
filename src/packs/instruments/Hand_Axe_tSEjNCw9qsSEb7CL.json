@@ -1,0 +1,48 @@
+{
+  "_id": "tSEjNCw9qsSEb7CL",
+  "name": "Hand Axe",
+  "type": "instrument",
+  "img": "icons/svg/sword.svg",
+  "system": {
+    "category": "melee",
+    "weight": "light",
+    "primaryAttribute": "finesse",
+    "range": "Close",
+    "types": [
+      "edged"
+    ],
+    "typesDisplay": "",
+    "price": 20,
+    "rider": "",
+    "kit": [
+      {
+        "name": "Chop",
+        "skill": "prowess",
+        "effect": "Deals Stress to Might or Finesse."
+      },
+      {
+        "name": "Hook",
+        "skill": "acuity",
+        "effect": "Applies Prone."
+      },
+      {
+        "name": "Feint Swing",
+        "skill": "guile",
+        "effect": "Applies Reeling."
+      }
+    ],
+    "innate": false,
+    "bonus": 0,
+    "size": "small",
+    "materials": "Metal",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 1200000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!tSEjNCw9qsSEb7CL"
+}

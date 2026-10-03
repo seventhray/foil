@@ -1,0 +1,30 @@
+{
+  "_id": "eOa016jRN4oNnRlZ",
+  "name": "Climb",
+  "type": "technique",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "requires": [
+      "fortifying"
+    ],
+    "requiresText": "Fortifying",
+    "innate": false,
+    "skill": "",
+    "family": "Fortifying",
+    "subgroup": "Movement",
+    "effects": [],
+    "floor": true,
+    "xpOverride": 12,
+    "effectText": "Move along vertical surfaces at full speed without a roll, for the duration of Upkeep, Strain 1",
+    "ancestryGrant": "",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 1700000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!eOa016jRN4oNnRlZ"
+}

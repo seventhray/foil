@@ -1,0 +1,28 @@
+{
+  "_id": "Rl7BtiS8QeD7Nd9s",
+  "name": "Sonic",
+  "type": "instrumentType",
+  "img": "icons/svg/upgrade.svg",
+  "system": {
+    "key": "sonic",
+    "family": "sonic",
+    "stressPhysical": -1,
+    "stressMental": 1,
+    "pierce": 0,
+    "doubleResistance": false,
+    "dealsNoStress": false,
+    "quick": false,
+    "blocking": false,
+    "reload": "",
+    "isTool": false,
+    "description": "<p>+1 Stress against a mental Attribute. -1 against a physical Attribute.</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 1000000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!Rl7BtiS8QeD7Nd9s"
+}

@@ -1,0 +1,33 @@
+{
+  "_id": "KOk3zTdQmzf0VDaU",
+  "name": "Ngyenha Treedwellers",
+  "type": "origin",
+  "img": "icons/svg/village.svg",
+  "system": {
+    "talent": [
+      {
+        "attribute": "wit",
+        "die": 10
+      },
+      {
+        "attribute": "presence",
+        "die": 10
+      }
+    ],
+    "feats": [
+      "Warding Chant",
+      "Wide Sight"
+    ],
+    "feat": "Warding Chant",
+    "section": "7.8.7",
+    "description": "<p>Canopy people: small wiry builds, large eyes, grasping clawed fingers and toes.</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 700000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!KOk3zTdQmzf0VDaU"
+}

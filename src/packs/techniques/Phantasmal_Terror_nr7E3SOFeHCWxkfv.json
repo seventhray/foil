@@ -1,0 +1,58 @@
+{
+  "_id": "nr7E3SOFeHCWxkfv",
+  "name": "Phantasmal Terror",
+  "type": "technique",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "requires": [
+      "incorporeal"
+    ],
+    "requiresText": "Incorporeal",
+    "innate": false,
+    "skill": "",
+    "family": "Incorporeal",
+    "subgroup": "Control",
+    "effects": [
+      {
+        "key": "stress",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveN": 0,
+        "selectiveR": 0
+      },
+      {
+        "key": "weaken",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveN": 0,
+        "selectiveR": 0
+      },
+      {
+        "key": "move",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveN": 0,
+        "selectiveR": 0
+      }
+    ],
+    "floor": false,
+    "xpOverride": 34,
+    "effectText": "Stress, -1 [target Attribute], Move the target 1 band, Strain 4",
+    "ancestryGrant": "",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 4900000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!nr7E3SOFeHCWxkfv"
+}

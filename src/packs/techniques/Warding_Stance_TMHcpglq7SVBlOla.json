@@ -1,0 +1,40 @@
+{
+  "_id": "TMHcpglq7SVBlOla",
+  "name": "Warding Stance",
+  "type": "technique",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "requires": [
+      "fortifying"
+    ],
+    "requiresText": "Fortifying",
+    "innate": false,
+    "skill": "",
+    "family": "Fortifying",
+    "subgroup": "Single-Target Warding",
+    "effects": [
+      {
+        "key": "skill-mod",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveN": 0,
+        "selectiveR": 0
+      }
+    ],
+    "floor": true,
+    "xpOverride": 8,
+    "effectText": "+1 to Prowess and Discipline opposes until your next turn, Strain 1",
+    "ancestryGrant": "",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 1300000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!TMHcpglq7SVBlOla"
+}

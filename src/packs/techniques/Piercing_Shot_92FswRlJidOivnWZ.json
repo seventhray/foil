@@ -1,0 +1,51 @@
+{
+  "_id": "92FswRlJidOivnWZ",
+  "name": "Piercing Shot",
+  "type": "technique",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "requires": [
+      "thrown",
+      "drawn",
+      "fired"
+    ],
+    "requiresText": "Ranged",
+    "innate": false,
+    "skill": "",
+    "family": "Ranged",
+    "subgroup": "Piercing & Precision",
+    "effects": [
+      {
+        "key": "stress",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveN": 0,
+        "selectiveR": 0
+      },
+      {
+        "key": "pierce",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveN": 0,
+        "selectiveR": 0
+      }
+    ],
+    "floor": false,
+    "xpOverride": 12,
+    "effectText": "Stress, Pierce 1, Strain 1",
+    "ancestryGrant": "",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 8700000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!92FswRlJidOivnWZ"
+}

@@ -1,0 +1,58 @@
+{
+  "_id": "kVhoHgr0loqUNbmE",
+  "name": "Wall of Flame",
+  "type": "technique",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "requires": [
+      "kinetic"
+    ],
+    "requiresText": "Kinetic",
+    "innate": false,
+    "skill": "",
+    "family": "Kinetic",
+    "subgroup": "Sustained & Lingering",
+    "effects": [
+      {
+        "key": "stress",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveN": 0,
+        "selectiveR": 0
+      },
+      {
+        "key": "pattern",
+        "magnitude": 1,
+        "pattern": "wall",
+        "bands": 2,
+        "placement": 0,
+        "selectiveN": 0,
+        "selectiveR": 0
+      },
+      {
+        "key": "upkeep",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveN": 0,
+        "selectiveR": 0
+      }
+    ],
+    "floor": false,
+    "xpOverride": 15,
+    "effectText": "Stress, Wall (Near), Upkeep, Strain 1",
+    "ancestryGrant": "",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 6200000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!kVhoHgr0loqUNbmE"
+}

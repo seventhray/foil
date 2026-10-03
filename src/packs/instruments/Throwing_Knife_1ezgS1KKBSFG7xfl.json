@@ -1,0 +1,49 @@
+{
+  "_id": "1ezgS1KKBSFG7xfl",
+  "name": "Throwing Knife",
+  "type": "instrument",
+  "img": "icons/svg/sword.svg",
+  "system": {
+    "category": "ranged",
+    "weight": "light",
+    "primaryAttribute": "finesse",
+    "range": "Short Range",
+    "types": [
+      "pointed",
+      "thrown"
+    ],
+    "typesDisplay": "",
+    "price": 25,
+    "rider": "",
+    "kit": [
+      {
+        "name": "Hurl",
+        "skill": "prowess",
+        "effect": "Deals Stress to Might or Finesse."
+      },
+      {
+        "name": "Mark",
+        "skill": "acuity",
+        "effect": "Applies Weakened [Finesse]."
+      },
+      {
+        "name": "Menacing Flourish",
+        "skill": "guile",
+        "effect": "Applies Baited."
+      }
+    ],
+    "innate": false,
+    "bonus": 0,
+    "size": "small",
+    "materials": "Metal",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 2400000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!1ezgS1KKBSFG7xfl"
+}

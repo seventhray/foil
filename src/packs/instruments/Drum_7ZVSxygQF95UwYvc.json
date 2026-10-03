@@ -1,0 +1,49 @@
+{
+  "_id": "7ZVSxygQF95UwYvc",
+  "name": "Drum",
+  "type": "instrument",
+  "img": "icons/svg/sword.svg",
+  "system": {
+    "category": "sonic",
+    "weight": "light",
+    "primaryAttribute": "presence",
+    "range": "Mid Range",
+    "types": [
+      "sonic",
+      "tool"
+    ],
+    "typesDisplay": "",
+    "price": 15,
+    "rider": "",
+    "kit": [
+      {
+        "name": "War Beat",
+        "skill": "assertiveness",
+        "effect": "Applies Intimidated."
+      },
+      {
+        "name": "Confusing Rhythm",
+        "skill": "guile",
+        "effect": "Applies Reeling."
+      },
+      {
+        "name": "Resonant Pulse",
+        "skill": "resonance",
+        "effect": "Deals Stress to Wit or Presence."
+      }
+    ],
+    "innate": false,
+    "bonus": 0,
+    "size": "medium",
+    "materials": "Wood + Leather",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 3100000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!7ZVSxygQF95UwYvc"
+}

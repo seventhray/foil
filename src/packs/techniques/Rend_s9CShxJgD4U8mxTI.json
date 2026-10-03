@@ -1,0 +1,50 @@
+{
+  "_id": "s9CShxJgD4U8mxTI",
+  "name": "Rend",
+  "type": "technique",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "requires": [
+      "edged",
+      "pointed"
+    ],
+    "requiresText": "Edged or Pointed",
+    "innate": false,
+    "skill": "",
+    "family": "Melee",
+    "subgroup": "Piercing",
+    "effects": [
+      {
+        "key": "stress",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveN": 0,
+        "selectiveR": 0
+      },
+      {
+        "key": "pierce",
+        "magnitude": 2,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveN": 0,
+        "selectiveR": 0
+      }
+    ],
+    "floor": false,
+    "xpOverride": 16,
+    "effectText": "Stress, Pierce 2, Strain 2",
+    "ancestryGrant": "",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 7900000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!s9CShxJgD4U8mxTI"
+}

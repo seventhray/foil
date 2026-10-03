@@ -1,0 +1,31 @@
+{
+  "_id": "nCB8mUbm5KaHnRXk",
+  "name": "Carnelian (Tier 1)",
+  "type": "equipment",
+  "img": "icons/svg/ice-aura.svg",
+  "system": {
+    "category": "gem",
+    "price": 40,
+    "weight": 0,
+    "weightClass": "",
+    "size": "small",
+    "materials": "Gemstone",
+    "location": "carried",
+    "qualities": [],
+    "uses": "",
+    "duration": "",
+    "effect": "Concussive; Move goes 1 more band per Tier",
+    "gemType": "carnelian",
+    "tier": 1,
+    "notes": "",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 3800000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!nCB8mUbm5KaHnRXk"
+}

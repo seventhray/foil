@@ -1,0 +1,28 @@
+{
+  "_id": "dbrD5z29jOCHNRGw",
+  "name": "Counter",
+  "type": "effect",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "key": "counter",
+    "requires": [],
+    "pricingKind": "flat",
+    "pricingParams": {
+      "base": 12,
+      "perPoint": 0,
+      "perBand": 1
+    },
+    "magnitudeLabel": "",
+    "exemptFromPremium": false,
+    "setsFloor": false,
+    "description": "<p>Contest another Technique as it lands, minus its Strain. A countered upkeep ends the Technique.</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 1600000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!dbrD5z29jOCHNRGw"
+}

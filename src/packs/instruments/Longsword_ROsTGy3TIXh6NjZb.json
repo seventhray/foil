@@ -1,0 +1,50 @@
+{
+  "_id": "ROsTGy3TIXh6NjZb",
+  "name": "Longsword",
+  "type": "instrument",
+  "img": "icons/svg/sword.svg",
+  "system": {
+    "category": "melee",
+    "weight": "medium",
+    "primaryAttribute": "might",
+    "range": "Close",
+    "types": [
+      "edged",
+      "pointed",
+      "parry"
+    ],
+    "typesDisplay": "",
+    "price": 45,
+    "rider": "",
+    "kit": [
+      {
+        "name": "Broad Cut",
+        "skill": "prowess",
+        "effect": "Deals Stress to Might or Finesse."
+      },
+      {
+        "name": "Entangle",
+        "skill": "discipline",
+        "effect": "Applies Grappled."
+      },
+      {
+        "name": "Challenge",
+        "skill": "assertiveness",
+        "effect": "Deals Stress to Presence or Wit."
+      }
+    ],
+    "innate": false,
+    "bonus": 0,
+    "size": "medium",
+    "materials": "Metal + Leather",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 1600000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!ROsTGy3TIXh6NjZb"
+}

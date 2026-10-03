@@ -1,0 +1,58 @@
+{
+  "_id": "J0Y2AoMmDPEjxjDv",
+  "name": "Retort",
+  "type": "technique",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "requires": [
+      "sonic"
+    ],
+    "requiresText": "Sonic",
+    "innate": false,
+    "skill": "",
+    "family": "Sonic",
+    "subgroup": "Reactive",
+    "effects": [
+      {
+        "key": "stress",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveN": 0,
+        "selectiveR": 0
+      },
+      {
+        "key": "stress-rider",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveN": 0,
+        "selectiveR": 0
+      },
+      {
+        "key": "quick",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveN": 0,
+        "selectiveR": 0
+      }
+    ],
+    "floor": true,
+    "xpOverride": 23,
+    "effectText": "Quick (trigger: a Sonic Technique fails against you): deal Stress to that attacker, +1 Stress, Strain 2.",
+    "ancestryGrant": "",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 9800000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!J0Y2AoMmDPEjxjDv"
+}

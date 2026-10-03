@@ -1,0 +1,24 @@
+{
+  "_id": "6Eh7U3JewJyqjOHm",
+  "name": "Hunter's Mark",
+  "type": "feat",
+  "img": "icons/svg/upgrade.svg",
+  "system": {
+    "featType": "learned",
+    "xpCost": 12,
+    "requirements": "12 Finesse, 12 Wit",
+    "effect": "When using a Ranged Technique that deals Stress to the Target, deal +1 additional Stress.",
+    "ancestry": "",
+    "grantsTechnique": "",
+    "modifiers": [],
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 3100000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!6Eh7U3JewJyqjOHm"
+}

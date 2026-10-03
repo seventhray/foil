@@ -1,0 +1,31 @@
+{
+  "_id": "AVEwDAm5GKVGwdWh",
+  "name": "Citrine (Tier 1)",
+  "type": "equipment",
+  "img": "icons/svg/ice-aura.svg",
+  "system": {
+    "category": "gem",
+    "price": 60,
+    "weight": 0,
+    "weightClass": "",
+    "size": "small",
+    "materials": "Gemstone",
+    "location": "carried",
+    "qualities": [],
+    "uses": "",
+    "duration": "",
+    "effect": "Mend removes 1 more Stress per Tier",
+    "gemType": "citrine",
+    "tier": 1,
+    "notes": "",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 4300000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!AVEwDAm5GKVGwdWh"
+}

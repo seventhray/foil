@@ -1,0 +1,49 @@
+{
+  "_id": "khUMqFYIOqOLzgry",
+  "name": "Shortbow",
+  "type": "instrument",
+  "img": "icons/svg/sword.svg",
+  "system": {
+    "category": "ranged",
+    "weight": "medium",
+    "primaryAttribute": "finesse",
+    "range": "Mid Range",
+    "types": [
+      "pointed",
+      "drawn"
+    ],
+    "typesDisplay": "",
+    "price": 65,
+    "rider": "Reload Quick Action.",
+    "kit": [
+      {
+        "name": "Loose",
+        "skill": "prowess",
+        "effect": "Deals Stress to Might or Finesse."
+      },
+      {
+        "name": "Pinpoint",
+        "skill": "acuity",
+        "effect": "Applies Weakened [Finesse]."
+      },
+      {
+        "name": "Menacing Nock",
+        "skill": "guile",
+        "effect": "Applies Baited."
+      }
+    ],
+    "innate": false,
+    "bonus": 0,
+    "size": "medium",
+    "materials": "Wood + Textile",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 2600000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!khUMqFYIOqOLzgry"
+}

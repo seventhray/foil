@@ -1,0 +1,24 @@
+{
+  "_id": "n13t5jM5QQVW8ieb",
+  "name": "Deadeye",
+  "type": "feat",
+  "img": "icons/svg/upgrade.svg",
+  "system": {
+    "featType": "learned",
+    "xpCost": 12,
+    "requirements": "12 Finesse, 12 Wit",
+    "effect": "Your Ranged Techniques gain +1.",
+    "ancestry": "",
+    "grantsTechnique": "",
+    "modifiers": [],
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 2200000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!n13t5jM5QQVW8ieb"
+}

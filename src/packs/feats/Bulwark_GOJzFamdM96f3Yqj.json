@@ -1,0 +1,24 @@
+{
+  "_id": "GOJzFamdM96f3Yqj",
+  "name": "Bulwark",
+  "type": "feat",
+  "img": "icons/svg/upgrade.svg",
+  "system": {
+    "featType": "learned",
+    "xpCost": 8,
+    "requirements": "16 Might, 16 Wit",
+    "effect": "When you Guard an ally, they gain +2 to their Opposes until the start of your next turn.",
+    "ancestry": "",
+    "grantsTechnique": "",
+    "modifiers": [],
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 3000000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!GOJzFamdM96f3Yqj"
+}

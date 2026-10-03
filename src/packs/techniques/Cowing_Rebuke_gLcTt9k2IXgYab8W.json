@@ -1,0 +1,40 @@
+{
+  "_id": "gLcTt9k2IXgYab8W",
+  "name": "Cowing Rebuke",
+  "type": "technique",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "requires": [
+      "sonic"
+    ],
+    "requiresText": "Sonic",
+    "innate": false,
+    "skill": "",
+    "family": "Sonic",
+    "subgroup": "Control & Deception",
+    "effects": [
+      {
+        "key": "skill-mod",
+        "magnitude": 2,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveN": 0,
+        "selectiveR": 0
+      }
+    ],
+    "floor": false,
+    "xpOverride": 12,
+    "effectText": "-2 Oppose, Strain 1",
+    "ancestryGrant": "Tuyakkar",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 10500000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!gLcTt9k2IXgYab8W"
+}

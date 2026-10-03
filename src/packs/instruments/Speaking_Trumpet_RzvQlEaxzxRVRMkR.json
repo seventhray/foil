@@ -1,0 +1,48 @@
+{
+  "_id": "RzvQlEaxzxRVRMkR",
+  "name": "Speaking Trumpet",
+  "type": "instrument",
+  "img": "icons/svg/sword.svg",
+  "system": {
+    "category": "sonic",
+    "weight": "light",
+    "primaryAttribute": "presence",
+    "range": "Long Range",
+    "types": [
+      "sonic"
+    ],
+    "typesDisplay": "",
+    "price": 25,
+    "rider": "",
+    "kit": [
+      {
+        "name": "Commanding Blast",
+        "skill": "assertiveness",
+        "effect": "Applies Intimidated."
+      },
+      {
+        "name": "False Order",
+        "skill": "guile",
+        "effect": "Applies Misled."
+      },
+      {
+        "name": "Deafening Blare",
+        "skill": "resonance",
+        "effect": "Deals Stress to Wit or Presence."
+      }
+    ],
+    "innate": false,
+    "bonus": 0,
+    "size": "small",
+    "materials": "Metal",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 3300000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!RzvQlEaxzxRVRMkR"
+}

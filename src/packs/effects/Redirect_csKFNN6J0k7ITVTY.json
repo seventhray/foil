@@ -1,0 +1,30 @@
+{
+  "_id": "csKFNN6J0k7ITVTY",
+  "name": "Redirect",
+  "type": "effect",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "key": "redirect",
+    "requires": [
+      "blocking"
+    ],
+    "pricingKind": "flat",
+    "pricingParams": {
+      "base": 8,
+      "perPoint": 0,
+      "perBand": 1
+    },
+    "magnitudeLabel": "",
+    "exemptFromPremium": false,
+    "setsFloor": false,
+    "description": "<p>Take an ally's incoming Stress instead.</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 1000000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!csKFNN6J0k7ITVTY"
+}

@@ -1,0 +1,49 @@
+{
+  "_id": "TeBsQ7aItZjZr1wQ",
+  "name": "Arbalest",
+  "type": "instrument",
+  "img": "icons/svg/sword.svg",
+  "system": {
+    "category": "ranged",
+    "weight": "heavy",
+    "primaryAttribute": "wit",
+    "range": "Long Range",
+    "types": [
+      "pointed",
+      "fired"
+    ],
+    "typesDisplay": "",
+    "price": 105,
+    "rider": "Reload Action.",
+    "kit": [
+      {
+        "name": "Heavy Bolt",
+        "skill": "discipline",
+        "effect": "Deals Stress to Might or Finesse."
+      },
+      {
+        "name": "Piercing Aim",
+        "skill": "acuity",
+        "effect": "Deals Stress to Wit or Presence."
+      },
+      {
+        "name": "Dread Shot",
+        "skill": "resonance",
+        "effect": "Applies Frightened."
+      }
+    ],
+    "innate": false,
+    "bonus": 0,
+    "size": "medium",
+    "materials": "Wood + Metal",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 2900000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!TeBsQ7aItZjZr1wQ"
+}

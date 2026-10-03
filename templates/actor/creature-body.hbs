@@ -31,14 +31,14 @@
   <section class="foil-col">
     <h3 class="section-head">FOIL</h3>
     {{#each foil}}
-      <div class="axis-trait">
-        <div class="axis-trait-head">
+      <div class="axis-habit">
+        <div class="axis-habit-head">
           <span class="axis-name">{{this.label}}</span>
           <select name="system.foil.{{this.key}}.lean">
             {{#each this.leanOptions}}<option value="{{this.value}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>{{/each}}
           </select>
         </div>
-        <input type="text" name="system.foil.{{this.key}}.trait" value="{{this.trait}}" />
+        <input type="text" name="system.foil.{{this.key}}.habit" value="{{this.habit}}" />
       </div>
     {{/each}}
     {{> systems/foil/templates/actor/partials/conditions.hbs}}

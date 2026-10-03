@@ -1,0 +1,24 @@
+{
+  "_id": "sNaXywdzst4r1HJj",
+  "name": "Stonebreaker",
+  "type": "feat",
+  "img": "icons/svg/upgrade.svg",
+  "system": {
+    "featType": "ancestry",
+    "xpCost": 0,
+    "requirements": "",
+    "effect": "Your Blunt Techniques have +3 Pierce.",
+    "ancestry": "Tushmont Stonedwellers",
+    "grantsTechnique": "",
+    "modifiers": [],
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 1500000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!sNaXywdzst4r1HJj"
+}

@@ -1,0 +1,40 @@
+{
+  "_id": "T0Ri31dZ9jfAOMP8",
+  "name": "Beguile",
+  "type": "technique",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "requires": [
+      "sonic"
+    ],
+    "requiresText": "Sonic",
+    "innate": false,
+    "skill": "",
+    "family": "Sonic",
+    "subgroup": "Control & Deception",
+    "effects": [
+      {
+        "key": "charmed",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveN": 0,
+        "selectiveR": 0
+      }
+    ],
+    "floor": false,
+    "xpOverride": 8,
+    "effectText": "Charmed, Strain 1",
+    "ancestryGrant": "",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 9500000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!T0Ri31dZ9jfAOMP8"
+}

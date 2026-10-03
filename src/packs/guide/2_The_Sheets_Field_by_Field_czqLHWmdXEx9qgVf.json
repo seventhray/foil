@@ -1,0 +1,94 @@
+{
+  "_id": "czqLHWmdXEx9qgVf",
+  "name": "2 · The Sheets, Field by Field",
+  "folder": null,
+  "sort": 200000,
+  "ownership": {
+    "default": 2
+  },
+  "flags": {},
+  "pages": [
+    {
+      "_id": "AvwujnaR0xaBUdgU",
+      "name": "Character sheet",
+      "type": "text",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "text": {
+        "format": 1,
+        "content": "<table><thead><tr><th>Field</th><th>What it is</th></tr></thead><tbody>\n<tr><td><strong>Create</strong></td><td>Builds a starting character in one window, following PHB 2.5.0: pick an Ancestry and a Background and see what each grants, preview the dice, Training, and Resistance, set FOIL traits (pick, roll, or write), and answer the prompts. Adds Body and Voice.</td></tr>\n<tr><td><strong>Drag and drop</strong></td><td>Drop any Item from the sidebar or a compendium onto the sheet. A dropped Ancestry or Background replaces the old one.</td></tr>\n<tr><td><strong>Advance</strong></td><td>Spends XP: a die one size 8, 12, 16, or 20 XP by its size, d12 to d20 100 XP as a Transformation (PHB 2.3.1), a new 1d4 20 XP (at most 4 dice, plus 1 per die at d12 or larger), +1 Training 8 XP plus 2 per point held, or a Technique or Feat at its listed XP.</td></tr>\n<tr><td><strong>Attribute Dice</strong></td><td>How many of each die size sit in the pool. The system builds the formula and Potential.</td></tr>\n<tr><td><strong>Stress, Potential</strong></td><td>The Stress on the Attribute, beside its Potential. When Stress reaches Potential the Attribute is Incapacitated; it recovers once Stress falls to the amount shown.</td></tr>\n<tr><td><strong>Resistance</strong></td><td>Derived from equipped armor, shields, wards, and Feats, with what granted it.</td></tr>\n<tr><td><strong>Skills</strong></td><td>Formula, Training (with its cap), passive value, and roll range. Click to roll.</td></tr>\n<tr><td><strong>Foil Tokens</strong></td><td>Earn one on an invoke; <em>Halve Stress</em> spends one.</td></tr>\n<tr><td><strong>Rations, Carried</strong></td><td>Rations weigh 2 lbs each. Carried turns red with its roll penalty once over 4x Might Potential.</td></tr>\n<tr><td><strong>Location</strong></td><td>Each Instrument and piece of Equipment is equipped, carried, or stored; click its icon to change it. Only equipped gear grants its Resistance or bonus, stored gear weighs nothing, and a Heavy Instrument warns when something else is also in hand. Switching to a carried Instrument costs the Quick Action.</td></tr>\n<tr><td><strong>Techniques</strong></td><td>Lists every built-in Technique of the character's Instruments, with the Instrument it comes from, above the learned ones. Each learned Technique lists the Instruments it can be used with, equipped ones first; stored ones never count.</td></tr>\n<tr><td><strong>FOIL</strong></td><td>A lean and a Habit per axis.</td></tr>\n<tr><td><strong>Conditions</strong></td><td>Active Conditions, with rounds and a note.</td></tr>\n</tbody></table>",
+        "markdown": ""
+      },
+      "image": {},
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "sort": 100000,
+      "ownership": {
+        "default": -1
+      },
+      "flags": {},
+      "_key": "!journal.pages!czqLHWmdXEx9qgVf.AvwujnaR0xaBUdgU"
+    },
+    {
+      "_id": "MHC1Ru1GL4UF0V4E",
+      "name": "Creature sheet",
+      "type": "text",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "text": {
+        "format": 1,
+        "content": "<p>A creature uses the same Attributes, Skills, Stress, and Incapacitation. Its own fields: <strong>Tier</strong>, <strong>Behavior</strong> (what it does once an Attribute is Incapacitated, GMG 4.8.0), <strong>Vulnerable</strong>, and a typed <strong>Resistance</strong>. <strong>Health</strong>, the four Potentials summed, shows as GM shorthand.</p>",
+        "markdown": ""
+      },
+      "image": {},
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "sort": 200000,
+      "ownership": {
+        "default": -1
+      },
+      "flags": {},
+      "_key": "!journal.pages!czqLHWmdXEx9qgVf.MHC1Ru1GL4UF0V4E"
+    },
+    {
+      "_id": "rnojIFoJH7xlkyx3",
+      "name": "What the system does for you",
+      "type": "text",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "text": {
+        "format": 1,
+        "content": "<p>Foilbound on Foundry stays close to pen and paper. It derives values and rolls dice. Three things are automated:</p>\n<ul>\n<li><strong>Strain</strong> lands on the Instrument's Primary Attribute when a learned Technique is rolled.</li>\n<li>A Stress Technique's chat card has a <strong>Stress</strong> button. Enter the target's Oppose and Resistance, pick the Type effect, and it reports the Stress. Applying it to the target stays manual.</li>\n<li><strong>Foil Token</strong> spends: halve one source's Stress from the sheet, or reroll one die from any roll's chat card.</li>\n</ul>\n<p>It does not roll Opposes, apply Stress to a target, adjudicate Conditions, or move Habits.</p>",
+        "markdown": ""
+      },
+      "image": {},
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "sort": 300000,
+      "ownership": {
+        "default": -1
+      },
+      "flags": {},
+      "_key": "!journal.pages!czqLHWmdXEx9qgVf.rnojIFoJH7xlkyx3"
+    }
+  ],
+  "_key": "!journal!czqLHWmdXEx9qgVf"
+}

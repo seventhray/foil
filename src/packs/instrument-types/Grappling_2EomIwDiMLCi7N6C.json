@@ -1,0 +1,28 @@
+{
+  "_id": "2EomIwDiMLCi7N6C",
+  "name": "Grappling",
+  "type": "instrumentType",
+  "img": "icons/svg/upgrade.svg",
+  "system": {
+    "key": "grappling",
+    "family": "melee",
+    "stressPhysical": 0,
+    "stressMental": 0,
+    "pierce": 0,
+    "doubleResistance": false,
+    "dealsNoStress": true,
+    "quick": false,
+    "blocking": false,
+    "reload": "",
+    "isTool": false,
+    "description": "<p>Adds no Stress.</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 1200000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!2EomIwDiMLCi7N6C"
+}

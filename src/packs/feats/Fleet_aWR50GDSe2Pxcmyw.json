@@ -1,0 +1,24 @@
+{
+  "_id": "aWR50GDSe2Pxcmyw",
+  "name": "Fleet",
+  "type": "feat",
+  "img": "icons/svg/upgrade.svg",
+  "system": {
+    "featType": "learned",
+    "xpCost": 8,
+    "requirements": "12 Finesse",
+    "effect": "Closing all the way into Touching range costs nothing extra.",
+    "ancestry": "",
+    "grantsTechnique": "",
+    "modifiers": [],
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 2300000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!aWR50GDSe2Pxcmyw"
+}

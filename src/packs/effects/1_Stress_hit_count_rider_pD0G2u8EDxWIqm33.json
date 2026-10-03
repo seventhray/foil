@@ -1,0 +1,28 @@
+{
+  "_id": "pD0G2u8EDxWIqm33",
+  "name": "+1 Stress (hit-count rider)",
+  "type": "effect",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "key": "stress-rider",
+    "requires": [],
+    "pricingKind": "flat",
+    "pricingParams": {
+      "base": 8,
+      "perPoint": 0,
+      "perBand": 1
+    },
+    "magnitudeLabel": "",
+    "exemptFromPremium": false,
+    "setsFloor": false,
+    "description": "<p>+1 Stress on a landed hit.</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 200000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!pD0G2u8EDxWIqm33"
+}

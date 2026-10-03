@@ -1,6 +1,5 @@
-packs/*/LOCK
-packs/*/LOG
-packs/*/LOG.old
+# Compiled compendiums: built from src/packs by `npm run build`.
+/packs/
 node_modules/
 *.zip
 tools/local-paths.json

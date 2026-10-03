@@ -1,0 +1,32 @@
+{
+  "_id": "Q3bz5H3e82z8KANR",
+  "name": "Climbing Kit",
+  "type": "instrument",
+  "img": "icons/svg/pick.svg",
+  "system": {
+    "category": "tool",
+    "weight": "light",
+    "primaryAttribute": "might",
+    "range": "Touching",
+    "types": [
+      "tool"
+    ],
+    "typesDisplay": "Tool",
+    "price": 10,
+    "rider": "",
+    "kit": [],
+    "innate": false,
+    "bonus": 0,
+    "size": "medium",
+    "materials": "Metal",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 5300000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!Q3bz5H3e82z8KANR"
+}

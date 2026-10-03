@@ -1,0 +1,40 @@
+{
+  "_id": "Z9Xx5Uojd4vtdEKE",
+  "name": "Steady Nerve",
+  "type": "technique",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "requires": [
+      "blocking"
+    ],
+    "requiresText": "Blocking AND any Arcane",
+    "innate": false,
+    "skill": "",
+    "family": "Block",
+    "subgroup": "Guard",
+    "effects": [
+      {
+        "key": "skill-mod",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveN": 0,
+        "selectiveR": 0
+      }
+    ],
+    "floor": true,
+    "xpOverride": 8,
+    "effectText": "Gain +1 to your Opposes until your next turn, Strain 1",
+    "ancestryGrant": "",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 300000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!Z9Xx5Uojd4vtdEKE"
+}

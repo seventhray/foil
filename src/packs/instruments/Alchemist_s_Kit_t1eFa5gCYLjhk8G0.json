@@ -1,0 +1,32 @@
+{
+  "_id": "t1eFa5gCYLjhk8G0",
+  "name": "Alchemist's Kit",
+  "type": "instrument",
+  "img": "icons/svg/pick.svg",
+  "system": {
+    "category": "tool",
+    "weight": "light",
+    "primaryAttribute": "wit",
+    "range": "Touching",
+    "types": [
+      "craft-reagent"
+    ],
+    "typesDisplay": "Craft [Reagent]",
+    "price": 20,
+    "rider": "",
+    "kit": [],
+    "innate": false,
+    "bonus": 0,
+    "size": "medium",
+    "materials": "Reagent",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 4000000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!t1eFa5gCYLjhk8G0"
+}

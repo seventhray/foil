@@ -1,0 +1,48 @@
+{
+  "_id": "THF3Agcslc9qPABG",
+  "name": "Siege Horn",
+  "type": "instrument",
+  "img": "icons/svg/sword.svg",
+  "system": {
+    "category": "sonic",
+    "weight": "heavy",
+    "primaryAttribute": "might",
+    "range": "Long Range",
+    "types": [
+      "sonic"
+    ],
+    "typesDisplay": "",
+    "price": 55,
+    "rider": "",
+    "kit": [
+      {
+        "name": "Earth-Shaking Blast",
+        "skill": "prowess",
+        "effect": "Deals Stress to Wit or Presence."
+      },
+      {
+        "name": "Relentless Din",
+        "skill": "discipline",
+        "effect": "Applies Reeling."
+      },
+      {
+        "name": "Siege Cry",
+        "skill": "assertiveness",
+        "effect": "Applies Intimidated."
+      }
+    ],
+    "innate": false,
+    "bonus": 0,
+    "size": "large",
+    "materials": "Metal",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 3600000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!THF3Agcslc9qPABG"
+}

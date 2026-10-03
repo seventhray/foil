@@ -1,0 +1,37 @@
+{
+  "_id": "8jI1eHHLfaDWA8rr",
+  "name": "Tower Shield",
+  "type": "equipment",
+  "img": "icons/svg/shield.svg",
+  "system": {
+    "category": "shield",
+    "price": 45,
+    "weight": 0,
+    "weightClass": "medium",
+    "size": "large",
+    "materials": "Wood + Metal",
+    "location": "carried",
+    "qualities": [
+      {
+        "key": "resistance",
+        "value": 2,
+        "param": "physical"
+      }
+    ],
+    "uses": "",
+    "duration": "",
+    "effect": "Blocking",
+    "gemType": "",
+    "tier": 1,
+    "notes": "",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 1000000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!8jI1eHHLfaDWA8rr"
+}

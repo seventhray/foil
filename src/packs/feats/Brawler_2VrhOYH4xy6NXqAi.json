@@ -1,0 +1,24 @@
+{
+  "_id": "2VrhOYH4xy6NXqAi",
+  "name": "Brawler",
+  "type": "feat",
+  "img": "icons/svg/upgrade.svg",
+  "system": {
+    "featType": "learned",
+    "xpCost": 12,
+    "requirements": "12 Might, 12 Finesse",
+    "effect": "Your Melee Techniques gain +1.",
+    "ancestry": "",
+    "grantsTechnique": "",
+    "modifiers": [],
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 2100000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!2VrhOYH4xy6NXqAi"
+}

@@ -1,0 +1,31 @@
+{
+  "_id": "LHmYr3GIXjZxVjcU",
+  "name": "Enthralled",
+  "type": "effect",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "key": "enthralled",
+    "requires": [
+      "incorporeal",
+      "sonic"
+    ],
+    "pricingKind": "flat",
+    "pricingParams": {
+      "base": 20,
+      "perPoint": 0,
+      "perBand": 1
+    },
+    "magnitudeLabel": "",
+    "exemptFromPremium": false,
+    "setsFloor": false,
+    "description": "<p>PHB 6.8.17.</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 3600000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!LHmYr3GIXjZxVjcU"
+}

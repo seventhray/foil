@@ -1,0 +1,24 @@
+{
+  "_id": "CP9KNHb7iBKqWJVJ",
+  "name": "Darkvision",
+  "type": "feat",
+  "img": "icons/svg/upgrade.svg",
+  "system": {
+    "featType": "trait",
+    "xpCost": 0,
+    "requirements": "Night eyes",
+    "effect": "See in dim light and darkness as though it were lit. Doesn't help against no light at all.",
+    "ancestry": "",
+    "grantsTechnique": "",
+    "modifiers": [],
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 4000000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!CP9KNHb7iBKqWJVJ"
+}

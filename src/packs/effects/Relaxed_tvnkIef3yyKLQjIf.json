@@ -1,0 +1,31 @@
+{
+  "_id": "tvnkIef3yyKLQjIf",
+  "name": "Relaxed",
+  "type": "effect",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "key": "relaxed",
+    "requires": [
+      "incorporeal",
+      "sonic"
+    ],
+    "pricingKind": "flat",
+    "pricingParams": {
+      "base": 8,
+      "perPoint": 0,
+      "perBand": 1
+    },
+    "magnitudeLabel": "",
+    "exemptFromPremium": false,
+    "setsFloor": false,
+    "description": "<p>PHB 6.8.14.</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 3300000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!tvnkIef3yyKLQjIf"
+}

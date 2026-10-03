@@ -1,0 +1,48 @@
+{
+  "_id": "OwtB9vUtloZf5dGn",
+  "name": "Maul",
+  "type": "instrument",
+  "img": "icons/svg/sword.svg",
+  "system": {
+    "category": "melee",
+    "weight": "heavy",
+    "primaryAttribute": "might",
+    "range": "Close",
+    "types": [
+      "blunt"
+    ],
+    "typesDisplay": "",
+    "price": 50,
+    "rider": "",
+    "kit": [
+      {
+        "name": "Smash",
+        "skill": "prowess",
+        "effect": "Deals Stress to Might or Finesse."
+      },
+      {
+        "name": "Bonebreaker",
+        "skill": "discipline",
+        "effect": "Applies Prone."
+      },
+      {
+        "name": "Dread Blow",
+        "skill": "assertiveness",
+        "effect": "Deals Stress to Presence or Wit."
+      }
+    ],
+    "innate": false,
+    "bonus": 0,
+    "size": "medium",
+    "materials": "Metal + Wood",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 2100000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!OwtB9vUtloZf5dGn"
+}

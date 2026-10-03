@@ -1,0 +1,31 @@
+{
+  "_id": "q2sCBdAi4Ea5Lcqd",
+  "name": "Angered",
+  "type": "effect",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "key": "angered",
+    "requires": [
+      "incorporeal",
+      "sonic"
+    ],
+    "pricingKind": "flat",
+    "pricingParams": {
+      "base": 8,
+      "perPoint": 0,
+      "perBand": 1
+    },
+    "magnitudeLabel": "",
+    "exemptFromPremium": false,
+    "setsFloor": false,
+    "description": "<p>PHB 6.8.13.</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 3200000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!q2sCBdAi4Ea5Lcqd"
+}

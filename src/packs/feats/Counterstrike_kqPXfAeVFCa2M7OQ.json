@@ -1,0 +1,24 @@
+{
+  "_id": "kqPXfAeVFCa2M7OQ",
+  "name": "Counterstrike",
+  "type": "feat",
+  "img": "icons/svg/upgrade.svg",
+  "system": {
+    "featType": "learned",
+    "xpCost": 8,
+    "requirements": "12 Might, 12 Finesse",
+    "effect": "When you Oppose a melee Technique within Close range using Prowess and beat it, deal 1d4 Stress to the attacker's Might.",
+    "ancestry": "",
+    "grantsTechnique": "",
+    "modifiers": [],
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 2500000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!kqPXfAeVFCa2M7OQ"
+}

@@ -1,0 +1,48 @@
+{
+  "_id": "Gfv4QAOZz6uOE0RO",
+  "name": "Sling",
+  "type": "instrument",
+  "img": "icons/svg/sword.svg",
+  "system": {
+    "category": "ranged",
+    "weight": "light",
+    "primaryAttribute": "finesse",
+    "range": "Mid Range",
+    "types": [
+      "thrown"
+    ],
+    "typesDisplay": "",
+    "price": 25,
+    "rider": "",
+    "kit": [
+      {
+        "name": "Sling Shot",
+        "skill": "prowess",
+        "effect": "Deals Stress to Might or Finesse."
+      },
+      {
+        "name": "Ricochet",
+        "skill": "acuity",
+        "effect": "Applies Weakened [Finesse]."
+      },
+      {
+        "name": "Rattle",
+        "skill": "guile",
+        "effect": "Applies Frightened."
+      }
+    ],
+    "innate": false,
+    "bonus": 0,
+    "size": "small",
+    "materials": "Leather",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 2500000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!Gfv4QAOZz6uOE0RO"
+}

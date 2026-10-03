@@ -1,0 +1,28 @@
+{
+  "_id": "rU82dsKDA7MbOhUX",
+  "name": "Craft [Gemstone]",
+  "type": "instrumentType",
+  "img": "icons/svg/upgrade.svg",
+  "system": {
+    "key": "craft-gemstone",
+    "family": "other",
+    "stressPhysical": 0,
+    "stressMental": 0,
+    "pierce": 0,
+    "doubleResistance": false,
+    "dealsNoStress": false,
+    "quick": false,
+    "blocking": false,
+    "reload": "",
+    "isTool": true,
+    "description": "<p>A Craft Trade roll working Gemstone.</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 2100000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!rU82dsKDA7MbOhUX"
+}

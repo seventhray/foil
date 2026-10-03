@@ -1,0 +1,31 @@
+{
+  "_id": "UYubtEAszt6qV0Oz",
+  "name": "Torch",
+  "type": "equipment",
+  "img": "icons/svg/item-bag.svg",
+  "system": {
+    "category": "gear",
+    "price": 1,
+    "weight": 0,
+    "weightClass": "",
+    "size": "small",
+    "materials": "",
+    "location": "carried",
+    "qualities": [],
+    "uses": "1",
+    "duration": "1 hour",
+    "effect": "Light in the dark",
+    "gemType": "",
+    "tier": 1,
+    "notes": "",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 2600000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!UYubtEAszt6qV0Oz"
+}

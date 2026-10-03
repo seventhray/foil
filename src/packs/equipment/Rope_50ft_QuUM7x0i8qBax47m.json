@@ -1,0 +1,31 @@
+{
+  "_id": "QuUM7x0i8qBax47m",
+  "name": "Rope (50ft)",
+  "type": "equipment",
+  "img": "icons/svg/item-bag.svg",
+  "system": {
+    "category": "gear",
+    "price": 2,
+    "weight": 0,
+    "weightClass": "",
+    "size": "small",
+    "materials": "",
+    "location": "carried",
+    "qualities": [],
+    "uses": "",
+    "duration": "",
+    "effect": "Climbing, binding, hauling",
+    "gemType": "",
+    "tier": 1,
+    "notes": "",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 2500000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!QuUM7x0i8qBax47m"
+}

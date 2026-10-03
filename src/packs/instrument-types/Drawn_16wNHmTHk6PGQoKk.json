@@ -1,0 +1,28 @@
+{
+  "_id": "16wNHmTHk6PGQoKk",
+  "name": "Drawn",
+  "type": "instrumentType",
+  "img": "icons/svg/upgrade.svg",
+  "system": {
+    "key": "drawn",
+    "family": "ranged",
+    "stressPhysical": 2,
+    "stressMental": 2,
+    "pierce": 0,
+    "doubleResistance": false,
+    "dealsNoStress": false,
+    "quick": false,
+    "blocking": false,
+    "reload": "quick",
+    "isTool": false,
+    "description": "<p>+2 Stress. Reload: Quick Action.</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 600000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!16wNHmTHk6PGQoKk"
+}

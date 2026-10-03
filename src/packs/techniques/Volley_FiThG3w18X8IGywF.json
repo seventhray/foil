@@ -1,0 +1,51 @@
+{
+  "_id": "FiThG3w18X8IGywF",
+  "name": "Volley",
+  "type": "technique",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "requires": [
+      "thrown",
+      "drawn",
+      "fired"
+    ],
+    "requiresText": "Ranged",
+    "innate": false,
+    "skill": "",
+    "family": "Ranged",
+    "subgroup": "Area",
+    "effects": [
+      {
+        "key": "stress",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveN": 0,
+        "selectiveR": 0
+      },
+      {
+        "key": "pattern",
+        "magnitude": 1,
+        "pattern": "cone",
+        "bands": 2,
+        "placement": 0,
+        "selectiveN": 0,
+        "selectiveR": 0
+      }
+    ],
+    "floor": false,
+    "xpOverride": 17,
+    "effectText": "Stress, Cone (Near), Strain 2",
+    "ancestryGrant": "",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 8800000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!FiThG3w18X8IGywF"
+}

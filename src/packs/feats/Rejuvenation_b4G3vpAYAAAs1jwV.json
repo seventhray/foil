@@ -1,0 +1,24 @@
+{
+  "_id": "b4G3vpAYAAAs1jwV",
+  "name": "Rejuvenation",
+  "type": "feat",
+  "img": "icons/svg/upgrade.svg",
+  "system": {
+    "featType": "trait",
+    "xpCost": 0,
+    "requirements": "Undying body",
+    "effect": "If you would be Destroyed, every Attribute's Stress clears instead after a GM-set span (typically 1d10 days) unless a stated counter-condition (a phylactery destroyed, a body burned and scattered, whatever anchors your return) is met first.",
+    "ancestry": "",
+    "grantsTechnique": "",
+    "modifiers": [],
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 3900000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!b4G3vpAYAAAs1jwV"
+}

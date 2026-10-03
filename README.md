@@ -28,17 +28,22 @@ git clone https://github.com/seventhray/foil.git foil
 
 ## Development
 
-The tools in `tools/` rebuild the compendiums from the rulebook Markdown and check the system against it. They need Node, Python 3 with PyYAML, the Foundry install (for its bundled `node_modules`), and the rulebook files. Set two paths as environment variables, or in `tools/local-paths.json` (ignored by git):
+Compendium content lives as JSON source in `src/packs/<pack>/`, one file per document. The compiled packs in `packs/` are built from it and aren't committed.
+
+Setup needs Node and `npm install`, which brings in the official [Foundry VTT CLI](https://github.com/foundryvtt/foundryvtt-cli). Seeding from the books also needs Python 3 with PyYAML and the rulebook files. The headless checks need the Foundry install, for its bundled Handlebars and application API. Set both paths as environment variables, or in `tools/local-paths.json` (ignored by git):
 
 ```json
 { "FOIL_BOOKS": "/path/to/rulebooks", "FOUNDRY_APP": "/path/to/foundryvtt" }
 ```
 
-- `node tools/populate-packs.mjs` rebuilds the compendiums. Close Foundry first; its compendiums can't be written while it's running. `--dry-run` writes nothing.
-- `node tools/verify/run.mjs` runs the headless checks.
+- `npm run seed` regenerates `src/packs/` from the books and compiles `packs/`. IDs come from each document's identity, so reseeding unchanged books changes no file. `--dry-run` writes nothing.
+- `npm run build` compiles `packs/` from `src/packs/` alone.
+- `npm run verify` runs the headless checks.
 
-To publish a release, bump `version` and the `download` URL in `system.json`, commit, and run `tools/release.sh`.
+To publish a release, bump `version` and the `download` URL in `system.json`, commit, and run `npm run release`. It builds the packs and zips them with the runtime files.
 
 ## License
 
-No license yet. All rights reserved.
+The code is released under the [MIT License](LICENSE). It covers the JavaScript, templates, styles, and build tools.
+
+The Foilbound game content is © 2026 seventhray, all rights reserved. That content is the rules text and game data in the compendiums (`src/packs/`, `packs/`), the Habit Tables in `src/habits.js`, and the rules text in `tools/guide-content.mjs`.

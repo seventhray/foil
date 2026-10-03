@@ -1,0 +1,49 @@
+{
+  "_id": "lY8m2ccevYi6DAXz",
+  "name": "Quarterstaff",
+  "type": "instrument",
+  "img": "icons/svg/sword.svg",
+  "system": {
+    "category": "melee",
+    "weight": "medium",
+    "primaryAttribute": "finesse",
+    "range": "Near",
+    "types": [
+      "blunt",
+      "blocking"
+    ],
+    "typesDisplay": "",
+    "price": 45,
+    "rider": "",
+    "kit": [
+      {
+        "name": "Bash",
+        "skill": "prowess",
+        "effect": "Deals Stress to Might or Finesse."
+      },
+      {
+        "name": "Sweep",
+        "skill": "acuity",
+        "effect": "Applies Prone."
+      },
+      {
+        "name": "Feint Jab",
+        "skill": "guile",
+        "effect": "Applies Reeling."
+      }
+    ],
+    "innate": false,
+    "bonus": 0,
+    "size": "medium",
+    "materials": "Wood",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 1500000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!lY8m2ccevYi6DAXz"
+}

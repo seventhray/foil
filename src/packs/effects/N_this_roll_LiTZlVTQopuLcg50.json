@@ -1,0 +1,28 @@
+{
+  "_id": "LiTZlVTQopuLcg50",
+  "name": "+N (this roll)",
+  "type": "effect",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "key": "roll-bonus",
+    "requires": [],
+    "pricingKind": "perPoint",
+    "pricingParams": {
+      "base": 0,
+      "perPoint": 6,
+      "perBand": 1
+    },
+    "magnitudeLabel": "+N",
+    "exemptFromPremium": false,
+    "setsFloor": false,
+    "description": "<p>+N to this Technique's own roll.</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 500000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!LiTZlVTQopuLcg50"
+}

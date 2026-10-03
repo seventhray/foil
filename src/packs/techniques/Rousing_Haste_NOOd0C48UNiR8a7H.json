@@ -1,0 +1,49 @@
+{
+  "_id": "NOOd0C48UNiR8a7H",
+  "name": "Rousing Haste",
+  "type": "technique",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "requires": [
+      "fortifying"
+    ],
+    "requiresText": "Fortifying",
+    "innate": false,
+    "skill": "",
+    "family": "Fortifying",
+    "subgroup": "Haste",
+    "effects": [
+      {
+        "key": "hasten-action",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveN": 0,
+        "selectiveR": 0
+      },
+      {
+        "key": "skill-mod",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveN": 0,
+        "selectiveR": 0
+      }
+    ],
+    "floor": true,
+    "xpOverride": 24,
+    "effectText": "Hasten (Action) to an ally and +1, Strain 3",
+    "ancestryGrant": "",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 1100000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!NOOd0C48UNiR8a7H"
+}

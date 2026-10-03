@@ -1,0 +1,24 @@
+{
+  "_id": "DRwDvZLcDu6XU2cw",
+  "name": "Silver Tongue",
+  "type": "feat",
+  "img": "icons/svg/upgrade.svg",
+  "system": {
+    "featType": "trait",
+    "xpCost": 0,
+    "requirements": "Silver voice",
+    "effect": "Your Techniques that target Wit or Presence gain +1.",
+    "ancestry": "",
+    "grantsTechnique": "",
+    "modifiers": [],
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 3700000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!DRwDvZLcDu6XU2cw"
+}

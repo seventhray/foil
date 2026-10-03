@@ -1,0 +1,40 @@
+{
+  "_id": "i7rnjt7JMLpHqSJZ",
+  "name": "Shielding Ward",
+  "type": "technique",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "requires": [
+      "blocking"
+    ],
+    "requiresText": "Blocking",
+    "innate": false,
+    "skill": "",
+    "family": "Block",
+    "subgroup": "Guard",
+    "effects": [
+      {
+        "key": "resistance",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveN": 0,
+        "selectiveR": 0
+      }
+    ],
+    "floor": true,
+    "xpOverride": 8,
+    "effectText": "Gain Resistance +1 of the kind your block covers until your next turn, Strain 1",
+    "ancestryGrant": "",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 200000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!i7rnjt7JMLpHqSJZ"
+}

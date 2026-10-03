@@ -1,0 +1,49 @@
+{
+  "_id": "lVUsW7s6YoQPuTfp",
+  "name": "Soul Leech",
+  "type": "technique",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "requires": [
+      "incorporeal"
+    ],
+    "requiresText": "Incorporeal",
+    "innate": false,
+    "skill": "",
+    "family": "Incorporeal",
+    "subgroup": "Draining",
+    "effects": [
+      {
+        "key": "stress",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveN": 0,
+        "selectiveR": 0
+      },
+      {
+        "key": "drain",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveN": 0,
+        "selectiveR": 0
+      }
+    ],
+    "floor": false,
+    "xpOverride": 16,
+    "effectText": "Stress, Drain, Strain 2",
+    "ancestryGrant": "",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 3400000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!lVUsW7s6YoQPuTfp"
+}

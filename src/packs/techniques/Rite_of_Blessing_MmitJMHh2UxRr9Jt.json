@@ -1,0 +1,49 @@
+{
+  "_id": "MmitJMHh2UxRr9Jt",
+  "name": "Rite of Blessing",
+  "type": "technique",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "requires": [
+      "fortifying"
+    ],
+    "requiresText": "Fortifying",
+    "innate": false,
+    "skill": "",
+    "family": "Fortifying",
+    "subgroup": "Group Support (Selective)",
+    "effects": [
+      {
+        "key": "selective",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveN": 4,
+        "selectiveR": 2
+      },
+      {
+        "key": "roll-bonus",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveN": 0,
+        "selectiveR": 0
+      }
+    ],
+    "floor": true,
+    "xpOverride": 22,
+    "effectText": "+1 to up to 4 allies within Near (Selective), Strain 2",
+    "ancestryGrant": "",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 800000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!MmitJMHh2UxRr9Jt"
+}

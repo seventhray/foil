@@ -1,0 +1,31 @@
+{
+  "_id": "taADc8xw4rvC3c1C",
+  "name": "Herald",
+  "type": "background",
+  "img": "icons/svg/book.svg",
+  "system": {
+    "training": {
+      "prowess": 0,
+      "discipline": 0,
+      "assertiveness": 1,
+      "acuity": 1,
+      "guile": 0,
+      "resonance": 1
+    },
+    "knowHow": [
+      "presence",
+      "wit"
+    ],
+    "coin": "20p",
+    "equipmentKit": "Dagger, Fitted Leathers, Speaking Trumpet.",
+    "description": "<p>Carried a lord's word to crowds and courts alike, trained to be heard and believed in the same breath.</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 1200000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!taADc8xw4rvC3c1C"
+}

@@ -1,0 +1,49 @@
+{
+  "_id": "XZxnT1oH9RgaBRBQ",
+  "name": "Flute",
+  "type": "instrument",
+  "img": "icons/svg/sword.svg",
+  "system": {
+    "category": "sonic",
+    "weight": "light",
+    "primaryAttribute": "presence",
+    "range": "Mid Range",
+    "types": [
+      "sonic",
+      "tool"
+    ],
+    "typesDisplay": "",
+    "price": 15,
+    "rider": "",
+    "kit": [
+      {
+        "name": "Piercing Note",
+        "skill": "assertiveness",
+        "effect": "Applies Intimidated."
+      },
+      {
+        "name": "Beguiling Melody",
+        "skill": "guile",
+        "effect": "Applies Charmed."
+      },
+      {
+        "name": "Haunting Refrain",
+        "skill": "resonance",
+        "effect": "Deals Stress to Wit or Presence."
+      }
+    ],
+    "innate": false,
+    "bonus": 0,
+    "size": "small",
+    "materials": "Wood",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 3200000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!XZxnT1oH9RgaBRBQ"
+}

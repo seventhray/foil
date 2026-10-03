@@ -1,0 +1,28 @@
+{
+  "_id": "1Bk9HoBmeAhC2DXE",
+  "name": "Kinetic",
+  "type": "instrumentType",
+  "img": "icons/svg/upgrade.svg",
+  "system": {
+    "key": "kinetic",
+    "family": "arcane",
+    "stressPhysical": 1,
+    "stressMental": -1,
+    "pierce": 0,
+    "doubleResistance": false,
+    "dealsNoStress": false,
+    "quick": false,
+    "blocking": false,
+    "reload": "",
+    "isTool": false,
+    "description": "<p>+1 Stress against a physical Attribute. -1 against a mental Attribute.</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 800000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!1Bk9HoBmeAhC2DXE"
+}

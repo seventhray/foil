@@ -1,0 +1,35 @@
+{
+  "_id": "dnncg710ykT842Bz",
+  "name": "Disarm",
+  "type": "effect",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "key": "disarm",
+    "requires": [
+      "edged",
+      "pointed",
+      "blunt",
+      "grappling",
+      "parry",
+      "kinetic"
+    ],
+    "pricingKind": "flat",
+    "pricingParams": {
+      "base": 8,
+      "perPoint": 0,
+      "perBand": 1
+    },
+    "magnitudeLabel": "",
+    "exemptFromPremium": false,
+    "setsFloor": false,
+    "description": "<p>The target drops the Instrument it used last. Innate Instruments can't be dropped.</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 1200000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!dnncg710ykT842Bz"
+}

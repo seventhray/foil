@@ -1,0 +1,49 @@
+{
+  "_id": "5ZUQACXMLxrtm4iE",
+  "name": "Break",
+  "type": "technique",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "requires": [
+      "blunt"
+    ],
+    "requiresText": "Blunt",
+    "innate": false,
+    "skill": "",
+    "family": "Melee",
+    "subgroup": "Debilitating",
+    "effects": [
+      {
+        "key": "stress",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveN": 0,
+        "selectiveR": 0
+      },
+      {
+        "key": "weaken",
+        "magnitude": 2,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveN": 0,
+        "selectiveR": 0
+      }
+    ],
+    "floor": false,
+    "xpOverride": 44,
+    "effectText": "Stress, -2 [target Attribute], Strain 5",
+    "ancestryGrant": "",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 8000000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!5ZUQACXMLxrtm4iE"
+}

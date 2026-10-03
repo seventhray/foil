@@ -1,0 +1,49 @@
+{
+  "_id": "7B95MYHuPOPqRmTL",
+  "name": "Greatsword",
+  "type": "instrument",
+  "img": "icons/svg/sword.svg",
+  "system": {
+    "category": "melee",
+    "weight": "heavy",
+    "primaryAttribute": "might",
+    "range": "Close",
+    "types": [
+      "edged",
+      "pointed"
+    ],
+    "typesDisplay": "",
+    "price": 60,
+    "rider": "",
+    "kit": [
+      {
+        "name": "Heavy Swing",
+        "skill": "prowess",
+        "effect": "Deals Stress to Might or Finesse."
+      },
+      {
+        "name": "Skewer",
+        "skill": "discipline",
+        "effect": "Applies Prone."
+      },
+      {
+        "name": "Crushing Display",
+        "skill": "assertiveness",
+        "effect": "Deals Stress to Presence or Wit."
+      }
+    ],
+    "innate": false,
+    "bonus": 0,
+    "size": "medium",
+    "materials": "Metal + Leather",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 2000000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!7B95MYHuPOPqRmTL"
+}

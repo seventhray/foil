@@ -1,0 +1,42 @@
+{
+  "_id": "jo8xWVpEXDklhvNk",
+  "name": "Kite Shield",
+  "type": "equipment",
+  "img": "icons/svg/shield.svg",
+  "system": {
+    "category": "shield",
+    "price": 45,
+    "weight": 0,
+    "weightClass": "medium",
+    "size": "large",
+    "materials": "Wood + Metal",
+    "location": "carried",
+    "qualities": [
+      {
+        "key": "resistance",
+        "value": 1,
+        "param": "physical"
+      },
+      {
+        "key": "skill-bonus",
+        "value": 1,
+        "param": "prowess"
+      }
+    ],
+    "uses": "",
+    "duration": "",
+    "effect": "Blocking",
+    "gemType": "",
+    "tier": 1,
+    "notes": "",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 900000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!jo8xWVpEXDklhvNk"
+}

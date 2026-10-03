@@ -1,0 +1,33 @@
+{
+  "_id": "AecRhckctOz9uYip",
+  "name": "Move",
+  "type": "effect",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "key": "move",
+    "requires": [
+      "grappling",
+      "blunt",
+      "kinetic",
+      "incorporeal"
+    ],
+    "pricingKind": "flat",
+    "pricingParams": {
+      "base": 4,
+      "perPoint": 0,
+      "perBand": 1
+    },
+    "magnitudeLabel": "",
+    "exemptFromPremium": false,
+    "setsFloor": false,
+    "description": "<p>Move the target one band.</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 1100000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!AecRhckctOz9uYip"
+}

@@ -1,0 +1,49 @@
+{
+  "_id": "oBq98ia1IuizxPVC",
+  "name": "Concuss",
+  "type": "technique",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "requires": [
+      "blunt"
+    ],
+    "requiresText": "Blunt",
+    "innate": false,
+    "skill": "",
+    "family": "Melee",
+    "subgroup": "Debilitating",
+    "effects": [
+      {
+        "key": "stress",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveN": 0,
+        "selectiveR": 0
+      },
+      {
+        "key": "weaken",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveN": 0,
+        "selectiveR": 0
+      }
+    ],
+    "floor": false,
+    "xpOverride": 26,
+    "effectText": "Stress, -1 [target Attribute], Strain 3",
+    "ancestryGrant": "",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 7200000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!oBq98ia1IuizxPVC"
+}

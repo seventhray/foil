@@ -1,0 +1,31 @@
+{
+  "_id": "4afYMD1wjXqh45yK",
+  "name": "Smuggler",
+  "type": "background",
+  "img": "icons/svg/book.svg",
+  "system": {
+    "training": {
+      "prowess": 0,
+      "discipline": 0,
+      "assertiveness": 1,
+      "acuity": 1,
+      "guile": 1,
+      "resonance": 0
+    },
+    "knowHow": [
+      "finesse",
+      "presence"
+    ],
+    "coin": "15p",
+    "equipmentKit": "Dagger, Fitted Leathers, Disguise Kit.",
+    "description": "<p>Moved goods that weren't supposed to move, past checkpoints that weren't supposed to be avoidable.</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 1800000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!4afYMD1wjXqh45yK"
+}

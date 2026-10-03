@@ -1,0 +1,60 @@
+{
+  "_id": "8yWJDMulQWWLXgMw",
+  "name": "Marked Prey",
+  "type": "technique",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "requires": [
+      "thrown",
+      "drawn",
+      "fired"
+    ],
+    "requiresText": "Ranged",
+    "innate": false,
+    "skill": "",
+    "family": "Ranged",
+    "subgroup": "Piercing & Precision",
+    "effects": [
+      {
+        "key": "stress",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveN": 0,
+        "selectiveR": 0
+      },
+      {
+        "key": "pierce",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveN": 0,
+        "selectiveR": 0
+      },
+      {
+        "key": "roll-bonus",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveN": 0,
+        "selectiveR": 0
+      }
+    ],
+    "floor": false,
+    "xpOverride": 22,
+    "effectText": "Stress, Pierce 1, +1, Strain 2",
+    "ancestryGrant": "Votwalder",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 9400000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!8yWJDMulQWWLXgMw"
+}

@@ -1,0 +1,31 @@
+{
+  "_id": "q7nPY3FiW7h17HhT",
+  "name": "Illusion",
+  "type": "effect",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "key": "illusion",
+    "requires": [
+      "incorporeal",
+      "sonic"
+    ],
+    "pricingKind": "flat",
+    "pricingParams": {
+      "base": 8,
+      "perPoint": 0,
+      "perBand": 1
+    },
+    "magnitudeLabel": "",
+    "exemptFromPremium": false,
+    "setsFloor": false,
+    "description": "<p>A false sight or sound.</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 1400000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!q7nPY3FiW7h17HhT"
+}

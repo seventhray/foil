@@ -1,0 +1,48 @@
+{
+  "_id": "q9UacLYd0YXJeECD",
+  "name": "Mending Focus",
+  "type": "instrument",
+  "img": "icons/svg/sword.svg",
+  "system": {
+    "category": "arcane",
+    "weight": "light",
+    "primaryAttribute": "presence",
+    "range": "Short Range",
+    "types": [
+      "fortifying"
+    ],
+    "typesDisplay": "",
+    "price": 20,
+    "rider": "",
+    "kit": [
+      {
+        "name": "Steadying Word",
+        "skill": "assertiveness",
+        "effect": "Grants +1 to an ally's next roll."
+      },
+      {
+        "name": "Talk Down",
+        "skill": "guile",
+        "effect": "Removes a Frightened or Wary Condition from an ally."
+      },
+      {
+        "name": "Soothing Touch",
+        "skill": "resonance",
+        "effect": "Removes 1 Stress from an ally's Attribute."
+      }
+    ],
+    "innate": false,
+    "bonus": 0,
+    "size": "small",
+    "materials": "Metal",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 500000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!q9UacLYd0YXJeECD"
+}

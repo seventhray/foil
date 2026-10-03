@@ -1,0 +1,53 @@
+{
+  "_id": "XJoJcoAgWBEIgWnO",
+  "name": "Relentless Blow",
+  "type": "technique",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "requires": [
+      "edged",
+      "pointed",
+      "blunt",
+      "grappling",
+      "parry"
+    ],
+    "requiresText": "Melee",
+    "innate": false,
+    "skill": "",
+    "family": "Melee",
+    "subgroup": "Piercing",
+    "effects": [
+      {
+        "key": "stress",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveN": 0,
+        "selectiveR": 0
+      },
+      {
+        "key": "pierce",
+        "magnitude": 5,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveN": 0,
+        "selectiveR": 0
+      }
+    ],
+    "floor": false,
+    "xpOverride": 28,
+    "effectText": "Stress, Pierce 5, Strain 3",
+    "ancestryGrant": "Tashtars",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 8200000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!XJoJcoAgWBEIgWnO"
+}

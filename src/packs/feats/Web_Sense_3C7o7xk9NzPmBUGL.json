@@ -1,0 +1,24 @@
+{
+  "_id": "3C7o7xk9NzPmBUGL",
+  "name": "Web Sense",
+  "type": "feat",
+  "img": "icons/svg/upgrade.svg",
+  "system": {
+    "featType": "trait",
+    "xpCost": 0,
+    "requirements": "this creature also has Web",
+    "effect": "Sense anything touching a Web this creature has placed, anywhere on it, without a roll.",
+    "ancestry": "",
+    "grantsTechnique": "",
+    "modifiers": [],
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 4400000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!3C7o7xk9NzPmBUGL"
+}

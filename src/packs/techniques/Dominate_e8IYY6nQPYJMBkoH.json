@@ -1,0 +1,49 @@
+{
+  "_id": "e8IYY6nQPYJMBkoH",
+  "name": "Dominate",
+  "type": "technique",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "requires": [
+      "incorporeal"
+    ],
+    "requiresText": "Incorporeal",
+    "innate": false,
+    "skill": "",
+    "family": "Incorporeal",
+    "subgroup": "Control",
+    "effects": [
+      {
+        "key": "controlled",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveN": 0,
+        "selectiveR": 0
+      },
+      {
+        "key": "upkeep",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveN": 0,
+        "selectiveR": 0
+      }
+    ],
+    "floor": false,
+    "xpOverride": 25,
+    "effectText": "Controlled, Upkeep, Strain 3",
+    "ancestryGrant": "",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 4600000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!e8IYY6nQPYJMBkoH"
+}

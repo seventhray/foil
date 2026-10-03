@@ -1,0 +1,32 @@
+{
+  "_id": "rsfRURnJPY5aSlRS",
+  "name": "Weaver's Tools",
+  "type": "instrument",
+  "img": "icons/svg/pick.svg",
+  "system": {
+    "category": "tool",
+    "weight": "light",
+    "primaryAttribute": "finesse",
+    "range": "Touching",
+    "types": [
+      "craft-textile"
+    ],
+    "typesDisplay": "Craft [Textile]",
+    "price": 14,
+    "rider": "",
+    "kit": [],
+    "innate": false,
+    "bonus": 0,
+    "size": "medium",
+    "materials": "Textile",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 4600000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!rsfRURnJPY5aSlRS"
+}

@@ -1,0 +1,30 @@
+{
+  "_id": "D7PsiXAklCycAjmx",
+  "name": "Sun-Steady Eyes",
+  "type": "feat",
+  "img": "icons/svg/upgrade.svg",
+  "system": {
+    "featType": "ancestry",
+    "xpCost": 0,
+    "requirements": "",
+    "effect": "+2 Training in Acuity, and a further +1 on Acuity rolls made in bright light or open glare.",
+    "ancestry": "Gabrol Sandkin",
+    "grantsTechnique": "",
+    "modifiers": [
+      {
+        "type": "training",
+        "key": "acuity",
+        "value": 2
+      }
+    ],
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 100000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!D7PsiXAklCycAjmx"
+}

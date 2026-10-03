@@ -1,0 +1,32 @@
+{
+  "_id": "Ere6H2V5j99jyw0M",
+  "name": "Lockpicks",
+  "type": "instrument",
+  "img": "icons/svg/pick.svg",
+  "system": {
+    "category": "tool",
+    "weight": "light",
+    "primaryAttribute": "finesse",
+    "range": "Touching",
+    "types": [
+      "tool"
+    ],
+    "typesDisplay": "Tool",
+    "price": 10,
+    "rider": "",
+    "kit": [],
+    "innate": false,
+    "bonus": 0,
+    "size": "medium",
+    "materials": "Metal",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 5000000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!Ere6H2V5j99jyw0M"
+}

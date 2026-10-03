@@ -1,0 +1,49 @@
+{
+  "_id": "HDNYMaYv6byUVYiP",
+  "name": "Ward Focus",
+  "type": "instrument",
+  "img": "icons/svg/sword.svg",
+  "system": {
+    "category": "arcane",
+    "weight": "light",
+    "primaryAttribute": "wit",
+    "range": "Close",
+    "types": [
+      "blocking",
+      "fortifying"
+    ],
+    "typesDisplay": "",
+    "price": 20,
+    "rider": "",
+    "kit": [
+      {
+        "name": "Steel the Mind",
+        "skill": "discipline",
+        "effect": "Grants Resistance +1 (mental) to self or an ally until your next turn."
+      },
+      {
+        "name": "Foresee the Blow",
+        "skill": "acuity",
+        "effect": "Grants +1 to an ally's next Oppose roll before your next turn."
+      },
+      {
+        "name": "Calm the Nerves",
+        "skill": "resonance",
+        "effect": "Removes a Frightened, Wary, or Intimidated Condition from an ally within Close."
+      }
+    ],
+    "innate": false,
+    "bonus": 0,
+    "size": "small",
+    "materials": "Metal",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 300000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!HDNYMaYv6byUVYiP"
+}

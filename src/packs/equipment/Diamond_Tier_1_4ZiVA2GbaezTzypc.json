@@ -1,0 +1,31 @@
+{
+  "_id": "4ZiVA2GbaezTzypc",
+  "name": "Diamond (Tier 1)",
+  "type": "equipment",
+  "img": "icons/svg/ice-aura.svg",
+  "system": {
+    "category": "gem",
+    "price": 40,
+    "weight": 0,
+    "weightClass": "",
+    "size": "small",
+    "materials": "Gemstone",
+    "location": "carried",
+    "qualities": [],
+    "uses": "",
+    "duration": "",
+    "effect": "Resistance it grants +1 per Tier",
+    "gemType": "diamond",
+    "tier": 1,
+    "notes": "",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 4400000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!4ZiVA2GbaezTzypc"
+}

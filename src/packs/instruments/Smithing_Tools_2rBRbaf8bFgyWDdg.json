@@ -1,0 +1,33 @@
+{
+  "_id": "2rBRbaf8bFgyWDdg",
+  "name": "Smithing Tools",
+  "type": "instrument",
+  "img": "icons/svg/pick.svg",
+  "system": {
+    "category": "tool",
+    "weight": "light",
+    "primaryAttribute": "might",
+    "range": "Touching",
+    "types": [
+      "craft-metal",
+      "immobile"
+    ],
+    "typesDisplay": "Craft [Metal], Immobile",
+    "price": 20,
+    "rider": "",
+    "kit": [],
+    "innate": false,
+    "bonus": 0,
+    "size": "large",
+    "materials": "Metal",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 4300000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!2rBRbaf8bFgyWDdg"
+}

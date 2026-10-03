@@ -1,0 +1,49 @@
+{
+  "_id": "yeezLVYkImJk59mU",
+  "name": "Lute",
+  "type": "instrument",
+  "img": "icons/svg/sword.svg",
+  "system": {
+    "category": "sonic",
+    "weight": "light",
+    "primaryAttribute": "presence",
+    "range": "Mid Range",
+    "types": [
+      "sonic",
+      "tool"
+    ],
+    "typesDisplay": "",
+    "price": 15,
+    "rider": "",
+    "kit": [
+      {
+        "name": "Rousing Chord",
+        "skill": "assertiveness",
+        "effect": "Applies Intimidated."
+      },
+      {
+        "name": "Cutting Verse",
+        "skill": "guile",
+        "effect": "Applies Baited."
+      },
+      {
+        "name": "Discordant Note",
+        "skill": "resonance",
+        "effect": "Deals Stress to Wit or Presence."
+      }
+    ],
+    "innate": false,
+    "bonus": 0,
+    "size": "medium",
+    "materials": "Wood + Textile",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 3000000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!yeezLVYkImJk59mU"
+}

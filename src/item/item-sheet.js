@@ -81,7 +81,7 @@ export class FoilItemSheet extends HandlebarsApplicationMixin(ItemSheetV2Base) {
       categoryOptions: ["melee", "ranged", "arcane", "sonic", "tool", "innate"].map(k => opt(k, cap(k))),
       equipmentCategoryOptions: Object.entries(EQUIPMENT_CATEGORY_LABEL).map(([k, l]) => opt(k, l)),
       gemOptions: [opt("", "None"), ...Object.entries(FOCUS_GEMS).map(([k, g]) => opt(k, `${g.label}${g.damageType ? ` (${g.damageType})` : ""}`))],
-      featTypeOptions: [opt("learned", "Learned (bought with XP)"), opt("trait", "Trait (bought with XP)"), opt("ancestry", "Ancestry (granted, free)")],
+      featTypeOptions: [opt("learned", "Learned (bought with XP)"), opt("trait", "Trait (from a Transformation or a creature)"), opt("ancestry", "Ancestry (granted, free)")],
       dieOptions: [6, 8, 10, 12, 20].map(n => opt(n, `d${n}`)),
       patternShapes: PATTERN_SHAPES.map(s => opt(s, cap(s))),
       typeOptions: typeOptions(sys.requires ?? sys.types ?? []),

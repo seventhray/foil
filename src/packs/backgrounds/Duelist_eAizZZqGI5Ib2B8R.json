@@ -1,0 +1,31 @@
+{
+  "_id": "eAizZZqGI5Ib2B8R",
+  "name": "Duelist",
+  "type": "background",
+  "img": "icons/svg/book.svg",
+  "system": {
+    "training": {
+      "prowess": 1,
+      "discipline": 0,
+      "assertiveness": 1,
+      "acuity": 0,
+      "guile": 1,
+      "resonance": 0
+    },
+    "knowHow": [
+      "finesse",
+      "presence"
+    ],
+    "coin": "15p",
+    "equipmentKit": "Sabre, Fitted Leathers, Traveler Pack.",
+    "description": "<p>Settled quarrels one-on-one, by a code as sharp as the blade that enforces it.</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 600000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!eAizZZqGI5Ib2B8R"
+}

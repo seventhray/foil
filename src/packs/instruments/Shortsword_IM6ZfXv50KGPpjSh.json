@@ -1,0 +1,50 @@
+{
+  "_id": "IM6ZfXv50KGPpjSh",
+  "name": "Shortsword",
+  "type": "instrument",
+  "img": "icons/svg/sword.svg",
+  "system": {
+    "category": "melee",
+    "weight": "light",
+    "primaryAttribute": "finesse",
+    "range": "Close",
+    "types": [
+      "edged",
+      "pointed",
+      "parry"
+    ],
+    "typesDisplay": "",
+    "price": 30,
+    "rider": "",
+    "kit": [
+      {
+        "name": "Thrust",
+        "skill": "prowess",
+        "effect": "Deals Stress to Might or Finesse."
+      },
+      {
+        "name": "Precise Cut",
+        "skill": "acuity",
+        "effect": "Applies Weakened [Finesse]."
+      },
+      {
+        "name": "Feinted Slash",
+        "skill": "guile",
+        "effect": "Applies Reeling."
+      }
+    ],
+    "innate": false,
+    "bonus": 0,
+    "size": "medium",
+    "materials": "Metal + Leather",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 1300000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!IM6ZfXv50KGPpjSh"
+}

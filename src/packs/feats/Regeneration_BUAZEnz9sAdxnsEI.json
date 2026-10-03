@@ -1,0 +1,24 @@
+{
+  "_id": "BUAZEnz9sAdxnsEI",
+  "name": "Regeneration",
+  "type": "feat",
+  "img": "icons/svg/upgrade.svg",
+  "system": {
+    "featType": "trait",
+    "xpCost": 0,
+    "requirements": "Regrowing flesh",
+    "effect": "Every 10 rounds of a conflict, recover 1d4 Stress from that Attribute, unless a GM-stated counter-condition (a damage type or Instrument fitting your story, fire for a troll, silver for some undead) applied since the last recovery.",
+    "ancestry": "",
+    "grantsTechnique": "",
+    "modifiers": [],
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 3800000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!BUAZEnz9sAdxnsEI"
+}

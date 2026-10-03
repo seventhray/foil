@@ -1,0 +1,32 @@
+{
+  "_id": "c3WZUmgIargZbAF8",
+  "name": "Writing Kit",
+  "type": "instrument",
+  "img": "icons/svg/pick.svg",
+  "system": {
+    "category": "tool",
+    "weight": "light",
+    "primaryAttribute": "wit",
+    "range": "Touching",
+    "types": [
+      "tool"
+    ],
+    "typesDisplay": "Tool",
+    "price": 5,
+    "rider": "",
+    "kit": [],
+    "innate": false,
+    "bonus": 0,
+    "size": "medium",
+    "materials": "Metal",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 5200000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!c3WZUmgIargZbAF8"
+}

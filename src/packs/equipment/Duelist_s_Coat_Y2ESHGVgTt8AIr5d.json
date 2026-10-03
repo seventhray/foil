@@ -1,0 +1,37 @@
+{
+  "_id": "Y2ESHGVgTt8AIr5d",
+  "name": "Duelist's Coat",
+  "type": "equipment",
+  "img": "icons/svg/shield.svg",
+  "system": {
+    "category": "armor",
+    "price": 120,
+    "weight": 0,
+    "weightClass": "",
+    "size": "large",
+    "materials": "Metal + Textile",
+    "location": "carried",
+    "qualities": [
+      {
+        "key": "resistance",
+        "value": 2,
+        "param": "physical"
+      }
+    ],
+    "uses": "",
+    "duration": "",
+    "effect": "",
+    "gemType": "",
+    "tier": 1,
+    "notes": "",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 400000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!Y2ESHGVgTt8AIr5d"
+}

@@ -1,0 +1,38 @@
+{
+  "_id": "8SzK3dNFfOyKiEG8",
+  "name": "Prone",
+  "type": "effect",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "key": "prone",
+    "requires": [
+      "edged",
+      "pointed",
+      "blunt",
+      "grappling",
+      "parry",
+      "thrown",
+      "drawn",
+      "fired",
+      "kinetic"
+    ],
+    "pricingKind": "flat",
+    "pricingParams": {
+      "base": 7,
+      "perPoint": 0,
+      "perBand": 1
+    },
+    "magnitudeLabel": "",
+    "exemptFromPremium": false,
+    "setsFloor": false,
+    "description": "<p>PHB 6.8.7.</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 2500000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!8SzK3dNFfOyKiEG8"
+}

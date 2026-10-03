@@ -1,0 +1,31 @@
+{
+  "_id": "DtiNKB6fEmDAvqOn",
+  "name": "Soldier",
+  "type": "background",
+  "img": "icons/svg/book.svg",
+  "system": {
+    "training": {
+      "prowess": 1,
+      "discipline": 1,
+      "assertiveness": 1,
+      "acuity": 0,
+      "guile": 0,
+      "resonance": 0
+    },
+    "knowHow": [
+      "might",
+      "might"
+    ],
+    "coin": "10p",
+    "equipmentKit": "Longsword, Leather armor, Traveler Pack.",
+    "description": "<p>Fought in a real battle line, where discipline and timing decide who walks away.</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 100000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!DtiNKB6fEmDAvqOn"
+}

@@ -1,0 +1,31 @@
+{
+  "_id": "8E9TU27Baf92lDyo",
+  "name": "Shepherd",
+  "type": "background",
+  "img": "icons/svg/book.svg",
+  "system": {
+    "training": {
+      "prowess": 1,
+      "discipline": 0,
+      "assertiveness": 0,
+      "acuity": 1,
+      "guile": 0,
+      "resonance": 1
+    },
+    "knowHow": [
+      "might",
+      "wit"
+    ],
+    "coin": "5p",
+    "equipmentKit": "Sling, Leather armor, Traveler Pack, Climbing Kit.",
+    "description": "<p>Spent long seasons alone with the flock, calling it back from wolves and worse, patient enough to wait them out.</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 1700000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!8E9TU27Baf92lDyo"
+}

@@ -1,0 +1,32 @@
+{
+  "_id": "GHFQi9E7RMtQ06Iw",
+  "name": "Mason's Tools",
+  "type": "instrument",
+  "img": "icons/svg/pick.svg",
+  "system": {
+    "category": "tool",
+    "weight": "light",
+    "primaryAttribute": "might",
+    "range": "Touching",
+    "types": [
+      "craft-stone"
+    ],
+    "typesDisplay": "Craft [Stone]",
+    "price": 18,
+    "rider": "",
+    "kit": [],
+    "innate": false,
+    "bonus": 0,
+    "size": "medium",
+    "materials": "Stone",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 4700000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!GHFQi9E7RMtQ06Iw"
+}

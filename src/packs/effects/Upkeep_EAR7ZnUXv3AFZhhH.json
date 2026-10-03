@@ -1,0 +1,32 @@
+{
+  "_id": "EAR7ZnUXv3AFZhhH",
+  "name": "Upkeep",
+  "type": "effect",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "key": "upkeep",
+    "requires": [
+      "kinetic",
+      "incorporeal",
+      "fortifying"
+    ],
+    "pricingKind": "upkeep",
+    "pricingParams": {
+      "base": 4,
+      "perPoint": 0,
+      "perBand": 1
+    },
+    "magnitudeLabel": "",
+    "exemptFromPremium": true,
+    "setsFloor": false,
+    "description": "<p>Keep the Technique active by paying its Action and Strain each turn.</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 2200000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!EAR7ZnUXv3AFZhhH"
+}

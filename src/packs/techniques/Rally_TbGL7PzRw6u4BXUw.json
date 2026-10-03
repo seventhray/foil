@@ -1,0 +1,40 @@
+{
+  "_id": "TbGL7PzRw6u4BXUw",
+  "name": "Rally",
+  "type": "technique",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "requires": [
+      "sonic"
+    ],
+    "requiresText": "Sonic",
+    "innate": false,
+    "skill": "",
+    "family": "Sonic",
+    "subgroup": "Restorative",
+    "effects": [
+      {
+        "key": "skill-mod",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveN": 0,
+        "selectiveR": 0
+      }
+    ],
+    "floor": false,
+    "xpOverride": 6,
+    "effectText": "+1 to self or an ally",
+    "ancestryGrant": "",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 10400000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!TbGL7PzRw6u4BXUw"
+}

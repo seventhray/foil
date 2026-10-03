@@ -1,0 +1,39 @@
+{
+  "_id": "cGRDNkIBZTBbyh3W",
+  "name": "Blinded",
+  "type": "effect",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "key": "blinded",
+    "requires": [
+      "edged",
+      "pointed",
+      "blunt",
+      "grappling",
+      "parry",
+      "thrown",
+      "drawn",
+      "fired",
+      "kinetic",
+      "incorporeal"
+    ],
+    "pricingKind": "flat",
+    "pricingParams": {
+      "base": 16,
+      "perPoint": 0,
+      "perBand": 1
+    },
+    "magnitudeLabel": "",
+    "exemptFromPremium": false,
+    "setsFloor": false,
+    "description": "<p>PHB 6.8.20.</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 3700000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!cGRDNkIBZTBbyh3W"
+}

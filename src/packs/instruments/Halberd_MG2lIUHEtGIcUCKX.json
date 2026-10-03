@@ -1,0 +1,49 @@
+{
+  "_id": "MG2lIUHEtGIcUCKX",
+  "name": "Halberd",
+  "type": "instrument",
+  "img": "icons/svg/sword.svg",
+  "system": {
+    "category": "melee",
+    "weight": "heavy",
+    "primaryAttribute": "might",
+    "range": "Near",
+    "types": [
+      "edged",
+      "pointed"
+    ],
+    "typesDisplay": "",
+    "price": 70,
+    "rider": "",
+    "kit": [
+      {
+        "name": "Reap",
+        "skill": "prowess",
+        "effect": "Deals Stress to Might or Finesse."
+      },
+      {
+        "name": "Hook and Pull",
+        "skill": "discipline",
+        "effect": "Applies Prone."
+      },
+      {
+        "name": "Looming Threat",
+        "skill": "assertiveness",
+        "effect": "Deals Stress to Presence or Wit."
+      }
+    ],
+    "innate": false,
+    "bonus": 0,
+    "size": "medium",
+    "materials": "Metal + Wood",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 2200000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!MG2lIUHEtGIcUCKX"
+}

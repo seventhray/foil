@@ -1,0 +1,30 @@
+{
+  "_id": "XvqGTQ0lXJtUmaQt",
+  "name": "Controlled",
+  "type": "effect",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "key": "controlled",
+    "requires": [
+      "incorporeal"
+    ],
+    "pricingKind": "flat",
+    "pricingParams": {
+      "base": 21,
+      "perPoint": 0,
+      "perBand": 1
+    },
+    "magnitudeLabel": "",
+    "exemptFromPremium": false,
+    "setsFloor": false,
+    "description": "<p>PHB 6.8.10.</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 2900000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!XvqGTQ0lXJtUmaQt"
+}

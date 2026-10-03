@@ -1,0 +1,31 @@
+{
+  "_id": "yJcDCTWf7zqrZRTJ",
+  "name": "Draught of Weakness",
+  "type": "equipment",
+  "img": "icons/svg/pill.svg",
+  "system": {
+    "category": "potion",
+    "price": 10,
+    "weight": 0,
+    "weightClass": "",
+    "size": "small",
+    "materials": "Reagent",
+    "location": "carried",
+    "qualities": [],
+    "uses": "1",
+    "duration": "1 hour",
+    "effect": "-2 [Attribute], thrown",
+    "gemType": "",
+    "tier": 1,
+    "notes": "",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 3600000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!yJcDCTWf7zqrZRTJ"
+}

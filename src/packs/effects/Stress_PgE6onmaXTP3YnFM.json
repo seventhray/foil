@@ -1,0 +1,28 @@
+{
+  "_id": "PgE6onmaXTP3YnFM",
+  "name": "Stress",
+  "type": "effect",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "key": "stress",
+    "requires": [],
+    "pricingKind": "flat",
+    "pricingParams": {
+      "base": 4,
+      "perPoint": 0,
+      "perBand": 1
+    },
+    "magnitudeLabel": "",
+    "exemptFromPremium": false,
+    "setsFloor": false,
+    "description": "<p>Deal the margin to an Attribute of the Target.</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 100000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!PgE6onmaXTP3YnFM"
+}

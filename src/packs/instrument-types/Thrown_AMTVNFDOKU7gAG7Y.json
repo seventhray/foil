@@ -1,0 +1,28 @@
+{
+  "_id": "AMTVNFDOKU7gAG7Y",
+  "name": "Thrown",
+  "type": "instrumentType",
+  "img": "icons/svg/upgrade.svg",
+  "system": {
+    "key": "thrown",
+    "family": "ranged",
+    "stressPhysical": 0,
+    "stressMental": 0,
+    "pierce": 0,
+    "doubleResistance": false,
+    "dealsNoStress": false,
+    "quick": false,
+    "blocking": false,
+    "reload": "",
+    "isTool": false,
+    "description": "<p>No type effect. No reload.</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 500000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!AMTVNFDOKU7gAG7Y"
+}

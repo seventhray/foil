@@ -1,0 +1,48 @@
+{
+  "_id": "fihF9aC4v9oXc3rj",
+  "name": "Grim Tome",
+  "type": "instrument",
+  "img": "icons/svg/sword.svg",
+  "system": {
+    "category": "arcane",
+    "weight": "heavy",
+    "primaryAttribute": "wit",
+    "range": "Mid Range",
+    "types": [
+      "incorporeal"
+    ],
+    "typesDisplay": "",
+    "price": 50,
+    "rider": "",
+    "kit": [
+      {
+        "name": "Withering Curse",
+        "skill": "discipline",
+        "effect": "Deals Stress to Might or Finesse."
+      },
+      {
+        "name": "Maddening Whisper",
+        "skill": "acuity",
+        "effect": "Deals Stress to Wit or Presence."
+      },
+      {
+        "name": "Despairing Word",
+        "skill": "resonance",
+        "effect": "Applies Frightened."
+      }
+    ],
+    "innate": false,
+    "bonus": 0,
+    "size": "medium",
+    "materials": "Leather + Textile",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 900000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!fihF9aC4v9oXc3rj"
+}

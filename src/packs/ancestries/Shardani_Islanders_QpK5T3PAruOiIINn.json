@@ -1,0 +1,33 @@
+{
+  "_id": "QpK5T3PAruOiIINn",
+  "name": "Shardani Islanders",
+  "type": "origin",
+  "img": "icons/svg/village.svg",
+  "system": {
+    "talent": [
+      {
+        "attribute": "might",
+        "die": 12
+      },
+      {
+        "attribute": "finesse",
+        "die": 8
+      }
+    ],
+    "feats": [
+      "Salt-Toughened",
+      "Undertow"
+    ],
+    "feat": "Salt-Toughened",
+    "section": "7.8.9",
+    "description": "<p>Island people: lean, broad-chested builds, webbed fingers and toes, partitioned lungs.</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 900000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!QpK5T3PAruOiIINn"
+}

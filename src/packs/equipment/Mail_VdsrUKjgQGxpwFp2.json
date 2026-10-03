@@ -1,0 +1,37 @@
+{
+  "_id": "VdsrUKjgQGxpwFp2",
+  "name": "Mail",
+  "type": "equipment",
+  "img": "icons/svg/shield.svg",
+  "system": {
+    "category": "armor",
+    "price": 90,
+    "weight": 0,
+    "weightClass": "",
+    "size": "large",
+    "materials": "Metal + Textile",
+    "location": "carried",
+    "qualities": [
+      {
+        "key": "resistance",
+        "value": 2,
+        "param": "physical"
+      }
+    ],
+    "uses": "",
+    "duration": "",
+    "effect": "",
+    "gemType": "",
+    "tier": 1,
+    "notes": "",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 300000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!VdsrUKjgQGxpwFp2"
+}

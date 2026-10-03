@@ -1,0 +1,30 @@
+{
+  "_id": "8Mx1YbvJCF3DFj8z",
+  "name": "Wide Sight",
+  "type": "feat",
+  "img": "icons/svg/upgrade.svg",
+  "system": {
+    "featType": "ancestry",
+    "xpCost": 0,
+    "requirements": "",
+    "effect": "+2 Training in Acuity, and a further +2 to notice anyone trying to approach you unseen.",
+    "ancestry": "Ngyenha Treedwellers",
+    "grantsTechnique": "",
+    "modifiers": [
+      {
+        "type": "training",
+        "key": "acuity",
+        "value": 2
+      }
+    ],
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 1000000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!8Mx1YbvJCF3DFj8z"
+}

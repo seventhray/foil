@@ -1,0 +1,49 @@
+{
+  "_id": "TSBVIHrjHCVEv9pz",
+  "name": "Longbow",
+  "type": "instrument",
+  "img": "icons/svg/sword.svg",
+  "system": {
+    "category": "ranged",
+    "weight": "medium",
+    "primaryAttribute": "might",
+    "range": "Long Range",
+    "types": [
+      "pointed",
+      "drawn"
+    ],
+    "typesDisplay": "",
+    "price": 75,
+    "rider": "Reload Quick Action.",
+    "kit": [
+      {
+        "name": "Full Draw",
+        "skill": "prowess",
+        "effect": "Deals Stress to Might or Finesse."
+      },
+      {
+        "name": "Pin Down",
+        "skill": "discipline",
+        "effect": "Applies Prone."
+      },
+      {
+        "name": "Warning Shot",
+        "skill": "assertiveness",
+        "effect": "Deals Stress to Presence or Wit."
+      }
+    ],
+    "innate": false,
+    "bonus": 0,
+    "size": "medium",
+    "materials": "Wood + Textile",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 2700000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!TSBVIHrjHCVEv9pz"
+}

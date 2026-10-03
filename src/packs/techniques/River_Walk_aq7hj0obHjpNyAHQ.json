@@ -1,0 +1,38 @@
+{
+  "_id": "aq7hj0obHjpNyAHQ",
+  "name": "River Walk",
+  "type": "technique",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "requires": [],
+    "requiresText": "Acuity, Innate",
+    "innate": true,
+    "skill": "acuity",
+    "family": "Innate",
+    "subgroup": "",
+    "effects": [
+      {
+        "key": "evade",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveN": 0,
+        "selectiveR": 0
+      }
+    ],
+    "floor": false,
+    "xpOverride": 4,
+    "effectText": "Evade: move up to 20 feet without spending the Disengage Quick Action or provoking an Attack of Opportunity. If this ends within Close range of a foe, your next Technique against them this turn gains +2.",
+    "ancestryGrant": "Keshwick",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 5100000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!aq7hj0obHjpNyAHQ"
+}

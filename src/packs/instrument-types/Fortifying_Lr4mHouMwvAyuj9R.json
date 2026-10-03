@@ -1,0 +1,28 @@
+{
+  "_id": "Lr4mHouMwvAyuj9R",
+  "name": "Fortifying",
+  "type": "instrumentType",
+  "img": "icons/svg/upgrade.svg",
+  "system": {
+    "key": "fortifying",
+    "family": "arcane",
+    "stressPhysical": 0,
+    "stressMental": 0,
+    "pierce": 0,
+    "doubleResistance": false,
+    "dealsNoStress": false,
+    "quick": false,
+    "blocking": false,
+    "reload": "",
+    "isTool": false,
+    "description": "<p>Support, aimed at an ally or the caster.</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 1100000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!Lr4mHouMwvAyuj9R"
+}

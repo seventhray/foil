@@ -1,0 +1,28 @@
+{
+  "_id": "1XUqEgap7ljca04a",
+  "name": "Blunt",
+  "type": "instrumentType",
+  "img": "icons/svg/upgrade.svg",
+  "system": {
+    "key": "blunt",
+    "family": "melee",
+    "stressPhysical": 0,
+    "stressMental": 0,
+    "pierce": 3,
+    "doubleResistance": false,
+    "dealsNoStress": false,
+    "quick": false,
+    "blocking": false,
+    "reload": "",
+    "isTool": false,
+    "description": "<p>Pierce 3 against physical Resistance.</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 400000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!1XUqEgap7ljca04a"
+}

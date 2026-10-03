@@ -1,0 +1,51 @@
+{
+  "_id": "iNCTCzCoxtqnYN8v",
+  "name": "Snipe",
+  "type": "technique",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "requires": [
+      "thrown",
+      "drawn",
+      "fired"
+    ],
+    "requiresText": "Ranged",
+    "innate": false,
+    "skill": "",
+    "family": "Ranged",
+    "subgroup": "Piercing & Precision",
+    "effects": [
+      {
+        "key": "stress",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveN": 0,
+        "selectiveR": 0
+      },
+      {
+        "key": "roll-bonus",
+        "magnitude": 3,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveN": 0,
+        "selectiveR": 0
+      }
+    ],
+    "floor": false,
+    "xpOverride": 26,
+    "effectText": "Stress, +3, Strain 3",
+    "ancestryGrant": "",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 9200000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!iNCTCzCoxtqnYN8v"
+}

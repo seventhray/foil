@@ -1,0 +1,37 @@
+{
+  "_id": "fFHn8AnmYO1IdqBk",
+  "name": "Mental Ward +2",
+  "type": "equipment",
+  "img": "icons/svg/holy-shield.svg",
+  "system": {
+    "category": "ward",
+    "price": 90,
+    "weight": 0,
+    "weightClass": "",
+    "size": "small",
+    "materials": "Metal",
+    "location": "carried",
+    "qualities": [
+      {
+        "key": "resistance",
+        "value": 2,
+        "param": "mental"
+      }
+    ],
+    "uses": "",
+    "duration": "",
+    "effect": "",
+    "gemType": "",
+    "tier": 1,
+    "notes": "mental Resistance",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 1200000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!fFHn8AnmYO1IdqBk"
+}

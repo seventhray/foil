@@ -1,0 +1,24 @@
+{
+  "_id": "6wbpJQSOXVAG0oIm",
+  "name": "Tremorsense",
+  "type": "feat",
+  "img": "icons/svg/upgrade.svg",
+  "system": {
+    "featType": "trait",
+    "xpCost": 0,
+    "requirements": "Tremor sense",
+    "effect": "Sense the exact position of anything touching the ground or a connected surface within Close range, even unseen.",
+    "ancestry": "",
+    "grantsTechnique": "",
+    "modifiers": [],
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 4100000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!6wbpJQSOXVAG0oIm"
+}

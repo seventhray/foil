@@ -1,0 +1,28 @@
+{
+  "_id": "kM7A95VTLHKjLMfR",
+  "name": "Craft [Reagent]",
+  "type": "instrumentType",
+  "img": "icons/svg/upgrade.svg",
+  "system": {
+    "key": "craft-reagent",
+    "family": "other",
+    "stressPhysical": 0,
+    "stressMental": 0,
+    "pierce": 0,
+    "doubleResistance": false,
+    "dealsNoStress": false,
+    "quick": false,
+    "blocking": false,
+    "reload": "",
+    "isTool": true,
+    "description": "<p>A Craft Trade roll working Reagent.</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 2300000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!kM7A95VTLHKjLMfR"
+}

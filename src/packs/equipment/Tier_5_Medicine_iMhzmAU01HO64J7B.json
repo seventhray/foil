@@ -1,0 +1,31 @@
+{
+  "_id": "iMhzmAU01HO64J7B",
+  "name": "Tier 5 Medicine",
+  "type": "equipment",
+  "img": "icons/svg/heal.svg",
+  "system": {
+    "category": "medicine",
+    "price": 900,
+    "weight": 0,
+    "weightClass": "",
+    "size": "small",
+    "materials": "",
+    "location": "carried",
+    "qualities": [],
+    "uses": "1",
+    "duration": "10 minutes",
+    "effect": "Remove 1d20 Stress; Mend roll at Difficulty 36",
+    "gemType": "",
+    "tier": 1,
+    "notes": "",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 3200000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!iMhzmAU01HO64J7B"
+}

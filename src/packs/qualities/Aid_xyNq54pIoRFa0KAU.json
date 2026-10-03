@@ -1,0 +1,21 @@
+{
+  "_id": "xyNq54pIoRFa0KAU",
+  "name": "Aid",
+  "type": "quality",
+  "img": "icons/svg/shield.svg",
+  "system": {
+    "key": "aid",
+    "kind": "aid",
+    "scope": "free",
+    "valueLabel": "+N to a named task",
+    "description": "<p>Add N to a named task outside of conflict.</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 400000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!xyNq54pIoRFa0KAU"
+}

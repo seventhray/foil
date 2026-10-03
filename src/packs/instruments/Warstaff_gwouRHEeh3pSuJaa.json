@@ -1,0 +1,48 @@
+{
+  "_id": "gwouRHEeh3pSuJaa",
+  "name": "Warstaff",
+  "type": "instrument",
+  "img": "icons/svg/sword.svg",
+  "system": {
+    "category": "arcane",
+    "weight": "heavy",
+    "primaryAttribute": "presence",
+    "range": "Mid Range",
+    "types": [
+      "kinetic"
+    ],
+    "typesDisplay": "",
+    "price": 50,
+    "rider": "",
+    "kit": [
+      {
+        "name": "Devastating Bolt",
+        "skill": "assertiveness",
+        "effect": "Deals Stress to Might or Finesse."
+      },
+      {
+        "name": "Disorienting Blast",
+        "skill": "guile",
+        "effect": "Deals Stress to Wit or Presence."
+      },
+      {
+        "name": "Overwhelming Force",
+        "skill": "resonance",
+        "effect": "Applies Prone."
+      }
+    ],
+    "innate": false,
+    "bonus": 0,
+    "size": "medium",
+    "materials": "Wood",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 800000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!gwouRHEeh3pSuJaa"
+}

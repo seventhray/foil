@@ -1,0 +1,50 @@
+{
+  "_id": "SiHdwaPOP3Tm3lB6",
+  "name": "Dagger",
+  "type": "instrument",
+  "img": "icons/svg/sword.svg",
+  "system": {
+    "category": "melee",
+    "weight": "light",
+    "primaryAttribute": "finesse",
+    "range": "Touching to Close",
+    "types": [
+      "edged",
+      "pointed",
+      "parry"
+    ],
+    "typesDisplay": "",
+    "price": 30,
+    "rider": "",
+    "kit": [
+      {
+        "name": "Stab",
+        "skill": "prowess",
+        "effect": "Deals Stress to Might or Finesse."
+      },
+      {
+        "name": "Vital Strike",
+        "skill": "acuity",
+        "effect": "Applies Weakened [Finesse]."
+      },
+      {
+        "name": "Backstab",
+        "skill": "guile",
+        "effect": "Applies Reeling."
+      }
+    ],
+    "innate": false,
+    "bonus": 0,
+    "size": "small",
+    "materials": "Metal",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 1100000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!SiHdwaPOP3Tm3lB6"
+}

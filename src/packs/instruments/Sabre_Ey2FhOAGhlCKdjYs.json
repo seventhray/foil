@@ -1,0 +1,49 @@
+{
+  "_id": "Ey2FhOAGhlCKdjYs",
+  "name": "Sabre",
+  "type": "instrument",
+  "img": "icons/svg/sword.svg",
+  "system": {
+    "category": "melee",
+    "weight": "medium",
+    "primaryAttribute": "finesse",
+    "range": "Close",
+    "types": [
+      "edged",
+      "parry"
+    ],
+    "typesDisplay": "",
+    "price": 35,
+    "rider": "",
+    "kit": [
+      {
+        "name": "Slash",
+        "skill": "prowess",
+        "effect": "Deals Stress to Might or Finesse."
+      },
+      {
+        "name": "Flourish",
+        "skill": "acuity",
+        "effect": "Applies Reeling."
+      },
+      {
+        "name": "Taunting Cut",
+        "skill": "guile",
+        "effect": "Applies Baited."
+      }
+    ],
+    "innate": false,
+    "bonus": 0,
+    "size": "medium",
+    "materials": "Metal + Leather",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 1400000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!Ey2FhOAGhlCKdjYs"
+}

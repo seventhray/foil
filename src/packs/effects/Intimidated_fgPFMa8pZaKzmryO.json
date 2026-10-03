@@ -1,0 +1,36 @@
+{
+  "_id": "fgPFMa8pZaKzmryO",
+  "name": "Intimidated",
+  "type": "effect",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "key": "intimidated",
+    "requires": [
+      "incorporeal",
+      "sonic",
+      "edged",
+      "pointed",
+      "blunt",
+      "grappling",
+      "parry"
+    ],
+    "pricingKind": "flat",
+    "pricingParams": {
+      "base": 10,
+      "perPoint": 0,
+      "perBand": 1
+    },
+    "magnitudeLabel": "",
+    "exemptFromPremium": false,
+    "setsFloor": false,
+    "description": "<p>PHB 6.8.11.</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 3000000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!fgPFMa8pZaKzmryO"
+}

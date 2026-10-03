@@ -1,0 +1,28 @@
+{
+  "_id": "zdoz3AqB5fMgz2YS",
+  "name": "Blocking",
+  "type": "instrumentType",
+  "img": "icons/svg/upgrade.svg",
+  "system": {
+    "key": "blocking",
+    "family": "other",
+    "stressPhysical": 0,
+    "stressMental": 0,
+    "pierce": 0,
+    "doubleResistance": false,
+    "dealsNoStress": false,
+    "quick": false,
+    "blocking": true,
+    "reload": "",
+    "isTool": false,
+    "description": "<p>+N applies to Oppose rolls. Guard with the Quick Action (PHB 6.5.1).</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 1400000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!zdoz3AqB5fMgz2YS"
+}

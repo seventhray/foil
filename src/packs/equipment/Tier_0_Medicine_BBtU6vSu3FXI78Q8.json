@@ -1,0 +1,31 @@
+{
+  "_id": "BBtU6vSu3FXI78Q8",
+  "name": "Tier 0 Medicine",
+  "type": "equipment",
+  "img": "icons/svg/heal.svg",
+  "system": {
+    "category": "medicine",
+    "price": 3,
+    "weight": 0,
+    "weightClass": "",
+    "size": "small",
+    "materials": "",
+    "location": "carried",
+    "qualities": [],
+    "uses": "1",
+    "duration": "10 minutes",
+    "effect": "Remove 1d4 Stress; Mend roll at Difficulty 8",
+    "gemType": "",
+    "tier": 1,
+    "notes": "",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 2700000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!BBtU6vSu3FXI78Q8"
+}

@@ -1,0 +1,30 @@
+{
+  "_id": "RBEJsw6HHOKrkDbI",
+  "name": "Incorporeal Movement",
+  "type": "technique",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "requires": [
+      "fortifying"
+    ],
+    "requiresText": "Fortifying",
+    "innate": false,
+    "skill": "",
+    "family": "Fortifying",
+    "subgroup": "Movement",
+    "effects": [],
+    "floor": true,
+    "xpOverride": 20,
+    "effectText": "Move through walls, doors, and other solid barriers as though they weren't there, for the duration of Upkeep, Strain 2",
+    "ancestryGrant": "",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 2000000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!RBEJsw6HHOKrkDbI"
+}

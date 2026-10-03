@@ -1,0 +1,31 @@
+{
+  "_id": "ljNX5XHL0OoLXGWO",
+  "name": "Innkeeper",
+  "type": "background",
+  "img": "icons/svg/book.svg",
+  "system": {
+    "training": {
+      "prowess": 0,
+      "discipline": 1,
+      "assertiveness": 0,
+      "acuity": 0,
+      "guile": 1,
+      "resonance": 1
+    },
+    "knowHow": [
+      "presence",
+      "wit"
+    ],
+    "coin": "15p",
+    "equipmentKit": "Quarterstaff, Leather armor, Traveler Pack.",
+    "description": "<p>Kept a common room running, pouring drinks and settling disputes long before any adventuring party walked through the door.</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 1300000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!ljNX5XHL0OoLXGWO"
+}

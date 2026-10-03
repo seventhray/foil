@@ -1,0 +1,32 @@
+{
+  "_id": "XgK25VukGrRR4y3o",
+  "name": "Tinkerer's Tools",
+  "type": "instrument",
+  "img": "icons/svg/pick.svg",
+  "system": {
+    "category": "tool",
+    "weight": "light",
+    "primaryAttribute": "wit",
+    "range": "Touching",
+    "types": [
+      "craft-metal"
+    ],
+    "typesDisplay": "Craft [Metal]",
+    "price": 14,
+    "rider": "",
+    "kit": [],
+    "innate": false,
+    "bonus": 0,
+    "size": "medium",
+    "materials": "Metal",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 4900000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!XgK25VukGrRR4y3o"
+}

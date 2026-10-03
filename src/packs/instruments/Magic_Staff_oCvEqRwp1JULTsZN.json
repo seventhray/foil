@@ -1,0 +1,49 @@
+{
+  "_id": "oCvEqRwp1JULTsZN",
+  "name": "Magic Staff",
+  "type": "instrument",
+  "img": "icons/svg/sword.svg",
+  "system": {
+    "category": "arcane",
+    "weight": "medium",
+    "primaryAttribute": "wit",
+    "range": "Mid Range",
+    "types": [
+      "kinetic",
+      "incorporeal"
+    ],
+    "typesDisplay": "",
+    "price": 40,
+    "rider": "",
+    "kit": [
+      {
+        "name": "Force Strike",
+        "skill": "discipline",
+        "effect": "Deals Stress to Might or Finesse."
+      },
+      {
+        "name": "Mind-Piercing Bolt",
+        "skill": "acuity",
+        "effect": "Deals Stress to Wit or Presence."
+      },
+      {
+        "name": "Unraveling Pulse",
+        "skill": "resonance",
+        "effect": "Applies Weakened [Presence]."
+      }
+    ],
+    "innate": false,
+    "bonus": 0,
+    "size": "medium",
+    "materials": "Wood",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 600000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!oCvEqRwp1JULTsZN"
+}

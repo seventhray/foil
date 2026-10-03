@@ -1,0 +1,30 @@
+{
+  "_id": "aGsKHvFy79vsV69z",
+  "name": "Swim",
+  "type": "technique",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "requires": [
+      "fortifying"
+    ],
+    "requiresText": "Fortifying",
+    "innate": false,
+    "skill": "",
+    "family": "Fortifying",
+    "subgroup": "Movement",
+    "effects": [],
+    "floor": true,
+    "xpOverride": 12,
+    "effectText": "Move through water at full speed and breathe within it, for the duration of Upkeep, Strain 1",
+    "ancestryGrant": "",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 1200000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!aGsKHvFy79vsV69z"
+}

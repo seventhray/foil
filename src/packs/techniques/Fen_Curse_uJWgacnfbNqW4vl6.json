@@ -1,0 +1,42 @@
+{
+  "_id": "uJWgacnfbNqW4vl6",
+  "name": "Fen Curse",
+  "type": "technique",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "requires": [
+      "thrown",
+      "drawn",
+      "fired"
+    ],
+    "requiresText": "Ranged",
+    "innate": false,
+    "skill": "",
+    "family": "Ranged",
+    "subgroup": "Debilitating",
+    "effects": [
+      {
+        "key": "skill-mod",
+        "magnitude": 2,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveN": 0,
+        "selectiveR": 0
+      }
+    ],
+    "floor": false,
+    "xpOverride": 12,
+    "effectText": "-2 Oppose, Strain 1",
+    "ancestryGrant": "Maran",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 9100000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!uJWgacnfbNqW4vl6"
+}

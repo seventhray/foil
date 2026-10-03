@@ -1,0 +1,37 @@
+{
+  "_id": "oHQfBSonYTYwrE9e",
+  "name": "Leather",
+  "type": "equipment",
+  "img": "icons/svg/shield.svg",
+  "system": {
+    "category": "armor",
+    "price": 30,
+    "weight": 0,
+    "weightClass": "",
+    "size": "large",
+    "materials": "Leather",
+    "location": "carried",
+    "qualities": [
+      {
+        "key": "resistance",
+        "value": 1,
+        "param": "physical"
+      }
+    ],
+    "uses": "",
+    "duration": "",
+    "effect": "",
+    "gemType": "",
+    "tier": 1,
+    "notes": "",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 100000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!oHQfBSonYTYwrE9e"
+}

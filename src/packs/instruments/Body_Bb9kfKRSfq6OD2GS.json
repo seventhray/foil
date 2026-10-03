@@ -1,0 +1,50 @@
+{
+  "_id": "Bb9kfKRSfq6OD2GS",
+  "name": "Body",
+  "type": "instrument",
+  "img": "icons/svg/combat.svg",
+  "system": {
+    "category": "innate",
+    "weight": "light",
+    "primaryAttribute": "might",
+    "range": "Close",
+    "types": [
+      "quick",
+      "blunt",
+      "grappling"
+    ],
+    "typesDisplay": "",
+    "price": 0,
+    "rider": "Innate: every character has it, free (PHB 2.5.3).",
+    "kit": [
+      {
+        "name": "Strike",
+        "skill": "prowess",
+        "effect": "Deals Stress to Might or Finesse."
+      },
+      {
+        "name": "Grapple",
+        "skill": "discipline",
+        "effect": "Applies Grappled."
+      },
+      {
+        "name": "Menace",
+        "skill": "assertiveness",
+        "effect": "Deals Stress to Presence or Wit."
+      }
+    ],
+    "innate": true,
+    "bonus": 0,
+    "size": "medium",
+    "materials": "",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 100000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!Bb9kfKRSfq6OD2GS"
+}

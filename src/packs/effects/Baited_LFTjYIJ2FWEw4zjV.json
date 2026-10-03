@@ -1,0 +1,39 @@
+{
+  "_id": "LFTjYIJ2FWEw4zjV",
+  "name": "Baited",
+  "type": "effect",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "key": "baited",
+    "requires": [
+      "incorporeal",
+      "sonic",
+      "edged",
+      "pointed",
+      "blunt",
+      "grappling",
+      "parry",
+      "thrown",
+      "drawn",
+      "fired"
+    ],
+    "pricingKind": "flat",
+    "pricingParams": {
+      "base": 8,
+      "perPoint": 0,
+      "perBand": 1
+    },
+    "magnitudeLabel": "",
+    "exemptFromPremium": false,
+    "setsFloor": false,
+    "description": "<p>PHB 6.8.12.</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 3100000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!LFTjYIJ2FWEw4zjV"
+}

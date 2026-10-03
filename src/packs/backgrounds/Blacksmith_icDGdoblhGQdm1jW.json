@@ -1,0 +1,31 @@
+{
+  "_id": "icDGdoblhGQdm1jW",
+  "name": "Blacksmith",
+  "type": "background",
+  "img": "icons/svg/book.svg",
+  "system": {
+    "training": {
+      "prowess": 0,
+      "discipline": 1,
+      "assertiveness": 1,
+      "acuity": 0,
+      "guile": 1,
+      "resonance": 0
+    },
+    "knowHow": [
+      "might",
+      "presence"
+    ],
+    "coin": "15p",
+    "equipmentKit": "Mace, Leather armor, Smithing Tools.",
+    "description": "<p>Ran a forge, working iron and steel into blade, armor, and tool, and learned to drive a hard bargain over every commission.</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 2100000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!icDGdoblhGQdm1jW"
+}

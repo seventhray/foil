@@ -1,0 +1,37 @@
+{
+  "_id": "EUIAOHmz0Cs2g3wu",
+  "name": "Round Shield",
+  "type": "equipment",
+  "img": "icons/svg/shield.svg",
+  "system": {
+    "category": "shield",
+    "price": 30,
+    "weight": 0,
+    "weightClass": "light",
+    "size": "medium",
+    "materials": "Wood + Metal",
+    "location": "carried",
+    "qualities": [
+      {
+        "key": "resistance",
+        "value": 1,
+        "param": "physical"
+      }
+    ],
+    "uses": "",
+    "duration": "",
+    "effect": "Blocking",
+    "gemType": "",
+    "tier": 1,
+    "notes": "",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 800000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!EUIAOHmz0Cs2g3wu"
+}

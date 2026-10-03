@@ -1,0 +1,24 @@
+{
+  "_id": "ZQAuSJ2CDu6Yr5aF",
+  "name": "Vigilant",
+  "type": "feat",
+  "img": "icons/svg/upgrade.svg",
+  "system": {
+    "featType": "learned",
+    "xpCost": 8,
+    "requirements": "12 Finesse, 12 Wit",
+    "effect": "Add +2 to your Acuity roll for Initiative.",
+    "ancestry": "",
+    "grantsTechnique": "",
+    "modifiers": [],
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 2400000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!ZQAuSJ2CDu6Yr5aF"
+}

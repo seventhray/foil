@@ -1,0 +1,49 @@
+{
+  "_id": "vzxquzDcUncEkGLr",
+  "name": "Ember Storm",
+  "type": "technique",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "requires": [
+      "kinetic"
+    ],
+    "requiresText": "Kinetic",
+    "innate": false,
+    "skill": "",
+    "family": "Kinetic",
+    "subgroup": "Sustained & Lingering",
+    "effects": [
+      {
+        "key": "stress",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveN": 0,
+        "selectiveR": 0
+      },
+      {
+        "key": "lingering",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveN": 0,
+        "selectiveR": 0
+      }
+    ],
+    "floor": false,
+    "xpOverride": 15,
+    "effectText": "Stress, Lingering 1, Strain 1",
+    "ancestryGrant": "",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 6500000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!vzxquzDcUncEkGLr"
+}

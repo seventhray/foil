@@ -1,0 +1,31 @@
+{
+  "_id": "A6y7Ppz3nj495pTp",
+  "name": "Apothecary",
+  "type": "background",
+  "img": "icons/svg/book.svg",
+  "system": {
+    "training": {
+      "prowess": 0,
+      "discipline": 1,
+      "assertiveness": 0,
+      "acuity": 1,
+      "guile": 1,
+      "resonance": 0
+    },
+    "knowHow": [
+      "wit",
+      "finesse"
+    ],
+    "coin": "15p",
+    "equipmentKit": "Dagger, Fitted Leathers, Alchemist's Kit.",
+    "description": "<p>Mixed tinctures and poisons in equal measure, knowing exactly how much of either it takes.</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 900000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!A6y7Ppz3nj495pTp"
+}

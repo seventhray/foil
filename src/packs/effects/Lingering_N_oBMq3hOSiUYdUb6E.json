@@ -1,0 +1,33 @@
+{
+  "_id": "oBMq3hOSiUYdUb6E",
+  "name": "Lingering N",
+  "type": "effect",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "key": "lingering",
+    "requires": [
+      "kinetic",
+      "incorporeal",
+      "pointed",
+      "edged"
+    ],
+    "pricingKind": "perPoint",
+    "pricingParams": {
+      "base": 0,
+      "perPoint": 7,
+      "perBand": 1
+    },
+    "magnitudeLabel": "Lingering N",
+    "exemptFromPremium": false,
+    "setsFloor": false,
+    "description": "<p>N more Stress at the start of the target's next turns.</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 900000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!oBMq3hOSiUYdUb6E"
+}

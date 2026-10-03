@@ -1,0 +1,30 @@
+{
+  "_id": "8jgBUQiJ4CetrbEM",
+  "name": "Hasten (Quick Action)",
+  "type": "effect",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "key": "hasten-quick",
+    "requires": [
+      "fortifying"
+    ],
+    "pricingKind": "flat",
+    "pricingParams": {
+      "base": 7,
+      "perPoint": 0,
+      "perBand": 1
+    },
+    "magnitudeLabel": "",
+    "exemptFromPremium": false,
+    "setsFloor": false,
+    "description": "<p>Grant an ally an extra Quick Action.</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 1800000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!8jgBUQiJ4CetrbEM"
+}

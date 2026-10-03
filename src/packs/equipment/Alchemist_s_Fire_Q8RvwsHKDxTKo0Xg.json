@@ -1,0 +1,31 @@
+{
+  "_id": "Q8RvwsHKDxTKo0Xg",
+  "name": "Alchemist's Fire",
+  "type": "equipment",
+  "img": "icons/svg/pill.svg",
+  "system": {
+    "category": "potion",
+    "price": 5,
+    "weight": 0,
+    "weightClass": "",
+    "size": "small",
+    "materials": "Reagent",
+    "location": "carried",
+    "qualities": [],
+    "uses": "1",
+    "duration": "instant",
+    "effect": "Stress, thrown",
+    "gemType": "",
+    "tier": 1,
+    "notes": "",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 3400000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!Q8RvwsHKDxTKo0Xg"
+}

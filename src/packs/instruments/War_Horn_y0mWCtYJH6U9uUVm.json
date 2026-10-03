@@ -1,0 +1,48 @@
+{
+  "_id": "y0mWCtYJH6U9uUVm",
+  "name": "War Horn",
+  "type": "instrument",
+  "img": "icons/svg/sword.svg",
+  "system": {
+    "category": "sonic",
+    "weight": "medium",
+    "primaryAttribute": "presence",
+    "range": "Long Range",
+    "types": [
+      "sonic"
+    ],
+    "typesDisplay": "",
+    "price": 40,
+    "rider": "",
+    "kit": [
+      {
+        "name": "Battle Blast",
+        "skill": "assertiveness",
+        "effect": "Applies Intimidated."
+      },
+      {
+        "name": "Discordant Blast",
+        "skill": "guile",
+        "effect": "Applies Reeling."
+      },
+      {
+        "name": "Bone-Deep Blare",
+        "skill": "resonance",
+        "effect": "Deals Stress to Wit or Presence."
+      }
+    ],
+    "innate": false,
+    "bonus": 0,
+    "size": "medium",
+    "materials": "Metal",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 3500000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!y0mWCtYJH6U9uUVm"
+}

@@ -1,0 +1,31 @@
+{
+  "_id": "SYpGcp1XPXlyysLu",
+  "name": "Ruby (Tier 1)",
+  "type": "equipment",
+  "img": "icons/svg/ice-aura.svg",
+  "system": {
+    "category": "gem",
+    "price": 80,
+    "weight": 0,
+    "weightClass": "",
+    "size": "small",
+    "materials": "Gemstone",
+    "location": "carried",
+    "qualities": [],
+    "uses": "",
+    "duration": "",
+    "effect": "Thermal; Lingering +1 per Tier",
+    "gemType": "ruby",
+    "tier": 1,
+    "notes": "",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 3700000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!SYpGcp1XPXlyysLu"
+}

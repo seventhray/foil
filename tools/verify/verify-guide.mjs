@@ -3,6 +3,7 @@
 // Player's Handbook, the GM's Guide, and Fundamental Math directly.
 import { GUIDE } from "../guide-content.mjs";
 import { readPHB, readGMG, readFM, BOOK_VERSION } from "../books.mjs";
+import { XP_COST } from "../../src/constants.js";
 const phb = readPHB(), gmg = readGMG(), fm = readFM();
 
 let fails = 0;
@@ -55,6 +56,7 @@ ok("Effect prices match Fundamental Math", /\*\*Stress\*\*\s*\|\s*4\s*\|/.test(f
   && /\*\*Lingering N\*\*\s*\|\s*7 x N/.test(fm) && /\*\*Hasten \(Action\)\*\*\s*\|\s*14/.test(fm) && /\*\*Quick\*\*\s*\|\s*7/.test(fm) && /<td>7 x N<\/td>/.test(all));
 ok("bonus price ladder", /\| \+4\s*\| \+200p\s*\| \+400p\s*\| \+800p/.test(phb) && /<td>\+4<\/td><td>200p<\/td><td>400p<\/td><td>800p<\/td>/.test(all));
 ok("Body and Voice kits", /\*\*Strike\*\* \(Prowess\)/.test(phb) && /\*\*Sway\*\* \(Resonance\)/.test(phb) && /Strike, Grapple, Menace/.test(all) && /Intimidate, Mislead, Sway/.test(all));
+ok("Training price matches the code", all.includes(`+1 Training ${XP_COST.training} XP plus ${XP_COST.trainingStep} per point held`) && new RegExp(`Training.{0,80}${XP_COST.training} XP`).test(phb));
 
 console.log(fails ? `\n${fails} guide check(s) failed` : "\nguide matches the books");
 process.exit(fails ? 1 : 0);

@@ -1,0 +1,24 @@
+{
+  "_id": "8NSitXcsHsTVDKIe",
+  "name": "Lend Conviction",
+  "type": "feat",
+  "img": "icons/svg/upgrade.svg",
+  "system": {
+    "featType": "learned",
+    "xpCost": 16,
+    "requirements": "20 Presence",
+    "effect": "Once per round, when an ally within Short Range fails a roll that includes Presence, add one of your Presence dice to their total; if the new total beats the opposition, their roll succeeds.",
+    "ancestry": "",
+    "grantsTechnique": "",
+    "modifiers": [],
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 2700000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!8NSitXcsHsTVDKIe"
+}

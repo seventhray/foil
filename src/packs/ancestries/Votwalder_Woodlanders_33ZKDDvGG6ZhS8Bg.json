@@ -1,0 +1,33 @@
+{
+  "_id": "33ZKDDvGG6ZhS8Bg",
+  "name": "Votwalder Woodlanders",
+  "type": "origin",
+  "img": "icons/svg/village.svg",
+  "system": {
+    "talent": [
+      {
+        "attribute": "finesse",
+        "die": 12
+      },
+      {
+        "attribute": "wit",
+        "die": 8
+      }
+    ],
+    "feats": [
+      "Marked Prey",
+      "Camouflaged Skin"
+    ],
+    "feat": "Marked Prey",
+    "section": "7.8.3",
+    "description": "<p>Forest people: lean builds, mottled gray-green skin, downy feather-like hairs.</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 300000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!33ZKDDvGG6ZhS8Bg"
+}

@@ -81,7 +81,7 @@
           {{#each this.table}}<option value="{{this.value}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>{{/each}}
         </select>
         <a class="mini-btn" data-action="rollTrait" data-axis="{{this.key}}" title="Roll 1d10"><i class="fas fa-dice-d10"></i></a>
-        <input type="text" name="foil.{{this.key}}.trait" value="{{this.trait}}" placeholder="or write your own" />
+        <input type="text" name="foil.{{this.key}}.habit" value="{{this.habit}}" placeholder="or write your own" />
       </div>
     {{/each}}
   </fieldset>

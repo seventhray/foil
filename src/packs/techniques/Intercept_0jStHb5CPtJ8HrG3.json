@@ -1,0 +1,49 @@
+{
+  "_id": "0jStHb5CPtJ8HrG3",
+  "name": "Intercept",
+  "type": "technique",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "requires": [
+      "blocking"
+    ],
+    "requiresText": "Blocking",
+    "innate": false,
+    "skill": "",
+    "family": "Block",
+    "subgroup": "Reactive",
+    "effects": [
+      {
+        "key": "redirect",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveN": 0,
+        "selectiveR": 0
+      },
+      {
+        "key": "quick",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveN": 0,
+        "selectiveR": 0
+      }
+    ],
+    "floor": true,
+    "xpOverride": 15,
+    "effectText": "Quick (trigger: an ally within reach takes Might or Finesse Stress from a physical Technique your block covers): Redirect that Stress onto your Might, reduced by your physical Resistance. Strain 1.",
+    "ancestryGrant": "",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 100000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!0jStHb5CPtJ8HrG3"
+}

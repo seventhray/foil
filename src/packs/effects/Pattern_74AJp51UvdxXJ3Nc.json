@@ -1,0 +1,41 @@
+{
+  "_id": "74AJp51UvdxXJ3Nc",
+  "name": "Pattern",
+  "type": "effect",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "key": "pattern",
+    "requires": [
+      "edged",
+      "pointed",
+      "blunt",
+      "grappling",
+      "parry",
+      "thrown",
+      "drawn",
+      "fired",
+      "sonic",
+      "kinetic",
+      "incorporeal",
+      "fortifying"
+    ],
+    "pricingKind": "pattern",
+    "pricingParams": {
+      "base": 0,
+      "perPoint": 0,
+      "perBand": 1
+    },
+    "magnitudeLabel": "",
+    "exemptFromPremium": false,
+    "setsFloor": false,
+    "description": "<p>Beam or Wall: 1 + 2 + ... per band. Cone 3x, Radius 12x the Beam cost. A Melee Pattern reaches no farther than its Instrument's Range.</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 2000000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!74AJp51UvdxXJ3Nc"
+}

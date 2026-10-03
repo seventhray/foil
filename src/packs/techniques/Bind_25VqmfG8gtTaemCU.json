@@ -1,0 +1,41 @@
+{
+  "_id": "25VqmfG8gtTaemCU",
+  "name": "Bind",
+  "type": "technique",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "requires": [
+      "grappling",
+      "kinetic"
+    ],
+    "requiresText": "Grappling OR Kinetic",
+    "innate": false,
+    "skill": "",
+    "family": "Grappling",
+    "subgroup": "Basic Holds",
+    "effects": [
+      {
+        "key": "weaken",
+        "magnitude": 2,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveN": 0,
+        "selectiveR": 0
+      }
+    ],
+    "floor": false,
+    "xpOverride": 36,
+    "effectText": "-2 [target Attribute], Strain 4",
+    "ancestryGrant": "",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 2200000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!25VqmfG8gtTaemCU"
+}

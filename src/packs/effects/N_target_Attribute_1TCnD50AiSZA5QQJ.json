@@ -1,0 +1,35 @@
+{
+  "_id": "1TCnD50AiSZA5QQJ",
+  "name": "-N [target Attribute]",
+  "type": "effect",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "key": "weaken",
+    "requires": [
+      "incorporeal",
+      "edged",
+      "pointed",
+      "blunt",
+      "grappling",
+      "parry"
+    ],
+    "pricingKind": "perPoint",
+    "pricingParams": {
+      "base": 0,
+      "perPoint": 18,
+      "perBand": 1
+    },
+    "magnitudeLabel": "-N [target Attribute]",
+    "exemptFromPremium": false,
+    "setsFloor": false,
+    "description": "<p>Weakened: the named Attribute's rolls take -N (PHB 6.8.4).</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 400000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!1TCnD50AiSZA5QQJ"
+}

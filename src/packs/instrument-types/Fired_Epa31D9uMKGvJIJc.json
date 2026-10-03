@@ -1,0 +1,28 @@
+{
+  "_id": "Epa31D9uMKGvJIJc",
+  "name": "Fired",
+  "type": "instrumentType",
+  "img": "icons/svg/upgrade.svg",
+  "system": {
+    "key": "fired",
+    "family": "ranged",
+    "stressPhysical": 4,
+    "stressMental": 4,
+    "pierce": 0,
+    "doubleResistance": false,
+    "dealsNoStress": false,
+    "quick": false,
+    "blocking": false,
+    "reload": "action",
+    "isTool": false,
+    "description": "<p>+4 Stress. Reload: Action.</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 700000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!Epa31D9uMKGvJIJc"
+}

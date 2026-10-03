@@ -1,0 +1,24 @@
+{
+  "_id": "TdNKEjbYpi1dOwnq",
+  "name": "Overwhelm",
+  "type": "feat",
+  "img": "icons/svg/upgrade.svg",
+  "system": {
+    "featType": "learned",
+    "xpCost": 8,
+    "requirements": "16 Might, 16 Finesse, 16 Presence",
+    "effect": "When you land a second Technique this round on an Attribute you already hit, that Technique gains Pierce 1.",
+    "ancestry": "",
+    "grantsTechnique": "",
+    "modifiers": [],
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 2800000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!TdNKEjbYpi1dOwnq"
+}

@@ -1,0 +1,31 @@
+{
+  "_id": "4nMKDuYZjbnx6WKm",
+  "name": "Courtier",
+  "type": "background",
+  "img": "icons/svg/book.svg",
+  "system": {
+    "training": {
+      "prowess": 0,
+      "discipline": 0,
+      "assertiveness": 1,
+      "acuity": 0,
+      "guile": 1,
+      "resonance": 1
+    },
+    "knowHow": [
+      "presence",
+      "presence"
+    ],
+    "coin": "25p",
+    "equipmentKit": "Dagger, Fitted Leathers, Lute.",
+    "description": "<p>Learned the halls of power from the inside, where a favor traded right is worth more than a blade.</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 400000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!4nMKDuYZjbnx6WKm"
+}

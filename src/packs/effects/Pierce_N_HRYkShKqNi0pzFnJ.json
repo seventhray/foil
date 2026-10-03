@@ -1,0 +1,38 @@
+{
+  "_id": "HRYkShKqNi0pzFnJ",
+  "name": "Pierce N",
+  "type": "effect",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "key": "pierce",
+    "requires": [
+      "edged",
+      "pointed",
+      "blunt",
+      "grappling",
+      "parry",
+      "thrown",
+      "drawn",
+      "fired",
+      "kinetic"
+    ],
+    "pricingKind": "perPoint",
+    "pricingParams": {
+      "base": 0,
+      "perPoint": 4,
+      "perBand": 1
+    },
+    "magnitudeLabel": "Pierce N",
+    "exemptFromPremium": false,
+    "setsFloor": false,
+    "description": "<p>Ignore N of the target's Resistance.</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 600000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!HRYkShKqNi0pzFnJ"
+}

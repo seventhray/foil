@@ -1,0 +1,31 @@
+{
+  "_id": "oFImm77qP1vvH8Lg",
+  "name": "Footpad",
+  "type": "background",
+  "img": "icons/svg/book.svg",
+  "system": {
+    "training": {
+      "prowess": 1,
+      "discipline": 0,
+      "assertiveness": 0,
+      "acuity": 1,
+      "guile": 1,
+      "resonance": 0
+    },
+    "knowHow": [
+      "finesse",
+      "finesse"
+    ],
+    "coin": "5p",
+    "equipmentKit": "Dagger, Fitted Leathers, Lockpicks, Climbing Kit.",
+    "description": "<p>Worked the crowded streets and darker alleys, relieving purses of their weight and vanishing before anyone noticed.</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 1100000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!oFImm77qP1vvH8Lg"
+}

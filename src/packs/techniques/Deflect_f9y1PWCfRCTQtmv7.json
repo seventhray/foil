@@ -1,0 +1,40 @@
+{
+  "_id": "f9y1PWCfRCTQtmv7",
+  "name": "Deflect",
+  "type": "technique",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "requires": [
+      "parry"
+    ],
+    "requiresText": "Parry",
+    "innate": false,
+    "skill": "",
+    "family": "Parry",
+    "subgroup": "Reactive",
+    "effects": [
+      {
+        "key": "counter",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveN": 0,
+        "selectiveR": 0
+      }
+    ],
+    "floor": false,
+    "xpOverride": 12,
+    "effectText": "Counter, Strain 1",
+    "ancestryGrant": "",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 8400000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!f9y1PWCfRCTQtmv7"
+}

@@ -1,0 +1,49 @@
+{
+  "_id": "Zpa6666pTjKC2ian",
+  "name": "Crossbow",
+  "type": "instrument",
+  "img": "icons/svg/sword.svg",
+  "system": {
+    "category": "ranged",
+    "weight": "medium",
+    "primaryAttribute": "wit",
+    "range": "Long Range",
+    "types": [
+      "pointed",
+      "fired"
+    ],
+    "typesDisplay": "",
+    "price": 90,
+    "rider": "Reload Action.",
+    "kit": [
+      {
+        "name": "Loose Bolt",
+        "skill": "discipline",
+        "effect": "Deals Stress to Might or Finesse."
+      },
+      {
+        "name": "Called Shot",
+        "skill": "acuity",
+        "effect": "Deals Stress to Wit or Presence."
+      },
+      {
+        "name": "Unnerving Shot",
+        "skill": "resonance",
+        "effect": "Applies Frightened."
+      }
+    ],
+    "innate": false,
+    "bonus": 0,
+    "size": "medium",
+    "materials": "Wood + Metal",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 2800000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!Zpa6666pTjKC2ian"
+}

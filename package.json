@@ -1,0 +1,16 @@
+{
+  "name": "foil",
+  "private": true,
+  "type": "module",
+  "description": "Foilbound TTRPG system for Foundry VTT",
+  "license": "MIT",
+  "scripts": {
+    "seed": "node tools/populate-packs.mjs",
+    "build": "node tools/build-packs.mjs",
+    "verify": "node tools/verify/run.mjs",
+    "release": "sh tools/release.sh"
+  },
+  "devDependencies": {
+    "@foundryvtt/foundryvtt-cli": "3.0.4"
+  }
+}

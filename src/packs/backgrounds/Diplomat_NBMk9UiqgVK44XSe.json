@@ -1,0 +1,31 @@
+{
+  "_id": "NBMk9UiqgVK44XSe",
+  "name": "Diplomat",
+  "type": "background",
+  "img": "icons/svg/book.svg",
+  "system": {
+    "training": {
+      "prowess": 0,
+      "discipline": 0,
+      "assertiveness": 0,
+      "acuity": 1,
+      "guile": 1,
+      "resonance": 1
+    },
+    "knowHow": [
+      "wit",
+      "presence"
+    ],
+    "coin": "25p",
+    "equipmentKit": "Dagger, Fitted Leathers, Traveler Pack.",
+    "description": "<p>Sent to keep two sides from a war neither could win, one careful treaty at a time.</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 800000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!NBMk9UiqgVK44XSe"
+}

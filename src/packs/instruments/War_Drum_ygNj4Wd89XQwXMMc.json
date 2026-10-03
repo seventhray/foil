@@ -1,0 +1,49 @@
+{
+  "_id": "ygNj4Wd89XQwXMMc",
+  "name": "War Drum",
+  "type": "instrument",
+  "img": "icons/svg/sword.svg",
+  "system": {
+    "category": "sonic",
+    "weight": "medium",
+    "primaryAttribute": "might",
+    "range": "Long Range",
+    "types": [
+      "sonic",
+      "tool"
+    ],
+    "typesDisplay": "",
+    "price": 40,
+    "rider": "",
+    "kit": [
+      {
+        "name": "Thunderous Beat",
+        "skill": "prowess",
+        "effect": "Deals Stress to Wit or Presence."
+      },
+      {
+        "name": "Steady War Rhythm",
+        "skill": "discipline",
+        "effect": "Applies Reeling."
+      },
+      {
+        "name": "Thunderclap Command",
+        "skill": "assertiveness",
+        "effect": "Applies Intimidated."
+      }
+    ],
+    "innate": false,
+    "bonus": 0,
+    "size": "large",
+    "materials": "Wood + Leather",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 3400000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!ygNj4Wd89XQwXMMc"
+}

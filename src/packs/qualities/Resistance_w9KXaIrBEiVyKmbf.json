@@ -1,0 +1,21 @@
+{
+  "_id": "w9KXaIrBEiVyKmbf",
+  "name": "Resistance",
+  "type": "quality",
+  "img": "icons/svg/shield.svg",
+  "system": {
+    "key": "resistance",
+    "kind": "resistance",
+    "scope": "resistanceKind",
+    "valueLabel": "+N physical or mental",
+    "description": "<p>Reduce the Stress of every Technique of that kind by N.</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 100000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!w9KXaIrBEiVyKmbf"
+}

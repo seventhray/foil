@@ -1,0 +1,21 @@
+{
+  "_id": "jMdiDSELJAImus6W",
+  "name": "Weakened",
+  "type": "quality",
+  "img": "icons/svg/shield.svg",
+  "system": {
+    "key": "weakened",
+    "kind": "skill",
+    "scope": "attribute",
+    "valueLabel": "-N to an Attribute",
+    "description": "<p>The named Attribute takes Weakened, -N to its rolls.</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 300000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!jMdiDSELJAImus6W"
+}

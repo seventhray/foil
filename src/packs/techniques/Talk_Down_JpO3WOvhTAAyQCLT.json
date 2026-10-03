@@ -1,0 +1,40 @@
+{
+  "_id": "JpO3WOvhTAAyQCLT",
+  "name": "Talk Down",
+  "type": "technique",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "requires": [
+      "sonic"
+    ],
+    "requiresText": "Sonic",
+    "innate": false,
+    "skill": "",
+    "family": "Sonic",
+    "subgroup": "Restorative",
+    "effects": [
+      {
+        "key": "mend",
+        "magnitude": 2,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveN": 0,
+        "selectiveR": 0
+      }
+    ],
+    "floor": false,
+    "xpOverride": 20,
+    "effectText": "Mend 2d4, Strain 2",
+    "ancestryGrant": "",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 10200000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!JpO3WOvhTAAyQCLT"
+}

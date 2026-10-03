@@ -1,0 +1,48 @@
+{
+  "_id": "LHe3AE9kAFASatlA",
+  "name": "Net",
+  "type": "instrument",
+  "img": "icons/svg/sword.svg",
+  "system": {
+    "category": "ranged",
+    "weight": "light",
+    "primaryAttribute": "finesse",
+    "range": "Short Range",
+    "types": [
+      "grappling"
+    ],
+    "typesDisplay": "",
+    "price": 15,
+    "rider": "",
+    "kit": [
+      {
+        "name": "Snare",
+        "skill": "prowess",
+        "effect": "Applies Grappled."
+      },
+      {
+        "name": "Trip",
+        "skill": "acuity",
+        "effect": "Applies Prone."
+      },
+      {
+        "name": "Tangle",
+        "skill": "guile",
+        "effect": "Applies Restrained."
+      }
+    ],
+    "innate": false,
+    "bonus": 0,
+    "size": "medium",
+    "materials": "Textile",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 2300000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!LHe3AE9kAFASatlA"
+}

@@ -1,0 +1,24 @@
+{
+  "_id": "iUnMSDD9TAw8B4PW",
+  "name": "Cruel Whisper",
+  "type": "feat",
+  "img": "icons/svg/upgrade.svg",
+  "system": {
+    "featType": "learned",
+    "xpCost": 12,
+    "requirements": "12 Wit, 12 Presence",
+    "effect": "When using an Incorporeal Technique that deals Stress to the Target, deal +1 additional Stress.",
+    "ancestry": "",
+    "grantsTechnique": "",
+    "modifiers": [],
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 3500000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!iUnMSDD9TAw8B4PW"
+}

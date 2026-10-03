@@ -1,0 +1,40 @@
+{
+  "_id": "usExbrxjpPkNU7TC",
+  "name": "Riposte",
+  "type": "technique",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "requires": [
+      "parry"
+    ],
+    "requiresText": "Parry",
+    "innate": false,
+    "skill": "",
+    "family": "Parry",
+    "subgroup": "Reactive",
+    "effects": [
+      {
+        "key": "quick",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveN": 0,
+        "selectiveR": 0
+      }
+    ],
+    "floor": true,
+    "xpOverride": 8,
+    "effectText": "Quick (trigger: a Melee Technique fails against you): use a Melee Technique against that attacker through this Instrument. Strain 1.",
+    "ancestryGrant": "",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 8300000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!usExbrxjpPkNU7TC"
+}

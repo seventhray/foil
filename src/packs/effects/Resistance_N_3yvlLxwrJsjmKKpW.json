@@ -1,0 +1,32 @@
+{
+  "_id": "3yvlLxwrJsjmKKpW",
+  "name": "Resistance +N",
+  "type": "effect",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "key": "resistance",
+    "requires": [
+      "parry",
+      "blocking",
+      "fortifying"
+    ],
+    "pricingKind": "perPoint",
+    "pricingParams": {
+      "base": 0,
+      "perPoint": 4,
+      "perBand": 1
+    },
+    "magnitudeLabel": "Resistance +N",
+    "exemptFromPremium": false,
+    "setsFloor": false,
+    "description": "<p>Physical or mental Resistance +N.</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 700000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!3yvlLxwrJsjmKKpW"
+}

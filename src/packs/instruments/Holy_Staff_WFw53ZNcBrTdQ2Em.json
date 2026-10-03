@@ -1,0 +1,48 @@
+{
+  "_id": "WFw53ZNcBrTdQ2Em",
+  "name": "Holy Staff",
+  "type": "instrument",
+  "img": "icons/svg/sword.svg",
+  "system": {
+    "category": "arcane",
+    "weight": "medium",
+    "primaryAttribute": "presence",
+    "range": "Mid Range",
+    "types": [
+      "fortifying"
+    ],
+    "typesDisplay": "",
+    "price": 35,
+    "rider": "",
+    "kit": [
+      {
+        "name": "Rally",
+        "skill": "assertiveness",
+        "effect": "Grants +1 to an ally's next roll."
+      },
+      {
+        "name": "Reassure",
+        "skill": "guile",
+        "effect": "Removes a Frightened, Wary, or Intimidated Condition from an ally within Near."
+      },
+      {
+        "name": "Mending Light",
+        "skill": "resonance",
+        "effect": "Removes 2 Stress from an ally's Attribute."
+      }
+    ],
+    "innate": false,
+    "bonus": 0,
+    "size": "medium",
+    "materials": "Wood",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 700000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!WFw53ZNcBrTdQ2Em"
+}

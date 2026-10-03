@@ -1,0 +1,31 @@
+{
+  "_id": "BWk4iaOlWBneevuu",
+  "name": "Vial of Venom",
+  "type": "equipment",
+  "img": "icons/svg/pill.svg",
+  "system": {
+    "category": "potion",
+    "price": 10,
+    "weight": 0,
+    "weightClass": "",
+    "size": "small",
+    "materials": "Reagent",
+    "location": "carried",
+    "qualities": [],
+    "uses": "1",
+    "duration": "instant",
+    "effect": "Lingering 1, coats a weapon",
+    "gemType": "",
+    "tier": 1,
+    "notes": "",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 3500000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!BWk4iaOlWBneevuu"
+}

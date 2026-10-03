@@ -1,0 +1,24 @@
+{
+  "_id": "N2rubu0JQwIcFwPd",
+  "name": "Unstoppable",
+  "type": "feat",
+  "img": "icons/svg/upgrade.svg",
+  "system": {
+    "featType": "trait",
+    "xpCost": 0,
+    "requirements": "Unshakable frame",
+    "effect": "Immune to Grappled, Restrained, and Prone.",
+    "ancestry": "",
+    "grantsTechnique": "",
+    "modifiers": [],
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 4500000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!N2rubu0JQwIcFwPd"
+}

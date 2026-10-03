@@ -1,0 +1,59 @@
+{
+  "_id": "d95VeQJ1YJ0kAjI2",
+  "name": "Gutting Blow",
+  "type": "technique",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "requires": [
+      "edged",
+      "pointed"
+    ],
+    "requiresText": "Edged or Pointed",
+    "innate": false,
+    "skill": "",
+    "family": "Melee",
+    "subgroup": "Signature",
+    "effects": [
+      {
+        "key": "stress",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveN": 0,
+        "selectiveR": 0
+      },
+      {
+        "key": "pierce",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveN": 0,
+        "selectiveR": 0
+      },
+      {
+        "key": "weaken",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveN": 0,
+        "selectiveR": 0
+      }
+    ],
+    "floor": false,
+    "xpOverride": 34,
+    "effectText": "Stress, Pierce 1, -1 [target Attribute], Strain 4",
+    "ancestryGrant": "",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 7300000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!d95VeQJ1YJ0kAjI2"
+}

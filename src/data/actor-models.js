@@ -21,7 +21,7 @@ function foilSchema() {
   for (const a of FOIL_AXES) {
     axes[a.key] = new f.SchemaField({
       lean: new f.StringField({ required: true, blank: true, initial: "", choices: FOIL_LEANS }),
-      trait: str("")
+      habit: str("")
     });
   }
   return new f.SchemaField(axes);
@@ -35,7 +35,7 @@ function coreSchema() {
   return {
     attributes: new f.SchemaField(attrs),
     skills: new f.SchemaField(skills),
-    // One Habit per FOIL axis (stored as `trait`), leaning High, Low, or Neutral; blank until declared (PHB 3.4.0).
+    // One Habit per FOIL axis, leaning High, Low, or Neutral; blank until declared (PHB 3.4.0).
     foil: foilSchema(),
     // Earned by invoking a held Habit, spent to halve one source's Stress or reroll a die (PHB 3.2.0).
     foilTokens: int(0, { min: 0, max: FOIL_TOKEN_MAX }),
@@ -168,7 +168,7 @@ function migrateSkills(source) {
   return source;
 }
 
-/** FOIL axes were -5..+5 integers; they are now a lean and a written trait. */
+/** FOIL axes were -5..+5 integers, then a lean and a `trait` string; now a lean and a Habit. */
 function migrateFoil(source) {
   const foil = source?.foil;
   if (!foil) return source;
@@ -176,7 +176,8 @@ function migrateFoil(source) {
   delete foil.leniency;
   for (const a of FOIL_AXES) {
     const v = foil[a.key];
-    if (typeof v === "number") foil[a.key] = { lean: v > 0 ? "high" : v < 0 ? "low" : "", trait: "" };
+    if (typeof v === "number") foil[a.key] = { lean: v > 0 ? "high" : v < 0 ? "low" : "", habit: "" };
+    else if (v && "trait" in v) { v.habit ??= v.trait; delete v.trait; }
   }
   return source;
 }

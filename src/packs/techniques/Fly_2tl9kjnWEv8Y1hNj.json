@@ -1,0 +1,30 @@
+{
+  "_id": "2tl9kjnWEv8Y1hNj",
+  "name": "Fly",
+  "type": "technique",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "requires": [
+      "fortifying"
+    ],
+    "requiresText": "Fortifying",
+    "innate": false,
+    "skill": "",
+    "family": "Fortifying",
+    "subgroup": "Movement",
+    "effects": [],
+    "floor": true,
+    "xpOverride": 16,
+    "effectText": "Move through open air, ignoring ground-based terrain and any Grappling or Move Effect that requires solid footing beneath the target, for the duration of Upkeep, Strain 2",
+    "ancestryGrant": "",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 400000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!2tl9kjnWEv8Y1hNj"
+}

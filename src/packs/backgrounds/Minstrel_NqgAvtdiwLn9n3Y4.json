@@ -1,0 +1,31 @@
+{
+  "_id": "NqgAvtdiwLn9n3Y4",
+  "name": "Minstrel",
+  "type": "background",
+  "img": "icons/svg/book.svg",
+  "system": {
+    "training": {
+      "prowess": 1,
+      "discipline": 0,
+      "assertiveness": 0,
+      "acuity": 0,
+      "guile": 1,
+      "resonance": 1
+    },
+    "knowHow": [
+      "presence",
+      "finesse"
+    ],
+    "coin": "10p",
+    "equipmentKit": "Dagger, Fitted Leathers, Lute.",
+    "description": "<p>Traveled from town to town trading songs and stories for a bed and a meal, welcome anywhere a crowd could gather.</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 1500000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!NqgAvtdiwLn9n3Y4"
+}

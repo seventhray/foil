@@ -1,0 +1,49 @@
+{
+  "_id": "rv44bP474RWFBVlu",
+  "name": "Warding Chant",
+  "type": "technique",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "requires": [
+      "sonic"
+    ],
+    "requiresText": "Sonic",
+    "innate": false,
+    "skill": "",
+    "family": "Sonic",
+    "subgroup": "Restorative",
+    "effects": [
+      {
+        "key": "skill-mod",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveN": 0,
+        "selectiveR": 0
+      },
+      {
+        "key": "selective",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveN": 3,
+        "selectiveR": 2
+      }
+    ],
+    "floor": false,
+    "xpOverride": 19,
+    "effectText": "+1 to one Skill of choice, up to 3 allies within Near (Selective), Strain 2",
+    "ancestryGrant": "Ngyenha",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 10600000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!rv44bP474RWFBVlu"
+}

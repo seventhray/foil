@@ -1,0 +1,59 @@
+{
+  "_id": "yfWmvATQLLUhwSUJ",
+  "name": "Maiming Strike",
+  "type": "technique",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "requires": [
+      "edged",
+      "pointed"
+    ],
+    "requiresText": "Edged or Pointed",
+    "innate": false,
+    "skill": "",
+    "family": "Melee",
+    "subgroup": "Signature",
+    "effects": [
+      {
+        "key": "stress",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveN": 0,
+        "selectiveR": 0
+      },
+      {
+        "key": "pierce",
+        "magnitude": 2,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveN": 0,
+        "selectiveR": 0
+      },
+      {
+        "key": "weaken",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveN": 0,
+        "selectiveR": 0
+      }
+    ],
+    "floor": false,
+    "xpOverride": 38,
+    "effectText": "Stress, Pierce 2, -1 [target Attribute], Strain 4",
+    "ancestryGrant": "",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 7700000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!yfWmvATQLLUhwSUJ"
+}

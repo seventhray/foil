@@ -1,0 +1,28 @@
+{
+  "_id": "demSE0G2vnftCAGq",
+  "name": "Quick",
+  "type": "effect",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "key": "quick",
+    "requires": [],
+    "pricingKind": "quick",
+    "pricingParams": {
+      "base": 7,
+      "perPoint": 0,
+      "perBand": 1
+    },
+    "magnitudeLabel": "",
+    "exemptFromPremium": true,
+    "setsFloor": true,
+    "description": "<p>7 XP, outside the combination premium. A stated trigger sets the 8 XP floor.</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 2300000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!demSE0G2vnftCAGq"
+}

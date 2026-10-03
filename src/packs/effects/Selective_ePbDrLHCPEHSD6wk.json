@@ -1,0 +1,36 @@
+{
+  "_id": "ePbDrLHCPEHSD6wk",
+  "name": "Selective",
+  "type": "effect",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "key": "selective",
+    "requires": [
+      "thrown",
+      "drawn",
+      "fired",
+      "sonic",
+      "kinetic",
+      "incorporeal",
+      "fortifying"
+    ],
+    "pricingKind": "selective",
+    "pricingParams": {
+      "base": 0,
+      "perPoint": 0,
+      "perBand": 1
+    },
+    "magnitudeLabel": "",
+    "exemptFromPremium": false,
+    "setsFloor": false,
+    "description": "<p>N creatures within R bands: N + (R x N).</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 2100000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!ePbDrLHCPEHSD6wk"
+}

@@ -1,0 +1,49 @@
+{
+  "_id": "9ZXTlO2H13800M3X",
+  "name": "Spear",
+  "type": "instrument",
+  "img": "icons/svg/sword.svg",
+  "system": {
+    "category": "melee",
+    "weight": "medium",
+    "primaryAttribute": "might",
+    "range": "Near",
+    "types": [
+      "pointed",
+      "parry"
+    ],
+    "typesDisplay": "",
+    "price": 50,
+    "rider": "",
+    "kit": [
+      {
+        "name": "Lunge",
+        "skill": "prowess",
+        "effect": "Deals Stress to Might or Finesse."
+      },
+      {
+        "name": "Trip",
+        "skill": "discipline",
+        "effect": "Applies Prone."
+      },
+      {
+        "name": "Impale",
+        "skill": "assertiveness",
+        "effect": "Deals Stress to Presence or Wit."
+      }
+    ],
+    "innate": false,
+    "bonus": 0,
+    "size": "medium",
+    "materials": "Metal + Wood",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 1700000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!9ZXTlO2H13800M3X"
+}

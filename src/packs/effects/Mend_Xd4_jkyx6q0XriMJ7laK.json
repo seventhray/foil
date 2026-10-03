@@ -1,0 +1,31 @@
+{
+  "_id": "jkyx6q0XriMJ7laK",
+  "name": "Mend Xd4",
+  "type": "effect",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "key": "mend",
+    "requires": [
+      "fortifying",
+      "sonic"
+    ],
+    "pricingKind": "perPoint",
+    "pricingParams": {
+      "base": 0,
+      "perPoint": 10,
+      "perBand": 1
+    },
+    "magnitudeLabel": "Mend Nd4",
+    "exemptFromPremium": false,
+    "setsFloor": false,
+    "description": "<p>Remove Xd4 Stress from one of an ally's Attributes in ten minutes, with no Medicine and no roll. Medicine or Mend once every 4 hours per creature (PHB 6.10.0).</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 800000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!jkyx6q0XriMJ7laK"
+}

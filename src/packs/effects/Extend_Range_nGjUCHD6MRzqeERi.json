@@ -1,0 +1,31 @@
+{
+  "_id": "nGjUCHD6MRzqeERi",
+  "name": "Extend Range",
+  "type": "effect",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "key": "extend-range",
+    "requires": [
+      "kinetic",
+      "incorporeal"
+    ],
+    "pricingKind": "extendRange",
+    "pricingParams": {
+      "base": 0,
+      "perPoint": 0,
+      "perBand": 1
+    },
+    "magnitudeLabel": "",
+    "exemptFromPremium": false,
+    "setsFloor": false,
+    "description": "<p>1 XP per band of extra reach.</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 1900000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!nGjUCHD6MRzqeERi"
+}

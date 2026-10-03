@@ -1,0 +1,50 @@
+{
+  "_id": "Y0jSdtwF7AiRIXpa",
+  "name": "Grand Staff",
+  "type": "instrument",
+  "img": "icons/svg/sword.svg",
+  "system": {
+    "category": "arcane",
+    "weight": "heavy",
+    "primaryAttribute": "presence",
+    "range": "Long Range",
+    "types": [
+      "kinetic",
+      "incorporeal",
+      "fortifying"
+    ],
+    "typesDisplay": "",
+    "price": 70,
+    "rider": "",
+    "kit": [
+      {
+        "name": "Grand Strike",
+        "skill": "assertiveness",
+        "effect": "Deals Stress to Might or Finesse."
+      },
+      {
+        "name": "Mind Break",
+        "skill": "guile",
+        "effect": "Deals Stress to Wit or Presence."
+      },
+      {
+        "name": "Restorative Surge",
+        "skill": "resonance",
+        "effect": "Removes 3 Stress from an ally's Attribute."
+      }
+    ],
+    "innate": false,
+    "bonus": 0,
+    "size": "medium",
+    "materials": "Wood",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 1000000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!Y0jSdtwF7AiRIXpa"
+}

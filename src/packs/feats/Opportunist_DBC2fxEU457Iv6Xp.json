@@ -1,0 +1,24 @@
+{
+  "_id": "DBC2fxEU457Iv6Xp",
+  "name": "Opportunist",
+  "type": "feat",
+  "img": "icons/svg/upgrade.svg",
+  "system": {
+    "featType": "learned",
+    "xpCost": 8,
+    "requirements": "12 Finesse, 12 Presence",
+    "effect": "Enemies cannot Disengage from your Touching or Close reach; leaving it always provokes your Attack of Opportunity.",
+    "ancestry": "",
+    "grantsTechnique": "",
+    "modifiers": [],
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 2600000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!DBC2fxEU457Iv6Xp"
+}

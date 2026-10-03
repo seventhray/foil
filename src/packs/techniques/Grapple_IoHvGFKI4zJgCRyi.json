@@ -1,0 +1,40 @@
+{
+  "_id": "IoHvGFKI4zJgCRyi",
+  "name": "Grapple",
+  "type": "technique",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "requires": [
+      "grappling"
+    ],
+    "requiresText": "Grappling",
+    "innate": false,
+    "skill": "",
+    "family": "Grappling",
+    "subgroup": "Basic Holds",
+    "effects": [
+      {
+        "key": "grappled",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveN": 0,
+        "selectiveR": 0
+      }
+    ],
+    "floor": false,
+    "xpOverride": 4,
+    "effectText": "Grappled",
+    "ancestryGrant": "",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 2500000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!IoHvGFKI4zJgCRyi"
+}

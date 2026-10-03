@@ -1,0 +1,31 @@
+{
+  "_id": "1RuVVUgBOqo4rZlc",
+  "name": "Frightened",
+  "type": "effect",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "key": "frightened",
+    "requires": [
+      "incorporeal",
+      "sonic"
+    ],
+    "pricingKind": "flat",
+    "pricingParams": {
+      "base": 8,
+      "perPoint": 0,
+      "perBand": 1
+    },
+    "magnitudeLabel": "",
+    "exemptFromPremium": false,
+    "setsFloor": false,
+    "description": "<p>PHB 6.8.9.</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 2800000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!1RuVVUgBOqo4rZlc"
+}

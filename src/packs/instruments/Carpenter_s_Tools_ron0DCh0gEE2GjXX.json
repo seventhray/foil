@@ -1,0 +1,32 @@
+{
+  "_id": "ron0DCh0gEE2GjXX",
+  "name": "Carpenter's Tools",
+  "type": "instrument",
+  "img": "icons/svg/pick.svg",
+  "system": {
+    "category": "tool",
+    "weight": "light",
+    "primaryAttribute": "might",
+    "range": "Touching",
+    "types": [
+      "craft-wood"
+    ],
+    "typesDisplay": "Craft [Wood]",
+    "price": 16,
+    "rider": "",
+    "kit": [],
+    "innate": false,
+    "bonus": 0,
+    "size": "medium",
+    "materials": "Wood",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 4400000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!ron0DCh0gEE2GjXX"
+}

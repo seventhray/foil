@@ -1,0 +1,28 @@
+{
+  "_id": "rDMNu5pQb4P4CcWI",
+  "name": "Craft",
+  "type": "instrumentType",
+  "img": "icons/svg/upgrade.svg",
+  "system": {
+    "key": "craft",
+    "family": "other",
+    "stressPhysical": 0,
+    "stressMental": 0,
+    "pierce": 0,
+    "doubleResistance": false,
+    "dealsNoStress": false,
+    "quick": false,
+    "blocking": false,
+    "reload": "",
+    "isTool": true,
+    "description": "<p>A Trade roll for general work in no single Material.</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 1700000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!rDMNu5pQb4P4CcWI"
+}

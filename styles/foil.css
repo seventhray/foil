@@ -821,7 +821,7 @@
   flex: 0 0 auto; width: auto; line-height: 1.2; padding: 1px 7px; font-size: 0.8em;
   border: 1px solid var(--line); border-radius: 3px; cursor: pointer;
 }
-.axis-trait { width: 100%; box-sizing: border-box; font-style: italic; }
+.axis-habit { width: 100%; box-sizing: border-box; font-style: italic; }
 .abbr { font-size: 0.75em; color: var(--ink-faint); margin-left: 3px; }
 .kit-row { display: flex; gap: 6px; align-items: baseline; padding: 1px 0; }
 .kit-cell { flex: 1 1 auto; font-size: 0.9em; }

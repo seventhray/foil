@@ -1,0 +1,32 @@
+{
+  "_id": "I39GHyu65TJearYc",
+  "name": "Poisoner's Kit",
+  "type": "instrument",
+  "img": "icons/svg/pick.svg",
+  "system": {
+    "category": "tool",
+    "weight": "light",
+    "primaryAttribute": "wit",
+    "range": "Touching",
+    "types": [
+      "craft-reagent"
+    ],
+    "typesDisplay": "Craft [Reagent]",
+    "price": 24,
+    "rider": "",
+    "kit": [],
+    "innate": false,
+    "bonus": 0,
+    "size": "medium",
+    "materials": "Reagent",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 4200000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!I39GHyu65TJearYc"
+}

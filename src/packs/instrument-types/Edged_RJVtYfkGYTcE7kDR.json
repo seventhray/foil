@@ -1,0 +1,28 @@
+{
+  "_id": "RJVtYfkGYTcE7kDR",
+  "name": "Edged",
+  "type": "instrumentType",
+  "img": "icons/svg/upgrade.svg",
+  "system": {
+    "key": "edged",
+    "family": "melee",
+    "stressPhysical": 3,
+    "stressMental": 0,
+    "pierce": 0,
+    "doubleResistance": true,
+    "dealsNoStress": false,
+    "quick": false,
+    "blocking": false,
+    "reload": "",
+    "isTool": false,
+    "description": "<p>+3 Stress against a physical Attribute. Physical Resistance, after Pierce, counts double against it.</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 200000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!RJVtYfkGYTcE7kDR"
+}

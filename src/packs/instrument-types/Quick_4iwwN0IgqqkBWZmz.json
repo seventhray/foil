@@ -1,0 +1,28 @@
+{
+  "_id": "4iwwN0IgqqkBWZmz",
+  "name": "Quick",
+  "type": "instrumentType",
+  "img": "icons/svg/upgrade.svg",
+  "system": {
+    "key": "quick",
+    "family": "other",
+    "stressPhysical": 0,
+    "stressMental": 0,
+    "pierce": 0,
+    "doubleResistance": false,
+    "dealsNoStress": false,
+    "quick": true,
+    "blocking": false,
+    "reload": "",
+    "isTool": false,
+    "description": "<p>Creatures only (GMG 4.6.0): this natural weapon's built-in Techniques may be used as a Quick Action. A Light Instrument already can (PHB 4.1.1).</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 100000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!4iwwN0IgqqkBWZmz"
+}

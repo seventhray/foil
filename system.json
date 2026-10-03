@@ -13,6 +13,7 @@
     }
   ],
   "url": "https://github.com/seventhray/foil",
+  "license": "LICENSE",
   "manifest": "https://github.com/seventhray/foil/releases/latest/download/system.json",
   "download": "https://github.com/seventhray/foil/releases/download/v0.6.7/foil.zip",
   "esmodules": [
@@ -102,9 +103,9 @@
       }
     },
     {
-      "name": "origins",
+      "name": "ancestries",
       "label": "FOIL Ancestries",
-      "path": "packs/origins",
+      "path": "packs/ancestries",
       "type": "Item",
       "system": "foil",
       "ownership": {
@@ -174,7 +175,7 @@
         "feats",
         "equipment",
         "backgrounds",
-        "origins"
+        "ancestries"
       ]
     },
     {

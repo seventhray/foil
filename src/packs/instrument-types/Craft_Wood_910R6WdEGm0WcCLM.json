@@ -1,0 +1,28 @@
+{
+  "_id": "910R6WdEGm0WcCLM",
+  "name": "Craft [Wood]",
+  "type": "instrumentType",
+  "img": "icons/svg/upgrade.svg",
+  "system": {
+    "key": "craft-wood",
+    "family": "other",
+    "stressPhysical": 0,
+    "stressMental": 0,
+    "pierce": 0,
+    "doubleResistance": false,
+    "dealsNoStress": false,
+    "quick": false,
+    "blocking": false,
+    "reload": "",
+    "isTool": true,
+    "description": "<p>A Craft Trade roll working Wood.</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 1900000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!910R6WdEGm0WcCLM"
+}

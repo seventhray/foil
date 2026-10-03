@@ -1,0 +1,24 @@
+{
+  "_id": "K4UrWTh0S9DVATGP",
+  "name": "Keen Scent",
+  "type": "feat",
+  "img": "icons/svg/upgrade.svg",
+  "system": {
+    "featType": "trait",
+    "xpCost": 0,
+    "requirements": "Keen senses",
+    "effect": "Track a creature's trail by scent alone. Within Close range, sense a hidden or invisible creature without a roll.",
+    "ancestry": "",
+    "grantsTechnique": "",
+    "modifiers": [],
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 4300000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!K4UrWTh0S9DVATGP"
+}

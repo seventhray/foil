@@ -1,0 +1,32 @@
+{
+  "_id": "tWffbZTDf0DhwPNo",
+  "name": "Jeweler's Tools",
+  "type": "instrument",
+  "img": "icons/svg/pick.svg",
+  "system": {
+    "category": "tool",
+    "weight": "light",
+    "primaryAttribute": "finesse",
+    "range": "Touching",
+    "types": [
+      "craft-gemstone"
+    ],
+    "typesDisplay": "Craft [Gemstone]",
+    "price": 22,
+    "rider": "",
+    "kit": [],
+    "innate": false,
+    "bonus": 0,
+    "size": "medium",
+    "materials": "Gemstone",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 4800000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!tWffbZTDf0DhwPNo"
+}

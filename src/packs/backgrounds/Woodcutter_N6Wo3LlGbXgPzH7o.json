@@ -1,0 +1,31 @@
+{
+  "_id": "N6Wo3LlGbXgPzH7o",
+  "name": "Woodcutter",
+  "type": "background",
+  "img": "icons/svg/book.svg",
+  "system": {
+    "training": {
+      "prowess": 1,
+      "discipline": 1,
+      "assertiveness": 0,
+      "acuity": 1,
+      "guile": 0,
+      "resonance": 0
+    },
+    "knowHow": [
+      "might",
+      "might"
+    ],
+    "coin": "5p",
+    "equipmentKit": "Hand Axe, Leather armor, Rope (50ft), Climbing Kit.",
+    "description": "<p>Spent years felling timber at the forest's edge, alone with an axe and whatever the woods decided to send.</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 2000000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!N6Wo3LlGbXgPzH7o"
+}

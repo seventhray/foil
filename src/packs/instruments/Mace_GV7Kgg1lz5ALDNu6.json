@@ -1,0 +1,48 @@
+{
+  "_id": "GV7Kgg1lz5ALDNu6",
+  "name": "Mace",
+  "type": "instrument",
+  "img": "icons/svg/sword.svg",
+  "system": {
+    "category": "melee",
+    "weight": "medium",
+    "primaryAttribute": "might",
+    "range": "Close",
+    "types": [
+      "blunt"
+    ],
+    "typesDisplay": "",
+    "price": 35,
+    "rider": "",
+    "kit": [
+      {
+        "name": "Crush",
+        "skill": "prowess",
+        "effect": "Deals Stress to Might or Finesse."
+      },
+      {
+        "name": "Stagger",
+        "skill": "discipline",
+        "effect": "Applies Prone."
+      },
+      {
+        "name": "Intimidating Blow",
+        "skill": "assertiveness",
+        "effect": "Deals Stress to Presence or Wit."
+      }
+    ],
+    "innate": false,
+    "bonus": 0,
+    "size": "medium",
+    "materials": "Metal + Wood",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 1800000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!GV7Kgg1lz5ALDNu6"
+}

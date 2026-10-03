@@ -1,0 +1,49 @@
+{
+  "_id": "RyteRptgLBjWRsCS",
+  "name": "Wand",
+  "type": "instrument",
+  "img": "icons/svg/sword.svg",
+  "system": {
+    "category": "arcane",
+    "weight": "light",
+    "primaryAttribute": "wit",
+    "range": "Short Range",
+    "types": [
+      "quick",
+      "kinetic"
+    ],
+    "typesDisplay": "",
+    "price": 20,
+    "rider": "A Wand built Fortifying uses the Mending Focus kit instead.",
+    "kit": [
+      {
+        "name": "Force Bolt",
+        "skill": "discipline",
+        "effect": "Deals Stress to Might or Finesse."
+      },
+      {
+        "name": "Mind-Piercing Ray",
+        "skill": "acuity",
+        "effect": "Deals Stress to Wit or Presence."
+      },
+      {
+        "name": "Unsettling Pulse",
+        "skill": "resonance",
+        "effect": "Applies Frightened."
+      }
+    ],
+    "innate": false,
+    "bonus": 0,
+    "size": "small",
+    "materials": "Wood",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 400000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!RyteRptgLBjWRsCS"
+}

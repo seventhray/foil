@@ -1,0 +1,24 @@
+{
+  "_id": "oQmdzrqc44roV2jy",
+  "name": "True Sight",
+  "type": "feat",
+  "img": "icons/svg/upgrade.svg",
+  "system": {
+    "featType": "trait",
+    "xpCost": 0,
+    "requirements": "Piercing eyes",
+    "effect": "See through Illusion automatically. Perceive incorporeal or invisible creatures within Near range as plainly as anything else.",
+    "ancestry": "",
+    "grantsTechnique": "",
+    "modifiers": [],
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 4600000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!oQmdzrqc44roV2jy"
+}

@@ -1,0 +1,24 @@
+{
+  "_id": "4FB3i0HXtFX79q6v",
+  "name": "Blindsight, Echolocation, or Thermal Sight",
+  "type": "feat",
+  "img": "icons/svg/upgrade.svg",
+  "system": {
+    "featType": "trait",
+    "xpCost": 0,
+    "requirements": "Sight past sight",
+    "effect": "Perceive without sight within Near range. Blinded, magical darkness, and sight-based Illusion don't stop you from targeting or Opposing normally.",
+    "ancestry": "",
+    "grantsTechnique": "",
+    "modifiers": [],
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 4200000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!4FB3i0HXtFX79q6v"
+}

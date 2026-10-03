@@ -1,0 +1,33 @@
+{
+  "_id": "rnT7tTCCN1Q7IeAK",
+  "name": "Tushmont Stonedwellers",
+  "type": "origin",
+  "img": "icons/svg/village.svg",
+  "system": {
+    "talent": [
+      {
+        "attribute": "might",
+        "die": 10
+      },
+      {
+        "attribute": "wit",
+        "die": 10
+      }
+    ],
+    "feats": [
+      "Stonebreaker",
+      "Tremor Sense"
+    ],
+    "feat": "Stonebreaker",
+    "section": "7.8.4",
+    "description": "<p>Mountain people: stout frames, skin thickened to a plated stony texture.</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 400000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!rnT7tTCCN1Q7IeAK"
+}

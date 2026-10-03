@@ -1,0 +1,31 @@
+{
+  "_id": "Lf0EVSl7eJfLfqfE",
+  "name": "Tanzanite (Tier 1)",
+  "type": "equipment",
+  "img": "icons/svg/ice-aura.svg",
+  "system": {
+    "category": "gem",
+    "price": 60,
+    "weight": 0,
+    "weightClass": "",
+    "size": "small",
+    "materials": "Gemstone",
+    "location": "carried",
+    "qualities": [],
+    "uses": "",
+    "duration": "",
+    "effect": "Entropic; Drain heals 1 more per Tier",
+    "gemType": "tanzanite",
+    "tier": 1,
+    "notes": "",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 4200000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!Lf0EVSl7eJfLfqfE"
+}

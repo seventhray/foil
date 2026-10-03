@@ -1,0 +1,48 @@
+{
+  "_id": "5LBYhiavIKSqseqo",
+  "name": "Battleaxe",
+  "type": "instrument",
+  "img": "icons/svg/sword.svg",
+  "system": {
+    "category": "melee",
+    "weight": "heavy",
+    "primaryAttribute": "might",
+    "range": "Close",
+    "types": [
+      "edged"
+    ],
+    "typesDisplay": "",
+    "price": 50,
+    "rider": "",
+    "kit": [
+      {
+        "name": "Cleave",
+        "skill": "prowess",
+        "effect": "Deals Stress to Might or Finesse."
+      },
+      {
+        "name": "Rend",
+        "skill": "discipline",
+        "effect": "Applies Prone."
+      },
+      {
+        "name": "War Cry",
+        "skill": "assertiveness",
+        "effect": "Deals Stress to Presence or Wit."
+      }
+    ],
+    "innate": false,
+    "bonus": 0,
+    "size": "medium",
+    "materials": "Metal + Wood",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 1900000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!5LBYhiavIKSqseqo"
+}

@@ -1,0 +1,31 @@
+{
+  "_id": "VSljbfzQPFT2VdmP",
+  "name": "Charmed",
+  "type": "effect",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "key": "charmed",
+    "requires": [
+      "incorporeal",
+      "sonic"
+    ],
+    "pricingKind": "flat",
+    "pricingParams": {
+      "base": 8,
+      "perPoint": 0,
+      "perBand": 1
+    },
+    "magnitudeLabel": "",
+    "exemptFromPremium": false,
+    "setsFloor": false,
+    "description": "<p>PHB 6.8.8.</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 2700000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!VSljbfzQPFT2VdmP"
+}

@@ -1,0 +1,202 @@
+{
+  "_id": "kp5qCmEFCkmqsNLi",
+  "name": "1 · How Foilbound Plays",
+  "folder": null,
+  "sort": 100000,
+  "ownership": {
+    "default": 2
+  },
+  "flags": {},
+  "pages": [
+    {
+      "_id": "YZMfieUxwXtEFsGB",
+      "name": "Resolving a Technique",
+      "type": "text",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "text": {
+        "format": 1,
+        "content": "<p>Every contest runs the same way, whether it is a duel, an argument, or a crisis of belief (PHB 1.4.0, 6.4.0).</p>\n<ol>\n<li>Declare the <strong>Instrument</strong> and the <strong>Technique</strong>: one of the Instrument's three built-in Techniques, or one the character has learned.</li>\n<li>Name the Attribute it harms. Describe the action; the GM judges whether it fits.</li>\n<li>Pick any of the three Skills the Instrument's Primary Attribute allows.</li>\n<li>Pay the <strong>Action</strong>, or the <strong>Quick Action</strong> for a Quick-tagged Technique or a Light built-in after a Light Action. A Heavy Instrument takes both.</li>\n<li>Roll the Skill. The target Opposes with any Skill built on the Attribute under attack, or, against a Technique that deals no Stress, with one of the two Skills its Condition names. A kit roll that only applies a Condition says which.</li>\n<li>If the Oppose beats the roll, the Technique fails. Otherwise it lands, a tie landing at a margin of 0.</li>\n</ol>\n<p>There is no separate damage roll. The <strong>margin</strong> the Technique won by becomes its Stress.</p>",
+        "markdown": ""
+      },
+      "image": {},
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "sort": 100000,
+      "ownership": {
+        "default": -1
+      },
+      "flags": {},
+      "_key": "!journal.pages!kp5qCmEFCkmqsNLi.YZMfieUxwXtEFsGB"
+    },
+    {
+      "_id": "clFEIgtEvfRMa8zU",
+      "name": "Attributes, Potential, and Skills",
+      "type": "text",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "text": {
+        "format": 1,
+        "content": "<p>A character has four <strong>Attributes</strong>: Might and Finesse (physical), Wit and Presence (mental). Each is a pool of dice. Every Attribute starts at 2d4; an Ancestry and a Background add to them (PHB 2.5.0).</p>\n<p><strong>Potential</strong> is the most that pool can roll. It is also how much Stress the Attribute holds before it is Incapacitated.</p>\n<p>Six <strong>Skills</strong> each pair two Attributes. To roll one, roll both pools and add that Skill's Training.</p>\n<table><thead><tr><th>Skill</th><th>Attributes</th><th>Represents</th></tr></thead><tbody>\n<tr><td>Prowess</td><td>Might + Finesse</td><td>Athletics, martial arts, power</td></tr>\n<tr><td>Discipline</td><td>Might + Wit</td><td>Control, resilience, consistency</td></tr>\n<tr><td>Assertiveness</td><td>Might + Presence</td><td>Intimidation, command, inspiration, rallying</td></tr>\n<tr><td>Acuity</td><td>Finesse + Wit</td><td>Perception, awareness, foresight</td></tr>\n<tr><td>Guile</td><td>Finesse + Presence</td><td>Maneuvering, deception, performance, misdirection</td></tr>\n<tr><td>Resonance</td><td>Wit + Presence</td><td>Insight, persuasion, connection, encouragement</td></tr>\n</tbody></table>\n<p><strong>Training</strong> costs 8 XP, plus 2 for each point the Skill already has. It can't pass the number of dice in the Skill's two pools.</p>\n<p>A creature that isn't pushing back has a <strong>passive</strong> value in each Skill: the Average of its two Attributes, rounded down, plus Training. It stands in as the Difficulty.</p>",
+        "markdown": ""
+      },
+      "image": {},
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "sort": 200000,
+      "ownership": {
+        "default": -1
+      },
+      "flags": {},
+      "_key": "!journal.pages!kp5qCmEFCkmqsNLi.clFEIgtEvfRMa8zU"
+    },
+    {
+      "_id": "l7pe2lLXYxtSESo7",
+      "name": "Instruments and Types",
+      "type": "text",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "text": {
+        "format": 1,
+        "content": "<p>An <strong>Instrument</strong> has one Range, one <strong>Primary Attribute</strong>, and one or more <strong>Instrument Types</strong>. The Primary Attribute sets which three Skills can roll it. Every Instrument carries three built-in Techniques, one per Skill, free.</p>\n<p>Every character has two innate Instruments. <strong>Body</strong> is Might Primary, Light, Blunt, Grappling, Close: Strike, Grapple, Menace. <strong>Voice</strong> is Presence Primary, Light, Sonic, Mid Range: Intimidate, Mislead, Sway.</p>\n<table><thead><tr><th>Type</th><th>Type effect</th></tr></thead><tbody>\n<tr><td>Edged</td><td>+3 Stress against a physical Attribute. Physical Resistance counts double against Edged, after Pierce</td></tr>\n<tr><td>Pointed</td><td>Pierce 1 against physical Resistance, +1 Stress against a physical Attribute</td></tr>\n<tr><td>Blunt</td><td>Pierce 3 against physical Resistance</td></tr>\n<tr><td>Drawn / Fired</td><td>+2 / +4 Stress; reload with the Quick Action / the Action</td></tr>\n<tr><td>Kinetic</td><td>+1 against a physical Attribute, -1 against a mental one</td></tr>\n<tr><td>Incorporeal, Sonic</td><td>+1 against a mental Attribute, -1 against a physical one</td></tr>\n<tr><td>Quick</td><td>Built-in Techniques may use the Quick Action</td></tr>\n<tr><td>Grappling</td><td>Adds no Stress</td></tr>\n<tr><td>Blocking</td><td>Its +N applies to Oppose rolls; Guard with it</td></tr>\n<tr><td>Immobile</td><td>+2 Stress; fixed in place</td></tr>\n</tbody></table>\n<p>Light, Medium, and Heavy are weight classes, not Types. They set an Instrument's base price (15p, 30p, 45p) and its carried weight (2, 4, 8 lbs). A Heavy Instrument takes both hands, costs the Action and the Quick Action, and doubles the margin before the cap. After an Action through a Light Instrument, the Quick Action can use a Light Instrument's built-in Technique.</p>",
+        "markdown": ""
+      },
+      "image": {},
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "sort": 300000,
+      "ownership": {
+        "default": -1
+      },
+      "flags": {},
+      "_key": "!journal.pages!kp5qCmEFCkmqsNLi.l7pe2lLXYxtSESo7"
+    },
+    {
+      "_id": "PaKHsxKiGUtJ84vW",
+      "name": "Stress, Resistance, and Incapacitation",
+      "type": "text",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "text": {
+        "format": 1,
+        "content": "<p>When a Stress Technique lands (PHB 6.7.0):</p>\n<ol>\n<li>Take the margin, capped at a share of the Instrument's Primary Potential by its weight: <strong>half</strong> for Light, <strong>all</strong> for Medium, and <strong>all</strong> for Heavy after doubling. Only the margin is capped.</li>\n<li>Add one Type's Stress effect, the attacker's choice.</li>\n<li>Add the Technique's own bonus.</li>\n<li>Subtract the target's Resistance, less any Pierce, to a minimum of 0.</li>\n</ol>\n<p><strong>Resistance</strong> comes in two kinds. Physical covers Might and Finesse; mental covers Wit and Presence. A creature <strong>Vulnerable</strong> to something has negative Resistance against it, which adds Stress.</p>\n<p>An Attribute is <strong>Incapacitated</strong> when its Stress reaches its Potential. It contributes no dice. Incapacitation lifts once healing brings its Stress down to half its Potential or less, rounded down. Stress past a full bar <strong>overflows</strong> onto another Attribute, the defender's choice, and the receiving Attribute's Resistance doesn't reduce it.</p>\n<p><strong>Destroyed</strong> is all four Attributes Incapacitated at once. It is permanent, and a choice a side makes.</p>",
+        "markdown": ""
+      },
+      "image": {},
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "sort": 400000,
+      "ownership": {
+        "default": -1
+      },
+      "flags": {},
+      "_key": "!journal.pages!kp5qCmEFCkmqsNLi.PaKHsxKiGUtJ84vW"
+    },
+    {
+      "_id": "q6zmxSv662vnIvFJ",
+      "name": "Actions and Strain",
+      "type": "text",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "text": {
+        "format": 1,
+        "content": "<p>Each round a character gets one <strong>Action</strong> and one <strong>Quick Action</strong>. The Quick Action is spent on your turn or held to use reactively, one use either way. Moving up to 20 feet is free; another 20 costs the Quick Action. Initiative is an Acuity roll.</p>\n<p>A learned Technique carries <strong>Strain</strong>: floor(XP / 8) Stress to its own user, on the Instrument's Primary Attribute, whether it lands or not, ignoring Resistance. Built-in Techniques carry none.</p>",
+        "markdown": ""
+      },
+      "image": {},
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "sort": 500000,
+      "ownership": {
+        "default": -1
+      },
+      "flags": {},
+      "_key": "!journal.pages!kp5qCmEFCkmqsNLi.q6zmxSv662vnIvFJ"
+    },
+    {
+      "_id": "ZmRV25UkUgUXOKTk",
+      "name": "FOIL and Foil Tokens",
+      "type": "text",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "text": {
+        "format": 1,
+        "content": "<p>Four axes describe how a character responds in the moment: <strong>Faith</strong> (Trusting or Mistrusting), <strong>Order</strong> (Ordered or Disordered), <strong>Individualism</strong> (Individual or Communal), and <strong>Levity</strong> (Light or Grave). Each leans toward one end, sits deliberately between them, or stays undeclared (PHB 3.1.0).</p>\n<p>Once per scene a player may <strong>invoke</strong> a Habit their character holds. If the table agrees the Habit drives what the character is doing, they earn a <strong>Foil Token</strong>. A character holds at most four.</p>\n<p>A Foil Token is spent at will: halve the Stress from one source, rounded down, or reroll any one die right after rolling a Skill. The new result stands.</p>",
+        "markdown": ""
+      },
+      "image": {},
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "sort": 600000,
+      "ownership": {
+        "default": -1
+      },
+      "flags": {},
+      "_key": "!journal.pages!kp5qCmEFCkmqsNLi.ZmRV25UkUgUXOKTk"
+    },
+    {
+      "_id": "B8RZl8jNLIbYASTh",
+      "name": "Ending a conflict, resting, travel",
+      "type": "text",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "text": {
+        "format": 1,
+        "content": "<p>A conflict ends when one side stops contesting it. <strong>Flee</strong>: Disengage and move away; each chaser rolls Prowess against the fleer every round, and the winner moves one range band. <strong>Yield</strong>: stop fighting and accept terms. <strong>Destroy</strong>: keep going until every Attribute is at zero. <strong>Terms</strong>: press for an end with social Conditions.</p>\n<p><strong>Rest</strong> removes 1d4 Stress every 2 hours from one Attribute of the character's choice. It eats one ration per 8 hours; without one, the time passes but heals nothing.</p>\n<p>A <strong>Travel</strong> leg is one roll for the party: Prowess through very difficult terrain, Acuity to find the way, Discipline otherwise. It costs 1 Stress to every Attribute and one ration per character, and 1 more Stress on a failure.</p>\n<p><strong>Gathering</strong> (PHB 5.3.3) takes 4 hours and a Trade roll through a gathering Tool: food yields 1 ration plus 1 per 4 points of margin, and a Herbalist's Satchel or Craft Tool finds a batch of material at a Tier the region holds, plus 1 per 8 points of margin.</p>\n<p><strong>Carrying</strong>: past 4x Might Potential in pounds, every roll takes -1 per extra multiple, and each Travel leg adds that much Stress.</p>",
+        "markdown": ""
+      },
+      "image": {},
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "sort": 700000,
+      "ownership": {
+        "default": -1
+      },
+      "flags": {},
+      "_key": "!journal.pages!kp5qCmEFCkmqsNLi.B8RZl8jNLIbYASTh"
+    }
+  ],
+  "_key": "!journal!kp5qCmEFCkmqsNLi"
+}

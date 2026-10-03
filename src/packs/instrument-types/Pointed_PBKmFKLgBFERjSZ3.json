@@ -1,0 +1,28 @@
+{
+  "_id": "PBKmFKLgBFERjSZ3",
+  "name": "Pointed",
+  "type": "instrumentType",
+  "img": "icons/svg/upgrade.svg",
+  "system": {
+    "key": "pointed",
+    "family": "melee",
+    "stressPhysical": 1,
+    "stressMental": 0,
+    "pierce": 1,
+    "doubleResistance": false,
+    "dealsNoStress": false,
+    "quick": false,
+    "blocking": false,
+    "reload": "",
+    "isTool": false,
+    "description": "<p>Pierce 1 against physical Resistance. +1 Stress against a physical Attribute.</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 300000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!PBKmFKLgBFERjSZ3"
+}

@@ -1,0 +1,30 @@
+{
+  "_id": "qJHFKABOdhAiIkYh",
+  "name": "Hasten (Action)",
+  "type": "effect",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "key": "hasten-action",
+    "requires": [
+      "fortifying"
+    ],
+    "pricingKind": "flat",
+    "pricingParams": {
+      "base": 14,
+      "perPoint": 0,
+      "perBand": 1
+    },
+    "magnitudeLabel": "",
+    "exemptFromPremium": false,
+    "setsFloor": false,
+    "description": "<p>Grant an ally an extra Action.</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 1700000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!qJHFKABOdhAiIkYh"
+}

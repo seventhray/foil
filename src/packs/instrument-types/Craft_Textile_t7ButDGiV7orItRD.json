@@ -1,0 +1,28 @@
+{
+  "_id": "t7ButDGiV7orItRD",
+  "name": "Craft [Textile]",
+  "type": "instrumentType",
+  "img": "icons/svg/upgrade.svg",
+  "system": {
+    "key": "craft-textile",
+    "family": "other",
+    "stressPhysical": 0,
+    "stressMental": 0,
+    "pierce": 0,
+    "doubleResistance": false,
+    "dealsNoStress": false,
+    "quick": false,
+    "blocking": false,
+    "reload": "",
+    "isTool": true,
+    "description": "<p>A Craft Trade roll working Textile.</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 2200000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!t7ButDGiV7orItRD"
+}

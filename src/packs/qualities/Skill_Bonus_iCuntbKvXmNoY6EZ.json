@@ -1,0 +1,21 @@
+{
+  "_id": "iCuntbKvXmNoY6EZ",
+  "name": "Skill Bonus",
+  "type": "quality",
+  "img": "icons/svg/shield.svg",
+  "system": {
+    "key": "skill-bonus",
+    "kind": "skill",
+    "scope": "skill",
+    "valueLabel": "+N to a Skill",
+    "description": "<p>Add N to the named Skill's rolls.</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 200000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!iCuntbKvXmNoY6EZ"
+}

@@ -1,0 +1,33 @@
+{
+  "_id": "fQNFccOvyTLP6YnI",
+  "name": "Tuyakkar Frostlanders",
+  "type": "origin",
+  "img": "icons/svg/village.svg",
+  "system": {
+    "talent": [
+      {
+        "attribute": "wit",
+        "die": 10
+      },
+      {
+        "attribute": "presence",
+        "die": 10
+      }
+    ],
+    "feats": [
+      "Cowing Rebuke",
+      "Dark Sight"
+    ],
+    "feat": "Cowing Rebuke",
+    "section": "7.8.5",
+    "description": "<p>Permafrost people: tall, broad, heavily insulated builds, a dense coat of body hair.</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 500000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!fQNFccOvyTLP6YnI"
+}

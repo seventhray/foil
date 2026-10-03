@@ -1,0 +1,31 @@
+{
+  "_id": "R1qJobMmUHlDlbbV",
+  "name": "Zealot",
+  "type": "background",
+  "img": "icons/svg/book.svg",
+  "system": {
+    "training": {
+      "prowess": 0,
+      "discipline": 1,
+      "assertiveness": 1,
+      "acuity": 0,
+      "guile": 0,
+      "resonance": 1
+    },
+    "knowHow": [
+      "presence",
+      "wit"
+    ],
+    "coin": "10p",
+    "equipmentKit": "Mace, Leather armor, Mental Ward +1.",
+    "description": "<p>Carries a faith that doesn't bend, and brings it into every fight.</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 700000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!R1qJobMmUHlDlbbV"
+}

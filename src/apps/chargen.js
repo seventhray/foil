@@ -15,7 +15,7 @@
 import { ATTRIBUTE_KEYS, ATTR_LABEL, SKILL_KEYS, SKILL_LABEL, FOIL_AXES } from "../constants.js";
 import { poolFromCounts } from "../dice.js";
 import { equipmentSummary } from "../registry.js";
-import { CONVICTIONS } from "../convictions.js";
+import { HABIT_TABLES } from "../habits.js";
 
 // Starting Points (GMG 2.1.0): picked for the whole party, sets Starting XP and suggests Starting Coin.
 export const STARTING_TIERS = [
@@ -115,7 +115,7 @@ export class FoilChargen extends HandlebarsApplicationMixin(ApplicationV2) {
     this.choices = {
       ancestry: "", background: "", startingPoint: "", coin: "",
       foil: Object.fromEntries(FOIL_AXES.map(a => [a.key, {
-        lean: sys.foil?.[a.key]?.lean ?? "", trait: sys.foil?.[a.key]?.trait ?? ""
+        lean: sys.foil?.[a.key]?.lean ?? "", habit: sys.foil?.[a.key]?.habit ?? ""
       }])),
       prompts: Object.fromEntries(PROMPTS.map(p => [p.key, sys.prompts?.[p.key] ?? ""]))
     };
@@ -135,10 +135,10 @@ export class FoilChargen extends HandlebarsApplicationMixin(ApplicationV2) {
   get title() { return `Create: ${this.actor?.name ?? ""}`; }
 
   async _prepareContext() {
-    const [origins, backgrounds, feats, techniques, instruments, equipment] = await Promise.all(
-      ["foil.origins", "foil.backgrounds", "foil.feats", "foil.techniques", "foil.instruments", "foil.equipment"].map(packDocsByName));
+    const [ancestryPack, backgrounds, feats, techniques, instruments, equipment] = await Promise.all(
+      ["foil.ancestries", "foil.backgrounds", "foil.feats", "foil.techniques", "foil.instruments", "foil.equipment"].map(packDocsByName));
     const st = this.choices;
-    const ancestry = origins.get(st.ancestry.toLowerCase()) ?? null;
+    const ancestry = ancestryPack.get(st.ancestry.toLowerCase()) ?? null;
     const background = backgrounds.get(st.background.toLowerCase()) ?? null;
     const sortByName = m => [...m.values()].sort((a, b) => a.name.localeCompare(b.name));
 
@@ -184,7 +184,7 @@ export class FoilChargen extends HandlebarsApplicationMixin(ApplicationV2) {
     return {
       actorName: this.actor?.name ?? "",
       state: st,
-      ancestries: sortByName(origins).map(d => ({ name: d.name, selected: d.name === st.ancestry })),
+      ancestries: sortByName(ancestryPack).map(d => ({ name: d.name, selected: d.name === st.ancestry })),
       backgrounds: sortByName(backgrounds).map(d => ({ name: d.name, selected: d.name === st.background })),
       startingTiers: STARTING_TIERS.map(t => ({ ...t, selected: t.key === st.startingPoint })),
       ancestryInfo: ancestry ? {
@@ -196,11 +196,11 @@ export class FoilChargen extends HandlebarsApplicationMixin(ApplicationV2) {
       } : null,
       preview: { attributes, skills, resistance, total },
       axes: FOIL_AXES.map(a => ({
-        key: a.key, label: a.label, lean: st.foil[a.key].lean, trait: st.foil[a.key].trait,
+        key: a.key, label: a.label, lean: st.foil[a.key].lean, habit: st.foil[a.key].habit,
         leanOptions: [["", "Undeclared"], ["low", a.low], ["neutral", "Neutral"], ["high", a.high]]
           .map(([value, label]) => ({ value, label, selected: value === st.foil[a.key].lean })),
-        table: (CONVICTIONS[a.key] ?? []).map(r => ({
-          value: r.trait, label: `${r.roll}. ${r.trait}`, selected: r.trait === st.foil[a.key].trait
+        table: (HABIT_TABLES[a.key] ?? []).map(r => ({
+          value: r.habit, label: `${r.roll}. ${r.habit}`, selected: r.habit === st.foil[a.key].habit
         }))
       })),
       prompts: PROMPTS.map(p => ({ ...p, value: st.prompts[p.key] }))
@@ -220,12 +220,12 @@ export class FoilChargen extends HandlebarsApplicationMixin(ApplicationV2) {
         ancestry: data.ancestry ?? "", background: data.background ?? "",
         startingPoint: data.startingPoint ?? "", coin: data.coin ?? ""
       });
-      for (const a of FOIL_AXES) this.choices.foil[a.key] = { lean: data.foil?.[a.key]?.lean ?? "", trait: data.foil?.[a.key]?.trait ?? "" };
+      for (const a of FOIL_AXES) this.choices.foil[a.key] = { lean: data.foil?.[a.key]?.lean ?? "", habit: data.foil?.[a.key]?.habit ?? "" };
       for (const p of PROMPTS) this.choices.prompts[p.key] = data.prompts?.[p.key] ?? "";
       // Picking from a Habit Table fills the Habit and its lean.
       if (picked) {
-        const row = (CONVICTIONS[picked[1]] ?? []).find(r => r.trait === event.target.value);
-        if (row) this.choices.foil[picked[1]] = { lean: row.lean, trait: row.trait };
+        const row = (HABIT_TABLES[picked[1]] ?? []).find(r => r.habit === event.target.value);
+        if (row) this.choices.foil[picked[1]] = { lean: row.lean, habit: row.habit };
       }
       if (["ancestry", "background", "startingPoint"].includes(event.target.name) || picked) this.render();
     });
@@ -235,8 +235,8 @@ export class FoilChargen extends HandlebarsApplicationMixin(ApplicationV2) {
   static async _onRollTrait(event, target) {
     const axis = target.dataset.axis;
     const roll = await new Roll("1d10").evaluate();
-    const row = (CONVICTIONS[axis] ?? []).find(r => r.roll === roll.total);
-    if (row) this.choices.foil[axis] = { lean: row.lean, trait: row.trait };
+    const row = (HABIT_TABLES[axis] ?? []).find(r => r.roll === roll.total);
+    if (row) this.choices.foil[axis] = { lean: row.lean, habit: row.habit };
     this.render();
   }
 
@@ -247,7 +247,7 @@ export class FoilChargen extends HandlebarsApplicationMixin(ApplicationV2) {
     // Throwing keeps the window open with the message (closeOnSubmit only runs on success).
     if (!data.ancestry || !data.background) throw new Error("Pick an Ancestry and a Background.");
 
-    const ancestry = (await packDocsByName("foil.origins")).get(data.ancestry.toLowerCase());
+    const ancestry = (await packDocsByName("foil.ancestries")).get(data.ancestry.toLowerCase());
     const background = (await packDocsByName("foil.backgrounds")).get(data.background.toLowerCase());
     if (!ancestry || !background) throw new Error("That Ancestry or Background isn't in the compendium.");
 
@@ -264,7 +264,7 @@ export class FoilChargen extends HandlebarsApplicationMixin(ApplicationV2) {
     if (tier) update["system.xp.total"] = tier.xp;
     for (const a of FOIL_AXES) {
       update[`system.foil.${a.key}.lean`] = data.foil?.[a.key]?.lean ?? "";
-      update[`system.foil.${a.key}.trait`] = data.foil?.[a.key]?.trait ?? "";
+      update[`system.foil.${a.key}.habit`] = data.foil?.[a.key]?.habit ?? "";
     }
     for (const p of PROMPTS) update[`system.prompts.${p.key}`] = data.prompts?.[p.key] ?? "";
     await actor.update(update);

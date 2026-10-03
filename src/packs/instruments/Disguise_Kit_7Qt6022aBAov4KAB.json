@@ -1,0 +1,32 @@
+{
+  "_id": "7Qt6022aBAov4KAB",
+  "name": "Disguise Kit",
+  "type": "instrument",
+  "img": "icons/svg/pick.svg",
+  "system": {
+    "category": "tool",
+    "weight": "light",
+    "primaryAttribute": "presence",
+    "range": "Touching",
+    "types": [
+      "tool"
+    ],
+    "typesDisplay": "Tool",
+    "price": 14,
+    "rider": "",
+    "kit": [],
+    "innate": false,
+    "bonus": 0,
+    "size": "medium",
+    "materials": "Metal",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 5100000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!7Qt6022aBAov4KAB"
+}

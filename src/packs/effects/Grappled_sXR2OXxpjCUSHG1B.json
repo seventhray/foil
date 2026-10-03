@@ -1,0 +1,31 @@
+{
+  "_id": "sXR2OXxpjCUSHG1B",
+  "name": "Grappled",
+  "type": "effect",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "key": "grappled",
+    "requires": [
+      "grappling",
+      "kinetic"
+    ],
+    "pricingKind": "flat",
+    "pricingParams": {
+      "base": 4,
+      "perPoint": 0,
+      "perBand": 1
+    },
+    "magnitudeLabel": "",
+    "exemptFromPremium": false,
+    "setsFloor": false,
+    "description": "<p>PHB 6.8.3.</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 2400000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!sXR2OXxpjCUSHG1B"
+}

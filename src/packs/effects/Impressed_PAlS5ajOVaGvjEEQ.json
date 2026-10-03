@@ -1,0 +1,31 @@
+{
+  "_id": "PAlS5ajOVaGvjEEQ",
+  "name": "Impressed",
+  "type": "effect",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "key": "impressed",
+    "requires": [
+      "incorporeal",
+      "sonic"
+    ],
+    "pricingKind": "flat",
+    "pricingParams": {
+      "base": 10,
+      "perPoint": 0,
+      "perBand": 1
+    },
+    "magnitudeLabel": "",
+    "exemptFromPremium": false,
+    "setsFloor": false,
+    "description": "<p>PHB 6.8.15.</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 3400000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!PAlS5ajOVaGvjEEQ"
+}
