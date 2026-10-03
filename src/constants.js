@@ -48,7 +48,7 @@ export const LEGACY_SKILL_KEY = { fortitude: "discipline", command: "assertivene
 // Technique used against a target (never an Oppose, support, or Trade). Heavy takes both hands.
 export const WEIGHT_CLASS = {
   light:  { label: "Light",  price: 15,  lbs: 2, dice: "", mult: 1 },
-  medium: { label: "Medium", price: 30,  lbs: 4, dice: "", mult: 1.5 },  // margin x1.5, rounded down (PHB 4.1.2)
+  medium: { label: "Medium", price: 30,  lbs: 4, dice: "", mult: 1 },    // margin caps at the full Primary Potential (PHB 4.1.2)
   heavy:  { label: "Heavy",  price: 45,  lbs: 8, dice: "", mult: 2 }    // margin x2; takes the Action and the Quick Action (PHB 4.1.2)
 };
 export const WEIGHT_KEYS = Object.keys(WEIGHT_CLASS);
@@ -181,8 +181,8 @@ export const REST_RATION_HOURS = 8;
 // is a Transformation (PHB 2.3.1, 7.12.0). Training climbs 2 per point already held.
 export const XP_COST = { talent: { 4: 8, 6: 12, 8: 16, 10: 20 }, d12ToD20: 100, knowHow: 20, training: 8, trainingStep: 2 };
 export const DICE_BASE_LIMIT = 4;
-/** Margin cap as a share of the Primary Attribute's Potential, by weight; a Quick Action attack caps at a quarter (PHB 6.7.0). */
-export const MARGIN_CAP = { light: [1, 2, "half"], medium: [3, 4, "three quarters of"], heavy: [1, 1, "all of"], quick: [1, 4, "a quarter of"] };
+/** Margin cap as a share of the Primary Attribute's Potential, by weight; Heavy doubles first; a Quick Action attack caps at a quarter (PHB 6.7.0). */
+export const MARGIN_CAP = { light: [1, 2, "half"], medium: [1, 1, "all of"], heavy: [1, 1, "all of"], quick: [1, 4, "a quarter of"] };
 export const marginCap = (potential, key) => {
   const [n, d] = MARGIN_CAP[key] ?? MARGIN_CAP.light;
   return Math.floor((Number(potential) || 0) * n / d);

@@ -4,7 +4,7 @@
   <div class="field-grid">
     <label>Category</label>
     <select name="system.category">{{#each categoryOptions}}<option value="{{this.value}}" {{#if (foil-eq this.value ../system.category)}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>
-    <label>Weight class <em>(price, weight, margin: Light x1, Medium x1.5, Heavy x2, whole turn, and two hands)</em></label>
+    <label>Weight class <em>(price, weight, margin cap: Light half, Medium full, Heavy doubled then full, whole turn, and two hands)</em></label>
     <select name="system.weight">{{#each weightOptions}}<option value="{{this.value}}" {{#if (foil-eq this.value ../system.weight)}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>
     {{#unless system.innate}}
     <label>Location <em>(equipped is ready in hand; switching costs the Quick Action)</em></label>

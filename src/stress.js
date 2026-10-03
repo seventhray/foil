@@ -2,10 +2,10 @@
  * src/stress.js
  * A landed Technique's Stress (PHB 6.7.0). Pure, so it runs headlessly.
  *
- *   margin (attack - Oppose; a tie lands at 0), multiplied by the Instrument's weight
- *   (Light 1, Medium 1.5 rounded down, Heavy 2), then capped by it:
- *   half, three quarters, or all of its Primary Potential for Light, Medium, or
- *   Heavy, and a quarter for a Technique paid with the Quick Action
+ *   margin (attack - Oppose; a tie lands at 0), doubled through a Heavy Instrument,
+ *   then capped by its weight: half its Primary Potential for Light, all of it for
+ *   Medium or Heavy, and a quarter for a Technique paid with the Quick Action.
+ *   Only the margin is capped; the bonuses below add after it
  *   + one Stress-dealing Type's bonus (Edged: physical Resistance, after Pierce, counts double)
  *   + the Technique's own bonus, and any other stated bonus
  *   - Resistance after Pierce (Pierce never takes it below 0; Vulnerable is
@@ -17,7 +17,7 @@
  * @param {number} a.attack       the Technique's roll
  * @param {number} a.oppose       the target's Oppose roll
  * @param {number} a.cap          the margin cap (see above)
- * @param {string} a.capLabel     how the cap was set, such as "three quarters of Might Potential"
+ * @param {string} a.capLabel     how the cap was set, such as "half Might Potential"
  * @param {number} a.mult         the weight's margin multiplier (a.double is the older Heavy flag)
  * @param {"physical"|"mental"} a.kind  the kind of Attribute aimed at
  * @param {number} a.resistance   the target's Resistance of that kind (negative = Vulnerable)

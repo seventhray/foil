@@ -57,12 +57,12 @@ p("Instruments and Types", `
 <tr><td>Blocking</td><td>Its +N applies to Oppose rolls; Guard with it</td></tr>
 <tr><td>Immobile</td><td>+2 Stress; fixed in place</td></tr>
 </tbody></table>
-<p>Light, Medium, and Heavy are weight classes, not Types. They set an Instrument's base price (15p, 30p, 45p) and its carried weight (2, 4, 8 lbs). A Medium Instrument multiplies a landed Technique's margin by 1.5, rounded down. A Heavy Instrument takes both hands, costs the Action and the Quick Action, and doubles the margin. Both multiply before the cap. After an Action through a Light Instrument, the Quick Action can use a Light Instrument's built-in Technique.</p>`),
+<p>Light, Medium, and Heavy are weight classes, not Types. They set an Instrument's base price (15p, 30p, 45p) and its carried weight (2, 4, 8 lbs). A Heavy Instrument takes both hands, costs the Action and the Quick Action, and doubles the margin before the cap. After an Action through a Light Instrument, the Quick Action can use a Light Instrument's built-in Technique.</p>`),
 
 p("Stress, Resistance, and Incapacitation", `
 <p>When a Stress Technique lands (PHB 6.7.0):</p>
 <ol>
-<li>Take the margin, capped at a share of the Instrument's Primary Potential by its weight: <strong>half</strong> for Light, <strong>three quarters</strong> for Medium, <strong>all</strong> for Heavy, and <strong>a quarter</strong> when paid with the Quick Action. The Stress button asks which action paid.</li>
+<li>Take the margin, capped at a share of the Instrument's Primary Potential by its weight: <strong>half</strong> for Light, <strong>all</strong> for Medium, <strong>all</strong> for Heavy after doubling, and <strong>a quarter</strong> when paid with the Quick Action. Only the margin is capped. The Stress button asks which action paid.</li>
 <li>Add one Type's Stress effect, the attacker's choice.</li>
 <li>Add the Technique's own bonus.</li>
 <li>Subtract the target's Resistance, less any Pierce, to a minimum of 0.</li>
