@@ -62,12 +62,10 @@ for path in sorted(glob.glob(os.path.join(CREATURES, "*.md"))):
     if any(x != T["train"] for x in train):
         bad.append(f"Training {sorted(set(train))} isn't the tier's +{T['train']} (4.4.0)")
     res = {k: int(v) for k, v in re.findall(r"(physical|mental) ([+-]\d+)", (re.search(r"\*\*Resistance\*\*([^·\n]*)", s) or [0, ""])[1])}
-    # Armor, a shield, or a ward is Equipment, outside the budget (4.3.0); the cap still applies.
-    equipped = re.search(r"\b(leather|leathers|mail|plate|coat|armou?r|shield|ward)\b", (re.search(r"\*\*Resistance\*\*([^·\n]*)", s) or [0, ""])[1], re.I)
     for k, v in res.items():
         if abs(v) > CAPS[t]:
             bad.append(f"{k} Resistance {v:+d} is past the tier cap +{CAPS[t]} (4.3.0)")
-    if not equipped and sum(max(0, v) for v in res.values()) * 8 > T["res"] + 8 * sum(-min(0, v) for v in res.values()):
+    if sum(max(0, v) for v in res.values()) * 8 > T["res"] + 8 * sum(-min(0, v) for v in res.values()):
         bad.append(f"Resistance {res} costs more than the tier's budget {T['res']} (4.3.0)")
     spent = 0
     for line in re.findall(r"^>\s*-\s*\*\*(.+)$", s, re.M):
