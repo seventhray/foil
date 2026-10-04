@@ -1,8 +1,8 @@
 """tools/verify/validate-bestiary.py
 
 Checks every built creature in the vault against the GMG's creature-building
-rules (4.1.0-4.5.1), reading the tier table, the Trait prices, and the Monster
-Feat prices from the GMG itself. Not part of run.mjs, since it reads the
+rules (4.1.0-4.5.1): the creature formulas from its XP (its own `xp:`, else its
+tier's), and the Trait and Monster Feat prices read from the GMG itself. Not part of run.mjs, since it reads the
 Obsidian vault rather than the system. Run it after changing the rules or the
 Bestiary: a creature that breaks a stated rule means the creature or the rule
 has to change.
@@ -29,11 +29,24 @@ def table_after(heading, first_col):
     return rows
 
 
-num = lambda s: int(re.search(r"\d+", s).group(0))
-TIERS = {}
-for r in table_after("## 4.1.0 Tier", "Tier"):
-    TIERS[r[0]] = dict(pot=num(r[1]), health=num(r[3]), res=num(r[4]), train=num(r[5]), allow=num(r[6]), ceil=num(r[7]))
-CAPS = {r[0]: num(r[1]) for r in table_after("## 4.3.0 Resistance", "Tier")}
+num = lambda s: int(re.search(r"-?\d+", s).group(0))
+TIER_XP = {r[0]: num(r[1]) for r in table_after("## 4.1.0 Tier", "Tier | XP")}
+
+
+def half_up(x):
+    return int(x + 0.5) if x >= 0 else -int(-x + 0.5)
+
+
+def numbers(xp):
+    """GMG 4.1.0's creature formulas for a creature XP."""
+    pot = 2 * half_up((20 + xp / 32) / 2)
+    if xp >= 0:
+        allow, train, pts = half_up(40 + 3.6 * xp ** 0.5), half_up(2 + xp / 500), half_up(2 + xp / 533)
+    else:
+        allow, train, pts = 2 * pot - 12, (pot - 8) // 8, (pot - 8) // 8
+    return dict(pot=pot, health=4 * pot, res=8 * pts, cap=pts + 1, train=train, allow=allow, ceil=2 * pot)
+
+
 TRAITS = {r[0]: num(r[1]) for r in table_after("## 4.5.0 Feats and Traits", "Trait")}
 FEATS = {r[0]: r[1] for r in table_after("### 4.5.1 Monster Feats", "Feat")}
 STEP = 2                  # one row of the Target Potential table (GMG 4.2.0)
@@ -44,9 +57,11 @@ for path in sorted(glob.glob(os.path.join(CREATURES, "*.md"))):
     s = open(path, encoding="utf-8").read()
     name = os.path.basename(path)[:-3]
     m = re.search(r"^tier:\s*(\d+)\s*$", s, re.M)
-    if not m or m.group(1) not in TIERS or "not yet built" in s:
+    if not m or m.group(1) not in TIER_XP or "not yet built" in s:
         continue
-    t, T = m.group(1), TIERS[m.group(1)]
+    t = m.group(1)
+    own = re.search(r"^xp:\s*(-?\d+)\s*$", s, re.M)   # a creature's own XP, else its tier's
+    T = numbers(int(own.group(1)) if own else TIER_XP[t])
     checked += 1
     bad = []
     pots = {k: int(v) for k, v in re.findall(r"^(might|finesse|wit|presence):.*\((\d+)\)", s, re.M)}
@@ -63,8 +78,8 @@ for path in sorted(glob.glob(os.path.join(CREATURES, "*.md"))):
         bad.append(f"Training {sorted(set(train))} isn't the tier's +{T['train']} (4.4.0)")
     res = {k: int(v) for k, v in re.findall(r"(physical|mental) ([+-]\d+)", (re.search(r"\*\*Resistance\*\*([^·\n]*)", s) or [0, ""])[1])}
     for k, v in res.items():
-        if abs(v) > CAPS[t]:
-            bad.append(f"{k} Resistance {v:+d} is past the tier cap +{CAPS[t]} (4.3.0)")
+        if abs(v) > T["cap"]:
+            bad.append(f"{k} Resistance {v:+d} is past its cap +{T['cap']} (4.1.0)")
     if sum(max(0, v) for v in res.values()) * 8 > T["res"] + 8 * sum(-min(0, v) for v in res.values()):
         bad.append(f"Resistance {res} costs more than the tier's budget {T['res']} (4.3.0)")
     spent = 0
