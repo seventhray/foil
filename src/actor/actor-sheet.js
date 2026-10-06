@@ -486,7 +486,7 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
 
   static async _onCreateItem(event, target) {
     const type = target.dataset.type;
-    const label = { instrument: "Instrument", technique: "Technique", feat: "Feat", equipment: "Equipment", background: "Background", origin: "Ancestry" }[type] ?? "Item";
+    const label = { instrument: "Instrument", technique: "Technique", feat: "Feat", equipment: "Equipment", background: "Background", origin: "Origin" }[type] ?? "Item";
     const [item] = await this.actor.createEmbeddedDocuments("Item", [{ name: `New ${label}`, type }]);
     item?.sheet?.render(true);
   }
@@ -530,7 +530,7 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
     }
   }
 
-  /** A character has one Ancestry and one Background (PHB 2.5.0): dropping one replaces the old. */
+  /** A character has one Origin and one Background (PHB 2.5.0): dropping one replaces the old. */
   async _onDropItem(event, item) {
     const single = this.actor.type === "character" && ["origin", "background"].includes(item.type)
       && this.actor.uuid !== item.parent?.uuid;

@@ -1,0 +1,24 @@
+{
+  "_id": "hkaqLZhHHDVeh6Ba",
+  "name": "Undertow",
+  "type": "feat",
+  "img": "icons/svg/upgrade.svg",
+  "system": {
+    "featType": "ancestry",
+    "xpCost": 0,
+    "requirements": "",
+    "effect": "You learn the Undertow Technique: Grappling, Stress, Prone, -1 Oppose, Strain 3.",
+    "ancestry": "Island Shores",
+    "grantsTechnique": "Undertow",
+    "modifiers": [],
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 3900000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!hkaqLZhHHDVeh6Ba"
+}

@@ -104,7 +104,7 @@
     },
     {
       "name": "ancestries",
-      "label": "FOIL Ancestries",
+      "label": "FOIL Origins",
       "path": "packs/ancestries",
       "type": "Item",
       "system": "foil",

@@ -1,0 +1,33 @@
+{
+  "_id": "kM5nAINP0pjHyU9B",
+  "name": "Ruined Lands",
+  "type": "origin",
+  "img": "icons/svg/village.svg",
+  "system": {
+    "talent": [
+      {
+        "attribute": "wit",
+        "die": 12
+      },
+      {
+        "attribute": "might",
+        "die": 8
+      }
+    ],
+    "feats": [
+      "Make Do",
+      "Hardened Nerves"
+    ],
+    "feat": "Make Do",
+    "section": "7.8.14",
+    "description": "<p>Collapsed buildings and abandoned places, long since emptied.</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 1400000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!kM5nAINP0pjHyU9B"
+}

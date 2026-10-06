@@ -1,0 +1,30 @@
+{
+  "_id": "RfBlbfmu4eqRzRoV",
+  "name": "Make Do",
+  "type": "feat",
+  "img": "icons/svg/upgrade.svg",
+  "system": {
+    "featType": "ancestry",
+    "xpCost": 0,
+    "requirements": "",
+    "effect": "+2 Training in Discipline.",
+    "ancestry": "Ruined Lands",
+    "grantsTechnique": "",
+    "modifiers": [
+      {
+        "type": "training",
+        "key": "discipline",
+        "value": 2
+      }
+    ],
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 2900000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!RfBlbfmu4eqRzRoV"
+}

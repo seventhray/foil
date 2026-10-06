@@ -1,0 +1,30 @@
+{
+  "_id": "iDq7SqTUpORs51uZ",
+  "name": "Dune Strider",
+  "type": "feat",
+  "img": "icons/svg/upgrade.svg",
+  "system": {
+    "featType": "ancestry",
+    "xpCost": 0,
+    "requirements": "",
+    "effect": "+2 Training in Prowess.",
+    "ancestry": "Sunbaked Desert",
+    "grantsTechnique": "",
+    "modifiers": [
+      {
+        "type": "training",
+        "key": "prowess",
+        "value": 2
+      }
+    ],
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 3000000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!iDq7SqTUpORs51uZ"
+}

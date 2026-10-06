@@ -1,0 +1,30 @@
+{
+  "_id": "1DgNIUiwMOb16tA8",
+  "name": "Wide Sight",
+  "type": "feat",
+  "img": "icons/svg/upgrade.svg",
+  "system": {
+    "featType": "ancestry",
+    "xpCost": 0,
+    "requirements": "",
+    "effect": "+2 Training in Acuity.",
+    "ancestry": "Jungle Canopy",
+    "grantsTechnique": "",
+    "modifiers": [
+      {
+        "type": "training",
+        "key": "acuity",
+        "value": 2
+      }
+    ],
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 4000000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!1DgNIUiwMOb16tA8"
+}

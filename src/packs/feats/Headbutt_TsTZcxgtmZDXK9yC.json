@@ -1,0 +1,24 @@
+{
+  "_id": "TsTZcxgtmZDXK9yC",
+  "name": "Headbutt",
+  "type": "feat",
+  "img": "icons/svg/upgrade.svg",
+  "system": {
+    "featType": "ancestry",
+    "xpCost": 0,
+    "requirements": "",
+    "effect": "You learn the Trip Technique: Melee, Stress, Prone, Strain 2.",
+    "ancestry": "Highlands",
+    "grantsTechnique": "Trip",
+    "modifiers": [],
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 2300000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!TsTZcxgtmZDXK9yC"
+}

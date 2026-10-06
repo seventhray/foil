@@ -1,0 +1,24 @@
+{
+  "_id": "gXC0sbTEOxsvMIHn",
+  "name": "Camouflaged Skin",
+  "type": "feat",
+  "img": "icons/svg/upgrade.svg",
+  "system": {
+    "featType": "ancestry",
+    "xpCost": 0,
+    "requirements": "",
+    "effect": "+2 on Stealth rolls.",
+    "ancestry": "Woodlands",
+    "grantsTechnique": "",
+    "modifiers": [],
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 4600000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!gXC0sbTEOxsvMIHn"
+}

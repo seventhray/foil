@@ -1,0 +1,30 @@
+{
+  "_id": "8wXTC1hJ4pU2VeIa",
+  "name": "Tough Hide",
+  "type": "feat",
+  "img": "icons/svg/upgrade.svg",
+  "system": {
+    "featType": "ancestry",
+    "xpCost": 0,
+    "requirements": "",
+    "effect": "Gain Physical Resistance +1, stacking with Equipment Resistance.",
+    "ancestry": "Highlands",
+    "grantsTechnique": "",
+    "modifiers": [
+      {
+        "type": "resistance",
+        "key": "physical",
+        "value": 1
+      }
+    ],
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 3800000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!8wXTC1hJ4pU2VeIa"
+}

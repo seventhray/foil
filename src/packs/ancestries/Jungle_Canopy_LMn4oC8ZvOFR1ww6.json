@@ -1,0 +1,33 @@
+{
+  "_id": "LMn4oC8ZvOFR1ww6",
+  "name": "Jungle Canopy",
+  "type": "origin",
+  "img": "icons/svg/village.svg",
+  "system": {
+    "talent": [
+      {
+        "attribute": "wit",
+        "die": 10
+      },
+      {
+        "attribute": "presence",
+        "die": 10
+      }
+    ],
+    "feats": [
+      "Warding Chant",
+      "Wide Sight"
+    ],
+    "feat": "Warding Chant",
+    "section": "7.8.7",
+    "description": "<p>Tropical forest high above the ground, crowded with life.</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 700000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!LMn4oC8ZvOFR1ww6"
+}

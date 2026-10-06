@@ -1,0 +1,24 @@
+{
+  "_id": "oIBT7aD8aMwyuQHj",
+  "name": "Hurried Step",
+  "type": "feat",
+  "img": "icons/svg/upgrade.svg",
+  "system": {
+    "featType": "ancestry",
+    "xpCost": 0,
+    "requirements": "",
+    "effect": "+4 to Initiative rolls.",
+    "ancestry": "Crowded City",
+    "grantsTechnique": "",
+    "modifiers": [],
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 3400000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!oIBT7aD8aMwyuQHj"
+}

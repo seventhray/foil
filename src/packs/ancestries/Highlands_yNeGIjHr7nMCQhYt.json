@@ -1,0 +1,33 @@
+{
+  "_id": "yNeGIjHr7nMCQhYt",
+  "name": "Highlands",
+  "type": "origin",
+  "img": "icons/svg/village.svg",
+  "system": {
+    "talent": [
+      {
+        "attribute": "might",
+        "die": 12
+      },
+      {
+        "attribute": "finesse",
+        "die": 8
+      }
+    ],
+    "feats": [
+      "Headbutt",
+      "Tough Hide"
+    ],
+    "feat": "Headbutt",
+    "section": "7.8.2",
+    "description": "<p>High plateaus and rocky slopes, with thin soil and hard weather.</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 200000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!yNeGIjHr7nMCQhYt"
+}

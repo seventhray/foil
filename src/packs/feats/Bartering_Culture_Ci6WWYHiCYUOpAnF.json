@@ -1,0 +1,30 @@
+{
+  "_id": "Ci6WWYHiCYUOpAnF",
+  "name": "Bartering Culture",
+  "type": "feat",
+  "img": "icons/svg/upgrade.svg",
+  "system": {
+    "featType": "ancestry",
+    "xpCost": 0,
+    "requirements": "",
+    "effect": "+3 Training in Guile.",
+    "ancestry": "Riverlands",
+    "grantsTechnique": "",
+    "modifiers": [
+      {
+        "type": "training",
+        "key": "guile",
+        "value": 3
+      }
+    ],
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 4300000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!Ci6WWYHiCYUOpAnF"
+}

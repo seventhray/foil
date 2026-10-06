@@ -1,0 +1,24 @@
+{
+  "_id": "MiZ3jDNoN3P2xoAZ",
+  "name": "River Walk",
+  "type": "feat",
+  "img": "icons/svg/upgrade.svg",
+  "system": {
+    "featType": "ancestry",
+    "xpCost": 0,
+    "requirements": "",
+    "effect": "You learn the River Walk Technique (Acuity, Innate). Evade: move up to 20 feet without spending the Disengage Quick Action or provoking an Attack of Opportunity.",
+    "ancestry": "Riverlands",
+    "grantsTechnique": "River Walk",
+    "modifiers": [],
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 2800000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!MiZ3jDNoN3P2xoAZ"
+}

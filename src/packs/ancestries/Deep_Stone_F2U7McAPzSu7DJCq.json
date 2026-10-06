@@ -1,0 +1,33 @@
+{
+  "_id": "F2U7McAPzSu7DJCq",
+  "name": "Deep Stone",
+  "type": "origin",
+  "img": "icons/svg/village.svg",
+  "system": {
+    "talent": [
+      {
+        "attribute": "might",
+        "die": 10
+      },
+      {
+        "attribute": "wit",
+        "die": 10
+      }
+    ],
+    "feats": [
+      "Stonebreaker",
+      "Cave Reflexes"
+    ],
+    "feat": "Stonebreaker",
+    "section": "7.8.4",
+    "description": "<p>Caves, tunnels, and halls cut into the mountain, far from daylight.</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 400000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!F2U7McAPzSu7DJCq"
+}

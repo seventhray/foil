@@ -1,0 +1,24 @@
+{
+  "_id": "aS2ycki7DQ4IEdYu",
+  "name": "Fen Curse",
+  "type": "feat",
+  "img": "icons/svg/upgrade.svg",
+  "system": {
+    "featType": "ancestry",
+    "xpCost": 0,
+    "requirements": "",
+    "effect": "You learn the Fen Curse Technique: Ranged, -2 Oppose, Strain 1.",
+    "ancestry": "Fenland",
+    "grantsTechnique": "Fen Curse",
+    "modifiers": [],
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 2100000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!aS2ycki7DQ4IEdYu"
+}

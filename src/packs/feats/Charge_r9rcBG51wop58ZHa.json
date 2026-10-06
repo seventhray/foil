@@ -1,0 +1,24 @@
+{
+  "_id": "r9rcBG51wop58ZHa",
+  "name": "Charge",
+  "type": "feat",
+  "img": "icons/svg/upgrade.svg",
+  "system": {
+    "featType": "ancestry",
+    "xpCost": 0,
+    "requirements": "",
+    "effect": "When you move at least 30 feet in a line toward a target and use a Melee Technique against them in the same turn, the target takes -6 to Oppose rolls for 1 round.",
+    "ancestry": "Open Plains",
+    "grantsTechnique": "",
+    "modifiers": [],
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 2600000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!r9rcBG51wop58ZHa"
+}

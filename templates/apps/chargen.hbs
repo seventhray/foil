@@ -1,12 +1,12 @@
 <div class="foil-sheet chargen-body">
   <p class="chargen-intro">
-    Build <strong>{{actorName}}</strong> (PHB 2.5.0). Every Attribute starts at 2d4; the Ancestry and Background add to them.
-    Body and Voice are added automatically. This replaces the character's Attribute dice, Ancestry, and Background.
+    Build <strong>{{actorName}}</strong> (PHB 2.5.0). Every Attribute starts at 2d4; the Origin and Background add to them.
+    Body and Voice are added automatically. This replaces the character's Attribute dice, Origin, and Background.
   </p>
 
   <div class="chargen-grid">
     <fieldset>
-      <legend>1 · Ancestry</legend>
+      <legend>1 · Origin</legend>
       <select name="ancestry">
         <option value="">&mdash; pick one &mdash;</option>
         {{#each ancestries}}<option value="{{this.name}}" {{#if this.selected}}selected{{/if}}>{{this.name}}</option>{{/each}}

@@ -1,0 +1,33 @@
+{
+  "_id": "pqmWS2BkHD2NOoO8",
+  "name": "Back Alleys",
+  "type": "origin",
+  "img": "icons/svg/village.svg",
+  "system": {
+    "talent": [
+      {
+        "attribute": "might",
+        "die": 10
+      },
+      {
+        "attribute": "finesse",
+        "die": 10
+      }
+    ],
+    "feats": [
+      "Alley Cunning",
+      "Sharp Elbows"
+    ],
+    "feat": "Alley Cunning",
+    "section": "7.8.12",
+    "description": "<p>Cramped slums and narrow lanes at the edge of the city.</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 1200000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!pqmWS2BkHD2NOoO8"
+}

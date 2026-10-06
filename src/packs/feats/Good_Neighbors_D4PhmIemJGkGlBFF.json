@@ -1,0 +1,30 @@
+{
+  "_id": "D4PhmIemJGkGlBFF",
+  "name": "Good Neighbors",
+  "type": "feat",
+  "img": "icons/svg/upgrade.svg",
+  "system": {
+    "featType": "ancestry",
+    "xpCost": 0,
+    "requirements": "",
+    "effect": "+2 Training in Resonance.",
+    "ancestry": "Quiet Village",
+    "grantsTechnique": "",
+    "modifiers": [
+      {
+        "type": "training",
+        "key": "resonance",
+        "value": 2
+      }
+    ],
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 4200000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!D4PhmIemJGkGlBFF"
+}

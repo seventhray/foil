@@ -1,0 +1,24 @@
+{
+  "_id": "lgSPkrAViP9kOkyc",
+  "name": "Salt-Toughened",
+  "type": "feat",
+  "img": "icons/svg/upgrade.svg",
+  "system": {
+    "featType": "ancestry",
+    "xpCost": 0,
+    "requirements": "",
+    "effect": "The first time each conflict an Attribute of yours would take Stress, reduce that Stress by 1, ignoring Resistance.",
+    "ancestry": "Island Shores",
+    "grantsTechnique": "",
+    "modifiers": [],
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 2400000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!lgSPkrAViP9kOkyc"
+}

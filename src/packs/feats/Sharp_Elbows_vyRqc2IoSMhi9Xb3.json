@@ -1,0 +1,30 @@
+{
+  "_id": "vyRqc2IoSMhi9Xb3",
+  "name": "Sharp Elbows",
+  "type": "feat",
+  "img": "icons/svg/upgrade.svg",
+  "system": {
+    "featType": "ancestry",
+    "xpCost": 0,
+    "requirements": "",
+    "effect": "+2 Training in Prowess.",
+    "ancestry": "Back Alleys",
+    "grantsTechnique": "",
+    "modifiers": [
+      {
+        "type": "training",
+        "key": "prowess",
+        "value": 2
+      }
+    ],
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 3300000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!vyRqc2IoSMhi9Xb3"
+}

@@ -2,7 +2,7 @@
  * src/apps/chargen.js
  * Starting Character (PHB 2.5.0), all six steps in one window:
  *   1. Every Attribute starts at 2d4.
- *   2. Ancestry: Talent on two dice, two Feats (and any Technique a Feat teaches).
+ *   2. Origin: Talent on two dice, two Feats (and any Technique a Feat teaches).
  *   3. Background: +1 Training in three Skills, 2d4 Know-how, coin, and a kit.
  *   4. Starting Point (GMG 2.1.0) sets Starting XP and suggests Starting Coin;
  *      a blank coin field takes the Background's.
@@ -81,7 +81,7 @@ export async function grantStartingKit(actor) {
   return toCreate.length;
 }
 
-/** The starting pools from an Ancestry and a Background (PHB 2.5.0 steps 1-3). */
+/** The starting pools from an Origin and a Background (PHB 2.5.0 steps 1-3). */
 function startingPools(ancestry, background) {
   const pools = Object.fromEntries(ATTRIBUTE_KEYS.map(k => [k, { d4: 2 }]));
   for (const t of ancestry?.system.talent ?? []) {
@@ -142,7 +142,7 @@ export class FoilChargen extends HandlebarsApplicationMixin(ApplicationV2) {
     const background = backgrounds.get(st.background.toLowerCase()) ?? null;
     const sortByName = m => [...m.values()].sort((a, b) => a.name.localeCompare(b.name));
 
-    // What the Ancestry grants.
+    // What the Origin grants.
     const ancestryFeats = (ancestry?.system.feats ?? []).map(n => {
       const f = feats.get(n.toLowerCase());
       const tech = f?.system.grantsTechnique ? techniques.get(f.system.grantsTechnique.toLowerCase()) : null;
@@ -245,11 +245,11 @@ export class FoilChargen extends HandlebarsApplicationMixin(ApplicationV2) {
     if (!actor) return;
     const data = foundry.utils.expandObject(formData.object);
     // Throwing keeps the window open with the message (closeOnSubmit only runs on success).
-    if (!data.ancestry || !data.background) throw new Error("Pick an Ancestry and a Background.");
+    if (!data.ancestry || !data.background) throw new Error("Pick an Origin and a Background.");
 
     const ancestry = (await packDocsByName("foil.ancestries")).get(data.ancestry.toLowerCase());
     const background = (await packDocsByName("foil.backgrounds")).get(data.background.toLowerCase());
-    if (!ancestry || !background) throw new Error("That Ancestry or Background isn't in the compendium.");
+    if (!ancestry || !background) throw new Error("That Origin or Background isn't in the compendium.");
 
     const pools = startingPools(ancestry, background);
     const update = {};
@@ -272,7 +272,7 @@ export class FoilChargen extends HandlebarsApplicationMixin(ApplicationV2) {
     for (const k of ATTRIBUTE_KEYS) fill[`system.attributes.${k}.potential.current`] = actor.system.attributes[k].potential.max;
     await actor.update(fill);
 
-    // Replace any earlier Ancestry or Background, then add the new ones and what they grant.
+    // Replace any earlier Origin or Background, then add the new ones and what they grant.
     const stale = actor.items.filter(i => ["origin", "background"].includes(i.type)).map(i => i.id);
     if (stale.length) await actor.deleteEmbeddedDocuments("Item", stale);
     const existing = new Set(actor.items.map(i => i.name.toLowerCase()));

@@ -1,0 +1,30 @@
+{
+  "_id": "A5EDLdKA24juVn75",
+  "name": "Steady Habits",
+  "type": "feat",
+  "img": "icons/svg/upgrade.svg",
+  "system": {
+    "featType": "ancestry",
+    "xpCost": 0,
+    "requirements": "",
+    "effect": "+2 Training in Discipline.",
+    "ancestry": "Quiet Village",
+    "grantsTechnique": "",
+    "modifiers": [
+      {
+        "type": "training",
+        "key": "discipline",
+        "value": 2
+      }
+    ],
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 2700000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!A5EDLdKA24juVn75"
+}

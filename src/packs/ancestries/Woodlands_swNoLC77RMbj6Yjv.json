@@ -1,0 +1,33 @@
+{
+  "_id": "swNoLC77RMbj6Yjv",
+  "name": "Woodlands",
+  "type": "origin",
+  "img": "icons/svg/village.svg",
+  "system": {
+    "talent": [
+      {
+        "attribute": "finesse",
+        "die": 12
+      },
+      {
+        "attribute": "wit",
+        "die": 8
+      }
+    ],
+    "feats": [
+      "Marked Prey",
+      "Camouflaged Skin"
+    ],
+    "feat": "Marked Prey",
+    "section": "7.8.3",
+    "description": "<p>Old forest, deep shade, and long stretches without a view of the sky.</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 300000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!swNoLC77RMbj6Yjv"
+}

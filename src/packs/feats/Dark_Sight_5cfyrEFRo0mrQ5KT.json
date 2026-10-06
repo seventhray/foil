@@ -1,0 +1,30 @@
+{
+  "_id": "5cfyrEFRo0mrQ5KT",
+  "name": "Dark Sight",
+  "type": "feat",
+  "img": "icons/svg/upgrade.svg",
+  "system": {
+    "featType": "ancestry",
+    "xpCost": 0,
+    "requirements": "",
+    "effect": "+2 Training in Acuity, and you see in the dark.",
+    "ancestry": "Frozen North",
+    "grantsTechnique": "",
+    "modifiers": [
+      {
+        "type": "training",
+        "key": "acuity",
+        "value": 2
+      }
+    ],
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 3700000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!5cfyrEFRo0mrQ5KT"
+}

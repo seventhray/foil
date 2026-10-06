@@ -1,0 +1,30 @@
+{
+  "_id": "nWGC7yAsJND9EhgK",
+  "name": "Long Marches",
+  "type": "feat",
+  "img": "icons/svg/upgrade.svg",
+  "system": {
+    "featType": "ancestry",
+    "xpCost": 0,
+    "requirements": "",
+    "effect": "+3 Training in Prowess.",
+    "ancestry": "Ashen Badlands",
+    "grantsTechnique": "",
+    "modifiers": [
+      {
+        "type": "training",
+        "key": "prowess",
+        "value": 3
+      }
+    ],
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 3200000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!nWGC7yAsJND9EhgK"
+}

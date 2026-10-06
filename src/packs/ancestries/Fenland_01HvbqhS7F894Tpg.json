@@ -1,0 +1,33 @@
+{
+  "_id": "01HvbqhS7F894Tpg",
+  "name": "Fenland",
+  "type": "origin",
+  "img": "icons/svg/village.svg",
+  "system": {
+    "talent": [
+      {
+        "attribute": "finesse",
+        "die": 10
+      },
+      {
+        "attribute": "wit",
+        "die": 10
+      }
+    ],
+    "feats": [
+      "Fen Curse",
+      "Mire Cunning"
+    ],
+    "feat": "Fen Curse",
+    "section": "7.8.6",
+    "description": "<p>Tidal bogs and reed marsh, where land and water blur.</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 600000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!01HvbqhS7F894Tpg"
+}

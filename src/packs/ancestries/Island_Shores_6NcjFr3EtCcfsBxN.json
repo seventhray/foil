@@ -1,0 +1,33 @@
+{
+  "_id": "6NcjFr3EtCcfsBxN",
+  "name": "Island Shores",
+  "type": "origin",
+  "img": "icons/svg/village.svg",
+  "system": {
+    "talent": [
+      {
+        "attribute": "might",
+        "die": 12
+      },
+      {
+        "attribute": "finesse",
+        "die": 8
+      }
+    ],
+    "feats": [
+      "Salt-Toughened",
+      "Undertow"
+    ],
+    "feat": "Salt-Toughened",
+    "section": "7.8.9",
+    "description": "<p>Islands and coasts, where the sea sets the horizon.</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 900000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!6NcjFr3EtCcfsBxN"
+}

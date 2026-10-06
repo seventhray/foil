@@ -2,7 +2,7 @@
  * tools/populate-packs.mjs
  * Seeds every FOIL compendium from the books (Foilbound 0.6.0). Content comes
  * from the vault's Catalog notes (Techniques, Feats, Instruments, Tools) and
- * the Player's Handbook tables (Equipment, Backgrounds, Ancestries, Focus
+ * the Player's Handbook tables (Equipment, Backgrounds, Origins, Focus
  * Gems, item sizes); the vocabulary (Instrument Types, Qualities, Effects)
  * mirrors PHB 4.1.1 and Fundamental Math's Effects table.
  *
@@ -281,7 +281,7 @@ function techniqueDoc(n) {
       effects, floor,
       xpOverride: xp,
       effectText: n.effect ?? "",
-      ancestryGrant: n.ancestry_grant ?? "",
+      ancestryGrant: n.origin_grant ?? "",
       description: n.description ? `<p>${n.description}</p>` : ""
     }
   };
@@ -444,24 +444,23 @@ function featModifiers(effect) {
   if ((m = effect.match(/^\+(\d) Training in (\w+)/i))) mods.push({ type: "training", key: lc(m[2]), value: +m[1] });
   return mods;
 }
-const ANCESTRY_FULL = {};
 function featDoc(n) {
-  const type = lc(n.feat_type) === "ancestry" ? "ancestry" : lc(n.feat_type) === "trait" ? "trait" : "learned";
+  const type = lc(n.feat_type) === "origin" ? "ancestry" : lc(n.feat_type) === "trait" ? "trait" : "learned";
   const grants = String(n.grants_technique ?? "").replace(/^\[\[|\]\]$/g, "");
   const effect = n.effect ?? "";
   return {
     name: n.name, type: "feat", img: "icons/svg/upgrade.svg",
     system: {
       featType: type, xpCost: Number(n.xp) || 0, requirements: n.requires ?? "", effect,
-      ancestry: ANCESTRY_FULL[n.ancestry] ?? n.ancestry ?? "", grantsTechnique: grants,
+      ancestry: n.origin ?? "", grantsTechnique: grants,
       modifiers: featModifiers(effect), description: ""
     }
   };
 }
 
-// ─── Ancestries (PHB 7.8.x) and Backgrounds (PHB 7.9.0) ────────────────────
+// ─── Origins (PHB 7.8.x) and Backgrounds (PHB 7.9.0) ────────────────────
 function ancestryDocs() {
-  const body = sectionText(PHB, /^## 7\.8\.0 Ancestries/);
+  const body = sectionText(PHB, /^## 7\.8\.0 Origins/);
   const out = [];
   for (const block of body.split(/\n(?=### 7\.8\.\d+ )/).slice(1)) {
     const head = block.match(/^### (7\.8\.\d+) (.+)$/m);
@@ -470,7 +469,6 @@ function ancestryDocs() {
     const feats = [...block.matchAll(/^\*\*Feat:\*\* ([^.]+)\./gm)].map(m => m[1].trim());
     const talent = [...(block.match(/^\*\*Talent:\*\* (.+)$/m)?.[1] ?? "").matchAll(/(?:one )?(\w+)(?: die)? to d(\d+)/g)]
       .map(m => ({ attribute: lc(m[1]), die: +m[2] }));
-    ANCESTRY_FULL[name.split(" ")[0]] = name;
     out.push({ name, type: "origin", img: "icons/svg/village.svg",
       system: { talent, feats, feat: feats[0] ?? "", section: head[1], description: desc ? `<p>${desc}</p>` : "" } });
   }
@@ -589,11 +587,11 @@ for (const bg of backgrounds) {
     if (!known.has(name) && !known.has(bare)) warnings.push(`${bg.name}: kit item "${raw}" not in any pack`);
   }
 }
-// Every Ancestry Feat named in 7.8.x should exist as a Feat.
+// Every Origin Feat named in 7.8.x should exist as a Feat.
 const featNames = new Set(feats.map(f => f.name));
 for (const a of ancestries) for (const f of a.system.feats) if (!featNames.has(f)) warnings.push(`${a.name}: Feat "${f}" not in the Catalog`);
 
-const expect = { techniques: 98, feats: 47, instruments: 34, tools: 17 };
+const expect = { techniques: 98, feats: 57, instruments: 34, tools: 17 };
 for (const [k, n] of Object.entries(expect)) {
   if (CAT[k].length !== n) warnings.push(`Catalog/${k}: ${CAT[k].length} notes, expected ${n}`);
 }
@@ -605,7 +603,7 @@ if (process.argv.includes("--habits-only")) { console.log("  wrote src/habits.js
 if (process.argv.includes("--dry-run")) {
   console.log(`  dry run: ${INSTRUMENT_TYPES.length} types, ${QUALITIES.length} qualities, ${EFFECTS.length} effects, `
     + `${instruments.length} instruments, ${techniques.length} techniques, ${feats.length} feats, ${equipment.length} equipment, `
-    + `${backgrounds.length} backgrounds, ${ancestries.length} ancestries, ${GUIDE.length} guide journals`);
+    + `${backgrounds.length} backgrounds, ${ancestries.length} origins, ${GUIDE.length} guide journals`);
 } else {
   writePack("instrument-types", INSTRUMENT_TYPES.map(instrumentTypeDoc));
   writePack("qualities", QUALITIES.map(qualityDoc));

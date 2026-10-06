@@ -6,7 +6,7 @@
   "TYPES.Item.feat": "Feat",
   "TYPES.Item.equipment": "Equipment",
   "TYPES.Item.background": "Background",
-  "TYPES.Item.origin": "Ancestry",
+  "TYPES.Item.origin": "Origin",
   "TYPES.Item.instrumentType": "Instrument Type",
   "TYPES.Item.quality": "Property",
   "TYPES.Item.effect": "Effect",

@@ -1,0 +1,33 @@
+{
+  "_id": "XxYfEgvqK4nnYzA7",
+  "name": "Ashen Badlands",
+  "type": "origin",
+  "img": "icons/svg/village.svg",
+  "system": {
+    "talent": [
+      {
+        "attribute": "might",
+        "die": 10
+      },
+      {
+        "attribute": "wit",
+        "die": 10
+      }
+    ],
+    "feats": [
+      "Cinder-Hardened",
+      "Long Marches"
+    ],
+    "feat": "Cinder-Hardened",
+    "section": "7.8.15",
+    "description": "<p>Gray ash flats and scorched hills, where little grows.</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 1500000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!XxYfEgvqK4nnYzA7"
+}

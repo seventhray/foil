@@ -1,0 +1,33 @@
+{
+  "_id": "VJ8o1kQJB2q0nNPn",
+  "name": "Quiet Village",
+  "type": "origin",
+  "img": "icons/svg/village.svg",
+  "system": {
+    "talent": [
+      {
+        "attribute": "might",
+        "die": 10
+      },
+      {
+        "attribute": "presence",
+        "die": 10
+      }
+    ],
+    "feats": [
+      "Steady Habits",
+      "Good Neighbors"
+    ],
+    "feat": "Steady Habits",
+    "section": "7.8.13",
+    "description": "<p>A small settlement where everyone knows everyone.</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 1300000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!VJ8o1kQJB2q0nNPn"
+}

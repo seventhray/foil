@@ -1,0 +1,30 @@
+{
+  "_id": "gBUa54CcTCDibyi5",
+  "name": "Hardened Nerves",
+  "type": "feat",
+  "img": "icons/svg/upgrade.svg",
+  "system": {
+    "featType": "ancestry",
+    "xpCost": 0,
+    "requirements": "",
+    "effect": "Gain Mental Resistance +1, stacking with Equipment Resistance.",
+    "ancestry": "Ruined Lands",
+    "grantsTechnique": "",
+    "modifiers": [
+      {
+        "type": "resistance",
+        "key": "mental",
+        "value": 1
+      }
+    ],
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 4400000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!gBUa54CcTCDibyi5"
+}

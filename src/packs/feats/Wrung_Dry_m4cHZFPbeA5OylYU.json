@@ -1,0 +1,30 @@
+{
+  "_id": "m4cHZFPbeA5OylYU",
+  "name": "Wrung Dry",
+  "type": "feat",
+  "img": "icons/svg/upgrade.svg",
+  "system": {
+    "featType": "ancestry",
+    "xpCost": 0,
+    "requirements": "",
+    "effect": "+2 Training in Discipline.",
+    "ancestry": "Sunbaked Desert",
+    "grantsTechnique": "",
+    "modifiers": [
+      {
+        "type": "training",
+        "key": "discipline",
+        "value": 2
+      }
+    ],
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 4500000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!m4cHZFPbeA5OylYU"
+}

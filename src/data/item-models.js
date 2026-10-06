@@ -1,7 +1,7 @@
 /**
  * src/data/item-models.js
  * DataModels for the content items (Foilbound 0.6.0): instrument, technique,
- * equipment, feat, background, and origin (shown as Ancestry). Instruments and
+ * equipment, feat, background, and origin (shown as Origin). Instruments and
  * Techniques reference the authorable vocabulary by slug through the registry;
  * registry-dependent values are derived when the registry is ready, and the
  * registry re-prepares these items once it finishes loading.
@@ -361,7 +361,7 @@ export class BackgroundData extends foundry.abstract.TypeDataModel {
   }
 }
 
-/** An Ancestry (PHB 2.5.1, 7.8.0). The document type stays `origin` for existing worlds. */
+/** An Origin (PHB 2.5.1, 7.8.0). The document type stays `origin` for existing worlds. */
 export class OriginData extends foundry.abstract.TypeDataModel {
   static defineSchema() {
     return {

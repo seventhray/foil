@@ -1,0 +1,24 @@
+{
+  "_id": "2KY0yAmT06ZYTuU1",
+  "name": "Warding Chant",
+  "type": "feat",
+  "img": "icons/svg/upgrade.svg",
+  "system": {
+    "featType": "ancestry",
+    "xpCost": 0,
+    "requirements": "",
+    "effect": "You learn the Warding Chant Technique: Sonic, +1 to one Skill of choice, chosen allies within Near (Selective), Strain 1 per target.",
+    "ancestry": "Jungle Canopy",
+    "grantsTechnique": "Warding Chant",
+    "modifiers": [],
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 2500000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!2KY0yAmT06ZYTuU1"
+}

@@ -1,0 +1,33 @@
+{
+  "_id": "Gch54GXqJAZQQcc5",
+  "name": "Crowded City",
+  "type": "origin",
+  "img": "icons/svg/village.svg",
+  "system": {
+    "talent": [
+      {
+        "attribute": "finesse",
+        "die": 10
+      },
+      {
+        "attribute": "presence",
+        "die": 10
+      }
+    ],
+    "feats": [
+      "Crowd Wise",
+      "Hurried Step"
+    ],
+    "feat": "Crowd Wise",
+    "section": "7.8.11",
+    "description": "<p>Dense streets and tall buildings, always surrounded by people.</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 1100000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!Gch54GXqJAZQQcc5"
+}

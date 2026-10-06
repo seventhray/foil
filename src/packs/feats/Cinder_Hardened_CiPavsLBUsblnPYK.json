@@ -1,0 +1,30 @@
+{
+  "_id": "CiPavsLBUsblnPYK",
+  "name": "Cinder-Hardened",
+  "type": "feat",
+  "img": "icons/svg/upgrade.svg",
+  "system": {
+    "featType": "ancestry",
+    "xpCost": 0,
+    "requirements": "",
+    "effect": "Gain Physical Resistance +1, stacking with Equipment Resistance.",
+    "ancestry": "Ashen Badlands",
+    "grantsTechnique": "",
+    "modifiers": [
+      {
+        "type": "resistance",
+        "key": "physical",
+        "value": 1
+      }
+    ],
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 1700000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!CiPavsLBUsblnPYK"
+}

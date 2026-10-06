@@ -1,0 +1,24 @@
+{
+  "_id": "L7pKHtAU4HdGQQaN",
+  "name": "Cowing Rebuke",
+  "type": "feat",
+  "img": "icons/svg/upgrade.svg",
+  "system": {
+    "featType": "ancestry",
+    "xpCost": 0,
+    "requirements": "",
+    "effect": "You learn the Cowing Rebuke Technique: Sonic, Intimidated, Strain 1.",
+    "ancestry": "Frozen North",
+    "grantsTechnique": "Cowing Rebuke",
+    "modifiers": [],
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 2200000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!L7pKHtAU4HdGQQaN"
+}

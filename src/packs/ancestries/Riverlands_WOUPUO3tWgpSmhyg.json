@@ -1,0 +1,33 @@
+{
+  "_id": "WOUPUO3tWgpSmhyg",
+  "name": "Riverlands",
+  "type": "origin",
+  "img": "icons/svg/village.svg",
+  "system": {
+    "talent": [
+      {
+        "attribute": "finesse",
+        "die": 10
+      },
+      {
+        "attribute": "presence",
+        "die": 10
+      }
+    ],
+    "feats": [
+      "River Walk",
+      "Bartering Culture"
+    ],
+    "feat": "River Walk",
+    "section": "7.8.1",
+    "description": "<p>Wide river basins and floodplains, flat and wet.</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 100000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!WOUPUO3tWgpSmhyg"
+}

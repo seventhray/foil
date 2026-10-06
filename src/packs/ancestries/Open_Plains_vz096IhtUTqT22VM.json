@@ -1,0 +1,33 @@
+{
+  "_id": "vz096IhtUTqT22VM",
+  "name": "Open Plains",
+  "type": "origin",
+  "img": "icons/svg/village.svg",
+  "system": {
+    "talent": [
+      {
+        "attribute": "might",
+        "die": 12
+      },
+      {
+        "attribute": "finesse",
+        "die": 8
+      }
+    ],
+    "feats": [
+      "Charge",
+      "Relentless Blow"
+    ],
+    "feat": "Charge",
+    "section": "7.8.8",
+    "description": "<p>Steppe and grassland under a wide sky.</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 800000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!vz096IhtUTqT22VM"
+}
