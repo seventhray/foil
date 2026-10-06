@@ -23,7 +23,7 @@
     "magnitudeLabel": "",
     "exemptFromPremium": false,
     "setsFloor": false,
-    "description": "<p>N creatures within R bands: each pays the Technique's Effect cost plus R.</p>"
+    "description": "<p>N creatures within R bands: each adds 8 XP (one Strain) to the one-target price.</p>"
   },
   "effects": [],
   "folder": null,

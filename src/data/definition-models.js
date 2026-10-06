@@ -86,7 +86,7 @@ export class EffectData extends foundry.abstract.TypeDataModel {
     "perPoint",     // base + perPoint x N
     "flat",         // fixed XP
     "pattern",      // Beam/Cone/Radius/Wall by reach, plus placement
-    "selective",    // each target pays the Effects plus R
+    "selective",    // 8 XP per target
     "extendRange",  // perBand x bands
     "upkeep",       // flat, doesn't count toward the premium
     "quick",        // free tag, doesn't count; a stated trigger sets the 8 XP floor

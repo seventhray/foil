@@ -33,8 +33,8 @@
       }
     ],
     "floor": true,
-    "xpOverride": 48,
-    "effectText": "Mend 1d4 to up to 4 allies within Near (Selective), Strain 6",
+    "xpOverride": 42,
+    "effectText": "Mend 1d4 to up to 4 allies within Near (Selective), Strain 5",
     "ancestryGrant": "",
     "description": ""
   },

@@ -10,9 +10,8 @@
  *     priced by reach and counts as one of the Technique's Effects.
  *  3. +4 XP for every Effect beyond the first. Quick and Upkeep don't count;
  *     each has its own flat price (Upkeep 4 XP, Quick 3).
- *     Selective names N targets and a range of R bands; each target pays the
- *     Technique's Effects (with their premium) plus R, and Selective itself
- *     isn't an Effect.
+ *     Selective names N targets within R bands; each target adds 8 XP (one
+ *     Strain) to the one-target price, and Selective itself isn't an Effect.
  *  4. Floors: a Technique that answers a class of attack, grants a ward or a
  *     roll bonus until the caster's next turn, is Quick with a trigger, or is
  *     Fortifying costs at least 8 XP.
@@ -22,6 +21,7 @@
 export const PREMIUM_PER_EFFECT = 4;
 export const DEFENSIVE_FLOOR = 8;
 export const STRAIN_DIVISOR = 8;
+export const SELECTIVE_PER_TARGET = 8;
 
 /** Running sum 1 + 2 + ... + N (the Beam reach cost). */
 function beamCost(bands) {
@@ -45,11 +45,9 @@ export function patternCost(shape, bands, placement = 0) {
   return base + place;
 }
 
-/** Selective: each of N creatures pays the Technique's Effect cost plus R (its range in bands). */
-export function selectiveCost(n, r, base = 0) {
-  const N = Math.max(0, Number(n) || 0);
-  const R = Math.max(0, Number(r) || 0);
-  return N * (Math.max(0, Number(base) || 0) + R);
+/** Selective: each of N targets adds 8 XP (one Strain) to the Technique's one-target price. */
+export function selectiveCost(n) {
+  return SELECTIVE_PER_TARGET * Math.max(0, Number(n) || 0);
 }
 
 export function strainFor(xp) {
@@ -118,7 +116,7 @@ export function priceTechnique(effects = [], registry = {}, opts = {}) {
   const premium = PREMIUM_PER_EFFECT * Math.max(0, counted - 1);
   let sum = perTarget + flat;
   if (sel) {
-    const extra = selectiveCost(sel.selectiveN, sel.selectiveR, perTarget + premium) - (perTarget + premium);
+    const extra = selectiveCost(sel.selectiveN);
     sum += extra;
     breakdown.push({ key: sel.key, label: entryLabel(sel, registry[sel.key]), cost: extra });
   }

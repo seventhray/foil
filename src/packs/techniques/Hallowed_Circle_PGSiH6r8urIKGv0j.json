@@ -42,8 +42,8 @@
       }
     ],
     "floor": true,
-    "xpOverride": 28,
-    "effectText": "Resistance +1 to up to 4 allies within Near (Selective), Upkeep, Strain 3",
+    "xpOverride": 40,
+    "effectText": "Resistance +1 to up to 4 allies within Near (Selective), Upkeep, Strain 5",
     "ancestryGrant": "",
     "description": ""
   },
