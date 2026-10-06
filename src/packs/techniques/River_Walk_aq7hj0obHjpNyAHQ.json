@@ -5,9 +5,9 @@
   "img": "icons/svg/aura.svg",
   "system": {
     "requires": [],
-    "requiresText": "Acuity, Innate",
+    "requiresText": "Innate",
     "innate": true,
-    "skill": "acuity",
+    "skill": "",
     "family": "Innate",
     "subgroup": "",
     "effects": [
