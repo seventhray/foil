@@ -20,7 +20,6 @@
         "pattern": "single",
         "bands": 0,
         "placement": 0,
-        "selectiveN": 0,
         "selectiveR": 0
       },
       {
@@ -29,7 +28,6 @@
         "pattern": "single",
         "bands": 0,
         "placement": 0,
-        "selectiveN": 0,
         "selectiveR": 0
       }
     ],

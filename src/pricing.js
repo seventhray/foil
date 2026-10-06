@@ -139,7 +139,7 @@ export function entryLabel(entry, def) {
     case "pattern":
       return `${(entry.pattern ?? "").replace(/^./, c => c.toUpperCase())} (${BAND_NAME[entry.bands] ?? entry.bands})`;
     case "selective":
-      return `Selective (${entry.selectiveN} within ${BAND_NAME[entry.selectiveR] ?? entry.selectiveR})`;
+      return `Selective (within ${BAND_NAME[entry.selectiveR] ?? entry.selectiveR})`;
     default:
       return name;
   }

@@ -112,7 +112,7 @@ const EFFECTS = [
   ["Hasten (Quick Action)", "hasten-quick", "flat", { base: 11 }, { requires: ["fortifying"] }, "Grant an ally an extra Quick Action."],
   ["Extend Range", "extend-range", "extendRange", { perBand: 1 }, { requires: ["kinetic", "incorporeal"] }, "1 XP per band of extra reach."],
   ["Pattern", "pattern", "pattern", {}, { requires: [...MELEE, ...RANGED, "sonic", ...ARCANE] }, "Beam or Wall: 1 + 2 + ... per band. Cone 3x, Radius 12x the Beam cost. A Melee Pattern reaches no farther than its Instrument's Range."],
-  ["Selective", "selective", "selective", {}, { requires: [...RANGED, "sonic", ...ARCANE] }, "N creatures within R bands: range at 1 XP per band, plus an 8 XP premium; Strain is paid per target."],
+  ["Selective", "selective", "selective", {}, { requires: [...RANGED, "sonic", ...ARCANE] }, "Creatures within R bands: range at 1 XP per band, plus an 8 XP premium; Strain is paid per target."],
   ["Upkeep", "upkeep", "upkeep", { base: 4 }, { requires: ARCANE, exempt: true }, "Keep the Technique active by paying its Action and Strain each turn."],
   ["Quick", "quick", "quick", { base: 3 }, { exempt: true, floor: true }, "3 XP, outside the combination premium. A stated trigger sets the 8 XP floor."],
   // Conditions (PHB 6.8.x), priced flat.
@@ -168,7 +168,7 @@ function parseRequires(text) {
 const BAND = { close: 1, near: 2, short: 3, mid: 4, long: 5 };
 const CONDITION_KEYS = ["grappled", "prone", "restrained", "charmed", "frightened", "controlled", "intimidated",
   "baited", "angered", "relaxed", "impressed", "wary", "enthralled", "blinded", "slowed"];
-const e = (key, extra = {}) => ({ key, magnitude: 1, pattern: "single", bands: 0, placement: 0, selectiveN: 0, selectiveR: 0, ...extra });
+const e = (key, extra = {}) => ({ key, magnitude: 1, pattern: "single", bands: 0, placement: 0, selectiveR: 0, ...extra });
 
 /** Split on top-level commas (not inside parentheses). */
 function splitTop(s) {
@@ -201,9 +201,9 @@ function parseEffects(text) {
   const clauses = splitTop(src).flatMap(c => /^\+\d+ and Resistance/i.test(c) ? c.split(/ and /) : [c]);
   for (const raw of clauses) {
     let c = raw.replace(/\.$/, "").trim();
-    const sel = c.match(/(?:to )?up to (\d+) allies within (\w+) \(Selective\)/i);
+    const sel = c.match(/(?:to )?chosen allies within (\w+) \(Selective\)/i);
     if (sel) {
-      list.push(e("selective", { selectiveN: Number(sel[1]), selectiveR: BAND[lc(sel[2])] ?? 0 }));
+      list.push(e("selective", { selectiveR: BAND[lc(sel[1])] ?? 0 }));
       c = c.replace(sel[0], "").trim();
       if (!c) continue;
     }

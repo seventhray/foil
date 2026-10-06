@@ -23,7 +23,7 @@
     "magnitudeLabel": "",
     "exemptFromPremium": false,
     "setsFloor": false,
-    "description": "<p>N creatures within R bands: range at 1 XP per band, plus an 8 XP premium; Strain is paid per target.</p>"
+    "description": "<p>Creatures within R bands: range at 1 XP per band, plus an 8 XP premium; Strain is paid per target.</p>"
   },
   "effects": [],
   "folder": null,

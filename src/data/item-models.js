@@ -30,7 +30,6 @@ function effectsArraySchema() {
     pattern: str("single"),
     bands: int(0),
     placement: int(0),
-    selectiveN: int(0),
     selectiveR: int(0)
   }));
 }

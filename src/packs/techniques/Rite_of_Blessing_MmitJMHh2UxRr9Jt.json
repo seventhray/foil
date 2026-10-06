@@ -19,7 +19,6 @@
         "pattern": "single",
         "bands": 0,
         "placement": 0,
-        "selectiveN": 4,
         "selectiveR": 2
       },
       {
@@ -28,13 +27,12 @@
         "pattern": "single",
         "bands": 0,
         "placement": 0,
-        "selectiveN": 0,
         "selectiveR": 0
       }
     ],
     "floor": true,
     "xpOverride": 20,
-    "effectText": "+1 to up to 4 allies within Near (Selective), Strain 1 per target",
+    "effectText": "+1 to chosen allies within Near (Selective), Strain 1 per target",
     "ancestryGrant": "",
     "description": ""
   },

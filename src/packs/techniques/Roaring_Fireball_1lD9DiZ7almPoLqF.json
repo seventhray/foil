@@ -19,7 +19,6 @@
         "pattern": "single",
         "bands": 0,
         "placement": 0,
-        "selectiveN": 0,
         "selectiveR": 0
       },
       {
@@ -28,7 +27,6 @@
         "pattern": "radius",
         "bands": 2,
         "placement": 0,
-        "selectiveN": 0,
         "selectiveR": 0
       }
     ],
