@@ -42,7 +42,7 @@
       }
     ],
     "floor": false,
-    "xpOverride": 25,
+    "xpOverride": 29,
     "effectText": "Stress, Prone, -1 Oppose, Strain 3",
     "ancestryGrant": "Shardani",
     "description": ""

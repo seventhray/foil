@@ -35,8 +35,8 @@
       }
     ],
     "floor": false,
-    "xpOverride": 15,
-    "effectText": "Stress, Prone, Strain 1",
+    "xpOverride": 19,
+    "effectText": "Stress, Prone, Strain 2",
     "ancestryGrant": "",
     "description": ""
   },

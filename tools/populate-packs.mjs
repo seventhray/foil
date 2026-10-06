@@ -117,11 +117,11 @@ const EFFECTS = [
   ["Quick", "quick", "quick", { base: 3 }, { exempt: true, floor: true }, "3 XP, outside the combination premium. A stated trigger sets the 8 XP floor."],
   // Conditions (PHB 6.8.x), priced flat.
   ["Grappled", "grappled", "flat", { base: 4 }, { requires: ["grappling", "kinetic"] }, "PHB 6.8.3."],
-  ["Prone", "prone", "flat", { base: 7 }, { requires: [...MELEE, ...RANGED, "kinetic"] }, "PHB 6.8.7."],
+  ["Prone", "prone", "flat", { base: 11 }, { requires: [...MELEE, ...RANGED, "kinetic"] }, "PHB 6.8.7."],
   ["Restrained", "restrained", "flat", { base: 16 }, { requires: ["grappling", "kinetic"] }, "PHB 6.8.5."],
   ["Charmed", "charmed", "flat", { base: 8 }, { requires: ["incorporeal", "sonic"] }, "PHB 6.8.8."],
   ["Frightened", "frightened", "flat", { base: 8 }, { requires: ["incorporeal", "sonic"] }, "PHB 6.8.9."],
-  ["Controlled", "controlled", "flat", { base: 21 }, { requires: ["incorporeal"] }, "PHB 6.8.10."],
+  ["Controlled", "controlled", "flat", { base: 25 }, { requires: ["incorporeal"] }, "PHB 6.8.10."],
   ["Intimidated", "intimidated", "flat", { base: 10 }, { requires: ["incorporeal", "sonic", ...MELEE] }, "PHB 6.8.11."],
   ["Baited", "baited", "flat", { base: 8 }, { requires: ["incorporeal", "sonic", ...MELEE, ...RANGED] }, "PHB 6.8.12."],
   ["Angered", "angered", "flat", { base: 8 }, { requires: ["incorporeal", "sonic"] }, "PHB 6.8.13."],

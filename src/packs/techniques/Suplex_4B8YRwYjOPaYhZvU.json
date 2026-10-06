@@ -42,8 +42,8 @@
       }
     ],
     "floor": false,
-    "xpOverride": 55,
-    "effectText": "Stress, Prone, -2 [target Attribute], Strain 6",
+    "xpOverride": 59,
+    "effectText": "Stress, Prone, -2 [target Attribute], Strain 7",
     "ancestryGrant": "",
     "description": ""
   },
