@@ -42,7 +42,7 @@
       }
     ],
     "floor": true,
-    "xpOverride": 23,
+    "xpOverride": 19,
     "effectText": "Quick (trigger: a Sonic Technique fails against you): deal Stress to that attacker, +1 Stress, Strain 2.",
     "ancestryGrant": "",
     "description": ""

@@ -8,14 +8,14 @@
     "requires": [],
     "pricingKind": "quick",
     "pricingParams": {
-      "base": 7,
+      "base": 3,
       "perPoint": 0,
       "perBand": 1
     },
     "magnitudeLabel": "",
     "exemptFromPremium": true,
     "setsFloor": true,
-    "description": "<p>7 XP, outside the combination premium. A stated trigger sets the 8 XP floor.</p>"
+    "description": "<p>3 XP, outside the combination premium. A stated trigger sets the 8 XP floor.</p>"
   },
   "effects": [],
   "folder": null,

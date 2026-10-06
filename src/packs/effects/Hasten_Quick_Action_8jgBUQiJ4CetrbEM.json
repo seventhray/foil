@@ -10,7 +10,7 @@
     ],
     "pricingKind": "flat",
     "pricingParams": {
-      "base": 7,
+      "base": 11,
       "perPoint": 0,
       "perBand": 1
     },
