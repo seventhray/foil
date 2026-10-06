@@ -7,9 +7,9 @@
     "featType": "ancestry",
     "xpCost": 0,
     "requirements": "",
-    "effect": "You learn the Headbutt Technique: Melee, Stress, Prone, Strain 1.",
+    "effect": "You learn the Trip Technique: Melee, Stress, Prone, Strain 1.",
     "ancestry": "Guttabi Highlanders",
-    "grantsTechnique": "Headbutt",
+    "grantsTechnique": "Trip",
     "modifiers": [],
     "description": ""
   },

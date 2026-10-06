@@ -590,7 +590,7 @@ for (const bg of backgrounds) {
 const featNames = new Set(feats.map(f => f.name));
 for (const a of ancestries) for (const f of a.system.feats) if (!featNames.has(f)) warnings.push(`${a.name}: Feat "${f}" not in the Catalog`);
 
-const expect = { techniques: 105, feats: 47, instruments: 34, tools: 17 };
+const expect = { techniques: 99, feats: 47, instruments: 34, tools: 17 };
 for (const [k, n] of Object.entries(expect)) {
   if (CAT[k].length !== n) warnings.push(`Catalog/${k}: ${CAT[k].length} notes, expected ${n}`);
 }
