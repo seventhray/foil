@@ -10,8 +10,9 @@
  *     priced by reach and counts as one of the Technique's Effects.
  *  3. +4 XP for every Effect beyond the first. Quick and Upkeep don't count;
  *     each has its own flat price (Upkeep 4 XP, Quick 3).
- *     Selective names N targets within R bands; each target adds 8 XP (one
- *     Strain) to the one-target price, and Selective itself isn't an Effect.
+ *     Selective names N targets within R bands: the range is priced at 1 XP
+ *     per band as an Effect, and Selective adds an 8 XP premium. Strain is
+ *     that of the one-target price, paid for each target at use.
  *  4. Floors: a Technique that answers a class of attack, grants a ward or a
  *     roll bonus until the caster's next turn, is Quick with a trigger, or is
  *     Fortifying costs at least 8 XP.
@@ -21,7 +22,7 @@
 export const PREMIUM_PER_EFFECT = 4;
 export const DEFENSIVE_FLOOR = 8;
 export const STRAIN_DIVISOR = 8;
-export const SELECTIVE_PER_TARGET = 8;
+export const SELECTIVE_PREMIUM = 8;
 
 /** Running sum 1 + 2 + ... + N (the Beam reach cost). */
 function beamCost(bands) {
@@ -45,9 +46,9 @@ export function patternCost(shape, bands, placement = 0) {
   return base + place;
 }
 
-/** Selective: each of N targets adds 8 XP (one Strain) to the Technique's one-target price. */
-export function selectiveCost(n) {
-  return SELECTIVE_PER_TARGET * Math.max(0, Number(n) || 0);
+/** Selective: the range (1 XP per band) is an Effect like any other, and Selective adds its flat premium. */
+export function selectiveCost(r) {
+  return Math.max(0, Number(r) || 0);
 }
 
 export function strainFor(xp) {
@@ -102,26 +103,28 @@ export function priceEntry(entry, def) {
  */
 export function priceTechnique(effects = [], registry = {}, opts = {}) {
   const breakdown = [];
-  let perTarget = 0, flat = 0, counted = 0, sel = null, floor = opts.floor ? DEFENSIVE_FLOOR : 0;
+  let sum = 0, flat = 0, counted = 0, sel = null, floor = opts.floor ? DEFENSIVE_FLOOR : 0;
 
   for (const entry of effects) {
     const def = registry[entry.key];
     const r = priceEntry(entry, def);
-    if (def?.pricingKind === "selective") { sel = entry; continue; }
-    if (r.counts) { perTarget += r.cost; counted += 1; } else flat += r.cost;
+    if (def?.pricingKind === "selective") {
+      sel = entry;
+      const range = selectiveCost(entry.selectiveR);
+      sum += range; counted += 1;
+      breakdown.push({ key: entry.key, label: entryLabel(entry, def), cost: range });
+      continue;
+    }
+    if (r.counts) { sum += r.cost; counted += 1; } else flat += r.cost;
     floor = Math.max(floor, r.floor);
     breakdown.push({ key: entry.key, label: entryLabel(entry, def), cost: r.cost });
   }
 
   const premium = PREMIUM_PER_EFFECT * Math.max(0, counted - 1);
-  let sum = perTarget + flat;
-  if (sel) {
-    const extra = selectiveCost(sel.selectiveN);
-    sum += extra;
-    breakdown.push({ key: sel.key, label: entryLabel(sel, registry[sel.key]), cost: extra });
-  }
-  const xp = Math.max(sum + premium, floor);
-  return { xp, strain: strainFor(xp), premium, floor, breakdown };
+  const single = Math.max(sum + flat + premium, floor);
+  const xp = single + (sel ? SELECTIVE_PREMIUM : 0);
+  if (sel) breakdown.push({ key: "selective-premium", label: "Selective premium", cost: SELECTIVE_PREMIUM });
+  return { xp, strain: strainFor(single), perTarget: !!sel, premium, floor, breakdown };
 }
 
 const BAND_NAME = ["", "Close", "Near", "Short", "Mid", "Long"];

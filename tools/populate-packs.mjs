@@ -112,7 +112,7 @@ const EFFECTS = [
   ["Hasten (Quick Action)", "hasten-quick", "flat", { base: 11 }, { requires: ["fortifying"] }, "Grant an ally an extra Quick Action."],
   ["Extend Range", "extend-range", "extendRange", { perBand: 1 }, { requires: ["kinetic", "incorporeal"] }, "1 XP per band of extra reach."],
   ["Pattern", "pattern", "pattern", {}, { requires: [...MELEE, ...RANGED, "sonic", ...ARCANE] }, "Beam or Wall: 1 + 2 + ... per band. Cone 3x, Radius 12x the Beam cost. A Melee Pattern reaches no farther than its Instrument's Range."],
-  ["Selective", "selective", "selective", {}, { requires: [...RANGED, "sonic", ...ARCANE] }, "N creatures within R bands: each adds 8 XP (one Strain) to the one-target price."],
+  ["Selective", "selective", "selective", {}, { requires: [...RANGED, "sonic", ...ARCANE] }, "N creatures within R bands: range at 1 XP per band, plus an 8 XP premium; Strain is paid per target."],
   ["Upkeep", "upkeep", "upkeep", { base: 4 }, { requires: ARCANE, exempt: true }, "Keep the Technique active by paying its Action and Strain each turn."],
   ["Quick", "quick", "quick", { base: 3 }, { exempt: true, floor: true }, "3 XP, outside the combination premium. A stated trigger sets the 8 XP floor."],
   // Conditions (PHB 6.8.x), priced flat.
@@ -191,7 +191,7 @@ function splitTop(s) {
 function parseEffects(text) {
   const list = [], unparsed = [];
   let stress = false, quick = false, rider = false;
-  let src = String(text ?? "").replace(/\.$/, "").replace(/\.\s*Strain \d+$/i, "");
+  let src = String(text ?? "").replace(/\.$/, "").replace(/\.\s*Strain \d+( per target)?$/i, "");
   const trig = src.match(/^Quick \(trigger:[^)]*\):\s*(.*)$/i);
   if (trig) { quick = true; src = trig[1]; }
   const tag = !trig && src.match(/^Quick:\s*(.*)$/i);
@@ -208,7 +208,7 @@ function parseEffects(text) {
       if (!c) continue;
     }
     let m;
-    if (/^Strain \d+$/i.test(c)) continue;
+    if (/^Strain \d+( per target)?$/i.test(c)) continue;
     if (/^(deal Stress to that attacker|\+1 Stress|physical or mental|self or ally|reduced by your physical Resistance)$/i.test(c)) continue;
     if (/^Stress$/i.test(c)) { stress = true; continue; }
     if (/^Upkeep$/i.test(c)) { list.push(e("upkeep")); continue; }
@@ -256,6 +256,7 @@ function techniqueDoc(n) {
   // PHB 4.2.1's floor: Fortifying, a ward or bonus until the caster's next turn, or a stated trigger.
   const floor = requires.includes("fortifying") || /until your next turn|Quick \(trigger/i.test(n.effect ?? "");
   const price = effects => priceTechnique(effects, EFFECT_REG, { floor }).xp;
+  const perTarget = list.some(x => x.key === "selective");
 
   // A Technique deals Stress only when its line says so (PHB 4.2.1).
   let effects;
@@ -267,8 +268,8 @@ function techniqueDoc(n) {
   if (effects.length && (computed !== xp || unparsed.length)) {
     priceFails.push(`${n.name}: printed ${xp}, Effects price ${computed}  [${n.effect}]${unparsed.length ? `  unparsed: ${unparsed.join(" | ")}` : ""}`);
   }
-  if (n.strain !== undefined && n.strain !== null && Number(n.strain) !== strainFor(xp)) {
-    warnings.push(`${n.name}: printed Strain ${n.strain}, floor(${xp}/8) = ${strainFor(xp)}`);
+  if (n.strain !== undefined && n.strain !== null && Number(n.strain) !== strainFor(xp - (perTarget ? 8 : 0))) {
+    warnings.push(`${n.name}: printed Strain ${n.strain}, floor(${xp - (perTarget ? 8 : 0)}/8) = ${strainFor(xp - (perTarget ? 8 : 0))}`);
   }
   const skillMatch = String(n.requires ?? "").match(/\b(Prowess|Discipline|Assertiveness|Acuity|Guile|Resonance)\b/);
   return {

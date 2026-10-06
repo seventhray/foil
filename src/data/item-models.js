@@ -13,7 +13,7 @@ import {
   MATERIAL_TIER_PRICE, SIZE, TYPE_SURCHARGE, REACH_PRICE_PER_BAND, RANGE_BANDS, rangeBandOf, usualRange,
   FOCUS_GEMS, EQUIPMENT_CATEGORIES, LEGACY_SKILL_KEY, ITEM_LOCATIONS
 } from "../constants.js";
-import { priceTechnique, strainFor } from "../pricing.js";
+import { priceTechnique, strainFor, SELECTIVE_PREMIUM } from "../pricing.js";
 import { LEGACY_TYPE_KEY } from "./definition-models.js";
 
 const INSTRUMENT_CATEGORIES = ["melee", "ranged", "arcane", "sonic", "tool", "innate"];
@@ -159,7 +159,7 @@ export class InstrumentData extends foundry.abstract.TypeDataModel {
     const registry = globalThis.CONFIG?.FOIL?.effects ?? null;
     const priced = registry && ench.enabled ? priceTechnique(ench.effects ?? [], registry) : { xp: 0, breakdown: [] };
     ench.xpCost = priced.xp;
-    ench.strain = strainFor(priced.xp);
+    ench.strain = priced.strain ?? strainFor(priced.xp);
     ench.price  = priced.xp * 10;
     const x = priced.xp;
     ench.difficulty = !x ? 0 : x <= 8 ? 16 : x <= 16 ? 20 : x <= 24 ? 24 : 32;
@@ -211,7 +211,8 @@ export class TechniqueData extends foundry.abstract.TypeDataModel {
     this.xpCost = this.xpOverride ?? priced.xp;
     this.priceMismatch = this.xpOverride !== null && this.xpOverride !== undefined && !!registry
       && (this.effects ?? []).length > 0 && this.xpOverride !== priced.xp;
-    this.strain = strainFor(this.xpCost);
+    this.perTarget = (this.effects ?? []).some(e => e.key === "selective");
+    this.strain = strainFor(this.xpCost - (this.perTarget ? SELECTIVE_PREMIUM : 0));
     this.pricingBreakdown = priced.breakdown;
 
     const has = key => (this.effects ?? []).filter(e => e.key === key);
@@ -234,7 +235,7 @@ export class TechniqueData extends foundry.abstract.TypeDataModel {
 
     const base = this.effectText || (priced.breakdown ?? []).map(b => b.label).join(", ");
     this.effectSummary = this.effectText ? base
-      : (this.strain ? (base ? `${base}, Strain ${this.strain}` : `Strain ${this.strain}`) : base);
+      : (this.strain ? (base ? `${base}, Strain ${this.strain}${this.perTarget ? " per target" : ""}` : `Strain ${this.strain}`) : base);
   }
 }
 

@@ -28,13 +28,13 @@
         "pattern": "single",
         "bands": 0,
         "placement": 0,
-        "selectiveN": 2,
+        "selectiveN": 3,
         "selectiveR": 2
       }
     ],
     "floor": false,
-    "xpOverride": 22,
-    "effectText": "+1 to one Skill of choice, up to 2 allies within Near (Selective), Strain 2",
+    "xpOverride": 20,
+    "effectText": "+1 to one Skill of choice, up to 3 allies within Near (Selective), Strain 1 per target",
     "ancestryGrant": "Ngyenha",
     "description": ""
   },
