@@ -7,7 +7,7 @@
     "featType": "ancestry",
     "xpCost": 0,
     "requirements": "",
-    "effect": "You learn the Warding Chant Technique: Sonic, +1 to one Skill of choice, up to 3 allies within Near (Selective), Strain 2.",
+    "effect": "You learn the Warding Chant Technique: Sonic, +1 to one Skill of choice, up to 2 allies within Near (Selective), Strain 2.",
     "ancestry": "Ngyenha Treedwellers",
     "grantsTechnique": "Warding Chant",
     "modifiers": [],

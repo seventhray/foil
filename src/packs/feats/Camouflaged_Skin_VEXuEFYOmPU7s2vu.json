@@ -7,7 +7,7 @@
     "featType": "ancestry",
     "xpCost": 0,
     "requirements": "",
-    "effect": "+2 on Stealth rolls, and +2 on Techniques against any creature that has not yet acted this round.",
+    "effect": "+2 on Stealth rolls.",
     "ancestry": "Votwalder Woodlanders",
     "grantsTechnique": "",
     "modifiers": [],

@@ -7,11 +7,16 @@
     "key": "weaken",
     "requires": [
       "incorporeal",
+      "sonic",
+      "kinetic",
       "edged",
       "pointed",
       "blunt",
       "grappling",
-      "parry"
+      "parry",
+      "thrown",
+      "drawn",
+      "fired"
     ],
     "pricingKind": "perPoint",
     "pricingParams": {

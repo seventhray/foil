@@ -22,7 +22,7 @@
         "effect": "Deals Stress to Might or Finesse."
       },
       {
-        "name": "Trip",
+        "name": "Topple",
         "skill": "discipline",
         "effect": "Applies Prone."
       },

@@ -23,7 +23,7 @@
     "magnitudeLabel": "",
     "exemptFromPremium": false,
     "setsFloor": false,
-    "description": "<p>N creatures within R bands: N + (R x N).</p>"
+    "description": "<p>N creatures within R bands: each pays the Technique's Effect cost plus R.</p>"
   },
   "effects": [],
   "folder": null,

@@ -14,8 +14,8 @@
     "subgroup": "Control & Deception",
     "effects": [
       {
-        "key": "skill-mod",
-        "magnitude": 2,
+        "key": "intimidated",
+        "magnitude": 1,
         "pattern": "single",
         "bands": 0,
         "placement": 0,
@@ -24,14 +24,14 @@
       }
     ],
     "floor": false,
-    "xpOverride": 12,
-    "effectText": "-2 Oppose, Strain 1",
+    "xpOverride": 10,
+    "effectText": "Intimidated, Strain 1",
     "ancestryGrant": "Tuyakkar",
     "description": ""
   },
   "effects": [],
   "folder": null,
-  "sort": 9800000,
+  "sort": 9700000,
   "ownership": {
     "default": 0
   },

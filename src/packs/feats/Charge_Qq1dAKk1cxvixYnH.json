@@ -7,7 +7,7 @@
     "featType": "ancestry",
     "xpCost": 0,
     "requirements": "",
-    "effect": "When you move at least 30 feet in a line toward a target and use a Melee Technique against them in the same turn, the target takes -4 to Oppose rolls for 1 round.",
+    "effect": "When you move at least 30 feet in a line toward a target and use a Melee Technique against them in the same turn, the target takes -6 to Oppose rolls for 1 round.",
     "ancestry": "Tashtars Plainfolk",
     "grantsTechnique": "",
     "modifiers": [],

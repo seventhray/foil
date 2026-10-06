@@ -6,10 +6,13 @@
  * Strain. Authoring support only: nothing here resolves play.
  *
  *  1. Sum every Effect's XP. Stress is an Effect like any other (4 XP).
- *  2. A Pattern (Beam, Cone, Radius, Wall), Selective, or Extend Range is
+ *  2. A Pattern (Beam, Cone, Radius, Wall) or Extend Range is
  *     priced by reach and counts as one of the Technique's Effects.
  *  3. +4 XP for every Effect beyond the first. Quick and Upkeep don't count;
  *     each has its own flat price (Upkeep 4 XP, Quick 3).
+ *     Selective names N targets and a range of R bands; each target pays the
+ *     Technique's Effects (with their premium) plus R, and Selective itself
+ *     isn't an Effect.
  *  4. Floors: a Technique that answers a class of attack, grants a ward or a
  *     roll bonus until the caster's next turn, is Quick with a trigger, or is
  *     Fortifying costs at least 8 XP.
@@ -42,11 +45,11 @@ export function patternCost(shape, bands, placement = 0) {
   return base + place;
 }
 
-/** Selective: N creatures within R bands costs N + (R x N). */
-export function selectiveCost(n, r) {
+/** Selective: each of N creatures pays the Technique's Effect cost plus R (its range in bands). */
+export function selectiveCost(n, r, base = 0) {
   const N = Math.max(0, Number(n) || 0);
   const R = Math.max(0, Number(r) || 0);
-  return N + R * N;
+  return N * (Math.max(0, Number(base) || 0) + R);
 }
 
 export function strainFor(xp) {
@@ -61,7 +64,7 @@ export function priceEntry(entry, def) {
   if (!def) return { cost: 0, counts: false, floor: 0 };
   const p = def.pricingParams ?? {};
   const mag = Math.max(0, Number(entry.magnitude ?? 1));
-  let cost = 0, counts = !def.exemptFromPremium, floor = def.setsFloor ? DEFENSIVE_FLOOR : 0;
+  let cost = 0, counts = !def.exemptFromPremium, floor = def.setsFloor && !entry.untriggered ? DEFENSIVE_FLOOR : 0;
 
   switch (def.pricingKind) {
     case "perPoint":
@@ -74,7 +77,8 @@ export function priceEntry(entry, def) {
       cost = patternCost(entry.pattern, entry.bands, entry.placement);
       break;
     case "selective":
-      cost = selectiveCost(entry.selectiveN, entry.selectiveR);
+      cost = 0;
+      counts = false;
       break;
     case "upkeep":
       cost = Number(p.base ?? 4);
@@ -100,18 +104,24 @@ export function priceEntry(entry, def) {
  */
 export function priceTechnique(effects = [], registry = {}, opts = {}) {
   const breakdown = [];
-  let sum = 0, counted = 0, floor = opts.floor ? DEFENSIVE_FLOOR : 0;
+  let perTarget = 0, flat = 0, counted = 0, sel = null, floor = opts.floor ? DEFENSIVE_FLOOR : 0;
 
   for (const entry of effects) {
     const def = registry[entry.key];
     const r = priceEntry(entry, def);
-    sum += r.cost;
-    if (r.counts) counted += 1;
+    if (def?.pricingKind === "selective") { sel = entry; continue; }
+    if (r.counts) { perTarget += r.cost; counted += 1; } else flat += r.cost;
     floor = Math.max(floor, r.floor);
     breakdown.push({ key: entry.key, label: entryLabel(entry, def), cost: r.cost });
   }
 
   const premium = PREMIUM_PER_EFFECT * Math.max(0, counted - 1);
+  let sum = perTarget + flat;
+  if (sel) {
+    const extra = selectiveCost(sel.selectiveN, sel.selectiveR, perTarget + premium) - (perTarget + premium);
+    sum += extra;
+    breakdown.push({ key: sel.key, label: entryLabel(sel, registry[sel.key]), cost: extra });
+  }
   const xp = Math.max(sum + premium, floor);
   return { xp, strain: strainFor(xp), premium, floor, breakdown };
 }

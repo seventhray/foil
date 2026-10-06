@@ -28,7 +28,7 @@
       },
       {
         "key": "pierce",
-        "magnitude": 5,
+        "magnitude": 4,
         "pattern": "single",
         "bands": 0,
         "placement": 0,
@@ -37,14 +37,14 @@
       }
     ],
     "floor": false,
-    "xpOverride": 28,
-    "effectText": "Stress, Pierce 5, Strain 3",
+    "xpOverride": 24,
+    "effectText": "Stress, Pierce 4, Strain 3",
     "ancestryGrant": "Tashtars",
     "description": ""
   },
   "effects": [],
   "folder": null,
-  "sort": 7500000,
+  "sort": 7400000,
   "ownership": {
     "default": 0
   },

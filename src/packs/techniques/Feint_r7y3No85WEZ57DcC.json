@@ -21,17 +21,27 @@
         "placement": 0,
         "selectiveN": 0,
         "selectiveR": 0
+      },
+      {
+        "key": "quick",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveN": 0,
+        "selectiveR": 0,
+        "untriggered": true
       }
     ],
     "floor": false,
-    "xpOverride": 6,
-    "effectText": "+1 [Skill] (self, 1 round)",
+    "xpOverride": 9,
+    "effectText": "Quick: +1 [Skill] (self, 1 round), Strain 1",
     "ancestryGrant": "",
     "description": ""
   },
   "effects": [],
   "folder": null,
-  "sort": 9600000,
+  "sort": 9500000,
   "ownership": {
     "default": 0
   },

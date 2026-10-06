@@ -21,7 +21,7 @@
         "effect": "Applies Grappled."
       },
       {
-        "name": "Trip",
+        "name": "Tumble",
         "skill": "acuity",
         "effect": "Applies Prone."
       },

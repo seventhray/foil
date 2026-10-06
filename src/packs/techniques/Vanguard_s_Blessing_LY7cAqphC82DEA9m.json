@@ -42,14 +42,14 @@
       }
     ],
     "floor": true,
-    "xpOverride": 30,
-    "effectText": "+1 and Resistance +1 to up to 4 allies within Near (Selective), Strain 3",
+    "xpOverride": 64,
+    "effectText": "+1 and Resistance +1 to up to 4 allies within Near (Selective), Strain 8",
     "ancestryGrant": "",
     "description": ""
   },
   "effects": [],
   "folder": null,
-  "sort": 2100000,
+  "sort": 2000000,
   "ownership": {
     "default": 0
   },

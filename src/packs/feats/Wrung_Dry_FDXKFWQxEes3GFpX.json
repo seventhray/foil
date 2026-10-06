@@ -7,14 +7,14 @@
     "featType": "ancestry",
     "xpCost": 0,
     "requirements": "",
-    "effect": "Physical Resistance +1, stacking with Equipment Resistance.",
+    "effect": "+2 Training in Discipline.",
     "ancestry": "Gabrol Sandkin",
     "grantsTechnique": "",
     "modifiers": [
       {
-        "type": "resistance",
-        "key": "physical",
-        "value": 1
+        "type": "training",
+        "key": "discipline",
+        "value": 2
       }
     ],
     "description": ""

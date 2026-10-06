@@ -33,14 +33,14 @@
       }
     ],
     "floor": true,
-    "xpOverride": 24,
-    "effectText": "Resistance +2 to up to 4 allies within Near (Selective), Strain 3",
+    "xpOverride": 40,
+    "effectText": "Resistance +2 to up to 4 allies within Near (Selective), Strain 5",
     "ancestryGrant": "",
     "description": ""
   },
   "effects": [],
   "folder": null,
-  "sort": 1900000,
+  "sort": 1800000,
   "ownership": {
     "default": 0
   },

@@ -95,7 +95,7 @@ const EFFECTS = [
   ["Stress", "stress", "flat", { base: 4 }, {}, "Deal the margin to an Attribute of the Target."],
   ["+1 Stress (hit-count rider)", "stress-rider", "flat", { base: 8 }, {}, "+1 Stress on a landed hit."],
   ["±N [Skill or Oppose]", "skill-mod", "perPoint", { perPoint: 6 }, { label: "±N" }, "Positive: +N to a named Skill. Negative on an Oppose: Reeling (PHB 6.8.6)."],
-  ["-N [target Attribute]", "weaken", "perPoint", { perPoint: 18 }, { requires: ["incorporeal", ...MELEE], label: "-N [target Attribute]" }, "Weakened: the named Attribute's rolls take -N (PHB 6.8.4)."],
+  ["-N [target Attribute]", "weaken", "perPoint", { perPoint: 18 }, { requires: ["incorporeal", "sonic", "kinetic", ...MELEE, ...RANGED], label: "-N [target Attribute]" }, "Weakened: the named Attribute's rolls take -N (PHB 6.8.4)."],
   ["+N (this roll)", "roll-bonus", "perPoint", { perPoint: 6 }, { label: "+N" }, "+N to this Technique's own roll."],
   ["Pierce N", "pierce", "perPoint", { perPoint: 4 }, { requires: [...MELEE, ...RANGED, "kinetic"], label: "Pierce N" }, "Ignore N of the target's Resistance."],
   ["Resistance +N", "resistance", "perPoint", { perPoint: 4 }, { requires: ["parry", "blocking", "fortifying"], label: "Resistance +N" }, "Physical or mental Resistance +N."],
@@ -112,7 +112,7 @@ const EFFECTS = [
   ["Hasten (Quick Action)", "hasten-quick", "flat", { base: 11 }, { requires: ["fortifying"] }, "Grant an ally an extra Quick Action."],
   ["Extend Range", "extend-range", "extendRange", { perBand: 1 }, { requires: ["kinetic", "incorporeal"] }, "1 XP per band of extra reach."],
   ["Pattern", "pattern", "pattern", {}, { requires: [...MELEE, ...RANGED, "sonic", ...ARCANE] }, "Beam or Wall: 1 + 2 + ... per band. Cone 3x, Radius 12x the Beam cost. A Melee Pattern reaches no farther than its Instrument's Range."],
-  ["Selective", "selective", "selective", {}, { requires: [...RANGED, "sonic", ...ARCANE] }, "N creatures within R bands: N + (R x N)."],
+  ["Selective", "selective", "selective", {}, { requires: [...RANGED, "sonic", ...ARCANE] }, "N creatures within R bands: each pays the Technique's Effect cost plus R."],
   ["Upkeep", "upkeep", "upkeep", { base: 4 }, { requires: ARCANE, exempt: true }, "Keep the Technique active by paying its Action and Strain each turn."],
   ["Quick", "quick", "quick", { base: 3 }, { exempt: true, floor: true }, "3 XP, outside the combination premium. A stated trigger sets the 8 XP floor."],
   // Conditions (PHB 6.8.x), priced flat.
@@ -194,6 +194,8 @@ function parseEffects(text) {
   let src = String(text ?? "").replace(/\.$/, "").replace(/\.\s*Strain \d+$/i, "");
   const trig = src.match(/^Quick \(trigger:[^)]*\):\s*(.*)$/i);
   if (trig) { quick = true; src = trig[1]; }
+  const tag = !trig && src.match(/^Quick:\s*(.*)$/i);
+  if (tag) { quick = true; src = tag[1]; }
   if (/\+1 Stress\b/.test(src)) rider = true;
   // "+1 and Resistance +1" is two Effects sharing one target clause.
   const clauses = splitTop(src).flatMap(c => /^\+\d+ and Resistance/i.test(c) ? c.split(/ and /) : [c]);
@@ -230,7 +232,7 @@ function parseEffects(text) {
     unparsed.push(c);
   }
   if (rider) list.push(e("stress-rider"));
-  if (quick) list.push(e("quick"));
+  if (quick) list.push(e("quick", tag ? { untriggered: true } : {}));
   return { list, stress, unparsed };
 }
 
@@ -590,7 +592,7 @@ for (const bg of backgrounds) {
 const featNames = new Set(feats.map(f => f.name));
 for (const a of ancestries) for (const f of a.system.feats) if (!featNames.has(f)) warnings.push(`${a.name}: Feat "${f}" not in the Catalog`);
 
-const expect = { techniques: 99, feats: 47, instruments: 34, tools: 17 };
+const expect = { techniques: 98, feats: 47, instruments: 34, tools: 17 };
 for (const [k, n] of Object.entries(expect)) {
   if (CAT[k].length !== n) warnings.push(`Catalog/${k}: ${CAT[k].length} notes, expected ${n}`);
 }

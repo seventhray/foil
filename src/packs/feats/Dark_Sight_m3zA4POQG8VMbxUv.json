@@ -7,7 +7,7 @@
     "featType": "ancestry",
     "xpCost": 0,
     "requirements": "",
-    "effect": "+2 Training in Acuity, and a further +1 on Acuity rolls made in darkness or poor light.",
+    "effect": "+2 Training in Acuity, and you see in the dark.",
     "ancestry": "Tuyakkar Frostlanders",
     "grantsTechnique": "",
     "modifiers": [

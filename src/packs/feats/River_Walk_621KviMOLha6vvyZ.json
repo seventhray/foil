@@ -7,7 +7,7 @@
     "featType": "ancestry",
     "xpCost": 0,
     "requirements": "",
-    "effect": "You learn the River Walk Technique (Acuity, Innate). Evade: move up to 20 feet without spending the Disengage Quick Action or provoking an Attack of Opportunity. If this ends within Close range of a foe, your next Technique against them this turn gains +2.",
+    "effect": "You learn the River Walk Technique (Acuity, Innate). Evade: move up to 20 feet without spending the Disengage Quick Action or provoking an Attack of Opportunity.",
     "ancestry": "Keshwick Riverkin",
     "grantsTechnique": "River Walk",
     "modifiers": [],

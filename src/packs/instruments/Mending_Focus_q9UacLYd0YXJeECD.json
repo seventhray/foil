@@ -21,7 +21,7 @@
         "effect": "Grants +1 to an ally's next roll."
       },
       {
-        "name": "Talk Down",
+        "name": "Settle",
         "skill": "guile",
         "effect": "Removes a Frightened or Wary Condition from an ally."
       },
