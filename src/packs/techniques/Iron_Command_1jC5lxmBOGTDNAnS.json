@@ -22,8 +22,8 @@
         "selectiveR": 0
       },
       {
-        "key": "reeling",
-        "magnitude": 2,
+        "key": "reeling-minute",
+        "magnitude": 1,
         "pattern": "single",
         "bands": 0,
         "placement": 0,
@@ -40,7 +40,7 @@
     ],
     "floor": false,
     "xpOverride": 29,
-    "effectText": "Stress, -2 Oppose, Extend Range",
+    "effectText": "Stress, -1 Oppose (1 minute), Extend Range",
     "ancestryGrant": "",
     "description": ""
   },

@@ -153,8 +153,10 @@ console.log("\nTechnique pricing (PHB 4.2.1):");
 const REG = {
   stress: { pricingKind: "flat", pricingParams: { base: 4 } },
   pierce: { pricingKind: "perPoint", pricingParams: { perPoint: 4 } },
-  weaken: { pricingKind: "perPoint", pricingParams: { perSquare: 6 } },
-  reeling: { pricingKind: "perPoint", pricingParams: { perSquare: 4 } },
+  weaken: { pricingKind: "perPoint", pricingParams: { perPoint: 6 } },
+  "weaken-minute": { pricingKind: "perPoint", pricingParams: { perPoint: 24 } },
+  reeling: { pricingKind: "perPoint", pricingParams: { perPoint: 4 } },
+  "reeling-minute": { pricingKind: "perPoint", pricingParams: { perPoint: 16 } },
   "roll-bonus": { pricingKind: "perPoint", pricingParams: { perPoint: 2 } },
   "skill-mod": { pricingKind: "perPoint", pricingParams: { perPoint: 3 } },
   resistance: { pricingKind: "perPoint", pricingParams: { perPoint: 4 } },
@@ -170,8 +172,9 @@ check("Harrow (Stress, -1 Attribute, Cone Near) is 27", () => eq(x([{ key: "stre
 check("Roaring Fireball (Stress, Radius Near) is 44", () => eq(x([{ key: "stress" }, { key: "pattern", pattern: "radius", bands: 2 }]), 44));
 check("Hallowed Circle (Resistance +1, Selective 4 Near, Upkeep) is 22", () =>
   eq(x([{ key: "resistance", magnitude: 1 }, { key: "selective", selectiveR: 2 }, { key: "upkeep" }]), 22));
-check("Bind (-2 Attribute for 2 rounds) is 24", () => eq(x([{ key: "weaken", magnitude: 2 }]), 24));
-check("Frightful Presence (-2 Oppose for 2 rounds) is 16", () => eq(x([{ key: "reeling", magnitude: 2 }]), 16));
+check("Bind (-1 Attribute for 1 minute) is 24", () => eq(x([{ key: "weaken-minute", magnitude: 1 }]), 24));
+check("Frightful Presence (-1 Oppose for 1 minute) is 16", () => eq(x([{ key: "reeling-minute", magnitude: 1 }]), 16));
+check("-2 Oppose for 1 round is 8, a modifier is linear in N", () => eq([x([{ key: "reeling", magnitude: 2 }]), x([{ key: "weaken", magnitude: 3 }])], [8, 18]));
 check("Hexing Bolt (Stress, +2 this roll) is 12", () => eq(x([{ key: "stress" }, { key: "roll-bonus", magnitude: 2 }]), 12));
 check("Warding Stance (+1, Fortifying floor) is 8", () => eq(x([{ key: "skill-mod", magnitude: 1 }], { floor: true }), 8));
 check("pattern and selective costs", () => eq([patternCost("beam", 3), patternCost("cone", 2), patternCost("radius", 2), selectiveCost(3)], [6, 9, 36, 3]));

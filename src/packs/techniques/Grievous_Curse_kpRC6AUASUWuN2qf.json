@@ -22,8 +22,8 @@
         "selectiveR": 0
       },
       {
-        "key": "weaken",
-        "magnitude": 2,
+        "key": "weaken-minute",
+        "magnitude": 1,
         "pattern": "single",
         "bands": 0,
         "placement": 0,
@@ -32,7 +32,7 @@
     ],
     "floor": false,
     "xpOverride": 32,
-    "effectText": "Stress, -2 [target Attribute], Strain 1",
+    "effectText": "Stress, -1 [target Attribute] (1 minute), Strain 1",
     "ancestryGrant": "",
     "description": ""
   },

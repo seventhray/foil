@@ -1,28 +1,28 @@
 {
-  "_id": "LiTZlVTQopuLcg50",
-  "name": "+N (this roll)",
+  "_id": "rF3cI2v67kbiNYyE",
+  "name": "-N [Oppose] (1 minute)",
   "type": "effect",
   "img": "icons/svg/aura.svg",
   "system": {
-    "key": "roll-bonus",
+    "key": "reeling-minute",
     "requires": [],
     "pricingKind": "perPoint",
     "pricingParams": {
       "base": 0,
-      "perPoint": 2,
+      "perPoint": 16,
       "perBand": 1
     },
-    "magnitudeLabel": "+N",
+    "magnitudeLabel": "-N Oppose",
     "exemptFromPremium": false,
     "setsFloor": false,
-    "description": "<p>+N to this Technique's own roll.</p>"
+    "description": "<p>Reeling: the target's Oppose rolls take -N for 1 minute (PHB 6.8.6).</p>"
   },
   "effects": [],
   "folder": null,
-  "sort": 900000,
+  "sort": 600000,
   "ownership": {
     "default": 0
   },
   "flags": {},
-  "_key": "!items!LiTZlVTQopuLcg50"
+  "_key": "!items!rF3cI2v67kbiNYyE"
 }

@@ -15,8 +15,8 @@
     "subgroup": "",
     "effects": [
       {
-        "key": "weaken",
-        "magnitude": 2,
+        "key": "weaken-minute",
+        "magnitude": 1,
         "pattern": "single",
         "bands": 0,
         "placement": 0,
@@ -25,7 +25,7 @@
     ],
     "floor": false,
     "xpOverride": 24,
-    "effectText": "-2 [target Attribute]",
+    "effectText": "-1 [target Attribute] (1 minute)",
     "ancestryGrant": "",
     "description": ""
   },

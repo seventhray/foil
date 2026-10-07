@@ -139,15 +139,15 @@ p("Pricing a Technique", `
 <li>Sum the Effects. Stress is an Effect at 4 XP.</li>
 <li>A Pattern, Selective, or Extend Range is priced by reach and counts as an Effect.</li>
 <li>Add 4 XP for every Effect beyond the first. Quick and Upkeep don't count; Upkeep costs a flat 4 XP and Quick 3.</li>
-<li>A Fortifying Technique, a ward or bonus until the caster's next turn, or a Quick trigger costs at least 8 XP.</li>
+<li>A Fortifying Technique, a ward or bonus lasting 1 round or longer, or a Quick trigger costs at least 8 XP.</li>
 <li>Strain is floor((XP - 24) / 8), never below 0.</li>
 </ol>
 <table><thead><tr><th>Effect</th><th>XP</th></tr></thead><tbody>
 <tr><td>Stress</td><td>4</td></tr>
 <tr><td>+N (this roll)</td><td>2 x N</td></tr>
-<tr><td>+N [Skill or Oppose]</td><td>3 x N</td></tr>
-<tr><td>-N [Oppose]</td><td>4 x N x N</td></tr>
-<tr><td>-N [target Attribute]</td><td>6 x N x N</td></tr>
+<tr><td>+N [Skill or Oppose]</td><td>3 x N, or 6 x N for 1 minute</td></tr>
+<tr><td>-N [Oppose]</td><td>4 x N, or 16 x N for 1 minute</td></tr>
+<tr><td>-N [target Attribute]</td><td>6 x N, or 24 x N for 1 minute</td></tr>
 <tr><td>Pierce N, Resistance +N</td><td>4 x N</td></tr>
 <tr><td>Mend Xd4</td><td>10 x X</td></tr>
 <tr><td>Lingering N</td><td>7 x N</td></tr>

@@ -7,7 +7,7 @@
     "featType": "learned",
     "xpCost": 8,
     "requirements": "16 Might, 16 Wit",
-    "effect": "When you Guard an ally, they gain +2 to their Opposes until the start of your next turn.",
+    "effect": "When you Guard an ally, they gain +2 to their Opposes for 1 round.",
     "ancestry": "",
     "grantsTechnique": "",
     "modifiers": [],

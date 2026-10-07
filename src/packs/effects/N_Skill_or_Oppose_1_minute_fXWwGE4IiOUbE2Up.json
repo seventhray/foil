@@ -1,28 +1,28 @@
 {
-  "_id": "LiTZlVTQopuLcg50",
-  "name": "+N (this roll)",
+  "_id": "fXWwGE4IiOUbE2Up",
+  "name": "+N [Skill or Oppose] (1 minute)",
   "type": "effect",
   "img": "icons/svg/aura.svg",
   "system": {
-    "key": "roll-bonus",
+    "key": "skill-mod-minute",
     "requires": [],
     "pricingKind": "perPoint",
     "pricingParams": {
       "base": 0,
-      "perPoint": 2,
+      "perPoint": 6,
       "perBand": 1
     },
     "magnitudeLabel": "+N",
     "exemptFromPremium": false,
-    "setsFloor": false,
-    "description": "<p>+N to this Technique's own roll.</p>"
+    "setsFloor": true,
+    "description": "<p>+N to a named Skill's rolls for 1 minute.</p>"
   },
   "effects": [],
   "folder": null,
-  "sort": 900000,
+  "sort": 400000,
   "ownership": {
     "default": 0
   },
   "flags": {},
-  "_key": "!items!LiTZlVTQopuLcg50"
+  "_key": "!items!fXWwGE4IiOUbE2Up"
 }

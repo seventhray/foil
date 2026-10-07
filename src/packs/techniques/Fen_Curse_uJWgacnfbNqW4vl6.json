@@ -16,8 +16,8 @@
     "subgroup": "",
     "effects": [
       {
-        "key": "reeling",
-        "magnitude": 2,
+        "key": "reeling-minute",
+        "magnitude": 1,
         "pattern": "single",
         "bands": 0,
         "placement": 0,
@@ -26,7 +26,7 @@
     ],
     "floor": false,
     "xpOverride": 16,
-    "effectText": "-2 Oppose.",
+    "effectText": "-1 Oppose (1 minute).",
     "ancestryGrant": "Fenland",
     "description": ""
   },

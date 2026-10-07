@@ -7,8 +7,8 @@
  *
  *  1. Sum every Effect's XP. Stress is an Effect like any other (4 XP). A roll
  *     modifier lasts as long as it applies: +N to one roll 2N, +N to a Skill
- *     until the source's next turn 3N, -N Oppose (Reeling) 4N squared, and -N to
- *     a target Attribute (Weakened) 6N squared, since each lasts N rounds.
+ *     for 1 round 3N or 1 minute 6N, -N Oppose (Reeling) 4N for 1 round or 16N
+ *     for 1 minute, and -N to a target Attribute (Weakened) 6N or 24N.
  *  2. A Pattern (Beam, Cone, Radius, Wall) or Extend Range is
  *     priced by reach and counts as one of the Technique's Effects.
  *  3. +4 XP for every Effect beyond the first. Quick and Upkeep don't count;
@@ -17,7 +17,7 @@
  *     per band as an Effect, and Selective adds an 8 XP premium. Strain is
  *     that of the one-target price, paid for each target at use.
  *  4. Floors: a Technique that answers a class of attack, grants a ward or a
- *     roll bonus until the caster's next turn, is Quick with a trigger, or is
+ *     roll bonus for 1 round or longer, is Quick with a trigger, or is
  *     Fortifying costs at least 8 XP.
  *  5. Strain = floor((XP - 24) / 8), never below 0.
  */
@@ -71,7 +71,7 @@ export function priceEntry(entry, def) {
 
   switch (def.pricingKind) {
     case "perPoint":
-      cost = Number(p.base ?? 0) + Number(p.perPoint ?? 0) * mag + Number(p.perSquare ?? 0) * mag * mag;
+      cost = Number(p.base ?? 0) + Number(p.perPoint ?? 0) * mag;
       break;
     case "extendRange":
       cost = Number(p.perBand ?? 1) * Math.max(1, Number(entry.bands ?? 1));

@@ -14,7 +14,6 @@
     "pricingParams": {
       "base": 0,
       "perPoint": 4,
-      "perSquare": 0,
       "perBand": 1
     },
     "magnitudeLabel": "Resistance +N",
@@ -24,7 +23,7 @@
   },
   "effects": [],
   "folder": null,
-  "sort": 800000,
+  "sort": 1100000,
   "ownership": {
     "default": 0
   },

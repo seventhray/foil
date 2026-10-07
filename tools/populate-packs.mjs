@@ -94,9 +94,12 @@ const ARCANE = ["kinetic", "incorporeal", "fortifying"];
 const EFFECTS = [
   ["Stress", "stress", "flat", { base: 4 }, {}, "Deal the margin to an Attribute of the Target."],
   ["+1 Stress (hit-count rider)", "stress-rider", "flat", { base: 8 }, {}, "+1 Stress on a landed hit."],
-  ["+N [Skill or Oppose]", "skill-mod", "perPoint", { perPoint: 3 }, { label: "+N", floor: true }, "+N to a named Skill's rolls until the source's next turn."],
-  ["-N [Oppose]", "reeling", "perPoint", { perSquare: 4 }, { label: "-N Oppose" }, "Reeling: the target's Oppose rolls take -N for N rounds (PHB 6.8.6)."],
-  ["-N [target Attribute]", "weaken", "perPoint", { perSquare: 6 }, { requires: ["incorporeal", "sonic", "kinetic", ...MELEE, ...RANGED], label: "-N [target Attribute]" }, "Weakened: the named Attribute's rolls take -N (PHB 6.8.4)."],
+  ["+N [Skill or Oppose]", "skill-mod", "perPoint", { perPoint: 3 }, { label: "+N", floor: true }, "+N to a named Skill's rolls for 1 round."],
+  ["+N [Skill or Oppose] (1 minute)", "skill-mod-minute", "perPoint", { perPoint: 6 }, { label: "+N", floor: true }, "+N to a named Skill's rolls for 1 minute."],
+  ["-N [Oppose]", "reeling", "perPoint", { perPoint: 4 }, { label: "-N Oppose" }, "Reeling: the target's Oppose rolls take -N for 1 round (PHB 6.8.6)."],
+  ["-N [Oppose] (1 minute)", "reeling-minute", "perPoint", { perPoint: 16 }, { label: "-N Oppose" }, "Reeling: the target's Oppose rolls take -N for 1 minute (PHB 6.8.6)."],
+  ["-N [target Attribute]", "weaken", "perPoint", { perPoint: 6 }, { requires: ["incorporeal", "sonic", "kinetic", ...MELEE, ...RANGED], label: "-N [target Attribute]" }, "Weakened: the named Attribute's rolls take -N for 1 round (PHB 6.8.4)."],
+  ["-N [target Attribute] (1 minute)", "weaken-minute", "perPoint", { perPoint: 24 }, { requires: ["incorporeal", "sonic", "kinetic", ...MELEE, ...RANGED], label: "-N [target Attribute]" }, "Weakened: the named Attribute's rolls take -N for 1 minute (PHB 6.8.4)."],
   ["+N (this roll)", "roll-bonus", "perPoint", { perPoint: 2 }, { label: "+N" }, "+N to this Technique's own roll."],
   ["Pierce N", "pierce", "perPoint", { perPoint: 4 }, { requires: [...MELEE, ...RANGED, "kinetic"], label: "Pierce N" }, "Ignore N of the target's Resistance."],
   ["Resistance +N", "resistance", "perPoint", { perPoint: 4 }, { requires: ["parry", "blocking", "fortifying"], label: "Resistance +N" }, "Physical or mental Resistance +N."],
@@ -135,7 +138,7 @@ const EFFECTS = [
 ];
 const effectSystem = ([, key, pricingKind, p, o, desc]) => ({
   key, requires: o.requires ?? [], pricingKind,
-  pricingParams: { base: p.base ?? 0, perPoint: p.perPoint ?? 0, perSquare: p.perSquare ?? 0, perBand: p.perBand ?? 1 },
+  pricingParams: { base: p.base ?? 0, perPoint: p.perPoint ?? 0, perBand: p.perBand ?? 1 },
   magnitudeLabel: o.label ?? "", exemptFromPremium: !!o.exempt, setsFloor: !!o.floor,
   description: `<p>${desc}</p>`
 });
@@ -215,11 +218,11 @@ function parseEffects(text) {
     if (/^Stress$/i.test(c)) { stress = true; continue; }
     if (/^Upkeep$/i.test(c)) { list.push(e("upkeep")); continue; }
     if ((m = c.match(/^Pierce (\d+)$/i))) { list.push(e("pierce", { magnitude: +m[1] })); continue; }
-    if ((m = c.match(/^-(\d+) \[target Attribute\]$/i))) { list.push(e("weaken", { magnitude: +m[1] })); continue; }
-    if ((m = c.match(/^-(\d+) Oppose$/i))) { list.push(e("reeling", { magnitude: +m[1] })); continue; }
-    // An ally's +N lasts until the source's next turn; +N (this roll) is only the user's own roll.
+    if ((m = c.match(/^-(\d+) \[target Attribute\]( \(1 minute\))?$/i))) { list.push(e(m[2] ? "weaken-minute" : "weaken", { magnitude: +m[1] })); continue; }
+    if ((m = c.match(/^-(\d+) Oppose( \(1 minute\))?$/i))) { list.push(e(m[2] ? "reeling-minute" : "reeling", { magnitude: +m[1] })); continue; }
+    // An ally's +N lasts 1 round; +N (this roll) is only the user's own roll.
     if ((m = c.match(/^\+(\d+)$/))) { list.push(e(forAllies ? "skill-mod" : "roll-bonus", { magnitude: +m[1] })); continue; }
-    if ((m = c.match(/^(?:Gain )?\+(\d+)\b/i))) { list.push(e("skill-mod", { magnitude: +m[1] })); continue; }
+    if ((m = c.match(/^(?:Gain )?\+(\d+)\b/i))) { list.push(e(/\(1 minute\)/.test(c) ? "skill-mod-minute" : "skill-mod", { magnitude: +m[1] })); continue; }
     if ((m = c.match(/^(?:Gain )?Resistance \+(\d+)/i))) { list.push(e("resistance", { magnitude: +m[1] })); continue; }
     if ((m = c.match(/^Mend (\d+)d4/i))) { list.push(e("mend", { magnitude: +m[1] })); continue; }
     if ((m = c.match(/^Lingering (\d+)$/i))) { list.push(e("lingering", { magnitude: +m[1] })); continue; }
@@ -256,8 +259,8 @@ function techniqueDoc(n) {
   const { requires, innate } = parseRequires(n.requires);
   const { list, stress, unparsed } = parseEffects(n.effect);
   let xp = n.xp == null ? null : Number(n.xp) || 0;
-  // PHB 4.2.1's floor: Fortifying, a ward or bonus until the caster's next turn, or a stated trigger.
-  const floor = requires.includes("fortifying") || /until your next turn|\(self, 1 round\)|Quick \(trigger/i.test(n.effect ?? "");
+  // PHB 4.2.1's floor: Fortifying, a ward or bonus for 1 round or longer, or a stated trigger.
+  const floor = requires.includes("fortifying") || /for 1 round|\(self, 1 round\)|Quick \(trigger/i.test(n.effect ?? "");
   const price = effects => priceTechnique(effects, EFFECT_REG, { floor }).xp;
   const perTarget = list.some(x => x.key === "selective");
 

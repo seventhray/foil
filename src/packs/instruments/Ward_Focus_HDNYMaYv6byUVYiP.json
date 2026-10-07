@@ -19,7 +19,7 @@
       {
         "name": "Steel the Mind",
         "skill": "discipline",
-        "effect": "Grants Resistance +1 (mental) to self or an ally until your next turn."
+        "effect": "Grants Resistance +1 (mental) to self or an ally for 1 round."
       },
       {
         "name": "Foresee the Blow",

@@ -10,13 +10,12 @@
     "pricingParams": {
       "base": 0,
       "perPoint": 3,
-      "perSquare": 0,
       "perBand": 1
     },
     "magnitudeLabel": "+N",
     "exemptFromPremium": false,
     "setsFloor": true,
-    "description": "<p>+N to a named Skill's rolls until the source's next turn.</p>"
+    "description": "<p>+N to a named Skill's rolls for 1 round.</p>"
   },
   "effects": [],
   "folder": null,

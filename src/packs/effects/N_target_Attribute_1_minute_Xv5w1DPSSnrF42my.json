@@ -1,10 +1,10 @@
 {
-  "_id": "1TCnD50AiSZA5QQJ",
-  "name": "-N [target Attribute]",
+  "_id": "Xv5w1DPSSnrF42my",
+  "name": "-N [target Attribute] (1 minute)",
   "type": "effect",
   "img": "icons/svg/aura.svg",
   "system": {
-    "key": "weaken",
+    "key": "weaken-minute",
     "requires": [
       "incorporeal",
       "sonic",
@@ -21,20 +21,20 @@
     "pricingKind": "perPoint",
     "pricingParams": {
       "base": 0,
-      "perPoint": 6,
+      "perPoint": 24,
       "perBand": 1
     },
     "magnitudeLabel": "-N [target Attribute]",
     "exemptFromPremium": false,
     "setsFloor": false,
-    "description": "<p>Weakened: the named Attribute's rolls take -N for 1 round (PHB 6.8.4).</p>"
+    "description": "<p>Weakened: the named Attribute's rolls take -N for 1 minute (PHB 6.8.4).</p>"
   },
   "effects": [],
   "folder": null,
-  "sort": 700000,
+  "sort": 800000,
   "ownership": {
     "default": 0
   },
   "flags": {},
-  "_key": "!items!1TCnD50AiSZA5QQJ"
+  "_key": "!items!Xv5w1DPSSnrF42my"
 }

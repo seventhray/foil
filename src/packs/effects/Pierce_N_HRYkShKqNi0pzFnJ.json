@@ -20,7 +20,6 @@
     "pricingParams": {
       "base": 0,
       "perPoint": 4,
-      "perSquare": 0,
       "perBand": 1
     },
     "magnitudeLabel": "Pierce N",
@@ -30,7 +29,7 @@
   },
   "effects": [],
   "folder": null,
-  "sort": 700000,
+  "sort": 1000000,
   "ownership": {
     "default": 0
   },
