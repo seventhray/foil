@@ -15,7 +15,7 @@
     },
     "magnitudeLabel": "+N",
     "exemptFromPremium": false,
-    "setsFloor": false,
+    "setsFloor": true,
     "description": "<p>+N to a named Skill's rolls until the source's next turn.</p>"
   },
   "effects": [],

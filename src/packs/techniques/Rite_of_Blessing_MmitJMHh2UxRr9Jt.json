@@ -22,7 +22,7 @@
         "selectiveR": 2
       },
       {
-        "key": "roll-bonus",
+        "key": "skill-mod",
         "magnitude": 1,
         "pattern": "single",
         "bands": 0,
@@ -31,7 +31,7 @@
       }
     ],
     "floor": true,
-    "xpOverride": 16,
+    "xpOverride": 17,
     "effectText": "+1 to chosen allies within Near (Selective)",
     "ancestryGrant": "",
     "description": ""

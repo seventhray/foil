@@ -14,7 +14,7 @@
     "subgroup": "Group Support (Selective)",
     "effects": [
       {
-        "key": "roll-bonus",
+        "key": "skill-mod",
         "magnitude": 1,
         "pattern": "single",
         "bands": 0,
@@ -39,7 +39,7 @@
       }
     ],
     "floor": true,
-    "xpOverride": 24,
+    "xpOverride": 25,
     "effectText": "+1 and Resistance +1 to chosen allies within Near (Selective)",
     "ancestryGrant": "",
     "description": ""

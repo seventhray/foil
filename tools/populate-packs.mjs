@@ -94,7 +94,7 @@ const ARCANE = ["kinetic", "incorporeal", "fortifying"];
 const EFFECTS = [
   ["Stress", "stress", "flat", { base: 4 }, {}, "Deal the margin to an Attribute of the Target."],
   ["+1 Stress (hit-count rider)", "stress-rider", "flat", { base: 8 }, {}, "+1 Stress on a landed hit."],
-  ["+N [Skill or Oppose]", "skill-mod", "perPoint", { perPoint: 3 }, { label: "+N" }, "+N to a named Skill's rolls until the source's next turn."],
+  ["+N [Skill or Oppose]", "skill-mod", "perPoint", { perPoint: 3 }, { label: "+N", floor: true }, "+N to a named Skill's rolls until the source's next turn."],
   ["-N [Oppose]", "reeling", "perPoint", { perSquare: 4 }, { label: "-N Oppose" }, "Reeling: the target's Oppose rolls take -N for N rounds (PHB 6.8.6)."],
   ["-N [target Attribute]", "weaken", "perPoint", { perSquare: 6 }, { requires: ["incorporeal", "sonic", "kinetic", ...MELEE, ...RANGED], label: "-N [target Attribute]" }, "Weakened: the named Attribute's rolls take -N (PHB 6.8.4)."],
   ["+N (this roll)", "roll-bonus", "perPoint", { perPoint: 2 }, { label: "+N" }, "+N to this Technique's own roll."],
@@ -198,6 +198,7 @@ function parseEffects(text) {
   const tag = !trig && src.match(/^Quick:\s*(.*)$/i);
   if (tag) { quick = true; src = tag[1]; }
   if (/\+1 Stress\b/.test(src)) rider = true;
+  const forAllies = /\ball(y|ies)\b/i.test(src);
   // "+1 and Resistance +1" is two Effects sharing one target clause.
   const clauses = splitTop(src).flatMap(c => /^\+\d+ and Resistance/i.test(c) ? c.split(/ and /) : [c]);
   for (const raw of clauses) {
@@ -216,7 +217,8 @@ function parseEffects(text) {
     if ((m = c.match(/^Pierce (\d+)$/i))) { list.push(e("pierce", { magnitude: +m[1] })); continue; }
     if ((m = c.match(/^-(\d+) \[target Attribute\]$/i))) { list.push(e("weaken", { magnitude: +m[1] })); continue; }
     if ((m = c.match(/^-(\d+) Oppose$/i))) { list.push(e("reeling", { magnitude: +m[1] })); continue; }
-    if ((m = c.match(/^\+(\d+)$/))) { list.push(e("roll-bonus", { magnitude: +m[1] })); continue; }
+    // An ally's +N lasts until the source's next turn; +N (this roll) is only the user's own roll.
+    if ((m = c.match(/^\+(\d+)$/))) { list.push(e(forAllies ? "skill-mod" : "roll-bonus", { magnitude: +m[1] })); continue; }
     if ((m = c.match(/^(?:Gain )?\+(\d+)\b/i))) { list.push(e("skill-mod", { magnitude: +m[1] })); continue; }
     if ((m = c.match(/^(?:Gain )?Resistance \+(\d+)/i))) { list.push(e("resistance", { magnitude: +m[1] })); continue; }
     if ((m = c.match(/^Mend (\d+)d4/i))) { list.push(e("mend", { magnitude: +m[1] })); continue; }

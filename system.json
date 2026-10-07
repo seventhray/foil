@@ -2,7 +2,7 @@
   "id": "foil",
   "title": "Foilbound",
   "description": "Foilbound: four Attribute dice pools, four FOIL value axes, and margin-derived Stress that runs blades and beliefs on one set of rules.",
-  "version": "0.6.9",
+  "version": "0.6.10",
   "compatibility": {
     "minimum": "13",
     "verified": "14"
@@ -15,7 +15,7 @@
   "url": "https://github.com/seventhray/foil",
   "license": "LICENSE",
   "manifest": "https://github.com/seventhray/foil/releases/latest/download/system.json",
-  "download": "https://github.com/seventhray/foil/releases/download/v0.6.9/foil.zip",
+  "download": "https://github.com/seventhray/foil/releases/download/v0.6.10/foil.zip",
   "esmodules": [
     "src/system.js"
   ],
