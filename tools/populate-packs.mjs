@@ -200,7 +200,7 @@ function parseEffects(text) {
   if (/\+1 Stress\b/.test(src)) rider = true;
   const forAllies = /\ball(y|ies)\b/i.test(src);
   // "+1 and Resistance +1" is two Effects sharing one target clause.
-  const clauses = splitTop(src).flatMap(c => /^\+\d+ and Resistance/i.test(c) ? c.split(/ and /) : [c]);
+  const clauses = splitTop(src).flatMap(c => /^\+\d+( \[Skill\])? and Resistance/i.test(c) ? c.split(/ and /) : [c]);
   for (const raw of clauses) {
     let c = raw.replace(/\.$/, "").trim();
     const sel = c.match(/(?:to )?chosen allies within (\w+) \(Selective\)/i);
@@ -226,7 +226,7 @@ function parseEffects(text) {
     if ((m = c.match(/^(Beam|Cone|Radius|Wall) \((\w+)\)$/i))) { list.push(e("pattern", { pattern: lc(m[1]), bands: BAND[lc(m[2])] ?? 0 })); continue; }
     if (/^Extend Range$/i.test(c)) { list.push(e("extend-range", { bands: 1 })); continue; }
     if (/^Move (the|each) target 1 band$/i.test(c)) { list.push(e("move")); continue; }
-    if (/^Hasten \(Action\)/i.test(c)) { list.push(e("hasten-action")); if (/\band \+1$/.test(c)) list.push(e("skill-mod")); continue; }
+    if (/^Hasten \(Action\)/i.test(c)) { list.push(e("hasten-action")); if (/\band \+1( \[Skill\])?$/.test(c)) list.push(e("skill-mod")); continue; }
     if (/^Hasten \(Quick Action\)/i.test(c)) { list.push(e("hasten-quick")); continue; }
     if ((m = c.match(/^(Evade|Illusion|Drain|Counter|Redirect|Disarm)\b/i))) { list.push(e(lc(m[1]))); continue; }
     if ((m = c.match(/^(\w+)(?: \(.*\))?$/)) && CONDITION_KEYS.includes(lc(m[1]))) { list.push(e(lc(m[1]))); continue; }

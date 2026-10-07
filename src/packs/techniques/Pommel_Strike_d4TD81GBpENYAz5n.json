@@ -23,7 +23,7 @@
       },
       {
         "key": "reeling",
-        "magnitude": 4,
+        "magnitude": 2,
         "pattern": "single",
         "bands": 0,
         "placement": 0,
@@ -31,8 +31,8 @@
       }
     ],
     "floor": false,
-    "xpOverride": 32,
-    "effectText": "Stress, -4 Oppose, Strain 1",
+    "xpOverride": 24,
+    "effectText": "Stress, -2 Oppose",
     "ancestryGrant": "",
     "description": ""
   },

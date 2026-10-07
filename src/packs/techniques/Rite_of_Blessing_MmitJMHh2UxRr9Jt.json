@@ -32,7 +32,7 @@
     ],
     "floor": true,
     "xpOverride": 17,
-    "effectText": "+1 to chosen allies within Near (Selective)",
+    "effectText": "+1 [Skill] to chosen allies within Near (Selective)",
     "ancestryGrant": "",
     "description": ""
   },

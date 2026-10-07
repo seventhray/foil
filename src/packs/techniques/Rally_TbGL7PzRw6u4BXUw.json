@@ -33,7 +33,7 @@
     ],
     "floor": false,
     "xpOverride": 8,
-    "effectText": "Quick: +1 to self or an ally",
+    "effectText": "Quick: +1 [Skill] to self or an ally",
     "ancestryGrant": "",
     "description": ""
   },
