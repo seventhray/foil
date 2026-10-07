@@ -42,7 +42,7 @@
     ],
     "floor": false,
     "xpOverride": 22,
-    "effectText": "Stress, +1, Pierce 1, Strain 2.",
+    "effectText": "Stress, +1, Pierce 1.",
     "ancestryGrant": "Woodlands",
     "description": ""
   },

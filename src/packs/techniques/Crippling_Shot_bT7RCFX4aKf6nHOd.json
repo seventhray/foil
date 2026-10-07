@@ -34,7 +34,7 @@
     ],
     "floor": false,
     "xpOverride": 26,
-    "effectText": "Stress, -1 [target Attribute], Strain 3",
+    "effectText": "Stress, -1 [target Attribute]",
     "ancestryGrant": "",
     "description": ""
   },

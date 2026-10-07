@@ -33,7 +33,7 @@
     ],
     "floor": false,
     "xpOverride": 9,
-    "effectText": "Quick: +1 to self or an ally, Strain 1",
+    "effectText": "Quick: +1 to self or an ally",
     "ancestryGrant": "",
     "description": ""
   },

@@ -24,7 +24,7 @@
     ],
     "floor": true,
     "xpOverride": 14,
-    "effectText": "Hasten (Action) to an ally, Strain 1",
+    "effectText": "Hasten (Action) to an ally",
     "ancestryGrant": "",
     "description": ""
   },

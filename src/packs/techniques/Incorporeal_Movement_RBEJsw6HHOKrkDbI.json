@@ -15,7 +15,7 @@
     "effects": [],
     "floor": true,
     "xpOverride": 20,
-    "effectText": "Move through walls, doors, and other solid barriers as though they weren't there, for the duration of Upkeep, Strain 2",
+    "effectText": "Move through walls, doors, and other solid barriers as though they weren't there, for the duration of Upkeep",
     "ancestryGrant": "",
     "description": ""
   },

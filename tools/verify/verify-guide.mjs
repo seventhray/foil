@@ -43,7 +43,7 @@ ok("d12 to d20 100 as a Transformation; guide prices",
 ok("every Attribute starts at 2d4", /Every Attribute starts at 2d4/.test(phb) && /Every Attribute starts at 2d4/.test(all));
 ok("Training cap is the dice in the two pools", /Training can't exceed the number of dice in its two pools \(/.test(phb) && /can't pass the number of dice in the Skill's two pools\./.test(all));
 ok("+N Pierce is half the bonus", /Pierce equal to half its bonus, rounded down/.test(phb) && /Pierce equal to half the bonus, rounded down/.test(all));
-ok("Strain is floor(XP / 8)", /\*\*Strain = floor\(XP \/ 8\)\*\*/.test(fm) && /floor\(XP \/ 8\)/.test(all));
+ok("Strain is floor((XP - 24) / 8)", /\*\*Strain = floor\(\(XP - 24\) \/ 8\)\*\*/.test(fm) && /floor\(\(XP - 24\) \/ 8\)/.test(all));
 ok("Strain lands on the Primary Attribute", /Strain applies to the Instrument's Primary Attribute/.test(phb) && /on the Instrument's Primary Attribute/.test(all));
 ok("margin cap by weight: half Light, all Medium, all Heavy after doubling", /A Heavy Instrument doubles it\. Then cap the margin at the Potential of the Instrument's Primary Attribute: half of it, rounded down, for a Light Instrument, and all of it for Medium or Heavy\. Add one/.test(phb) && /<strong>all<\/strong> for Medium/.test(all));
 ok("Edged +3, physical Resistance counts double", /\| Edged \| \+3 Stress against a physical Attribute\. Physical Resistance, after Pierce, counts double against it/.test(phb) && /Physical Resistance counts double against Edged/.test(all));

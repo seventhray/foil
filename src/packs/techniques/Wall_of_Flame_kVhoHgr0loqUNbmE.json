@@ -40,7 +40,7 @@
     ],
     "floor": false,
     "xpOverride": 15,
-    "effectText": "Stress, Wall (Near), Upkeep, Strain 1",
+    "effectText": "Stress, Wall (Near), Upkeep",
     "ancestryGrant": "",
     "description": ""
   },

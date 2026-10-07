@@ -32,7 +32,7 @@
     ],
     "floor": false,
     "xpOverride": 24,
-    "effectText": "Stress, Restrained (break free as Grappled), Strain 3",
+    "effectText": "Stress, Restrained (break free as Grappled)",
     "ancestryGrant": "",
     "description": ""
   },

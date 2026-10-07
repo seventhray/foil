@@ -42,7 +42,7 @@
     ],
     "floor": false,
     "xpOverride": 28,
-    "effectText": "Stress, Pierce 1, +2, Strain 3",
+    "effectText": "Stress, Pierce 1, +2",
     "ancestryGrant": "",
     "description": ""
   },

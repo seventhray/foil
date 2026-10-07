@@ -33,7 +33,7 @@
     ],
     "floor": false,
     "xpOverride": 9,
-    "effectText": "Quick: +1 [Skill] (self, 1 round), Strain 1",
+    "effectText": "Quick: +1 [Skill] (self, 1 round)",
     "ancestryGrant": "",
     "description": ""
   },

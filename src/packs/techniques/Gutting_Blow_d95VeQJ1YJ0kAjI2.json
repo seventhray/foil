@@ -41,7 +41,7 @@
     ],
     "floor": false,
     "xpOverride": 34,
-    "effectText": "Stress, Pierce 1, -1 [target Attribute], Strain 4",
+    "effectText": "Stress, Pierce 1, -1 [target Attribute], Strain 1",
     "ancestryGrant": "",
     "description": ""
   },

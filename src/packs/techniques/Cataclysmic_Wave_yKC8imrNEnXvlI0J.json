@@ -40,7 +40,7 @@
     ],
     "floor": false,
     "xpOverride": 25,
-    "effectText": "Stress, Cone (Near), Move each target 1 band, Strain 3",
+    "effectText": "Stress, Cone (Near), Move each target 1 band",
     "ancestryGrant": "",
     "description": ""
   },

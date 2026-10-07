@@ -40,7 +40,7 @@
     ],
     "floor": true,
     "xpOverride": 22,
-    "effectText": "Resistance +1 to chosen allies within Near (Selective), Upkeep, Strain 1 per target",
+    "effectText": "Resistance +1 to chosen allies within Near (Selective), Upkeep",
     "ancestryGrant": "",
     "description": ""
   },

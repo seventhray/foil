@@ -32,7 +32,7 @@
     ],
     "floor": false,
     "xpOverride": 16,
-    "effectText": "Stress, Pierce 2, Strain 2",
+    "effectText": "Stress, Pierce 2",
     "ancestryGrant": "",
     "description": ""
   },

@@ -32,7 +32,7 @@
     ],
     "floor": false,
     "xpOverride": 12,
-    "effectText": "Stress, Grappled, Strain 1",
+    "effectText": "Stress, Grappled",
     "ancestryGrant": "",
     "description": ""
   },

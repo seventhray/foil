@@ -170,11 +170,11 @@ check("Hallowed Circle (Resistance +1, Selective 4 Near, Upkeep) is 22", () =>
   eq(x([{ key: "resistance", magnitude: 1 }, { key: "selective", selectiveR: 2 }, { key: "upkeep" }]), 22));
 check("Warding Stance (+1, Fortifying floor) is 8", () => eq(x([{ key: "skill-mod", magnitude: 1 }], { floor: true }), 8));
 check("pattern and selective costs", () => eq([patternCost("beam", 3), patternCost("cone", 2), patternCost("radius", 2), selectiveCost(3)], [6, 9, 36, 3]));
-check("Strain is floor(XP / 8)", () => eq([7, 8, 16, 39, 66].map(strainFor), [0, 1, 2, 4, 8]));
+check("Strain is floor((XP - 24) / 8), never below 0", () => eq([7, 8, 31, 32, 39, 40, 56, 66].map(strainFor), [0, 0, 0, 1, 1, 2, 4, 5]));
 check("Fortifying in Requires sets the 8 XP floor on its own", () => {
   globalThis.CONFIG.FOIL.effects = REG;
   const t = new TechniqueData({ requires: ["fortifying"], effects: [{ key: "resistance", magnitude: 1 }] }); t.prepareDerivedData();
-  return eq([t.xpCost, t.strain], [8, 1]);
+  return eq([t.xpCost, t.strain], [8, 0]);
 });
 
 console.log("\nStress (PHB 6.7.0):");

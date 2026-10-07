@@ -40,7 +40,7 @@
     ],
     "floor": false,
     "xpOverride": 17,
-    "effectText": "Stress, Grappled, Extend Range, Strain 2",
+    "effectText": "Stress, Grappled, Extend Range",
     "ancestryGrant": "",
     "description": ""
   },

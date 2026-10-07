@@ -24,7 +24,7 @@
     ],
     "floor": true,
     "xpOverride": 8,
-    "effectText": "Quick (trigger: a Melee Technique fails against you): use a Melee Technique against that attacker through this Instrument. Strain 1.",
+    "effectText": "Quick (trigger: a Melee Technique fails against you): use a Melee Technique against that attacker through this Instrument.",
     "ancestryGrant": "",
     "description": ""
   },

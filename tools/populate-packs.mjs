@@ -270,7 +270,7 @@ function techniqueDoc(n) {
     priceFails.push(`${n.name}: printed ${xp}, Effects price ${computed}  [${n.effect}]${unparsed.length ? `  unparsed: ${unparsed.join(" | ")}` : ""}`);
   }
   if (n.strain !== undefined && n.strain !== null && Number(n.strain) !== strainFor(xp - (perTarget ? 8 : 0))) {
-    warnings.push(`${n.name}: printed Strain ${n.strain}, floor(${xp - (perTarget ? 8 : 0)}/8) = ${strainFor(xp - (perTarget ? 8 : 0))}`);
+    warnings.push(`${n.name}: printed Strain ${n.strain}, floor((${xp - (perTarget ? 8 : 0)}-24)/8) = ${strainFor(xp - (perTarget ? 8 : 0))}`);
   }
   const skillMatch = String(n.requires ?? "").match(/\b(Prowess|Discipline|Assertiveness|Acuity|Guile|Resonance)\b/);
   return {

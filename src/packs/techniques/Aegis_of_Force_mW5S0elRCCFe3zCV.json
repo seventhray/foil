@@ -32,7 +32,7 @@
     ],
     "floor": true,
     "xpOverride": 18,
-    "effectText": "Resistance +1 to chosen allies within Near (Selective), Strain 1 per target",
+    "effectText": "Resistance +1 to chosen allies within Near (Selective)",
     "ancestryGrant": "",
     "description": ""
   },

@@ -7,7 +7,7 @@
     "featType": "ancestry",
     "xpCost": 0,
     "requirements": "",
-    "effect": "You learn the Trip Technique: Melee, Stress, Prone, Strain 2.",
+    "effect": "You learn the Trip Technique: Melee, Stress, Prone.",
     "ancestry": "Highlands",
     "grantsTechnique": "Trip",
     "modifiers": [],

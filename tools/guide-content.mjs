@@ -73,7 +73,7 @@ p("Stress, Resistance, and Incapacitation", `
 
 p("Actions and Strain", `
 <p>Each round a character gets one <strong>Action</strong> and one <strong>Quick Action</strong>. The Quick Action is spent on your turn or held to use reactively, one use either way. Moving up to 20 feet is free; another 20 costs the Quick Action. Initiative is an Acuity roll.</p>
-<p>A learned Technique carries <strong>Strain</strong>: floor(XP / 8) Stress to its own user, on the Instrument's Primary Attribute, whether it lands or not, ignoring Resistance. Built-in Techniques carry none.</p>`),
+<p>A learned Technique carries <strong>Strain</strong>: floor((XP - 24) / 8) Stress to its own user, on the Instrument's Primary Attribute, whether it lands or not, ignoring Resistance. A Technique under 32 XP and every built-in Technique carry none.</p>`),
 
 p("FOIL and Foil Tokens", `
 <p>Four axes describe how a character responds in the moment: <strong>Faith</strong> (Trusting or Mistrusting), <strong>Order</strong> (Ordered or Disordered), <strong>Individualism</strong> (Individual or Communal), and <strong>Levity</strong> (Light or Grave). Each leans toward one end, sits deliberately between them, or stays undeclared (PHB 3.1.0).</p>
@@ -140,7 +140,7 @@ p("Pricing a Technique", `
 <li>A Pattern, Selective, or Extend Range is priced by reach and counts as an Effect.</li>
 <li>Add 4 XP for every Effect beyond the first. Quick and Upkeep don't count; Upkeep costs a flat 4 XP and Quick 3.</li>
 <li>A Fortifying Technique, a ward or bonus until the caster's next turn, or a Quick trigger costs at least 8 XP.</li>
-<li>Strain is floor(XP / 8).</li>
+<li>Strain is floor((XP - 24) / 8), never below 0.</li>
 </ol>
 <table><thead><tr><th>Effect</th><th>XP</th></tr></thead><tbody>
 <tr><td>Stress</td><td>4</td></tr>

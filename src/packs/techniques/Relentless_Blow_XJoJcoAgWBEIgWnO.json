@@ -36,7 +36,7 @@
     ],
     "floor": false,
     "xpOverride": 24,
-    "effectText": "Stress, Pierce 4, Strain 3.",
+    "effectText": "Stress, Pierce 4.",
     "ancestryGrant": "Open Plains",
     "description": ""
   },

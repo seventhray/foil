@@ -24,7 +24,7 @@
     ],
     "floor": false,
     "xpOverride": 20,
-    "effectText": "Mend 2d4, Strain 2",
+    "effectText": "Mend 2d4",
     "ancestryGrant": "",
     "description": ""
   },

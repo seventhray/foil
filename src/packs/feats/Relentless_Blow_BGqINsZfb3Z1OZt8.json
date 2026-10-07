@@ -7,7 +7,7 @@
     "featType": "ancestry",
     "xpCost": 0,
     "requirements": "",
-    "effect": "You learn the Relentless Blow Technique: Melee, Stress, Pierce 4, Strain 3.",
+    "effect": "You learn the Relentless Blow Technique: Melee, Stress, Pierce 4.",
     "ancestry": "Open Plains",
     "grantsTechnique": "Relentless Blow",
     "modifiers": [],

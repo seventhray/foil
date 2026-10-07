@@ -34,7 +34,7 @@
     ],
     "floor": false,
     "xpOverride": 20,
-    "effectText": "Stress, +2, Strain 2",
+    "effectText": "Stress, +2",
     "ancestryGrant": "",
     "description": ""
   },

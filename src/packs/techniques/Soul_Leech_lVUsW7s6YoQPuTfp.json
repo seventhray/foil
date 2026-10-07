@@ -32,7 +32,7 @@
     ],
     "floor": false,
     "xpOverride": 16,
-    "effectText": "Stress, Drain, Strain 2",
+    "effectText": "Stress, Drain",
     "ancestryGrant": "",
     "description": ""
   },

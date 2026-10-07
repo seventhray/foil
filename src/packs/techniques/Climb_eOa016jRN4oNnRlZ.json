@@ -15,7 +15,7 @@
     "effects": [],
     "floor": true,
     "xpOverride": 12,
-    "effectText": "Move along vertical surfaces at full speed without a roll, for the duration of Upkeep, Strain 1",
+    "effectText": "Move along vertical surfaces at full speed without a roll, for the duration of Upkeep",
     "ancestryGrant": "",
     "description": ""
   },

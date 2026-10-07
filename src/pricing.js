@@ -16,11 +16,12 @@
  *  4. Floors: a Technique that answers a class of attack, grants a ward or a
  *     roll bonus until the caster's next turn, is Quick with a trigger, or is
  *     Fortifying costs at least 8 XP.
- *  5. Strain = floor(XP / 8).
+ *  5. Strain = floor((XP - 24) / 8), never below 0.
  */
 
 export const PREMIUM_PER_EFFECT = 4;
 export const DEFENSIVE_FLOOR = 8;
+export const STRAIN_FREE_XP = 24;
 export const STRAIN_DIVISOR = 8;
 export const SELECTIVE_PREMIUM = 8;
 
@@ -52,7 +53,7 @@ export function selectiveCost(r) {
 }
 
 export function strainFor(xp) {
-  return Math.floor(Math.max(0, Number(xp) || 0) / STRAIN_DIVISOR);
+  return Math.floor(Math.max(0, (Number(xp) || 0) - STRAIN_FREE_XP) / STRAIN_DIVISOR);
 }
 
 /**

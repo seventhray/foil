@@ -126,7 +126,7 @@
       },
       "text": {
         "format": 1,
-        "content": "<p>Each round a character gets one <strong>Action</strong> and one <strong>Quick Action</strong>. The Quick Action is spent on your turn or held to use reactively, one use either way. Moving up to 20 feet is free; another 20 costs the Quick Action. Initiative is an Acuity roll.</p>\n<p>A learned Technique carries <strong>Strain</strong>: floor(XP / 8) Stress to its own user, on the Instrument's Primary Attribute, whether it lands or not, ignoring Resistance. Built-in Techniques carry none.</p>",
+        "content": "<p>Each round a character gets one <strong>Action</strong> and one <strong>Quick Action</strong>. The Quick Action is spent on your turn or held to use reactively, one use either way. Moving up to 20 feet is free; another 20 costs the Quick Action. Initiative is an Acuity roll.</p>\n<p>A learned Technique carries <strong>Strain</strong>: floor((XP - 24) / 8) Stress to its own user, on the Instrument's Primary Attribute, whether it lands or not, ignoring Resistance. A Technique under 32 XP and every built-in Technique carry none.</p>",
         "markdown": ""
       },
       "image": {},

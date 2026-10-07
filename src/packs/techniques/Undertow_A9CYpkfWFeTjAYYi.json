@@ -40,7 +40,7 @@
     ],
     "floor": false,
     "xpOverride": 29,
-    "effectText": "Stress, Prone, -1 Oppose, Strain 3.",
+    "effectText": "Stress, Prone, -1 Oppose.",
     "ancestryGrant": "Island Shores",
     "description": ""
   },
