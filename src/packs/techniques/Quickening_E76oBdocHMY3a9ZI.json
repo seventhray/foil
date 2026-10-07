@@ -11,7 +11,7 @@
     "innate": false,
     "skill": "",
     "family": "Fortifying",
-    "subgroup": "Haste",
+    "subgroup": "Single-Target Support",
     "effects": [
       {
         "key": "hasten-action",
@@ -30,7 +30,7 @@
   },
   "effects": [],
   "folder": null,
-  "sort": 700000,
+  "sort": 1500000,
   "ownership": {
     "default": 0
   },

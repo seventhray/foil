@@ -8,7 +8,7 @@
     "requiresText": "Innate",
     "innate": true,
     "skill": "",
-    "family": "Innate",
+    "family": "",
     "subgroup": "",
     "effects": [
       {
@@ -28,7 +28,7 @@
   },
   "effects": [],
   "folder": null,
-  "sort": 4500000,
+  "sort": 9700000,
   "ownership": {
     "default": 0
   },

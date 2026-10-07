@@ -10,8 +10,8 @@
     "requiresText": "Sonic",
     "innate": false,
     "skill": "",
-    "family": "Sonic",
-    "subgroup": "Control & Deception",
+    "family": "",
+    "subgroup": "",
     "effects": [
       {
         "key": "intimidated",
@@ -24,13 +24,13 @@
     ],
     "floor": false,
     "xpOverride": 10,
-    "effectText": "Intimidated, Strain 1",
+    "effectText": "Intimidated, Strain 1.",
     "ancestryGrant": "Frozen North",
     "description": ""
   },
   "effects": [],
   "folder": null,
-  "sort": 9700000,
+  "sort": 9300000,
   "ownership": {
     "default": 0
   },

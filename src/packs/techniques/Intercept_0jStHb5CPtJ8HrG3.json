@@ -10,8 +10,8 @@
     "requiresText": "Blocking",
     "innate": false,
     "skill": "",
-    "family": "Block",
-    "subgroup": "Reactive",
+    "family": "Guard",
+    "subgroup": "",
     "effects": [
       {
         "key": "redirect",
@@ -38,7 +38,7 @@
   },
   "effects": [],
   "folder": null,
-  "sort": 100000,
+  "sort": 2600000,
   "ownership": {
     "default": 0
   },

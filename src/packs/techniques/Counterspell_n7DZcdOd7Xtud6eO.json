@@ -11,7 +11,7 @@
     "innate": false,
     "skill": "",
     "family": "Incorporeal",
-    "subgroup": "Reactive",
+    "subgroup": "Evasive & Reactive",
     "effects": [
       {
         "key": "counter",
@@ -30,7 +30,7 @@
   },
   "effects": [],
   "folder": null,
-  "sort": 2600000,
+  "sort": 3300000,
   "ownership": {
     "default": 0
   },

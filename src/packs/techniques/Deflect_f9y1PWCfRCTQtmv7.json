@@ -10,8 +10,8 @@
     "requiresText": "Parry",
     "innate": false,
     "skill": "",
-    "family": "Parry",
-    "subgroup": "Reactive",
+    "family": "Guard",
+    "subgroup": "",
     "effects": [
       {
         "key": "counter",
@@ -30,7 +30,7 @@
   },
   "effects": [],
   "folder": null,
-  "sort": 7600000,
+  "sort": 2300000,
   "ownership": {
     "default": 0
   },

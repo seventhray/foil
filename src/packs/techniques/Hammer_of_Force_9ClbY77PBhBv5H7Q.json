@@ -11,7 +11,7 @@
     "innate": false,
     "skill": "",
     "family": "Kinetic",
-    "subgroup": "Signature",
+    "subgroup": "Piercing",
     "effects": [
       {
         "key": "stress",
@@ -46,7 +46,7 @@
   },
   "effects": [],
   "folder": null,
-  "sort": 4800000,
+  "sort": 5800000,
   "ownership": {
     "default": 0
   },

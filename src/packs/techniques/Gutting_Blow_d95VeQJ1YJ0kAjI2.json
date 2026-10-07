@@ -12,7 +12,7 @@
     "innate": false,
     "skill": "",
     "family": "Melee",
-    "subgroup": "Signature",
+    "subgroup": "Debilitating",
     "effects": [
       {
         "key": "stress",
@@ -47,7 +47,7 @@
   },
   "effects": [],
   "folder": null,
-  "sort": 6600000,
+  "sort": 7200000,
   "ownership": {
     "default": 0
   },

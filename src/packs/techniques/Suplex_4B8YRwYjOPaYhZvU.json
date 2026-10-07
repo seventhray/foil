@@ -11,7 +11,7 @@
     "innate": false,
     "skill": "",
     "family": "Grappling",
-    "subgroup": "Signature",
+    "subgroup": "",
     "effects": [
       {
         "key": "stress",
@@ -46,7 +46,7 @@
   },
   "effects": [],
   "folder": null,
-  "sort": 2200000,
+  "sort": 2100000,
   "ownership": {
     "default": 0
   },

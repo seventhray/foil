@@ -10,8 +10,8 @@
     "requiresText": "Grappling",
     "innate": false,
     "skill": "",
-    "family": "Grappling",
-    "subgroup": "Control",
+    "family": "",
+    "subgroup": "",
     "effects": [
       {
         "key": "stress",
@@ -40,13 +40,13 @@
     ],
     "floor": false,
     "xpOverride": 29,
-    "effectText": "Stress, Prone, -1 Oppose, Strain 3",
+    "effectText": "Stress, Prone, -1 Oppose, Strain 3.",
     "ancestryGrant": "Island Shores",
     "description": ""
   },
   "effects": [],
   "folder": null,
-  "sort": 2500000,
+  "sort": 9400000,
   "ownership": {
     "default": 0
   },

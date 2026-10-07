@@ -11,7 +11,7 @@
     "innate": false,
     "skill": "",
     "family": "Incorporeal",
-    "subgroup": "Evasive",
+    "subgroup": "Evasive & Reactive",
     "effects": [
       {
         "key": "evade",
@@ -30,7 +30,7 @@
   },
   "effects": [],
   "folder": null,
-  "sort": 3000000,
+  "sort": 2900000,
   "ownership": {
     "default": 0
   },

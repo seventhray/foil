@@ -10,8 +10,8 @@
     "requiresText": "Blocking AND any Arcane",
     "innate": false,
     "skill": "",
-    "family": "Block",
-    "subgroup": "Guard",
+    "family": "Guard",
+    "subgroup": "",
     "effects": [
       {
         "key": "skill-mod",
@@ -30,7 +30,7 @@
   },
   "effects": [],
   "folder": null,
-  "sort": 300000,
+  "sort": 2500000,
   "ownership": {
     "default": 0
   },

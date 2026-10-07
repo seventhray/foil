@@ -11,7 +11,7 @@
     "innate": false,
     "skill": "",
     "family": "Kinetic",
-    "subgroup": "Area",
+    "subgroup": "Area & Lingering",
     "effects": [
       {
         "key": "stress",
@@ -46,7 +46,7 @@
   },
   "effects": [],
   "folder": null,
-  "sort": 6000000,
+  "sort": 5700000,
   "ownership": {
     "default": 0
   },

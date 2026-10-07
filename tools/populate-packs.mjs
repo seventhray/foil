@@ -252,7 +252,7 @@ const priceFails = [];
 function techniqueDoc(n) {
   const { requires, innate } = parseRequires(n.requires);
   const { list, stress, unparsed } = parseEffects(n.effect);
-  const xp = Number(n.xp) || 0;
+  let xp = n.xp == null ? null : Number(n.xp) || 0;
   // PHB 4.2.1's floor: Fortifying, a ward or bonus until the caster's next turn, or a stated trigger.
   const floor = requires.includes("fortifying") || /until your next turn|Quick \(trigger/i.test(n.effect ?? "");
   const price = effects => priceTechnique(effects, EFFECT_REG, { floor }).xp;
@@ -265,6 +265,7 @@ function techniqueDoc(n) {
   else effects = stress ? [e("stress"), ...list] : list;
 
   const computed = price(effects);
+  if (xp === null) xp = computed;
   if (effects.length && (computed !== xp || unparsed.length)) {
     priceFails.push(`${n.name}: printed ${xp}, Effects price ${computed}  [${n.effect}]${unparsed.length ? `  unparsed: ${unparsed.join(" | ")}` : ""}`);
   }
@@ -566,7 +567,15 @@ const byOrder = (a, b) => String(a.family ?? a.category ?? "").localeCompare(Str
   || (Number(a.order) || 0) - (Number(b.order) || 0) || String(a.name).localeCompare(String(b.name));
 
 const ancestries = ancestryDocs();
-const techniques = [...CAT.techniques].sort(byOrder).map(techniqueDoc);
+// A Technique only an Origin Feat grants is defined by that Feat's text and has no Catalog note.
+const grantedTechniques = CAT.feats.flatMap(f => {
+  const name = String(f.grants_technique ?? "").replace(/^\[\[|\]\]$/g, "");
+  if (!name || CAT.techniques.some(t => t.name === name)) return [];
+  const m = String(f.effect).match(/^You learn the (.+?) Technique(?: \((\w+)\)[.:]|: (\w+),) ?(.*)$/);
+  if (!m) { warnings.push(`${f.name}: cannot read the Technique it grants from "${f.effect}"`); return []; }
+  return [{ name, requires: m[2] ?? m[3], effect: m[4], origin_grant: f.origin, xp: null }];
+});
+const techniques = [...[...CAT.techniques].sort(byOrder), ...grantedTechniques].map(techniqueDoc);
 const instruments = [
   ...INNATE_INSTRUMENTS.map(innateDoc),
   ...[...CAT.instruments].sort(byOrder).map(instrumentDoc),
@@ -591,7 +600,7 @@ for (const bg of backgrounds) {
 const featNames = new Set(feats.map(f => f.name));
 for (const a of ancestries) for (const f of a.system.feats) if (!featNames.has(f)) warnings.push(`${a.name}: Feat "${f}" not in the Catalog`);
 
-const expect = { techniques: 98, feats: 57, instruments: 34, tools: 17 };
+const expect = { techniques: 91, feats: 57, instruments: 34, tools: 17 };
 for (const [k, n] of Object.entries(expect)) {
   if (CAT[k].length !== n) warnings.push(`Catalog/${k}: ${CAT[k].length} notes, expected ${n}`);
 }

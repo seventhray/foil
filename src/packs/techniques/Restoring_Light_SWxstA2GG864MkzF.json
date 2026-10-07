@@ -11,7 +11,7 @@
     "innate": false,
     "skill": "",
     "family": "Fortifying",
-    "subgroup": "Healing",
+    "subgroup": "Single-Target Support",
     "effects": [
       {
         "key": "mend",
@@ -30,7 +30,7 @@
   },
   "effects": [],
   "folder": null,
-  "sort": 1000000,
+  "sort": 1200000,
   "ownership": {
     "default": 0
   },

@@ -12,19 +12,11 @@
     "requiresText": "Ranged",
     "innate": false,
     "skill": "",
-    "family": "Ranged",
-    "subgroup": "Piercing & Precision",
+    "family": "",
+    "subgroup": "",
     "effects": [
       {
         "key": "stress",
-        "magnitude": 1,
-        "pattern": "single",
-        "bands": 0,
-        "placement": 0,
-        "selectiveR": 0
-      },
-      {
-        "key": "pierce",
         "magnitude": 1,
         "pattern": "single",
         "bands": 0,
@@ -38,17 +30,25 @@
         "bands": 0,
         "placement": 0,
         "selectiveR": 0
+      },
+      {
+        "key": "pierce",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveR": 0
       }
     ],
     "floor": false,
     "xpOverride": 22,
-    "effectText": "Stress, Pierce 1, +1, Strain 2",
+    "effectText": "Stress, +1, Pierce 1, Strain 2.",
     "ancestryGrant": "Woodlands",
     "description": ""
   },
   "effects": [],
   "folder": null,
-  "sort": 8600000,
+  "sort": 9800000,
   "ownership": {
     "default": 0
   },

@@ -10,8 +10,8 @@
     "requiresText": "Blocking",
     "innate": false,
     "skill": "",
-    "family": "Block",
-    "subgroup": "Guard",
+    "family": "Guard",
+    "subgroup": "",
     "effects": [
       {
         "key": "resistance",
@@ -30,7 +30,7 @@
   },
   "effects": [],
   "folder": null,
-  "sort": 200000,
+  "sort": 2400000,
   "ownership": {
     "default": 0
   },

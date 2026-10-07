@@ -10,8 +10,8 @@
     "requiresText": "Sonic",
     "innate": false,
     "skill": "",
-    "family": "Sonic",
-    "subgroup": "Restorative",
+    "family": "",
+    "subgroup": "",
     "effects": [
       {
         "key": "skill-mod",
@@ -32,13 +32,13 @@
     ],
     "floor": false,
     "xpOverride": 20,
-    "effectText": "+1 to one Skill of choice, chosen allies within Near (Selective), Strain 1 per target",
+    "effectText": "+1 to one Skill of choice, chosen allies within Near (Selective), Strain 1 per target.",
     "ancestryGrant": "Jungle Canopy",
     "description": ""
   },
   "effects": [],
   "folder": null,
-  "sort": 9800000,
+  "sort": 9500000,
   "ownership": {
     "default": 0
   },

@@ -13,7 +13,7 @@
     "innate": false,
     "skill": "",
     "family": "Ranged",
-    "subgroup": "Control",
+    "subgroup": "Control & Area",
     "effects": [
       {
         "key": "stress",
@@ -40,7 +40,7 @@
   },
   "effects": [],
   "folder": null,
-  "sort": 7700000,
+  "sort": 7400000,
   "ownership": {
     "default": 0
   },

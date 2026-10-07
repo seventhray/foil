@@ -11,7 +11,7 @@
     "innate": false,
     "skill": "",
     "family": "Sonic",
-    "subgroup": "Debilitating",
+    "subgroup": "Debilitating & Reactive",
     "effects": [
       {
         "key": "stress",
@@ -38,7 +38,7 @@
   },
   "effects": [],
   "folder": null,
-  "sort": 8900000,
+  "sort": 8300000,
   "ownership": {
     "default": 0
   },

@@ -12,8 +12,8 @@
     "requiresText": "Ranged",
     "innate": false,
     "skill": "",
-    "family": "Ranged",
-    "subgroup": "Debilitating",
+    "family": "",
+    "subgroup": "",
     "effects": [
       {
         "key": "skill-mod",
@@ -26,13 +26,13 @@
     ],
     "floor": false,
     "xpOverride": 12,
-    "effectText": "-2 Oppose, Strain 1",
+    "effectText": "-2 Oppose, Strain 1.",
     "ancestryGrant": "Fenland",
     "description": ""
   },
   "effects": [],
   "folder": null,
-  "sort": 8300000,
+  "sort": 9200000,
   "ownership": {
     "default": 0
   },

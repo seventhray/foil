@@ -14,8 +14,8 @@
     "requiresText": "Melee",
     "innate": false,
     "skill": "",
-    "family": "Melee",
-    "subgroup": "Piercing",
+    "family": "",
+    "subgroup": "",
     "effects": [
       {
         "key": "stress",
@@ -36,13 +36,13 @@
     ],
     "floor": false,
     "xpOverride": 24,
-    "effectText": "Stress, Pierce 4, Strain 3",
+    "effectText": "Stress, Pierce 4, Strain 3.",
     "ancestryGrant": "Open Plains",
     "description": ""
   },
   "effects": [],
   "folder": null,
-  "sort": 7400000,
+  "sort": 9600000,
   "ownership": {
     "default": 0
   },

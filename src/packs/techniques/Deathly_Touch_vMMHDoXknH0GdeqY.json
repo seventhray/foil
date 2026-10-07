@@ -11,7 +11,7 @@
     "innate": false,
     "skill": "",
     "family": "Incorporeal",
-    "subgroup": "Lingering & Curses",
+    "subgroup": "Debilitating",
     "effects": [
       {
         "key": "stress",
@@ -38,7 +38,7 @@
   },
   "effects": [],
   "folder": null,
-  "sort": 3400000,
+  "sort": 4100000,
   "ownership": {
     "default": 0
   },

@@ -11,7 +11,7 @@
     "innate": false,
     "skill": "",
     "family": "Grappling",
-    "subgroup": "Control",
+    "subgroup": "",
     "effects": [
       {
         "key": "stress",
@@ -38,7 +38,7 @@
   },
   "effects": [],
   "folder": null,
-  "sort": 2300000,
+  "sort": 1900000,
   "ownership": {
     "default": 0
   },
