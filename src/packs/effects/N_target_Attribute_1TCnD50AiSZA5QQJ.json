@@ -21,7 +21,8 @@
     "pricingKind": "perPoint",
     "pricingParams": {
       "base": 0,
-      "perPoint": 18,
+      "perPoint": 0,
+      "perSquare": 6,
       "perBand": 1
     },
     "magnitudeLabel": "-N [target Attribute]",
@@ -31,7 +32,7 @@
   },
   "effects": [],
   "folder": null,
-  "sort": 400000,
+  "sort": 500000,
   "ownership": {
     "default": 0
   },

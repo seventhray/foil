@@ -153,8 +153,10 @@ console.log("\nTechnique pricing (PHB 4.2.1):");
 const REG = {
   stress: { pricingKind: "flat", pricingParams: { base: 4 } },
   pierce: { pricingKind: "perPoint", pricingParams: { perPoint: 4 } },
-  weaken: { pricingKind: "perPoint", pricingParams: { perPoint: 18 } },
-  "skill-mod": { pricingKind: "perPoint", pricingParams: { perPoint: 6 } },
+  weaken: { pricingKind: "perPoint", pricingParams: { perSquare: 6 } },
+  reeling: { pricingKind: "perPoint", pricingParams: { perSquare: 4 } },
+  "roll-bonus": { pricingKind: "perPoint", pricingParams: { perPoint: 2 } },
+  "skill-mod": { pricingKind: "perPoint", pricingParams: { perPoint: 3 } },
   resistance: { pricingKind: "perPoint", pricingParams: { perPoint: 4 } },
   pattern: { pricingKind: "pattern", pricingParams: {} },
   selective: { pricingKind: "selective", pricingParams: {} },
@@ -163,11 +165,14 @@ const REG = {
 };
 const x = (effects, opts) => priceTechnique(effects, REG, opts).xp;
 check("Sunder (Stress, Pierce 1) is 12", () => eq(x([{ key: "stress" }, { key: "pierce", magnitude: 1 }]), 12));
-check("Gutting Blow (Stress, Pierce 1, -1 Attribute) is 34", () => eq(x([{ key: "stress" }, { key: "pierce", magnitude: 1 }, { key: "weaken", magnitude: 1 }]), 34));
-check("Harrow (Stress, -1 Attribute, Cone Near) is 39", () => eq(x([{ key: "stress" }, { key: "weaken", magnitude: 1 }, { key: "pattern", pattern: "cone", bands: 2 }]), 39));
+check("Gutting Blow (Stress, Pierce 1, -1 Attribute) is 22", () => eq(x([{ key: "stress" }, { key: "pierce", magnitude: 1 }, { key: "weaken", magnitude: 1 }]), 22));
+check("Harrow (Stress, -1 Attribute, Cone Near) is 27", () => eq(x([{ key: "stress" }, { key: "weaken", magnitude: 1 }, { key: "pattern", pattern: "cone", bands: 2 }]), 27));
 check("Roaring Fireball (Stress, Radius Near) is 44", () => eq(x([{ key: "stress" }, { key: "pattern", pattern: "radius", bands: 2 }]), 44));
 check("Hallowed Circle (Resistance +1, Selective 4 Near, Upkeep) is 22", () =>
   eq(x([{ key: "resistance", magnitude: 1 }, { key: "selective", selectiveR: 2 }, { key: "upkeep" }]), 22));
+check("Bind (-2 Attribute for 2 rounds) is 24", () => eq(x([{ key: "weaken", magnitude: 2 }]), 24));
+check("Frightful Presence (-2 Oppose for 2 rounds) is 16", () => eq(x([{ key: "reeling", magnitude: 2 }]), 16));
+check("Hexing Bolt (Stress, +2 this roll) is 12", () => eq(x([{ key: "stress" }, { key: "roll-bonus", magnitude: 2 }]), 12));
 check("Warding Stance (+1, Fortifying floor) is 8", () => eq(x([{ key: "skill-mod", magnitude: 1 }], { floor: true }), 8));
 check("pattern and selective costs", () => eq([patternCost("beam", 3), patternCost("cone", 2), patternCost("radius", 2), selectiveCost(3)], [6, 9, 36, 3]));
 check("Strain is floor((XP - 24) / 8), never below 0", () => eq([7, 8, 31, 32, 39, 40, 56, 66].map(strainFor), [0, 0, 0, 1, 1, 2, 4, 5]));

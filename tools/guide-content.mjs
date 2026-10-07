@@ -144,8 +144,10 @@ p("Pricing a Technique", `
 </ol>
 <table><thead><tr><th>Effect</th><th>XP</th></tr></thead><tbody>
 <tr><td>Stress</td><td>4</td></tr>
-<tr><td>+N (this roll), &pm;N [Skill or Oppose]</td><td>6 x N</td></tr>
-<tr><td>-N [target Attribute]</td><td>18 x N</td></tr>
+<tr><td>+N (this roll)</td><td>2 x N</td></tr>
+<tr><td>+N [Skill or Oppose]</td><td>3 x N</td></tr>
+<tr><td>-N [Oppose]</td><td>4 x N x N</td></tr>
+<tr><td>-N [target Attribute]</td><td>6 x N x N</td></tr>
 <tr><td>Pierce N, Resistance +N</td><td>4 x N</td></tr>
 <tr><td>Mend Xd4</td><td>10 x X</td></tr>
 <tr><td>Lingering N</td><td>7 x N</td></tr>

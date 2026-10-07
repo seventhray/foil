@@ -31,8 +31,8 @@
         "untriggered": true
       }
     ],
-    "floor": false,
-    "xpOverride": 9,
+    "floor": true,
+    "xpOverride": 8,
     "effectText": "Quick: +1 [Skill] (self, 1 round)",
     "ancestryGrant": "",
     "description": ""

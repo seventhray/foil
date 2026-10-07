@@ -83,7 +83,7 @@ export class QualityData extends foundry.abstract.TypeDataModel {
  */
 export class EffectData extends foundry.abstract.TypeDataModel {
   static PRICING_KINDS = [
-    "perPoint",     // base + perPoint x N
+    "perPoint",     // base + perPoint x N + perSquare x N x N
     "flat",         // fixed XP
     "pattern",      // Beam/Cone/Radius/Wall by reach, plus placement
     "selective",    // range plus an 8 XP premium; Strain per target
@@ -108,6 +108,7 @@ export class EffectData extends foundry.abstract.TypeDataModel {
       pricingParams: new f.SchemaField({
         base: int(0),
         perPoint: int(0),
+        perSquare: int(0),
         perBand: int(1)
       }),
       // How a magnitude reads, with N standing in for it ("Pierce N").

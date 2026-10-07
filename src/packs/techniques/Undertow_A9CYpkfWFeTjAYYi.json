@@ -30,7 +30,7 @@
         "selectiveR": 0
       },
       {
-        "key": "skill-mod",
+        "key": "reeling",
         "magnitude": 1,
         "pattern": "single",
         "bands": 0,
@@ -39,7 +39,7 @@
       }
     ],
     "floor": false,
-    "xpOverride": 29,
+    "xpOverride": 27,
     "effectText": "Stress, Prone, -1 Oppose.",
     "ancestryGrant": "Island Shores",
     "description": ""

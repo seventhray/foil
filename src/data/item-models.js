@@ -223,7 +223,7 @@ export class TechniqueData extends foundry.abstract.TypeDataModel {
     this.pierceTotal = sum("pierce");
     this.stressRider = has("stress-rider").length;
     // Used against a target (PHB 6.4.0): the weight dice apply only to these.
-    const TARGETED = new Set(["stress", "stress-rider", "weaken", "move", "drain", "lingering", "illusion", "counter",
+    const TARGETED = new Set(["stress", "stress-rider", "weaken", "reeling", "move", "drain", "lingering", "illusion", "counter",
       "grappled", "prone", "restrained", "charmed", "frightened", "controlled", "intimidated", "baited",
       "angered", "relaxed", "impressed", "wary", "enthralled", "blinded", "slowed", "disarm"]);
     this.offensive = (this.effects ?? []).some(e => TARGETED.has(e.key)) || /-\d+ Oppose/.test(this.effectText);

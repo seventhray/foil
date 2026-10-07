@@ -21,6 +21,7 @@
     "pricingParams": {
       "base": 8,
       "perPoint": 0,
+      "perSquare": 0,
       "perBand": 1
     },
     "magnitudeLabel": "",
@@ -30,7 +31,7 @@
   },
   "effects": [],
   "folder": null,
-  "sort": 3100000,
+  "sort": 3200000,
   "ownership": {
     "default": 0
   },

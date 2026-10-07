@@ -1,6 +1,6 @@
 {
-  "_id": "h7y8Wp9FaG0eqn1M",
-  "name": "±N [Skill or Oppose]",
+  "_id": "zsc8OCsEjB43n5EO",
+  "name": "+N [Skill or Oppose]",
   "type": "effect",
   "img": "icons/svg/aura.svg",
   "system": {
@@ -9,13 +9,14 @@
     "pricingKind": "perPoint",
     "pricingParams": {
       "base": 0,
-      "perPoint": 6,
+      "perPoint": 3,
+      "perSquare": 0,
       "perBand": 1
     },
-    "magnitudeLabel": "±N",
+    "magnitudeLabel": "+N",
     "exemptFromPremium": false,
     "setsFloor": false,
-    "description": "<p>Positive: +N to a named Skill. Negative on an Oppose: Reeling (PHB 6.8.6).</p>"
+    "description": "<p>+N to a named Skill's rolls until the source's next turn.</p>"
   },
   "effects": [],
   "folder": null,
@@ -24,5 +25,5 @@
     "default": 0
   },
   "flags": {},
-  "_key": "!items!h7y8Wp9FaG0eqn1M"
+  "_key": "!items!zsc8OCsEjB43n5EO"
 }

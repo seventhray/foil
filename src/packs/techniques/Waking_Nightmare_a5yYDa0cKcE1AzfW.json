@@ -39,8 +39,8 @@
       }
     ],
     "floor": false,
-    "xpOverride": 52,
-    "effectText": "Stress, -2 [target Attribute], Move the target 1 band, Strain 3",
+    "xpOverride": 40,
+    "effectText": "Stress, -2 [target Attribute], Move the target 1 band, Strain 2",
     "ancestryGrant": "",
     "description": ""
   },

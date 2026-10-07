@@ -16,7 +16,7 @@
     "subgroup": "",
     "effects": [
       {
-        "key": "skill-mod",
+        "key": "reeling",
         "magnitude": 2,
         "pattern": "single",
         "bands": 0,
@@ -25,7 +25,7 @@
       }
     ],
     "floor": false,
-    "xpOverride": 12,
+    "xpOverride": 16,
     "effectText": "-2 Oppose.",
     "ancestryGrant": "Fenland",
     "description": ""

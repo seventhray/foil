@@ -39,8 +39,8 @@
       }
     ],
     "floor": false,
-    "xpOverride": 38,
-    "effectText": "Stress, Illusion, -1 [target Attribute], Strain 1",
+    "xpOverride": 26,
+    "effectText": "Stress, Illusion, -1 [target Attribute]",
     "ancestryGrant": "",
     "description": ""
   },

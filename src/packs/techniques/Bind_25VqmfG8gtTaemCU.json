@@ -24,8 +24,8 @@
       }
     ],
     "floor": false,
-    "xpOverride": 36,
-    "effectText": "-2 [target Attribute], Strain 1",
+    "xpOverride": 24,
+    "effectText": "-2 [target Attribute]",
     "ancestryGrant": "",
     "description": ""
   },

@@ -1,29 +1,29 @@
 {
-  "_id": "LiTZlVTQopuLcg50",
-  "name": "+N (this roll)",
+  "_id": "lJWKRTEZhjq0Dl0b",
+  "name": "-N [Oppose]",
   "type": "effect",
   "img": "icons/svg/aura.svg",
   "system": {
-    "key": "roll-bonus",
+    "key": "reeling",
     "requires": [],
     "pricingKind": "perPoint",
     "pricingParams": {
       "base": 0,
-      "perPoint": 2,
-      "perSquare": 0,
+      "perPoint": 0,
+      "perSquare": 4,
       "perBand": 1
     },
-    "magnitudeLabel": "+N",
+    "magnitudeLabel": "-N Oppose",
     "exemptFromPremium": false,
     "setsFloor": false,
-    "description": "<p>+N to this Technique's own roll.</p>"
+    "description": "<p>Reeling: the target's Oppose rolls take -N for N rounds (PHB 6.8.6).</p>"
   },
   "effects": [],
   "folder": null,
-  "sort": 600000,
+  "sort": 400000,
   "ownership": {
     "default": 0
   },
   "flags": {},
-  "_key": "!items!LiTZlVTQopuLcg50"
+  "_key": "!items!lJWKRTEZhjq0Dl0b"
 }

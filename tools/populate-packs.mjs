@@ -94,9 +94,10 @@ const ARCANE = ["kinetic", "incorporeal", "fortifying"];
 const EFFECTS = [
   ["Stress", "stress", "flat", { base: 4 }, {}, "Deal the margin to an Attribute of the Target."],
   ["+1 Stress (hit-count rider)", "stress-rider", "flat", { base: 8 }, {}, "+1 Stress on a landed hit."],
-  ["±N [Skill or Oppose]", "skill-mod", "perPoint", { perPoint: 6 }, { label: "±N" }, "Positive: +N to a named Skill. Negative on an Oppose: Reeling (PHB 6.8.6)."],
-  ["-N [target Attribute]", "weaken", "perPoint", { perPoint: 18 }, { requires: ["incorporeal", "sonic", "kinetic", ...MELEE, ...RANGED], label: "-N [target Attribute]" }, "Weakened: the named Attribute's rolls take -N (PHB 6.8.4)."],
-  ["+N (this roll)", "roll-bonus", "perPoint", { perPoint: 6 }, { label: "+N" }, "+N to this Technique's own roll."],
+  ["+N [Skill or Oppose]", "skill-mod", "perPoint", { perPoint: 3 }, { label: "+N" }, "+N to a named Skill's rolls until the source's next turn."],
+  ["-N [Oppose]", "reeling", "perPoint", { perSquare: 4 }, { label: "-N Oppose" }, "Reeling: the target's Oppose rolls take -N for N rounds (PHB 6.8.6)."],
+  ["-N [target Attribute]", "weaken", "perPoint", { perSquare: 6 }, { requires: ["incorporeal", "sonic", "kinetic", ...MELEE, ...RANGED], label: "-N [target Attribute]" }, "Weakened: the named Attribute's rolls take -N (PHB 6.8.4)."],
+  ["+N (this roll)", "roll-bonus", "perPoint", { perPoint: 2 }, { label: "+N" }, "+N to this Technique's own roll."],
   ["Pierce N", "pierce", "perPoint", { perPoint: 4 }, { requires: [...MELEE, ...RANGED, "kinetic"], label: "Pierce N" }, "Ignore N of the target's Resistance."],
   ["Resistance +N", "resistance", "perPoint", { perPoint: 4 }, { requires: ["parry", "blocking", "fortifying"], label: "Resistance +N" }, "Physical or mental Resistance +N."],
   ["Mend Xd4", "mend", "perPoint", { perPoint: 10 }, { requires: ["fortifying", "sonic"], label: "Mend Nd4" }, "Remove Xd4 Stress from one of an ally's Attributes in ten minutes, with no Medicine and no roll. Medicine or Mend once every 4 hours per creature (PHB 6.10.0)."],
@@ -134,7 +135,7 @@ const EFFECTS = [
 ];
 const effectSystem = ([, key, pricingKind, p, o, desc]) => ({
   key, requires: o.requires ?? [], pricingKind,
-  pricingParams: { base: p.base ?? 0, perPoint: p.perPoint ?? 0, perBand: p.perBand ?? 1 },
+  pricingParams: { base: p.base ?? 0, perPoint: p.perPoint ?? 0, perSquare: p.perSquare ?? 0, perBand: p.perBand ?? 1 },
   magnitudeLabel: o.label ?? "", exemptFromPremium: !!o.exempt, setsFloor: !!o.floor,
   description: `<p>${desc}</p>`
 });
@@ -214,7 +215,7 @@ function parseEffects(text) {
     if (/^Upkeep$/i.test(c)) { list.push(e("upkeep")); continue; }
     if ((m = c.match(/^Pierce (\d+)$/i))) { list.push(e("pierce", { magnitude: +m[1] })); continue; }
     if ((m = c.match(/^-(\d+) \[target Attribute\]$/i))) { list.push(e("weaken", { magnitude: +m[1] })); continue; }
-    if ((m = c.match(/^-(\d+) Oppose$/i))) { list.push(e("skill-mod", { magnitude: +m[1] })); continue; }
+    if ((m = c.match(/^-(\d+) Oppose$/i))) { list.push(e("reeling", { magnitude: +m[1] })); continue; }
     if ((m = c.match(/^\+(\d+)$/))) { list.push(e("roll-bonus", { magnitude: +m[1] })); continue; }
     if ((m = c.match(/^(?:Gain )?\+(\d+)\b/i))) { list.push(e("skill-mod", { magnitude: +m[1] })); continue; }
     if ((m = c.match(/^(?:Gain )?Resistance \+(\d+)/i))) { list.push(e("resistance", { magnitude: +m[1] })); continue; }
@@ -254,7 +255,7 @@ function techniqueDoc(n) {
   const { list, stress, unparsed } = parseEffects(n.effect);
   let xp = n.xp == null ? null : Number(n.xp) || 0;
   // PHB 4.2.1's floor: Fortifying, a ward or bonus until the caster's next turn, or a stated trigger.
-  const floor = requires.includes("fortifying") || /until your next turn|Quick \(trigger/i.test(n.effect ?? "");
+  const floor = requires.includes("fortifying") || /until your next turn|\(self, 1 round\)|Quick \(trigger/i.test(n.effect ?? "");
   const price = effects => priceTechnique(effects, EFFECT_REG, { floor }).xp;
   const perTarget = list.some(x => x.key === "selective");
 

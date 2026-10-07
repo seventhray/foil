@@ -15,6 +15,7 @@
     "pricingParams": {
       "base": 0,
       "perPoint": 7,
+      "perSquare": 0,
       "perBand": 1
     },
     "magnitudeLabel": "Lingering N",
@@ -24,7 +25,7 @@
   },
   "effects": [],
   "folder": null,
-  "sort": 900000,
+  "sort": 1000000,
   "ownership": {
     "default": 0
   },

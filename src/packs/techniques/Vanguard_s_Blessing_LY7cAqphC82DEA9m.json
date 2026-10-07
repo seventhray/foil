@@ -39,7 +39,7 @@
       }
     ],
     "floor": true,
-    "xpOverride": 28,
+    "xpOverride": 24,
     "effectText": "+1 and Resistance +1 to chosen allies within Near (Selective)",
     "ancestryGrant": "",
     "description": ""
