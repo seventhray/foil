@@ -225,7 +225,7 @@ export class TechniqueData extends foundry.abstract.TypeDataModel {
     // Used against a target (PHB 6.4.0): the weight dice apply only to these.
     const TARGETED = new Set(["stress", "stress-rider", "weaken", "weaken-minute", "reeling", "reeling-minute", "move", "drain", "lingering", "illusion", "counter",
       "grappled", "prone", "restrained", "charmed", "frightened", "controlled", "intimidated", "baited",
-      "angered", "relaxed", "impressed", "wary", "enthralled", "blinded", "slowed", "disarm"]);
+      "angered", "relaxed", "impressed", "wary", "enthralled", "blinded", "slowed", "stunned", "disarm"]);
     this.offensive = (this.effects ?? []).some(e => TARGETED.has(e.key)) || /-\d+ Oppose/.test(this.effectText);
 
     this.requiresLabel = this.requiresText

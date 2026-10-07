@@ -152,16 +152,16 @@ export const FOIL_AXES = [
 export const FOIL_LEANS = ["", "low", "neutral", "high"];
 export const FOIL_TOKEN_MAX = 4;
 
-// Conditions (PHB 6.8.3-6.8.21), for the active-conditions tracker.
+// Conditions (PHB 6.8.3-6.8.23), for the active-conditions tracker.
 export const CONDITIONS = [
   "Grappled", "Weakened", "Restrained", "Reeling", "Prone", "Charmed", "Frightened",
   "Controlled", "Intimidated", "Baited", "Angered", "Relaxed", "Impressed", "Wary",
-  "Enthralled", "Swayed", "Misled", "Blinded", "Slowed"
+  "Enthralled", "Swayed", "Misled", "Blinded", "Slowed", "Stunned", "Invisible"
 ];
 /** The two Skills that resist each Condition when a Technique deals no Stress (PHB 6.5.0, 6.8.x). */
 export const CONDITION_OPPOSE = {
   Grappled: ["prowess", "discipline"], Restrained: ["prowess", "discipline"], Prone: ["prowess", "acuity"],
-  Slowed: ["prowess", "discipline"], Blinded: ["acuity", "discipline"], Reeling: ["acuity", "discipline"],
+  Slowed: ["prowess", "discipline"], Stunned: ["prowess", "discipline"], Blinded: ["acuity", "discipline"], Reeling: ["acuity", "discipline"],
   Swayed: ["acuity", "resonance"], Misled: ["acuity", "guile"], Frightened: ["discipline", "resonance"],
   Controlled: ["discipline", "resonance"], Baited: ["discipline", "acuity"], Intimidated: ["assertiveness", "resonance"],
   Impressed: ["assertiveness", "acuity"], Relaxed: ["guile", "discipline"], Charmed: ["resonance", "acuity"],

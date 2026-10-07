@@ -1,0 +1,31 @@
+{
+  "_id": "VeB8lENCfbvGBPU7",
+  "name": "Invisible",
+  "type": "effect",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "key": "invisible",
+    "requires": [
+      "incorporeal",
+      "fortifying"
+    ],
+    "pricingKind": "flat",
+    "pricingParams": {
+      "base": 8,
+      "perPoint": 0,
+      "perBand": 1
+    },
+    "magnitudeLabel": "",
+    "exemptFromPremium": false,
+    "setsFloor": false,
+    "description": "<p>PHB 6.8.23.</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 4400000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!VeB8lENCfbvGBPU7"
+}

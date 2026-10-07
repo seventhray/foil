@@ -1,0 +1,33 @@
+{
+  "_id": "ZJ8cAdKdBXiHfbZT",
+  "name": "Stunned",
+  "type": "effect",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "key": "stunned",
+    "requires": [
+      "blunt",
+      "kinetic",
+      "incorporeal",
+      "sonic"
+    ],
+    "pricingKind": "flat",
+    "pricingParams": {
+      "base": 24,
+      "perPoint": 0,
+      "perBand": 1
+    },
+    "magnitudeLabel": "",
+    "exemptFromPremium": false,
+    "setsFloor": false,
+    "description": "<p>PHB 6.8.22.</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 4300000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!ZJ8cAdKdBXiHfbZT"
+}

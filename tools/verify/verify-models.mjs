@@ -198,8 +198,8 @@ check("Edged doubling applies only against physical Resistance", () =>
   eq(stressFor({ attack: 16, oppose: 6, cap: 12, kind: "mental", resistance: 2, type: edged }).stress, 8));
 check("Wren round 1: margin 4, Sonic +1, Resistance 1: 4", () =>
   eq(stressFor({ attack: 16, oppose: 12, cap: 6, kind: "mental", resistance: 1, type: sonic }).stress, 4));
-check("every opposed Condition names two Skills (PHB 6.8.x); Weakened and Wary don't", () =>
-  eq(CONDITIONS.filter(c => !CONDITION_OPPOSE[c]), ["Weakened", "Wary"]) && Object.values(CONDITION_OPPOSE).every(v => v.length === 2));
+check("every opposed Condition names two Skills (PHB 6.8.x); Weakened, Wary, and Invisible don't", () =>
+  eq(CONDITIONS.filter(c => !CONDITION_OPPOSE[c]), ["Weakened", "Wary", "Invisible"]) && Object.values(CONDITION_OPPOSE).every(v => v.length === 2));
 check("margin caps at half the Primary Potential", () => eq(stressFor({ attack: 30, oppose: 10, cap: 6 }).stress, 6));
 check("margin cap by weight: half Light, all Medium, all Heavy (PHB 6.7.0)", () =>
   eq(["light", "medium", "heavy"].map(k => marginCap(24, k)), [12, 24, 24]));
