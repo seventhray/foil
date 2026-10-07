@@ -15,7 +15,7 @@
   "url": "https://github.com/seventhray/foil",
   "license": "LICENSE",
   "manifest": "https://github.com/seventhray/foil/releases/latest/download/system.json",
-  "download": "https://github.com/seventhray/foil/releases/download/v0.6.11/foil.zip",
+  "download": "https://github.com/seventhray/foil/releases/download/v0.6.14/foil.zip",
   "esmodules": [
     "src/system.js"
   ],
