@@ -20,7 +20,7 @@
     ],
     "feat": "Charge",
     "section": "7.8.8",
-    "description": "<p><em>Steppe and grassland under a wide sky. Nothing blocks the view, and a threat can be seen for miles. People travel far and fast, and meet trouble head on.</em></p><p><strong>Talent:</strong> one Might die to d12, one Finesse die to d8.</p><ul><li><strong>Charge.</strong> When you move at least 30 feet in a line toward a target and use a Melee Technique against them in the same turn, the target takes -6 to Oppose rolls for 1 round.</li><li><strong>Relentless Blow.</strong> You learn the Relentless Blow Technique: Melee, Stress, Pierce 4.</li></ul>"
+    "description": "<p><em>Steppe and grassland under a wide sky. Nothing blocks the view, and a threat can be seen for miles. People travel far and fast, and meet trouble head on.</em></p><p><strong>Talent:</strong> one Might die to d12, one Finesse die to d8.</p><ul><li><strong>Charge.</strong> When you move at least 30 feet in a line toward a target and use a Melee Technique against them in the same turn, the target takes -2 to Oppose rolls for 1 round.</li><li><strong>Relentless Blow.</strong> You learn the Relentless Blow Technique: Melee, Stress, Pierce 4.</li></ul>"
   },
   "effects": [],
   "folder": null,
