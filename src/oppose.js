@@ -20,10 +20,30 @@ function defenderUser(actor) {
   return owner ?? game.users.activeGM ?? null;
 }
 
+const hasToken = actor => actor.type === "character" && actor.foilTokens > 0;
+
+/** A character may spend a Foil Token to reroll one die of its Oppose; the new result stands (PHB 3.2.0). */
+async function offerReroll(actor, roll, title) {
+  if (!hasToken(actor)) return roll.total;
+  const dice = roll.dice.flatMap(d => d.results.map(r => ({ faces: d.faces, value: r.result })));
+  if (!dice.length) return roll.total;
+  const opts = [`<option value="">Keep ${roll.total}</option>`, ...dice.map((d, i) => `<option value="${i}">Reroll d${d.faces}: ${d.value}</option>`)].join("");
+  const answer = await ask(`${actor.name}: Foil Token (${actor.foilTokens})`,
+    `<p>${title} totals <strong>${roll.total}</strong>. Spend a Foil Token to reroll one die?</p><div class="form-group"><label>Die</label><select name="die">${opts}</select></div>`, "Confirm");
+  if (!answer || answer.die === "" || answer.die === undefined) return roll.total;
+  const die = dice[Number(answer.die)];
+  const again = await new Roll(`1d${die.faces}`).evaluate();
+  await actor.setFoilTokens(actor.foilTokens - 1);
+  const total = roll.total - die.value + again.total;
+  await ChatMessage.create({ speaker: ChatMessage.getSpeaker({ actor }), content:
+    `<div class="foil-flavor"><strong>${title}: ${total}</strong><br><em>Foil Token spent. d${die.faces} rerolled ${die.value} &rarr; ${again.total}.</em></div>` });
+  return total;
+}
+
 const signed = n => (n > 0 ? `+${n}` : `${n}`);
 
 /** Lay Stress on an Attribute; what it cannot hold overflows where the defender chooses (PHB 6.7.0). */
-async function applyStress(actor, aim, amount) {
+async function applyStress(actor, aim, amount, halved = false) {
   const lines = [];
   let left = amount, attr = aim, destroyed = false;
   const applied = [];
@@ -55,7 +75,7 @@ async function applyStress(actor, aim, amount) {
   const note = notes.length ? `<br>${notes.join("<br>")}` : "";
   const self = { uuid: actor.uuid, actorId: actor.id, actorName: actor.name };
   const flags = { foil: {
-    halve: { ...self, applied },
+    ...(halved ? {} : { halve: { ...self, applied } }),
     cond: { actorUuid: actor.uuid, actorId: actor.id, actorName: actor.name, targets: [],
             ends: harmNames(actor.system.conditions).map(name => ({ ...self, name })) }
   } };
@@ -104,9 +124,9 @@ export async function resolveOppose(message, index) {
   if (other) extras.push({ label: "Other", value: other });
   const flat = extras.reduce((n, p) => n + p.value, 0) - cm.total;
   const roll = await new Roll(skillFormula(sys, skill, flat, "", { oppose: true })).evaluate();
-  const oppose = roll.total;
   await roll.toMessage({ speaker: ChatMessage.getSpeaker({ actor }),
     flavor: `<div class="foil-flavor"><strong>Oppose: ${SKILL_LABEL[skill]}</strong>${extras.length ? `<br><em>${signedParts(extras)}.</em>` : ""}${oppFlags.length ? `<br><em>${oppFlags.join("<br>")}</em>` : ""}</div>` });
+  const oppose = await offerReroll(actor, roll, `Oppose: ${SKILL_LABEL[skill]}`);
 
   if (cnd) {
     const speaker = ChatMessage.getSpeaker({ actor: game.actors.get(flag.actorId) });
@@ -144,9 +164,15 @@ export async function resolveOppose(message, index) {
   const cur = actor.potentialOf(aim);
   const go = await ask(`Apply Stress to ${actor.name}`,
     `<p>${r.stress} Stress on ${ATTR_LABEL[aim]} (${cur} of ${sys.attributes?.[aim]?.potential?.max ?? cur} left). Lower the amount if a Foil Token halves it.</p>`
-    + `<div class="form-group"><label>Stress</label><input type="number" name="amount" value="${r.stress}" min="0" /></div>`, "Apply");
-  const amount = Math.max(0, Math.trunc(Number(go?.amount) || 0));
-  if (go && amount) await applyStress(actor, aim, amount);
+    + `<div class="form-group"><label>Stress</label><input type="number" name="amount" value="${r.stress}" min="0" /></div>`
+    + (hasToken(actor) ? `<div class="form-group"><label>Spend a Foil Token to halve it <em>(${actor.foilTokens} held)</em></label><input type="checkbox" name="halve" /></div>` : ""), "Apply");
+  let amount = Math.max(0, Math.trunc(Number(go?.amount) || 0));
+  const halved = !!go?.halve && hasToken(actor);
+  if (go?.halve && hasToken(actor)) {
+    amount = Math.floor(amount / 2);
+    await actor.setFoilTokens(actor.foilTokens - 1);
+  }
+  if (go && amount) await applyStress(actor, aim, amount, halved);
 }
 
 Hooks.on("createChatMessage", async message => {
