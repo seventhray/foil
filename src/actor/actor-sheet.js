@@ -26,6 +26,7 @@ import "../chat-actions.js";
 import { allowedAims, conditionFlags, conditionMods, signedParts, skillFormula, targetFlags } from "../combat.js";
 import { resolveOppose } from "../oppose.js";
 import { restPlan } from "../rest.js";
+import { logEvent, who } from "../playtest-log.js";
 
 const LOCATION_ICON = { equipped: "fa-hand", carried: "fa-suitcase" };
 const locationView = loc => ({ key: loc, icon: LOCATION_ICON[loc] ?? "fa-suitcase", label: LOCATION_LABEL[loc] ?? loc });
@@ -345,6 +346,7 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
     if (sys.strain > 0) {
       const attr = inst?.system.primaryAttribute ?? SKILL_ATTRS[skill][0];
       const { before, after } = await this.actor.takeStress(attr, sys.strain);
+      logEvent("strain", { actor: who(this.actor), source: tech.name, attribute: attr, amount: sys.strain, before, after });
       notes.push(`Strain ${sys.strain} on ${ATTR_LABEL[attr]} (${before} &rarr; ${after}).`);
     }
 
@@ -377,6 +379,7 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
     notes.unshift(`Enchantment: ${ench.effectSummary}`);
     if (ench.strain > 0) {
       const { before, after } = await this.actor.takeStress(inst.system.primaryAttribute, ench.strain);
+      logEvent("strain", { actor: who(this.actor), source: `${inst.name} (Enchantment)`, attribute: inst.system.primaryAttribute, amount: ench.strain, before, after });
       notes.push(`Strain ${ench.strain} on ${ATTR_LABEL[inst.system.primaryAttribute]} (${before} &rarr; ${after}).`);
     }
     await this._postRoll(this._skillFormula(answer.skill, inst.system.bonusRoll), `${inst.name} (${SKILL_LABEL[answer.skill]})`, notes.join("<br>"), () => ({ cond: this._condFlag() }));
@@ -414,6 +417,14 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
     const flavor = `<div class="foil-flavor"><strong>${title}</strong>${note ? `<br><em>${note}</em>` : ""}</div>`;
     const dice = roll.dice.flatMap(d => d.results.map(r => ({ faces: d.faces, value: r.result })));
     const flags = { foil: { reroll: { actorId: this.actor.id, title, total: roll.total, dice }, ...(makeFlags?.(roll) ?? {}) } };
+    const st = flags.foil.stress;
+    logEvent("roll", {
+      actor: who(this.actor), title, formula, total: roll.total, dice,
+      notes: note ? String(note).replace(/<br>/g, " ").replace(/<[^>]+>/g, "") : "",
+      attack: st ? { name: st.name, instrument: st.instrument, aim: st.aim, condition: st.condition?.name ?? null,
+        targets: (st.targets ?? []).map(t => t.name), cap: st.cap, mult: st.mult, bespoke: st.bespoke, pierce: st.pierce,
+        melee: st.melee, type: st.typeIndex === "" || st.typeIndex === undefined ? null : st.types?.[Number(st.typeIndex)]?.label ?? null } : null
+    });
     return roll.toMessage({ speaker: ChatMessage.getSpeaker({ actor: this.actor }), flavor, flags });
   }
 
@@ -425,6 +436,7 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
     const v = this.actor.system.foil?.[axis?.key];
     if (!axis || !["low", "high"].includes(v?.lean)) return ui.notifications?.warn("A Neutral axis can't be invoked.");
     const habit = v.habit || (v.lean === "high" ? axis.high : axis.low);
+    logEvent("invoke", { actor: who(this.actor), axis: axis.key, habit, lean: v.lean });
     await ChatMessage.create({ speaker: ChatMessage.getSpeaker({ actor: this.actor }),
       flags: { foil: { invoke: { actorId: this.actor.id, axis: axis.key, habit, awarded: false } } },
       content: `<div class="foil-flavor"><strong>${this.actor.name} invokes ${axis.label}: ${habit}</strong><br><em>Waiting for GM approval.</em></div>` });
@@ -577,6 +589,8 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
       await this.actor.update({ "system.rations": rationsOn - plan.used });
       lines.push(`${plan.used} ration${plan.used === 1 ? "" : "s"} eaten`);
     }
+    logEvent("rest", { actor: who(this.actor), hours: plan.hours, rationsUsed: plan.used, unfedHours: plan.unfedHours,
+      attributes: plan.rows.filter(r => r.chosen).map(r => ({ attribute: r.key, blocks: r.chosen, fed: r.fed, from: r.cur })), summary: lines });
     await ChatMessage.create({ speaker: ChatMessage.getSpeaker({ actor: this.actor }),
       content: `<div class="foil-flavor"><strong>${this.actor.name} rests ${plan.hours} hours</strong><br><em>${lines.join("; ")}</em></div>` });
   }

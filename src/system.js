@@ -15,6 +15,7 @@ import {
 } from "./data/item-models.js";
 import { InstrumentTypeData, QualityData, EffectData } from "./data/definition-models.js";
 import { buildRegistry, registerRegistryHooks } from "./registry.js";
+import { registerPlaytestLog, registerLogHooks } from "./playtest-log.js";
 
 function registerHandlebarsHelpers() {
   Handlebars.registerHelper("foil-eq", (a, b) => a === b);
@@ -72,6 +73,7 @@ Hooks.once("init", function() {
 
   registerHandlebarsHelpers();
   registerRegistryHooks();
+  registerPlaytestLog();
 
   const loadTemplatesFn = foundry.applications?.handlebars?.loadTemplates ?? loadTemplates;
   loadTemplatesFn([
@@ -87,6 +89,7 @@ Hooks.once("init", function() {
 });
 
 Hooks.once("ready", async function() {
+  registerLogHooks();
   // `game.ready` flips true (and any sheet a user clicks open can start
   // rendering) without Foundry waiting on this async hook — so a sheet
   // opened in the gap before buildRegistry() resolves would otherwise see

@@ -9,6 +9,7 @@
 import { ATTRIBUTE_KEYS, FOIL_TOKEN_MAX } from "../constants.js";
 import { recoveryThreshold } from "../data/actor-models.js";
 import { poolFromCounts } from "../dice.js";
+import { logEvent, who } from "../playtest-log.js";
 
 const { getProperty, setProperty, hasProperty } = foundry.utils;
 
@@ -79,6 +80,9 @@ export class FoilActor extends Actor {
   get foilTokens() { return Number(this.system.foilTokens ?? 0); }
 
   async setFoilTokens(n) {
-    await this.update({ "system.foilTokens": Math.max(0, Math.min(FOIL_TOKEN_MAX, n)) });
+    const before = this.foilTokens;
+    const after = Math.max(0, Math.min(FOIL_TOKEN_MAX, n));
+    await this.update({ "system.foilTokens": after });
+    if (after !== before) logEvent("tokens", { actor: who(this), before, after });
   }
 }

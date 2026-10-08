@@ -1,5 +1,6 @@
 {
   "id": "foil",
+  "socket": true,
   "title": "Foilbound",
   "description": "Foilbound: four Attribute dice pools, four FOIL value axes, and margin-derived Stress that runs blades and beliefs on one set of rules.",
   "version": "0.7.0",

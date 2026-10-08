@@ -11,6 +11,7 @@ import { stressFor } from "./stress.js";
 import { conditionFlags, conditionMods, harmFlags, harmNames, incomingMods, kindOf, signedParts, skillFormula, targetFlags } from "./combat.js";
 import { ask } from "./dialogs.js";
 import { resolveActor } from "./chat-actions.js";
+import { logEvent, who } from "./playtest-log.js";
 
 const targetActor = resolveActor;
 
@@ -72,6 +73,8 @@ async function applyStress(actor, aim, amount, halved = false) {
   for (const k of ATTRIBUTE_KEYS) if (actor.system.attributes?.[k]?.down) notes.push(`${ATTR_LABEL[k]} is Incapacitated (PHB 6.8.1).`);
   if (destroyed) notes.push(`${actor.name} is Destroyed (PHB 6.8.2).`);
   notes.push(...harmFlags(actor.system.conditions));
+  logEvent("stress-applied", { actor: who(actor), aimed: aim, amount, halvedByToken: halved, applied,
+    incapacitated: ATTRIBUTE_KEYS.filter(k => actor.system.attributes?.[k]?.down), destroyed });
   const note = notes.length ? `<br>${notes.join("<br>")}` : "";
   const self = { uuid: actor.uuid, actorId: actor.id, actorName: actor.name };
   const flags = { foil: {
@@ -127,10 +130,17 @@ export async function resolveOppose(message, index) {
   await roll.toMessage({ speaker: ChatMessage.getSpeaker({ actor }),
     flavor: `<div class="foil-flavor"><strong>Oppose: ${SKILL_LABEL[skill]}</strong>${extras.length ? `<br><em>${signedParts(extras)}.</em>` : ""}${oppFlags.length ? `<br><em>${oppFlags.join("<br>")}</em>` : ""}</div>` });
   const oppose = await offerReroll(actor, roll, `Oppose: ${SKILL_LABEL[skill]}`);
+  const logBase = {
+    attacker: who(game.actors.get(flag.actorId)), defender: who(actor), technique: flag.name, instrument: flag.instrument ?? null,
+    aim: aim ?? null, condition: cnd?.name ?? null, attackRolled: Number(flag.attackTotal), attack,
+    attackMods: incoming.parts, opposeSkill: skill, opposeFormula: roll.formula, opposeRolled: roll.total, oppose,
+    opposeMods: extras, tokenReroll: oppose !== roll.total, flags: oppFlags
+  };
 
   if (cnd) {
     const speaker = ChatMessage.getSpeaker({ actor: game.actors.get(flag.actorId) });
     const versus = `${attack} against ${oppose}`;
+    logEvent("oppose", { ...logBase, landed: oppose <= attack });
     if (oppose > attack) {
       return ChatMessage.create({ speaker, content: `<div class="foil-flavor"><strong>${flag.name} fails against ${actor.name}</strong><br><em>${versus}; the Oppose beat it (PHB 6.5.0).</em></div>` });
     }
@@ -152,6 +162,9 @@ export async function resolveOppose(message, index) {
     attack, oppose, name: flag.name, cap: flag.cap, capLabel: flag.capLabel, mult: Number(flag.mult ?? 1),
     kind, resistance, type, bespoke: Number(flag.bespoke ?? 0), other: Number(flag.other ?? 0), pierce: Number(flag.pierce ?? 0)
   });
+  logEvent("oppose", { ...logBase, landed: r.landed, margin: r.margin, cappedMargin: r.capped, stress: r.stress,
+    cap: flag.cap, mult: Number(flag.mult ?? 1), resistance, kind, type: type?.label ?? null,
+    bespoke: Number(flag.bespoke ?? 0), pierce: Number(flag.pierce ?? 0), other: Number(flag.other ?? 0), breakdown: r.parts });
   const speaker = ChatMessage.getSpeaker({ actor: game.actors.get(flag.actorId) });
   const versus = `${attack} against ${oppose}`;
   if (!r.landed) {
