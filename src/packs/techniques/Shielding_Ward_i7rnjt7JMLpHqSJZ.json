@@ -23,7 +23,6 @@
       }
     ],
     "floor": true,
-    "xpOverride": 8,
     "effectText": "Gain Resistance +1 of the kind your block covers for 1 round",
     "ancestryGrant": "",
     "description": ""

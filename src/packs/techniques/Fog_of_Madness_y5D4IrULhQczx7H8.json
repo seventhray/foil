@@ -39,7 +39,6 @@
       }
     ],
     "floor": false,
-    "xpOverride": 54,
     "effectText": "Stress, -1 [target Attribute], Radius (Near), Strain 3",
     "ancestryGrant": "",
     "description": ""

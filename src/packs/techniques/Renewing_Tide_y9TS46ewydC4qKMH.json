@@ -31,7 +31,6 @@
       }
     ],
     "floor": true,
-    "xpOverride": 24,
     "effectText": "Mend 1d4 to chosen allies within Near (Selective)",
     "ancestryGrant": "",
     "description": ""

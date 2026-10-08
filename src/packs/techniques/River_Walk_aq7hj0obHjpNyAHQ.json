@@ -21,7 +21,6 @@
       }
     ],
     "floor": false,
-    "xpOverride": 4,
     "effectText": "Evade: move up to 20 feet without spending the Disengage Quick Action or provoking an Attack of Opportunity.",
     "ancestryGrant": "Riverlands",
     "description": ""

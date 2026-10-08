@@ -39,7 +39,6 @@
       }
     ],
     "floor": false,
-    "xpOverride": 47,
     "effectText": "Stress, Prone, -1 [target Attribute] (1 minute), Strain 2",
     "ancestryGrant": "",
     "description": ""

@@ -39,7 +39,6 @@
       }
     ],
     "floor": false,
-    "xpOverride": 22,
     "effectText": "Stress, -1 [target Attribute], Move the target 1 band",
     "ancestryGrant": "",
     "description": ""

@@ -192,8 +192,6 @@ export class TechniqueData extends foundry.abstract.TypeDataModel {
       effects: effectsArraySchema(),
       // A stated defensive floor (PHB 4.2.1) the effects can't show on their own.
       floor: bool(false),
-      // The printed XP; blank uses the computed price.
-      xpOverride: new f.NumberField({ required: false, nullable: true, integer: true, initial: null }),
       // The printed Effect line, Strain included.
       effectText: str(""),
       ancestryGrant: str(""),
@@ -208,10 +206,7 @@ export class TechniqueData extends foundry.abstract.TypeDataModel {
     const fortifying = types.includes("fortifying");
     const priced = registry ? priceTechnique(this.effects ?? [], registry, { floor: this.floor || fortifying })
                             : { xp: 0, breakdown: [] };
-    this.xpComputed = priced.xp;
-    this.xpCost = this.xpOverride ?? priced.xp;
-    this.priceMismatch = this.xpOverride !== null && this.xpOverride !== undefined && !!registry
-      && (this.effects ?? []).length > 0 && this.xpOverride !== priced.xp;
+    this.xpCost = priced.xp;
     this.perTarget = (this.effects ?? []).some(e => e.key === "selective");
     this.strain = strainFor(this.xpCost - (this.perTarget ? SELECTIVE_PREMIUM : 0));
     this.pricingBreakdown = priced.breakdown;

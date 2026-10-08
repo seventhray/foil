@@ -14,8 +14,8 @@
  * Env (or tools/local-paths.json): FOIL_BOOKS; optional FOIL_VERSION.
  *
  * Every catalog Technique is decomposed into priced Effects and re-priced by
- * src/pricing.js. Its printed XP stays authoritative (xpOverride); rows whose
- * Effects don't add up to the printed XP are listed at the end.
+ * src/pricing.js. Its price is computed from the Effects; rows whose
+ * Effects don't add up to the printed XP are listed at the end (the computed price is used).
  */
 
 import crypto from "node:crypto";
@@ -289,7 +289,6 @@ function techniqueDoc(n) {
       skill: skillMatch ? lc(skillMatch[1]) : "",
       family: n.family ?? "", subgroup: n.subgroup ?? "",
       effects, floor,
-      xpOverride: xp,
       effectText: n.effect ?? "",
       ancestryGrant: n.origin_grant ?? "",
       description: n.description ? `<p>${n.description}</p>` : ""
@@ -669,7 +668,7 @@ if (process.argv.includes("--dry-run")) {
 }
 
 if (priceFails.length) {
-  console.log(`\nPRINTED XP THAT THE EFFECTS DON'T REPRODUCE (${priceFails.length}/${techniques.length}; printed XP kept):`);
+  console.log(`\nPRINTED XP THAT THE EFFECTS DON'T REPRODUCE (${priceFails.length}/${techniques.length}; computed price used):`);
   for (const m of priceFails) console.log("  " + m);
 } else {
   console.log(`\nPricing: all ${techniques.length} Techniques reproduce their printed XP.`);

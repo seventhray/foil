@@ -40,7 +40,6 @@
       }
     ],
     "floor": false,
-    "xpOverride": 22,
     "effectText": "Stress, Pierce 1, -1 [target Attribute]",
     "ancestryGrant": "",
     "description": ""

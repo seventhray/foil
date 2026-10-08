@@ -3,11 +3,9 @@
   {{> systems/foil/templates/item/partials/type-warning.hbs}}
   <div class="derived-line price-readout">
     <strong>{{system.xpCost}} XP</strong> &middot; Strain <strong>{{system.strain}}</strong>
-    <em>(computed {{system.xpComputed}}{{#if system.priceMismatch}}, differs from the printed price{{/if}})</em>
+    <em>(computed from the Effects below)</em>
   </div>
   <div class="field-grid">
-    <label>Printed XP <em>(blank = computed)</em></label>
-    <input type="number" name="system.xpOverride" value="{{system.xpOverride}}" />
     <label>Requires, as printed</label>
     <input type="text" name="system.requiresText" value="{{system.requiresText}}" placeholder="Edged or Pointed" />
     <label>Innate <em>(no Instrument)</em></label>

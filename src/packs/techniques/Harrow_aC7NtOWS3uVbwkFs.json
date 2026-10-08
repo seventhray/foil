@@ -39,7 +39,6 @@
       }
     ],
     "floor": false,
-    "xpOverride": 27,
     "effectText": "Stress, -1 [target Attribute], Cone (Near)",
     "ancestryGrant": "",
     "description": ""

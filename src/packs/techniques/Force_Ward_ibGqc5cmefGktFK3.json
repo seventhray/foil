@@ -23,7 +23,6 @@
       }
     ],
     "floor": true,
-    "xpOverride": 8,
     "effectText": "Resistance +1, physical or mental, self or ally",
     "ancestryGrant": "",
     "description": ""

@@ -23,7 +23,6 @@
       }
     ],
     "floor": true,
-    "xpOverride": 20,
     "effectText": "Mend 2d4",
     "ancestryGrant": "",
     "description": ""
