@@ -1,4 +1,5 @@
 /** Condition modifiers on rolls and on Techniques rolled against a target (PHB 6.8.0). */
+import { restPlan } from "../../src/rest.js";
 import { conditionMods, conditionFlags, allowedAims, targetFlags, harmFlags, incomingMods, skillFormula, kindOf } from "../../src/combat.js";
 
 let failed = 0;
@@ -31,5 +32,13 @@ check("Edged reaches physical Attributes only", allowedAims({ stressTypes: [T("e
 check("Incorporeal reaches mental Attributes only", allowedAims({ stressTypes: [T("incorporeal", "arcane")] }), ["wit", "presence"]);
 check("Kinetic reaches both", allowedAims({ stressTypes: [T("kinetic", "arcane")] }), ["might", "finesse", "wit", "presence"]);
 check("the Technique's required Type narrows a multi-Type Instrument", allowedAims({ stressTypes: [T("kinetic", "arcane"), T("incorporeal", "arcane")], requires: ["incorporeal"] }), ["wit", "presence"]);
+
+const hurt = [{ key: "might", cur: 4, max: 10 }, { key: "wit", cur: 9, max: 10 }];
+const plan = restPlan(hurt, { might: 2, wit: 2 }, 1);
+check("rest: 8 hours on one ration feeds all four blocks", [plan.hours, plan.used, plan.short, plan.unfedHours], [8, 1, 0, 0]);
+check("rest: expected recovery is 2.5 a block, capped at what is missing", [plan.rows[0].avgRec, plan.rows[1].avgRec, plan.rows[1].best], [5, 1, 10]);
+const thin = restPlan(hurt, { might: 3, wit: 2 }, 1);
+check("rest: unfed blocks fall to the later Attributes", [thin.rows[0].fed, thin.rows[1].fed, thin.short, thin.unfedHours], [3, 1, 1, 2]);
+check("rest: creatures track no rations", [restPlan(hurt, { might: 2 }, null).used, restPlan(hurt, { might: 2 }, null).rows[0].fed], [0, 2]);
 
 process.exit(failed ? 1 : 0);

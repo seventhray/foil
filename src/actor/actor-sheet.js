@@ -25,6 +25,7 @@ import { ask, dialogApi, addButton } from "../dialogs.js";
 import "../chat-actions.js";
 import { allowedAims, conditionFlags, conditionMods, signedParts, skillFormula, targetFlags } from "../combat.js";
 import { resolveOppose } from "../oppose.js";
+import { restPlan } from "../rest.js";
 
 const LOCATION_ICON = { equipped: "fa-hand", carried: "fa-suitcase" };
 const locationView = loc => ({ key: loc, icon: LOCATION_ICON[loc] ?? "fa-suitcase", label: LOCATION_LABEL[loc] ?? loc });
@@ -498,45 +499,61 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
    */
   static async _onRest() {
     const attrs = this.actor.system.attributes ?? {};
-    const hurt = ATTRIBUTE_KEYS.filter(k => Number(attrs[k]?.potential?.current ?? 0) < Number(attrs[k]?.potential?.max ?? 0));
+    const hurt = ATTRIBUTE_KEYS.filter(k => Number(attrs[k]?.potential?.current ?? 0) < Number(attrs[k]?.potential?.max ?? 0))
+      .map(k => ({ key: k, cur: Number(attrs[k].potential.current), max: Number(attrs[k].potential.max) }));
     if (!hurt.length) return ui.notifications?.info(`${this.actor.name} has nothing to recover.`);
-    const tracksRations = this.actor.type === "character";
-    const rows = hurt.map(k => `<div class="form-group"><label>${ATTR_LABEL[k]} (${attrs[k].potential.current}/${attrs[k].potential.max})</label>`
-      + `<button type="button" onclick="const i=this.parentElement.querySelector('input');i.value=Math.max(0,Number(i.value)-${REST_BLOCK_HOURS})">-</button>`
-      + `<input type="number" name="${k}" value="0" min="0" step="${REST_BLOCK_HOURS}" />`
-      + `<button type="button" onclick="const i=this.parentElement.querySelector('input');i.value=Number(i.value)+${REST_BLOCK_HOURS}">+</button></div>`).join("");
-    const answer = await ask(`${this.actor.name} rests`,
-      `<p>Each ${REST_BLOCK_HOURS} hours of rest removes 1d4 Stress from one Attribute. Split the hours among Attributes in ${REST_BLOCK_HOURS}-hour steps. One ration feeds ${REST_RATION_HOURS} hours.</p>`
-      + rows + (tracksRations ? `<p>Rations on hand: ${this.actor.system.rations}</p>` : ""), "Rest");
+    const rationsOn = this.actor.type === "character" ? Number(this.actor.system.rations ?? 0) : null;
+    const f = n => (Number.isInteger(n) ? String(n) : n.toFixed(1));
+    const rows = hurt.map(a => `<tr data-key="${a.key}"><th>${ATTR_LABEL[a.key]}</th>`
+      + `<td class="rest-hours"><button type="button" data-step="-1">-</button> <span data-c="hours">0</span> h <button type="button" data-step="1">+</button>`
+      + `<input type="hidden" name="${a.key}" value="0" /></td>`
+      + `<td>${a.cur}/${a.max}</td><td data-c="avg">0</td><td data-c="max">0</td><td data-c="expected">${a.cur}/${a.max}</td><td data-c="best">${a.cur}/${a.max}</td></tr>`).join("");
+    const content = `<p>Each ${REST_BLOCK_HOURS} hours of rest removes 1d4 Stress from one Attribute. One ration feeds ${REST_RATION_HOURS} hours.</p>`
+      + `<table class="rest-table"><thead><tr><th></th><th>Hours</th><th>Now</th><th>Avg Stress off</th><th>Max Stress off</th><th>Expected</th><th>Best case</th></tr></thead>`
+      + `<tbody>${rows}</tbody>`
+      + `<tfoot><tr><th>Total</th><td data-t="hours">0 h</td><td></td><td data-t="avg">0</td><td data-t="max">0</td><td colspan="2" data-t="rations"></td></tr></tfoot></table>`;
+    const refresh = el => {
+      const blocks = {};
+      for (const tr of el.querySelectorAll("tr[data-key]")) blocks[tr.dataset.key] = Number(tr.querySelector("input").value) / REST_BLOCK_HOURS;
+      const plan = restPlan(hurt, blocks, rationsOn);
+      for (const r of plan.rows) {
+        const tr = el.querySelector(`tr[data-key="${r.key}"]`);
+        const set = (c, v) => { tr.querySelector(`[data-c="${c}"]`).textContent = v; };
+        set("hours", r.hours); set("avg", f(r.avgRec)); set("max", f(r.maxRec));
+        set("expected", `${f(r.expected)}/${r.max}`); set("best", `${f(r.best)}/${r.max}`);
+      }
+      const t = k => el.querySelector(`[data-t="${k}"]`);
+      t("hours").textContent = `${plan.hours} h`; t("avg").textContent = f(plan.avgRec); t("max").textContent = f(plan.maxRec);
+      t("rations").textContent = rationsOn === null ? "No rations tracked"
+        : `Rations: ${plan.used} of ${rationsOn}${plan.short ? `, ${plan.short} short (${plan.unfedHours} h heal nothing)` : ""}`;
+    };
+    const answer = await ask(`${this.actor.name} rests`, content, "Rest", el => {
+      refresh(el);
+      el.querySelectorAll("button[data-step]").forEach(btn => btn.addEventListener("click", () => {
+        const input = btn.closest("tr").querySelector("input");
+        input.value = Math.max(0, Number(input.value) + Number(btn.dataset.step) * REST_BLOCK_HOURS);
+        refresh(el);
+      }));
+    });
     if (!answer) return;
-    const want = Object.fromEntries(hurt.map(k => [k, Math.floor(Math.max(0, Math.trunc(Number(answer[k]) || 0)) / REST_BLOCK_HOURS)]));
-    const totalBlocks = Object.values(want).reduce((n, v) => n + v, 0);
-    if (!totalBlocks) return;
-    const hours = totalBlocks * REST_BLOCK_HOURS;
-    let fed = totalBlocks, rations = 0;
-    let unfed = 0;
-    if (tracksRations) {
-      rations = Math.min(Math.ceil(hours / REST_RATION_HOURS), this.actor.system.rations);
-      fed = Math.min(totalBlocks, Math.floor(rations * REST_RATION_HOURS / REST_BLOCK_HOURS));
-      unfed = totalBlocks - fed;
-    }
+    const blocks = Object.fromEntries(hurt.map(a => [a.key, Math.floor(Math.max(0, Number(answer[a.key]) || 0) / REST_BLOCK_HOURS)]));
+    const plan = restPlan(hurt, blocks, rationsOn);
+    if (!plan.hours) return;
     const lines = [];
-    for (const k of hurt) {
-      const blocks = Math.min(want[k], fed);
-      fed -= blocks;
-      if (blocks <= 0) continue;
-      const roll = await new Roll(`${blocks}d4`).evaluate();
-      const { before, after } = await this.actor.heal(k, roll.total);
-      lines.push(`${ATTR_LABEL[k]} ${before} &rarr; ${after} (${blocks}d4 = ${roll.total})`);
+    for (const r of plan.rows) {
+      if (r.fed <= 0) continue;
+      const roll = await new Roll(`${r.fed}d4`).evaluate();
+      const { before, after } = await this.actor.heal(r.key, roll.total);
+      lines.push(`${ATTR_LABEL[r.key]} ${before} &rarr; ${after} (${r.fed}d4 = ${roll.total})`);
     }
     if (!lines.length) lines.push("No ration to eat: the time passes, but heals nothing");
-    else if (unfed) lines.push(`${unfed * REST_BLOCK_HOURS} hours unfed heal nothing`);
-    if (rations) {
-      await this.actor.update({ "system.rations": this.actor.system.rations - rations });
-      lines.push(`${rations} ration${rations === 1 ? "" : "s"} eaten`);
+    else if (plan.unfedHours) lines.push(`${plan.unfedHours} hours unfed heal nothing`);
+    if (plan.used) {
+      await this.actor.update({ "system.rations": rationsOn - plan.used });
+      lines.push(`${plan.used} ration${plan.used === 1 ? "" : "s"} eaten`);
     }
     await ChatMessage.create({ speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-      content: `<div class="foil-flavor"><strong>${this.actor.name} rests ${hours} hours</strong><br><em>${lines.join("; ")}</em></div>` });
+      content: `<div class="foil-flavor"><strong>${this.actor.name} rests ${plan.hours} hours</strong><br><em>${lines.join("; ")}</em></div>` });
   }
 
   // ─── Embedded item CRUD ─────────────────────────────────────────────────────
