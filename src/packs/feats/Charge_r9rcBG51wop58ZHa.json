@@ -7,9 +7,9 @@
     "featType": "ancestry",
     "xpCost": 0,
     "requirements": "",
-    "effect": "When you move at least 30 feet in a line toward a target and use a Melee Technique against them in the same turn, the target takes -2 to Oppose rolls for 1 round.",
+    "effect": "You learn the Charge Technique: Melee, Prone, -2 Oppose. It costs the Action and the Quick Action, and first moves up to 40 feet in a line toward the target.",
     "ancestry": "Open Plains",
-    "grantsTechnique": "",
+    "grantsTechnique": "Charge",
     "modifiers": [],
     "description": ""
   },

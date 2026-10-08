@@ -1,6 +1,6 @@
 {
-  "_id": "XJoJcoAgWBEIgWnO",
-  "name": "Relentless Blow",
+  "_id": "lQtykmR3n1Bfbmgt",
+  "name": "Charge",
   "type": "technique",
   "img": "icons/svg/aura.svg",
   "system": {
@@ -17,7 +17,7 @@
     "subgroup": "",
     "effects": [
       {
-        "key": "stress",
+        "key": "prone",
         "magnitude": 1,
         "pattern": "single",
         "bands": 0,
@@ -25,8 +25,8 @@
         "selectiveR": 0
       },
       {
-        "key": "pierce",
-        "magnitude": 4,
+        "key": "reeling",
+        "magnitude": 2,
         "pattern": "single",
         "bands": 0,
         "placement": 0,
@@ -35,14 +35,14 @@
     ],
     "floor": false,
     "ancestryGrant": "Open Plains",
-    "description": ""
+    "description": "<p>It costs the Action and the Quick Action, and first moves up to 40 feet in a line toward the target.</p>"
   },
   "effects": [],
   "folder": "kDH9VxtxCBIAc8Zh",
-  "sort": 9700000,
+  "sort": 9600000,
   "ownership": {
     "default": 0
   },
   "flags": {},
-  "_key": "!items!XJoJcoAgWBEIgWnO"
+  "_key": "!items!lQtykmR3n1Bfbmgt"
 }

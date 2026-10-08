@@ -256,7 +256,8 @@ const HAND_EFFECTS = {
   Riposte: () => [e("quick")],
   Intercept: () => [e("redirect"), e("quick")],
   Retort: () => [e("stress"), e("stress-rider"), e("quick")],
-  "River Walk": () => [e("evade")]
+  "River Walk": () => [e("evade")],
+  Charge: () => [e("prone"), e("reeling", { magnitude: 2 })]
 };
 const priceFails = [];
 
@@ -614,7 +615,8 @@ const grantedTechniques = CAT.feats.flatMap(f => {
   if (!name || CAT.techniques.some(t => t.name === name)) return [];
   const m = String(f.effect).match(/^You learn the (.+?) Technique(?: \((\w+)\)[.:]|: (\w+),) ?(.*)$/);
   if (!m) { warnings.push(`${f.name}: cannot read the Technique it grants from "${f.effect}"`); return []; }
-  return [{ name, requires: m[2] ?? m[3], effect: m[4], origin_grant: f.origin, xp: null }];
+  const [effect, ...rest] = m[4].split(/\.\s+/);
+  return [{ name, requires: m[2] ?? m[3], effect, description: rest.join(". ").replace(/\.$/, "") + (rest.length ? "." : ""), origin_grant: f.origin, xp: null }];
 });
 const readHabit = {
   name: "Read Habit", type: "technique", img: "icons/svg/aura.svg",
