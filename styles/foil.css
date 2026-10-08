@@ -312,6 +312,7 @@
 .muted { color: var(--ink-faint); font-style: italic; }
 .training-cell { white-space: nowrap; }
 .training-cell input { width: 44px; }
+.training-cell .mod { font-size: 1.05em; margin-left: 4px; }
 
 /* Character generator / advance buttons: a light bevel and a small lift on
    hover so they read as pressable, not just clickable text. */
