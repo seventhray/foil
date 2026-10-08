@@ -98,6 +98,14 @@ Hooks.once("ready", async function() {
   // so any such sheet self-corrects instead of staying stale for its
   // whole lifetime.
   await buildRegistry();
+  // Existing characters get the innate Techniques once (PHB 2.5.4).
+  if (game.user.isGM && game.users.activeGM?.isSelf) {
+    const { grantStartingKit } = await import("./apps/chargen.js");
+    for (const actor of game.actors.filter(x => x.type === "character" && !x.getFlag("foil", "innateTechniques"))) {
+      try { await grantStartingKit(actor); await actor.setFlag("foil", "innateTechniques", true); }
+      catch (err) { console.error("FOIL | Failed to grant innate Techniques", err); }
+    }
+  }
   console.log("FOIL | Ready — vocabulary registry built", CONFIG.FOIL);
   for (const app of Object.values(ui.windows)) app.render();
 });

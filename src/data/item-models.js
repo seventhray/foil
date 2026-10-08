@@ -186,6 +186,8 @@ export class TechniqueData extends foundry.abstract.TypeDataModel {
       // Instrument Type slugs, any one of; empty with `innate` means no Instrument at all.
       requires: slugArray(),
       innate: bool(false),
+      // Skills the Technique may roll when it names more than one (Read Habit rolls Acuity or Resonance).
+      skillChoices: new f.ArrayField(new f.StringField({ required: true, choices: SKILL_KEYS }), { required: true, initial: [] }),
       // A Skill the Technique names outright (River Walk rolls Acuity).
       skill: new f.StringField({ required: true, blank: true, initial: "", choices: ["", ...SKILL_KEYS] }),
       family: str(""),

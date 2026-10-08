@@ -35,6 +35,7 @@ const PROMPTS = [
 ];
 
 const INNATE_INSTRUMENTS = ["Body", "Voice"];
+const INNATE_TECHNIQUES = ["Read Habit"];
 const DIE_KEYS = ["d4", "d6", "d8", "d10", "d12", "d20"];
 
 /** Split a Background kit string ("Longsword, Leather armor, Traveler Pack.") into item names. */
@@ -78,6 +79,10 @@ export async function grantStartingKit(actor) {
   const toCreate = INNATE_INSTRUMENTS
     .filter(n => !existing.has(n.toLowerCase()) && map.has(n.toLowerCase()))
     .map(n => map.get(n.toLowerCase()).toObject());
+  const techs = await packDocsByName("foil.techniques");
+  for (const n of INNATE_TECHNIQUES) {
+    if (!existing.has(n.toLowerCase()) && techs.has(n.toLowerCase())) toCreate.push(techs.get(n.toLowerCase()).toObject());
+  }
   if (toCreate.length) await actor.createEmbeddedDocuments("Item", toCreate);
   return toCreate.length;
 }

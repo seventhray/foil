@@ -311,6 +311,12 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
     const sys = tech.system;
 
     let inst = null, skill = sys.skill || "";
+    if (!skill && sys.skillChoices?.length) {
+      const opts = sys.skillChoices.map(k => `<option value="${k}">${SKILL_LABEL[k]}</option>`).join("");
+      const pick = await ask(`Use ${tech.name}`, `<div class="form-group"><label>Skill</label><select name="skill">${opts}</select></div>`, "Roll");
+      if (!pick) return;
+      skill = sys.skillChoices.includes(pick.skill) ? pick.skill : sys.skillChoices[0];
+    }
     if (!sys.innate) {
       const valid = this._validInstruments(tech);
       if (!valid.length) {

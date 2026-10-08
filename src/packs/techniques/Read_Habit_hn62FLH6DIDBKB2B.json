@@ -1,0 +1,46 @@
+{
+  "_id": "hn62FLH6DIDBKB2B",
+  "name": "Read Habit",
+  "type": "technique",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "requires": [],
+    "innate": true,
+    "skill": "",
+    "skillChoices": [
+      "acuity",
+      "resonance"
+    ],
+    "family": "",
+    "subgroup": "",
+    "effects": [
+      {
+        "key": "foil-exposed",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveR": 0
+      },
+      {
+        "key": "quick",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveR": 0
+      }
+    ],
+    "floor": false,
+    "ancestryGrant": "",
+    "description": "<p>Every character knows it, free (PHB 2.5.4). Quick, against a creature within Near: Acuity or Resonance, resisted with Guile or Discipline. Applies Foil Exposed (PHB 6.8.24).</p>"
+  },
+  "effects": [],
+  "folder": "Rh0DnkQdSreto5kG",
+  "sort": 9900000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!hn62FLH6DIDBKB2B"
+}

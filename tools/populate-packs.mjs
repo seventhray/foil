@@ -616,7 +616,15 @@ const grantedTechniques = CAT.feats.flatMap(f => {
   if (!m) { warnings.push(`${f.name}: cannot read the Technique it grants from "${f.effect}"`); return []; }
   return [{ name, requires: m[2] ?? m[3], effect: m[4], origin_grant: f.origin, xp: null }];
 });
-const techniques = [...[...CAT.techniques].sort(byOrder), ...grantedTechniques].map(techniqueDoc);
+const readHabit = {
+  name: "Read Habit", type: "technique", img: "icons/svg/aura.svg",
+  system: {
+    requires: [], innate: true, skill: "", skillChoices: ["acuity", "resonance"], family: "", subgroup: "",
+    effects: [e("foil-exposed"), e("quick")], floor: false, ancestryGrant: "",
+    description: "<p>Every character knows it, free (PHB 2.5.4). Quick, against a creature within Near: Acuity or Resonance, resisted with Guile or Discipline. Applies Foil Exposed (PHB 6.8.24).</p>"
+  }
+};
+const techniques = [...[...CAT.techniques].sort(byOrder), ...grantedTechniques].map(techniqueDoc).concat([readHabit]);
 const instruments = [
   ...INNATE_INSTRUMENTS.map(innateDoc),
   ...[...CAT.instruments].sort(byOrder).map(instrumentDoc),
