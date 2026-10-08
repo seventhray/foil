@@ -875,3 +875,5 @@
 .rest-table .rest-stepper { display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 8px; }
 .rest-table .rest-stepper button { flex: 0 0 28px; width: 28px; height: 24px; margin: 0; padding: 0; line-height: 1; cursor: pointer; }
 .rest-table .rest-value { min-width: 36px; text-align: center; white-space: nowrap; }
+
+.axis-habit-head .mini-btn:disabled { opacity: 0.45; cursor: not-allowed; }
