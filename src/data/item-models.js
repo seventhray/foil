@@ -158,11 +158,12 @@ export class InstrumentData extends foundry.abstract.TypeDataModel {
     this.enchantSkill = { skill: "", n: 0 };
     this.enchantStress = 0;
     if (eb.kind) {
-      const base = (BONUS_PRICE[this.size] ?? BONUS_PRICE.medium)[eb.n] ?? 0;
-      const price = Math.ceil(base * (eb.kind === "stress" ? 2 : 1) / (eb.situational ? 2 : 1));
+      // 10p per XP, from the Effects table: a Skill or roll point 6 XP, Pierce 4, Stress 8 (PHB 5.3.4).
+      const perPoint = { skill: 60, roll: 60, aid: 60, pierce: 40, stress: 80 }[eb.kind] ?? 0;
+      const price = Math.ceil(perPoint * eb.n / ((eb.situational || eb.kind === "aid") ? 2 : 1));
       const what = { skill: `+${eb.n} ${SKILL_LABEL[eb.skill] ?? "Skill"}`, roll: `+${eb.n} to its rolls`, pierce: `Pierce ${eb.n}`,
                      stress: `+${eb.n} Stress after the margin`, aid: `Aid +${eb.n}` }[eb.kind];
-      this.enchantBonus = { price, label: `${what}${eb.situational ? ` (${eb.circumstance || "situational"})` : ""}`, applies: !eb.situational && eb.kind !== "aid",
+      this.enchantBonus = { price, label: `${what}${(eb.situational || eb.kind === "aid") ? ` (${eb.circumstance || "situational"})` : ""}`, applies: !eb.situational && eb.kind !== "aid",
                             difficulty: [8, 12, 16, 20, 24, 32][eb.n] ?? 12, materialTier: eb.n };
       if (this.enchantBonus.applies) {
         if (eb.kind === "roll") this.bonusRoll += eb.n;
