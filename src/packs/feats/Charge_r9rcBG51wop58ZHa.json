@@ -7,7 +7,7 @@
     "featType": "ancestry",
     "xpCost": 0,
     "requirements": "",
-    "effect": "You learn the Charge Technique: Melee, Prone, -2 Oppose. It costs the Action and the Quick Action, and first moves up to 40 feet in a line toward the target.",
+    "effect": "You learn the Charge Technique: Melee, Prone, -2 Oppose. It costs the Action and the Quick Action, targets a creature at Near range or farther, and first moves up to 40 feet in a line toward it.",
     "ancestry": "Open Plains",
     "grantsTechnique": "Charge",
     "modifiers": [],

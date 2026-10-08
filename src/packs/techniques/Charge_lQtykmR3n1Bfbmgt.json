@@ -35,7 +35,7 @@
     ],
     "floor": false,
     "ancestryGrant": "Open Plains",
-    "description": "<p>It costs the Action and the Quick Action, and first moves up to 40 feet in a line toward the target.</p>"
+    "description": "<p>It costs the Action and the Quick Action, targets a creature at Near range or farther, and first moves up to 40 feet in a line toward it.</p>"
   },
   "effects": [],
   "folder": "kDH9VxtxCBIAc8Zh",
