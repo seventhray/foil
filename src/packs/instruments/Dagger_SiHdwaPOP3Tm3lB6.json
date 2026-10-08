@@ -7,7 +7,7 @@
     "category": "melee",
     "weight": "light",
     "primaryAttribute": "finesse",
-    "range": "Touching to Close",
+    "range": "Close",
     "types": [
       "edged",
       "pointed",
