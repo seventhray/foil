@@ -135,6 +135,7 @@ export class InstrumentData extends foundry.abstract.TypeDataModel {
     // +N (PHB 5.2.1): +N to rolls, Pierce half of N (rounded down) for Melee or Ranged;
     // Blocking-only is Oppose-only.
     const meleeOrRanged = defs.some(d => d.family === "melee" || d.family === "ranged");
+    this.isMelee = defs.some(d => d.family === "melee");
     this.bonusRoll   = this.blockingOnly ? 0 : this.bonus;
     this.bonusPierce = !this.blockingOnly && meleeOrRanged ? Math.floor(this.bonus / 2) : 0;
     this.bonusOppose = this.blockingOnly ? this.bonus : 0;

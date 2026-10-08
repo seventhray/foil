@@ -1,14 +1,17 @@
 /**
  * src/actor/actor-sheet.js
  * FoilCharacterSheet / FoilCreatureSheet (Foilbound 0.6.0). A faithful sheet
- * and dice roller. Three automations, each by explicit request:
+ * and dice roller. Automations, each by explicit request:
  *   - Strain lands on the Instrument's Primary Attribute when a Technique is
  *     rolled (PHB 4.2.3).
- *   - A landed Technique's chat card computes its Stress once the target's
- *     Oppose total is entered (PHB 6.7.0). Applying it to the target stays manual.
+ *   - A Technique rolled with tokens targeted prompts each target's Oppose, works
+ *     out the margin and Stress, and asks before applying it (src/oppose.js).
+ *     With no target, the chat card computes Stress from a typed Oppose total.
+ *   - Conditions that modify rolls (Weakened, Reeling, Blinded, Prone, Invisible)
+ *     are added to rolls (src/combat.js).
  *   - Foil Token spends: halve one source's Stress, or reroll one die of a posted
  *     roll (PHB 3.2.0).
- * Everything else (opposed rolls, Conditions, Habits) stays with the table.
+ * Everything else (other Conditions, Habits) stays with the table.
  */
 
 import {
@@ -18,6 +21,9 @@ import {
 } from "../constants.js";
 import { equipmentSummary } from "../registry.js";
 import { stressFor } from "../stress.js";
+import { ask, dialogApi } from "../dialogs.js";
+import { conditionMods, signedParts, skillFormula } from "../combat.js";
+import { resolveOppose } from "../oppose.js";
 
 const LOCATION_ICON = { equipped: "fa-hand", carried: "fa-suitcase", stored: "fa-box-archive" };
 const locationView = loc => ({ key: loc, icon: LOCATION_ICON[loc] ?? "fa-suitcase", label: LOCATION_LABEL[loc] ?? loc });
@@ -25,19 +31,6 @@ const locationView = loc => ({ key: loc, icon: LOCATION_ICON[loc] ?? "fa-suitcas
 const { HandlebarsApplicationMixin } = foundry.applications.api;
 const ActorSheetV2Base = foundry.applications.sheets.ActorSheetV2;
 
-const dialogApi = () => foundry.applications?.api?.DialogV2;
-const formData = form => new (foundry.applications?.ux?.FormDataExtended ?? FormDataExtended)(form).object;
-
-/** Ask a question with a small form; resolves to the form's values, or null. */
-async function ask(title, content, label = "OK") {
-  const D = dialogApi();
-  if (!D) return null;
-  return D.prompt({
-    window: { title }, content,
-    ok: { label, callback: (event, button) => formData(button.form) },
-    rejectClose: false
-  }).catch(() => null);
-}
 
 /** "Deals Stress to Might or Finesse, +1." -> 1 (a built-in Technique's bespoke bonus). */
 function bespokeBonus(effect) {
@@ -186,14 +179,9 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
 
   // ─── Rolling ────────────────────────────────────────────────────────────────
 
-  /** A Skill formula with the carrying penalty folded in (PHB 5.2.6), plus any weight dice (PHB 4.1.1). */
+  /** A Skill formula with the carrying penalty and Conditions folded in, plus any weight dice. */
   _skillFormula(skill, extra = 0, dice = "") {
-    const sys = this.actor.system;
-    const parts = [sys.skills?.[skill]?.formula || "0"];
-    if (dice) parts.push(dice);
-    const flat = Number(extra || 0) - Number(sys.carry?.penalty ?? 0);
-    if (flat) parts.push(String(flat));
-    return parts.join(" + ").replace("+ -", "- ");
+    return skillFormula(this.actor.system, skill, extra, dice);
   }
 
   _rollNotes(skill) {
@@ -202,6 +190,8 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
     const dropped = SKILL_ATTRS[skill].filter(ak => sys.attributes?.[ak]?.down).map(ak => ATTR_LABEL[ak]);
     if (dropped.length) notes.push(`${dropped.join(" and ")} Incapacitated: no dice from it.`);
     if (sys.carry?.penalty) notes.push(`Mass ${sys.carry.weight} lbs: -${sys.carry.penalty}.`);
+    const cm = conditionMods(sys.conditions, { skill });
+    if (cm.parts.length) notes.push(`${signedParts(cm.parts)}.`);
     return notes;
   }
 
@@ -227,10 +217,37 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
     if (applied && CONDITION_OPPOSE[applied]) notes.push(`The target resists with ${CONDITION_OPPOSE[applied].map(k => SKILL_LABEL[k]).join(" or ")} (PHB 6.5.0).`);
     const targeted = stress || /^Applies\b/i.test(kit.effect);
     if (targeted && inst.system.weightDice) notes.push(`${inst.system.weightLabel}: +${inst.system.weightDice}.`);
+    const aim = stress ? await this._aimAtTargets(inst, kit.name) : { targets: [] };
+    if (!aim) return;
     await this._postRoll(this._skillFormula(kit.skill, inst.system.bonusRoll, targeted ? inst.system.weightDice : ""), `${kit.name} (${SKILL_LABEL[kit.skill]})`,
       notes.join("<br>"), stress ? roll => this._stressFlag(inst, kit.name, roll.total, {
-        bespoke: bespokeBonus(kit.effect), pierce: inst.system.bonusPierce
+        bespoke: bespokeBonus(kit.effect), pierce: inst.system.bonusPierce, aim
       }) : null);
+  }
+
+  /**
+   * With tokens targeted, the attacker names the Attribute aimed at and the Type used (PHB 6.4.0, 6.7.0).
+   * Resolves to null if cancelled, and to no targets when nothing is targeted.
+   */
+  async _aimAtTargets(inst, name) {
+    const tokens = [...(game.user?.targets ?? [])];
+    if (!tokens.length) return { targets: [] };
+    const types = inst.system.stressTypes ?? [];
+    const attrs = ATTRIBUTE_KEYS.map(k => `<option value="${k}">${ATTR_LABEL[k]}</option>`).join("");
+    const typeOpts = [...types.map((t, i) => `<option value="${i}">${t.label}</option>`), `<option value="">None</option>`].join("");
+    const answer = await ask(`${name}: aim`,
+      `<p>Target${tokens.length > 1 ? "s" : ""}: ${tokens.map(t => t.name).join(", ")}</p>`
+      + `<div class="form-group"><label>Attribute aimed at</label><select name="aim">${attrs}</select></div>`
+      + (types.length ? `<div class="form-group"><label>Type effect <em>(one, your choice)</em></label><select name="type">${typeOpts}</select></div>` : "")
+      + `<div class="form-group"><label>Other Stress bonus <em>(a Feat such as Heavy Hand)</em></label><input type="number" name="other" value="0" /></div>`,
+      "Roll");
+    if (!answer) return null;
+    return {
+      targets: tokens.map(t => ({ uuid: t.document.uuid, actorId: t.actor?.id ?? "", name: t.name })),
+      aim: ATTRIBUTE_KEYS.includes(answer.aim) ? answer.aim : "might",
+      typeIndex: types.length ? (answer.type ?? "0") : "",
+      other: Math.trunc(Number(answer.other) || 0)
+    };
   }
 
   /** Instruments able to deliver a Technique: any one of its required Types; equipped ones first, stored ones never. */
@@ -290,6 +307,9 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
     if (sys.quick) notes.push("Quick: may be paid with the Quick Action.");
     if (inst?.system.doublesMargin) notes.push("Heavy: costs the Action and the Quick Action; the margin doubles (PHB 4.1.1).");
 
+    const aim = sys.dealsStress && inst ? await this._aimAtTargets(inst, tech.name) : { targets: [] };
+    if (!aim) return;
+
     // Strain lands on the Instrument's Primary Attribute, ignoring Resistance (PHB 4.2.3).
     if (sys.strain > 0) {
       const attr = inst?.system.primaryAttribute ?? SKILL_ATTRS[skill][0];
@@ -304,7 +324,7 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
     await this._postRoll(this._skillFormula(skill, bonus, wdice), `${tech.name} (${SKILL_LABEL[skill]})`, notes.join("<br>"),
       sys.dealsStress && inst ? roll => this._stressFlag(inst, tech.name, roll.total, {
         bespoke: Number(sys.stressRider ?? 0), pierce: Number(sys.pierceTotal ?? 0) + Number(inst.system.bonusPierce ?? 0) + gemPierce,
-        quick: !!sys.quick
+        aim
       }) : null);
   }
 
@@ -330,7 +350,7 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
    * The chat-card payload the Stress button reads. The margin cap follows the
    * Instrument's weight (PHB 6.7.0).
    */
-  _stressFlag(inst, name, total, { bespoke = 0, pierce = 0, quick = false } = {}) {
+  _stressFlag(inst, name, total, { bespoke = 0, pierce = 0, aim = { targets: [] } } = {}) {
     const primary = inst.system.primaryAttribute;
     const a = this.actor.system.attributes?.[primary];
     const potential = Number(a?.potential?.max ?? 0);
@@ -341,7 +361,8 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
         actorId: this.actor.id, name, attackTotal: total, instrument: inst.name,
         cap: marginCap(potential, weight), capLabel: label(weight),
         mult: Number(inst.system.marginMultiplier ?? 1),
-        types: inst.system.stressTypes ?? [], bespoke, pierce
+        types: inst.system.stressTypes ?? [], bespoke, pierce,
+        melee: !!inst.system.isMelee, targets: aim.targets, aim: aim.aim, typeIndex: aim.typeIndex, other: aim.other
       }
     };
   }
@@ -657,14 +678,16 @@ async function rerollDie(message, flag) {
   await actor.setFoilTokens(actor.foilTokens - 1);
   const flags = { foil: { reroll: { ...flag, total, dice } } };
   const stress = message.getFlag("foil", "stress");
-  if (stress) flags.foil.stress = { ...stress, attackTotal: total };
+  if (stress) flags.foil.stress = { ...stress, attackTotal: total, rerolled: true };
   await ChatMessage.create({ speaker: message.speaker, flags, content:
     `<div class="foil-flavor"><strong>${flag.title}: ${total}</strong><br><em>Foil Token spent. d${die.faces} rerolled ${die.value} &rarr; ${roll.total}.</em></div>` });
 }
 
 Hooks.on("renderChatMessageHTML", (message, html) => {
   const stress = message.getFlag("foil", "stress");
-  if (stress) addButton(html, `Stress: ${stress.name}`, "foil-stress-followup", () => computeStress(stress));
+  if (stress?.targets?.length) {
+    stress.targets.forEach((t, i) => addButton(html, `Oppose: ${t.name}`, "foil-oppose", () => resolveOppose(message, i)));
+  } else if (stress) addButton(html, `Stress: ${stress.name}`, "foil-stress-followup", () => computeStress(stress));
   const reroll = message.getFlag("foil", "reroll");
   const owner = game.actors.get(reroll?.actorId);
   // Only characters hold Foil Tokens (PHB 3.2.0).
