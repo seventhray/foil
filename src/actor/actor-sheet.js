@@ -150,8 +150,11 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
     // A Heavy Instrument takes both hands: nothing else in hand while it's ready (PHB 4.1.1).
     const inHand = [...this.actor.items].filter(i => (i.type === "instrument" && !i.system.innate && i.system.location === "equipped")
       || (i.type === "equipment" && i.system.category === "shield" && i.system.location === "equipped"));
+    const heldInst = inHand.filter(i => i.type === "instrument");
+    const tooMany = heldInst.length > 2 || (heldInst.length === 2 && heldInst.some(i => i.system.weight !== "light"));
     for (const v of groups.instrument) {
-      if (v.system.twoHanded && v.system.location === "equipped" && inHand.length > 1) {
+      if (tooMany && v.system.location === "equipped" && !v.system.innate) v.handsWarning = "Only one Instrument can be equipped, or two Light ones.";
+      else if (v.system.twoHanded && v.system.location === "equipped" && inHand.length > 1) {
         v.handsWarning = "Heavy: takes both hands, but another Instrument or a shield is also equipped (PHB 4.1.1).";
       }
     }
@@ -488,6 +491,16 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
       const others = this.actor.items.filter(i => i.id !== item.id && i.type === "equipment"
         && i.system.category === cat && i.system.location === "equipped");
       if (others.length) await this.actor.updateEmbeddedDocuments("Item", others.map(i => ({ _id: i.id, "system.location": "carried" })));
+    }
+    // One Instrument in hand, or two Light ones: equipping another puts down what no longer fits.
+    if (next === "equipped" && item.type === "instrument" && !item.system.innate) {
+      const held = this.actor.items.filter(i => i.id !== item.id && i.type === "instrument" && !i.system.innate && i.system.location === "equipped");
+      const keep = item.system.weight === "light" ? held.filter(i => i.system.weight === "light").slice(-1) : [];
+      const drop = held.filter(i => !keep.includes(i));
+      if (drop.length) {
+        await this.actor.updateEmbeddedDocuments("Item", drop.map(i => ({ _id: i.id, "system.location": "carried" })));
+        ui.notifications?.info(`${drop.map(i => i.name).join(" and ")} put away: one Instrument in hand, or two Light ones.`);
+      }
     }
     await item.update({ "system.location": next });
   }
