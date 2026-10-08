@@ -52,6 +52,7 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
       rollTechnique:    FoilActorSheet._onRollTechnique,
       rollEnchantment:  FoilActorSheet._onRollEnchantment,
       earnToken:        FoilActorSheet._onEarnToken,
+      adjustRations:    FoilActorSheet._onAdjustRations,
       absorbStress:     FoilActorSheet._onAbsorbStress,
       addCondition:     FoilActorSheet._onAddCondition,
       removeCondition:  FoilActorSheet._onRemoveCondition,
@@ -416,6 +417,11 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
   }
 
   // ─── Foil Tokens (PHB 3.2.0) ────────────────────────────────────────────────
+
+  static async _onAdjustRations(event, target) {
+    const next = Math.max(0, Number(this.actor.system.rations ?? 0) + Number(target.dataset.delta ?? 1));
+    await this.actor.update({ "system.rations": next });
+  }
 
   static async _onEarnToken(event, target) {
     const delta = Number(target.dataset.delta ?? 1);
