@@ -893,3 +893,11 @@
 
 .foil-term { border-bottom: 1px dotted var(--accent); cursor: help; }
 .foil-term:hover { color: var(--accent); }
+
+/* Creature Vulnerable rows */
+.vuln-list { display: flex; flex-direction: column; gap: 3px; }
+.vuln-row { display: flex; gap: 6px; align-items: center; }
+.vuln-row select:first-child { flex: 1 1 auto; min-width: 0; }
+.vuln-row input[type="text"] { flex: 1 1 80px; min-width: 0; }
+.vuln-row .mini-num { width: 52px; flex: 0 0 52px; }
+.vuln-row a { cursor: pointer; color: var(--bad); }

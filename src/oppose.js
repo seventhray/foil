@@ -12,6 +12,7 @@ import { conditionFlags, conditionMods, harmFlags, harmNames, incomingMods, kind
 import { ask } from "./dialogs.js";
 import { resolveActor } from "./chat-actions.js";
 import { logEvent, who } from "./playtest-log.js";
+import { scopedResistance } from "./resist.js";
 
 const targetActor = resolveActor;
 
@@ -176,14 +177,15 @@ export async function resolveOppose(message, index) {
       content: `<div class="foil-flavor"><strong>${actor.name} is ${cnd.name}</strong><br><em>${[go.rounds?.trim(), go.note?.trim()].filter(Boolean).join("; ")}.</em></div>` });
   }
 
-  const resistance = Number(sys.attributes?.[aim]?.resistanceTotal ?? sys.resistance?.[`${kind}Total`] ?? 0) + (answer.parry ? 1 : 0);
+  const scoped = scopedResistance({ vulnerabilities: sys.vulnerabilities, narrowResistance: sys.narrowResistance }, { ...(flag.attackInfo ?? {}), kind });
+  const resistance = Number(sys.attributes?.[aim]?.resistanceTotal ?? sys.resistance?.[`${kind}Total`] ?? 0) + (answer.parry ? 1 : 0) + scoped.net;
   const type = flag.typeIndex === "" || flag.typeIndex === undefined || flag.typeIndex === null ? null : flag.types?.[Number(flag.typeIndex)] ?? null;
   const r = stressFor({
     attack, oppose, name: flag.name, cap: flag.cap, capLabel: flag.capLabel, mult: Number(flag.mult ?? 1),
     kind, resistance, type, bespoke: Number(flag.bespoke ?? 0), other: Number(flag.other ?? 0), pierce: Number(flag.pierce ?? 0)
   });
   logEvent("oppose", { ...logBase, landed: r.landed, margin: r.margin, cappedMargin: r.capped, stress: r.stress,
-    cap: flag.cap, mult: Number(flag.mult ?? 1), resistance, kind, type: type?.label ?? null,
+    cap: flag.cap, mult: Number(flag.mult ?? 1), resistance, kind, scopedResistance: scoped.parts, type: type?.label ?? null,
     bespoke: Number(flag.bespoke ?? 0), pierce: Number(flag.pierce ?? 0), other: Number(flag.other ?? 0), breakdown: r.parts });
   const speaker = ChatMessage.getSpeaker({ actor: game.actors.get(flag.actorId) });
   const versus = `${attack} against ${oppose}`;

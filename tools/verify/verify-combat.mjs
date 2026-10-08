@@ -2,6 +2,7 @@
 import { entryLabel, withDuration } from "../../src/pricing.js";
 import { reachBand, reachLine, rangeWarning, bandOfFeet } from "../../src/range.js";
 import { aggregateModifiers } from "../../src/modifiers.js";
+import { parseVulnerable, scopedResistance } from "../../src/resist.js";
 import { restPlan } from "../../src/rest.js";
 import { conditionMods, conditionFlags, allowedAims, targetFlags, harmFlags, incomingMods, skillFormula, kindOf } from "../../src/combat.js";
 
@@ -57,5 +58,14 @@ const feat = (name, modifiers) => ({ name, type: "feat", system: { modifiers } }
 const agg = aggregateModifiers([feat("Cave Reflexes", [{ type: "initiative", key: "", value: 2 }]), feat("Vigilant", [{ type: "initiative", key: "", value: 2 }]),
   feat("Camouflaged Skin", [{ type: "stealth", key: "", value: 2 }]), feat("Dark Sight", [{ type: "training", key: "acuity", value: 2 }])]);
 check("Feat modifiers add to Initiative, Stealth, and Training", [agg.initiative, agg.stealth, agg.training.acuity], [4, 2, 2]);
+
+const atk = { types: ["edged", "pointed"], families: ["melee"], damageTypes: ["edged", "pointed"], materials: "Metal + Leather", kind: "physical" };
+check("old Vulnerable text becomes scoped rows", parseVulnerable("Fire 2, silver 1, Melee 1"), [{ scope: "fire", material: "", n: 2 }, { scope: "material", material: "silver", n: 1 }, { scope: "melee", material: "", n: 1 }]);
+check("Vulnerable nets against a matching Instrument Type, Family, and Material only", [
+  scopedResistance({ vulnerabilities: [{ scope: "edged", n: 2 }] }, atk).net,
+  scopedResistance({ vulnerabilities: [{ scope: "melee", n: 1 }, { scope: "fire", n: 3 }] }, atk).net,
+  scopedResistance({ vulnerabilities: [{ scope: "material", material: "metal", n: 1 }] }, atk).net,
+  scopedResistance({ vulnerabilities: [{ scope: "mental", n: 4 }] }, atk).net], [-2, -1, -1, 0]);
+check("narrow Resistance adds and Vulnerable subtracts", scopedResistance({ vulnerabilities: [{ scope: "edged", n: 1 }], narrowResistance: [{ scope: "edged", n: 3 }] }, atk).net, 2);
 
 process.exit(failed ? 1 : 0);

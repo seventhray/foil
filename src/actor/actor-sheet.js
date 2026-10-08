@@ -26,6 +26,7 @@ import "../chat-actions.js";
 import { allowedAims, conditionFlags, conditionMods, signedParts, skillFormula, targetFlags } from "../combat.js";
 import { resolveOppose } from "../oppose.js";
 import { restPlan } from "../rest.js";
+import { SCOPE_GROUPS } from "../resist.js";
 import { reachBand, reachLine, rangeWarning } from "../range.js";
 import { logEvent, who } from "../playtest-log.js";
 import { glossarize, bindTerms, lookup } from "../glossary-ui.js";
@@ -53,6 +54,8 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
     actions: {
       rollSkill:        FoilActorSheet._onRollSkill,
       rollExtra:        FoilActorSheet._onRollExtra,
+      addVulnerability: FoilActorSheet._onAddVulnerability,
+      removeVulnerability: FoilActorSheet._onRemoveVulnerability,
       rollKit:          FoilActorSheet._onRollKit,
       rollTechnique:    FoilActorSheet._onRollTechnique,
       rollEnchantment:  FoilActorSheet._onRollEnchantment,
@@ -129,6 +132,15 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
         ].map(o => ({ ...o, selected: o.value === (v.lean ?? "") }))
       };
     });
+  }
+
+  /** Vulnerable rows for the creature header: scope choices with the current one selected. */
+  _vulnRows() {
+    return (this.actor.system.vulnerabilities ?? []).map((v, idx) => ({
+      idx, ...v, isMaterial: v.scope === "material",
+      groups: SCOPE_GROUPS.map(g => ({ label: g.label, options: g.options.map(([value, label]) => ({ value, label, selected: value === v.scope })) })),
+      nChoices: [1, 2, 3, 4, 5, 6].map(n => ({ value: n, label: `${n}`, selected: n === Number(v.n) }))
+    }));
   }
 
   /** The character's one Origin or Background, for the header. */
@@ -221,6 +233,18 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
     if (cm.parts.length) notes.push(`${signedParts(cm.parts)}.`);
     notes.push(...conditionFlags(sys.conditions, { skill, technique }));
     return notes;
+  }
+
+  static async _onAddVulnerability() {
+    const list = foundry.utils.deepClone(this.actor.system.vulnerabilities ?? []);
+    list.push({ scope: "fire", material: "", n: 1 });
+    await this.actor.update({ "system.vulnerabilities": list });
+  }
+
+  static async _onRemoveVulnerability(event, target) {
+    const list = foundry.utils.deepClone(this.actor.system.vulnerabilities ?? []);
+    list.splice(Number(target.dataset.index), 1);
+    await this.actor.update({ "system.vulnerabilities": list });
   }
 
   static async _onRollExtra(event, target) {
@@ -455,6 +479,16 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
    * The chat-card payload the Stress button reads. The margin cap follows the
    * Instrument's weight (PHB 6.7.0).
    */
+  /** What a hit through this Instrument counts as for Vulnerable and narrow Resistance (GMG 4.3.0). */
+  _attackInfo(inst) {
+    const reg = globalThis.CONFIG?.FOIL?.instrumentTypes ?? {};
+    const types = inst.system.types ?? [];
+    return {
+      types, damageTypes: inst.system.damageTypes ?? [], materials: inst.system.materials ?? "",
+      families: [...new Set(types.flatMap(k => [reg[k]?.family, k === "grappling" || k === "kinetic" || k === "incorporeal" || k === "sonic" ? k : null]).filter(Boolean))]
+    };
+  }
+
   _stressFlag(inst, name, total, { bespoke = 0, pierce = 0, aim = { targets: [] } } = {}) {
     const primary = inst.system.primaryAttribute;
     const a = this.actor.system.attributes?.[primary];
@@ -466,7 +500,7 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
         actorId: this.actor.id, name, attackTotal: total, instrument: inst.name,
         cap: marginCap(potential, weight), capLabel: label(weight),
         mult: Number(inst.system.marginMultiplier ?? 1),
-        types: inst.system.stressTypes ?? [], bespoke, pierce,
+        types: inst.system.stressTypes ?? [], bespoke, pierce, attackInfo: this._attackInfo(inst),
         melee: !!inst.system.isMelee, targets: aim.targets, aim: aim.aim, typeIndex: aim.typeIndex, other: aim.other
       }
     };
@@ -770,7 +804,7 @@ export class FoilCreatureSheet extends FoilActorSheet {
   };
 
   async _prepareContext(options) {
-    return { ...this._commonContext(), health: this.actor.system.health ?? 0 };
+    return { ...this._commonContext(), health: this.actor.system.health ?? 0, vulnRows: this._vulnRows() };
   }
 }
 

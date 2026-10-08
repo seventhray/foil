@@ -9,11 +9,12 @@ import { typeOptions, effectOptions, qualityOptions, effectMap, qualityMap } fro
 import {
   WEIGHT_KEYS, WEIGHT_CLASS, ATTRIBUTE_KEYS, ATTR_LABEL, SKILL_KEYS, SKILL_LABEL, SIZE, SIZE_KEYS,
   FOCUS_GEMS, EQUIPMENT_CATEGORY_LABEL, RESISTANCE_KINDS, RESISTANCE_LABEL, cap, ITEM_LOCATIONS, LOCATION_LABEL,
-  TECHNIQUE_FAMILIES, ORIGIN_NAMES, RANGE_CHOICES, RANGE_BANDS, RANGE_LABEL
+  DAMAGE_TYPES, TECHNIQUE_FAMILIES, ORIGIN_NAMES, RANGE_CHOICES, RANGE_BANDS, RANGE_LABEL
 } from "../constants.js";
 import { QualityData, EffectData, InstrumentTypeData } from "../data/definition-models.js";
 import { entryLabel, DURATION_BASES, DURATIONS, CONDITION_EFFECTS, withDuration } from "../pricing.js";
 import { lookup } from "../glossary-ui.js";
+import { VULNERABLE_FAMILIES } from "../resist.js";
 
 const { HandlebarsApplicationMixin } = foundry.applications.api;
 const ItemSheetV2Base = foundry.applications.sheets.ItemSheetV2;
@@ -76,7 +77,7 @@ export class FoilItemSheet extends HandlebarsApplicationMixin(ItemSheetV2Base) {
     if (mods) {
       for (const row of Array.isArray(mods) ? mods : Object.values(mods)) {
         if (!row) continue;
-        const valid = row.type === "training" ? SKILL_KEYS : row.type === "resistance" ? [...RESISTANCE_KINDS, ...ATTRIBUTE_KEYS] : [];
+        const valid = row.type === "training" ? SKILL_KEYS : row.type === "resistance" ? [...RESISTANCE_KINDS, ...ATTRIBUTE_KEYS, ...Object.keys(VULNERABLE_FAMILIES), ...Object.keys(DAMAGE_TYPES)] : [];
         if (!valid.includes(row.key)) row.key = valid[0] ?? "";
       }
     }
@@ -171,7 +172,8 @@ export class FoilItemSheet extends HandlebarsApplicationMixin(ItemSheetV2Base) {
     }
     if (this.item.type === "feat") {
       const keysFor = type => type === "training" ? SKILL_KEYS.map(k => opt(k, SKILL_LABEL[k]))
-        : type === "resistance" ? [...RESISTANCE_KINDS.map(k => opt(k, RESISTANCE_LABEL[k])), ...ATTRIBUTE_KEYS.map(k => opt(k, `${ATTR_LABEL[k]} only`))] : null;
+        : type === "resistance" ? [...RESISTANCE_KINDS.map(k => opt(k, RESISTANCE_LABEL[k])), ...ATTRIBUTE_KEYS.map(k => opt(k, `${ATTR_LABEL[k]} only`)),
+            ...Object.keys(VULNERABLE_FAMILIES).map(k => opt(k, `${cap(k)} attacks`)), ...Object.keys(DAMAGE_TYPES).map(k => opt(k, `${cap(k)} damage`))] : null;
       ctx.modifierRows = (sys.modifiers ?? []).map((m, idx) => {
         const keys = keysFor(m.type);
         return { idx, ...m, keyChoices: keys?.map(c => ({ ...c, selected: c.value === m.key })) ?? null,

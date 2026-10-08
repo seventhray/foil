@@ -7,7 +7,8 @@
  * (a Ward or armor made for it, PHB 5.2.4) counts only for that Attribute.
  */
 
-import { SKILL_KEYS, RESISTANCE_KINDS, ATTRIBUTE_KEYS, LEGACY_SKILL_KEY } from "./constants.js";
+import { SKILL_KEYS, RESISTANCE_KINDS, ATTRIBUTE_KEYS, LEGACY_SKILL_KEY, DAMAGE_TYPES } from "./constants.js";
+import { VULNERABLE_FAMILIES } from "./resist.js";
 
 // Equipment whose Resistance or Skill bonus applies only while worn or carried in hand.
 const WORN = new Set(["armor", "shield", "ward", "charm"]);
@@ -50,6 +51,7 @@ export function aggregateModifiers(items = []) {
   };
 
   let initiative = 0, stealth = 0;
+  const narrowResistance = [];
   const counted = new Set();
   for (const cat of ONE_AT_A_TIME) {
     const worn = items.filter(it => it.type === "equipment" && it.system?.category === cat && it.system?.location === "equipped");
@@ -73,6 +75,7 @@ export function aggregateModifiers(items = []) {
       case "feat":
         for (const m of s.modifiers ?? []) {
           if (m.type === "training") addTraining(m.key, m.value);
+          else if (m.type === "resistance" && (m.key in DAMAGE_TYPES || m.key in VULNERABLE_FAMILIES)) narrowResistance.push({ scope: m.key, material: "", n: Number(m.value ?? 0) });
           else if (m.type === "resistance") addResistance(m.key, m.value, it.name);
           else if (m.type === "initiative") initiative += Number(m.value ?? 0);
           else if (m.type === "stealth") stealth += Number(m.value ?? 0);
@@ -82,5 +85,5 @@ export function aggregateModifiers(items = []) {
   }
   for (const list of [...Object.values(resistanceSources), ...Object.values(attributeResistanceSources)])
     list.sort((a, b) => b.value - a.value);
-  return { training, skillBonus, resistance, resistanceSources, attributeResistance, attributeResistanceSources, initiative, stealth };
+  return { training, skillBonus, resistance, resistanceSources, attributeResistance, attributeResistanceSources, initiative, stealth, narrowResistance };
 }
