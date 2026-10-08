@@ -167,6 +167,13 @@ export const CONDITION_PRESETS = {
   Misled: "10 minutes", Blinded: "end of its next turn", Slowed: "end of its next turn", Stunned: "end of its next turn",
   Invisible: "until it uses a Technique"
 };
+/** Technique Effect keys that apply a Condition with an Oppose (PHB 6.5.0). */
+export const EFFECT_CONDITION = {
+  weaken: "Weakened", "weaken-minute": "Weakened", reeling: "Reeling", "reeling-minute": "Reeling",
+  grappled: "Grappled", restrained: "Restrained", prone: "Prone", charmed: "Charmed", frightened: "Frightened",
+  controlled: "Controlled", intimidated: "Intimidated", baited: "Baited", angered: "Angered", relaxed: "Relaxed",
+  impressed: "Impressed", enthralled: "Enthralled", blinded: "Blinded", slowed: "Slowed", stunned: "Stunned"
+};
 /** The two Skills that resist each Condition when a Technique deals no Stress (PHB 6.5.0, 6.8.x). */
 export const CONDITION_OPPOSE = {
   Grappled: ["prowess", "discipline"], Restrained: ["prowess", "discipline"], Prone: ["prowess", "acuity"],

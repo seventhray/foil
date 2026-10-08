@@ -6,7 +6,7 @@
  * before the Stress lands.
  */
 
-import { ATTRIBUTE_KEYS, ATTR_LABEL, SKILL_LABEL, PRIMARY_SKILLS } from "./constants.js";
+import { ATTRIBUTE_KEYS, ATTR_LABEL, SKILL_LABEL, PRIMARY_SKILLS, CONDITION_OPPOSE, CONDITION_PRESETS } from "./constants.js";
 import { stressFor } from "./stress.js";
 import { conditionFlags, conditionMods, harmFlags, harmNames, incomingMods, kindOf, signedParts, skillFormula, targetFlags } from "./combat.js";
 import { ask } from "./dialogs.js";
@@ -72,11 +72,12 @@ export async function resolveOppose(message, index) {
   if (!actor.isOwner) return ui.notifications?.warn(`Only ${actor.name}'s owner or the GM can Oppose for it.`);
 
   const sys = actor.system;
+  const cnd = flag.condition ?? null;
   const aim = flag.aim;
-  const kind = kindOf(aim);
+  const kind = cnd ? "mental" : kindOf(aim);
   const incoming = incomingMods(sys.conditions, { melee: !!flag.melee });
   const attack = Number(flag.attackTotal) + incoming.total;
-  const skills = PRIMARY_SKILLS[aim];
+  const skills = cnd ? (CONDITION_OPPOSE[cnd.name] ?? PRIMARY_SKILLS.wit) : PRIMARY_SKILLS[aim];
   const best = skills.reduce((a, k) => ((sys.skills?.[k]?.rollAvg ?? 0) > (sys.skills?.[a]?.rollAvg ?? 0) ? k : a), skills[0]);
   const opts = skills.map(k => `<option value="${k}" ${k === best ? "selected" : ""}>${SKILL_LABEL[k]} (${sys.skills?.[k]?.formula || "no dice"})</option>`).join("");
   const attackLine = incoming.parts.length
@@ -85,10 +86,10 @@ export async function resolveOppose(message, index) {
   const flags = [...targetFlags(sys.conditions), ...conditionFlags(sys.conditions, { skill: best })];
   const flagHtml = flags.length ? `<p><em>${flags.join("<br>")}</em></p>` : "";
   const answer = await ask(`${actor.name} Opposes ${flag.name}`,
-    `<p>${flag.name} rolled ${attackLine} at ${actor.name}'s ${ATTR_LABEL[aim]}. Conditions and a Blocking Instrument's bonus are added.</p>${flagHtml}`
+    `<p>${flag.name} rolled ${attackLine} to make ${actor.name} ${cnd?.name ?? `suffer Stress at ${ATTR_LABEL[aim]}`}. ${cnd ? `${actor.name} must Oppose with ${skills.map(k => SKILL_LABEL[k]).join(" or ")} (PHB 6.5.0). ` : ""}Conditions and a Blocking Instrument's bonus are added.</p>${flagHtml}`
     + `<div class="form-group"><label>Oppose with</label><select name="skill">${opts}</select></div>`
-    + `<div class="form-group"><label>Guard <em>(+2)</em></label><input type="checkbox" name="guard" /></div>`
-    + (kind === "physical" ? `<div class="form-group"><label>Parry <em>(physical Resistance +1)</em></label><input type="checkbox" name="parry" /></div>` : "")
+    + (cnd ? "" : `<div class="form-group"><label>Guard <em>(+2)</em></label><input type="checkbox" name="guard" /></div>`)
+    + (!cnd && kind === "physical" ? `<div class="form-group"><label>Parry <em>(physical Resistance +1)</em></label><input type="checkbox" name="parry" /></div>` : "")
     + `<div class="form-group"><label>Other Oppose modifier</label><input type="number" name="other" value="0" /></div>`, "Roll Oppose");
   if (!answer) return;
 
@@ -106,6 +107,24 @@ export async function resolveOppose(message, index) {
   const oppose = roll.total;
   await roll.toMessage({ speaker: ChatMessage.getSpeaker({ actor }),
     flavor: `<div class="foil-flavor"><strong>Oppose: ${SKILL_LABEL[skill]}</strong>${extras.length ? `<br><em>${signedParts(extras)}.</em>` : ""}${oppFlags.length ? `<br><em>${oppFlags.join("<br>")}</em>` : ""}</div>` });
+
+  if (cnd) {
+    const speaker = ChatMessage.getSpeaker({ actor: game.actors.get(flag.actorId) });
+    const versus = `${attack} against ${oppose}`;
+    if (oppose > attack) {
+      return ChatMessage.create({ speaker, content: `<div class="foil-flavor"><strong>${flag.name} fails against ${actor.name}</strong><br><em>${versus}; the Oppose beat it (PHB 6.5.0).</em></div>` });
+    }
+    await ChatMessage.create({ speaker, content: `<div class="foil-flavor"><strong>${flag.name} lands: ${actor.name} is ${cnd.name}</strong><br><em>${versus}.</em></div>` });
+    const go = await ask(`Apply ${cnd.name} to ${actor.name}`,
+      `<div class="form-group"><label>Duration</label><input type="text" name="rounds" value="${CONDITION_PRESETS[cnd.name] ?? ""}" /></div>`
+      + `<div class="form-group"><label>Note <em>(Weakened: Attribute and N; Reeling: N)</em></label><input type="text" name="note" value="${cnd.note ?? ""}" /></div>`, "Apply");
+    if (!go) return;
+    const list = foundry.utils.deepClone(actor.system.conditions ?? []);
+    list.push({ name: cnd.name, rounds: go.rounds?.trim() ?? "", note: go.note?.trim() ?? "" });
+    await actor.update({ "system.conditions": list });
+    return ChatMessage.create({ speaker: ChatMessage.getSpeaker({ actor }),
+      content: `<div class="foil-flavor"><strong>${actor.name} is ${cnd.name}</strong><br><em>${[go.rounds?.trim(), go.note?.trim()].filter(Boolean).join("; ")}.</em></div>` });
+  }
 
   const resistance = Number(sys.attributes?.[aim]?.resistanceTotal ?? sys.resistance?.[`${kind}Total`] ?? 0) + (answer.parry ? 1 : 0);
   const type = flag.typeIndex === "" || flag.typeIndex === undefined || flag.typeIndex === null ? null : flag.types?.[Number(flag.typeIndex)] ?? null;

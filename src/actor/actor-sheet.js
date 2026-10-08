@@ -17,7 +17,7 @@
 import {
   ATTRIBUTE_KEYS, ATTR_LABEL, SKILL_ATTRS, SKILL_KEYS, SKILL_LABEL, SKILL_ABBR, FOIL_AXES,
   FOIL_TOKEN_MAX, CONDITIONS, EQUIPMENT_CATEGORY_LABEL, ITEM_LOCATIONS, LOCATION_LABEL,
-  REST_BLOCK_HOURS, REST_RATION_HOURS, MARGIN_CAP, marginCap, CONDITION_OPPOSE
+  REST_BLOCK_HOURS, REST_RATION_HOURS, MARGIN_CAP, marginCap, CONDITION_OPPOSE, EFFECT_CONDITION
 } from "../constants.js";
 import { equipmentSummary } from "../registry.js";
 import { stressFor } from "../stress.js";
@@ -225,8 +225,19 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
     await this._postRoll(this._skillFormula(kit.skill, inst.system.bonusRoll, targeted ? inst.system.weightDice : ""), `${kit.name} (${SKILL_LABEL[kit.skill]})`,
       notes.join("<br>"), roll => ({
         cond: this._condFlag(),
+        ...(applied && CONDITION_OPPOSE[applied] ? this._conditionFlag(kit.name, roll.total, { name: applied, note: "" }, { melee: !!inst.system.isMelee }) : {}),
         ...(stress ? this._stressFlag(inst, kit.name, roll.total, { bespoke: bespokeBonus(kit.effect), pierce: inst.system.bonusPierce, aim }) : {})
       }));
+  }
+
+  /** A Condition-applying Technique's card payload: each target Opposes with the Condition's two Skills (PHB 6.5.0). */
+  _conditionFlag(name, total, condition, { melee = false } = {}) {
+    const tokens = [...(game.user?.targets ?? [])];
+    if (!tokens.length) return {};
+    return { stress: {
+      actorId: this.actor.id, name, attackTotal: total, condition, melee,
+      targets: tokens.map(t => ({ uuid: t.document.uuid, actorId: t.actor?.id ?? "", name: t.name }))
+    } };
   }
 
   /** The roller, the targeted tokens, and the roller's Conditions that end on use, for the card's Condition buttons. */
@@ -339,8 +350,12 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
     const gemPierce = gem?.type === "emerald" && sys.pierceTotal ? Number(gem.tier) : 0;
     const wdice = sys.offensive && inst?.type === "instrument" ? (inst.system.weightDice ?? "") : "";
     if (wdice) notes.push(`${inst.system.weightLabel}: +${wdice}.`);
+    const applied = !sys.dealsStress ? (sys.effects ?? []).find(e => CONDITION_OPPOSE[EFFECT_CONDITION[e.key]]) : null;
+    const condition = applied ? { name: EFFECT_CONDITION[applied.key], note: applied.key.startsWith("reeling") ? `${applied.magnitude ?? 1}` : "" } : null;
+    if (condition) notes.push(`The target resists with ${CONDITION_OPPOSE[condition.name].map(k => SKILL_LABEL[k]).join(" or ")} (PHB 6.5.0).`);
     await this._postRoll(this._skillFormula(skill, bonus, wdice), `${tech.name} (${SKILL_LABEL[skill]})`, notes.join("<br>"), roll => ({
       cond: this._condFlag(),
+      ...(condition ? this._conditionFlag(tech.name, roll.total, condition, { melee: !!inst?.system.isMelee }) : {}),
       ...(sys.dealsStress && inst ? this._stressFlag(inst, tech.name, roll.total, {
         bespoke: Number(sys.stressRider ?? 0), pierce: Number(sys.pierceTotal ?? 0) + Number(inst.system.bonusPierce ?? 0) + gemPierce, aim
       }) : {})
@@ -699,7 +714,7 @@ Hooks.on("renderChatMessageHTML", (message, html) => {
   const stress = message.getFlag("foil", "stress");
   if (stress?.targets?.length) {
     stress.targets.forEach((t, i) => addButton(html, `Oppose: ${t.name}`, "foil-oppose", () => resolveOppose(message, i)));
-  } else if (stress) addButton(html, `Stress: ${stress.name}`, "foil-stress-followup", () => computeStress(stress));
+  } else if (stress && !stress.condition) addButton(html, `Stress: ${stress.name}`, "foil-stress-followup", () => computeStress(stress));
   const reroll = message.getFlag("foil", "reroll");
   const owner = game.actors.get(reroll?.actorId);
   // Only characters hold Foil Tokens (PHB 3.2.0).
