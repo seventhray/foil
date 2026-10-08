@@ -27,6 +27,7 @@ import {
   SYSTEM_ROOT, SYSTEM_VERSION, readPHB, readCatalog, tableAfter, sectionText, setting
 } from "./books.mjs";
 import { buildPacks } from "./build-packs.mjs";
+import { EQUIPMENT_CATEGORY_LABEL } from "../src/constants.js";
 
 
 
@@ -561,14 +562,41 @@ function writeGuidePack(packName, journals) {
   console.log(`  ${packName}: ${docs.length} journals / ${docs.reduce((n, d) => n + d.pages.length, 0)} pages.`);
 }
 
-function writePack(packName, docs) {
+/** Folder docs for a pack: one per distinct path in `paths`, nested by path segment. */
+function folderDocs(packName, paths) {
+  const folders = new Map();
+  for (const segs of paths) {
+    for (let i = 1; i <= segs.length; i++) {
+      const key = segs.slice(0, i).join("/");
+      if (folders.has(key)) continue;
+      const _id = stableId(packName, "folder", key);
+      const parent = i > 1 ? folders.get(segs.slice(0, i - 1).join("/"))._id : null;
+      folders.set(key, { _id, name: segs[i - 1], type: "Item", folder: parent, sort: (folders.size + 1) * 100000,
+        color: null, description: "", flags: {}, _key: `!folders!${_id}` });
+    }
+  }
+  return folders;
+}
+
+function writePack(packName, docs, folderOf = null) {
+  const paths = folderOf ? docs.map(d => folderOf(d).filter(Boolean)) : docs.map(() => []);
+  const folders = folderDocs(packName, paths.filter(p => p.length));
   const out = docs.map((doc, i) => {
     const _id = stableId(packName, doc.type, doc.name, doc.system?.ancestry ?? "");
-    return { _id, ...doc, effects: [], folder: null, sort: (i + 1) * 100000, ownership: { default: 0 }, flags: {}, _key: `!items!${_id}` };
+    const folder = paths[i].length ? folders.get(paths[i].join("/"))._id : null;
+    return { _id, ...doc, effects: [], folder, sort: (i + 1) * 100000, ownership: { default: 0 }, flags: {}, _key: `!items!${_id}` };
   });
-  writeSource(packName, out);
-  console.log(`  ${packName}: ${out.length} items.`);
+  writeSource(packName, [...folders.values(), ...out]);
+  console.log(`  ${packName}: ${out.length} items${folders.size ? ` in ${folders.size} folders` : ""}.`);
 }
+
+const capital = str => String(str ?? "").replace(/^./, c => c.toUpperCase());
+const FOLDERS = {
+  techniques: d => [d.system.family || (d.system.innate ? "Innate" : "Other"), d.system.subgroup],
+  feats: d => d.system.featType === "ancestry" ? ["Origin", d.system.ancestry] : [capital(d.system.featType)],
+  instruments: d => [d.system.innate ? "Innate" : d.system.category === "tool" ? "Tools" : capital(d.system.category)],
+  equipment: d => [EQUIPMENT_CATEGORY_LABEL[d.system.category] ?? capital(d.system.category)]
+};
 
 // ─── Build and check ────────────────────────────────────────────────────────
 const byOrder = (a, b) => String(a.family ?? a.category ?? "").localeCompare(String(b.family ?? b.category ?? ""))
@@ -625,10 +653,10 @@ if (process.argv.includes("--dry-run")) {
   writePack("instrument-types", INSTRUMENT_TYPES.map(instrumentTypeDoc));
   writePack("qualities", QUALITIES.map(qualityDoc));
   writePack("effects", EFFECTS.map(effectDoc));
-  writePack("instruments", instruments);
-  writePack("techniques", techniques);
-  writePack("feats", feats);
-  writePack("equipment", equipment);
+  writePack("instruments", instruments, FOLDERS.instruments);
+  writePack("techniques", techniques, FOLDERS.techniques);
+  writePack("feats", feats, FOLDERS.feats);
+  writePack("equipment", equipment, FOLDERS.equipment);
   writePack("backgrounds", backgrounds);
   writePack("ancestries", ancestries);
   writeGuidePack("guide", GUIDE);
