@@ -505,7 +505,7 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
     const rationsOn = this.actor.type === "character" ? Number(this.actor.system.rations ?? 0) : null;
     const f = n => (Number.isInteger(n) ? String(n) : n.toFixed(1));
     const rows = hurt.map(a => `<tr data-key="${a.key}"><th>${ATTR_LABEL[a.key]}</th>`
-      + `<td class="rest-hours"><button type="button" data-step="-1">-</button> <span data-c="hours">0</span> h <button type="button" data-step="1">+</button>`
+      + `<td><div class="rest-stepper"><button type="button" data-step="-1">-</button><span class="rest-value"><span data-c="hours">0</span> h</span><button type="button" data-step="1">+</button></div>`
       + `<input type="hidden" name="${a.key}" value="0" /></td>`
       + `<td>${a.cur}/${a.max}</td><td data-c="avg">0</td><td data-c="max">0</td><td data-c="expected">${a.cur}/${a.max}</td><td data-c="best">${a.cur}/${a.max}</td></tr>`).join("");
     const content = `<p>Each ${REST_BLOCK_HOURS} hours of rest removes 1d4 Stress from one Attribute. One ration feeds ${REST_RATION_HOURS} hours.</p>`
