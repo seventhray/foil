@@ -62,7 +62,7 @@ export const GLOSSARY = {
   },
   "destroyed": {
     "name": "Destroyed",
-    "text": "Destruction is permanent: death, or a mind or self broken past recovering. A creature is Destroyed when all four of its Attributes are Incapacitated at the same time. Killing is a choice."
+    "text": "Destruction is permanent: death, or a mind or self broken past recovering. A creature is Destroyed when all four of its Attributes are Incapacitated at the same time. Destroying an opponent is a choice."
   },
   "difficulty": {
     "name": "Difficulty",
