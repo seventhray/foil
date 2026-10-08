@@ -15,7 +15,7 @@
     <select name="system.size">{{#each sizeOptions}}<option value="{{this.value}}" {{#if (foil-eq this.value ../system.size)}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>
     <label>Materials</label>
     <input type="text" name="system.materials" value="{{system.materials}}" />
-    <label>Location <em>(only equipped gear grants its Resistance or bonus; stored gear weighs nothing)</em></label>
+    <label>Location <em>(only equipped gear grants its Resistance or bonus)</em></label>
     <select name="system.location">{{#each locationOptions}}<option value="{{this.value}}" {{#if (foil-eq this.value ../system.location)}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>
     <label>Uses</label>
     <input type="text" name="system.uses" value="{{system.uses}}" />

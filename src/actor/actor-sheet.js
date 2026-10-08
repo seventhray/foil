@@ -26,7 +26,7 @@ import "../chat-actions.js";
 import { allowedAims, conditionFlags, conditionMods, signedParts, skillFormula, targetFlags } from "../combat.js";
 import { resolveOppose } from "../oppose.js";
 
-const LOCATION_ICON = { equipped: "fa-hand", carried: "fa-suitcase", stored: "fa-box-archive" };
+const LOCATION_ICON = { equipped: "fa-hand", carried: "fa-suitcase" };
 const locationView = loc => ({ key: loc, icon: LOCATION_ICON[loc] ?? "fa-suitcase", label: LOCATION_LABEL[loc] ?? loc });
 
 const { HandlebarsApplicationMixin } = foundry.applications.api;
@@ -56,7 +56,6 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
       absorbStress:     FoilActorSheet._onAbsorbStress,
       addCondition:     FoilActorSheet._onAddCondition,
       removeCondition:  FoilActorSheet._onRemoveCondition,
-      cycleLocation:    FoilActorSheet._onCycleLocation,
       toggleEquipped:   FoilActorSheet._onToggleEquipped,
       rest:             FoilActorSheet._onRest,
       generateCharacter: FoilActorSheet._onGenerateCharacter,
@@ -131,7 +130,6 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
         view.primaryLabel = ATTR_LABEL[s.primaryAttribute] ?? "";
         view.kit = (s.kit ?? []).map((k, idx) => ({ idx, name: k.name, skillLabel: SKILL_LABEL[k.skill] ?? k.skill, effect: k.effect }));
         if (!s.innate) view.place = locationView(s.location);
-        view.stowable = !s.innate && s.location !== "equipped";
         // An Instrument's built-in Techniques join the Techniques tab, with their source (PHB 7.2.0).
         for (const k of view.kit) groups.builtin.push({ ...k, id: item.id, source: item.name, ready: s.innate || s.location === "equipped" });
       } else if (item.type === "technique") {
@@ -145,7 +143,6 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
         view.categoryLabel = EQUIPMENT_CATEGORY_LABEL[s.category] ?? "";
         view.effectSummary = equipmentSummary(s);
         view.place = locationView(s.location);
-        view.stowable = s.location !== "equipped";
       }
       groups[item.type].push(view);
     }
@@ -279,12 +276,11 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
     };
   }
 
-  /** Instruments able to deliver a Technique: any one of its required Types; equipped ones first, stored ones never. */
+  /** Instruments able to deliver a Technique: any one of its required Types; equipped ones first. */
   _validInstruments(tech) {
     const req = tech.system.requires ?? [];
     const ready = i => (i.system.innate || i.system.location === "equipped") ? 0 : 1;
     return this.actor.items.filter(i => {
-      if (i.system.location === "stored") return false;
       if (i.type === "instrument") return req.length === 0 || req.some(k => i.system.types?.includes(k));
       if (i.type === "equipment" && i.system.category === "shield") return req.includes("blocking");
       return false;
@@ -482,13 +478,6 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
     const item = this.actor.items.get(target.closest("[data-item-id]")?.dataset.itemId);
     if (!item || item.system.innate) return;
     await this._setLocation(item, item.system.location === "equipped" ? "carried" : "equipped");
-  }
-
-  /** An unequipped item is carried or stored; the icon swaps the two (PHB 5.2.6). */
-  static async _onCycleLocation(event, target) {
-    const item = this.actor.items.get(target.closest("[data-item-id]")?.dataset.itemId);
-    if (!item || item.system.innate) return;
-    await this._setLocation(item, item.system.location === "carried" ? "stored" : "carried");
   }
 
   async _setLocation(item, next) {

@@ -32,13 +32,12 @@
             <td class="quality-cell">{{this.system.typesLabel}}</td>
             <td>{{this.primaryLabel}}</td>
             <td>{{this.system.range}}</td>
-            <td class="num" title="{{#if (foil-eq this.place.key "stored")}}Stored: counts for nothing{{else}}Counts toward Mass{{/if}}">{{#if this.system.carriedWeight}}{{this.system.carriedWeight}} lbs{{else}}&mdash;{{/if}}</td>
+            <td class="num" title="Counts toward Mass">{{#if this.system.carriedWeight}}{{this.system.carriedWeight}} lbs{{else}}&mdash;{{/if}}</td>
             <td class="kit-cell">
               {{#each this.kit}}<span class="kit-name" title="{{this.effect}}">{{this.name}} <span class="abbr">{{this.skillLabel}}</span></span>{{/each}}
             </td>
             <td class="item-actions">
               {{#if this.handsWarning}}<i class="fas fa-triangle-exclamation item-warning" title="{{this.handsWarning}}"></i>{{/if}}
-              {{#if this.stowable}}<a data-action="cycleLocation" title="{{this.place.label}}: click to {{#if (foil-eq this.place.key "stored")}}carry{{else}}store{{/if}}"><i class="fas {{this.place.icon}}"></i></a>{{/if}}
               {{#if this.system.enchantment.enabled}}<a data-action="rollEnchantment" title="Enchantment: {{this.system.enchantment.effectSummary}}"><i class="fas fa-wand-magic-sparkles"></i></a>{{/if}}
               <a data-action="deleteItem" title="Delete"><i class="fas fa-trash"></i></a>
             </td>
@@ -64,10 +63,9 @@
             <td class="item-name" data-action="editItem">{{this.name}}</td>
             <td>{{this.categoryLabel}}</td>
             <td class="effect-cell">{{this.effectSummary}}</td>
-            <td class="num" title="{{#if (foil-eq this.place.key "stored")}}Stored: counts for nothing{{else}}Counts toward Mass{{/if}}">{{#if this.system.carriedWeight}}{{this.system.carriedWeight}} lbs{{else}}&mdash;{{/if}}</td>
+            <td class="num" title="Counts toward Mass">{{#if this.system.carriedWeight}}{{this.system.carriedWeight}} lbs{{else}}&mdash;{{/if}}</td>
             <td class="num">{{this.system.price}}p</td>
             <td class="item-actions">
-              {{#if this.stowable}}<a data-action="cycleLocation" title="{{this.place.label}}: click to {{#if (foil-eq this.place.key "stored")}}carry{{else}}store{{/if}}"><i class="fas {{this.place.icon}}"></i></a>{{/if}}
               <a data-action="deleteItem" title="Delete"><i class="fas fa-trash"></i></a>
             </td>
           {{/if}}

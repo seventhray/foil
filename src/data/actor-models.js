@@ -97,7 +97,7 @@ function prepareCore(sys) {
     a.resistanceFromLabel = (mods.attributeResistanceSources?.[key] ?? []).map(e => `+${e.value} ${e.name}`).join(", ");
   }
 
-  // Mass (PHB 5.2.6): everything equipped or carried, worn Armor included; stored items count for nothing.
+  // Mass (PHB 5.2.6): everything equipped or carried, worn Armor included.
   const might = attrs.might?.potential?.max ?? 0;
   const carried = items.reduce((n, it) => n + Number(it.system?.carriedWeight ?? 0), 0)
                 + Number(sys.rations ?? 0) * RATION_LBS;
