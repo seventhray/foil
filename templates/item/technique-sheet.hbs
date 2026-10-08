@@ -12,12 +12,14 @@
     <input type="checkbox" name="system.innate" {{#if system.innate}}checked{{/if}} />
     <label>Skill <em>(if it names one)</em></label>
     <select name="system.skill">{{#each skillOrNoneOptions}}<option value="{{this.value}}" {{#if (foil-eq this.value ../system.skill)}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>
-    <label>Defensive floor <em>(ward, answers a class, 8 XP)</em></label>
+    <label>Defensive floor <em>(a ward or answer to a class of attack; sets a minimum price of 8 XP)</em></label>
     <input type="checkbox" name="system.floor" {{#if system.floor}}checked{{/if}} />
-    <label>Family / group</label>
-    <span><input type="text" name="system.family" value="{{system.family}}" /> <input type="text" name="system.subgroup" value="{{system.subgroup}}" /></span>
-    <label>Origin grant</label>
-    <input type="text" name="system.ancestryGrant" value="{{system.ancestryGrant}}" />
+    <label>Catalog family <em>(only sorts it into a compendium folder, such as Melee or Kinetic)</em></label>
+    <input type="text" name="system.family" value="{{system.family}}" placeholder="Melee, Kinetic, Sonic..." />
+    <label>Catalog group <em>(subfolder inside the family, such as Control or Piercing)</em></label>
+    <input type="text" name="system.subgroup" value="{{system.subgroup}}" placeholder="Control, Piercing..." />
+    <label>Free from Origin <em>(an Origin Feat teaches it at no cost; a label only)</em></label>
+    <input type="text" name="system.ancestryGrant" value="{{system.ancestryGrant}}" placeholder="Origin name, or blank" />
   </div>
   <fieldset>
     <legend>Requires Instrument Type <em>(any one of)</em></legend>
