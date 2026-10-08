@@ -16,3 +16,13 @@ export async function ask(title, content, label = "OK") {
     rejectClose: false
   }).catch(() => null);
 }
+
+/** Append a button to a chat card. */
+export function addButton(html, label, cls, onClick) {
+  const btn = document.createElement("button");
+  btn.type = "button";
+  btn.className = cls;
+  btn.textContent = label;
+  btn.addEventListener("click", onClick);
+  (html.querySelector(".message-content") ?? html).appendChild(btn);
+}

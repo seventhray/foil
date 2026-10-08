@@ -21,7 +21,8 @@ import {
 } from "../constants.js";
 import { equipmentSummary } from "../registry.js";
 import { stressFor } from "../stress.js";
-import { ask, dialogApi } from "../dialogs.js";
+import { ask, dialogApi, addButton } from "../dialogs.js";
+import "../chat-actions.js";
 import { conditionFlags, conditionMods, signedParts, skillFormula, targetFlags } from "../combat.js";
 import { resolveOppose } from "../oppose.js";
 
@@ -222,9 +223,21 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
     if (!aim) return;
     notes.push(...(aim.notes ?? []));
     await this._postRoll(this._skillFormula(kit.skill, inst.system.bonusRoll, targeted ? inst.system.weightDice : ""), `${kit.name} (${SKILL_LABEL[kit.skill]})`,
-      notes.join("<br>"), stress ? roll => this._stressFlag(inst, kit.name, roll.total, {
-        bespoke: bespokeBonus(kit.effect), pierce: inst.system.bonusPierce, aim
-      }) : null);
+      notes.join("<br>"), roll => ({
+        cond: this._condFlag(),
+        ...(stress ? this._stressFlag(inst, kit.name, roll.total, { bespoke: bespokeBonus(kit.effect), pierce: inst.system.bonusPierce, aim }) : {})
+      }));
+  }
+
+  /** The roller, the targeted tokens, and the roller's Conditions that end on use, for the card's Condition buttons. */
+  _condFlag() {
+    const a = this.actor;
+    const ends = (a.system.conditions ?? []).some(c => c.name === "Invisible")
+      ? [{ uuid: a.uuid, actorId: a.id, actorName: a.name, name: "Invisible" }] : [];
+    return {
+      actorUuid: a.uuid, actorId: a.id, actorName: a.name, ends,
+      targets: [...(game.user?.targets ?? [])].map(t => ({ uuid: t.document.uuid, actorId: t.actor?.id ?? "", name: t.name }))
+    };
   }
 
   /**
@@ -326,11 +339,12 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
     const gemPierce = gem?.type === "emerald" && sys.pierceTotal ? Number(gem.tier) : 0;
     const wdice = sys.offensive && inst?.type === "instrument" ? (inst.system.weightDice ?? "") : "";
     if (wdice) notes.push(`${inst.system.weightLabel}: +${wdice}.`);
-    await this._postRoll(this._skillFormula(skill, bonus, wdice), `${tech.name} (${SKILL_LABEL[skill]})`, notes.join("<br>"),
-      sys.dealsStress && inst ? roll => this._stressFlag(inst, tech.name, roll.total, {
-        bespoke: Number(sys.stressRider ?? 0), pierce: Number(sys.pierceTotal ?? 0) + Number(inst.system.bonusPierce ?? 0) + gemPierce,
-        aim
-      }) : null);
+    await this._postRoll(this._skillFormula(skill, bonus, wdice), `${tech.name} (${SKILL_LABEL[skill]})`, notes.join("<br>"), roll => ({
+      cond: this._condFlag(),
+      ...(sys.dealsStress && inst ? this._stressFlag(inst, tech.name, roll.total, {
+        bespoke: Number(sys.stressRider ?? 0), pierce: Number(sys.pierceTotal ?? 0) + Number(inst.system.bonusPierce ?? 0) + gemPierce, aim
+      }) : {})
+    }));
   }
 
   /** Use an Instrument's bound Enchantment (PHB 5.3.4): no Technique known, Strain still applies. */
@@ -348,7 +362,7 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
       const { before, after } = await this.actor.takeStress(inst.system.primaryAttribute, ench.strain);
       notes.push(`Strain ${ench.strain} on ${ATTR_LABEL[inst.system.primaryAttribute]} (${before} &rarr; ${after}).`);
     }
-    await this._postRoll(this._skillFormula(answer.skill, inst.system.bonusRoll), `${inst.name} (${SKILL_LABEL[answer.skill]})`, notes.join("<br>"));
+    await this._postRoll(this._skillFormula(answer.skill, inst.system.bonusRoll), `${inst.name} (${SKILL_LABEL[answer.skill]})`, notes.join("<br>"), () => ({ cond: this._condFlag() }));
   }
 
   /**
@@ -622,15 +636,6 @@ export class FoilCreatureSheet extends FoilActorSheet {
 
 // ─── Chat card buttons ────────────────────────────────────────────────────────
 
-function addButton(html, label, cls, onClick) {
-  const btn = document.createElement("button");
-  btn.type = "button";
-  btn.className = cls;
-  btn.textContent = label;
-  btn.addEventListener("click", onClick);
-  (html.querySelector(".message-content") ?? html).appendChild(btn);
-}
-
 /**
  * Computed Stress for a landed Technique (PHB 6.7.0; math in src/stress.js).
  * Applying it to the target stays with the table.
@@ -683,6 +688,8 @@ async function rerollDie(message, flag) {
   await actor.setFoilTokens(actor.foilTokens - 1);
   const flags = { foil: { reroll: { ...flag, total, dice } } };
   const stress = message.getFlag("foil", "stress");
+  const cond = message.getFlag("foil", "cond");
+  if (cond) flags.foil.cond = cond;
   if (stress) flags.foil.stress = { ...stress, attackTotal: total, rerolled: true };
   await ChatMessage.create({ speaker: message.speaker, flags, content:
     `<div class="foil-flavor"><strong>${flag.title}: ${total}</strong><br><em>Foil Token spent. d${die.faces} rerolled ${die.value} &rarr; ${roll.total}.</em></div>` });

@@ -8,14 +8,11 @@
 
 import { ATTRIBUTE_KEYS, ATTR_LABEL, SKILL_LABEL, PRIMARY_SKILLS } from "./constants.js";
 import { stressFor } from "./stress.js";
-import { conditionFlags, conditionMods, harmFlags, incomingMods, kindOf, signedParts, skillFormula, targetFlags } from "./combat.js";
+import { conditionFlags, conditionMods, harmFlags, harmNames, incomingMods, kindOf, signedParts, skillFormula, targetFlags } from "./combat.js";
 import { ask } from "./dialogs.js";
+import { resolveActor } from "./chat-actions.js";
 
-/** The Actor a stored target points at (a token's own actor when the token is unlinked). */
-export async function targetActor(t) {
-  const doc = t.uuid ? await fromUuid(t.uuid).catch(() => null) : null;
-  return doc?.actor ?? game.actors.get(t.actorId) ?? null;
-}
+const targetActor = resolveActor;
 
 /** The user who answers for a defender: an active non-GM owner, else the active GM. */
 function defenderUser(actor) {
@@ -29,11 +26,13 @@ const signed = n => (n > 0 ? `+${n}` : `${n}`);
 async function applyStress(actor, aim, amount) {
   const lines = [];
   let left = amount, attr = aim, destroyed = false;
+  const applied = [];
   while (left > 0) {
     const take = Math.min(left, actor.potentialOf(attr));
     if (take > 0) {
       const { before, after } = await actor.takeStress(attr, take);
       lines.push(`${ATTR_LABEL[attr]} ${before} &rarr; ${after}`);
+      applied.push({ attr, amount: take });
       left -= take;
     }
     if (left <= 0) break;
@@ -54,7 +53,13 @@ async function applyStress(actor, aim, amount) {
   if (destroyed) notes.push(`${actor.name} is Destroyed (PHB 6.8.2).`);
   notes.push(...harmFlags(actor.system.conditions));
   const note = notes.length ? `<br>${notes.join("<br>")}` : "";
-  await ChatMessage.create({ speaker: ChatMessage.getSpeaker({ actor }),
+  const self = { uuid: actor.uuid, actorId: actor.id, actorName: actor.name };
+  const flags = { foil: {
+    halve: { ...self, applied },
+    cond: { actorUuid: actor.uuid, actorId: actor.id, actorName: actor.name, targets: [],
+            ends: harmNames(actor.system.conditions).map(name => ({ ...self, name })) }
+  } };
+  await ChatMessage.create({ speaker: ChatMessage.getSpeaker({ actor }), flags,
     content: `<div class="foil-flavor"><strong>${amount} Stress applied</strong><br><em>${lines.join(", ")}${note}</em></div>` });
 }
 

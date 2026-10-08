@@ -77,12 +77,14 @@ export function targetFlags(conditions = []) {
     ? [check("Invisible", "reaches only Touching range, and True Sight, Blindsight and Keen Scent ignore it, -2 included")] : [];
 }
 
+const HARM_ENDS = { Charmed: "ends when the source's side deals it Stress", Enthralled: "ends when the source or an ally harms it",
+                    Relaxed: "ends when the source or an ally threatens or harms it" };
+
+/** Names of a target's Conditions that end when it is harmed. */
+export const harmNames = (conditions = []) => [...new Set(conditions.map(c => c.name))].filter(n => HARM_ENDS[n]);
+
 /** Conditions on a target that end when it is harmed. */
-export function harmFlags(conditions = []) {
-  const ends = { Charmed: "ends when the source's side deals it Stress", Enthralled: "ends when the source or an ally harms it",
-                 Relaxed: "ends when the source or an ally threatens or harms it" };
-  return [...new Set(conditions.map(c => c.name))].filter(n => ends[n]).map(n => `Check ${n}: ${ends[n]}.`);
-}
+export const harmFlags = conditions => harmNames(conditions).map(n => `Check ${n}: ${HARM_ENDS[n]}.`);
 
 export const signedParts = parts => parts.map(p => `${p.label} ${p.value > 0 ? "+" : ""}${p.value}`).join(", ");
 
