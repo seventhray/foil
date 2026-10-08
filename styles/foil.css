@@ -738,7 +738,7 @@
 }
 .chat-message .foil-flavor em { color: #6A6377; }
 
-.chat-message button.foil-stress-followup {
+.chat-message button.foil-card-btn {
   display: block;
   width: 100%;
   margin-top: 4px;
@@ -752,12 +752,12 @@
   background: linear-gradient(180deg, #FFFFFF, #F6F3FA);
   color: #6B4BA8;
 }
-.chat-message button.foil-stress-followup:hover { background: #E6E0EC; }
-.chat-message button.foil-stress-followup:disabled { opacity: 0.6; cursor: default; }
+.chat-message button.foil-card-btn:hover { background: #E6E0EC; }
+.chat-message button.foil-card-btn:disabled { opacity: 0.6; cursor: default; }
 
 /* Stress computed from the opposed roll's margin (PHB 6.7.0). The chat card
    asks for the one number it can't know and does the rest. */
-.foil-stress-followup { margin-top: 6px; width: 100%; }
+
 
 /* Resistance is two values on the actor, not four (PHB 6.6.0). */
 /* Resistance sits on the same 4-column grid as the Attribute cards above, each

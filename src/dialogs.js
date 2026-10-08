@@ -21,7 +21,7 @@ export async function ask(title, content, label = "OK") {
 export function addButton(html, label, cls, onClick) {
   const btn = document.createElement("button");
   btn.type = "button";
-  btn.className = cls;
+  btn.className = `foil-card-btn ${cls}`;
   btn.textContent = label;
   btn.addEventListener("click", onClick);
   (html.querySelector(".message-content") ?? html).appendChild(btn);
