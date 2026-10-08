@@ -477,10 +477,15 @@ function ancestryDocs() {
     const name = head[2].trim();
     const desc = (block.match(/^\*(.+)\*$/m) ?? [])[1] ?? "";
     const feats = [...block.matchAll(/^\*\*Feat:\*\* ([^.]+)\./gm)].map(m => m[1].trim());
+    const featText = [...block.matchAll(/^\*\*Feat:\*\* ([^.]+)\.\s*(.*)$/gm)].map(m => ({ name: m[1].trim(), text: m[2].trim() }));
+    const talentLine = (block.match(/^\*\*Talent:\*\* (.+)$/m)?.[1] ?? "").replace(/\.$/, "");
+    const html = [desc ? `<p><em>${desc}</em></p>` : "",
+      talentLine ? `<p><strong>Talent:</strong> ${talentLine}.</p>` : "",
+      featText.length ? `<ul>${featText.map(f => `<li><strong>${f.name}.</strong> ${f.text}</li>`).join("")}</ul>` : ""].join("");
     const talent = [...(block.match(/^\*\*Talent:\*\* (.+)$/m)?.[1] ?? "").matchAll(/(?:one )?(\w+)(?: die)? to d(\d+)/g)]
       .map(m => ({ attribute: lc(m[1]), die: +m[2] }));
     out.push({ name, type: "origin", img: "icons/svg/village.svg",
-      system: { talent, feats, feat: feats[0] ?? "", section: head[1], description: desc ? `<p>${desc}</p>` : "" } });
+      system: { talent, feats, feat: feats[0] ?? "", section: head[1], description: html } });
   }
   return out;
 }

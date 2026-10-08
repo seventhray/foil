@@ -189,7 +189,7 @@ export class FoilChargen extends HandlebarsApplicationMixin(ApplicationV2) {
       backgrounds: sortByName(backgrounds).map(d => ({ name: d.name, selected: d.name === st.background })),
       startingTiers: STARTING_TIERS.map(t => ({ ...t, selected: t.key === st.startingPoint })),
       ancestryInfo: ancestry ? {
-        description: ancestry.system.description, talent: ancestry.system.talentSummary, feats: ancestryFeats
+        description: (ancestry.system.description ?? "").match(/^<p>.*?<\/p>/)?.[0] ?? "", talent: ancestry.system.talentSummary, feats: ancestryFeats
       } : null,
       backgroundInfo: background ? {
         description: background.system.description, training: background.system.grantsSummary,
