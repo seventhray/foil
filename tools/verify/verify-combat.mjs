@@ -1,4 +1,5 @@
 /** Condition modifiers on rolls and on Techniques rolled against a target (PHB 6.8.0). */
+import { entryLabel, withDuration } from "../../src/pricing.js";
 import { restPlan } from "../../src/rest.js";
 import { conditionMods, conditionFlags, allowedAims, targetFlags, harmFlags, incomingMods, skillFormula, kindOf } from "../../src/combat.js";
 
@@ -40,5 +41,9 @@ check("rest: expected recovery is 2.5 a block, capped at what is missing", [plan
 const thin = restPlan(hurt, { might: 3, wit: 2 }, 1);
 check("rest: unfed blocks fall to the later Attributes", [thin.rows[0].fed, thin.rows[1].fed, thin.short, thin.unfedHours], [3, 1, 1, 2]);
 check("rest: creatures track no rations", [restPlan(hurt, { might: 2 }, null).used, restPlan(hurt, { might: 2 }, null).rows[0].fed], [0, 2]);
+
+const def = (key, ml) => ({ key, pricingKind: "perPoint", magnitudeLabel: ml, label: ml });
+check("effect labels show N and duration", [entryLabel({ key: "weaken", magnitude: 2 }, def("weaken", "-N [target Attribute]")), entryLabel({ key: "reeling-minute", magnitude: 3 }, def("reeling-minute", "-N Oppose")), entryLabel({ key: "mend", magnitude: 2 }, def("mend", "Mend Nd4"))], ["-2 [target Attribute] (1 round)", "-3 Oppose (1 minute)", "Mend 2d4"]);
+check("a Lasts choice swaps an Effect for its 1-minute twin", [withDuration("reeling", true), withDuration("reeling-minute", false), withDuration("pierce", true)], ["reeling-minute", "reeling", "pierce"]);
 
 process.exit(failed ? 1 : 0);

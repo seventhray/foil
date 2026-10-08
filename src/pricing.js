@@ -132,14 +132,21 @@ export function priceTechnique(effects = [], registry = {}, opts = {}) {
 }
 
 const BAND_NAME = ["", "Close", "Near", "Short", "Mid", "Long"];
+/** Effects priced for 1 round, with a 1-minute twin keyed `<key>-minute`. */
+export const DURATION_BASES = new Set(["skill-mod", "reeling", "weaken"]);
+export const withDuration = (key, minute) => `${String(key).replace(/-minute$/, "")}${minute && DURATION_BASES.has(String(key).replace(/-minute$/, "")) ? "-minute" : ""}`;
 
 /** A readable label for one composed entry ("Pierce 2", "Cone (Near)"). */
 export function entryLabel(entry, def) {
   const name = def?.label ?? entry.key;
   const mag = Number(entry.magnitude ?? 1);
   switch (def?.pricingKind) {
-    case "perPoint":
-      return def.magnitudeLabel ? def.magnitudeLabel.replace("N", mag) : name;
+    case "perPoint": {
+      const base = def.magnitudeLabel ? def.magnitudeLabel.replace(/Nd4/, `${mag}d4`).replace("N", mag) : name;
+      const key = String(def.key ?? entry.key);
+      const duration = key.endsWith("-minute") ? "1 minute" : DURATION_BASES.has(key) ? "1 round" : "";
+      return duration ? `${base} (${duration})` : base;
+    }
     case "pattern":
       return `${(entry.pattern ?? "").replace(/^./, c => c.toUpperCase())} (${BAND_NAME[entry.bands] ?? entry.bands})`;
     case "selective":

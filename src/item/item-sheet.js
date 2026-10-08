@@ -12,7 +12,7 @@ import {
   TECHNIQUE_FAMILIES, ORIGIN_NAMES, RANGE_CHOICES
 } from "../constants.js";
 import { QualityData, EffectData, InstrumentTypeData } from "../data/definition-models.js";
-import { entryLabel } from "../pricing.js";
+import { entryLabel, DURATION_BASES, withDuration } from "../pricing.js";
 import { lookup } from "../glossary-ui.js";
 
 const { HandlebarsApplicationMixin } = foundry.applications.api;
@@ -68,6 +68,21 @@ export class FoilItemSheet extends HandlebarsApplicationMixin(ItemSheetV2Base) {
 
   static PARTS = { main: { template: "systems/foil/templates/item/feat-sheet.hbs" } };
 
+  /** A row's Lasts choice picks between an Effect and its 1-minute twin. */
+  _processFormData(event, form, formData) {
+    const data = super._processFormData(event, form, formData);
+    for (const path of ["system.effects", "system.enchantment.effects"]) {
+      const list = foundry.utils.getProperty(data, path);
+      if (!list) continue;
+      for (const row of Array.isArray(list) ? list : Object.values(list)) {
+        if (!row || row.duration === undefined) continue;
+        row.key = withDuration(row.key ?? "", row.duration === "minute");
+        delete row.duration;
+      }
+    }
+    return data;
+  }
+
   _configureRenderParts(options) {
     const parts = super._configureRenderParts(options);
     parts.main = { ...parts.main, template: TEMPLATE_MAP[this.item.type] ?? TEMPLATE_MAP.feat };
@@ -95,7 +110,7 @@ export class FoilItemSheet extends HandlebarsApplicationMixin(ItemSheetV2Base) {
       dieOptions: [6, 8, 10, 12, 20].map(n => opt(n, `d${n}`)),
       patternShapes: PATTERN_SHAPES.map(s => opt(s, cap(s))),
       typeOptions: typeOptions(sys.requires ?? sys.types ?? []).map(t => ({ ...t, help: lookup(t.key)?.text ?? lookup(t.label)?.text ?? "" })),
-      effectOptions: effectOptions(),
+      effectOptions: effectOptions().filter(o => !o.key.endsWith("-minute")),
       qualityOptions: qualityOptions(),
       familyOptions: InstrumentTypeData.FAMILIES.map(k => opt(k, cap(k))),
       reloadOptions: [opt("", "None"), opt("quick", "Quick Action"), opt("action", "Action")],
@@ -117,7 +132,11 @@ export class FoilItemSheet extends HandlebarsApplicationMixin(ItemSheetV2Base) {
       ]
     };
 
-    const effectRows = list => (list ?? []).map((e, idx) => ({ idx, ...e, label: entryLabel(e, em[e.key]), help: lookup(String(e.key).split("-")[0])?.text ?? "" }));
+    const effectRows = list => (list ?? []).map((e, idx) => {
+      const base = String(e.key).replace(/-minute$/, "");
+      return { idx, ...e, key: base, label: entryLabel(e, em[e.key]), help: lookup(base.split("-")[0])?.text ?? "",
+               hasDuration: DURATION_BASES.has(base), minute: String(e.key).endsWith("-minute") };
+    });
     if (this.item.type === "technique") ctx.effectRows = effectRows(sys.effects);
     if (this.item.type === "instrument") {
       ctx.enchantEffectRows = effectRows(sys.enchantment?.effects);
