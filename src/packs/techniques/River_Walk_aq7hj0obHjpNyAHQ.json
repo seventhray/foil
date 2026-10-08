@@ -5,7 +5,6 @@
   "img": "icons/svg/aura.svg",
   "system": {
     "requires": [],
-    "requiresText": "Innate",
     "innate": true,
     "skill": "",
     "family": "",

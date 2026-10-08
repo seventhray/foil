@@ -7,7 +7,6 @@
     "requires": [
       "blunt"
     ],
-    "requiresText": "Blunt",
     "innate": false,
     "skill": "",
     "family": "Melee",

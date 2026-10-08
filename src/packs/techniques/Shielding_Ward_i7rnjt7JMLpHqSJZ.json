@@ -7,7 +7,6 @@
     "requires": [
       "blocking"
     ],
-    "requiresText": "Blocking",
     "innate": false,
     "skill": "",
     "family": "Guard",

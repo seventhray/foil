@@ -7,7 +7,6 @@
     "requires": [
       "sonic"
     ],
-    "requiresText": "Sonic",
     "innate": false,
     "skill": "",
     "family": "Sonic",

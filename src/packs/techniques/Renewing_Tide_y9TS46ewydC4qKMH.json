@@ -7,7 +7,6 @@
     "requires": [
       "fortifying"
     ],
-    "requiresText": "Fortifying",
     "innate": false,
     "skill": "",
     "family": "Fortifying",

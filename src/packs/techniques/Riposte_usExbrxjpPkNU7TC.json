@@ -7,7 +7,6 @@
     "requires": [
       "parry"
     ],
-    "requiresText": "Parry",
     "innate": false,
     "skill": "",
     "family": "Guard",

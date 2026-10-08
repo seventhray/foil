@@ -7,7 +7,6 @@
     "requires": [
       "grappling"
     ],
-    "requiresText": "Grappling",
     "innate": false,
     "skill": "",
     "family": "",

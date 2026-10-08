@@ -7,7 +7,6 @@
     "requires": [
       "edged"
     ],
-    "requiresText": "Edged",
     "innate": false,
     "skill": "",
     "family": "Melee",

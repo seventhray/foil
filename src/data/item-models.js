@@ -183,7 +183,6 @@ export class TechniqueData extends foundry.abstract.TypeDataModel {
     return {
       // Instrument Type slugs, any one of; empty with `innate` means no Instrument at all.
       requires: slugArray(),
-      requiresText: str(""),
       innate: bool(false),
       // A Skill the Technique names outright (River Walk rolls Acuity).
       skill: new f.StringField({ required: true, blank: true, initial: "", choices: ["", ...SKILL_KEYS] }),
@@ -225,8 +224,11 @@ export class TechniqueData extends foundry.abstract.TypeDataModel {
       "angered", "relaxed", "impressed", "wary", "enthralled", "blinded", "slowed", "stunned", "disarm"]);
     this.offensive = (this.effects ?? []).some(e => TARGETED.has(e.key)) || /-\d+ Oppose/.test(this.effectText);
 
-    this.requiresLabel = this.requiresText
-      || (this.innate ? "Innate" : types.length ? types.map(k => defs.find(d => d.key === k)?.label ?? k).join(" or ") : "Any");
+    const sameSet = group => group.length === types.length && group.every(k => types.includes(k));
+    this.requiresLabel = this.innate ? "Innate"
+      : sameSet(["thrown", "drawn", "fired"]) ? "Ranged"
+      : sameSet(["edged", "pointed", "blunt", "grappling", "parry"]) ? "Melee"
+      : types.length ? types.map(k => defs.find(d => d.key === k)?.label ?? k).join(" or ") : "Any";
     this.typeWarning = unknown.length ? `Unresolved Instrument Type(s) in Requires: ${unknown.join(", ")}.` : "";
 
     const base = this.effectText || (priced.breakdown ?? []).map(b => b.label).join(", ");

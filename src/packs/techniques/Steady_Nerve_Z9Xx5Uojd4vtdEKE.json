@@ -7,7 +7,6 @@
     "requires": [
       "blocking"
     ],
-    "requiresText": "Blocking AND any Arcane",
     "innate": false,
     "skill": "",
     "family": "Guard",

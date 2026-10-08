@@ -8,7 +8,6 @@
       "grappling",
       "kinetic"
     ],
-    "requiresText": "Grappling OR Kinetic",
     "innate": false,
     "skill": "",
     "family": "Grappling",

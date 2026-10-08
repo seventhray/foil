@@ -285,7 +285,7 @@ function techniqueDoc(n) {
   return {
     name: n.name, type: "technique", img: "icons/svg/aura.svg",
     system: {
-      requires, requiresText: n.requires ?? "", innate,
+      requires, innate,
       skill: skillMatch ? lc(skillMatch[1]) : "",
       family: n.family ?? "", subgroup: n.subgroup ?? "",
       effects, floor,
