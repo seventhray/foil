@@ -113,8 +113,8 @@ Hooks.on("renderChatMessageHTML", (message, html) => {
     for (const e of cond.ends ?? []) addButton(html, `End ${e.name}: ${e.actorName}`, "foil-end-condition", () => endCondition(e));
   }
   const invoke = message.getFlag("foil", "invoke");
-  if (invoke && !invoke.awarded && game.user.isGM) addButton(html, "Award Foil Token", "foil-award-token", () => awardToken(message, invoke));
-  if (invoke?.awarded) addButton(html, "Foil Token awarded", "foil-awarded", () => {}).disabled = true;
+  if (invoke && !invoke.awarded && game.user.isGM) addButton(html, "Consent: the player earns a Foil Token", "foil-award-token", () => awardToken(message, invoke));
+  if (invoke?.awarded) addButton(html, "Consented: Foil Token earned", "foil-awarded", () => {}).disabled = true;
   if (message.getFlag("foil", "stress")) addButton(html, "Adjust roll", "foil-adjust-roll", () => adjustRoll(message));
   const halve = message.getFlag("foil", "halve");
   if (halve) addButton(html, "Foil Token: halve", "foil-halve", () => halveApplied(halve));
