@@ -110,7 +110,7 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
     return FOIL_AXES.map(axis => {
       const v = foil[axis.key] ?? {};
       return {
-        ...axis, lean: v.lean ?? "", habit: v.habit ?? "", canInvoke: !!(v.lean && v.habit),
+        ...axis, lean: v.lean ?? "", habit: v.habit ?? "", canInvoke: !!v.habit,
         leanOptions: [
           { value: "", label: "Neutral" }, { value: "low", label: axis.low }, { value: "high", label: axis.high }
         ].map(o => ({ ...o, selected: o.value === (v.lean ?? "") }))
@@ -423,7 +423,7 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
   static async _onInvokeHabit(event, target) {
     const axis = FOIL_AXES.find(a => a.key === target.dataset.axis);
     const v = this.actor.system.foil?.[axis?.key];
-    if (!axis || !v?.lean || !v?.habit) return ui.notifications?.warn("Declare the axis first: an undeclared axis can't be invoked.");
+    if (!axis || !v?.habit) return ui.notifications?.warn("Write a Habit for the axis first: an axis with no Habit can't be invoked.");
     await ChatMessage.create({ speaker: ChatMessage.getSpeaker({ actor: this.actor }),
       flags: { foil: { invoke: { actorId: this.actor.id, axis: axis.key, habit: v.habit, awarded: false } } },
       content: `<div class="foil-flavor"><strong>${this.actor.name} invokes ${axis.label}: ${v.habit}</strong><br><em>Waiting for GM approval.</em></div>` });
