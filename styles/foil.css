@@ -833,7 +833,7 @@
 .axis-habit-head .axis-name { flex: 0 0 auto; }
 .axis-habit-head select { flex: 1 1 auto; min-width: 0; }
 .axis-habit-head .mini-btn { flex: 0 0 auto; width: auto; white-space: nowrap; margin: 0; }
-.abbr { font-size: 0.75em; color: var(--ink-faint); margin-left: 3px; }
+.abbr { font-size: 0.9em; color: var(--ink-soft); margin-left: 4px; }
 .kit-row { display: flex; gap: 6px; align-items: baseline; padding: 1px 0; }
 .kit-cell { flex: 1 1 auto; font-size: 0.9em; }
 .kit-name { display: inline; white-space: nowrap; cursor: help; }

@@ -45,7 +45,7 @@
           {{/if}}
           {{#if (foil-eq ../type "technique")}}
             <td class="roll-cell"><a data-action="rollTechnique" class="item-roll" title="Use {{this.name}}"><i class="fas fa-dice-d20"></i></a></td>
-            <td class="item-name" data-action="editItem">{{this.name}}{{#if this.system.typeWarning}} <i class="fas fa-triangle-exclamation item-warning" title="{{this.system.typeWarning}}"></i>{{/if}}</td>
+            <td class="item-name" data-action="editItem">{{this.name}} <span class="abbr skill-tag">{{this.skillLabel}}</span>{{#if this.system.typeWarning}} <i class="fas fa-triangle-exclamation item-warning" title="{{this.system.typeWarning}}"></i>{{/if}}</td>
             <td class="num">{{this.system.xpCost}}</td>
             <td{{#if this.unusable}} class="warn"{{/if}} title="Requires {{this.system.requiresLabel}}">{{this.usableWith}}</td>
             <td class="effect-cell">{{{this.effectDisplay}}}</td>

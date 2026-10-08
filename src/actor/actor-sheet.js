@@ -145,6 +145,7 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
         for (const k of view.kit) groups.builtin.push({ ...k, id: item.id, source: item.name, ready: s.innate || s.location === "equipped" });
       } else if (item.type === "technique") {
         view.effectDisplay = glossarize(s.effectSummary);
+        view.skillLabel = s.skill ? SKILL_LABEL[s.skill] : "Any Skill";
         const valid = this._validInstruments(item);
         view.usableWith = s.innate ? "Innate (no Instrument)"
           : valid.length ? valid.map(i => i.system.location === "equipped" || i.system.innate ? i.name : `${i.name} (${LOCATION_LABEL[i.system.location].toLowerCase()})`).join(", ")
