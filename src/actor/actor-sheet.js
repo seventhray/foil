@@ -359,7 +359,7 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
     const wdice = sys.offensive && inst?.type === "instrument" ? (inst.system.weightDice ?? "") : "";
     if (wdice) notes.push(`${inst.system.weightLabel}: +${wdice}.`);
     const applied = !sys.dealsStress ? (sys.effects ?? []).find(e => CONDITION_OPPOSE[EFFECT_CONDITION[e.key]]) : null;
-    const condition = applied ? { name: EFFECT_CONDITION[applied.key], note: applied.key.startsWith("reeling") ? `${applied.magnitude ?? 1}` : "" } : null;
+    const condition = applied ? { name: EFFECT_CONDITION[applied.key], note: applied.key.startsWith("reeling") ? `${applied.magnitude ?? 1}` : "", rounds: applied.duration || (applied.key.endsWith("-minute") ? "1 minute" : "") } : null;
     if (condition) notes.push(`The target resists with ${CONDITION_OPPOSE[condition.name].map(k => SKILL_LABEL[k]).join(" or ")} (PHB 6.5.0).`);
     await this._postRoll(this._skillFormula(skill, bonus, wdice), `${tech.name} (${SKILL_LABEL[skill]})`, notes.join("<br>"), roll => ({
       cond: this._condFlag(),

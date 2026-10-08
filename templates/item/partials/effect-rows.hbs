@@ -6,7 +6,9 @@
       {{#each ../effectOptions}}<option value="{{this.key}}" {{#if (foil-eq this.key ../key)}}selected{{/if}}>{{this.label}}</option>{{/each}}
     </select>
     {{#if this.hasDuration}}<div class="ef-field"><label class="mini-label" title="How long the effect lasts">Lasts</label>
-      <select name="{{../path}}.{{this.idx}}.duration"><option value="round" {{#unless this.minute}}selected{{/unless}}>1 round</option><option value="minute" {{#if this.minute}}selected{{/if}}>1 minute</option></select></div>{{/if}}
+      <select name="{{../path}}.{{this.idx}}.lasts"><option value="round" {{#unless this.minute}}selected{{/unless}}>1 round</option><option value="minute" {{#if this.minute}}selected{{/if}}>1 minute</option></select></div>{{/if}}
+    {{#if this.durationChoices}}<div class="ef-field"><label class="mini-label" title="How long the Condition lasts. It doesn't change the price.">Lasts</label>
+      <select name="{{../path}}.{{this.idx}}.duration">{{#each this.durationChoices}}<option value="{{this.value}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>{{/each}}</select></div>{{/if}}
     <div class="ef-field"><label class="mini-label" title="N, for an Effect priced per point">N</label>
       <input type="number" class="mini-num" name="{{../path}}.{{this.idx}}.magnitude" value="{{this.magnitude}}" /></div>
     <div class="ef-field"><label class="mini-label" title="Pattern shape, for a Pattern Effect">Shape</label>

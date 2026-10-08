@@ -12,7 +12,7 @@ import {
   TECHNIQUE_FAMILIES, ORIGIN_NAMES, RANGE_CHOICES
 } from "../constants.js";
 import { QualityData, EffectData, InstrumentTypeData } from "../data/definition-models.js";
-import { entryLabel, DURATION_BASES, withDuration } from "../pricing.js";
+import { entryLabel, DURATION_BASES, DURATIONS, CONDITION_EFFECTS, withDuration } from "../pricing.js";
 import { lookup } from "../glossary-ui.js";
 
 const { HandlebarsApplicationMixin } = foundry.applications.api;
@@ -75,9 +75,9 @@ export class FoilItemSheet extends HandlebarsApplicationMixin(ItemSheetV2Base) {
       const list = foundry.utils.getProperty(data, path);
       if (!list) continue;
       for (const row of Array.isArray(list) ? list : Object.values(list)) {
-        if (!row || row.duration === undefined) continue;
-        row.key = withDuration(row.key ?? "", row.duration === "minute");
-        delete row.duration;
+        if (!row || row.lasts === undefined) continue;
+        row.key = withDuration(row.key ?? "", row.lasts === "minute");
+        delete row.lasts;
       }
     }
     return data;
@@ -135,7 +135,8 @@ export class FoilItemSheet extends HandlebarsApplicationMixin(ItemSheetV2Base) {
     const effectRows = list => (list ?? []).map((e, idx) => {
       const base = String(e.key).replace(/-minute$/, "");
       return { idx, ...e, key: base, label: entryLabel(e, em[e.key]), help: lookup(base.split("-")[0])?.text ?? "",
-               hasDuration: DURATION_BASES.has(base), minute: String(e.key).endsWith("-minute") };
+               hasDuration: DURATION_BASES.has(base), minute: String(e.key).endsWith("-minute"),
+               durationChoices: CONDITION_EFFECTS.has(base) ? [{ value: "", label: "Default (10 minutes)" }, ...DURATIONS.map(d => ({ value: d, label: d }))].map(c => ({ ...c, selected: c.value === (e.duration ?? "") })) : null };
     });
     if (this.item.type === "technique") ctx.effectRows = effectRows(sys.effects);
     if (this.item.type === "instrument") {

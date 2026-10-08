@@ -30,7 +30,9 @@ function effectsArraySchema() {
     pattern: str("single"),
     bands: int(0),
     placement: int(0),
-    selectiveR: int(0)
+    selectiveR: int(0),
+    // How long a Condition Effect lasts; blank is the rulebook default (PHB 6.8.0).
+    duration: str("")
   }));
 }
 

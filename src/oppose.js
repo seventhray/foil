@@ -146,7 +146,7 @@ export async function resolveOppose(message, index) {
     }
     await ChatMessage.create({ speaker, content: `<div class="foil-flavor"><strong>${flag.name} lands: ${actor.name} is ${cnd.name}</strong><br><em>${versus}.</em></div>` });
     const go = await ask(`Apply ${cnd.name} to ${actor.name}`,
-      `<div class="form-group"><label>Duration</label><input type="text" name="rounds" value="${CONDITION_PRESETS[cnd.name] ?? ""}" /></div>`
+      `<div class="form-group"><label>Duration</label><input type="text" name="rounds" value="${cnd.rounds || CONDITION_PRESETS[cnd.name] || ""}" /></div>`
       + `<div class="form-group"><label>Note <em>(Weakened: Attribute and N; Reeling: N)</em></label><input type="text" name="note" value="${cnd.note ?? ""}" /></div>`, "Apply");
     if (!go) return;
     const list = foundry.utils.deepClone(actor.system.conditions ?? []);

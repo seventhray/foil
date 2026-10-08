@@ -833,8 +833,8 @@
 .abbr { font-size: 0.75em; color: var(--ink-faint); margin-left: 3px; }
 .kit-row { display: flex; gap: 6px; align-items: baseline; padding: 1px 0; }
 .kit-cell { flex: 1 1 auto; font-size: 0.9em; }
-.kit-name { display: block; white-space: nowrap; line-height: 1.35; }
-.kit-name .abbr { margin-left: 3px; font-size: 0.85em; color: var(--ink-soft); }
+.kit-name { display: inline; white-space: nowrap; cursor: help; }
+.kit-name:not(:last-child)::after { content: " \00B7  "; color: var(--ink-faint); }
 .ef-readout { font-size: 0.85em; color: var(--ink-faint); }
 .condition-table { width: 100%; border-collapse: collapse; }
 .condition-table td, .condition-table th { padding: 2px 4px; border-bottom: 1px solid var(--line); }

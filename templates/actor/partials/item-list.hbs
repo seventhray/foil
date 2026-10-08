@@ -35,7 +35,7 @@
             <td>{{this.system.range}}</td>
             <td class="num" title="Counts toward Mass">{{#if this.system.carriedWeight}}{{this.system.carriedWeight}} lbs{{else}}&mdash;{{/if}}</td>
             <td class="kit-cell">
-              {{#each this.kit}}<span class="kit-name" data-tooltip="{{this.effect}}">{{this.name}} <span class="abbr">({{this.skillLabel}})</span></span>{{/each}}
+              {{#each this.kit}}<span class="kit-name" data-tooltip="{{this.skillLabel}}: {{this.effect}}">{{this.name}}</span>{{/each}}
             </td>
             <td class="item-actions">
               {{#if this.handsWarning}}<i class="fas fa-triangle-exclamation item-warning" title="{{this.handsWarning}}"></i>{{/if}}
