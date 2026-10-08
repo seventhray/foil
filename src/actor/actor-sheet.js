@@ -426,7 +426,7 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
     if (!axis || !v?.lean || !v?.habit) return ui.notifications?.warn("Declare the axis first: an undeclared axis can't be invoked.");
     await ChatMessage.create({ speaker: ChatMessage.getSpeaker({ actor: this.actor }),
       flags: { foil: { invoke: { actorId: this.actor.id, axis: axis.key, habit: v.habit, awarded: false } } },
-      content: `<div class="foil-flavor"><strong>${this.actor.name} invokes ${axis.label}: ${v.habit}</strong><br><em>Once per scene. The GM awards a Foil Token if the Habit drives the action (PHB 3.2.0).</em></div>` });
+      content: `<div class="foil-flavor"><strong>${this.actor.name} invokes ${axis.label}: ${v.habit}</strong><br><em>Waiting for GM approval.</em></div>` });
   }
 
   static async _onAdjustRations(event, target) {
