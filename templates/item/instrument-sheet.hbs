@@ -14,6 +14,8 @@
     <select name="system.primaryAttribute">{{#each attributeOptions}}<option value="{{this.value}}" {{#if (foil-eq this.value ../system.primaryAttribute)}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>
     <label>Range</label>
     <select name="system.range">{{#each rangeOptions}}<option value="{{this.value}}" {{#if (foil-eq this.value ../system.range)}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>
+    <label>Nearest range <em>(optional; it can't be used closer)</em></label>
+    <select name="system.minRange">{{#each bandOptions}}<option value="{{this.value}}" {{#if (foil-eq this.value ../system.minRange)}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>
     <label>Price (p)</label>
     <input type="number" name="system.price" value="{{system.price}}" />
     <label>Bonus (+N)</label>

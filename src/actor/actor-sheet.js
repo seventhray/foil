@@ -26,6 +26,7 @@ import "../chat-actions.js";
 import { allowedAims, conditionFlags, conditionMods, signedParts, skillFormula, targetFlags } from "../combat.js";
 import { resolveOppose } from "../oppose.js";
 import { restPlan } from "../rest.js";
+import { reachBand, reachLine, rangeWarning } from "../range.js";
 import { logEvent, who } from "../playtest-log.js";
 import { glossarize, bindTerms, lookup } from "../glossary-ui.js";
 
@@ -233,6 +234,7 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
     if (applied && CONDITION_OPPOSE[applied]) notes.push(`The target resists with ${CONDITION_OPPOSE[applied].map(k => SKILL_LABEL[k]).join(" or ")} (PHB 6.5.0).`);
     const targeted = stress || /^Applies\b/i.test(kit.effect);
     if (targeted && inst.system.weightDice) notes.push(`${inst.system.weightLabel}: +${inst.system.weightDice}.`);
+    notes.push(...this._rangeNotes({ band: inst.system.rangeBand, min: inst.system.minRange }));
     const aim = stress ? await this._aimAtTargets(inst, kit.name, kit.effect) : { targets: [] };
     if (!aim) return;
     notes.push(...(aim.notes ?? []));
@@ -291,6 +293,27 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
       typeIndex: types.length ? (answer.type ?? "0") : "",
       other: Math.trunc(Number(answer.other) || 0)
     };
+  }
+
+  /**
+   * Reach notes for a roll's card. With no target they say how far the Technique reaches;
+   * with targets they warn about any outside it. They never block the roll.
+   */
+  _rangeNotes({ band = "", min = "", extend = 0 } = {}) {
+    const reach = reachBand(band, extend);
+    const targets = [...(game.user?.targets ?? [])];
+    if (!targets.length) {
+      const line = reachLine(reach, min);
+      return line ? [line] : [];
+    }
+    const me = this.actor.getActiveTokens()[0];
+    const grid = globalThis.canvas?.grid;
+    if (!me || !grid || (grid.units && !/^(ft|feet|foot)/i.test(grid.units))) return [];
+    return targets.map(t => {
+      const apart = grid.measurePath([me.center, t.center]).distance;
+      const gap = Math.max(0, apart - ((me.document.width + t.document.width) / 2) * grid.distance);
+      return rangeWarning(t.name, gap, reach, min);
+    }).filter(Boolean);
   }
 
   /** Instruments able to deliver a Technique: any one of its required Types; equipped ones first. */
@@ -355,6 +378,8 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
     if (sys.quick) notes.push("Quick: may be paid with the Quick Action.");
     if (inst?.system.doublesMargin) notes.push("Heavy: costs the Action and the Quick Action; the margin doubles (PHB 4.1.1).");
 
+    const extend = (sys.effects ?? []).filter(e => e.key === "extend-range").reduce((n, e) => n + Number(e.bands || 1), 0);
+    notes.push(...this._rangeNotes({ band: inst ? inst.system.rangeBand : sys.range, min: sys.minRange || inst?.system.minRange, extend }));
     const aim = sys.dealsStress && inst ? await this._aimAtTargets(inst, tech.name, "", sys.requires ?? []) : { targets: [] };
     if (!aim) return;
     notes.push(...(aim.notes ?? []));

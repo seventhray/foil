@@ -259,6 +259,7 @@ const HAND_EFFECTS = {
   "River Walk": () => [e("evade")],
   Charge: () => [e("prone"), e("reeling", { magnitude: 2 })]
 };
+const TECH_RANGE = { Charge: { minRange: "near" } };
 const priceFails = [];
 
 function techniqueDoc(n) {
@@ -291,7 +292,7 @@ function techniqueDoc(n) {
       requires, innate,
       skill: skillMatch ? lc(skillMatch[1]) : "",
       family: n.family ?? "", subgroup: n.subgroup ?? "",
-      effects, floor,
+      effects, floor, ...(TECH_RANGE[n.name] ?? {}),
       ancestryGrant: n.origin_grant ?? "",
       description: n.description ? `<p>${n.description}</p>` : ""
     }
@@ -621,7 +622,7 @@ const grantedTechniques = CAT.feats.flatMap(f => {
 const readHabit = {
   name: "Read Habit", type: "technique", img: "icons/svg/aura.svg",
   system: {
-    requires: [], innate: true, skill: "", skillChoices: ["acuity", "resonance"], family: "", subgroup: "",
+    requires: [], innate: true, skill: "", skillChoices: ["acuity", "resonance"], range: "near", family: "", subgroup: "",
     effects: [e("foil-exposed"), e("quick")], floor: false, ancestryGrant: "",
     description: "<p>Every character knows it, free (PHB 2.5.4). Quick, against a creature within Near: Acuity or Resonance, resisted with Guile or Discipline. Applies Foil Exposed (PHB 6.8.24).</p>"
   }

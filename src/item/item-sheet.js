@@ -9,7 +9,7 @@ import { typeOptions, effectOptions, qualityOptions, effectMap, qualityMap } fro
 import {
   WEIGHT_KEYS, WEIGHT_CLASS, ATTRIBUTE_KEYS, ATTR_LABEL, SKILL_KEYS, SKILL_LABEL, SIZE, SIZE_KEYS,
   FOCUS_GEMS, EQUIPMENT_CATEGORY_LABEL, RESISTANCE_KINDS, RESISTANCE_LABEL, cap, ITEM_LOCATIONS, LOCATION_LABEL,
-  TECHNIQUE_FAMILIES, ORIGIN_NAMES, RANGE_CHOICES
+  TECHNIQUE_FAMILIES, ORIGIN_NAMES, RANGE_CHOICES, RANGE_BANDS, RANGE_LABEL
 } from "../constants.js";
 import { QualityData, EffectData, InstrumentTypeData } from "../data/definition-models.js";
 import { entryLabel, DURATION_BASES, DURATIONS, CONDITION_EFFECTS, withDuration } from "../pricing.js";
@@ -119,6 +119,7 @@ export class FoilItemSheet extends HandlebarsApplicationMixin(ItemSheetV2Base) {
       pricingKinds: EffectData.PRICING_KINDS.map(k => ({ value: k, label: cap(k), hint: PRICING_KIND_INFO[k] ?? "" })),
       modifierTypeOptions: [opt("training", "Training"), opt("resistance", "Resistance")],
       rangeOptions: withCurrent(RANGE_CHOICES, sys.range),
+      bandOptions: [opt("", "None"), ...RANGE_BANDS.map(b => opt(b, RANGE_LABEL[b]))],
       originOptions: [opt("", "None"), ...withCurrent([...ORIGIN_NAMES, ...worldNames("origin")].sort(), sys.ancestryGrant || sys.ancestry)],
       techniqueNameOptions: [opt("", "None"), ...withCurrent([...packNames("foil.techniques"), ...worldNames("technique")].sort(), sys.grantsTechnique)],
       familyChoices: [opt("", "None (Innate)"), ...withCurrent(Object.keys(TECHNIQUE_FAMILIES), sys.family)],

@@ -60,6 +60,8 @@ export class InstrumentData extends foundry.abstract.TypeDataModel {
       weight: new f.StringField({ required: true, initial: "light", choices: WEIGHT_KEYS }),
       primaryAttribute: new f.StringField({ required: true, initial: "might", choices: ATTRIBUTE_KEYS }),
       range: str("Close"),
+      // The nearest band it works from, when it has one (blank for none).
+      minRange: new f.StringField({ required: true, blank: true, initial: "", choices: ["", ...RANGE_BANDS] }),
       types: slugArray(),
       // Verbatim Types line when it isn't a plain list (a Wand's "or Fortifying (pick one)").
       typesDisplay: str(""),
@@ -186,6 +188,9 @@ export class TechniqueData extends foundry.abstract.TypeDataModel {
       // Instrument Type slugs, any one of; empty with `innate` means no Instrument at all.
       requires: slugArray(),
       innate: bool(false),
+      // Range for a Technique that has no Instrument, and the nearest band it works from (blank for none).
+      range: new f.StringField({ required: true, blank: true, initial: "", choices: ["", ...RANGE_BANDS] }),
+      minRange: new f.StringField({ required: true, blank: true, initial: "", choices: ["", ...RANGE_BANDS] }),
       // Skills the Technique may roll when it names more than one (Read Habit rolls Acuity or Resonance).
       skillChoices: new f.ArrayField(new f.StringField({ required: true, choices: SKILL_KEYS }), { required: true, initial: [] }),
       // A Skill the Technique names outright (River Walk rolls Acuity).
