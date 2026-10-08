@@ -7,13 +7,14 @@ export const dialogApi = () => foundry.applications?.api?.DialogV2;
 const formData = form => new (foundry.applications?.ux?.FormDataExtended ?? FormDataExtended)(form).object;
 
 /** Ask a question with a small form; resolves to the form's values, or null. */
-export async function ask(title, content, label = "OK", render = null) {
+export async function ask(title, content, label = "OK", render = null, width = null) {
   const D = dialogApi();
   if (!D) return null;
   return D.prompt({
     window: { title }, content,
     ok: { label, callback: (event, button) => formData(button.form) },
     rejectClose: false,
+    ...(width ? { position: { width } } : {}),
     ...(render ? { render: (event, dialog) => render(dialog?.element ?? event?.target?.element ?? dialog) } : {})
   }).catch(() => null);
 }

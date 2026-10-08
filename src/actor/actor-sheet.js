@@ -547,7 +547,7 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
         input.value = Math.max(0, Number(input.value) + Number(btn.dataset.step) * REST_BLOCK_HOURS);
         refresh(el);
       }));
-    });
+    }, 680);
     if (!answer) return;
     const blocks = Object.fromEntries(hurt.map(a => [a.key, Math.floor(Math.max(0, Number(answer[a.key]) || 0) / REST_BLOCK_HOURS)]));
     const plan = restPlan(hurt, blocks, rationsOn);

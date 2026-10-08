@@ -864,6 +864,7 @@
 
 /* Rest dialog */
 .rest-table { width: 100%; border-collapse: collapse; font-size: 0.9em; }
+.rest-table th, .rest-table td { white-space: nowrap; }
 .rest-table th, .rest-table td { border-bottom: 1px solid var(--line); padding: 3px 5px; text-align: center; color: var(--ink); }
 .rest-table thead th, .rest-table tfoot th { background: var(--parchment-deep); }
 .rest-table tfoot td { font-weight: bold; }
