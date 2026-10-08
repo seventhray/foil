@@ -36,6 +36,7 @@
         <a data-action="adjustRations" data-delta="-1" title="Remove one"><i class="fas fa-minus"></i></a>
         <input type="number" name="system.rations" value="{{system.rations}}" min="0" />
         <a data-action="adjustRations" data-delta="1" title="Add one"><i class="fas fa-plus"></i></a>
+        <span class="readout" title="Each ration weighs {{carry.rationEach}} lbs and counts toward Mass">{{carry.rationMass}} lbs</span>
       </div>
       <div class="tracker {{#if carry.penalty}}warn{{/if}}" title="The Mass of everything carried, worn Armor included; past 4x Might Potential, every roll takes a penalty (PHB 5.2.6)">
         <label>Mass</label>

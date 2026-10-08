@@ -103,6 +103,8 @@ function prepareCore(sys) {
                 + Number(sys.rations ?? 0) * RATION_LBS;
   sys.carry = {
     weight: carried,
+    rationMass: Number(sys.rations ?? 0) * RATION_LBS,
+    rationEach: RATION_LBS,
     limit: CARRY_FREE_MULTIPLE * might,
     penalty: might > 0 && carried > CARRY_FREE_MULTIPLE * might
       ? Math.ceil(carried / might) - CARRY_FREE_MULTIPLE : 0
