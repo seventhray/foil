@@ -68,11 +68,11 @@ for path in sorted(glob.glob(os.path.join(CREATURES, "*.md"))):
     for k, v in pots.items():
         if abs(v - T["pot"]) > 2 * STEP:
             bad.append(f"{k} Potential {v} is more than two steps from {T['pot']} (4.2.0)")
-    health = int((re.search(r"\*\*Health\*\*\s*(\d+)", s) or [0, 0])[1])
+    health = int((re.search(r"\*\*Total Potential\*\*\s*(\d+)", s) or [0, 0])[1])
     if pots and health != sum(pots.values()):
-        bad.append(f"Health {health} isn't the sum of its Potentials, {sum(pots.values())}")
+        bad.append(f"Total Potential {health} isn't the sum of its Potentials, {sum(pots.values())}")
     if abs(health - T["health"]) > STEP:
-        bad.append(f"Health {health} is more than one step from {T['health']} (4.2.0)")
+        bad.append(f"Total Potential {health} is more than one step from {T['health']} (4.2.0)")
     train = [int(x) for x in re.findall(r"\+(\d+)", (re.search(r"\*\*Training\*\*([^\n]*)", s) or [0, ""])[1])]
     if any(x != T["train"] for x in train):
         bad.append(f"Training {sorted(set(train))} isn't the tier's +{T['train']} (4.4.0)")

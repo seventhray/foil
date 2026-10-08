@@ -4,7 +4,7 @@
  * Both share the four Attributes, six Skills, Habits, Foil Tokens,
  * Resistance, and active Conditions. Attribute state is Potential
  * {current, max}: max is derived from the dice pool, current is stored and
- * lowered as Stress lands. No pooled Health for characters (PHB Key Terms);
+ * lowered as Stress lands. No pooled Total Potential for characters (PHB Key Terms);
  * creatures show it as GM shorthand.
  */
 
@@ -259,7 +259,7 @@ export class CreatureData extends foundry.abstract.TypeDataModel {
 
   prepareDerivedData() {
     prepareCore(this);
-    // Health: the four Potentials added together, creature-building shorthand (PHB Key Terms).
+    // Total Potential: the four Potentials added together, creature-building shorthand (PHB Key Terms).
     this.health = ATTRIBUTE_KEYS.reduce((n, k) => n + (this.attributes[k]?.potential?.max ?? 0), 0);
   }
 }
