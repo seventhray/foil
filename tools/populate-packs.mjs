@@ -138,7 +138,8 @@ const EFFECTS = [
   ["Blinded", "blinded", "flat", { base: 16 }, { requires: [...MELEE, ...RANGED, "kinetic", "incorporeal"] }, "PHB 6.8.20."],
   ["Slowed", "slowed", "flat", { base: 4 }, { requires: [...MELEE, ...RANGED, "kinetic", "incorporeal"] }, "PHB 6.8.21."],
   ["Stunned", "stunned", "flat", { base: 24 }, { requires: ["blunt", "kinetic", "incorporeal", "sonic"] }, "PHB 6.8.22."],
-  ["Invisible", "invisible", "flat", { base: 8 }, { requires: ["incorporeal", "fortifying"] }, "PHB 6.8.23."]
+  ["Invisible", "invisible", "flat", { base: 8 }, { requires: ["incorporeal", "fortifying"] }, "PHB 6.8.23."],
+  ["Foil Exposed", "foil-exposed", "flat", { base: 8 }, { requires: ["incorporeal", "sonic"] }, "PHB 6.8.24."]
 ];
 const effectSystem = ([, key, pricingKind, p, o, desc]) => ({
   key, requires: o.requires ?? [], pricingKind,
@@ -175,7 +176,7 @@ function parseRequires(text) {
 // ─── Effect text → composed Effects ────────────────────────────────────────
 const BAND = { close: 1, near: 2, short: 3, mid: 4, long: 5 };
 const CONDITION_KEYS = ["grappled", "prone", "restrained", "charmed", "frightened", "controlled", "intimidated",
-  "baited", "angered", "relaxed", "impressed", "wary", "enthralled", "blinded", "slowed", "stunned", "invisible"];
+  "baited", "angered", "relaxed", "impressed", "wary", "enthralled", "blinded", "slowed", "stunned", "invisible", "foil-exposed"];
 const e = (key, extra = {}) => ({ key, magnitude: 1, pattern: "single", bands: 0, placement: 0, selectiveR: 0, ...extra });
 
 /** Split on top-level commas (not inside parentheses). */

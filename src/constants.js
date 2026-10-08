@@ -157,7 +157,7 @@ export const FOIL_TOKEN_MAX = 4;
 export const CONDITIONS = [
   "Grappled", "Weakened", "Restrained", "Reeling", "Prone", "Charmed", "Frightened",
   "Controlled", "Intimidated", "Baited", "Angered", "Relaxed", "Impressed", "Wary",
-  "Enthralled", "Swayed", "Misled", "Blinded", "Slowed", "Stunned", "Invisible"
+  "Enthralled", "Swayed", "Misled", "Blinded", "Slowed", "Stunned", "Invisible", "Foil Exposed"
 ];
 /** How long each Condition lasts when a Technique states nothing else (PHB 6.8.0 to 6.8.23). */
 export const CONDITION_PRESETS = {
@@ -166,14 +166,14 @@ export const CONDITION_PRESETS = {
   Intimidated: "until the demand", Baited: "10 minutes", Angered: "10 minutes", Relaxed: "until threatened",
   Impressed: "until granted", Wary: "10 minutes", Enthralled: "until the source harms it", Swayed: "10 minutes",
   Misled: "10 minutes", Blinded: "end of its next turn", Slowed: "end of its next turn", Stunned: "end of its next turn",
-  Invisible: "until it uses a Technique"
+  Invisible: "until it uses a Technique", "Foil Exposed": "10 minutes, or until used"
 };
 /** Technique Effect keys that apply a Condition with an Oppose (PHB 6.5.0). */
 export const EFFECT_CONDITION = {
   weaken: "Weakened", "weaken-minute": "Weakened", reeling: "Reeling", "reeling-minute": "Reeling",
   grappled: "Grappled", restrained: "Restrained", prone: "Prone", charmed: "Charmed", frightened: "Frightened",
   controlled: "Controlled", intimidated: "Intimidated", baited: "Baited", angered: "Angered", relaxed: "Relaxed",
-  impressed: "Impressed", enthralled: "Enthralled", blinded: "Blinded", slowed: "Slowed", stunned: "Stunned"
+  impressed: "Impressed", enthralled: "Enthralled", blinded: "Blinded", slowed: "Slowed", stunned: "Stunned", "foil-exposed": "Foil Exposed"
 };
 /** Technique catalog families and their groups (the compendium folders). */
 export const TECHNIQUE_FAMILIES = {
@@ -197,7 +197,7 @@ export const CONDITION_OPPOSE = {
   Swayed: ["acuity", "resonance"], Misled: ["acuity", "guile"], Frightened: ["discipline", "resonance"],
   Controlled: ["discipline", "resonance"], Baited: ["discipline", "acuity"], Intimidated: ["assertiveness", "resonance"],
   Impressed: ["assertiveness", "acuity"], Relaxed: ["guile", "discipline"], Charmed: ["resonance", "acuity"],
-  Enthralled: ["resonance", "discipline"], Angered: ["resonance", "discipline"]
+  Enthralled: ["resonance", "discipline"], Angered: ["resonance", "discipline"], "Foil Exposed": ["guile", "discipline"]
 };
 
 // Mass (PHB 5.2.6): past 4x Might Potential, -1 to rolls per multiple.

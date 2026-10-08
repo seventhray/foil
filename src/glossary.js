@@ -104,6 +104,10 @@ export const GLOSSARY = {
     "name": "FOIL",
     "text": "The Habit system: four axes, Faith, Order, Individualism, Levity. A Habit is a character's lean on one axis."
   },
+  "foil exposed": {
+    "name": "Foil Exposed",
+    "text": "Resisted with Guile or Discipline. The source learns one Habit of the creature, which the Technique names. Once, when the creature Opposes the source, the source may give that Oppose roll -2. It ends when used, or after 10 minutes. A creature has one Foil Exposed for each of its Habits, from each source."
+  },
   "foil token": {
     "name": "Foil Token",
     "text": "Earned by invoking a held Habit, spent to halve the Stress from one source or to reroll one die just rolled. A character holds at most four."

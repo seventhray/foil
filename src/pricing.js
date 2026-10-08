@@ -136,7 +136,7 @@ const BAND_NAME = ["", "Close", "Near", "Short", "Mid", "Long"];
 export const DURATIONS = ["1 round", "1 minute", "10 minutes", "1 hour", "1 day"];
 /** Condition Effects: priced flat, so their duration is informational. */
 export const CONDITION_EFFECTS = new Set(["angered", "baited", "blinded", "charmed", "controlled", "enthralled", "frightened", "grappled",
-  "impressed", "intimidated", "invisible", "prone", "relaxed", "restrained", "slowed", "stunned", "wary"]);
+  "impressed", "intimidated", "invisible", "prone", "relaxed", "restrained", "slowed", "stunned", "wary", "foil-exposed"]);
 export const DURATION_BASES = new Set(["skill-mod", "reeling", "weaken"]);
 export const withDuration = (key, minute) => `${String(key).replace(/-minute$/, "")}${minute && DURATION_BASES.has(String(key).replace(/-minute$/, "")) ? "-minute" : ""}`;
 

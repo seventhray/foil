@@ -39,7 +39,7 @@ export function buildGlossary() {
   // Conditions (PHB 6.8.x).
   const cond = sectionText(PHB, /^## 6\.8\.0 Conditions and Defeat/);
   for (const block of cond.split(/\n(?=### 6\.8\.\d+ )/).slice(1)) {
-    const m = block.match(/^### 6\.8\.\d+ (\w+)\s*\n([\s\S]*)$/);
+    const m = block.match(/^### 6\.8\.\d+ ([^\n]+?)\s*\n([\s\S]*)$/);
     if (m) add(m[1], m[2].replace(/\n+/g, " "), true);
   }
 

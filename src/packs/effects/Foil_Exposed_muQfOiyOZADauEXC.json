@@ -1,0 +1,31 @@
+{
+  "_id": "muQfOiyOZADauEXC",
+  "name": "Foil Exposed",
+  "type": "effect",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "key": "foil-exposed",
+    "requires": [
+      "incorporeal",
+      "sonic"
+    ],
+    "pricingKind": "flat",
+    "pricingParams": {
+      "base": 8,
+      "perPoint": 0,
+      "perBand": 1
+    },
+    "magnitudeLabel": "",
+    "exemptFromPremium": false,
+    "setsFloor": false,
+    "description": "<p>PHB 6.8.24.</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 4500000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!muQfOiyOZADauEXC"
+}
