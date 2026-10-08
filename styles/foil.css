@@ -825,8 +825,7 @@
 .abbr { font-size: 0.75em; color: var(--ink-faint); margin-left: 3px; }
 .kit-row { display: flex; gap: 6px; align-items: baseline; padding: 1px 0; }
 .kit-cell { flex: 1 1 auto; font-size: 0.9em; }
-.kit-roll { cursor: pointer; color: var(--accent); white-space: nowrap; }
-.kit-roll:hover { text-shadow: 0 0 6px var(--accent-bright); }
+.kit-name { white-space: nowrap; }
 .ef-readout { font-size: 0.85em; color: var(--ink-faint); }
 .condition-table { width: 100%; border-collapse: collapse; }
 .condition-table td, .condition-table th { padding: 2px 4px; border-bottom: 1px solid var(--line); }
