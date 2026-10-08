@@ -49,6 +49,7 @@ export function aggregateModifiers(items = []) {
     if (k in training) training[k] += Number(value ?? 0);
   };
 
+  let initiative = 0, stealth = 0;
   const counted = new Set();
   for (const cat of ONE_AT_A_TIME) {
     const worn = items.filter(it => it.type === "equipment" && it.system?.category === cat && it.system?.location === "equipped");
@@ -73,11 +74,13 @@ export function aggregateModifiers(items = []) {
         for (const m of s.modifiers ?? []) {
           if (m.type === "training") addTraining(m.key, m.value);
           else if (m.type === "resistance") addResistance(m.key, m.value, it.name);
+          else if (m.type === "initiative") initiative += Number(m.value ?? 0);
+          else if (m.type === "stealth") stealth += Number(m.value ?? 0);
         }
         break;
     }
   }
   for (const list of [...Object.values(resistanceSources), ...Object.values(attributeResistanceSources)])
     list.sort((a, b) => b.value - a.value);
-  return { training, skillBonus, resistance, resistanceSources, attributeResistance, attributeResistanceSources };
+  return { training, skillBonus, resistance, resistanceSources, attributeResistance, attributeResistanceSources, initiative, stealth };
 }

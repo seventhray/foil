@@ -1,6 +1,7 @@
 /** Condition modifiers on rolls and on Techniques rolled against a target (PHB 6.8.0). */
 import { entryLabel, withDuration } from "../../src/pricing.js";
 import { reachBand, reachLine, rangeWarning, bandOfFeet } from "../../src/range.js";
+import { aggregateModifiers } from "../../src/modifiers.js";
 import { restPlan } from "../../src/rest.js";
 import { conditionMods, conditionFlags, allowedAims, targetFlags, harmFlags, incomingMods, skillFormula, kindOf } from "../../src/combat.js";
 
@@ -51,5 +52,10 @@ check("feet map to the PHB 4.1.2 bands", [0, 4, 5, 19, 20, 99, 100, 300].map(ban
 check("reach lines read plainly", [reachLine("close"), reachLine("", "near"), reachLine("short", "near"), reachLine("")], ["Reach: up to Close.", "Reach: Near or farther.", "Reach: Near to Short.", ""]);
 check("Extend Range adds bands to the Instrument's reach", [reachBand("close", 1), reachBand("long", 3), reachBand("", 2)], ["near", "sight", ""]);
 check("range warnings only fire outside the reach", [rangeWarning("Orc", 8, "close"), rangeWarning("Orc", 35, "close").includes("reach ends at Close"), rangeWarning("Orc", 12, "short", "near"), rangeWarning("Orc", 6, "short", "near").includes("needs Near")], ["", true, "", true]);
+
+const feat = (name, modifiers) => ({ name, type: "feat", system: { modifiers } });
+const agg = aggregateModifiers([feat("Cave Reflexes", [{ type: "initiative", key: "", value: 2 }]), feat("Vigilant", [{ type: "initiative", key: "", value: 2 }]),
+  feat("Camouflaged Skin", [{ type: "stealth", key: "", value: 2 }]), feat("Dark Sight", [{ type: "training", key: "acuity", value: 2 }])]);
+check("Feat modifiers add to Initiative, Stealth, and Training", [agg.initiative, agg.stealth, agg.training.acuity], [4, 2, 2]);
 
 process.exit(failed ? 1 : 0);

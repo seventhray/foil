@@ -10,7 +10,13 @@
     "effect": "+2 to Initiative rolls.",
     "ancestry": "Deep Stone",
     "grantsTechnique": "",
-    "modifiers": [],
+    "modifiers": [
+      {
+        "type": "initiative",
+        "key": "",
+        "value": 2
+      }
+    ],
     "description": ""
   },
   "effects": [],

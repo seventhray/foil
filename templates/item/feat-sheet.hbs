@@ -15,12 +15,12 @@
   <label class="block-label">Effect</label>
   <textarea name="system.effect" rows="3">{{system.effect}}</textarea>
   <fieldset>
-    <legend>Flat modifiers <em>(Training or Resistance it grants)</em></legend>
+    <legend>Roll modifiers <em>(applied to the character automatically)</em></legend>
     {{#each modifierRows}}
       <div class="quality-row">
         <select name="system.modifiers.{{this.idx}}.type">{{#each ../modifierTypeOptions}}<option value="{{this.value}}" {{#if (foil-eq this.value ../type)}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>
-        <select name="system.modifiers.{{this.idx}}.key">{{#each ../modifierKeyGroups}}<optgroup label="{{this.label}}">{{#each this.options}}<option value="{{this.value}}" {{#if (foil-eq this.value ../../key)}}selected{{/if}}>{{this.label}}</option>{{/each}}</optgroup>{{/each}}</select>
-        <input type="number" class="mini-num" name="system.modifiers.{{this.idx}}.value" value="{{this.value}}" />
+        {{#if this.keyChoices}}<select name="system.modifiers.{{this.idx}}.key">{{#each this.keyChoices}}<option value="{{this.value}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>{{/if}}
+        <select class="mini-num" name="system.modifiers.{{this.idx}}.value">{{#each this.valueChoices}}<option value="{{this.value}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>
         <a class="row-del" data-action="removeRow" data-path="system.modifiers" data-index="{{this.idx}}"><i class="fas fa-trash"></i></a>
       </div>
     {{/each}}

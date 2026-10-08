@@ -10,7 +10,13 @@
     "effect": "+2 on Stealth rolls.",
     "ancestry": "Woodlands",
     "grantsTechnique": "",
-    "modifiers": [],
+    "modifiers": [
+      {
+        "type": "stealth",
+        "key": "",
+        "value": 2
+      }
+    ],
     "description": ""
   },
   "effects": [],

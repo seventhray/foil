@@ -15,6 +15,7 @@ import {
   FOIL_LEANS, FOIL_TOKEN_MAX, LEGACY_SKILL_KEY, CARRY_FREE_MULTIPLE, RATION_LBS
 } from "../constants.js";
 import { aggregateModifiers } from "../modifiers.js";
+import { skillFormula } from "../combat.js";
 
 function foilSchema() {
   const axes = {};
@@ -138,6 +139,12 @@ function prepareCore(sys) {
     sk.formula = parts.join(" + ") || "0";
     sk.usable  = pair.some(ak => live(ak)?.diceFormula);
   }
+
+  // Initiative is an Acuity roll and a Stealth roll is Guile (PHB 6.2.0, 6.2.1); Feats add to each.
+  sys.initiativeBonus = Number(mods.initiative ?? 0);
+  sys.stealthBonus = Number(mods.stealth ?? 0);
+  sys.initiativeFormula = skillFormula(sys, "acuity", sys.initiativeBonus);
+  sys.stealthFormula = skillFormula(sys, "guile", sys.stealthBonus);
 
   // Destroyed (PHB 6.8.2): every Attribute Incapacitated at once.
   const active = ATTRIBUTE_KEYS.filter(k => (attrs[k]?.potential?.max ?? 0) > 0);

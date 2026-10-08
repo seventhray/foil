@@ -10,7 +10,13 @@
     "effect": "Add +2 to your Acuity roll for Initiative.",
     "ancestry": "",
     "grantsTechnique": "",
-    "modifiers": [],
+    "modifiers": [
+      {
+        "type": "initiative",
+        "key": "",
+        "value": 2
+      }
+    ],
     "description": ""
   },
   "effects": [],

@@ -354,7 +354,7 @@ export class FeatData extends foundry.abstract.TypeDataModel {
       ancestry: str(""),
       grantsTechnique: str(""),
       modifiers: new f.ArrayField(new f.SchemaField({
-        type: new f.StringField({ required: true, initial: "training", choices: ["training", "resistance"] }),
+        type: new f.StringField({ required: true, initial: "training", choices: ["training", "resistance", "initiative", "stealth"] }),
         key: slugField(""),
         value: int(0)
       })),

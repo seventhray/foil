@@ -18,5 +18,13 @@
         <td class="readout num">{{this.passive}}</td>
       </tr>
     {{/each}}
+    {{#each extraRolls}}
+      <tr class="extra-roll">
+        <td class="apt-name"><a data-action="rollExtra" data-key="{{this.key}}" title="Roll {{this.label}} ({{this.base}})">{{this.label}}</a></td>
+        <td class="pair">{{this.base}}</td>
+        <td class="training-cell">{{#if this.bonus}}<span class="mod" title="From Feats">{{foil-signed this.bonus}}</span>{{else}}<span class="muted">&mdash;</span>{{/if}}</td>
+        <td></td><td></td>
+      </tr>
+    {{/each}}
   </tbody>
 </table>

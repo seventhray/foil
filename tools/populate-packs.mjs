@@ -454,6 +454,8 @@ function featModifiers(effect) {
   let m;
   if ((m = effect.match(/^(?:Gain )?(Physical|Mental) Resistance \+(\d)/i))) mods.push({ type: "resistance", key: lc(m[1]), value: +m[2] });
   if ((m = effect.match(/^\+(\d) Training in (\w+)/i))) mods.push({ type: "training", key: lc(m[2]), value: +m[1] });
+  if ((m = effect.match(/\+(\d+) to Initiative rolls/i)) || (m = effect.match(/^Add \+(\d+) to your Acuity roll for Initiative/i))) mods.push({ type: "initiative", key: "", value: +m[1] });
+  if ((m = effect.match(/\+(\d+) on Stealth rolls/i))) mods.push({ type: "stealth", key: "", value: +m[1] });
   return mods;
 }
 function featDoc(n) {

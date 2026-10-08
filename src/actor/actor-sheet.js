@@ -52,6 +52,7 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
     form: { submitOnChange: true, closeOnSubmit: false },
     actions: {
       rollSkill:        FoilActorSheet._onRollSkill,
+      rollExtra:        FoilActorSheet._onRollExtra,
       rollKit:          FoilActorSheet._onRollKit,
       rollTechnique:    FoilActorSheet._onRollTechnique,
       rollEnchantment:  FoilActorSheet._onRollEnchantment,
@@ -106,6 +107,15 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
         passive: s.passive ?? 0, usable: s.usable !== false
       };
     });
+  }
+
+  /** Initiative (Acuity) and Stealth (Guile), with their Feat bonuses (PHB 6.2.0, 6.2.1). */
+  _extraRolls() {
+    const sys = this.actor.system;
+    return [
+      { key: "initiative", label: "Initiative", base: SKILL_LABEL.acuity, bonus: sys.initiativeBonus ?? 0 },
+      { key: "stealth", label: "Stealth", base: SKILL_LABEL.guile, bonus: sys.stealthBonus ?? 0 }
+    ];
   }
 
   _foilRows() {
@@ -184,6 +194,7 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
       system: sys,
       attributes: this._attributeRows(),
       skills: this._skillRows(),
+      extraRolls: this._extraRolls(),
       foil: this._foilRows(),
       conditions: this._conditionRows(),
       conditionNames: CONDITIONS,
@@ -210,6 +221,18 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
     if (cm.parts.length) notes.push(`${signedParts(cm.parts)}.`);
     notes.push(...conditionFlags(sys.conditions, { skill, technique }));
     return notes;
+  }
+
+  static async _onRollExtra(event, target) {
+    const sys = this.actor.system;
+    const key = target.dataset.key;
+    const stealth = key === "stealth";
+    const skill = stealth ? "guile" : "acuity";
+    const formula = stealth ? sys.stealthFormula : sys.initiativeFormula;
+    const bonus = stealth ? sys.stealthBonus : sys.initiativeBonus;
+    const notes = this._rollNotes(skill);
+    if (bonus) notes.push(`Feats: ${bonus > 0 ? "+" : ""}${bonus}.`);
+    await this._postRoll(formula, `${stealth ? "Stealth" : "Initiative"} (${SKILL_LABEL[skill]})`, notes.join(" "));
   }
 
   static async _onRollSkill(event, target) {

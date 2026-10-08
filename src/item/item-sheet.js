@@ -71,6 +71,15 @@ export class FoilItemSheet extends HandlebarsApplicationMixin(ItemSheetV2Base) {
   /** A row's Lasts choice picks between an Effect and its 1-minute twin. */
   _processFormData(event, form, formData) {
     const data = super._processFormData(event, form, formData);
+    // A modifier's Skill or Resistance choice follows its type; a type with no choice clears it.
+    const mods = foundry.utils.getProperty(data, "system.modifiers");
+    if (mods) {
+      for (const row of Array.isArray(mods) ? mods : Object.values(mods)) {
+        if (!row) continue;
+        const valid = row.type === "training" ? SKILL_KEYS : row.type === "resistance" ? [...RESISTANCE_KINDS, ...ATTRIBUTE_KEYS] : [];
+        if (!valid.includes(row.key)) row.key = valid[0] ?? "";
+      }
+    }
     for (const path of ["system.effects", "system.enchantment.effects"]) {
       const list = foundry.utils.getProperty(data, path);
       if (!list) continue;
@@ -117,7 +126,8 @@ export class FoilItemSheet extends HandlebarsApplicationMixin(ItemSheetV2Base) {
       qualityKinds: QualityData.KINDS.map(k => opt(k, cap(k))),
       qualityScopes: QualityData.SCOPES.map(k => opt(k, cap(k))),
       pricingKinds: EffectData.PRICING_KINDS.map(k => ({ value: k, label: cap(k), hint: PRICING_KIND_INFO[k] ?? "" })),
-      modifierTypeOptions: [opt("training", "Training"), opt("resistance", "Resistance")],
+      modifierTypeOptions: [opt("training", "Training in a Skill"), opt("resistance", "Resistance"), opt("initiative", "Initiative rolls"), opt("stealth", "Stealth rolls")],
+      modifierValueOptions: [1, 2, 3, 4, 5, 6].map(n => opt(n, `+${n}`)),
       rangeOptions: withCurrent(RANGE_CHOICES, sys.range),
       enchantKindOptions: [opt("", "None"), opt("skill", "+N to a Skill"), opt("roll", "+N to its rolls"), opt("pierce", "Pierce N"), opt("stress", "+N Stress after the margin"), opt("aid", "Aid +N to a task")],
       bandOptions: [opt("", "None"), ...RANGE_BANDS.map(b => opt(b, RANGE_LABEL[b]))],
@@ -160,7 +170,13 @@ export class FoilItemSheet extends HandlebarsApplicationMixin(ItemSheetV2Base) {
       });
     }
     if (this.item.type === "feat") {
-      ctx.modifierRows = (sys.modifiers ?? []).map((m, idx) => ({ idx, ...m }));
+      const keysFor = type => type === "training" ? SKILL_KEYS.map(k => opt(k, SKILL_LABEL[k]))
+        : type === "resistance" ? [...RESISTANCE_KINDS.map(k => opt(k, RESISTANCE_LABEL[k])), ...ATTRIBUTE_KEYS.map(k => opt(k, `${ATTR_LABEL[k]} only`))] : null;
+      ctx.modifierRows = (sys.modifiers ?? []).map((m, idx) => {
+        const keys = keysFor(m.type);
+        return { idx, ...m, keyChoices: keys?.map(c => ({ ...c, selected: c.value === m.key })) ?? null,
+                 valueChoices: [1, 2, 3, 4, 5, 6].map(n => ({ value: n, label: `+${n}`, selected: n === Number(m.value) })) };
+      });
     }
     if (this.item.type === "origin") {
       ctx.talentRows = (sys.talent ?? []).map((t, idx) => ({ idx, ...t }));
@@ -179,7 +195,7 @@ export class FoilItemSheet extends HandlebarsApplicationMixin(ItemSheetV2Base) {
     "system.effects": { key: "", magnitude: 1, pattern: "single", bands: 0, placement: 0, selectiveR: 0 },
     "system.enchantment.effects": { key: "", magnitude: 1, pattern: "single", bands: 0, placement: 0, selectiveR: 0 },
     "system.qualities": { key: "", value: 0, param: "" },
-    "system.modifiers": { type: "training", key: "", value: 0 },
+    "system.modifiers": { type: "training", key: "prowess", value: 1 },
     "system.kit": { name: "", skill: "prowess", effect: "" },
     "system.talent": { attribute: "might", die: 8 },
     "system.feats": "",

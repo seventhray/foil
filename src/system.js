@@ -67,7 +67,7 @@ Hooks.once("init", function() {
 
   // Initiative is an Acuity roll (PHB 6.2.0).
   CONFIG.Combat.initiative = {
-    formula: "@skills.acuity.formula",
+    formula: "@initiativeFormula",
     decimals: 0
   };
 
