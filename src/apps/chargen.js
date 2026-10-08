@@ -4,7 +4,7 @@
  *   1. Every Attribute starts at 2d4.
  *   2. Origin: Talent on two dice, two Feats (and any Technique a Feat teaches).
  *   3. Background: +1 Training in three Skills, 2d4 Know-how, coin, and a kit.
- *   4. Starting Point (GMG 2.1.0) sets Starting XP and Starting Coin;
+ *   4. Starting Point (PHB 2.3.2) sets Starting XP and Starting Coin;
  *      Fresh Start, or none, takes the Background's coin.
  *   5. Habits, picked or rolled from the Habit Tables (PHB 3.4.x).
  *   6. The character prompts.
@@ -17,7 +17,7 @@ import { poolFromCounts } from "../dice.js";
 import { equipmentSummary } from "../registry.js";
 import { HABIT_TABLES } from "../habits.js";
 
-// Starting Points (GMG 2.1.0): picked for the whole party, sets Starting XP and Starting Coin.
+// Starting Points (PHB 2.3.2): picked for the whole party, sets Starting XP and Starting Coin.
 // The coin is the bottom of the printed range; Fresh Start takes its Background's.
 export const STARTING_TIERS = [
   { key: "fresh",     label: "Fresh Start (0 XP, Background coin)", xp: 0 },
