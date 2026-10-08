@@ -28,7 +28,7 @@
   <fieldset>
     <legend>Instrument Types <em>(Ctrl/Cmd-click for several)</em></legend>
     <select name="system.types" multiple size="10" class="multi">
-      {{#each typeOptions}}<option value="{{this.key}}" {{#if this.checked}}selected{{/if}}>{{this.label}}</option>{{/each}}
+      {{#each typeOptions}}<option value="{{this.key}}" {{#if this.help}}title="{{this.help}}"{{/if}} {{#if this.checked}}selected{{/if}}>{{this.label}}</option>{{/each}}
     </select>
     <label class="block-label">Types as printed <em>(only when it isn't a plain list)</em></label>
     <input type="text" name="system.typesDisplay" value="{{system.typesDisplay}}" />

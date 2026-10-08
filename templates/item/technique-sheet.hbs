@@ -22,7 +22,7 @@
   <fieldset>
     <legend>Requires Instrument Type <em>(any one of)</em></legend>
     <select name="system.requires" multiple size="10" class="multi">
-      {{#each typeOptions}}<option value="{{this.key}}" {{#if this.checked}}selected{{/if}}>{{this.label}}</option>{{/each}}
+      {{#each typeOptions}}<option value="{{this.key}}" {{#if this.help}}title="{{this.help}}"{{/if}} {{#if this.checked}}selected{{/if}}>{{this.label}}</option>{{/each}}
     </select>
   </fieldset>
   <fieldset>

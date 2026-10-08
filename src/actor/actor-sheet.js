@@ -27,6 +27,7 @@ import { allowedAims, conditionFlags, conditionMods, signedParts, skillFormula, 
 import { resolveOppose } from "../oppose.js";
 import { restPlan } from "../rest.js";
 import { logEvent, who } from "../playtest-log.js";
+import { glossarize, bindTerms, lookup } from "../glossary-ui.js";
 
 const LOCATION_ICON = { equipped: "fa-hand", carried: "fa-suitcase" };
 const locationView = loc => ({ key: loc, icon: LOCATION_ICON[loc] ?? "fa-suitcase", label: LOCATION_LABEL[loc] ?? loc });
@@ -120,7 +121,7 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
   }
 
   _conditionRows() {
-    return (this.actor.system.conditions ?? []).map((c, idx) => ({ idx, ...c, known: CONDITIONS.includes(c.name) }));
+    return (this.actor.system.conditions ?? []).map((c, idx) => ({ idx, ...c, known: CONDITIONS.includes(c.name), help: lookup(c.name)?.text ?? "" }));
   }
 
   _itemGroups() {
@@ -131,20 +132,23 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
       const view = { id: item.id, name: item.name, img: item.img, system: s };
       if (item.type === "instrument") {
         view.primaryLabel = ATTR_LABEL[s.primaryAttribute] ?? "";
-        view.kit = (s.kit ?? []).map((k, idx) => ({ idx, name: k.name, skillLabel: SKILL_LABEL[k.skill] ?? k.skill, effect: k.effect }));
+        view.kit = (s.kit ?? []).map((k, idx) => ({ idx, name: k.name, skillLabel: SKILL_LABEL[k.skill] ?? k.skill, effect: k.effect, effectHtml: glossarize(k.effect) }));
+        view.typesHtml = glossarize(s.typesLabel);
         if (!s.innate) view.place = locationView(s.location);
         // An Instrument's built-in Techniques join the Techniques tab, with their source (PHB 7.2.0).
         for (const k of view.kit) groups.builtin.push({ ...k, id: item.id, source: item.name, ready: s.innate || s.location === "equipped" });
       } else if (item.type === "technique") {
-        view.effectDisplay = s.effectSummary;
+        view.effectDisplay = glossarize(s.effectSummary);
         const valid = this._validInstruments(item);
         view.usableWith = s.innate ? "Innate (no Instrument)"
           : valid.length ? valid.map(i => i.system.location === "equipped" || i.system.innate ? i.name : `${i.name} (${LOCATION_LABEL[i.system.location].toLowerCase()})`).join(", ")
           : "no Instrument it has";
         view.unusable = !s.innate && !valid.length;
+      } else if (item.type === "feat") {
+        view.effectHtml = glossarize(s.effect);
       } else if (item.type === "equipment") {
         view.categoryLabel = EQUIPMENT_CATEGORY_LABEL[s.category] ?? "";
-        view.effectSummary = equipmentSummary(s);
+        view.effectSummary = glossarize(equipmentSummary(s));
         view.place = locationView(s.location);
       }
       groups[item.type].push(view);
@@ -631,6 +635,7 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
     // The base class binds drag-and-drop here; skipping it breaks dropping Items on the sheet.
     await super._onRender(context, options);
     this.element.querySelector(".window-content")?.classList.add("foil-sheet", this.actor.type);
+    if (!this._termsBound) { bindTerms(this.element); this._termsBound = true; }
     // A Stress field writes back current Potential: max minus the Stress entered.
     for (const input of this.element.querySelectorAll("input[data-stress]")) {
       input.addEventListener("change", event => {

@@ -13,6 +13,7 @@ import {
 } from "../constants.js";
 import { QualityData, EffectData, InstrumentTypeData } from "../data/definition-models.js";
 import { entryLabel } from "../pricing.js";
+import { lookup } from "../glossary-ui.js";
 
 const { HandlebarsApplicationMixin } = foundry.applications.api;
 const ItemSheetV2Base = foundry.applications.sheets.ItemSheetV2;
@@ -93,7 +94,7 @@ export class FoilItemSheet extends HandlebarsApplicationMixin(ItemSheetV2Base) {
       featTypeOptions: [opt("learned", "Learned (bought with XP)"), opt("trait", "Trait (from a Transformation or a creature)"), opt("ancestry", "Origin (granted, free)")],
       dieOptions: [6, 8, 10, 12, 20].map(n => opt(n, `d${n}`)),
       patternShapes: PATTERN_SHAPES.map(s => opt(s, cap(s))),
-      typeOptions: typeOptions(sys.requires ?? sys.types ?? []),
+      typeOptions: typeOptions(sys.requires ?? sys.types ?? []).map(t => ({ ...t, help: lookup(t.key)?.text ?? lookup(t.label)?.text ?? "" })),
       effectOptions: effectOptions(),
       qualityOptions: qualityOptions(),
       familyOptions: InstrumentTypeData.FAMILIES.map(k => opt(k, cap(k))),
@@ -116,7 +117,7 @@ export class FoilItemSheet extends HandlebarsApplicationMixin(ItemSheetV2Base) {
       ]
     };
 
-    const effectRows = list => (list ?? []).map((e, idx) => ({ idx, ...e, label: entryLabel(e, em[e.key]) }));
+    const effectRows = list => (list ?? []).map((e, idx) => ({ idx, ...e, label: entryLabel(e, em[e.key]), help: lookup(String(e.key).split("-")[0])?.text ?? "" }));
     if (this.item.type === "technique") ctx.effectRows = effectRows(sys.effects);
     if (this.item.type === "instrument") {
       ctx.enchantEffectRows = effectRows(sys.enchantment?.effects);

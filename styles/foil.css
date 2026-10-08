@@ -883,3 +883,6 @@
 .axis-habit-head .mini-btn:disabled { opacity: 0.45; cursor: not-allowed; }
 
 .foil-sheet td.roll-cell, .foil-sheet th.roll-cell { width: 28px; text-align: center; }
+
+.foil-term { border-bottom: 1px dotted var(--accent); cursor: help; }
+.foil-term:hover { color: var(--accent); }

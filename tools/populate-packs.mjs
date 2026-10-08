@@ -27,6 +27,7 @@ import {
   SYSTEM_ROOT, SYSTEM_VERSION, readPHB, readCatalog, tableAfter, sectionText, setting
 } from "./books.mjs";
 import { buildPacks } from "./build-packs.mjs";
+import { buildGlossary } from "./build-glossary.mjs";
 import { EQUIPMENT_CATEGORY_LABEL } from "../src/constants.js";
 
 
@@ -663,6 +664,7 @@ if (process.argv.includes("--dry-run")) {
   writePack("backgrounds", backgrounds);
   writePack("ancestries", ancestries);
   writeGuidePack("guide", GUIDE);
+  console.log(`  glossary: ${buildGlossary()} terms.`);
   if (!process.argv.includes("--no-build")) await buildPacks();
 }
 

@@ -1,7 +1,7 @@
 {{!-- Composed Effect rows for pricing. `rows` are the entries, `path` the array's system path. --}}
 {{#each rows}}
   <div class="effect-row">
-    <select class="ef-key" name="{{../path}}.{{this.idx}}.key" title="Which Effect (Fundamental Math, Effects table)">
+    <select class="ef-key" name="{{../path}}.{{this.idx}}.key" title="{{#if this.help}}{{this.help}}{{else}}Which Effect (Fundamental Math, Effects table){{/if}}">
       <option value="" {{#unless this.key}}selected{{/unless}}>&mdash;</option>
       {{#each ../effectOptions}}<option value="{{this.key}}" {{#if (foil-eq this.key ../key)}}selected{{/if}}>{{this.label}}</option>{{/each}}
     </select>
@@ -17,7 +17,7 @@
       <input type="number" class="mini-num" name="{{../path}}.{{this.idx}}.selectiveN" value="{{this.selectiveN}}" /></div>
     <div class="ef-field"><label class="mini-label" title="Selective: within R bands">Sel R</label>
       <input type="number" class="mini-num" name="{{../path}}.{{this.idx}}.selectiveR" value="{{this.selectiveR}}" /></div>
-    <span class="ef-readout">{{this.label}}</span>
+    <span class="ef-readout" {{#if this.help}}data-tooltip="{{this.help}}"{{/if}}>{{this.label}}</span>
     <a class="row-del" data-action="removeRow" data-path="{{../path}}" data-index="{{this.idx}}" title="Remove"><i class="fas fa-trash"></i></a>
   </div>
 {{/each}}
