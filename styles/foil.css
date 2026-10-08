@@ -842,9 +842,11 @@
 .chargen .chargen-detail { font-size: 0.85em; margin-top: 4px; }
 .chargen .chargen-detail p { margin: 2px 0; }
 .chargen .chargen-detail ul { margin: 2px 0 2px 16px; padding: 0; }
-.chargen .chargen-detail .muted, .chargen .chargen-preview .muted { color: var(--ink-faint); font-style: italic; }
+.chargen .chargen-detail .muted { color: var(--ink-soft); font-style: italic; }
+.chargen .chargen-preview .muted { color: var(--ink-soft); }
 .chargen .chargen-preview table { width: 100%; border-collapse: collapse; margin-bottom: 4px; font-size: 0.85em; }
-.chargen .chargen-preview th, .chargen .chargen-preview td { border-bottom: 1px solid var(--line); padding: 2px 4px; text-align: center; }
+.chargen .chargen-preview th, .chargen .chargen-preview td { border-bottom: 1px solid var(--line); padding: 3px 5px; text-align: center; color: var(--ink); background: var(--parchment-paper); }
+.chargen .chargen-preview th { background: var(--parchment-deep); font-weight: bold; }
 .chargen .chargen-preview p { margin: 2px 0; font-size: 0.85em; }
 .chargen .chargen-axis { display: grid; grid-template-columns: 90px 110px 1fr auto; gap: 4px; align-items: center; margin: 3px 0; }
 .chargen .chargen-axis input[type="text"] { grid-column: 2 / -1; }

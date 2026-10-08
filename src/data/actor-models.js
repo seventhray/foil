@@ -178,6 +178,7 @@ function migrateFoil(source) {
     const v = foil[a.key];
     if (typeof v === "number") foil[a.key] = { lean: v > 0 ? "high" : v < 0 ? "low" : "", habit: "" };
     else if (v && "trait" in v) { v.habit ??= v.trait; delete v.trait; }
+    if (foil[a.key]?.lean === "neutral") foil[a.key].lean = "";
   }
   return source;
 }

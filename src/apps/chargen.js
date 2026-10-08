@@ -4,8 +4,8 @@
  *   1. Every Attribute starts at 2d4.
  *   2. Origin: Talent on two dice, two Feats (and any Technique a Feat teaches).
  *   3. Background: +1 Training in three Skills, 2d4 Know-how, coin, and a kit.
- *   4. Starting Point (GMG 2.1.0) sets Starting XP and suggests Starting Coin;
- *      a blank coin field takes the Background's.
+ *   4. Starting Point (GMG 2.1.0) sets Starting XP and Starting Coin;
+ *      Fresh Start, or none, takes the Background's coin.
  *   5. Habits, picked or rolled from the Habit Tables (PHB 3.4.x).
  *   6. The character prompts.
  * Each choice shows what it grants, and a preview shows the finished dice,
@@ -17,13 +17,14 @@ import { poolFromCounts } from "../dice.js";
 import { equipmentSummary } from "../registry.js";
 import { HABIT_TABLES } from "../habits.js";
 
-// Starting Points (GMG 2.1.0): picked for the whole party, sets Starting XP and suggests Starting Coin.
+// Starting Points (GMG 2.1.0): picked for the whole party, sets Starting XP and Starting Coin.
+// The coin is the bottom of the printed range; Fresh Start takes its Background's.
 export const STARTING_TIERS = [
-  { key: "fresh",     label: "Fresh Start (0 XP)",   xp: 0 },
-  { key: "blooded",   label: "Blooded (175 XP, 175p to 350p)",     xp: 175 },
-  { key: "hardened",  label: "Hardened (400 XP, 400p to 800p)",    xp: 400 },
-  { key: "storied",   label: "Storied (825 XP, 825p to 1650p)",     xp: 825 },
-  { key: "legendary", label: "Legendary (1600+ XP, 1600p to 3200p)", xp: 1600 }
+  { key: "fresh",     label: "Fresh Start (0 XP, Background coin)", xp: 0 },
+  { key: "blooded",   label: "Blooded (175 XP, 175p)",              xp: 175,  coin: "175p" },
+  { key: "hardened",  label: "Hardened (400 XP, 400p)",             xp: 400,  coin: "400p" },
+  { key: "storied",   label: "Storied (825 XP, 825p)",              xp: 825,  coin: "825p" },
+  { key: "legendary", label: "Legendary (1600 XP, 1600p)",          xp: 1600, coin: "1600p" }
 ];
 
 const PROMPTS = [
@@ -113,9 +114,9 @@ export class FoilChargen extends HandlebarsApplicationMixin(ApplicationV2) {
     const sys = this.actor?.system ?? {};
     // Choices survive re-renders; FOIL and prompts start from what the sheet already has.
     this.choices = {
-      ancestry: "", background: "", startingPoint: "", coin: "",
+      ancestry: "", background: "", startingPoint: "",
       foil: Object.fromEntries(FOIL_AXES.map(a => [a.key, {
-        lean: sys.foil?.[a.key]?.lean ?? "", habit: sys.foil?.[a.key]?.habit ?? ""
+        lean: sys.foil?.[a.key]?.lean === "neutral" ? "" : (sys.foil?.[a.key]?.lean ?? ""), habit: sys.foil?.[a.key]?.habit ?? ""
       }])),
       prompts: Object.fromEntries(PROMPTS.map(p => [p.key, sys.prompts?.[p.key] ?? ""]))
     };
@@ -197,7 +198,7 @@ export class FoilChargen extends HandlebarsApplicationMixin(ApplicationV2) {
       preview: { attributes, skills, resistance, total },
       axes: FOIL_AXES.map(a => ({
         key: a.key, label: a.label, lean: st.foil[a.key].lean, habit: st.foil[a.key].habit,
-        leanOptions: [["", "Undeclared"], ["low", a.low], ["neutral", "Neutral"], ["high", a.high]]
+        leanOptions: [["", "Neutral"], ["low", a.low], ["high", a.high]]
           .map(([value, label]) => ({ value, label, selected: value === st.foil[a.key].lean })),
         table: (HABIT_TABLES[a.key] ?? []).map(r => ({
           value: r.habit, label: `${r.roll}. ${r.habit}`, selected: r.habit === st.foil[a.key].habit
@@ -218,14 +219,14 @@ export class FoilChargen extends HandlebarsApplicationMixin(ApplicationV2) {
       const picked = event.target.name?.match(/^pick\.(\w+)$/);
       Object.assign(this.choices, {
         ancestry: data.ancestry ?? "", background: data.background ?? "",
-        startingPoint: data.startingPoint ?? "", coin: data.coin ?? ""
+        startingPoint: data.startingPoint ?? ""
       });
       for (const a of FOIL_AXES) this.choices.foil[a.key] = { lean: data.foil?.[a.key]?.lean ?? "", habit: data.foil?.[a.key]?.habit ?? "" };
       for (const p of PROMPTS) this.choices.prompts[p.key] = data.prompts?.[p.key] ?? "";
       // Picking from a Habit Table fills the Habit and its lean.
       if (picked) {
         const row = (HABIT_TABLES[picked[1]] ?? []).find(r => r.habit === event.target.value);
-        if (row) this.choices.foil[picked[1]] = { lean: row.lean, habit: row.habit };
+        if (row) this.choices.foil[picked[1]] = { lean: row.lean === "neutral" ? "" : row.lean, habit: row.habit };
       }
       if (["ancestry", "background", "startingPoint"].includes(event.target.name) || picked) this.render();
     });
@@ -236,7 +237,7 @@ export class FoilChargen extends HandlebarsApplicationMixin(ApplicationV2) {
     const axis = target.dataset.axis;
     const roll = await new Roll("1d10").evaluate();
     const row = (HABIT_TABLES[axis] ?? []).find(r => r.roll === roll.total);
-    if (row) this.choices.foil[axis] = { lean: row.lean, habit: row.habit };
+    if (row) this.choices.foil[axis] = { lean: row.lean === "neutral" ? "" : row.lean, habit: row.habit };
     this.render();
   }
 
@@ -259,8 +260,8 @@ export class FoilChargen extends HandlebarsApplicationMixin(ApplicationV2) {
     }
     update["system.ancestry"] = ancestry.name;
     update["system.background"] = background.name;
-    update["system.coin"] = data.coin ? String(data.coin) : (background.system.coin ?? "");
     const tier = STARTING_TIERS.find(t => t.key === data.startingPoint);
+    update["system.coin"] = tier?.coin ?? background.system.coin ?? "";
     if (tier) update["system.xp.total"] = tier.xp;
     for (const a of FOIL_AXES) {
       update[`system.foil.${a.key}.lean`] = data.foil?.[a.key]?.lean ?? "";

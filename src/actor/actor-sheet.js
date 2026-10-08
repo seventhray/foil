@@ -110,8 +110,7 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
       return {
         ...axis, lean: v.lean ?? "", habit: v.habit ?? "",
         leanOptions: [
-          { value: "", label: "Undeclared" }, { value: "low", label: axis.low },
-          { value: "neutral", label: "Neutral" }, { value: "high", label: axis.high }
+          { value: "", label: "Neutral" }, { value: "low", label: axis.low }, { value: "high", label: axis.high }
         ].map(o => ({ ...o, selected: o.value === (v.lean ?? "") }))
       };
     });

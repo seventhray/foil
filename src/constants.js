@@ -142,14 +142,15 @@ export const EQUIPMENT_CATEGORY_LABEL = {
 };
 export const EQUIPMENT_CATEGORIES = Object.keys(EQUIPMENT_CATEGORY_LABEL);
 
-// FOIL axes and their poles (PHB 3.1.0). A Habit leans High, Low, or Neutral (PHB 3.4.0).
+// FOIL axes and their poles (PHB 3.1.0). A Habit leans High or Low; none is Neutral (PHB 3.4.0).
 export const FOIL_AXES = [
   { key: "faith",         label: "Faith",         high: "Trusting",   low: "Mistrusting" },
   { key: "order",         label: "Order",         high: "Ordered",    low: "Disordered" },
   { key: "individualism", label: "Individualism", high: "Individual", low: "Communal" },
   { key: "levity",        label: "Levity",        high: "Light",      low: "Grave" }
 ];
-export const FOIL_LEANS = ["", "low", "neutral", "high"];
+// A Habit leans High or Low; leaving an axis blank is Neutral, the same as undeclared.
+export const FOIL_LEANS = ["", "low", "high"];
 export const FOIL_TOKEN_MAX = 4;
 
 // Conditions (PHB 6.8.3-6.8.23), for the active-conditions tracker.

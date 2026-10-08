@@ -58,20 +58,16 @@
 
   <div class="chargen-grid">
     <fieldset>
-      <legend>3 · Starting Point <em>(GMG 2.1.0)</em></legend>
+      <legend>3 · Starting Point <em>(GMG 2.1.0; sets XP and coin)</em></legend>
       <select name="startingPoint">
         <option value="">&mdash; keep current XP &mdash;</option>
         {{#each startingTiers}}<option value="{{this.key}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>{{/each}}
       </select>
     </fieldset>
-    <fieldset>
-      <legend>4 · Coin <em>(past Fresh Start, the Starting Point's range; blank uses the Background's)</em></legend>
-      <input type="text" name="coin" value="{{state.coin}}" placeholder="e.g. 10p" />
-    </fieldset>
   </div>
 
   <fieldset>
-    <legend>5 · Habits <em>(pick, roll, or leave undeclared; PHB 3.4.0)</em></legend>
+    <legend>4 · Habits <em>(pick, roll, or leave neutral; PHB 3.4.0)</em></legend>
     {{#each axes}}
       <div class="chargen-axis">
         <label>{{this.label}}</label>
@@ -87,7 +83,7 @@
   </fieldset>
 
   <fieldset>
-    <legend>6 · Prompts</legend>
+    <legend>5 · Prompts</legend>
     {{#each prompts}}
       <label class="block-label">{{this.label}}</label>
       <textarea name="prompts.{{this.key}}" rows="2">{{this.value}}</textarea>
