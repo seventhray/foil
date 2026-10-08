@@ -589,11 +589,14 @@
 }
 .field-grid {
   display: grid;
-  grid-template-columns: auto 1fr;
+  grid-template-columns: minmax(150px, 38%) 1fr;
   gap: 5px 8px;
   align-items: center;
 }
 .field-grid label { font-weight: bold; font-size: 0.85em; color: var(--ink-soft); }
+.field-grid label em { display: block; font-weight: normal; font-size: 0.85em; }
+.field-grid input[type="text"], .field-grid input[type="number"], .field-grid select { width: 100%; min-width: 0; box-sizing: border-box; }
+.field-grid input[type="checkbox"] { justify-self: start; }
 .field-grid .field-hint { grid-column: 1 / -1; font-size: 0.78em; color: var(--ink-soft); font-style: italic; margin: -2px 0 2px; }
 .foil-sheet.item fieldset { border: 1px solid var(--line); border-radius: 4px; padding: 6px 8px; }
 .foil-sheet.item legend { font-family: var(--font-display); font-weight: bold; color: var(--accent); padding: 0 6px; letter-spacing: 0.2px; }

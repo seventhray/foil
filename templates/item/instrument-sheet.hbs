@@ -13,7 +13,7 @@
     <label>Primary Attribute <em>(sets its three Skills)</em></label>
     <select name="system.primaryAttribute">{{#each attributeOptions}}<option value="{{this.value}}" {{#if (foil-eq this.value ../system.primaryAttribute)}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>
     <label>Range</label>
-    <input type="text" name="system.range" value="{{system.range}}" placeholder="Close, Near, Short Range..." />
+    <select name="system.range">{{#each rangeOptions}}<option value="{{this.value}}" {{#if (foil-eq this.value ../system.range)}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>
     <label>Price (p)</label>
     <input type="number" name="system.price" value="{{system.price}}" />
     <label>Bonus (+N)</label>

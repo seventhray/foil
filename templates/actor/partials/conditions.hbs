@@ -7,7 +7,7 @@
   <tbody>
     {{#each conditions}}
       <tr>
-        <td><input type="text" name="system.conditions.{{this.idx}}.name" value="{{this.name}}" list="foil-conditions" /></td>
+        <td><select name="system.conditions.{{this.idx}}.name">{{#each ../conditionNames}}<option value="{{this}}" {{#if (foil-eq this ../name)}}selected{{/if}}>{{this}}</option>{{/each}}{{#unless this.known}}<option value="{{this.name}}" selected>{{this.name}}</option>{{/unless}}</select></td>
         <td><input type="text" name="system.conditions.{{this.idx}}.rounds" value="{{this.rounds}}" /></td>
         <td><input type="text" name="system.conditions.{{this.idx}}.note" value="{{this.note}}" /></td>
         <td class="item-actions"><a data-action="removeCondition" data-index="{{this.idx}}" title="Remove"><i class="fas fa-trash"></i></a></td>
@@ -15,4 +15,3 @@
     {{/each}}
   </tbody>
 </table>
-<datalist id="foil-conditions">{{#each conditionNames}}<option value="{{this}}"></option>{{/each}}</datalist>

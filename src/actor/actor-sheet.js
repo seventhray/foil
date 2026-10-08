@@ -120,7 +120,7 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
   }
 
   _conditionRows() {
-    return (this.actor.system.conditions ?? []).map((c, idx) => ({ idx, ...c }));
+    return (this.actor.system.conditions ?? []).map((c, idx) => ({ idx, ...c, known: CONDITIONS.includes(c.name) }));
   }
 
   _itemGroups() {

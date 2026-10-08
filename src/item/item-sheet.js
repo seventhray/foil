@@ -8,7 +8,8 @@
 import { typeOptions, effectOptions, qualityOptions, effectMap, qualityMap } from "../registry.js";
 import {
   WEIGHT_KEYS, WEIGHT_CLASS, ATTRIBUTE_KEYS, ATTR_LABEL, SKILL_KEYS, SKILL_LABEL, SIZE, SIZE_KEYS,
-  FOCUS_GEMS, EQUIPMENT_CATEGORY_LABEL, RESISTANCE_KINDS, RESISTANCE_LABEL, cap, ITEM_LOCATIONS, LOCATION_LABEL
+  FOCUS_GEMS, EQUIPMENT_CATEGORY_LABEL, RESISTANCE_KINDS, RESISTANCE_LABEL, cap, ITEM_LOCATIONS, LOCATION_LABEL,
+  TECHNIQUE_FAMILIES, ORIGIN_NAMES, RANGE_CHOICES
 } from "../constants.js";
 import { QualityData, EffectData, InstrumentTypeData } from "../data/definition-models.js";
 import { entryLabel } from "../pricing.js";
@@ -29,6 +30,14 @@ const TEMPLATE_MAP = {
 };
 
 const opt = (value, label) => ({ value, label });
+/** Options with the current value kept, even if it is not on the list. */
+const withCurrent = (values, current) => {
+  const list = [...new Set(values)];
+  if (current && !list.includes(current)) list.push(current);
+  return list.map(v => opt(v, v));
+};
+const packNames = key => [...(game.packs?.get(key)?.index ?? [])].map(e => e.name);
+const worldNames = type => (game.items?.filter(i => i.type === type) ?? []).map(i => i.name);
 const PATTERN_SHAPES = ["single", "beam", "cone", "radius", "wall"];
 
 const PRICING_KIND_INFO = {
@@ -92,7 +101,19 @@ export class FoilItemSheet extends HandlebarsApplicationMixin(ItemSheetV2Base) {
       qualityKinds: QualityData.KINDS.map(k => opt(k, cap(k))),
       qualityScopes: QualityData.SCOPES.map(k => opt(k, cap(k))),
       pricingKinds: EffectData.PRICING_KINDS.map(k => ({ value: k, label: cap(k), hint: PRICING_KIND_INFO[k] ?? "" })),
-      modifierTypeOptions: [opt("training", "Training"), opt("resistance", "Resistance")]
+      modifierTypeOptions: [opt("training", "Training"), opt("resistance", "Resistance")],
+      rangeOptions: withCurrent(RANGE_CHOICES, sys.range),
+      originOptions: [opt("", "None"), ...withCurrent([...ORIGIN_NAMES, ...worldNames("origin")].sort(), sys.ancestryGrant || sys.ancestry)],
+      techniqueNameOptions: [opt("", "None"), ...withCurrent([...packNames("foil.techniques"), ...worldNames("technique")].sort(), sys.grantsTechnique)],
+      familyChoices: [opt("", "None (Innate)"), ...withCurrent(Object.keys(TECHNIQUE_FAMILIES), sys.family)],
+      subgroupGroups: [{ label: "", options: [opt("", "None")] },
+        ...Object.entries(TECHNIQUE_FAMILIES).filter(([, g]) => g.length).map(([f, g]) => ({ label: f, options: g.map(x => opt(x, x)) })),
+        ...(sys.subgroup && !Object.values(TECHNIQUE_FAMILIES).some(g => g.includes(sys.subgroup)) ? [{ label: "Other", options: [opt(sys.subgroup, sys.subgroup)] }] : [])],
+      modifierKeyGroups: [
+        { label: "Skills", options: SKILL_KEYS.map(k => opt(k, SKILL_LABEL[k])) },
+        { label: "Resistance", options: RESISTANCE_KINDS.map(k => opt(k, RESISTANCE_LABEL[k])) },
+        { label: "One Attribute", options: ATTRIBUTE_KEYS.map(k => opt(k, `${ATTR_LABEL[k]} only`)) }
+      ]
     };
 
     const effectRows = list => (list ?? []).map((e, idx) => ({ idx, ...e, label: entryLabel(e, em[e.key]) }));

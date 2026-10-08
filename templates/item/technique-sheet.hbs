@@ -15,11 +15,11 @@
     <label>Defensive floor <em>(a ward or answer to a class of attack; sets a minimum price of 8 XP)</em></label>
     <input type="checkbox" name="system.floor" {{#if system.floor}}checked{{/if}} />
     <label>Catalog family <em>(only sorts it into a compendium folder, such as Melee or Kinetic)</em></label>
-    <input type="text" name="system.family" value="{{system.family}}" placeholder="Melee, Kinetic, Sonic..." />
+    <select name="system.family">{{#each familyChoices}}<option value="{{this.value}}" {{#if (foil-eq this.value ../system.family)}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>
     <label>Catalog group <em>(subfolder inside the family, such as Control or Piercing)</em></label>
-    <input type="text" name="system.subgroup" value="{{system.subgroup}}" placeholder="Control, Piercing..." />
+    <select name="system.subgroup">{{#each subgroupGroups}}{{#if this.label}}<optgroup label="{{this.label}}">{{/if}}{{#each this.options}}<option value="{{this.value}}" {{#if (foil-eq this.value ../../system.subgroup)}}selected{{/if}}>{{this.label}}</option>{{/each}}{{#if this.label}}</optgroup>{{/if}}{{/each}}</select>
     <label>Free from Origin <em>(an Origin Feat teaches it at no cost; a label only)</em></label>
-    <input type="text" name="system.ancestryGrant" value="{{system.ancestryGrant}}" placeholder="Origin name, or blank" />
+    <select name="system.ancestryGrant">{{#each originOptions}}<option value="{{this.value}}" {{#if (foil-eq this.value ../system.ancestryGrant)}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>
   </div>
   <fieldset>
     <legend>Requires Instrument Type <em>(any one of)</em></legend>

@@ -175,6 +175,21 @@ export const EFFECT_CONDITION = {
   controlled: "Controlled", intimidated: "Intimidated", baited: "Baited", angered: "Angered", relaxed: "Relaxed",
   impressed: "Impressed", enthralled: "Enthralled", blinded: "Blinded", slowed: "Slowed", stunned: "Stunned"
 };
+/** Technique catalog families and their groups (the compendium folders). */
+export const TECHNIQUE_FAMILIES = {
+  Melee: ["Control", "Debilitating", "Piercing"],
+  Ranged: ["Control & Area", "Debilitating", "Piercing & Precision"],
+  Kinetic: ["Area & Lingering", "Control", "Mobility", "Piercing"],
+  Incorporeal: ["Control", "Debilitating", "Draining", "Evasive & Reactive", "Illusion & Deception"],
+  Sonic: ["Control & Deception", "Debilitating & Reactive", "Restorative"],
+  Fortifying: ["Group Support (Selective)", "Movement", "Single-Target Support"],
+  Grappling: [], Guard: []
+};
+/** The Origins that ship with the system (PHB 7.8.x). */
+export const ORIGIN_NAMES = ["Riverlands", "Highlands", "Woodlands", "Deep Stone", "Frozen North", "Fenland", "Jungle Canopy",
+  "Open Plains", "Island Shores", "Sunbaked Desert", "Crowded City", "Back Alleys", "Quiet Village", "Ruined Lands", "Ashen Badlands"];
+/** Instrument Ranges as the books print them (PHB 4.1.2). */
+export const RANGE_CHOICES = ["Touching", "Close", "Near", "Short Range", "Mid Range", "Long Range", "Sight"];
 /** The two Skills that resist each Condition when a Technique deals no Stress (PHB 6.5.0, 6.8.x). */
 export const CONDITION_OPPOSE = {
   Grappled: ["prowess", "discipline"], Restrained: ["prowess", "discipline"], Prone: ["prowess", "acuity"],

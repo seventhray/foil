@@ -8,9 +8,9 @@
     <label>Requires</label>
     <input type="text" name="system.requirements" value="{{system.requirements}}" />
     <label>Origin</label>
-    <input type="text" name="system.ancestry" value="{{system.ancestry}}" />
+    <select name="system.ancestry">{{#each originOptions}}<option value="{{this.value}}" {{#if (foil-eq this.value ../system.ancestry)}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>
     <label>Grants Technique</label>
-    <input type="text" name="system.grantsTechnique" value="{{system.grantsTechnique}}" />
+    <select name="system.grantsTechnique">{{#each techniqueNameOptions}}<option value="{{this.value}}" {{#if (foil-eq this.value ../system.grantsTechnique)}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>
   </div>
   <label class="block-label">Effect</label>
   <textarea name="system.effect" rows="3">{{system.effect}}</textarea>
@@ -19,7 +19,7 @@
     {{#each modifierRows}}
       <div class="quality-row">
         <select name="system.modifiers.{{this.idx}}.type">{{#each ../modifierTypeOptions}}<option value="{{this.value}}" {{#if (foil-eq this.value ../type)}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>
-        <input type="text" name="system.modifiers.{{this.idx}}.key" value="{{this.key}}" placeholder="guile / physical" />
+        <select name="system.modifiers.{{this.idx}}.key">{{#each ../modifierKeyGroups}}<optgroup label="{{this.label}}">{{#each this.options}}<option value="{{this.value}}" {{#if (foil-eq this.value ../../key)}}selected{{/if}}>{{this.label}}</option>{{/each}}</optgroup>{{/each}}</select>
         <input type="number" class="mini-num" name="system.modifiers.{{this.idx}}.value" value="{{this.value}}" />
         <a class="row-del" data-action="removeRow" data-path="system.modifiers" data-index="{{this.idx}}"><i class="fas fa-trash"></i></a>
       </div>
