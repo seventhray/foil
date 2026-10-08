@@ -502,7 +502,9 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
     if (!hurt.length) return ui.notifications?.info(`${this.actor.name} has nothing to recover.`);
     const tracksRations = this.actor.type === "character";
     const rows = hurt.map(k => `<div class="form-group"><label>${ATTR_LABEL[k]} (${attrs[k].potential.current}/${attrs[k].potential.max})</label>`
-      + `<input type="number" name="${k}" value="0" min="0" step="${REST_BLOCK_HOURS}" /></div>`).join("");
+      + `<button type="button" onclick="const i=this.parentElement.querySelector('input');i.value=Math.max(0,Number(i.value)-${REST_BLOCK_HOURS})">-</button>`
+      + `<input type="number" name="${k}" value="0" min="0" step="${REST_BLOCK_HOURS}" />`
+      + `<button type="button" onclick="const i=this.parentElement.querySelector('input');i.value=Number(i.value)+${REST_BLOCK_HOURS}">+</button></div>`).join("");
     const answer = await ask(`${this.actor.name} rests`,
       `<p>Each ${REST_BLOCK_HOURS} hours of rest removes 1d4 Stress from one Attribute. Split the hours among Attributes in ${REST_BLOCK_HOURS}-hour steps. One ration feeds ${REST_RATION_HOURS} hours.</p>`
       + rows + (tracksRations ? `<p>Rations on hand: ${this.actor.system.rations}</p>` : ""), "Rest");
