@@ -1,13 +1,13 @@
 /**
  * src/resist.js
- * Vulnerable and narrow Resistance against an incoming hit (PHB 6.6.0, GMG 4.3.0).
+ * Vulnerable and narrow Resistance against an incoming hit (PHB 6.6.0, GMG 9.3.0).
  * Pure, so it runs headlessly. A Vulnerable N or a narrow Resistance counts when the
  * attack's Instrument has the Type, the Family, the damage type, or the Material it names.
  */
 
 import { DAMAGE_TYPES } from "./constants.js";
 
-/** Instrument Type families a Vulnerable can name (GMG 4.3.0). */
+/** Instrument Type families a Vulnerable can name (GMG 9.3.0). */
 export const VULNERABLE_FAMILIES = { melee: "physical", ranged: "physical", grappling: "physical", kinetic: "physical", sonic: "mental", incorporeal: "mental" };
 
 /** One scope choice per row: Broad, a Family, a damage type or Instrument Type, or a Material. */

@@ -110,7 +110,7 @@ p("Character sheet", `
 `),
 
 p("Creature sheet", `
-<p>A creature uses the same Attributes, Skills, Stress, and Incapacitation. Its own fields: <strong>Tier</strong>, <strong>Behavior</strong> (what it does once an Attribute is Incapacitated, GMG 4.8.0), <strong>Vulnerable</strong>, and a typed <strong>Resistance</strong>. <strong>Total Potential</strong>, the four Potentials summed, shows as GM shorthand.</p>`),
+<p>A creature uses the same Attributes, Skills, Stress, and Incapacitation. Its own fields: <strong>Tier</strong>, <strong>Behavior</strong> (what it does once an Attribute is Incapacitated, GMG 9.8.0), <strong>Vulnerable</strong>, and a typed <strong>Resistance</strong>. <strong>Total Potential</strong>, the four Potentials summed, shows as GM shorthand.</p>`),
 
 p("What the system does for you", `
 <p>Foilbound on Foundry stays close to pen and paper. It derives values and rolls dice. Three things are automated:</p>

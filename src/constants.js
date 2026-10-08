@@ -223,7 +223,7 @@ export const knowHowCost = (dice = {}) =>
   XP_COST.knowHow.base + XP_COST.knowHow.perDie * Object.values(dice).reduce((n, c) => n + (Number(c) || 0), 0);
 export const trainingCost = held => XP_COST.training + XP_COST.trainingStep * Math.max(0, Number(held) || 0);
 
-// Behavior Traits (GMG 4.8.0). Declarative, never rolled.
+// Behavior Traits (GMG 9.8.0). Declarative, never rolled.
 export const BEHAVIOR_TRAITS = [
   "Craven", "Simpleminded", "Disciplined [commander]", "Pack-Bound [pack]", "Opportunist",
   "Territorial [place]", "Venal", "Zealous", "Mindless", "Bound [binding]"

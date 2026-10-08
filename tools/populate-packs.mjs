@@ -45,7 +45,7 @@ const warnings = [];
 // [name, key, family, {stressPhysical, stressMental, pierce, flags...}, description]
 const CRAFT_MATERIALS = ["Metal", "Wood", "Leather", "Gemstone", "Textile", "Reagent", "Stone"];
 const INSTRUMENT_TYPES = [
-  ["Quick", "quick", "other", { quick: true }, "Creatures only (GMG 4.6.0): this natural weapon's built-in Techniques may be used as a Quick Action. A Light Instrument already can (PHB 4.1.1)."],
+  ["Quick", "quick", "other", { quick: true }, "Creatures only (GMG 9.6.0): this natural weapon's built-in Techniques may be used as a Quick Action. A Light Instrument already can (PHB 4.1.1)."],
   ["Edged", "edged", "melee", { stressPhysical: 3, doubleResistance: true }, "+3 Stress against a physical Attribute. Physical Resistance, after Pierce, counts double against it."],
   ["Pointed", "pointed", "melee", { stressPhysical: 1, pierce: 1 }, "Pierce 1 against physical Resistance. +1 Stress against a physical Attribute."],
   ["Blunt", "blunt", "melee", { pierce: 3 }, "Pierce 3 against physical Resistance."],

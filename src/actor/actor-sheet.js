@@ -479,7 +479,7 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
    * The chat-card payload the Stress button reads. The margin cap follows the
    * Instrument's weight (PHB 6.7.0).
    */
-  /** What a hit through this Instrument counts as for Vulnerable and narrow Resistance (GMG 4.3.0). */
+  /** What a hit through this Instrument counts as for Vulnerable and narrow Resistance (GMG 9.3.0). */
   _attackInfo(inst) {
     const reg = globalThis.CONFIG?.FOIL?.instrumentTypes ?? {};
     const types = inst.system.types ?? [];

@@ -45,7 +45,7 @@
       },
       "text": {
         "format": 1,
-        "content": "<p>A creature uses the same Attributes, Skills, Stress, and Incapacitation. Its own fields: <strong>Tier</strong>, <strong>Behavior</strong> (what it does once an Attribute is Incapacitated, GMG 4.8.0), <strong>Vulnerable</strong>, and a typed <strong>Resistance</strong>. <strong>Total Potential</strong>, the four Potentials summed, shows as GM shorthand.</p>",
+        "content": "<p>A creature uses the same Attributes, Skills, Stress, and Incapacitation. Its own fields: <strong>Tier</strong>, <strong>Behavior</strong> (what it does once an Attribute is Incapacitated, GMG 9.8.0), <strong>Vulnerable</strong>, and a typed <strong>Resistance</strong>. <strong>Total Potential</strong>, the four Potentials summed, shows as GM shorthand.</p>",
         "markdown": ""
       },
       "image": {},

@@ -137,7 +137,7 @@ export class InstrumentData extends foundry.abstract.TypeDataModel {
 
     // Type effects (PHB 4.1.1).
     // A Light Instrument's built-ins can use the Quick Action (PHB 4.1.1). The Quick Type
-    // survives only for a creature's natural weapon chosen to work that way (GMG 4.6.0).
+    // survives only for a creature's natural weapon chosen to work that way (GMG 9.6.0).
     this.quick = this.weight === "light" || defs.some(d => d.quick);
     this.reload = defs.find(d => d.reload)?.reload ?? "";
     this.blockingOnly = defs.some(d => d.blocking) && !defs.some(d => d.family === "melee" || d.family === "ranged");

@@ -30,7 +30,7 @@ def table_after(heading, first_col):
 
 
 num = lambda s: int(re.search(r"-?\d+", s).group(0))
-TIER_XP = {r[0]: num(r[1]) for r in table_after("## 4.1.0 Tier", "Tier | XP")}
+TIER_XP = {r[0]: num(r[1]) for r in table_after("## 9.1.0 Tier", "Tier | XP")}
 
 
 def half_up(x):
@@ -38,7 +38,7 @@ def half_up(x):
 
 
 def numbers(xp):
-    """GMG 4.1.0's creature formulas for a creature XP."""
+    """GMG 9.1.0's creature formulas for a creature XP."""
     pot = 2 * half_up((20 + xp / 32) / 2)
     if xp >= 0:
         allow, train, pts = half_up(40 + 3.6 * xp ** 0.5), half_up(2 + xp / 500), half_up(2 + xp / 533)
@@ -47,10 +47,10 @@ def numbers(xp):
     return dict(pot=pot, health=4 * pot, res=8 * pts, cap=pts + 1, train=train, allow=allow, ceil=2 * pot)
 
 
-TRAITS = {r[0]: num(r[1]) for r in table_after("## 4.5.0 Feats and Traits", "Trait")}
-FEATS = {r[0]: r[1] for r in table_after("### 4.5.1 Monster Feats", "Feat")}
-STEP = 2                  # one row of the Target Potential table (GMG 4.2.0)
-GRANT_ACTION = 14         # Legendary Action, per use (GMG 4.5.1)
+TRAITS = {r[0]: num(r[1]) for r in table_after("## 9.5.0 Feats and Traits", "Trait")}
+FEATS = {r[0]: r[1] for r in table_after("### 9.5.1 Monster Feats", "Feat")}
+STEP = 2                  # one row of the Target Potential table (GMG 9.2.0)
+GRANT_ACTION = 14         # Legendary Action, per use (GMG 9.5.1)
 
 issues, checked = [], 0
 for path in sorted(glob.glob(os.path.join(CREATURES, "*.md"))):

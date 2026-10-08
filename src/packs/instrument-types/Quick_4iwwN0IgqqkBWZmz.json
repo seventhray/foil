@@ -15,7 +15,7 @@
     "blocking": false,
     "reload": "",
     "isTool": false,
-    "description": "<p>Creatures only (GMG 4.6.0): this natural weapon's built-in Techniques may be used as a Quick Action. A Light Instrument already can (PHB 4.1.1).</p>"
+    "description": "<p>Creatures only (GMG 9.6.0): this natural weapon's built-in Techniques may be used as a Quick Action. A Light Instrument already can (PHB 4.1.1).</p>"
   },
   "effects": [],
   "folder": null,

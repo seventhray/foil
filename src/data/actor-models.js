@@ -262,9 +262,9 @@ export class CreatureData extends foundry.abstract.TypeDataModel {
       ...coreSchema(),
       tier: int(1, { min: 1 }),
       cr: str(""),
-      // What it does once an Attribute is Incapacitated (GMG 4.8.0). Blank: it Holds.
+      // What it does once an Attribute is Incapacitated (GMG 9.8.0). Blank: it Holds.
       behavior: str(""),
-      // Vulnerable N to a scope: Broad, a Family, a damage type or Instrument Type, or a Material (PHB 6.6.0, GMG 4.3.0).
+      // Vulnerable N to a scope: Broad, a Family, a damage type or Instrument Type, or a Material (PHB 6.6.0, GMG 9.3.0).
       vulnerabilities: new f.ArrayField(new f.SchemaField({
         scope: str("fire"), material: str(""), n: int(1, { min: 1 })
       })),
