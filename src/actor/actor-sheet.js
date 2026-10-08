@@ -493,37 +493,42 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
 
   /**
    * Rest (PHB 6.10.0): 1d4 Stress off one Attribute per 2 hours, eating one
-   * ration per 8 hours. Without a ration to spend, the time passes but heals
-   * nothing. A long rest may pour every roll into one Attribute.
+   * ration per 8 hours. The hours are split among Attributes in 2-hour blocks.
+   * Without rations the time passes but the unfed blocks heal nothing.
    */
   static async _onRest() {
     const attrs = this.actor.system.attributes ?? {};
     const hurt = ATTRIBUTE_KEYS.filter(k => Number(attrs[k]?.potential?.current ?? 0) < Number(attrs[k]?.potential?.max ?? 0));
     if (!hurt.length) return ui.notifications?.info(`${this.actor.name} has nothing to recover.`);
     const tracksRations = this.actor.type === "character";
-    const opts = hurt.map(k => `<option value="${k}">${ATTR_LABEL[k]} (${attrs[k].potential.current}/${attrs[k].potential.max})</option>`).join("");
+    const rows = hurt.map(k => `<div class="form-group"><label>${ATTR_LABEL[k]} (${attrs[k].potential.current}/${attrs[k].potential.max})</label>`
+      + `<input type="number" name="${k}" value="0" min="0" step="${REST_BLOCK_HOURS}" /></div>`).join("");
     const answer = await ask(`${this.actor.name} rests`,
-      `<p>Each 2 hours of rest removes 1d4 Stress from one Attribute. One ration feeds 8 hours.</p>`
-      + `<div class="form-group"><label>Attribute</label><select name="key">${opts}</select></div>`
-      + `<div class="form-group"><label>Hours</label><input type="number" name="hours" value="8" min="${REST_BLOCK_HOURS}" step="${REST_BLOCK_HOURS}" /></div>`
-      + (tracksRations ? `<p>Rations on hand: ${this.actor.system.rations}</p>` : ""), "Rest");
+      `<p>Each ${REST_BLOCK_HOURS} hours of rest removes 1d4 Stress from one Attribute. Split the hours among Attributes in ${REST_BLOCK_HOURS}-hour steps. One ration feeds ${REST_RATION_HOURS} hours.</p>`
+      + rows + (tracksRations ? `<p>Rations on hand: ${this.actor.system.rations}</p>` : ""), "Rest");
     if (!answer) return;
-    const hours = Math.max(0, Math.trunc(Number(answer.hours) || 0));
-    let blocks = Math.floor(hours / REST_BLOCK_HOURS);
-    let rations = 0;
+    const want = Object.fromEntries(hurt.map(k => [k, Math.floor(Math.max(0, Math.trunc(Number(answer[k]) || 0)) / REST_BLOCK_HOURS)]));
+    const totalBlocks = Object.values(want).reduce((n, v) => n + v, 0);
+    if (!totalBlocks) return;
+    const hours = totalBlocks * REST_BLOCK_HOURS;
+    let fed = totalBlocks, rations = 0;
+    let unfed = 0;
     if (tracksRations) {
-      const needed = Math.ceil(hours / REST_RATION_HOURS);
-      rations = Math.min(needed, this.actor.system.rations);
-      blocks = Math.min(blocks, Math.floor(rations * REST_RATION_HOURS / REST_BLOCK_HOURS));
+      rations = Math.min(Math.ceil(hours / REST_RATION_HOURS), this.actor.system.rations);
+      fed = Math.min(totalBlocks, Math.floor(rations * REST_RATION_HOURS / REST_BLOCK_HOURS));
+      unfed = totalBlocks - fed;
     }
     const lines = [];
-    if (blocks > 0) {
+    for (const k of hurt) {
+      const blocks = Math.min(want[k], fed);
+      fed -= blocks;
+      if (blocks <= 0) continue;
       const roll = await new Roll(`${blocks}d4`).evaluate();
-      const { before, after } = await this.actor.heal(answer.key, roll.total);
-      lines.push(`${ATTR_LABEL[answer.key]} ${before} &rarr; ${after} (${blocks}d4 = ${roll.total})`);
-    } else {
-      lines.push("No ration to eat: the time passes, but heals nothing.");
+      const { before, after } = await this.actor.heal(k, roll.total);
+      lines.push(`${ATTR_LABEL[k]} ${before} &rarr; ${after} (${blocks}d4 = ${roll.total})`);
     }
+    if (!lines.length) lines.push("No ration to eat: the time passes, but heals nothing");
+    else if (unfed) lines.push(`${unfed * REST_BLOCK_HOURS} hours unfed heal nothing`);
     if (rations) {
       await this.actor.update({ "system.rations": this.actor.system.rations - rations });
       lines.push(`${rations} ration${rations === 1 ? "" : "s"} eaten`);
