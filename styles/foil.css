@@ -883,7 +883,11 @@
 .rest-table .rest-stepper button { flex: 0 0 28px; width: 28px; height: 24px; margin: 0; padding: 0; line-height: 1; cursor: pointer; }
 .rest-table .rest-value { min-width: 36px; text-align: center; white-space: nowrap; }
 
-.axis-habit-head .mini-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+.axis-habit-head .mini-btn:not(:disabled) {
+  background: var(--accent); color: var(--parchment-paper); border-color: var(--accent); font-weight: bold; opacity: 1;
+}
+.axis-habit-head .mini-btn:not(:disabled):hover { background: var(--accent-bright, var(--accent)); filter: brightness(1.1); }
+.axis-habit-head .mini-btn:disabled { background: var(--parchment-deep); color: var(--ink-faint); border-color: var(--line); opacity: 0.6; cursor: not-allowed; }
 
 .foil-sheet td.roll-cell, .foil-sheet th.roll-cell { width: 28px; text-align: center; }
 
