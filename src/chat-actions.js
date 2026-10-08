@@ -5,7 +5,7 @@
  * and spend a Foil Token to halve Stress just applied.
  */
 
-import { ATTRIBUTE_KEYS, ATTR_LABEL, CONDITIONS, CONDITION_PRESETS } from "./constants.js";
+import { ATTRIBUTE_KEYS, ATTR_LABEL, CONDITIONS, CONDITION_PRESETS, FOIL_TOKEN_MAX } from "./constants.js";
 import { ask, addButton } from "./dialogs.js";
 
 /** The Actor a stored entry points at (a token's own actor when the token is unlinked). */
@@ -95,12 +95,26 @@ async function halveApplied(h) {
     content: `<div class="foil-flavor"><strong>Foil Token spent: ${total} Stress halved to ${Math.floor(total / 2)}</strong><br><em>${lines.join(", ")}</em></div>` });
 }
 
+/** The GM approves an invoked Habit: the character earns a Foil Token (PHB 3.2.0). */
+async function awardToken(message, invoke) {
+  const actor = game.actors.get(invoke.actorId);
+  if (!actor || actor.type !== "character") return;
+  if (actor.foilTokens >= FOIL_TOKEN_MAX) return ui.notifications?.warn(`${actor.name} already holds ${FOIL_TOKEN_MAX} Foil Tokens.`);
+  await actor.setFoilTokens(actor.foilTokens + 1);
+  await message.setFlag("foil", "invoke", { ...invoke, awarded: true });
+  await ChatMessage.create({ speaker: ChatMessage.getSpeaker({ actor }),
+    content: `<div class="foil-flavor"><strong>${actor.name} earns a Foil Token</strong><br><em>${actor.foilTokens} of ${FOIL_TOKEN_MAX}.</em></div>` });
+}
+
 Hooks.on("renderChatMessageHTML", (message, html) => {
   const cond = message.getFlag("foil", "cond");
   if (cond) {
     addButton(html, "Add Condition", "foil-add-condition", () => addCondition(cond));
     for (const e of cond.ends ?? []) addButton(html, `End ${e.name}: ${e.actorName}`, "foil-end-condition", () => endCondition(e));
   }
+  const invoke = message.getFlag("foil", "invoke");
+  if (invoke && !invoke.awarded && game.user.isGM) addButton(html, "Award Foil Token", "foil-award-token", () => awardToken(message, invoke));
+  if (invoke?.awarded) addButton(html, "Foil Token awarded", "foil-awarded", () => {}).disabled = true;
   if (message.getFlag("foil", "stress")) addButton(html, "Adjust roll", "foil-adjust-roll", () => adjustRoll(message));
   const halve = message.getFlag("foil", "halve");
   if (halve) addButton(html, "Foil Token: halve", "foil-halve", () => halveApplied(halve));

@@ -27,4 +27,5 @@ export function addButton(html, label, cls, onClick) {
   btn.textContent = label;
   btn.addEventListener("click", onClick);
   (html.querySelector(".message-content") ?? html).appendChild(btn);
+  return btn;
 }

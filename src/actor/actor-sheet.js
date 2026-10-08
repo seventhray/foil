@@ -54,6 +54,7 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
       rollEnchantment:  FoilActorSheet._onRollEnchantment,
       earnToken:        FoilActorSheet._onEarnToken,
       adjustRations:    FoilActorSheet._onAdjustRations,
+      invokeHabit:      FoilActorSheet._onInvokeHabit,
       absorbStress:     FoilActorSheet._onAbsorbStress,
       addCondition:     FoilActorSheet._onAddCondition,
       removeCondition:  FoilActorSheet._onRemoveCondition,
@@ -109,7 +110,7 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
     return FOIL_AXES.map(axis => {
       const v = foil[axis.key] ?? {};
       return {
-        ...axis, lean: v.lean ?? "", habit: v.habit ?? "",
+        ...axis, lean: v.lean ?? "", habit: v.habit ?? "", canInvoke: !!(v.lean && v.habit),
         leanOptions: [
           { value: "", label: "Neutral" }, { value: "low", label: axis.low }, { value: "high", label: axis.high }
         ].map(o => ({ ...o, selected: o.value === (v.lean ?? "") }))
@@ -417,6 +418,16 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
   }
 
   // ─── Foil Tokens (PHB 3.2.0) ────────────────────────────────────────────────
+
+  /** Ask the table to award a Foil Token for a held Habit (PHB 3.2.0): the GM approves from the card. */
+  static async _onInvokeHabit(event, target) {
+    const axis = FOIL_AXES.find(a => a.key === target.dataset.axis);
+    const v = this.actor.system.foil?.[axis?.key];
+    if (!axis || !v?.lean || !v?.habit) return ui.notifications?.warn("Declare the axis first: an undeclared axis can't be invoked.");
+    await ChatMessage.create({ speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+      flags: { foil: { invoke: { actorId: this.actor.id, axis: axis.key, habit: v.habit, awarded: false } } },
+      content: `<div class="foil-flavor"><strong>${this.actor.name} invokes ${axis.label}: ${v.habit}</strong><br><em>Once per scene. The GM awards a Foil Token if the Habit drives the action (PHB 3.2.0).</em></div>` });
+  }
 
   static async _onAdjustRations(event, target) {
     const next = Math.max(0, Number(this.actor.system.rations ?? 0) + Number(target.dataset.delta ?? 1));

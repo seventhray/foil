@@ -12,6 +12,7 @@
           <select name="system.foil.{{this.key}}.lean" title="Which end the Habit leans toward">
             {{#each this.leanOptions}}<option value="{{this.value}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>{{/each}}
           </select>
+          {{#if this.canInvoke}}<button type="button" class="mini-btn" data-action="invokeHabit" data-axis="{{this.key}}" title="Once per scene, with the table's agreement, earns a Foil Token (PHB 3.2.0)"><i class="fas fa-hand-sparkles"></i> Invoke</button>{{/if}}
         </div>
         <input type="text" name="system.foil.{{this.key}}.habit" value="{{this.habit}}" placeholder="{{this.low}} ... {{this.high}}" />
       </div>
