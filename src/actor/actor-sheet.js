@@ -338,7 +338,7 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
     if (sys.quick) notes.push("Quick: may be paid with the Quick Action.");
     if (inst?.system.doublesMargin) notes.push("Heavy: costs the Action and the Quick Action; the margin doubles (PHB 4.1.1).");
 
-    const aim = sys.dealsStress && inst ? await this._aimAtTargets(inst, tech.name, sys.effectText, sys.requires ?? []) : { targets: [] };
+    const aim = sys.dealsStress && inst ? await this._aimAtTargets(inst, tech.name, "", sys.requires ?? []) : { targets: [] };
     if (!aim) return;
     notes.push(...(aim.notes ?? []));
 

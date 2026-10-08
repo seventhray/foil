@@ -289,7 +289,6 @@ function techniqueDoc(n) {
       skill: skillMatch ? lc(skillMatch[1]) : "",
       family: n.family ?? "", subgroup: n.subgroup ?? "",
       effects, floor,
-      effectText: n.effect ?? "",
       ancestryGrant: n.origin_grant ?? "",
       description: n.description ? `<p>${n.description}</p>` : ""
     }

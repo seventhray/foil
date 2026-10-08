@@ -13,7 +13,6 @@
     "subgroup": "Movement",
     "effects": [],
     "floor": true,
-    "effectText": "Move through water at full speed and breathe within it, for the duration of Upkeep",
     "ancestryGrant": "",
     "description": ""
   },

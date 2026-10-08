@@ -191,8 +191,6 @@ export class TechniqueData extends foundry.abstract.TypeDataModel {
       effects: effectsArraySchema(),
       // A stated defensive floor (PHB 4.2.1) the effects can't show on their own.
       floor: bool(false),
-      // The printed Effect line, Strain included.
-      effectText: str(""),
       ancestryGrant: str(""),
       description: html("")
     };
@@ -212,7 +210,7 @@ export class TechniqueData extends foundry.abstract.TypeDataModel {
 
     const has = key => (this.effects ?? []).filter(e => e.key === key);
     const sum = key => has(key).reduce((n, e) => n + Number(e.magnitude ?? 0), 0);
-    this.quick      = has("quick").length > 0 || /^Quick\b/.test(this.effectText);
+    this.quick      = has("quick").length > 0;
     this.upkeep     = has("upkeep").length > 0;
     this.dealsStress = has("stress").length > 0;
     this.rollBonus  = sum("roll-bonus");
@@ -222,7 +220,7 @@ export class TechniqueData extends foundry.abstract.TypeDataModel {
     const TARGETED = new Set(["stress", "stress-rider", "weaken", "weaken-minute", "reeling", "reeling-minute", "move", "drain", "lingering", "illusion", "counter",
       "grappled", "prone", "restrained", "charmed", "frightened", "controlled", "intimidated", "baited",
       "angered", "relaxed", "impressed", "wary", "enthralled", "blinded", "slowed", "stunned", "disarm"]);
-    this.offensive = (this.effects ?? []).some(e => TARGETED.has(e.key)) || /-\d+ Oppose/.test(this.effectText);
+    this.offensive = (this.effects ?? []).some(e => TARGETED.has(e.key) || (e.key.startsWith("skill-mod") && Number(e.magnitude) < 0));
 
     const sameSet = group => group.length === types.length && group.every(k => types.includes(k));
     this.requiresLabel = this.innate ? "Innate"
@@ -231,9 +229,8 @@ export class TechniqueData extends foundry.abstract.TypeDataModel {
       : types.length ? types.map(k => defs.find(d => d.key === k)?.label ?? k).join(" or ") : "Any";
     this.typeWarning = unknown.length ? `Unresolved Instrument Type(s) in Requires: ${unknown.join(", ")}.` : "";
 
-    const base = this.effectText || (priced.breakdown ?? []).map(b => b.label).join(", ");
-    this.effectSummary = this.effectText ? base
-      : (this.strain ? (base ? `${base}, Strain ${this.strain}${this.perTarget ? " per target" : ""}` : `Strain ${this.strain}`) : base);
+    const base = (priced.breakdown ?? []).map(b => b.label).join(", ");
+    this.effectSummary = this.strain ? (base ? `${base}, Strain ${this.strain}${this.perTarget ? " per target" : ""}` : `Strain ${this.strain}`) : base;
   }
 }
 

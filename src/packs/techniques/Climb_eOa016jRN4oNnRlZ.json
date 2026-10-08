@@ -13,7 +13,6 @@
     "subgroup": "Movement",
     "effects": [],
     "floor": true,
-    "effectText": "Move along vertical surfaces at full speed without a roll, for the duration of Upkeep",
     "ancestryGrant": "",
     "description": ""
   },
