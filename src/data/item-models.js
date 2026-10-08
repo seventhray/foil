@@ -9,7 +9,7 @@
 
 import { f, slugField, slugArray, str, int, bool, html } from "./fields.js";
 import {
-  WEIGHT_CLASS, WEIGHT_KEYS, ATTRIBUTE_KEYS, SKILL_KEYS, PRIMARY_SKILLS, SIZE_KEYS, BONUS_PRICE,
+  WEIGHT_CLASS, WEIGHT_KEYS, ATTRIBUTE_KEYS, SKILL_KEYS, SKILL_LABEL, PRIMARY_SKILLS, SIZE_KEYS, BONUS_PRICE,
   MATERIAL_TIER_PRICE, SIZE, TYPE_SURCHARGE, REACH_PRICE_PER_BAND, RANGE_BANDS, rangeBandOf, usualRange,
   FOCUS_GEMS, EQUIPMENT_CATEGORIES, LEGACY_SKILL_KEY, ITEM_LOCATIONS
 } from "../constants.js";
@@ -89,7 +89,15 @@ export class InstrumentData extends foundry.abstract.TypeDataModel {
       enchantment: new f.SchemaField({
         enabled: bool(false),
         effects: effectsArraySchema(),
-        effectText: str("")
+        effectText: str(""),
+        // Or a numerical bonus instead of a Technique (PHB 5.3.4): one Enchantment per item.
+        bonus: new f.SchemaField({
+          kind: new f.StringField({ required: true, blank: true, initial: "", choices: ["", "skill", "roll", "pierce", "stress", "aid"] }),
+          skill: new f.StringField({ required: true, blank: true, initial: "", choices: ["", ...SKILL_KEYS] }),
+          n: new f.NumberField({ required: true, integer: true, initial: 1, min: 1, max: 5 }),
+          situational: bool(false),
+          circumstance: str("")
+        })
       }),
       description: html("")
     };
@@ -144,6 +152,25 @@ export class InstrumentData extends foundry.abstract.TypeDataModel {
     this.bonusRoll   = this.blockingOnly ? 0 : this.bonus;
     this.bonusPierce = !this.blockingOnly && meleeOrRanged ? Math.floor(this.bonus / 2) : 0;
     this.bonusOppose = this.blockingOnly ? this.bonus : 0;
+
+    // An enchanted bonus (PHB 5.3.4). Broad ones apply on their own; a situational one is named on the card for the table.
+    const eb = this.enchantment?.bonus ?? {};
+    this.enchantSkill = { skill: "", n: 0 };
+    this.enchantStress = 0;
+    if (eb.kind) {
+      const base = (BONUS_PRICE[this.size] ?? BONUS_PRICE.medium)[eb.n] ?? 0;
+      const price = Math.ceil(base * (eb.kind === "stress" ? 2 : 1) / (eb.situational ? 2 : 1));
+      const what = { skill: `+${eb.n} ${SKILL_LABEL[eb.skill] ?? "Skill"}`, roll: `+${eb.n} to its rolls`, pierce: `Pierce ${eb.n}`,
+                     stress: `+${eb.n} Stress after the margin`, aid: `Aid +${eb.n}` }[eb.kind];
+      this.enchantBonus = { price, label: `${what}${eb.situational ? ` (${eb.circumstance || "situational"})` : ""}`, applies: !eb.situational && eb.kind !== "aid",
+                            difficulty: [8, 12, 16, 20, 24, 32][eb.n] ?? 12, materialTier: eb.n };
+      if (this.enchantBonus.applies) {
+        if (eb.kind === "roll") this.bonusRoll += eb.n;
+        else if (eb.kind === "pierce") this.bonusPierce += eb.n;
+        else if (eb.kind === "stress") this.enchantStress = eb.n;
+        else if (eb.kind === "skill") this.enchantSkill = { skill: eb.skill, n: eb.n };
+      }
+    } else this.enchantBonus = null;
 
     // Focus Gem (PHB 5.2.3).
     this.isArcane = channels.length > 0;

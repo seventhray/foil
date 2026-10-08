@@ -238,11 +238,11 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
     const aim = stress ? await this._aimAtTargets(inst, kit.name, kit.effect) : { targets: [] };
     if (!aim) return;
     notes.push(...(aim.notes ?? []));
-    await this._postRoll(this._skillFormula(kit.skill, inst.system.bonusRoll, targeted ? inst.system.weightDice : ""), `${kit.name} (${SKILL_LABEL[kit.skill]})`,
+    await this._postRoll(this._skillFormula(kit.skill, Number(inst.system.bonusRoll) + (inst.system.enchantSkill?.skill === kit.skill ? inst.system.enchantSkill.n : 0), targeted ? inst.system.weightDice : ""), `${kit.name} (${SKILL_LABEL[kit.skill]})`,
       notes.join("<br>"), roll => ({
         cond: this._condFlag(),
         ...(applied && CONDITION_OPPOSE[applied] ? this._conditionFlag(kit.name, roll.total, { name: applied, note: "" }, { melee: !!inst.system.isMelee }) : {}),
-        ...(stress ? this._stressFlag(inst, kit.name, roll.total, { bespoke: bespokeBonus(kit.effect), pierce: inst.system.bonusPierce, aim }) : {})
+        ...(stress ? this._stressFlag(inst, kit.name, roll.total, { bespoke: bespokeBonus(kit.effect) + Number(inst.system.enchantStress ?? 0), pierce: inst.system.bonusPierce, aim }) : {})
       }));
   }
 
@@ -372,7 +372,8 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
     }
     skill ||= "prowess";
 
-    const bonus = Number(sys.rollBonus ?? 0) + Number(inst?.system.bonusRoll ?? 0);
+    const bonus = Number(sys.rollBonus ?? 0) + Number(inst?.system.bonusRoll ?? 0) + (inst?.system.enchantSkill?.skill === skill ? inst.system.enchantSkill.n : 0);
+    if (inst?.system.enchantBonus) notes.push(`Enchantment: ${inst.system.enchantBonus.label}${inst.system.enchantBonus.applies ? "" : " (apply at the table)"}.`);
     const notes = this._rollNotes(skill, true);
     notes.unshift(`${inst ? `Through ${inst.name}` : "Innate"}. ${sys.effectSummary}`);
     if (sys.quick) notes.push("Quick: may be paid with the Quick Action.");
@@ -403,7 +404,7 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
       cond: this._condFlag(),
       ...(condition ? this._conditionFlag(tech.name, roll.total, condition, { melee: !!inst?.system.isMelee }) : {}),
       ...(sys.dealsStress && inst ? this._stressFlag(inst, tech.name, roll.total, {
-        bespoke: Number(sys.stressRider ?? 0), pierce: Number(sys.pierceTotal ?? 0) + Number(inst.system.bonusPierce ?? 0) + gemPierce, aim
+        bespoke: Number(sys.stressRider ?? 0) + Number(inst.system.enchantStress ?? 0), pierce: Number(sys.pierceTotal ?? 0) + Number(inst.system.bonusPierce ?? 0) + gemPierce, aim
       }) : {})
     }));
   }

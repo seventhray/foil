@@ -72,6 +72,22 @@
   <fieldset>
     <legend>Enchantment <em>(PHB 5.3.4)</em></legend>
     <label><input type="checkbox" name="system.enchantment.enabled" {{#if system.enchantment.enabled}}checked{{/if}} /> Enchanted</label>
+    <div class="field-grid">
+      <label>Or a bonus <em>(one Enchantment per item)</em></label>
+      <select name="system.enchantment.bonus.kind">{{#each enchantKindOptions}}<option value="{{this.value}}" {{#if (foil-eq this.value ../system.enchantment.bonus.kind)}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>
+      {{#if system.enchantment.bonus.kind}}
+        <label>Skill <em>(for a Skill bonus)</em></label>
+        <select name="system.enchantment.bonus.skill"><option value="">None</option>{{#each skillOptions}}<option value="{{this.value}}" {{#if (foil-eq this.value ../system.enchantment.bonus.skill)}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>
+        <label>N <em>(+1 to +5)</em></label>
+        <input type="number" name="system.enchantment.bonus.n" value="{{system.enchantment.bonus.n}}" min="1" max="5" />
+        <label>Situational <em>(half price; applied at the table)</em></label>
+        <input type="checkbox" name="system.enchantment.bonus.situational" {{#if system.enchantment.bonus.situational}}checked{{/if}} />
+        <label>Circumstance <em>(for a situational bonus)</em></label>
+        <input type="text" name="system.enchantment.bonus.circumstance" value="{{system.enchantment.bonus.circumstance}}" />
+      {{/if}}
+    </div>
+    {{#if system.enchantBonus}}<div class="derived-line"><strong>{{system.enchantBonus.label}}</strong> &middot; {{system.enchantBonus.price}}p &middot; crafted at Difficulty {{system.enchantBonus.difficulty}} from Tier {{system.enchantBonus.materialTier}} Gemstone</div>
+      {{#if system.enchantment.enabled}}<p class="type-warning-banner">An item holds one Enchantment: a Technique or a bonus, not both (PHB 5.3.4).</p>{{/if}}{{/if}}
     {{#if system.enchantment.enabled}}
       <div class="effect-row-list">{{> systems/foil/templates/item/partials/effect-rows.hbs rows=enchantEffectRows path="system.enchantment.effects"}}</div>
       <label class="block-label">Effect as printed</label>
