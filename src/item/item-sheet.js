@@ -135,6 +135,8 @@ export class FoilItemSheet extends HandlebarsApplicationMixin(ItemSheetV2Base) {
     const effectRows = list => (list ?? []).map((e, idx) => {
       const base = String(e.key).replace(/-minute$/, "");
       return { idx, ...e, key: base, label: entryLabel(e, em[e.key]), help: lookup(base.split("-")[0])?.text ?? "",
+               kind: em[e.key]?.pricingKind ?? "", showN: em[e.key]?.pricingKind === "perPoint", showPattern: em[e.key]?.pricingKind === "pattern",
+               showBands: ["pattern", "extendRange"].includes(em[e.key]?.pricingKind), showSelective: em[e.key]?.pricingKind === "selective",
                hasDuration: DURATION_BASES.has(base), minute: String(e.key).endsWith("-minute"),
                durationChoices: CONDITION_EFFECTS.has(base) ? [{ value: "", label: "Default (10 minutes)" }, ...DURATIONS.map(d => ({ value: d, label: d }))].map(c => ({ ...c, selected: c.value === (e.duration ?? "") })) : null };
     });

@@ -639,14 +639,17 @@
 }
 .effect-row:last-child { border-bottom: none; }
 .effect-row select.ef-key { flex: 1 1 130px; min-width: 110px; }
-.ef-field { display: flex; flex-direction: column; align-items: stretch; gap: 1px; width: 46px; }
+.ef-field { display: flex; flex-direction: column; align-items: stretch; gap: 1px; width: 56px; }
+.ef-field.wide { width: 96px; }
 .ef-field .mini-label {
   font-size: 0.62em; font-weight: bold; text-transform: uppercase; letter-spacing: 0.2px;
   color: var(--ink-soft); text-align: center; cursor: help;
   border-bottom: 1px dotted var(--line);
 }
 .ef-field .mini-num { width: 100%; box-sizing: border-box; text-align: center; padding: 1px 0; }
-.ef-field select { width: 100%; box-sizing: border-box; font-size: 0.85em; padding: 1px; }
+.ef-field select { width: 100%; box-sizing: border-box; font-size: 0.9em; padding: 2px; }
+.effect-row .ef-field:has(select[name$=".lasts"]), .effect-row .ef-field:has(select[name$=".duration"]) { width: 150px; }
+.effect-row .ef-readout { flex: 1 0 100%; }
 .effect-row .row-del { align-self: center; cursor: pointer; color: var(--bad); margin-bottom: 2px; }
 .effect-row .row-del:hover { text-shadow: 0 0 6px #d88; }
 
