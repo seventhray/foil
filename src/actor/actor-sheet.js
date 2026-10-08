@@ -22,7 +22,7 @@ import {
 import { equipmentSummary } from "../registry.js";
 import { stressFor } from "../stress.js";
 import { ask, dialogApi } from "../dialogs.js";
-import { conditionMods, signedParts, skillFormula } from "../combat.js";
+import { conditionFlags, conditionMods, signedParts, skillFormula, targetFlags } from "../combat.js";
 import { resolveOppose } from "../oppose.js";
 
 const LOCATION_ICON = { equipped: "fa-hand", carried: "fa-suitcase", stored: "fa-box-archive" };
@@ -184,7 +184,7 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
     return skillFormula(this.actor.system, skill, extra, dice);
   }
 
-  _rollNotes(skill) {
+  _rollNotes(skill, technique = false) {
     const sys = this.actor.system;
     const notes = [];
     const dropped = SKILL_ATTRS[skill].filter(ak => sys.attributes?.[ak]?.down).map(ak => ATTR_LABEL[ak]);
@@ -192,6 +192,7 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
     if (sys.carry?.penalty) notes.push(`Mass ${sys.carry.weight} lbs: -${sys.carry.penalty}.`);
     const cm = conditionMods(sys.conditions, { skill });
     if (cm.parts.length) notes.push(`${signedParts(cm.parts)}.`);
+    notes.push(...conditionFlags(sys.conditions, { skill, technique }));
     return notes;
   }
 
@@ -206,7 +207,7 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
     const inst = this.actor.items.get(id);
     const kit = inst?.system.kit?.[Number(target.dataset.index)];
     if (!inst || !kit) return;
-    const notes = this._rollNotes(kit.skill);
+    const notes = this._rollNotes(kit.skill, true);
     notes.unshift(`${inst.name}: ${kit.effect}`);
     if (!inst.system.innate && inst.system.location !== "equipped") notes.push(`${inst.name} isn't equipped: switching to it costs the Quick Action (PHB 4.1.0).`);
     if (inst.system.quick) notes.push("Light: after an Action through a Light Instrument, the Quick Action can pay for this (PHB 4.2.2).");
@@ -219,6 +220,7 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
     if (targeted && inst.system.weightDice) notes.push(`${inst.system.weightLabel}: +${inst.system.weightDice}.`);
     const aim = stress ? await this._aimAtTargets(inst, kit.name) : { targets: [] };
     if (!aim) return;
+    notes.push(...(aim.notes ?? []));
     await this._postRoll(this._skillFormula(kit.skill, inst.system.bonusRoll, targeted ? inst.system.weightDice : ""), `${kit.name} (${SKILL_LABEL[kit.skill]})`,
       notes.join("<br>"), stress ? roll => this._stressFlag(inst, kit.name, roll.total, {
         bespoke: bespokeBonus(kit.effect), pierce: inst.system.bonusPierce, aim
@@ -231,18 +233,20 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
    */
   async _aimAtTargets(inst, name) {
     const tokens = [...(game.user?.targets ?? [])];
-    if (!tokens.length) return { targets: [] };
+    if (!tokens.length) return { targets: [], notes: [] };
+    const notes = tokens.flatMap(t => targetFlags(t.actor?.system?.conditions).map(f => `${t.name}: ${f}`));
     const types = inst.system.stressTypes ?? [];
     const attrs = ATTRIBUTE_KEYS.map(k => `<option value="${k}">${ATTR_LABEL[k]}</option>`).join("");
     const typeOpts = [...types.map((t, i) => `<option value="${i}">${t.label}</option>`), `<option value="">None</option>`].join("");
     const answer = await ask(`${name}: aim`,
-      `<p>Target${tokens.length > 1 ? "s" : ""}: ${tokens.map(t => t.name).join(", ")}</p>`
+      `<p>Target${tokens.length > 1 ? "s" : ""}: ${tokens.map(t => t.name).join(", ")}</p>${notes.length ? `<p><em>${notes.join("<br>")}</em></p>` : ""}`
       + `<div class="form-group"><label>Attribute aimed at</label><select name="aim">${attrs}</select></div>`
       + (types.length ? `<div class="form-group"><label>Type effect <em>(one, your choice)</em></label><select name="type">${typeOpts}</select></div>` : "")
       + `<div class="form-group"><label>Other Stress bonus <em>(a Feat such as Heavy Hand)</em></label><input type="number" name="other" value="0" /></div>`,
       "Roll");
     if (!answer) return null;
     return {
+      notes,
       targets: tokens.map(t => ({ uuid: t.document.uuid, actorId: t.actor?.id ?? "", name: t.name })),
       aim: ATTRIBUTE_KEYS.includes(answer.aim) ? answer.aim : "might",
       typeIndex: types.length ? (answer.type ?? "0") : "",
@@ -302,13 +306,14 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
     skill ||= "prowess";
 
     const bonus = Number(sys.rollBonus ?? 0) + Number(inst?.system.bonusRoll ?? 0);
-    const notes = this._rollNotes(skill);
+    const notes = this._rollNotes(skill, true);
     notes.unshift(`${inst ? `Through ${inst.name}` : "Innate"}. ${sys.effectSummary}`);
     if (sys.quick) notes.push("Quick: may be paid with the Quick Action.");
     if (inst?.system.doublesMargin) notes.push("Heavy: costs the Action and the Quick Action; the margin doubles (PHB 4.1.1).");
 
     const aim = sys.dealsStress && inst ? await this._aimAtTargets(inst, tech.name) : { targets: [] };
     if (!aim) return;
+    notes.push(...(aim.notes ?? []));
 
     // Strain lands on the Instrument's Primary Attribute, ignoring Resistance (PHB 4.2.3).
     if (sys.strain > 0) {
@@ -337,7 +342,7 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
     const opts = inst.system.primarySkills.map(k => `<option value="${k}">${SKILL_LABEL[k]}</option>`).join("");
     const answer = await ask(`Use ${inst.name}`, `<div class="form-group"><label>Skill</label><select name="skill">${opts}</select></div>`, "Roll");
     if (!answer) return;
-    const notes = this._rollNotes(answer.skill);
+    const notes = this._rollNotes(answer.skill, true);
     notes.unshift(`Enchantment: ${ench.effectSummary}`);
     if (ench.strain > 0) {
       const { before, after } = await this.actor.takeStress(inst.system.primaryAttribute, ench.strain);

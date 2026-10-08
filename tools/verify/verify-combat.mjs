@@ -1,5 +1,5 @@
 /** Condition modifiers on rolls and on Techniques rolled against a target (PHB 6.8.0). */
-import { conditionMods, incomingMods, skillFormula, kindOf } from "../../src/combat.js";
+import { conditionMods, conditionFlags, targetFlags, harmFlags, incomingMods, skillFormula, kindOf } from "../../src/combat.js";
 
 let failed = 0;
 const check = (name, got, want) => {
@@ -18,5 +18,11 @@ check("Blinded -2 and Prone -1", conditionMods([c("Blinded"), c("Prone")], { ski
 check("Invisible -2 against the attack, Prone +1 for Melee only", [incomingMods([c("Invisible")]).total, incomingMods([c("Prone")], { melee: true }).total, incomingMods([c("Prone")]).total], [-2, 1, 0]);
 check("formula folds Mass and Conditions", skillFormula({ skills: { prowess: { formula: "2d8" } }, carry: { penalty: 1 }, conditions: [c("Blinded")] }, "prowess", 1), "2d8 - 2");
 check("Might and Finesse are physical, Wit and Presence mental", ["might", "finesse", "wit", "presence"].map(kindOf), ["physical", "physical", "mental", "mental"]);
+
+check("Frightened and Restrained are flagged, not applied", [conditionFlags([c("Frightened"), c("Restrained")], { skill: "prowess" }).length, conditionMods([c("Frightened"), c("Restrained")], { skill: "prowess" }).total], [2, 0]);
+check("Restrained is not flagged for a Skill without Finesse", conditionFlags([c("Restrained")], { skill: "resonance" }), []);
+check("Technique-use Conditions flag only for Techniques", [conditionFlags([c("Stunned"), c("Charmed")]).length, conditionFlags([c("Stunned"), c("Charmed")], { technique: true }).length], [0, 2]);
+check("Invisible target and harm-ended Conditions are flagged", [targetFlags([c("Invisible")]).length, harmFlags([c("Charmed"), c("Enthralled"), c("Prone")]).length], [1, 2]);
+check("Weakened with no Attribute named says so", conditionMods([c("Weakened", "")], { skill: "guile" }).parts[0].label.includes("no Attribute named"), true);
 
 process.exit(failed ? 1 : 0);
