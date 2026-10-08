@@ -129,7 +129,7 @@ export class InstrumentData extends foundry.abstract.TypeDataModel {
     this.reload = defs.find(d => d.reload)?.reload ?? "";
     this.blockingOnly = defs.some(d => d.blocking) && !defs.some(d => d.family === "melee" || d.family === "ranged");
     this.stressTypes = defs.filter(d => d.stressPhysical || d.stressMental || d.pierce || d.dealsNoStress || d.doubleResistance)
-      .map(d => ({ key: d.key, label: d.label, physical: d.stressPhysical, mental: d.stressMental,
+      .map(d => ({ key: d.key, family: d.family, label: d.label, physical: d.stressPhysical, mental: d.stressMental,
                    pierce: d.pierce, doubleResistance: d.doubleResistance, dealsNoStress: d.dealsNoStress }));
 
     // +N (PHB 5.2.1): +N to rolls, Pierce half of N (rounded down) for Melee or Ranged;

@@ -4,7 +4,7 @@
  * A Condition's amount is the first number in its note, 1 if none.
  */
 
-import { SKILL_ATTRS, ATTR_LABEL } from "./constants.js";
+import { SKILL_ATTRS, ATTR_LABEL, ATTRIBUTE_KEYS } from "./constants.js";
 
 export const kindOf = attr => (attr === "might" || attr === "finesse" ? "physical" : "mental");
 
@@ -85,6 +85,21 @@ export const harmNames = (conditions = []) => [...new Set(conditions.map(c => c.
 
 /** Conditions on a target that end when it is harmed. */
 export const harmFlags = conditions => harmNames(conditions).map(n => `Check ${n}: ${HARM_ENDS[n]}.`);
+
+/**
+ * The Attributes a Stress Technique may aim at (PHB 6.4.0). A stated "Deals Stress to X or Y" decides;
+ * otherwise Incorporeal and Sonic reach mental Attributes only, Kinetic both, and Melee and Ranged Types physical ones.
+ */
+export function allowedAims({ text = "", stressTypes = [], requires = [] } = {}) {
+  const named = [...String(text).matchAll(/Stress to ([^.;]*)/gi)].flatMap(m => m[1].match(/Might|Finesse|Wit|Presence/g) ?? []);
+  if (named.length) return ATTRIBUTE_KEYS.filter(k => named.includes(ATTR_LABEL[k]));
+  const types = stressTypes.filter(t => !requires.length || requires.includes(t.key));
+  const pool = types.length ? types : stressTypes;
+  const MENTAL_ONLY = ["incorporeal", "sonic"];
+  const mental = pool.some(t => t.family === "arcane" || t.family === "sonic");
+  const physical = !pool.length || pool.some(t => !MENTAL_ONLY.includes(t.key));
+  return ATTRIBUTE_KEYS.filter(k => (kindOf(k) === "mental" ? mental : physical));
+}
 
 export const signedParts = parts => parts.map(p => `${p.label} ${p.value > 0 ? "+" : ""}${p.value}`).join(", ");
 

@@ -1,5 +1,5 @@
 /** Condition modifiers on rolls and on Techniques rolled against a target (PHB 6.8.0). */
-import { conditionMods, conditionFlags, targetFlags, harmFlags, incomingMods, skillFormula, kindOf } from "../../src/combat.js";
+import { conditionMods, conditionFlags, allowedAims, targetFlags, harmFlags, incomingMods, skillFormula, kindOf } from "../../src/combat.js";
 
 let failed = 0;
 const check = (name, got, want) => {
@@ -24,5 +24,12 @@ check("Restrained is not flagged for a Skill without Finesse", conditionFlags([c
 check("Technique-use Conditions flag only for Techniques", [conditionFlags([c("Stunned"), c("Charmed")]).length, conditionFlags([c("Stunned"), c("Charmed")], { technique: true }).length], [0, 2]);
 check("Invisible target and harm-ended Conditions are flagged", [targetFlags([c("Invisible")]).length, harmFlags([c("Charmed"), c("Enthralled"), c("Prone")]).length], [1, 2]);
 check("Weakened with no Attribute named says so", conditionMods([c("Weakened", "")], { skill: "guile" }).parts[0].label.includes("no Attribute named"), true);
+
+const T = (key, family) => ({ key, family });
+check("a stated Deals Stress line decides the Attributes", allowedAims({ text: "Deals Stress to Presence or Wit.", stressTypes: [T("edged", "melee")] }), ["wit", "presence"]);
+check("Edged reaches physical Attributes only", allowedAims({ stressTypes: [T("edged", "melee")] }), ["might", "finesse"]);
+check("Incorporeal reaches mental Attributes only", allowedAims({ stressTypes: [T("incorporeal", "arcane")] }), ["wit", "presence"]);
+check("Kinetic reaches both", allowedAims({ stressTypes: [T("kinetic", "arcane")] }), ["might", "finesse", "wit", "presence"]);
+check("the Technique's required Type narrows a multi-Type Instrument", allowedAims({ stressTypes: [T("kinetic", "arcane"), T("incorporeal", "arcane")], requires: ["incorporeal"] }), ["wit", "presence"]);
 
 process.exit(failed ? 1 : 0);

@@ -83,7 +83,7 @@ async function halveApplied(h) {
   const total = h.applied.reduce((n, a) => n + a.amount, 0);
   let back = total - Math.floor(total / 2);
   const lines = [];
-  for (const a of h.applied) {
+  for (const a of [...h.applied].reverse()) {
     if (!back) break;
     const give = Math.min(a.amount, back);
     back -= give;

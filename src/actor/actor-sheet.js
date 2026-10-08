@@ -23,7 +23,7 @@ import { equipmentSummary } from "../registry.js";
 import { stressFor } from "../stress.js";
 import { ask, dialogApi, addButton } from "../dialogs.js";
 import "../chat-actions.js";
-import { conditionFlags, conditionMods, signedParts, skillFormula, targetFlags } from "../combat.js";
+import { allowedAims, conditionFlags, conditionMods, signedParts, skillFormula, targetFlags } from "../combat.js";
 import { resolveOppose } from "../oppose.js";
 
 const LOCATION_ICON = { equipped: "fa-hand", carried: "fa-suitcase", stored: "fa-box-archive" };
@@ -219,7 +219,7 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
     if (applied && CONDITION_OPPOSE[applied]) notes.push(`The target resists with ${CONDITION_OPPOSE[applied].map(k => SKILL_LABEL[k]).join(" or ")} (PHB 6.5.0).`);
     const targeted = stress || /^Applies\b/i.test(kit.effect);
     if (targeted && inst.system.weightDice) notes.push(`${inst.system.weightLabel}: +${inst.system.weightDice}.`);
-    const aim = stress ? await this._aimAtTargets(inst, kit.name) : { targets: [] };
+    const aim = stress ? await this._aimAtTargets(inst, kit.name, kit.effect) : { targets: [] };
     if (!aim) return;
     notes.push(...(aim.notes ?? []));
     await this._postRoll(this._skillFormula(kit.skill, inst.system.bonusRoll, targeted ? inst.system.weightDice : ""), `${kit.name} (${SKILL_LABEL[kit.skill]})`,
@@ -255,12 +255,13 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
    * With tokens targeted, the attacker names the Attribute aimed at and the Type used (PHB 6.4.0, 6.7.0).
    * Resolves to null if cancelled, and to no targets when nothing is targeted.
    */
-  async _aimAtTargets(inst, name) {
+  async _aimAtTargets(inst, name, text = "", requires = []) {
     const tokens = [...(game.user?.targets ?? [])];
     if (!tokens.length) return { targets: [], notes: [] };
     const notes = tokens.flatMap(t => targetFlags(t.actor?.system?.conditions).map(f => `${t.name}: ${f}`));
     const types = inst.system.stressTypes ?? [];
-    const attrs = ATTRIBUTE_KEYS.map(k => `<option value="${k}">${ATTR_LABEL[k]}</option>`).join("");
+    const allowed = allowedAims({ text, stressTypes: inst.system.stressTypes ?? [], requires });
+    const attrs = (allowed.length ? allowed : ATTRIBUTE_KEYS).map(k => `<option value="${k}">${ATTR_LABEL[k]}</option>`).join("");
     const typeOpts = [...types.map((t, i) => `<option value="${i}">${t.label}</option>`), `<option value="">None</option>`].join("");
     const answer = await ask(`${name}: aim`,
       `<p>Target${tokens.length > 1 ? "s" : ""}: ${tokens.map(t => t.name).join(", ")}</p>${notes.length ? `<p><em>${notes.join("<br>")}</em></p>` : ""}`
@@ -272,7 +273,7 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
     return {
       notes,
       targets: tokens.map(t => ({ uuid: t.document.uuid, actorId: t.actor?.id ?? "", name: t.name })),
-      aim: ATTRIBUTE_KEYS.includes(answer.aim) ? answer.aim : "might",
+      aim: (allowed.length ? allowed : ATTRIBUTE_KEYS).includes(answer.aim) ? answer.aim : (allowed[0] ?? "might"),
       typeIndex: types.length ? (answer.type ?? "0") : "",
       other: Math.trunc(Number(answer.other) || 0)
     };
@@ -335,7 +336,7 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
     if (sys.quick) notes.push("Quick: may be paid with the Quick Action.");
     if (inst?.system.doublesMargin) notes.push("Heavy: costs the Action and the Quick Action; the margin doubles (PHB 4.1.1).");
 
-    const aim = sys.dealsStress && inst ? await this._aimAtTargets(inst, tech.name) : { targets: [] };
+    const aim = sys.dealsStress && inst ? await this._aimAtTargets(inst, tech.name, sys.effectText, sys.requires ?? []) : { targets: [] };
     if (!aim) return;
     notes.push(...(aim.notes ?? []));
 
