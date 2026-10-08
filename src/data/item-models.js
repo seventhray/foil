@@ -80,7 +80,7 @@ export class InstrumentData extends foundry.abstract.TypeDataModel {
         type: new f.StringField({ required: true, blank: true, initial: "", choices: GEM_KEYS }),
         tier: new f.NumberField({ required: true, integer: true, initial: 1, min: 1, max: 5 })
       }),
-      // A Technique effect bound to the item (GMG 8.2.0).
+      // A Technique effect bound to the item (PHB 5.3.4).
       enchantment: new f.SchemaField({
         enabled: bool(false),
         effects: effectsArraySchema(),
@@ -153,7 +153,7 @@ export class InstrumentData extends foundry.abstract.TypeDataModel {
       ? "No Instrument Types set: this Instrument can't be used for anything."
       : unknown.length ? `Unresolved Instrument Type(s): ${unknown.join(", ")}.` : "";
 
-    // Enchanting (GMG 8.2.0): priced like a custom Technique, sold at 10p per XP.
+    // Enchanting (PHB 5.3.4): priced like a custom Technique, sold at 10p per XP.
     const ench = this.enchantment ?? {};
     const registry = globalThis.CONFIG?.FOIL?.effects ?? null;
     const priced = registry && ench.enabled ? priceTechnique(ench.effects ?? [], registry) : { xp: 0, breakdown: [] };

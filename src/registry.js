@@ -52,7 +52,7 @@ export async function buildRegistry() {
 }
 
 // Item types whose derived data depends on the registry: Technique pricing,
-// and an Instrument's bound Enchantment pricing (same engine, GMG 8.2.0).
+// and an Instrument's bound Enchantment pricing (same engine, PHB 5.3.4).
 const REGISTRY_DEPENDENT_TYPES = new Set(["technique", "instrument"]);
 
 /** Re-prepare items whose derived data depends on the registry, and re-render open sheets. */

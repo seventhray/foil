@@ -308,7 +308,7 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
       }) : null);
   }
 
-  /** Use an Instrument's bound Enchantment (GMG 8.2.0): no Technique known, Strain still applies. */
+  /** Use an Instrument's bound Enchantment (PHB 5.3.4): no Technique known, Strain still applies. */
   static async _onRollEnchantment(event, target) {
     const id = target.closest("[data-item-id]")?.dataset.itemId;
     const inst = this.actor.items.get(id);

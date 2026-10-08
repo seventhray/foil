@@ -68,7 +68,7 @@
     {{#if system.gemWarning}}<p class="type-warning-banner">{{system.gemWarning}}</p>{{/if}}
   </fieldset>
   <fieldset>
-    <legend>Enchantment <em>(GMG 8.2.0)</em></legend>
+    <legend>Enchantment <em>(PHB 5.3.4)</em></legend>
     <label><input type="checkbox" name="system.enchantment.enabled" {{#if system.enchantment.enabled}}checked{{/if}} /> Enchanted</label>
     {{#if system.enchantment.enabled}}
       <div class="effect-row-list">{{> systems/foil/templates/item/partials/effect-rows.hbs rows=enchantEffectRows path="system.enchantment.effects"}}</div>
