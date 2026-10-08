@@ -9,9 +9,9 @@
     </div>
     <div class="ident-grid">
       <label>Origin</label>
-      <span class="readout">{{#if ancestryName}}{{ancestryName}}{{else}}<em class="muted">add an Origin</em>{{/if}}</span>
+      <span class="readout">{{#if origin}}<a data-action="editItem" data-item-id="{{origin.id}}" data-tooltip="{{origin.help}}">{{origin.name}}</a> <a data-action="deleteItem" data-item-id="{{origin.id}}" class="row-del" title="Remove the Origin"><i class="fas fa-xmark"></i></a>{{else}}<em class="muted">drop an Origin here</em>{{/if}}</span>
       <label>Background</label>
-      <span class="readout">{{#if backgroundName}}{{backgroundName}}{{else}}<em class="muted">add a Background</em>{{/if}}</span>
+      <span class="readout">{{#if background}}<a data-action="editItem" data-item-id="{{background.id}}" data-tooltip="{{background.help}}">{{background.name}}</a> <a data-action="deleteItem" data-item-id="{{background.id}}" class="row-del" title="Remove the Background"><i class="fas fa-xmark"></i></a>{{else}}<em class="muted">drop a Background here</em>{{/if}}</span>
       <label>Player</label>
       <input type="text" name="system.player" value="{{system.player}}" />
       <label>Coin (p / s)</label>

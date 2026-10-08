@@ -120,6 +120,12 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
     });
   }
 
+  /** The character's one Origin or Background, for the header. */
+  _identity(type, help) {
+    const item = this.actor.items.find(i => i.type === type);
+    return item ? { id: item.id, name: item.name, help: help(item) } : null;
+  }
+
   _conditionRows() {
     return (this.actor.system.conditions ?? []).map((c, idx) => ({ idx, ...c, known: CONDITIONS.includes(c.name), help: lookup(c.name)?.text ?? "" }));
   }
@@ -685,8 +691,8 @@ export class FoilCharacterSheet extends FoilActorSheet {
       ...ctx,
       xp: sys.xp ?? { total: 0, spent: 0, available: 0 },
       carry: sys.carry ?? { weight: 0, limit: 0, penalty: 0 },
-      ancestryName: this.actor.items.find(i => i.type === "origin")?.name ?? "",
-      backgroundName: this.actor.items.find(i => i.type === "background")?.name ?? ""
+      origin: this._identity("origin", i => [i.system.talentSummary, ...(i.system.feats ?? [])].filter(Boolean).join(" | ")),
+      background: this._identity("background", i => [i.system.grantsSummary, i.system.knowHowSummary, i.system.coin].filter(Boolean).join(" | "))
     };
   }
 }
