@@ -2,7 +2,7 @@
   "id": "foil",
   "title": "Foilbound",
   "description": "A game system for Foilbound, a tabletop RPG. Four Attribute dice pools, four FOIL axes, and one set of rules for fights of the body, the mind, and the heart.",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "compatibility": {
     "minimum": "13",
     "verified": "14"
@@ -15,7 +15,7 @@
   ],
   "url": "https://github.com/seventhray/foil",
   "manifest": "https://github.com/seventhray/foil/releases/latest/download/system.json",
-  "download": "https://github.com/seventhray/foil/releases/download/v0.7.0/foil.zip",
+  "download": "https://github.com/seventhray/foil/releases/download/v0.7.1/foil.zip",
   "bugs": "https://github.com/seventhray/foil/issues",
   "readme": "https://github.com/seventhray/foil#readme",
   "license": "LICENSE",
