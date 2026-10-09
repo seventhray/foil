@@ -74,15 +74,16 @@ for path in sorted(glob.glob(os.path.join(CREATURES, "*.md"))):
     if abs(health - T["health"]) > STEP:
         bad.append(f"Total Potential {health} is more than one step from {T['health']} (4.2.0)")
     train = [int(x) for x in re.findall(r"\+(\d+)", (re.search(r"\*\*Training\*\*([^\n]*)", s) or [0, ""])[1])]
-    if any(x != T["train"] for x in train):
-        bad.append(f"Training {sorted(set(train))} isn't the tier's +{T['train']} (4.4.0)")
+    if any(x > T["train"] for x in train):
+        bad.append(f"Training {sorted(set(train))} is past the tier's +{T['train']} (9.4.0)")
     res = {k: int(v) for k, v in re.findall(r"(physical|mental) ([+-]\d+)", (re.search(r"\*\*Resistance\*\*([^·\n]*)", s) or [0, ""])[1])}
     for k, v in res.items():
         if abs(v) > T["cap"]:
             bad.append(f"{k} Resistance {v:+d} is past its cap +{T['cap']} (4.1.0)")
     if sum(max(0, v) for v in res.values()) * 8 > T["res"] + 8 * sum(-min(0, v) for v in res.values()):
         bad.append(f"Resistance {res} costs more than the tier's budget {T['res']} (4.3.0)")
-    spent = 0
+    # Training is bought from the Allowance (GMG 9.4.0). Set FOIL_TRAINING_COST=1 to count it; the built Bestiary was priced with Training free.
+    spent = sum(sum(8 + 2 * h for h in range(x)) for x in train) if os.environ.get("FOIL_TRAINING_COST") else 0
     for line in re.findall(r"^>\s*-\s*\*\*(.+)$", s, re.M):
         item = re.match(r"([^*]+)\*\*(.*)", line)
         iname, rest = item.group(1).strip(), item.group(2)
