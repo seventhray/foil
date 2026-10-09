@@ -2,11 +2,11 @@
   <p class="chargen-intro">Pick a Threat, a CR, or a tier. The numbers follow GMG 9.1.0 to 9.3.0.</p>
   <div class="chargen-grid">
     <fieldset>
-      <legend>Name</legend>
+      <legend data-tooltip="What the creature is called on its sheet.">Name</legend>
       <input type="text" name="name" value="{{state.name}}" placeholder="New Creature" />
     </fieldset>
     <fieldset>
-      <legend>Start from</legend>
+      <legend data-tooltip="Threat is the creature counterpart to XP. Pick a tier, a CR, a d20 stat block, or a Threat number; it sets baseline Potential, Resistance, Training, Allowance, and Ceiling (GMG 9.1.0).">Start from</legend>
       <select name="source">{{#each sourceChoices}}<option value="{{this.value}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>
       {{#if isTier}}<select name="tier">{{#each tierChoices}}<option value="{{this.value}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>{{/if}}
       {{#if isCr}}<select name="cr">{{#each crChoices}}<option value="{{this.value}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>{{/if}}
@@ -15,7 +15,7 @@
   </div>
   {{#if isD20}}
     <fieldset>
-      <legend>d20 stat block <em>(GMG 11.2.0, 11.5.0, 11.7.0)</em></legend>
+      <legend data-tooltip="Enter the converted creature's ability scores and AC. Steps follow how far each Attribute sits from the center of the four; AC sets physical Resistance.">d20 stat block <em>(GMG 11.2.0, 11.5.0, 11.7.0)</em></legend>
       <div class="gen-scores">
         {{#each scoreRows}}<label>{{this.label}} <input type="number" name="score.{{this.key}}" value="{{this.value}}" min="1" max="30" /></label>{{/each}}
         <label>AC <input type="number" name="ac" value="{{state.ac}}" min="0" max="40" /></label>
@@ -25,9 +25,9 @@
   {{/if}}
 
   <fieldset>
-    <legend>Assign Attributes <em>(GMG 9.2.0)</em></legend>
+    <legend data-tooltip="Move any Attribute up or down in steps of 2 Potential, up to two steps either way. Total Potential stays within one step of the tier's number. Dice are read off the Potential.">Assign Attributes <em>(GMG 9.2.0)</em></legend>
     <table class="gen-table">
-      <thead><tr><th></th><th>Steps</th><th>Potential</th><th>Dice</th></tr></thead>
+      <thead><tr><th></th><th data-tooltip="Steps from the baseline. One step is 2 Potential.">Steps</th><th data-tooltip="The Attribute's Potential: the most its dice can average to.">Potential</th><th data-tooltip="The dice the Attribute rolls at that Potential.">Dice</th></tr></thead>
       <tbody>
         {{#each rows}}
           <tr><th>{{this.label}}</th>
@@ -41,7 +41,7 @@
 
   <div class="chargen-grid">
     <fieldset>
-      <legend>Resistance <em>(budget {{budget}}, cap +{{n.resistanceCap}})</em></legend>
+      <legend data-tooltip="Resistance subtracts from Stress after margin and Pierce. A budget of 8 per point is split between physical and mental, up to the cap (GMG 9.3.0).">Resistance <em>(budget {{budget}}, cap +{{n.resistanceCap}})</em></legend>
       <label>Physical <select name="physical" class="mini-num">{{#each resistanceChoices.physical}}<option value="{{this.value}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>{{/each}}</select></label>
       <label>Mental <select name="mental" class="mini-num">{{#each resistanceChoices.mental}}<option value="{{this.value}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>{{/each}}</select></label>
       <p class="hint">Spends {{spent}} of {{budget}}{{#if refund}} ({{n.resistanceBudget}} plus {{refund}} from Vulnerable){{/if}}.</p>
@@ -53,23 +53,32 @@
           <a data-action="removeVuln" data-index="{{this.i}}" title="Remove"><i class="fas fa-trash"></i></a>
         </div>
       {{/each}}
-      <a class="inline-add" data-action="addVuln"><i class="fas fa-plus"></i> Add a Vulnerable</a>
+      <a class="inline-add" data-action="addVuln" data-tooltip="Vulnerable N is -N Resistance against a Broad kind, a Family, a damage type, or an Instrument Type. Each point refunds Resistance budget."><i class="fas fa-plus"></i> Add a Vulnerable</a>
     </fieldset>
     <fieldset>
-      <legend>Training <em>(+{{n.training}} in the Skills its attacks roll)</em></legend>
-      <select name="trainA">{{#each skillA}}<option value="{{this.value}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>
-      <select name="trainB">{{#each skillB}}<option value="{{this.value}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>
+      <legend data-tooltip="Training is a Skill bonus. Each Skill can have up to the tier's Training. Each +1 costs Allowance XP at the PHB advancement price (8, then 10, 12, and so on).">Training <em>(up to +{{n.training}} a Skill, bought from the Allowance)</em></legend>
+      {{#each trainRows}}
+        <div class="gen-slot">
+          <select name="train.{{this.idx}}.skill">{{#each this.skillChoices}}<option value="{{this.value}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>
+          <select class="mini-num" name="train.{{this.idx}}.level">{{#each this.levelChoices}}<option value="{{this.value}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>
+          <span class="readout">{{this.cost}} XP</span>
+        </div>
+      {{/each}}
     </fieldset>
   </div>
 
   <fieldset>
-    <legend>Behavior Trait <em>(GMG 9.8.0)</em></legend>
-    <select name="behavior">{{#each behaviorChoices}}<option value="{{this.value}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>
-    {{#if behaviorNeedsParam}}<input type="text" name="behaviorParam" value="{{state.behaviorParam}}" placeholder="the bracketed word, such as its lair" />{{/if}}
+    <legend data-tooltip="What the creature does once an Attribute is Incapacitated. Traits are checked in order; the first whose condition applies governs. With none, it Holds and fights on (GMG 9.8.0).">Behavior Traits <em>(0 to 3, in order; GMG 9.8.0)</em></legend>
+    {{#each behaviorRows}}
+      <div class="gen-slot">
+        <select name="behavior.{{this.idx}}.trait" data-tooltip="{{this.help}}">{{#each this.choices}}<option value="{{this.value}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>
+        {{#if this.needsParam}}<input type="text" name="behavior.{{this.idx}}.param" value="{{this.param}}" placeholder="the bracketed word, such as its lair" />{{/if}}
+      </div>
+    {{/each}}
   </fieldset>
 
   <fieldset>
-    <legend>Instruments <em>(pick 2 or 3, free; GMG 9.6.0)</em></legend>
+    <legend data-tooltip="The creature's Instruments are free. Natural Weapons and Instruments set which Techniques it can carry and what its attacks look like (GMG 9.6.0).">Instruments <em>(pick 2 or 3, free; GMG 9.6.0)</em></legend>
     {{#each slots}}
       <div class="gen-slot">
         <select name="slot.{{this.i}}.pick"><option value="">None</option>{{#each this.groups}}<optgroup label="{{this.label}}">{{#each this.options}}<option value="{{this.value}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>{{/each}}</optgroup>{{/each}}</select>
@@ -81,18 +90,18 @@
   </fieldset>
 
   <fieldset>
-    <legend>Techniques <em>(the built-in ones are free; others cost from the Allowance, GMG 9.7.0)</em></legend>
+    <legend data-tooltip="Techniques the creature can use. Built-in ones are free; others cost XP from the Allowance, and none can cost more than the Ceiling (GMG 9.7.0).">Techniques <em>(the built-in ones are free; others cost from the Allowance, GMG 9.7.0)</em></legend>
     <div class="gen-checks">
       {{#each techniques}}
-        <label class="{{#if this.over}}warn{{/if}}"><input type="checkbox" name="tech.{{this.name}}" {{#if this.checked}}checked{{/if}} /> {{this.name}} <span class="abbr">{{this.xp}} XP</span></label>
+        <label class="{{#if this.over}}warn{{/if}}" data-tooltip="{{this.help}}"><input type="checkbox" name="tech.{{this.name}}" {{#if this.checked}}checked{{/if}} /> {{this.name}} <span class="abbr">{{this.xp}} XP</span></label>
       {{else}}<p class="hint">Pick Instruments to list the Techniques they can carry.</p>{{/each}}
     </div>
   </fieldset>
 
   <fieldset>
-    <legend>Monster Feats <em>(GMG 9.5.1)</em></legend>
+    <legend data-tooltip="Feats made for creatures, bought from the Allowance. Each has a quantity, and none can cost more than the Ceiling (GMG 9.5.1).">Monster Feats <em>(GMG 9.5.1)</em></legend>
     {{#each featRows}}
-      <div class="gen-feat {{#if this.over}}warn{{/if}}" title="{{this.effect}}">
+      <div class="gen-feat {{#if this.over}}warn{{/if}}" data-tooltip="{{this.effect}}">
         <select name="feat.{{this.name}}" class="mini-num">{{#each this.qtyChoices}}<option value="{{this.value}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>
         <span>{{this.name}}</span>
         {{#if this.isRes}}<select name="feat.{{this.name}}:scope"><option value="type">Damage type (4 per point)</option><option value="family" {{#if this.familyScope}}selected{{/if}}>Family (8 per point)</option></select>{{/if}}
@@ -102,16 +111,16 @@
   </fieldset>
 
   <fieldset>
-    <legend>Traits <em>(GMG 9.5.0)</em></legend>
+    <legend data-tooltip="Movement and senses a creature can buy (Fly, Swim, and so on), at the XP shown (GMG 9.5.0).">Traits <em>(GMG 9.5.0)</em></legend>
     <div class="gen-checks">
       {{#each traitRows}}
-        <label class="{{#if this.over}}warn{{/if}}"><input type="checkbox" name="trait.{{this.name}}" {{#if this.checked}}checked{{/if}} /> {{this.name}} <span class="abbr">{{this.xp}} XP</span></label>
+        <label class="{{#if this.over}}warn{{/if}}" data-tooltip="{{this.help}}"><input type="checkbox" name="trait.{{this.name}}" {{#if this.checked}}checked{{/if}} /> {{this.name}} <span class="abbr">{{this.xp}} XP</span></label>
       {{/each}}
     </div>
   </fieldset>
 
   <fieldset>
-    <legend>Result</legend>
+    <legend data-tooltip="Allowance is what the creature can spend on Training, Feats, and Techniques together. Ceiling caps any single one.">Result</legend>
     <p>Threat <strong>{{n.threat}}</strong> &middot; Tier <strong>{{n.tier}}</strong> &middot; Baseline Potential <strong>{{n.potential}}</strong> &middot; Total Potential <strong>{{n.totalPotential}}</strong></p>
     <p>Allowance <strong>{{n.allowance}} XP</strong> (spent {{allowanceSpent}}, left {{allowanceLeft}}) &middot; Ceiling <strong>{{n.ceiling}} XP</strong> &middot; Training <strong>+{{n.training}}</strong></p>
     {{#each warnings}}<p class="type-warning-banner">{{this}}</p>{{/each}}

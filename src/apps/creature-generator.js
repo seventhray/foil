@@ -5,9 +5,10 @@
  * Resistance budget. Creates the creature Actor with its dice, Training, and Resistance set.
  */
 
-import { ATTRIBUTE_KEYS, ATTR_LABEL, SKILL_KEYS, SKILL_LABEL, BEHAVIOR_TRAITS } from "../constants.js";
+import { ATTRIBUTE_KEYS, ATTR_LABEL, SKILL_KEYS, SKILL_LABEL, BEHAVIOR_TRAITS, BEHAVIOR_HELP, trainingCost } from "../constants.js";
 import { NATURAL_WEAPONS, MONSTER_FEATS, TRAITS } from "../creature-data.js";
 import { balanceSteps, TIER_THREAT, CR_CHOICES, creatureNumbers, crToThreat, assignAttributes, diceFor, abilitySteps, acToResistance, refundPerPoint, vulnerableRefund } from "../creature-math.js";
+import { lookup } from "../glossary-ui.js";
 import { SCOPE_GROUPS } from "../resist.js";
 
 const { HandlebarsApplicationMixin, ApplicationV2 } = foundry.applications.api;
@@ -36,8 +37,8 @@ function kitFor(types, instruments) {
 export class FoilCreatureGenerator extends HandlebarsApplicationMixin(ApplicationV2) {
   state = {
     name: "", source: "tier", threat: 0, cr: "5", tier: 4, manual: false,
-    steps: { might: 0, finesse: 0, wit: 0, presence: 0 }, train: ["prowess", ""], physical: 0, mental: 0,
-    behavior: "", behaviorParam: "",
+    steps: { might: 0, finesse: 0, wit: 0, presence: 0 }, train: [{ skill: "prowess", level: null }, { skill: "", level: null }, { skill: "", level: null }, { skill: "", level: null }], physical: 0, mental: 0,
+    behaviors: [{ trait: "", param: "" }, { trait: "", param: "" }, { trait: "", param: "" }],
     abilities: { str: 10, dex: 10, con: 10, int: 10, wis: 10, cha: 10 }, ac: 10, vuln: [],
     instruments: [0, 1, 2].map(() => ({ pick: "", type: "", damage: "", primary: "" })),
     techniques: [], feats: {}, traits: []
@@ -107,7 +108,7 @@ export class FoilCreatureGenerator extends HandlebarsApplicationMixin(Applicatio
     const techniques = packs.techniques.filter(d => !d.system.innate).map(d => {
       const req = d.system.requires ?? [];
       const usable = !req.length || req.some(t => heldTypes.has(t));
-      return { name: d.name, xp: d.system.xpCost, usable, over: d.system.xpCost > n.ceiling, checked: s.techniques.includes(d.name) };
+      return { name: d.name, help: String(d.system.effectText || d.system.effect || "").replace(/<[^>]*>/g, ""), xp: d.system.xpCost, usable, over: d.system.xpCost > n.ceiling, checked: s.techniques.includes(d.name) };
     }).filter(t => t.usable || t.checked).sort((a, b) => a.xp - b.xp || a.name.localeCompare(b.name));
     const featRows = MONSTER_FEATS.map(f => {
       const qty = Number(s.feats[f.name] ?? 0);
@@ -117,8 +118,16 @@ export class FoilCreatureGenerator extends HandlebarsApplicationMixin(Applicatio
         isRes: f.name === "Specialized Resistance", familyScope: s.feats[`${f.name}:scope`] === "family",
         qtyChoices: Array.from({ length: max + 1 }, (_, v) => ({ value: v, label: String(v), selected: v === qty })) };
     });
-    const traitRows = TRAITS.map(t => ({ name: t.name, xp: t.xp, checked: s.traits.includes(t.name), over: t.xp > n.ceiling }));
-    const spentAllowance = techniques.filter(t => t.checked).reduce((a, t) => a + t.xp, 0)
+    const traitRows = TRAITS.map(t => ({ name: t.name, help: lookup(t.name)?.text ?? "", xp: t.xp, checked: s.traits.includes(t.name), over: t.xp > n.ceiling }));
+    const trainRows = s.train.map((t, i) => {
+      const level = t.skill ? Math.min(Number(t.level ?? n.training) || 0, n.training) : 0;
+      let cost = 0;
+      for (let h = 0; h < level; h++) cost += trainingCost(h);
+      return { idx: i, cost, level,
+        skillChoices: [{ value: "", label: "None", selected: !t.skill }, ...SKILL_KEYS.map(k => ({ value: k, label: SKILL_LABEL[k], selected: k === t.skill }))],
+        levelChoices: Array.from({ length: n.training }, (_, v) => ({ value: v + 1, label: `+${v + 1}`, selected: v + 1 === level })) };
+    });
+    const spentAllowance = trainRows.reduce((a, t) => a + t.cost, 0) + techniques.filter(t => t.checked).reduce((a, t) => a + t.xp, 0)
       + featRows.reduce((a, f) => a + f.cost, 0) + traitRows.filter(t => t.checked).reduce((a, t) => a + t.xp, 0);
     const picked = s.instruments.filter(x => x.pick).length;
     if (picked < 2 || picked > 3) warnings.push("Pick 2 or 3 Instruments (GMG 9.6.0)");
@@ -126,8 +135,10 @@ export class FoilCreatureGenerator extends HandlebarsApplicationMixin(Applicatio
     for (const t of techniques.filter(x => x.checked && x.over)) warnings.push(`${t.name} costs more than the Ceiling of ${n.ceiling} XP`);
     for (const f of featRows.filter(x => x.over)) warnings.push(`${f.name} costs more than the Ceiling of ${n.ceiling} XP`);
     if (spentAllowance < n.allowance / 2) warnings.push("Most of the Allowance is unspent: the creature is underbuilt (GMG 9.5.0)");
-    const behaviorTrait = BEHAVIOR_TRAITS.find(b => b === s.behavior);
-    const skillOptions = cur => [{ value: "", label: "None", selected: !cur }, ...SKILL_KEYS.map(k => ({ value: k, label: SKILL_LABEL[k], selected: k === cur }))];
+    const behaviorRows = s.behaviors.map((b, i) => ({
+      idx: i, param: b.param, help: BEHAVIOR_HELP[b.trait] ?? "What the creature does once an Attribute is Incapacitated. With no Trait it Holds and fights on.", needsParam: /\[/.test(b.trait),
+      choices: [{ value: "", label: i === 0 ? "None (Holds)" : "None", selected: !b.trait }, ...BEHAVIOR_TRAITS.map(t => ({ value: t, label: t, selected: t === b.trait }))]
+    }));
     return {
       state: s,
       n: n,
@@ -140,7 +151,7 @@ export class FoilCreatureGenerator extends HandlebarsApplicationMixin(Applicatio
       crChoices: CR_CHOICES.map(c => ({ value: c, label: `CR ${c}`, selected: c === s.cr })),
       sourceChoices: [["tier", "Tier"], ["d20", "d20 stat block (CR, scores, AC)"], ["cr", "CR only"], ["threat", "Threat"]].map(([value, label]) => ({ value, label, selected: value === s.source })),
       resistanceChoices: { physical: opts(ratings, s.physical), mental: opts(ratings, s.mental) },
-      skillA: skillOptions(s.train[0]), skillB: skillOptions(s.train[1]),
+      trainRows, behaviorRows,
       isThreat: s.source === "threat", isCr: s.source === "cr" || s.source === "d20", isTier: s.source === "tier", isD20: s.source === "d20",
       scoreRows: ["str", "dex", "con", "int", "wis", "cha"].map(k => ({ key: k, label: k.toUpperCase(), value: s.abilities[k] })),
       centerNote: fromScores ? `Center ${scores.center.toFixed(1)}; steps follow GMG 11.7.0` : "",
@@ -154,9 +165,7 @@ export class FoilCreatureGenerator extends HandlebarsApplicationMixin(Applicatio
       featRows: featRows,
       traitRows: traitRows,
       allowanceSpent: spentAllowance,
-      allowanceLeft: n.allowance - spentAllowance,
-      behaviorChoices: [{ value: "", label: "None (Holds)", selected: !s.behavior }, ...BEHAVIOR_TRAITS.map(b => ({ value: b, label: b, selected: b === s.behavior }))],
-      behaviorNeedsParam: !!behaviorTrait && /\[/.test(behaviorTrait)
+      allowanceLeft: n.allowance - spentAllowance
     };
   }
 
@@ -175,13 +184,17 @@ export class FoilCreatureGenerator extends HandlebarsApplicationMixin(Applicatio
         case "tier": s.tier = v; break;
         case "physical": s.physical = Number(v); break;
         case "mental": s.mental = Number(v); break;
-        case "trainA": s.train[0] = v; break;
-        case "trainB": s.train[1] = v; break;
         case "ac": s.ac = Number(v) || 0; s.physical = Math.min(acToResistance(s.ac), creatureNumbers(this._threat()).resistanceCap); break;
-        case "behavior": s.behavior = v; break;
-        case "behaviorParam": s.behaviorParam = v; return;
         default:
-          if (el.name?.startsWith("score.")) s.abilities[el.name.slice(6)] = Number(v) || 0;
+          if (el.name?.startsWith("train.")) {
+            const [, i, field] = el.name.split(".");
+            const row = s.train[Number(i)];
+            if (field === "skill") { row.skill = v; if (v && row.level == null) row.level = null; } else row.level = Number(v);
+          } else if (el.name?.startsWith("behavior.")) {
+            const [, i, field] = el.name.split(".");
+            s.behaviors[Number(i)][field] = v;
+            if (field === "param") return;
+          } else if (el.name?.startsWith("score.")) s.abilities[el.name.slice(6)] = Number(v) || 0;
           else if (el.name?.startsWith("vuln.")) {
             const [, i, field] = el.name.split(".");
             s.vuln[Number(i)][field] = field === "n" ? Number(v) : v;
@@ -223,9 +236,9 @@ export class FoilCreatureGenerator extends HandlebarsApplicationMixin(Applicatio
     const attributes = {};
     for (const k of ATTRIBUTE_KEYS) attributes[k] = { dice: diceFor(diff.potentials[k]).counts };
     const skills = {};
-    for (const k of s.train.filter(Boolean)) skills[k] = { training: n.training };
-    const notes = `<p>Threat ${n.threat}, Tier ${n.tier}. Allowance ${n.allowance} XP, Ceiling ${n.ceiling} XP, Training +${n.training}, `
-      + `Resistance budget ${n.resistanceBudget} (cap +${n.resistanceCap}). Spend the Allowance on Feats and Techniques (GMG 9.5.0, 9.6.0).</p>`;
+    for (const t of s.train.filter(x => x.skill)) skills[t.skill] = { training: Math.min(Number(t.level ?? n.training), n.training) };
+    const notes = `<p>Threat ${n.threat}, Tier ${n.tier}. Allowance ${n.allowance} XP, Ceiling ${n.ceiling} XP, Training up to +${n.training}, `
+      + `Resistance budget ${n.resistanceBudget} (cap +${n.resistanceCap}). Spend the Allowance on Training, Feats and Techniques (GMG 9.4.0 to 9.7.0).</p>`;
     const packs = this._cache ?? await loadPacks();
     const items = [];
     for (const slot of s.instruments.filter(x => x.pick)) {
@@ -260,7 +273,7 @@ export class FoilCreatureGenerator extends HandlebarsApplicationMixin(Applicatio
       if (doc) items.push(plain(doc));
       else items.push({ name, type: "feat", img: "icons/svg/upgrade.svg", system: { featType: "trait", xpCost: TRAITS.find(t => t.name === name)?.xp ?? 0, effect: "A Trait (PHB 7.2.3)." } });
     }
-    const behavior = s.behavior ? (s.behaviorParam ? s.behavior.replace(/\[[^\]]*\]/, `[${s.behaviorParam}]`) : s.behavior) : "";
+    const behavior = s.behaviors.filter(b => b.trait).map(b => (b.param ? b.trait.replace(/\[[^\]]*\]/, `[${b.param}]`) : b.trait)).join(", ");
     const actor = await Actor.create({
       name: s.name || "New Creature", type: "creature",
       system: { tier: n.tier, cr: s.source === "cr" || s.source === "d20" ? s.cr : "", behavior, vulnerabilities: s.vuln.map(v => ({ scope: v.scope, material: "", n: Number(v.n) })), attributes, skills, resistance: { physical: Number(s.physical), mental: Number(s.mental) }, notes },

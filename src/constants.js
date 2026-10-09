@@ -229,6 +229,20 @@ export const BEHAVIOR_TRAITS = [
   "Territorial [place]", "Venal", "Zealous", "Mindless", "Bound [binding]"
 ];
 
+/** What each Behavior Trait does (GMG 9.8.0). */
+export const BEHAVIOR_HELP = {
+  "Craven": "Flees when any one Attribute is Incapacitated.",
+  "Simpleminded": "Flees if Might or Finesse is Incapacitated first. Goes Berserk once two Attributes are Incapacitated, if Wit or Presence was first.",
+  "Disciplined [commander]": "Holds while the named commander is present with no Attribute Incapacitated. Flees when the commander has one Incapacitated, falls, or leaves.",
+  "Pack-Bound [pack]": "Holds while more than half the named pack has no Attribute Incapacitated. Flees once that stops being true.",
+  "Opportunist": "Flees when it has an Attribute Incapacitated, or when any ally does, whichever comes first.",
+  "Territorial [place]": "Inside the named place, Holds and fights to Destruction. Outside it, Flees the moment an Attribute is Incapacitated.",
+  "Venal": "Yields the moment an Attribute is Incapacitated, if it has something to bargain with.",
+  "Zealous": "Never Flees and never Yields. Goes Berserk once two Attributes are Incapacitated.",
+  "Mindless": "Cannot Flee, Yield, or be reasoned with. Holds until Destroyed.",
+  "Bound [binding]": "Cannot Flee or Yield while the named binding holds. Behaves as Craven the moment it ends."
+};
+
 export const cap = s => s ? String(s).charAt(0).toUpperCase() + String(s).slice(1) : "";
 
 // Where an item is (PHB 4.1.0, 5.2.6): equipped (worn, or in hand and ready), carried
