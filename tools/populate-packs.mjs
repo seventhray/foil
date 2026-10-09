@@ -368,7 +368,7 @@ const INNATE_INSTRUMENTS = [
       { name: "Mislead", skill: "guile", effect: "Applies Misled." },
       { name: "Sway", skill: "resonance", effect: "Applies Swayed." }
     ] },
-  { name: "Mind", primaryAttribute: "wit", types: ["quick"], range: "Near",
+  { name: "Mind", primaryAttribute: "wit", types: ["quick", "incorporeal"], range: "Near",
     kit: [
       { name: "Deduce", skill: "discipline", effect: "Works out a problem or recalls a fact." },
       { name: "Analyze", skill: "acuity", effect: "Learns a creature's Attributes, or notices something specific." },

@@ -9,7 +9,8 @@
     "primaryAttribute": "wit",
     "range": "Near",
     "types": [
-      "quick"
+      "quick",
+      "incorporeal"
     ],
     "typesDisplay": "",
     "price": 0,
