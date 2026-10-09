@@ -24,6 +24,22 @@
             <input type="number" name="system.resistance.mental" value="{{resistance.mentalBase}}" />
             {{#if resistance.mentalBonus}}<span class="mod">&rarr; {{resistance.mentalTotal}}</span>{{/if}}</td>
         </tr>
+        <tr>
+          <th class="row-label" title="Vulnerable N: -N Resistance against a Broad kind, a Family, a damage type, an Instrument Type, or a Material (PHB 6.6.0, GMG 9.3.0)">Vulnerable</th>
+          <td colspan="4">
+<div class="vuln-list">
+        {{#each vulnRows}}
+          <div class="vuln-row">
+            <select name="system.vulnerabilities.{{this.idx}}.scope">{{#each this.groups}}<optgroup label="{{this.label}}">{{#each this.options}}<option value="{{this.value}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>{{/each}}</optgroup>{{/each}}</select>
+            {{#if this.isMaterial}}<input type="text" name="system.vulnerabilities.{{this.idx}}.material" value="{{this.material}}" placeholder="silver" />{{/if}}
+            <select class="mini-num" name="system.vulnerabilities.{{this.idx}}.n">{{#each this.nChoices}}<option value="{{this.value}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>
+            <a data-action="removeVulnerability" data-index="{{this.idx}}" title="Remove"><i class="fas fa-trash"></i></a>
+          </div>
+        {{/each}}
+        <a class="inline-add" data-action="addVulnerability"><i class="fas fa-plus"></i> Add</a>
+      </div>
+          </td>
+        </tr>
       </tbody>
     </table>
     {{> systems/foil/templates/actor/partials/skills-table.hbs}}
