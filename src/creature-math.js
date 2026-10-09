@@ -21,7 +21,10 @@ export function tierFor(threat) {
   return best;
 }
 
-/** The GMG 9.1.0 formulas. */
+// What Training in one Skill costs in all, +1 for 8 XP and each further point 2 more (PHB 2.3.0).
+const trainingTotal = n => { let c = 0; for (let h = 0; h < n; h++) c += 8 + 2 * h; return c; };
+
+/** The GMG 9.1.0 formulas. The Allowance includes Training in two Skills (GMG 9.4.0). */
 export function creatureNumbers(threat) {
   const potential = 2 * halfUp((20 + threat / 32) / 2);
   const nonneg = threat >= 0;
@@ -29,7 +32,7 @@ export function creatureNumbers(threat) {
   const points = nonneg ? halfUp(2 + threat / 533) : Math.floor((potential - 8) / 8);
   return {
     threat, tier: tierFor(threat), potential, totalPotential: 4 * potential, ceiling: 2 * potential,
-    allowance: nonneg ? halfUp(40 + 3.6 * Math.sqrt(threat)) : 2 * potential - 12,
+    allowance: (nonneg ? halfUp(40 + 3.6 * Math.sqrt(threat)) : 2 * potential - 12) + 2 * trainingTotal(Math.max(0, train)),
     training: Math.max(0, train), resistancePoints: Math.max(0, points), resistanceBudget: 8 * Math.max(0, points),
     resistanceCap: Math.max(0, points) + 1
   };

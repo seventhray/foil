@@ -70,12 +70,12 @@ check("Vulnerable nets against a matching Instrument Type, Family, and Material 
   scopedResistance({ vulnerabilities: [{ scope: "mental", n: 4 }] }, atk).net], [-2, -1, -1, 0]);
 check("narrow Resistance adds and Vulnerable subtracts", scopedResistance({ vulnerabilities: [{ scope: "edged", n: 1 }], narrowResistance: [{ scope: "edged", n: 3 }] }, atk).net, 2);
 
-const tierRows = [[1, -384, 8, 32, 0, 4, 16], [4, 0, 20, 80, 16, 40, 40], [5, 128, 24, 96, 16, 81, 48], [7, 384, 32, 128, 24, 111, 64], [9, 1152, 56, 224, 32, 162, 112], [10, 1536, 68, 272, 40, 181, 136]];
+const tierRows = [[1, -384, 8, 32, 0, 4, 16], [4, 0, 20, 80, 16, 76, 40], [5, 128, 24, 96, 16, 117, 48], [7, 384, 32, 128, 24, 171, 64], [9, 1152, 56, 224, 32, 250, 112], [10, 1536, 68, 272, 40, 301, 136]];
 check("creature formulas reproduce the GMG tier table", tierRows.map(([t, th]) => { const n = creatureNumbers(th); return [n.tier, n.potential, n.totalPotential, n.resistanceBudget, n.allowance, n.ceiling]; }),
   tierRows.map(([t, th, p, tp, rb, a, c]) => [t, p, tp, rb, a, c]));
 check("a tier is the nearest anchor, a tie going lower", [tierFor(64), tierFor(65), tierFor(-1000), tierFor(2000)], [4, 5, 1, 10]);
 check("CR converts to Threat, past CR 21 by 64 each", [crToThreat("9"), crToThreat("1/2"), crToThreat("24")], [424, -128, 1728]);
-check("Threat 1728 gives Potential 74 and Allowance 190", [creatureNumbers(1728).potential, creatureNumbers(1728).allowance], [74, 190]);
+check("Threat 1728 gives Potential 74 and Allowance 310", [creatureNumbers(1728).potential, creatureNumbers(1728).allowance], [74, 310]);
 check("dice follow the Target Potential table", [diceFor(20).formula, diceFor(14).formula, diceFor(3).formula, diceFor(50).formula, diceFor(1).formula], ["1d20", "1d6+1d8", "1d4", "2d20+1d10", "none"]);
 check("Assign Attributes moves two Potential a step and flags a bad total", [assignAttributes(20, { might: 2, finesse: 0, wit: -1, presence: -1 }).potentials.might, assignAttributes(20, { might: 2, finesse: 0, wit: -1, presence: -1 }).notes.length, assignAttributes(20, { might: 2, finesse: 2, wit: 0, presence: 0 }).notes.length], [24, 0, 1]);
 

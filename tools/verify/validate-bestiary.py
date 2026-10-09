@@ -44,6 +44,7 @@ def numbers(xp):
         allow, train, pts = half_up(40 + 3.6 * xp ** 0.5), half_up(2 + xp / 500), half_up(2 + xp / 533)
     else:
         allow, train, pts = 2 * pot - 12, (pot - 8) // 8, (pot - 8) // 8
+    allow += 2 * sum(8 + 2 * h for h in range(max(0, train)))   # the Allowance includes Training in two Skills (GMG 9.1.0)
     return dict(pot=pot, health=4 * pot, res=8 * pts, cap=pts + 1, train=train, allow=allow, ceil=2 * pot)
 
 
@@ -82,8 +83,7 @@ for path in sorted(glob.glob(os.path.join(CREATURES, "*.md"))):
             bad.append(f"{k} Resistance {v:+d} is past its cap +{T['cap']} (4.1.0)")
     if sum(max(0, v) for v in res.values()) * 8 > T["res"] + 8 * sum(-min(0, v) for v in res.values()):
         bad.append(f"Resistance {res} costs more than the tier's budget {T['res']} (4.3.0)")
-    # Training is bought from the Allowance (GMG 9.4.0). Set FOIL_TRAINING_COST=1 to count it; the built Bestiary was priced with Training free.
-    spent = sum(sum(8 + 2 * h for h in range(x)) for x in train) if os.environ.get("FOIL_TRAINING_COST") else 0
+    spent = sum(sum(8 + 2 * h for h in range(x)) for x in train)   # Training is bought from the Allowance (GMG 9.4.0)
     for line in re.findall(r"^>\s*-\s*\*\*(.+)$", s, re.M):
         item = re.match(r"([^*]+)\*\*(.*)", line)
         iname, rest = item.group(1).strip(), item.group(2)
