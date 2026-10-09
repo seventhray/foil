@@ -174,7 +174,10 @@
 .xp-row input { width: 70px; text-align: right; }
 .xp-row .readout { font-weight: bold; }
 
-.tier-block { display: flex; align-items: center; gap: 6px; }
+.creature-header { display: grid; grid-template-columns: 96px 1fr; align-items: start; gap: 6px 12px; }
+.creature-header > .actor-img { grid-column: 1; grid-row: 1 / span 2; }
+.creature-header > :not(.actor-img) { grid-column: 2; }
+.tier-block .vuln-span { grid-column: 2 / -1; }
 .tier-block label { font-weight: bold; font-size: 0.85em; }
 .tier-block input { width: 90px; }
 

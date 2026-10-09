@@ -2,11 +2,11 @@
   {{#if system.destroyed}}<div class="destroyed-banner">Destroyed</div>{{/if}}
   <header class="foil-header creature-header">
     <img class="actor-img" src="{{actor.img}}" data-action="editActorImage" title="Change the portrait" width="96" height="96" />
-    <div class="name-block">
+    <div class="name-row">
       <input type="text" name="name" value="{{actor.name}}" placeholder="Name" class="char-name" />
+      <button type="button" class="chargen-btn" data-action="rest" title="1d4 Stress off one Attribute per 2 hours (PHB 6.10.0)"><i class="fas fa-campground"></i> Rest</button>
     </div>
-    <button type="button" class="chargen-btn" data-action="rest" title="1d4 Stress off one Attribute per 2 hours (PHB 6.10.0)"><i class="fas fa-campground"></i> Rest</button>
-    <div class="tier-block">
+    <div class="tier-block ident-grid">
       <label>Tier</label>
       <input type="number" name="system.tier" value="{{system.tier}}" min="1" />
       <label>CR</label>
@@ -16,7 +16,7 @@
       <label title="What it does once an Attribute is Incapacitated (GMG 9.8.0); blank means it Holds">Behavior</label>
       <input type="text" name="system.behavior" value="{{system.behavior}}" placeholder="e.g. Territorial [its lair]" />
       <label title="Vulnerable N: -N Resistance against a Broad kind, a Family, a damage type, an Instrument Type, or a Material (PHB 6.6.0, GMG 9.3.0)">Vulnerable</label>
-      <div class="vuln-list">
+      <div class="vuln-list vuln-span">
         {{#each vulnRows}}
           <div class="vuln-row">
             <select name="system.vulnerabilities.{{this.idx}}.scope">{{#each this.groups}}<optgroup label="{{this.label}}">{{#each this.options}}<option value="{{this.value}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>{{/each}}</optgroup>{{/each}}</select>
