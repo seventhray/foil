@@ -127,7 +127,7 @@
     },
     {
       "name": "qualities",
-      "label": "FOIL Qualities",
+      "label": "FOIL Properties",
       "path": "packs/qualities",
       "type": "Item",
       "system": "foil",

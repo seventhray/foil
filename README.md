@@ -24,7 +24,7 @@ git clone https://github.com/seventhray/foil.git foil
 
 - Character and creature sheets, with a character builder and an advancement window
 - Technique pricing from Effects, and a Stress calculator for landed hits
-- Compendiums: Instruments, Techniques, Feats, Equipment, Backgrounds, Origins, Instrument Types, Qualities, Effects, and an in-app user guide
+- Compendiums: Instruments, Techniques, Feats, Equipment, Backgrounds, Origins, Instrument Types, Properties, Effects, and an in-app user guide
 
 ## Development
 
