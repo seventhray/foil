@@ -7,7 +7,7 @@
 
 import { ATTRIBUTE_KEYS, ATTR_LABEL, SKILL_KEYS, SKILL_LABEL, BEHAVIOR_TRAITS } from "../constants.js";
 import { NATURAL_WEAPONS, MONSTER_FEATS, TRAITS } from "../creature-data.js";
-import { TIER_THREAT, CR_CHOICES, creatureNumbers, crToThreat, differentiate, diceFor, SHAPES, abilitySteps, acToResistance, refundPerPoint, vulnerableRefund } from "../creature-math.js";
+import { balanceSteps, TIER_THREAT, CR_CHOICES, creatureNumbers, crToThreat, differentiate, diceFor, SHAPES, abilitySteps, acToResistance, refundPerPoint, vulnerableRefund } from "../creature-math.js";
 import { SCOPE_GROUPS } from "../resist.js";
 
 const { HandlebarsApplicationMixin, ApplicationV2 } = foundry.applications.api;
@@ -190,7 +190,7 @@ export class FoilCreatureGenerator extends HandlebarsApplicationMixin(Applicatio
           else if (el.name?.startsWith("vuln.")) {
             const [, i, field] = el.name.split(".");
             s.vuln[Number(i)][field] = field === "n" ? Number(v) : v;
-          } else if (el.name?.startsWith("step.")) { s.shape = "custom"; s.steps[el.name.slice(5)] = Number(v); }
+          } else if (el.name?.startsWith("step.")) { s.shape = "custom"; const k = el.name.slice(5); s.steps[k] = Number(v); balanceSteps(s.steps, k); }
           else if (el.name?.startsWith("slot.")) {
             const [, i, field] = el.name.split(".");
             const slot = s.instruments[Number(i)];
