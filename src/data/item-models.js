@@ -73,7 +73,7 @@ export class InstrumentData extends foundry.abstract.TypeDataModel {
         skill: new f.StringField({ required: true, initial: "prowess", choices: SKILL_KEYS }),
         effect: str("")
       })),
-      // Body and Voice: every character knows them, free (PHB 2.5.3).
+      // Body, Voice, and Mind: every character has them, free (PHB 2.5.3).
       innate: bool(false),
       // Equipped (ready) or carried (PHB 4.1.0, 5.2.6). Innate Instruments are always equipped.
       location: new f.StringField({ required: true, initial: "equipped", choices: ITEM_LOCATIONS }),

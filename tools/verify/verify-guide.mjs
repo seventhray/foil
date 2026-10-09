@@ -63,6 +63,7 @@ ok("Effect prices match Fundamental Math", /\*\*Stress\*\*\s*\|\s*4\s*\|/.test(f
   && /\*\*Lingering N\*\*\s*\|\s*7 x N/.test(fm) && /\*\*Hasten \(Action\)\*\*\s*\|\s*14/.test(fm) && /\*\*Hasten \(Quick Action\)\*\*\s*\|\s*11/.test(fm) && /\*\*Quick\*\*\s*\|\s*3\s/.test(fm) && /<td>7 x N<\/td>/.test(all));
 ok("bonus price ladder", /\| \+4\s*\| \+200p\s*\| \+400p\s*\| \+800p/.test(phb) && /<td>\+4<\/td><td>200p<\/td><td>400p<\/td><td>800p<\/td>/.test(all));
 ok("Body and Voice kits", /\*\*Strike\*\* \(Prowess\)/.test(phb) && /\*\*Sway\*\* \(Resonance\)/.test(phb) && /Strike, Grapple, Menace/.test(all) && /Intimidate, Mislead, Sway/.test(all));
+ok("Mind kit", /\*\*Deduce\*\* \(Discipline\)/.test(phb) && /\*\*Intuit\*\* \(Resonance\)/.test(phb) && /Deduce, Analyze, Intuit/.test(all));
 ok("Training price matches the code", all.includes(`+1 Training ${XP_COST.training} XP plus ${XP_COST.trainingStep} per point held`));
 
 console.log(fails ? `\n${fails} guide check(s) failed` : "\nguide matches the books");
