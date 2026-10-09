@@ -28,6 +28,7 @@ import {
 } from "./books.mjs";
 import { buildPacks } from "./build-packs.mjs";
 import { buildGlossary } from "./build-glossary.mjs";
+import { buildCreatureData } from "./build-creature-data.mjs";
 import { EQUIPMENT_CATEGORY_LABEL } from "../src/constants.js";
 
 
@@ -679,6 +680,7 @@ if (process.argv.includes("--dry-run")) {
   writePack("ancestries", ancestries);
   writeGuidePack("guide", GUIDE);
   console.log(`  glossary: ${buildGlossary()} terms.`);
+  console.log("  creature data:", JSON.stringify(buildCreatureData()));
   if (!process.argv.includes("--no-build")) await buildPacks();
 }
 

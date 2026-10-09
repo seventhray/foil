@@ -45,9 +45,57 @@
   </div>
 
   <fieldset>
+    <legend>Behavior Trait <em>(GMG 9.8.0)</em></legend>
+    <select name="behavior">{{#each behaviorChoices}}<option value="{{this.value}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>
+    {{#if behaviorNeedsParam}}<input type="text" name="behaviorParam" value="{{state.behaviorParam}}" placeholder="the bracketed word, such as its lair" />{{/if}}
+  </fieldset>
+
+  <fieldset>
+    <legend>Instruments <em>(pick 2 or 3, free; GMG 9.6.0)</em></legend>
+    {{#each slots}}
+      <div class="gen-slot">
+        <select name="slot.{{this.i}}.pick"><option value="">None</option>{{#each this.groups}}<optgroup label="{{this.label}}">{{#each this.options}}<option value="{{this.value}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>{{/each}}</optgroup>{{/each}}</select>
+        {{#if this.typeChoices}}<select name="slot.{{this.i}}.type">{{#each this.typeChoices}}<option value="{{this.value}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>{{/if}}
+        {{#if this.damageChoices}}<select name="slot.{{this.i}}.damage">{{#each this.damageChoices}}<option value="{{this.value}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>{{/if}}
+        {{#if this.primaryChoices}}<select name="slot.{{this.i}}.primary" title="Primary Attribute">{{#each this.primaryChoices}}<option value="{{this.value}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>{{/if}}
+      </div>
+    {{/each}}
+  </fieldset>
+
+  <fieldset>
+    <legend>Techniques <em>(the built-in ones are free; others cost from the Allowance, GMG 9.7.0)</em></legend>
+    <div class="gen-checks">
+      {{#each techniques}}
+        <label class="{{#if this.over}}warn{{/if}}"><input type="checkbox" name="tech.{{this.name}}" {{#if this.checked}}checked{{/if}} /> {{this.name}} <span class="abbr">{{this.xp}} XP</span></label>
+      {{else}}<p class="hint">Pick Instruments to list the Techniques they can carry.</p>{{/each}}
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend>Monster Feats <em>(GMG 9.5.1)</em></legend>
+    {{#each featRows}}
+      <div class="gen-feat {{#if this.over}}warn{{/if}}" title="{{this.effect}}">
+        <select name="feat.{{this.name}}" class="mini-num">{{#each this.qtyChoices}}<option value="{{this.value}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>
+        <span>{{this.name}}</span>
+        {{#if this.isRes}}<select name="feat.{{this.name}}:scope"><option value="type">Damage type (4 per point)</option><option value="family" {{#if this.familyScope}}selected{{/if}}>Family (8 per point)</option></select>{{/if}}
+        <span class="abbr">{{this.xpText}}{{#if this.cost}} &middot; {{this.cost}} XP{{/if}}</span>
+      </div>
+    {{/each}}
+  </fieldset>
+
+  <fieldset>
+    <legend>Traits <em>(GMG 9.5.0)</em></legend>
+    <div class="gen-checks">
+      {{#each traitRows}}
+        <label class="{{#if this.over}}warn{{/if}}"><input type="checkbox" name="trait.{{this.name}}" {{#if this.checked}}checked{{/if}} /> {{this.name}} <span class="abbr">{{this.xp}} XP</span></label>
+      {{/each}}
+    </div>
+  </fieldset>
+
+  <fieldset>
     <legend>Result</legend>
     <p>Threat <strong>{{n.threat}}</strong> &middot; Tier <strong>{{n.tier}}</strong> &middot; Baseline Potential <strong>{{n.potential}}</strong> &middot; Total Potential <strong>{{n.totalPotential}}</strong></p>
-    <p>Allowance <strong>{{n.allowance}} XP</strong> &middot; Ceiling <strong>{{n.ceiling}} XP</strong> &middot; Training <strong>+{{n.training}}</strong></p>
+    <p>Allowance <strong>{{n.allowance}} XP</strong> (spent {{allowanceSpent}}, left {{allowanceLeft}}) &middot; Ceiling <strong>{{n.ceiling}} XP</strong> &middot; Training <strong>+{{n.training}}</strong></p>
     {{#each warnings}}<p class="type-warning-banner">{{this}}</p>{{/each}}
   </fieldset>
 

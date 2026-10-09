@@ -901,3 +901,13 @@
 .vuln-row input[type="text"] { flex: 1 1 80px; min-width: 0; }
 .vuln-row .mini-num { width: 52px; flex: 0 0 52px; }
 .vuln-row a { cursor: pointer; color: var(--bad); }
+
+/* Creature generator */
+.creature-generator .gen-table { width: 100%; border-collapse: collapse; margin-top: 4px; }
+.creature-generator .gen-table th, .creature-generator .gen-table td { padding: 2px 6px; text-align: center; border-bottom: 1px solid var(--line); }
+.creature-generator .gen-slot { display: flex; gap: 4px; margin: 2px 0; }
+.creature-generator .gen-slot select { flex: 1 1 0; min-width: 0; }
+.creature-generator .gen-checks { display: grid; grid-template-columns: 1fr 1fr; gap: 1px 10px; }
+.creature-generator .gen-feat { display: flex; gap: 6px; align-items: center; margin: 1px 0; }
+.creature-generator .gen-feat .mini-num { width: 48px; flex: 0 0 48px; }
+.creature-generator .warn { color: var(--bad, #a33); }
