@@ -3,7 +3,7 @@ import { entryLabel, withDuration } from "../../src/pricing.js";
 import { reachBand, reachLine, rangeWarning, bandOfFeet } from "../../src/range.js";
 import { aggregateModifiers } from "../../src/modifiers.js";
 import { parseVulnerable, scopedResistance } from "../../src/resist.js";
-import { creatureNumbers, tierFor, crToThreat, diceFor, differentiate, SHAPES } from "../../src/creature-math.js";
+import { abilitySteps, acToResistance, vulnerableRefund, creatureNumbers, tierFor, crToThreat, diceFor, differentiate, SHAPES } from "../../src/creature-math.js";
 import { NATURAL_WEAPONS, MONSTER_FEATS, TRAITS } from "../../src/creature-data.js";
 import { restPlan } from "../../src/rest.js";
 import { conditionMods, conditionFlags, allowedAims, targetFlags, harmFlags, incomingMods, skillFormula, kindOf } from "../../src/combat.js";
@@ -81,5 +81,12 @@ check("Differentiate moves two Potential a step and flags a bad total", [differe
 
 check("the GMG's Natural Weapons, Monster Feats, and Traits load", [NATURAL_WEAPONS.length, MONSTER_FEATS.length, TRAITS.length, NATURAL_WEAPONS.filter(w => w.pick).length], [44, 16, 14, 3]);
 check("Legendary Action prices per use and Specialized Resistance per point", [MONSTER_FEATS.find(f => f.name === "Legendary Action").per, MONSTER_FEATS.find(f => f.name === "Specialized Resistance").per], ["use", "point"]);
+
+const brute = abilitySteps({ str: 25, dex: 9, con: 23, int: 10, wis: 14, cha: 13 });
+check("the GMG brute example steps Might up and Wit down", [brute.steps.might, brute.steps.finesse, brute.steps.wit, brute.steps.presence, brute.center], [1, 0, -1, 0, 16.375]);
+const controller = abilitySteps({ str: 11, dex: 16, con: 16, int: 20, wis: 14, cha: 16 });
+check("the GMG controller example moves nothing", Object.values(controller.steps), [0, 0, 0, 0]);
+check("AC converts to physical Resistance by the table", [10, 12, 13, 16, 17, 19, 20, 25].map(acToResistance), [0, 0, 1, 1, 2, 2, 3, 3]);
+check("Vulnerable refunds by scope: Broad 8, Family 2 or 4, damage type 1 or 2", vulnerableRefund([{ scope: "physical", n: 1 }, { scope: "kinetic", n: 4 }, { scope: "sonic", n: 1 }, { scope: "fire", n: 2 }, { scope: "psychic", n: 1 }]), 8 + 8 + 4 + 2 + 2);
 
 process.exit(failed ? 1 : 0);

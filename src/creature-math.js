@@ -99,3 +99,46 @@ export function diceFor(target) {
   const potential = DIE_SIZES.reduce((n, f) => n + f * (counts[`d${f}`] ?? 0), 0);
   return { formula, counts, potential };
 }
+
+// ─── d20 stat-block conversion (GMG 12.2.0, 12.5.0, 12.7.0) ───────────────────
+
+/** Source abilities for each Attribute (GMG 12.2.0). */
+export const SOURCE_ABILITIES = { might: ["str", "con"], finesse: ["dex", "con"], wit: ["int", "wis"], presence: ["cha", "wis"] };
+
+/**
+ * Differentiate from Ability Scores (GMG 12.7.0): average each Attribute's two source abilities, take the
+ * center of the four, and move an Attribute one step per 4 points from the center, past 4, up to two steps.
+ */
+export function abilitySteps(scores) {
+  const source = {};
+  for (const [attr, [a, b]] of Object.entries(SOURCE_ABILITIES)) source[attr] = ((Number(scores[a]) || 10) + (Number(scores[b]) || 10)) / 2;
+  const center = Object.values(source).reduce((n, v) => n + v, 0) / 4;
+  const steps = {};
+  for (const [attr, v] of Object.entries(source)) {
+    const d = v - center;
+    const mag = Math.abs(d) > 4 ? Math.min(2, Math.floor(Math.abs(d) / 4)) : 0;
+    steps[attr] = d < 0 ? -mag : mag;
+  }
+  return { source, center, steps };
+}
+
+/** Armor Class to physical Resistance (GMG 12.5.0). */
+export const acToResistance = ac => (ac >= 20 ? 3 : ac >= 17 ? 2 : ac >= 13 ? 1 : 0);
+
+// ─── Vulnerable funding Resistance (GMG 9.3.0) ────────────────────────────────
+
+const PHYSICAL_FAMILIES = ["melee", "ranged", "grappling", "kinetic"];
+const MENTAL_FAMILIES = ["sonic", "incorporeal"];
+const PHYSICAL_TYPES = ["edged", "pointed", "blunt", "fire", "cold", "lightning", "acid", "force"];
+const MENTAL_TYPES = ["psychic", "spirit"];
+
+/** Budget refunded for each point of a Vulnerable, by its scope. */
+export function refundPerPoint(scope) {
+  if (scope === "physical" || scope === "mental") return 8;
+  if (PHYSICAL_FAMILIES.includes(scope)) return 2;
+  if (MENTAL_FAMILIES.includes(scope)) return 4;
+  if (PHYSICAL_TYPES.includes(scope)) return 1;
+  if (MENTAL_TYPES.includes(scope)) return 2;
+  return 0;
+}
+export const vulnerableRefund = rows => rows.reduce((n, v) => n + refundPerPoint(v.scope) * (Number(v.n) || 0), 0);

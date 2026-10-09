@@ -13,6 +13,16 @@
       {{#if isThreat}}<input type="number" name="threat" value="{{state.threat}}" step="1" />{{/if}}
     </fieldset>
   </div>
+  {{#if isD20}}
+    <fieldset>
+      <legend>d20 stat block <em>(GMG 12.2.0, 12.5.0, 12.7.0)</em></legend>
+      <div class="gen-scores">
+        {{#each scoreRows}}<label>{{this.label}} <input type="number" name="score.{{this.key}}" value="{{this.value}}" min="1" max="30" /></label>{{/each}}
+        <label>AC <input type="number" name="ac" value="{{state.ac}}" min="0" max="40" /></label>
+      </div>
+      <p class="hint">{{centerNote}}. AC sets physical Resistance.</p>
+    </fieldset>
+  {{/if}}
 
   <fieldset>
     <legend>Shape <em>(GMG 9.2.0)</em></legend>
@@ -32,10 +42,19 @@
 
   <div class="chargen-grid">
     <fieldset>
-      <legend>Resistance <em>(budget {{n.resistanceBudget}}, cap +{{n.resistanceCap}})</em></legend>
+      <legend>Resistance <em>(budget {{budget}}, cap +{{n.resistanceCap}})</em></legend>
       <label>Physical <select name="physical" class="mini-num">{{#each resistanceChoices.physical}}<option value="{{this.value}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>{{/each}}</select></label>
       <label>Mental <select name="mental" class="mini-num">{{#each resistanceChoices.mental}}<option value="{{this.value}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>{{/each}}</select></label>
-      <p class="hint">Spends {{spent}} of {{n.resistanceBudget}}.</p>
+      <p class="hint">Spends {{spent}} of {{budget}}{{#if refund}} ({{n.resistanceBudget}} plus {{refund}} from Vulnerable){{/if}}.</p>
+      {{#each vulnRows}}
+        <div class="gen-slot">
+          <select name="vuln.{{this.i}}.scope">{{#each this.groups}}<optgroup label="{{this.label}}">{{#each this.options}}<option value="{{this.value}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>{{/each}}</optgroup>{{/each}}</select>
+          <select name="vuln.{{this.i}}.n" class="mini-num">{{#each this.nChoices}}<option value="{{this.value}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>
+          <span class="abbr">refunds {{this.refund}}</span>
+          <a data-action="removeVuln" data-index="{{this.i}}" title="Remove"><i class="fas fa-trash"></i></a>
+        </div>
+      {{/each}}
+      <a class="inline-add" data-action="addVuln"><i class="fas fa-plus"></i> Add a Vulnerable</a>
     </fieldset>
     <fieldset>
       <legend>Training <em>(+{{n.training}} in the Skills its attacks roll)</em></legend>

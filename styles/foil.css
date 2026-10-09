@@ -911,3 +911,6 @@
 .creature-generator .gen-feat { display: flex; gap: 6px; align-items: center; margin: 1px 0; }
 .creature-generator .gen-feat .mini-num { width: 48px; flex: 0 0 48px; }
 .creature-generator .warn { color: var(--bad, #a33); }
+
+.creature-generator .gen-scores { display: flex; flex-wrap: wrap; gap: 6px 12px; }
+.creature-generator .gen-scores input { width: 52px; }

@@ -7,7 +7,8 @@
 
 import { ATTRIBUTE_KEYS, ATTR_LABEL, SKILL_KEYS, SKILL_LABEL, BEHAVIOR_TRAITS } from "../constants.js";
 import { NATURAL_WEAPONS, MONSTER_FEATS, TRAITS } from "../creature-data.js";
-import { TIER_THREAT, CR_CHOICES, creatureNumbers, crToThreat, differentiate, diceFor, SHAPES } from "../creature-math.js";
+import { TIER_THREAT, CR_CHOICES, creatureNumbers, crToThreat, differentiate, diceFor, SHAPES, abilitySteps, acToResistance, refundPerPoint, vulnerableRefund } from "../creature-math.js";
+import { SCOPE_GROUPS } from "../resist.js";
 
 const { HandlebarsApplicationMixin, ApplicationV2 } = foundry.applications.api;
 
@@ -37,6 +38,7 @@ export class FoilCreatureGenerator extends HandlebarsApplicationMixin(Applicatio
     name: "", source: "tier", threat: 0, cr: "5", tier: 4, shape: "none",
     steps: { might: 0, finesse: 0, wit: 0, presence: 0 }, train: ["prowess", ""], physical: 0, mental: 0,
     behavior: "", behaviorParam: "",
+    abilities: { str: 10, dex: 10, con: 10, int: 10, wis: 10, cha: 10 }, ac: 10, vuln: [],
     instruments: [0, 1, 2].map(() => ({ pick: "", type: "", damage: "", primary: "" })),
     techniques: [], feats: {}, traits: []
   };
@@ -47,7 +49,7 @@ export class FoilCreatureGenerator extends HandlebarsApplicationMixin(Applicatio
     classes: ["foil", "chargen", "creature-generator"],
     window: { title: "Creature Generator", icon: "fas fa-dragon", resizable: true },
     position: { width: 560, height: "auto" },
-    actions: { createCreature: FoilCreatureGenerator._onCreate }
+    actions: { createCreature: FoilCreatureGenerator._onCreate, addVuln: FoilCreatureGenerator._onAddVuln, removeVuln: FoilCreatureGenerator._onRemoveVuln }
   };
 
   static PARTS = { main: { template: "systems/foil/templates/apps/creature-generator.hbs" } };
@@ -56,15 +58,20 @@ export class FoilCreatureGenerator extends HandlebarsApplicationMixin(Applicatio
   _threat() {
     const s = this.state;
     if (s.source === "threat") return Number(s.threat) || 0;
-    if (s.source === "cr") return crToThreat(s.cr) ?? 0;
+    if (s.source === "cr" || s.source === "d20") return crToThreat(s.cr) ?? 0;
     return TIER_THREAT[Number(s.tier)] ?? 0;
   }
 
   async _prepareContext() {
     const s = this.state;
     const n = creatureNumbers(this._threat());
-    if (s.shape !== "custom") s.steps = { ...SHAPES[s.shape].steps };
+    const fromScores = s.source === "d20" && s.shape !== "custom";
+    const scores = abilitySteps(s.abilities);
+    if (fromScores) s.steps = { ...scores.steps };
+    else if (s.shape !== "custom") s.steps = { ...(SHAPES[s.shape] ?? SHAPES.none).steps };
     const diff = differentiate(n.potential, s.steps);
+    const refund = vulnerableRefund(s.vuln);
+    const budget = n.resistanceBudget + refund;
     const spent = 8 * (Number(s.physical) + Number(s.mental));
     const rows = ATTRIBUTE_KEYS.map(k => ({
       key: k, label: ATTR_LABEL[k], steps: s.steps[k], potential: diff.potentials[k], dice: diceFor(diff.potentials[k]).formula,
@@ -74,7 +81,8 @@ export class FoilCreatureGenerator extends HandlebarsApplicationMixin(Applicatio
     const ratings = Array.from({ length: n.resistanceCap + 1 }, (_, i) => i);
     const opts = (list, cur) => list.map(v => ({ value: v, label: String(v), selected: String(v) === String(cur) }));
     const warnings = [...diff.notes];
-    if (spent > n.resistanceBudget) warnings.push(`Resistance spends ${spent} of a budget of ${n.resistanceBudget}; Vulnerable can fund more (GMG 9.3.0)`);
+    if (spent > budget) warnings.push(`Resistance spends ${spent} of a budget of ${budget}${refund ? ` (${n.resistanceBudget} plus ${refund} from Vulnerable)` : "; a Vulnerable can fund more (GMG 9.3.0)"}`);
+    for (const v of s.vuln) if (Number(v.n) > n.resistanceCap) warnings.push(`A Vulnerable goes past the cap of +${n.resistanceCap}`);
     if (Number(s.physical) > n.resistanceCap || Number(s.mental) > n.resistanceCap) warnings.push(`Resistance is capped at +${n.resistanceCap}`);
     this._cache ??= await loadPacks();
     const packs = this._cache;
@@ -132,12 +140,19 @@ export class FoilCreatureGenerator extends HandlebarsApplicationMixin(Applicatio
       totalTarget: n.totalPotential,
       tierChoices: Object.keys(TIER_THREAT).map(t => ({ value: t, label: `Tier ${t} (Threat ${TIER_THREAT[t]})`, selected: String(t) === String(s.tier) })),
       crChoices: CR_CHOICES.map(c => ({ value: c, label: `CR ${c}`, selected: c === s.cr })),
-      sourceChoices: [["tier", "Tier"], ["cr", "CR from a d20 stat block"], ["threat", "Threat"]].map(([value, label]) => ({ value, label, selected: value === s.source })),
+      sourceChoices: [["tier", "Tier"], ["d20", "d20 stat block (CR, scores, AC)"], ["cr", "CR only"], ["threat", "Threat"]].map(([value, label]) => ({ value, label, selected: value === s.source })),
       shapeChoices: [...Object.entries(SHAPES).map(([value, v]) => ({ value, label: v.label })), { value: "custom", label: "Custom steps" }]
         .map(c => ({ ...c, selected: c.value === s.shape })),
       resistanceChoices: { physical: opts(ratings, s.physical), mental: opts(ratings, s.mental) },
       skillA: skillOptions(s.train[0]), skillB: skillOptions(s.train[1]),
-      isThreat: s.source === "threat", isCr: s.source === "cr", isTier: s.source === "tier",
+      isThreat: s.source === "threat", isCr: s.source === "cr" || s.source === "d20", isTier: s.source === "tier", isD20: s.source === "d20",
+      scoreRows: ["str", "dex", "con", "int", "wis", "cha"].map(k => ({ key: k, label: k.toUpperCase(), value: s.abilities[k] })),
+      centerNote: fromScores ? `Center ${scores.center.toFixed(1)}; steps follow GMG 12.7.0` : "",
+      vulnRows: s.vuln.map((v, i) => ({ i, n: v.n, refund: refundPerPoint(v.scope) * Number(v.n),
+        groups: SCOPE_GROUPS.filter(g => g.label !== "Material").map(g => ({ label: g.label, options: g.options.map(([value, label]) => ({ value, label, selected: value === v.scope })) })),
+        nChoices: [1, 2, 3, 4, 5, 6].map(x => ({ value: x, label: String(x), selected: x === Number(v.n) })) })),
+      budget: budget,
+      refund: refund,
       slots: slots,
       techniques: techniques,
       featRows: featRows,
@@ -167,10 +182,15 @@ export class FoilCreatureGenerator extends HandlebarsApplicationMixin(Applicatio
         case "mental": s.mental = Number(v); break;
         case "trainA": s.train[0] = v; break;
         case "trainB": s.train[1] = v; break;
+        case "ac": s.ac = Number(v) || 0; s.physical = Math.min(acToResistance(s.ac), creatureNumbers(this._threat()).resistanceCap); break;
         case "behavior": s.behavior = v; break;
         case "behaviorParam": s.behaviorParam = v; return;
         default:
-          if (el.name?.startsWith("step.")) { s.shape = "custom"; s.steps[el.name.slice(5)] = Number(v); }
+          if (el.name?.startsWith("score.")) s.abilities[el.name.slice(6)] = Number(v) || 0;
+          else if (el.name?.startsWith("vuln.")) {
+            const [, i, field] = el.name.split(".");
+            s.vuln[Number(i)][field] = field === "n" ? Number(v) : v;
+          } else if (el.name?.startsWith("step.")) { s.shape = "custom"; s.steps[el.name.slice(5)] = Number(v); }
           else if (el.name?.startsWith("slot.")) {
             const [, i, field] = el.name.split(".");
             const slot = s.instruments[Number(i)];
@@ -189,6 +209,16 @@ export class FoilCreatureGenerator extends HandlebarsApplicationMixin(Applicatio
       }
       this.render();
     });
+  }
+
+  static async _onAddVuln() {
+    this.state.vuln.push({ scope: "fire", n: 1 });
+    this.render();
+  }
+
+  static async _onRemoveVuln(event, target) {
+    this.state.vuln.splice(Number(target.dataset.index), 1);
+    this.render();
   }
 
   static async _onCreate() {
@@ -238,7 +268,7 @@ export class FoilCreatureGenerator extends HandlebarsApplicationMixin(Applicatio
     const behavior = s.behavior ? (s.behaviorParam ? s.behavior.replace(/\[[^\]]*\]/, `[${s.behaviorParam}]`) : s.behavior) : "";
     const actor = await Actor.create({
       name: s.name || "New Creature", type: "creature",
-      system: { tier: n.tier, cr: s.source === "cr" ? s.cr : "", behavior, attributes, skills, resistance: { physical: Number(s.physical), mental: Number(s.mental) }, notes },
+      system: { tier: n.tier, cr: s.source === "cr" || s.source === "d20" ? s.cr : "", behavior, vulnerabilities: s.vuln.map(v => ({ scope: v.scope, material: "", n: Number(v.n) })), attributes, skills, resistance: { physical: Number(s.physical), mental: Number(s.mental) }, notes },
       items
     });
     ui.notifications?.info(`${actor.name} created at Tier ${n.tier}.`);
