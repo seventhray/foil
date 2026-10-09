@@ -3,7 +3,7 @@ import { entryLabel, withDuration } from "../../src/pricing.js";
 import { reachBand, reachLine, rangeWarning, bandOfFeet } from "../../src/range.js";
 import { aggregateModifiers } from "../../src/modifiers.js";
 import { parseVulnerable, scopedResistance } from "../../src/resist.js";
-import { abilitySteps, acToResistance, vulnerableRefund, creatureNumbers, tierFor, crToThreat, diceFor, differentiate, SHAPES } from "../../src/creature-math.js";
+import { abilitySteps, acToResistance, vulnerableRefund, creatureNumbers, tierFor, crToThreat, diceFor, assignAttributes } from "../../src/creature-math.js";
 import { NATURAL_WEAPONS, MONSTER_FEATS, TRAITS } from "../../src/creature-data.js";
 import { restPlan } from "../../src/rest.js";
 import { conditionMods, conditionFlags, allowedAims, targetFlags, harmFlags, incomingMods, skillFormula, kindOf } from "../../src/combat.js";
@@ -77,7 +77,7 @@ check("a tier is the nearest anchor, a tie going lower", [tierFor(64), tierFor(6
 check("CR converts to Threat, past CR 21 by 64 each", [crToThreat("9"), crToThreat("1/2"), crToThreat("24")], [424, -128, 1728]);
 check("Threat 1728 gives Potential 74 and Allowance 190", [creatureNumbers(1728).potential, creatureNumbers(1728).allowance], [74, 190]);
 check("dice follow the Target Potential table", [diceFor(20).formula, diceFor(14).formula, diceFor(3).formula, diceFor(50).formula, diceFor(1).formula], ["1d20", "1d6+1d8", "1d4", "2d20+1d10", "none"]);
-check("Differentiate moves two Potential a step and flags a bad total", [differentiate(20, SHAPES.brute.steps).potentials.might, differentiate(20, SHAPES.brute.steps).notes.length, differentiate(20, { might: 2, finesse: 2, wit: 0, presence: 0 }).notes.length], [24, 0, 1]);
+check("Assign Attributes moves two Potential a step and flags a bad total", [assignAttributes(20, { might: 2, finesse: 0, wit: -1, presence: -1 }).potentials.might, assignAttributes(20, { might: 2, finesse: 0, wit: -1, presence: -1 }).notes.length, assignAttributes(20, { might: 2, finesse: 2, wit: 0, presence: 0 }).notes.length], [24, 0, 1]);
 
 check("the GMG's Natural Weapons, Monster Feats, and Traits load", [NATURAL_WEAPONS.length, MONSTER_FEATS.length, TRAITS.length, NATURAL_WEAPONS.filter(w => w.pick).length], [44, 16, 14, 3]);
 check("Legendary Action prices per use and Specialized Resistance per point", [MONSTER_FEATS.find(f => f.name === "Legendary Action").per, MONSTER_FEATS.find(f => f.name === "Specialized Resistance").per], ["use", "point"]);

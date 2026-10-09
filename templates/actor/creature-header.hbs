@@ -1,6 +1,7 @@
 <div class="foil-part-header">
   {{#if system.destroyed}}<div class="destroyed-banner">Destroyed</div>{{/if}}
   <header class="foil-header creature-header">
+    <img class="actor-img" src="{{actor.img}}" data-action="editActorImage" title="Change the portrait" width="96" height="96" />
     <div class="name-block">
       <input type="text" name="name" value="{{actor.name}}" placeholder="Name" class="char-name" />
     </div>

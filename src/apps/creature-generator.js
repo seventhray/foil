@@ -1,13 +1,13 @@
 /**
  * src/apps/creature-generator.js
- * Creature generator (GMG 9.1.0 to 9.3.0): pick a Threat, a CR, or a tier, a shape, and
+ * Creature generator (GMG 9.1.0 to 9.3.0): pick a Threat, a CR, or a tier, Attribute steps, and
  * Resistance, and read off the Potentials, dice, Allowance, Ceiling, Training, and
  * Resistance budget. Creates the creature Actor with its dice, Training, and Resistance set.
  */
 
 import { ATTRIBUTE_KEYS, ATTR_LABEL, SKILL_KEYS, SKILL_LABEL, BEHAVIOR_TRAITS } from "../constants.js";
 import { NATURAL_WEAPONS, MONSTER_FEATS, TRAITS } from "../creature-data.js";
-import { balanceSteps, TIER_THREAT, CR_CHOICES, creatureNumbers, crToThreat, differentiate, diceFor, SHAPES, abilitySteps, acToResistance, refundPerPoint, vulnerableRefund } from "../creature-math.js";
+import { balanceSteps, TIER_THREAT, CR_CHOICES, creatureNumbers, crToThreat, assignAttributes, diceFor, abilitySteps, acToResistance, refundPerPoint, vulnerableRefund } from "../creature-math.js";
 import { SCOPE_GROUPS } from "../resist.js";
 
 const { HandlebarsApplicationMixin, ApplicationV2 } = foundry.applications.api;
@@ -35,7 +35,7 @@ function kitFor(types, instruments) {
 
 export class FoilCreatureGenerator extends HandlebarsApplicationMixin(ApplicationV2) {
   state = {
-    name: "", source: "tier", threat: 0, cr: "5", tier: 4, shape: "none",
+    name: "", source: "tier", threat: 0, cr: "5", tier: 4, manual: false,
     steps: { might: 0, finesse: 0, wit: 0, presence: 0 }, train: ["prowess", ""], physical: 0, mental: 0,
     behavior: "", behaviorParam: "",
     abilities: { str: 10, dex: 10, con: 10, int: 10, wis: 10, cha: 10 }, ac: 10, vuln: [],
@@ -65,18 +65,16 @@ export class FoilCreatureGenerator extends HandlebarsApplicationMixin(Applicatio
   async _prepareContext() {
     const s = this.state;
     const n = creatureNumbers(this._threat());
-    const fromScores = s.source === "d20" && s.shape !== "custom";
+    const fromScores = s.source === "d20" && !s.manual;
     const scores = abilitySteps(s.abilities);
     if (fromScores) s.steps = { ...scores.steps };
-    else if (s.shape !== "custom") s.steps = { ...(SHAPES[s.shape] ?? SHAPES.none).steps };
-    const diff = differentiate(n.potential, s.steps);
+    const diff = assignAttributes(n.potential, s.steps);
     const refund = vulnerableRefund(s.vuln);
     const budget = n.resistanceBudget + refund;
     const spent = 8 * (Number(s.physical) + Number(s.mental));
     const rows = ATTRIBUTE_KEYS.map(k => ({
       key: k, label: ATTR_LABEL[k], steps: s.steps[k], potential: diff.potentials[k], dice: diceFor(diff.potentials[k]).formula,
-      stepChoices: [-2, -1, 0, 1, 2].map(v => ({ value: v, label: v > 0 ? `+${v}` : `${v}`, selected: v === s.steps[k] })),
-      locked: s.shape !== "custom"
+      stepChoices: [-2, -1, 0, 1, 2].map(v => ({ value: v, label: v > 0 ? `+${v}` : `${v}`, selected: v === s.steps[k] }))
     }));
     const ratings = Array.from({ length: n.resistanceCap + 1 }, (_, i) => i);
     const opts = (list, cur) => list.map(v => ({ value: v, label: String(v), selected: String(v) === String(cur) }));
@@ -141,8 +139,6 @@ export class FoilCreatureGenerator extends HandlebarsApplicationMixin(Applicatio
       tierChoices: Object.keys(TIER_THREAT).map(t => ({ value: t, label: `Tier ${t} (Threat ${TIER_THREAT[t]})`, selected: String(t) === String(s.tier) })),
       crChoices: CR_CHOICES.map(c => ({ value: c, label: `CR ${c}`, selected: c === s.cr })),
       sourceChoices: [["tier", "Tier"], ["d20", "d20 stat block (CR, scores, AC)"], ["cr", "CR only"], ["threat", "Threat"]].map(([value, label]) => ({ value, label, selected: value === s.source })),
-      shapeChoices: [...Object.entries(SHAPES).map(([value, v]) => ({ value, label: v.label })), { value: "custom", label: "Custom steps" }]
-        .map(c => ({ ...c, selected: c.value === s.shape })),
       resistanceChoices: { physical: opts(ratings, s.physical), mental: opts(ratings, s.mental) },
       skillA: skillOptions(s.train[0]), skillB: skillOptions(s.train[1]),
       isThreat: s.source === "threat", isCr: s.source === "cr" || s.source === "d20", isTier: s.source === "tier", isD20: s.source === "d20",
@@ -173,11 +169,10 @@ export class FoilCreatureGenerator extends HandlebarsApplicationMixin(Applicatio
       const v = el.value;
       switch (el.name) {
         case "name": s.name = v; return;
-        case "source": s.source = v; break;
+        case "source": s.source = v; s.manual = false; break;
         case "threat": s.threat = v; break;
         case "cr": s.cr = v; break;
         case "tier": s.tier = v; break;
-        case "shape": s.shape = v; break;
         case "physical": s.physical = Number(v); break;
         case "mental": s.mental = Number(v); break;
         case "trainA": s.train[0] = v; break;
@@ -190,7 +185,7 @@ export class FoilCreatureGenerator extends HandlebarsApplicationMixin(Applicatio
           else if (el.name?.startsWith("vuln.")) {
             const [, i, field] = el.name.split(".");
             s.vuln[Number(i)][field] = field === "n" ? Number(v) : v;
-          } else if (el.name?.startsWith("step.")) { s.shape = "custom"; const k = el.name.slice(5); s.steps[k] = Number(v); balanceSteps(s.steps, k); }
+          } else if (el.name?.startsWith("step.")) { s.manual = true; const k = el.name.slice(5); s.steps[k] = Number(v); balanceSteps(s.steps, k); }
           else if (el.name?.startsWith("slot.")) {
             const [, i, field] = el.name.split(".");
             const slot = s.instruments[Number(i)];
@@ -224,7 +219,7 @@ export class FoilCreatureGenerator extends HandlebarsApplicationMixin(Applicatio
   static async _onCreate() {
     const s = this.state;
     const n = creatureNumbers(this._threat());
-    const diff = differentiate(n.potential, s.steps);
+    const diff = assignAttributes(n.potential, s.steps);
     const attributes = {};
     for (const k of ATTRIBUTE_KEYS) attributes[k] = { dice: diceFor(diff.potentials[k]).counts };
     const skills = {};

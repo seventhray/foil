@@ -46,18 +46,11 @@ export function crToThreat(cr) {
   return Number.isFinite(n) && n >= 21 ? 1536 + 64 * (n - 21) : null;
 }
 
-/** Steps (one step is 2 Potential) for the shapes in GMG 9.2.0, by Attribute. */
-export const SHAPES = {
-  none:   { label: "No particular shape", steps: { might: 0, finesse: 0, wit: 0, presence: 0 } },
-  brute:  { label: "Brute", steps: { might: 2, finesse: 0, wit: -1, presence: -1 } },
-  quick:  { label: "Quick and thoughtless", steps: { might: 0, finesse: 1, wit: -1, presence: 0 } }
-};
-
 /**
- * The Potentials after Differentiate. No Attribute moves more than two steps, and the
+ * The Potentials after Assign Attributes. No Attribute moves more than two steps, and the
  * Total Potential lands within one step of the tier's number (GMG 9.2.0).
  */
-export function differentiate(baseline, steps) {
+export function assignAttributes(baseline, steps) {
   const out = {}, notes = [];
   let sum = 0;
   for (const k of ["might", "finesse", "wit", "presence"]) {
@@ -88,8 +81,9 @@ export function balanceSteps(steps, changed) {
 // Dice for a target Potential (GMG 11.3.0).
 const TABLE = { 8: "1d8", 10: "1d10", 12: "1d12", 14: "1d6+1d8", 16: "2d8", 18: "1d8+1d10", 20: "1d20", 22: "1d10+1d12", 24: "2d12",
   26: "1d20+1d6", 28: "1d20+1d8", 30: "1d20+1d10", 32: "1d20+1d12", 34: "1d20+1d8+1d6", 36: "1d20+2d8", 38: "1d20+1d10+1d8", 40: "2d20",
-  42: "1d20+1d12+1d10", 44: "2d20+1d4", 46: "2d20+1d6", 48: "2d20+1d8", 52: "2d20+1d12", 56: "2d20+2d8", 60: "3d20", 64: "3d20+1d4",
-  68: "3d20+1d8", 72: "3d20+1d12", 80: "4d20" };
+  42: "1d20+1d12+1d10", 44: "2d20+1d4", 46: "2d20+1d6", 48: "2d20+1d8", 50: "2d20+1d10", 52: "2d20+1d12", 54: "2d20+1d8+1d6",
+  56: "2d20+2d8", 58: "2d20+1d10+1d8", 60: "3d20", 62: "2d20+1d12+1d10", 64: "3d20+1d4", 66: "3d20+1d6", 68: "3d20+1d8", 70: "3d20+1d10",
+  72: "3d20+1d12", 74: "3d20+1d8+1d6", 76: "3d20+2d8", 78: "3d20+1d10+1d8", 80: "4d20" };
 
 /** @returns {{ formula:string, counts:Object<string,number>, potential:number }} */
 export function diceFor(target) {
@@ -121,7 +115,7 @@ export function diceFor(target) {
 export const SOURCE_ABILITIES = { might: ["str", "con"], finesse: ["dex", "con"], wit: ["int", "wis"], presence: ["cha", "wis"] };
 
 /**
- * Differentiate from Ability Scores (GMG 11.7.0): average each Attribute's two source abilities, take the
+ * Assign Attributes from Ability Scores (GMG 11.7.0): average each Attribute's two source abilities, take the
  * center of the four, and move an Attribute one step per 4 points from the center, past 4, up to two steps.
  */
 export function abilitySteps(scores) {

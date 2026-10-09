@@ -1,6 +1,7 @@
 <div class="foil-part-header">
   {{#if system.destroyed}}<div class="destroyed-banner">Destroyed</div>{{/if}}
   <header class="foil-header char-header">
+    <img class="actor-img" src="{{actor.img}}" data-action="editActorImage" title="Change the portrait" width="96" height="96" />
     <div class="name-row">
       <input type="text" name="name" value="{{actor.name}}" placeholder="Name" class="char-name" />
       <button type="button" class="chargen-btn" data-action="generateCharacter" title="Build a starting character (PHB 2.5.0)"><i class="fas fa-wand-magic-sparkles"></i> Create</button>

@@ -67,6 +67,7 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
       removeCondition:  FoilActorSheet._onRemoveCondition,
       toggleEquipped:   FoilActorSheet._onToggleEquipped,
       rest:             FoilActorSheet._onRest,
+      editActorImage:   FoilActorSheet._onEditImage,
       generateCharacter: FoilActorSheet._onGenerateCharacter,
       openAdvancement:  FoilActorSheet._onOpenAdvancement,
       createItem:       FoilActorSheet._onCreateItem,
@@ -634,6 +635,12 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
    * ration per 8 hours. The hours are split among Attributes in 2-hour blocks.
    * Without rations the time passes but the unfed blocks heal nothing.
    */
+  static _onEditImage() {
+    const FP = foundry.applications?.apps?.FilePicker?.implementation
+            ?? foundry.applications?.apps?.FilePicker ?? FilePicker;
+    new FP({ type: "image", current: this.actor.img, callback: path => this.actor.update({ img: path }) }).render(true);
+  }
+
   static async _onRest() {
     const attrs = this.actor.system.attributes ?? {};
     const hurt = ATTRIBUTE_KEYS.filter(k => Number(attrs[k]?.potential?.current ?? 0) < Number(attrs[k]?.potential?.max ?? 0))

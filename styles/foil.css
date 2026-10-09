@@ -195,7 +195,13 @@
 }
 
 /* ── Character header identity grid ──────────────────────────────────────── */
-.char-header { flex-direction: column; align-items: stretch; gap: 6px; }
+.char-header { display: grid; grid-template-columns: 96px 1fr; align-items: start; gap: 6px 12px; }
+.char-header > :not(.actor-img) { grid-column: 2; }
+.char-header > .actor-img { grid-column: 1; grid-row: 1 / span 3; }
+.foil-header .actor-img {
+  flex: 0 0 96px; width: 96px; height: 96px; object-fit: cover; cursor: pointer;
+  border: 2px solid var(--line); border-radius: 4px; box-shadow: 0 1px 3px rgba(27,23,34,0.15);
+}
 .ident-grid {
   display: grid;
   grid-template-columns: auto 1fr auto 1fr;
