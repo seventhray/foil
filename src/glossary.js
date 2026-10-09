@@ -238,7 +238,7 @@ export const GLOSSARY = {
   },
   "passive": {
     "name": "Passive",
-    "text": "A Skill's Average plus its Training. It is the Difficulty against a creature that isn't pushing back."
+    "text": "A Skill's Average, Training included. It is the Difficulty against a creature that isn't pushing back."
   },
   "pattern": {
     "name": "Pattern",

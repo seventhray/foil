@@ -2,7 +2,7 @@
 
 A game system for Foilbound, a tabletop RPG. Every character has four Attribute dice pools and four FOIL axes. Stress comes from the margin of an opposed roll. One set of rules runs fights of the body, the mind, and the heart.
 
-The system's version matches the rulebook version it follows. The rulebooks are not in this repository.
+The system's version matches the rulebook version it follows. A fix to the code alone takes the next patch number, and the rulebooks take it too. The rulebooks are not in this repository.
 
 - System id: `foil`
 - Foundry: v13 or later, verified on v14
