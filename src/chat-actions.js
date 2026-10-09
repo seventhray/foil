@@ -5,8 +5,8 @@
  * and spend a Foil Token to halve Stress just applied.
  */
 
-import { ATTRIBUTE_KEYS, ATTR_LABEL, CONDITIONS, CONDITION_PRESETS, FOIL_TOKEN_MAX } from "./constants.js";
-import { ask, addButton } from "./dialogs.js";
+import { ATTR_LABEL, CONDITIONS, CONDITION_PRESETS, FOIL_TOKEN_MAX } from "./constants.js";
+import { ask, addButton, esc } from "./dialogs.js";
 
 /** The Actor a stored entry points at (a token's own actor when the token is unlinked). */
 export async function resolveActor(t) {
@@ -26,7 +26,7 @@ const whoList = cond => [{ uuid: cond.actorUuid, actorId: cond.actorId, name: co
 
 async function addCondition(cond) {
   const who = whoList(cond);
-  const whoOpts = who.map((w, i) => `<option value="${i}" ${i === (who.length > 1 ? 1 : 0) ? "selected" : ""}>${w.name}${w.roller ? " (roller)" : ""}</option>`).join("");
+  const whoOpts = who.map((w, i) => `<option value="${i}" ${i === (who.length > 1 ? 1 : 0) ? "selected" : ""}>${esc(w.name)}${w.roller ? " (roller)" : ""}</option>`).join("");
   const condOpts = CONDITIONS.map(c => `<option value="${c}">${c} (${CONDITION_PRESETS[c] ?? ""})</option>`).join("");
   const answer = await ask("Add a Condition",
     `<div class="form-group"><label>To</label><select name="who">${whoOpts}</select></div>`
@@ -41,7 +41,7 @@ async function addCondition(cond) {
   list.push({ name: answer.name, rounds, note: answer.note?.trim() ?? "" });
   await actor.update({ "system.conditions": list });
   await ChatMessage.create({ speaker: ChatMessage.getSpeaker({ actor }),
-    content: `<div class="foil-flavor"><strong>${actor.name} is ${answer.name}</strong><br><em>${[rounds, answer.note?.trim()].filter(Boolean).join("; ")}.</em></div>` });
+    content: `<div class="foil-flavor"><strong>${esc(actor.name)} is ${esc(answer.name)}</strong><br><em>${esc([rounds, answer.note?.trim()].filter(Boolean).join("; "))}.</em></div>` });
 }
 
 async function endCondition(e) {
@@ -53,7 +53,7 @@ async function endCondition(e) {
   list.splice(i, 1);
   await actor.update({ "system.conditions": list });
   await ChatMessage.create({ speaker: ChatMessage.getSpeaker({ actor }),
-    content: `<div class="foil-flavor"><strong>${e.name} ends on ${actor.name}</strong></div>` });
+    content: `<div class="foil-flavor"><strong>${esc(e.name)} ends on ${esc(actor.name)}</strong></div>` });
 }
 
 /** Add or subtract a flat modifier from a Technique's roll; the new card carries the Oppose buttons. */
@@ -62,7 +62,7 @@ async function adjustRoll(message) {
   const actor = game.actors.get(stress?.actorId);
   if (!actor || !owned(actor)) return;
   const answer = await ask("Adjust the roll",
-    `<p>${stress.name} stands at ${stress.attackTotal}.</p>`
+    `<p>${esc(stress.name)} stands at ${stress.attackTotal}.</p>`
     + `<div class="form-group"><label>Modifier</label><input type="number" name="mod" value="0" autofocus /></div>`
     + `<div class="form-group"><label>Reason</label><input type="text" name="why" /></div>`, "Adjust");
   const mod = Math.trunc(Number(answer?.mod) || 0);
@@ -72,7 +72,7 @@ async function adjustRoll(message) {
   const flags = { foil: { stress: { ...stress, attackTotal: total, rerolled: true }, cond: message.getFlag("foil", "cond") } };
   if (reroll) flags.foil.reroll = { ...reroll, total };
   await ChatMessage.create({ speaker: message.speaker, flags, content:
-    `<div class="foil-flavor"><strong>${stress.name}: ${total}</strong><br><em>${mod > 0 ? "+" : ""}${mod}${answer.why ? ` ${answer.why}` : ""}; was ${stress.attackTotal}.</em></div>` });
+    `<div class="foil-flavor"><strong>${esc(stress.name)}: ${total}</strong><br><em>${mod > 0 ? "+" : ""}${mod}${answer.why ? ` ${esc(answer.why)}` : ""}; was ${stress.attackTotal}.</em></div>` });
 }
 
 /** Spend a Foil Token to take back half the Stress just applied, rounded down (PHB 3.2.0). */
@@ -103,7 +103,7 @@ async function awardToken(message, invoke) {
   await actor.setFoilTokens(actor.foilTokens + 1);
   await message.setFlag("foil", "invoke", { ...invoke, awarded: true });
   await ChatMessage.create({ speaker: ChatMessage.getSpeaker({ actor }),
-    content: `<div class="foil-flavor"><strong>${actor.name} earns a Foil Token</strong><br><em>${actor.foilTokens} of ${FOIL_TOKEN_MAX}.</em></div>` });
+    content: `<div class="foil-flavor"><strong>${esc(actor.name)} earns a Foil Token</strong><br><em>${actor.foilTokens} of ${FOIL_TOKEN_MAX}.</em></div>` });
 }
 
 Hooks.on("renderChatMessageHTML", (message, html) => {

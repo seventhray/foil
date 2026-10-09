@@ -9,7 +9,7 @@
 import { ATTRIBUTE_KEYS, ATTR_LABEL, SKILL_LABEL, PRIMARY_SKILLS, CONDITION_OPPOSE, CONDITION_PRESETS, FOIL_AXES } from "./constants.js";
 import { stressFor } from "./stress.js";
 import { conditionFlags, conditionMods, harmFlags, harmNames, incomingMods, kindOf, signedParts, skillFormula, targetFlags } from "./combat.js";
-import { ask } from "./dialogs.js";
+import { ask, esc } from "./dialogs.js";
 import { resolveActor } from "./chat-actions.js";
 import { logEvent, who } from "./playtest-log.js";
 import { scopedResistance } from "./resist.js";
@@ -42,7 +42,6 @@ async function offerReroll(actor, roll, title) {
   return total;
 }
 
-const signed = n => (n > 0 ? `+${n}` : `${n}`);
 
 /** Lay Stress on an Attribute; what it cannot hold overflows where the defender chooses (PHB 6.7.0). */
 async function applyStress(actor, aim, amount, halved = false) {
@@ -112,9 +111,9 @@ export async function resolveOppose(message, index) {
   const flags = [...targetFlags(sys.conditions), ...conditionFlags(sys.conditions, { skill: best })];
   const flagHtml = flags.length ? `<p><em>${flags.join("<br>")}</em></p>` : "";
   const answer = await ask(`${actor.name} Opposes ${flag.name}`,
-    `<p>${flag.name} rolled ${attackLine} to make ${actor.name} ${cnd?.name ?? `suffer Stress at ${ATTR_LABEL[aim]}`}. ${cnd ? `${actor.name} must Oppose with ${skills.map(k => SKILL_LABEL[k]).join(" or ")} (PHB 6.5.0). ` : ""}Conditions and a Blocking Instrument's bonus are added.</p>${flagHtml}`
+    `<p>${esc(flag.name)} rolled ${attackLine} to make ${esc(actor.name)} ${cnd?.name ?? `suffer Stress at ${ATTR_LABEL[aim]}`}. ${cnd ? `${esc(actor.name)} must Oppose with ${skills.map(k => SKILL_LABEL[k]).join(" or ")} (PHB 6.5.0). ` : ""}Conditions and a Blocking Instrument's bonus are added.</p>${flagHtml}`
     + `<div class="form-group"><label>Oppose with</label><select name="skill">${opts}</select></div>`
-    + exposed.map((c, n) => `<div class="form-group"><label>${attackerName} uses Foil Exposed: ${String(c.note).replace(/;? by .*$/, "")} <em>(-2, used up)</em></label><input type="checkbox" name="exposed${n}" /></div>`).join("")
+    + exposed.map((c, n) => `<div class="form-group"><label>${esc(attackerName)} uses Foil Exposed: ${String(c.note).replace(/;? by .*$/, "")} <em>(-2, used up)</em></label><input type="checkbox" name="exposed${n}" /></div>`).join("")
     + (cnd ? "" : `<div class="form-group"><label>Guard <em>(+2)</em></label><input type="checkbox" name="guard" /></div>`)
     + (!cnd && kind === "physical" ? `<div class="form-group"><label>Parry <em>(physical Resistance +1)</em></label><input type="checkbox" name="parry" /></div>` : "")
     + `<div class="form-group"><label>Other Oppose modifier</label><input type="number" name="other" value="0" /></div>`, "Roll Oppose");
@@ -152,29 +151,29 @@ export async function resolveOppose(message, index) {
     const versus = `${attack} against ${oppose}`;
     logEvent("oppose", { ...logBase, landed: oppose <= attack });
     if (oppose > attack) {
-      return ChatMessage.create({ speaker, content: `<div class="foil-flavor"><strong>${flag.name} fails against ${actor.name}</strong><br><em>${versus}; the Oppose beat it (PHB 6.5.0).</em></div>` });
+      return ChatMessage.create({ speaker, content: `<div class="foil-flavor"><strong>${esc(flag.name)} fails against ${esc(actor.name)}</strong><br><em>${versus}; the Oppose beat it (PHB 6.5.0).</em></div>` });
     }
-    await ChatMessage.create({ speaker, content: `<div class="foil-flavor"><strong>${flag.name} lands: ${actor.name} is ${cnd.name}</strong><br><em>${versus}.</em></div>` });
+    await ChatMessage.create({ speaker, content: `<div class="foil-flavor"><strong>${esc(flag.name)} lands: ${esc(actor.name)} is ${esc(cnd.name)}</strong><br><em>${versus}.</em></div>` });
     const exposedHabits = cnd.name === "Foil Exposed"
       ? FOIL_AXES.filter(a => ["low", "high"].includes(sys.foil?.[a.key]?.lean)).map(a => ({ key: a.key, label: `${a.label}: ${sys.foil[a.key].habit || (sys.foil[a.key].lean === "high" ? a.high : a.low)}` }))
       : [];
     if (cnd.name === "Foil Exposed" && !exposedHabits.length) {
-      return ChatMessage.create({ speaker, content: `<div class="foil-flavor"><strong>${actor.name} has no Habit to expose</strong><br><em>Every axis is Neutral.</em></div>` });
+      return ChatMessage.create({ speaker, content: `<div class="foil-flavor"><strong>${esc(actor.name)} has no Habit to expose</strong><br><em>Every axis is Neutral.</em></div>` });
     }
     const go = await ask(`Apply ${cnd.name} to ${actor.name}`,
-      (exposedHabits.length ? `<div class="form-group"><label>Habit learned</label><select name="habit">${exposedHabits.map(h => `<option value="${h.label}">${h.label}</option>`).join("")}</select></div>` : "")
+      (exposedHabits.length ? `<div class="form-group"><label>Habit learned</label><select name="habit">${exposedHabits.map(h => `<option value="${esc(h.label)}">${esc(h.label)}</option>`).join("")}</select></div>` : "")
       + `<div class="form-group"><label>Duration</label><input type="text" name="rounds" value="${cnd.rounds || CONDITION_PRESETS[cnd.name] || ""}" /></div>`
       + `<div class="form-group"><label>Note <em>(Weakened: Attribute and N; Reeling: N)</em></label><input type="text" name="note" value="${cnd.note ?? ""}" /></div>`, "Apply");
     if (!go) return;
     const list = foundry.utils.deepClone(actor.system.conditions ?? []);
     const byWho = cnd.name === "Foil Exposed" ? `${go.habit}; by ${attackerName}` : "";
     if (byWho && list.some(c => c.name === "Foil Exposed" && c.note === byWho)) {
-      return ChatMessage.create({ speaker, content: `<div class="foil-flavor"><strong>${actor.name} is already exposed on that Habit by ${attackerName}</strong></div>` });
+      return ChatMessage.create({ speaker, content: `<div class="foil-flavor"><strong>${esc(actor.name)} is already exposed on that Habit by ${esc(attackerName)}</strong></div>` });
     }
     list.push({ name: cnd.name, rounds: go.rounds?.trim() ?? "", note: byWho || (go.note?.trim() ?? "") });
     await actor.update({ "system.conditions": list });
     return ChatMessage.create({ speaker: ChatMessage.getSpeaker({ actor }),
-      content: `<div class="foil-flavor"><strong>${actor.name} is ${cnd.name}</strong><br><em>${[go.rounds?.trim(), go.note?.trim()].filter(Boolean).join("; ")}.</em></div>` });
+      content: `<div class="foil-flavor"><strong>${esc(actor.name)} is ${esc(cnd.name)}</strong><br><em>${[go.rounds?.trim(), go.note?.trim()].filter(Boolean).join("; ")}.</em></div>` });
   }
 
   const scoped = scopedResistance({ vulnerabilities: sys.vulnerabilities, narrowResistance: sys.narrowResistance }, { ...(flag.attackInfo ?? {}), kind });
@@ -190,10 +189,10 @@ export async function resolveOppose(message, index) {
   const speaker = ChatMessage.getSpeaker({ actor: game.actors.get(flag.actorId) });
   const versus = `${attack} against ${oppose}`;
   if (!r.landed) {
-    return ChatMessage.create({ speaker, content: `<div class="foil-flavor"><strong>${flag.name} fails against ${actor.name}</strong><br><em>${versus}; the Oppose beat it (PHB 6.5.0).</em></div>` });
+    return ChatMessage.create({ speaker, content: `<div class="foil-flavor"><strong>${esc(flag.name)} fails against ${esc(actor.name)}</strong><br><em>${versus}; the Oppose beat it (PHB 6.5.0).</em></div>` });
   }
   await ChatMessage.create({ speaker, content:
-    `<div class="foil-flavor"><strong>${r.stress} Stress</strong> to ${actor.name}'s ${ATTR_LABEL[aim]}<br><em>${versus}; ${r.parts.join("; ")}.</em></div>` });
+    `<div class="foil-flavor"><strong>${r.stress} Stress</strong> to ${esc(actor.name)}'s ${ATTR_LABEL[aim]}<br><em>${versus}; ${r.parts.join("; ")}.</em></div>` });
   if (!r.stress) return;
 
   const cur = actor.potentialOf(aim);

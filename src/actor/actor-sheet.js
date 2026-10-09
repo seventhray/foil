@@ -16,12 +16,12 @@
 
 import {
   ATTRIBUTE_KEYS, ATTR_LABEL, SKILL_ATTRS, SKILL_KEYS, SKILL_LABEL, SKILL_ABBR, FOIL_AXES,
-  FOIL_TOKEN_MAX, CONDITIONS, EQUIPMENT_CATEGORY_LABEL, ITEM_LOCATIONS, LOCATION_LABEL,
+  FOIL_TOKEN_MAX, CONDITIONS, EQUIPMENT_CATEGORY_LABEL, LOCATION_LABEL,
   REST_BLOCK_HOURS, REST_RATION_HOURS, MARGIN_CAP, marginCap, CONDITION_OPPOSE, EFFECT_CONDITION
 } from "../constants.js";
 import { equipmentSummary } from "../registry.js";
 import { stressFor } from "../stress.js";
-import { ask, dialogApi, addButton } from "../dialogs.js";
+import { ask, dialogApi, addButton, esc } from "../dialogs.js";
 import "../chat-actions.js";
 import { allowedAims, conditionFlags, conditionMods, signedParts, skillFormula, targetFlags } from "../combat.js";
 import { resolveOppose } from "../oppose.js";
@@ -271,8 +271,8 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
     const kit = inst?.system.kit?.[Number(target.dataset.index)];
     if (!inst || !kit) return;
     const notes = this._rollNotes(kit.skill, true);
-    notes.unshift(`${inst.name}: ${kit.effect}`);
-    if (!inst.system.innate && inst.system.location !== "equipped") notes.push(`${inst.name} isn't equipped: switching to it costs the Quick Action (PHB 4.1.0).`);
+    notes.unshift(`${esc(inst.name)}: ${esc(kit.effect)}`);
+    if (!inst.system.innate && inst.system.location !== "equipped") notes.push(`${esc(inst.name)} isn't equipped: switching to it costs the Quick Action (PHB 4.1.0).`);
     if (inst.system.quick) notes.push("Light: after an Action through a Light Instrument, the Quick Action can pay for this (PHB 4.2.2).");
     if (inst.system.doublesMargin) notes.push("Heavy: costs the Action and the Quick Action; the margin doubles (PHB 4.1.1).");
     if (inst.system.reload) notes.push(`Reload: ${inst.system.reload === "quick" ? "Quick Action" : "Action"}.`);
@@ -321,13 +321,13 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
   async _aimAtTargets(inst, name, text = "", requires = []) {
     const tokens = [...(game.user?.targets ?? [])];
     if (!tokens.length) return { targets: [], notes: [] };
-    const notes = tokens.flatMap(t => targetFlags(t.actor?.system?.conditions).map(f => `${t.name}: ${f}`));
+    const notes = tokens.flatMap(t => targetFlags(t.actor?.system?.conditions).map(f => `${esc(t.name)}: ${f}`));
     const types = inst.system.stressTypes ?? [];
     const allowed = allowedAims({ text, stressTypes: inst.system.stressTypes ?? [], requires });
     const attrs = (allowed.length ? allowed : ATTRIBUTE_KEYS).map(k => `<option value="${k}">${ATTR_LABEL[k]}</option>`).join("");
-    const typeOpts = [...types.map((t, i) => `<option value="${i}">${t.label}</option>`), `<option value="">None</option>`].join("");
+    const typeOpts = [...types.map((t, i) => `<option value="${i}">${esc(t.label)}</option>`), `<option value="">None</option>`].join("");
     const answer = await ask(`${name}: aim`,
-      `<p>Target${tokens.length > 1 ? "s" : ""}: ${tokens.map(t => t.name).join(", ")}</p>${notes.length ? `<p><em>${notes.join("<br>")}</em></p>` : ""}`
+      `<p>Target${tokens.length > 1 ? "s" : ""}: ${tokens.map(t => esc(t.name)).join(", ")}</p>${notes.length ? `<p><em>${notes.join("<br>")}</em></p>` : ""}`
       + `<div class="form-group"><label>Attribute aimed at</label><select name="aim">${attrs}</select></div>`
       + (types.length ? `<div class="form-group"><label>Type effect <em>(one, your choice)</em></label><select name="type">${typeOpts}</select></div>` : "")
       + `<div class="form-group"><label>Other Stress bonus <em>(a Feat such as Heavy Hand)</em></label><input type="number" name="other" value="0" /></div>`,
@@ -383,7 +383,7 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
     let inst = null, skill = sys.skill || "";
     if (!skill && sys.skillChoices?.length) {
       const opts = sys.skillChoices.map(k => `<option value="${k}">${SKILL_LABEL[k]}</option>`).join("");
-      const pick = await ask(`Use ${tech.name}`, `<div class="form-group"><label>Skill</label><select name="skill">${opts}</select></div>`, "Roll");
+      const pick = await ask(`Use ${esc(tech.name)}`, `<div class="form-group"><label>Skill</label><select name="skill">${opts}</select></div>`, "Roll");
       if (!pick) return;
       skill = sys.skillChoices.includes(pick.skill) ? pick.skill : sys.skillChoices[0];
     }
@@ -397,7 +397,7 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
       const skillsOf = i => i.type === "instrument" ? i.system.primarySkills : ["prowess", "discipline", "assertiveness"];
       const needPick = valid.length > 1 || !skill;
       if (needPick) {
-        let content = `<p><strong>${tech.name}</strong></p>`;
+        let content = `<p><strong>${esc(tech.name)}</strong></p>`;
         content += valid.length > 1
           ? `<div class="form-group"><label>Instrument</label><select name="instrumentId">${valid.map(i =>
               `<option value="${i.id}">${i.name}${i.system.primaryAttribute ? ` (${ATTR_LABEL[i.system.primaryAttribute]})` : ""}</option>`).join("")}</select></div>`
@@ -422,7 +422,7 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
     const bonus = Number(sys.rollBonus ?? 0) + Number(inst?.system.bonusRoll ?? 0) + (inst?.system.enchantSkill?.skill === skill ? inst.system.enchantSkill.n : 0);
     if (inst?.system.enchantBonus) notes.push(`Enchantment: ${inst.system.enchantBonus.label}${inst.system.enchantBonus.applies ? "" : " (apply at the table)"}.`);
     const notes = this._rollNotes(skill, true);
-    notes.unshift(`${inst ? `Through ${inst.name}` : "Innate"}. ${sys.effectSummary}`);
+    notes.unshift(`${inst ? `Through ${esc(inst.name)}` : "Innate"}. ${esc(sys.effectSummary)}`);
     if (sys.quick) notes.push("Quick: may be paid with the Quick Action.");
     if (inst?.system.doublesMargin) notes.push("Heavy: costs the Action and the Quick Action; the margin doubles (PHB 4.1.1).");
 
@@ -447,7 +447,7 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
     const applied = !sys.dealsStress ? (sys.effects ?? []).find(e => CONDITION_OPPOSE[EFFECT_CONDITION[e.key]]) : null;
     const condition = applied ? { name: EFFECT_CONDITION[applied.key], note: applied.key.startsWith("reeling") ? `${applied.magnitude ?? 1}` : "", rounds: applied.duration || (applied.key.endsWith("-minute") ? "1 minute" : "") } : null;
     if (condition) notes.push(`The target resists with ${CONDITION_OPPOSE[condition.name].map(k => SKILL_LABEL[k]).join(" or ")} (PHB 6.5.0).`);
-    await this._postRoll(this._skillFormula(skill, bonus, wdice), `${tech.name} (${SKILL_LABEL[skill]})`, notes.join("<br>"), roll => ({
+    await this._postRoll(this._skillFormula(skill, bonus, wdice), `${esc(tech.name)} (${SKILL_LABEL[skill]})`, notes.join("<br>"), roll => ({
       cond: this._condFlag(),
       ...(condition ? this._conditionFlag(tech.name, roll.total, condition, { melee: !!inst?.system.isMelee }) : {}),
       ...(sys.dealsStress && inst ? this._stressFlag(inst, tech.name, roll.total, {
@@ -463,16 +463,16 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
     const ench = inst?.system?.enchantment;
     if (!inst || !ench?.enabled) return;
     const opts = inst.system.primarySkills.map(k => `<option value="${k}">${SKILL_LABEL[k]}</option>`).join("");
-    const answer = await ask(`Use ${inst.name}`, `<div class="form-group"><label>Skill</label><select name="skill">${opts}</select></div>`, "Roll");
+    const answer = await ask(`Use ${esc(inst.name)}`, `<div class="form-group"><label>Skill</label><select name="skill">${opts}</select></div>`, "Roll");
     if (!answer) return;
     const notes = this._rollNotes(answer.skill, true);
-    notes.unshift(`Enchantment: ${ench.effectSummary}`);
+    notes.unshift(`Enchantment: ${esc(ench.effectSummary)}`);
     if (ench.strain > 0) {
       const { before, after } = await this.actor.takeStress(inst.system.primaryAttribute, ench.strain);
       logEvent("strain", { actor: who(this.actor), source: `${inst.name} (Enchantment)`, attribute: inst.system.primaryAttribute, amount: ench.strain, before, after });
       notes.push(`Strain ${ench.strain} on ${ATTR_LABEL[inst.system.primaryAttribute]} (${before} &rarr; ${after}).`);
     }
-    await this._postRoll(this._skillFormula(answer.skill, inst.system.bonusRoll), `${inst.name} (${SKILL_LABEL[answer.skill]})`, notes.join("<br>"), () => ({ cond: this._condFlag() }));
+    await this._postRoll(this._skillFormula(answer.skill, inst.system.bonusRoll), `${esc(inst.name)} (${SKILL_LABEL[answer.skill]})`, notes.join("<br>"), () => ({ cond: this._condFlag() }));
   }
 
   /**
@@ -539,7 +539,7 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
     logEvent("invoke", { actor: who(this.actor), axis: axis.key, habit, lean: v.lean });
     await ChatMessage.create({ speaker: ChatMessage.getSpeaker({ actor: this.actor }),
       flags: { foil: { invoke: { actorId: this.actor.id, axis: axis.key, habit, awarded: false } } },
-      content: `<div class="foil-flavor"><strong>${this.actor.name} invokes ${axis.label}: ${habit}</strong><br><em>Waiting for GM approval.</em></div>` });
+      content: `<div class="foil-flavor"><strong>${esc(this.actor.name)} invokes ${esc(axis.label)}: ${esc(habit)}</strong><br><em>Waiting for GM approval.</em></div>` });
   }
 
   static async _onAdjustRations(event, target) {
@@ -712,7 +712,7 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
     const item = this.actor.items.get(target.closest("[data-item-id]")?.dataset.itemId);
     if (!item) return;
     const D = dialogApi();
-    const ok = D ? await D.confirm({ window: { title: "Delete" }, content: `<p>Delete <strong>${item.name}</strong>?</p>` }) : true;
+    const ok = D ? await D.confirm({ window: { title: "Delete" }, content: `<p>Delete <strong>${esc(item.name)}</strong>?</p>` }) : true;
     if (ok) await item.delete();
   }
 
@@ -816,9 +816,9 @@ export class FoilCreatureSheet extends FoilActorSheet {
  */
 async function computeStress(flag) {
   const typeOpts = [`<option value="">None</option>`, ...(flag.types ?? []).map((t, i) =>
-    `<option value="${i}" ${i === 0 ? "selected" : ""}>${t.label}</option>`)].join("");
+    `<option value="${i}" ${i === 0 ? "selected" : ""}>${esc(t.label)}</option>`)].join("");
   const answer = await ask(`${flag.name}: Stress`,
-    `<p>${flag.name} rolled <strong>${flag.attackTotal}</strong>.</p>`
+    `<p>${esc(flag.name)} rolled <strong>${flag.attackTotal}</strong>.</p>`
     + `<div class="form-group"><label>Target's Oppose total</label><input type="number" name="oppose" autofocus /></div>`
     + `<div class="form-group"><label>Attribute aimed at</label><select name="kind"><option value="physical">Might or Finesse</option><option value="mental">Wit or Presence</option></select></div>`
     + `<div class="form-group"><label>Target's Resistance of that kind <em>(negative for Vulnerable)</em></label><input type="number" name="resistance" value="0" /></div>`
@@ -839,7 +839,7 @@ async function computeStress(flag) {
     bespoke: Number(flag.bespoke ?? 0), other: Number(answer.other) || 0, pierce: Number(flag.pierce ?? 0)
   });
   if (!r.landed) {
-    return ChatMessage.create({ speaker, content: `<div class="foil-flavor"><strong>${flag.name} fails.</strong><br><em>The Oppose beat it (PHB 6.5.0).</em></div>` });
+    return ChatMessage.create({ speaker, content: `<div class="foil-flavor"><strong>${esc(flag.name)} fails.</strong><br><em>The Oppose beat it (PHB 6.5.0).</em></div>` });
   }
   return ChatMessage.create({ speaker, content:
     `<div class="foil-flavor"><strong>${r.stress} Stress</strong> to the Attribute aimed at<br><em>${r.parts.join("; ")}.</em></div>` });
@@ -866,7 +866,7 @@ async function rerollDie(message, flag) {
   if (cond) flags.foil.cond = cond;
   if (stress) flags.foil.stress = { ...stress, attackTotal: total, rerolled: true };
   await ChatMessage.create({ speaker: message.speaker, flags, content:
-    `<div class="foil-flavor"><strong>${flag.title}: ${total}</strong><br><em>Foil Token spent. d${die.faces} rerolled ${die.value} &rarr; ${roll.total}.</em></div>` });
+    `<div class="foil-flavor"><strong>${esc(flag.title)}: ${total}</strong><br><em>Foil Token spent. d${die.faces} rerolled ${die.value} &rarr; ${roll.total}.</em></div>` });
 }
 
 Hooks.on("renderChatMessageHTML", (message, html) => {

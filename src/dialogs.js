@@ -29,3 +29,6 @@ export function addButton(html, label, cls, onClick) {
   (html.querySelector(".message-content") ?? html).appendChild(btn);
   return btn;
 }
+
+/** Escape text before it goes into chat or dialog HTML. */
+export const esc = value => String(value ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");

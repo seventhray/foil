@@ -38,7 +38,8 @@ export function reachBand(instrumentBand, extendBands = 0) {
  */
 export function rangeWarning(name, feet, reach, minBand = "") {
   if (!Number.isFinite(feet)) return "";
-  const away = `${name} is about ${Math.round(feet)} ft away (${RANGE_LABEL[bandOfFeet(feet)]})`;
+  const safe = String(name ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  const away = `${safe} is about ${Math.round(feet)} ft away (${RANGE_LABEL[bandOfFeet(feet)]})`;
   if (reach && feet > BAND_END_FEET[reach]) return `${away}; reach ends at ${RANGE_LABEL[reach]}, ${BAND_END_FEET[reach]} ft.`;
   if (minBand && feet < BAND_START_FEET[minBand]) return `${away}; this needs ${RANGE_LABEL[minBand]} (${BAND_START_FEET[minBand]} ft) or farther.`;
   return "";
