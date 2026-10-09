@@ -26,7 +26,7 @@ git clone https://github.com/seventhray/foil.git foil
 
 Players get these tools:
 
-- Character sheets. Click a Skill, a Technique, or an Instrument's built-in Technique to roll it. Initiative and Stealth have their own rolls.
+- Character sheets. Click a Skill, a Technique, or an Instrument's built-in Technique to roll it.
 - Create builds a starting character. Advance spends XP.
 - A Technique's Strain lands on the Instrument's Primary Attribute when it is rolled.
 - Rest splits hours among Attributes in 2-hour steps and tracks rations.
