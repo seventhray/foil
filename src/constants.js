@@ -149,7 +149,7 @@ export const FOIL_AXES = [
   { key: "individualism", label: "Individualism", high: "Individual", low: "Communal" },
   { key: "levity",        label: "Levity",        high: "Light",      low: "Grave" }
 ];
-// A Habit leans High or Low; leaving an axis blank is Neutral, the same as undeclared.
+// A Habit leans High or Low; leaving an axis blank is Neutral.
 export const FOIL_LEANS = ["", "low", "high"];
 export const FOIL_TOKEN_MAX = 4;
 

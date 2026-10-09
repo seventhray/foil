@@ -76,7 +76,7 @@ p("Actions and Strain", `
 <p>A learned Technique carries <strong>Strain</strong>: floor((XP - 24) / 8) Stress to its own user, on the Instrument's Primary Attribute, whether it lands or not, ignoring Resistance. A Technique under 32 XP and every built-in Technique carry none.</p>`),
 
 p("FOIL and Foil Tokens", `
-<p>Four axes describe how a character responds in the moment: <strong>Faith</strong> (Trusting or Mistrusting), <strong>Order</strong> (Ordered or Disordered), <strong>Individualism</strong> (Individual or Communal), and <strong>Levity</strong> (Light or Grave). Each leans toward one end, sits deliberately between them, or stays undeclared (PHB 3.1.0).</p>
+<p>Four axes describe how a character responds in the moment: <strong>Faith</strong> (Trusting or Mistrusting), <strong>Order</strong> (Ordered or Disordered), <strong>Individualism</strong> (Individual or Communal), and <strong>Levity</strong> (Light or Grave). Each leans toward one end or stays Neutral (PHB 3.1.0).</p>
 <p>Once per scene a player may <strong>invoke</strong> a Habit their character holds. If the table agrees the Habit drives what the character is doing, they earn a <strong>Foil Token</strong>. A character holds at most four.</p>
 <p>A Foil Token is spent at will: halve the Stress from one source, rounded down, or reroll any one die right after rolling a Skill. The new result stands.</p>`),
 

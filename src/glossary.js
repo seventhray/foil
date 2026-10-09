@@ -106,7 +106,7 @@ export const GLOSSARY = {
   },
   "foil exposed": {
     "name": "Foil Exposed",
-    "text": "Resisted with Guile or Discipline. The source learns one Habit of the creature, which the Technique names. Once, when the creature Opposes the source, the source may give that Oppose roll -2. It ends when used, or after 10 minutes. A creature has one Foil Exposed for each of its Habits, from each source."
+    "text": "Resisted with Guile or Discipline. The source learns one Habit of the creature, which the Technique names. Once, when the creature Opposes the source, the source may give that Oppose roll -2. It ends when used, or after 10 minutes. A creature has one Foil Exposed for each of its Habits, from each source. > [!EXAMPLE] > Mira uses Read Habit on the captain: Resonance 15 against his Discipline 10. Mira learns his Habit, \"Rules are the first thing to go when it actually matters.\" Mira then Intimidates the captain through the Voice, and spends the Foil Exposed to give his Oppose -2."
   },
   "foil token": {
     "name": "Foil Token",
@@ -118,7 +118,7 @@ export const GLOSSARY = {
   },
   "frightened": {
     "name": "Frightened",
-    "text": "Resisted with Discipline or Resonance. While the creature can perceive the source, its rolls take -1. It can't willingly move closer to the source. It ends when the source leaves its perception or the duration ends."
+    "text": "Resisted with Discipline or Resonance. While the creature can perceive the source, its rolls take -1. It can't willingly move closer to the source. It ends when the source leaves its perception or the duration ends. > [!EXAMPLE] > In round 3 Wren uses Unsettling Pulse through the Wand on the captain: Resonance 20 against his Discipline 13. It lands, so the captain's rolls take -1 and he can't step toward Wren."
   },
   "grappled": {
     "name": "Grappled",
@@ -154,7 +154,7 @@ export const GLOSSARY = {
   },
   "incapacitated": {
     "name": "Incapacitated",
-    "text": "An Attribute is Incapacitated when its Stress reaches its Potential. It adds no dice to any roll that draws on it. It can still be targeted. Incapacitation lifts once healing brings its Stress down to half its Potential, rounded down. Healing short of that lowers its Stress, and new Stress fills it again before overflowing. A character with an Incapacitated Attribute stays in the conflict with a full Action, Quick Action, and movement. It can use any Technique whose Skill still has dice. > [!EXAMPLE] > A creature has taken heavy damage: Might, Wit, and Presence are all Incapacitated, leaving only Finesse standing. Prowess (Might + Finesse), Acuity (Finesse + Wit), and Guile (Finesse + Presence) still roll, each on Finesse's dice alone. Discipline, Assertiveness, and Resonance are dead: neither of their Attributes has dice left, so nothing that rolls them can be attempted."
+    "text": "An Attribute is Incapacitated when its Stress reaches its Potential. It adds no dice to any roll that draws on it. It can still be targeted. Incapacitation lifts once healing brings its Stress down to half its Potential, rounded down. Healing short of that lowers its Stress, and new Stress fills it again before overflowing. A character with an Incapacitated Attribute stays in the conflict with a full Action, Quick Action, and movement. It can use any Technique whose Skill still has dice. > [!EXAMPLE] > A creature has taken heavy damage: Might, Wit, and Presence are all Incapacitated, leaving only Finesse standing. Prowess (Might + Finesse), Acuity (Finesse + Wit), and Guile (Finesse + Presence) still roll, each on Finesse's dice alone. Discipline, Assertiveness, and Resonance are dead: neither of their Attributes has dice left, so nothing that rolls them can be attempted. | Attribute | Incapacitated looks like | | --------- | ------------------------ | | Might | The body gives out: strength fails, legs buckle, breath won't come. | | Finesse | Control slips: reactions slow, balance falters, hands shake. | | Wit | The mind stalls: thoughts scatter, memory slips, nothing adds up. | | Presence | Words fail: eloquence goes, feelings spill over, reading the room grows hard. | The player calls it first, and the GM steps in only if asked. Show it once, in a sentence, and play on. > [!EXAMPLE] > In round 2 Kessen uses Relentless Blow through the Longsword on the captain's Might: Prowess 17 against his 12, a margin of 5. Pierce 4 clears the Mail, and Edged adds 3, for 8 Stress. His Might reaches 18 of 16 and is Incapacitated, and the extra 2 overflows onto his Presence. The captain's legs buckle and the Mace sags, but he is still in the fight."
   },
   "incapacitation": {
     "name": "Incapacitation",

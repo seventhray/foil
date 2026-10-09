@@ -28,14 +28,14 @@ console.log(`  PASS  markup: ${pages} pages checked`);
 
 const all = GUIDE.flatMap(j => j.pages.map(p => p.html)).join("\n");
 console.log(`\nfigures cross-checked against the v${BOOK_VERSION} books:`);
-// PHB 2.3.0's cost lookup: every Talent, Know-how, and Training cell matches the code's prices.
-const costRows = [...phb.matchAll(/^\| (\d+) \| ([^|]*)\| ([^|]*)\| ([^|]*)\|$/gm)].map(m => m.slice(1).map(c => c.trim()));
-const ladderOk = costRows.length >= 10 && costRows.every(([xp, talent, knowHow, training]) => {
-  const t = talent.match(/^d(\d+) to d\d+$/), k = knowHow.match(/^(\d+)\w\w die$/), r = training.match(/^\+(\d+) to \+\d+$/);
-  return (!talent || (t && XP_COST.talent[t[1]] === +xp)) && (!knowHow || (k && knowHowCost({ d4: +k[1] - 1 }) === +xp))
-    && (!training || (r && trainingCost(+r[1]) === +xp));
-});
-ok("PHB 2.3.0 cost lookup matches Talent, Know-how, and Training prices", ladderOk && /Training by \+1 \(max: the dice in its two pools\)/.test(phb)
+// PHB 2.3.0's cost table: the Talent, Know-how, and Training prices quoted in its rows match the code.
+const talentRow = phb.match(/By the die's size: 8 for d4 to d6, 12 for d6 to d8, 16 for d8 to d10, 20 for d10 to d12/);
+const knowRow = phb.match(/12 plus 4 for each die already in the pool: (\d+) for the third die, (\d+) for the fourth, up to (\d+) for the eighth/);
+const trainRow = phb.match(/8 plus 2 for each point it already has: (\d+) for \+1, (\d+) for \+2, up to (\d+) for \+10/);
+const ladderOk = !!talentRow && [4, 6, 8, 10].map(d => XP_COST.talent[d]).join() === "8,12,16,20"
+  && knowRow && [knowHowCost({ d4: 2 }), knowHowCost({ d4: 3 }), knowHowCost({ d4: 7 })].join() === [knowRow[1], knowRow[2], knowRow[3]].join()
+  && trainRow && [trainingCost(0), trainingCost(1), trainingCost(9)].join() === [trainRow[1], trainRow[2], trainRow[3]].join();
+ok("PHB 2.3.0 cost table matches Talent, Know-how, and Training prices", ladderOk && /Training by \+1 \(max: the dice in its two pools\)/.test(phb)
   && /costs 8 XP, plus 2 for each point the Skill already has/.test(all));
 ok("d12 to d20 100 as a Transformation; guide prices",
   /\*\*Transformation\*\*: a lasting change that advances a d12 Attribute die to d20[^|]*\|\s*100 XP/.test(phb) && /### 2\.3\.1 Transformations/.test(phb) && /## 7\.3\.0 Transformations/.test(phb)
