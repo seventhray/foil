@@ -1,0 +1,57 @@
+<div class="foil-sheet chargen-body">
+  <p class="chargen-intro">Pick a Threat, a CR, or a tier. The numbers follow GMG 9.1.0 to 9.3.0.</p>
+  <div class="chargen-grid">
+    <fieldset>
+      <legend>Name</legend>
+      <input type="text" name="name" value="{{state.name}}" placeholder="New Creature" />
+    </fieldset>
+    <fieldset>
+      <legend>Start from</legend>
+      <select name="source">{{#each sourceChoices}}<option value="{{this.value}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>
+      {{#if isTier}}<select name="tier">{{#each tierChoices}}<option value="{{this.value}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>{{/if}}
+      {{#if isCr}}<select name="cr">{{#each crChoices}}<option value="{{this.value}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>{{/if}}
+      {{#if isThreat}}<input type="number" name="threat" value="{{state.threat}}" step="1" />{{/if}}
+    </fieldset>
+  </div>
+
+  <fieldset>
+    <legend>Shape <em>(GMG 9.2.0)</em></legend>
+    <select name="shape">{{#each shapeChoices}}<option value="{{this.value}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>
+    <table class="gen-table">
+      <thead><tr><th></th><th>Steps</th><th>Potential</th><th>Dice</th></tr></thead>
+      <tbody>
+        {{#each rows}}
+          <tr><th>{{this.label}}</th>
+            <td><select name="step.{{this.key}}" class="mini-num">{{#each this.stepChoices}}<option value="{{this.value}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>{{/each}}</select></td>
+            <td>{{this.potential}}</td><td>{{this.dice}}</td></tr>
+        {{/each}}
+      </tbody>
+      <tfoot><tr><th>Total Potential</th><td></td><td>{{total}}</td><td>tier number {{totalTarget}}</td></tr></tfoot>
+    </table>
+  </fieldset>
+
+  <div class="chargen-grid">
+    <fieldset>
+      <legend>Resistance <em>(budget {{n.resistanceBudget}}, cap +{{n.resistanceCap}})</em></legend>
+      <label>Physical <select name="physical" class="mini-num">{{#each resistanceChoices.physical}}<option value="{{this.value}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>{{/each}}</select></label>
+      <label>Mental <select name="mental" class="mini-num">{{#each resistanceChoices.mental}}<option value="{{this.value}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>{{/each}}</select></label>
+      <p class="hint">Spends {{spent}} of {{n.resistanceBudget}}.</p>
+    </fieldset>
+    <fieldset>
+      <legend>Training <em>(+{{n.training}} in the Skills its attacks roll)</em></legend>
+      <select name="trainA">{{#each skillA}}<option value="{{this.value}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>
+      <select name="trainB">{{#each skillB}}<option value="{{this.value}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>
+    </fieldset>
+  </div>
+
+  <fieldset>
+    <legend>Result</legend>
+    <p>Threat <strong>{{n.threat}}</strong> &middot; Tier <strong>{{n.tier}}</strong> &middot; Baseline Potential <strong>{{n.potential}}</strong> &middot; Total Potential <strong>{{n.totalPotential}}</strong></p>
+    <p>Allowance <strong>{{n.allowance}} XP</strong> &middot; Ceiling <strong>{{n.ceiling}} XP</strong> &middot; Training <strong>+{{n.training}}</strong></p>
+    {{#each warnings}}<p class="type-warning-banner">{{this}}</p>{{/each}}
+  </fieldset>
+
+  <footer class="chargen-foot">
+    <button type="button" data-action="createCreature"><i class="fas fa-dragon"></i> Create creature</button>
+  </footer>
+</div>

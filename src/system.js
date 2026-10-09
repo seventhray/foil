@@ -16,6 +16,7 @@ import {
 import { InstrumentTypeData, QualityData, EffectData } from "./data/definition-models.js";
 import { buildRegistry, registerRegistryHooks } from "./registry.js";
 import { registerPlaytestLog, registerLogHooks } from "./playtest-log.js";
+import { openCreatureGenerator } from "./apps/creature-generator.js";
 
 function registerHandlebarsHelpers() {
   Handlebars.registerHelper("foil-eq", (a, b) => a === b);
@@ -77,6 +78,7 @@ Hooks.once("init", function() {
 
   const loadTemplatesFn = foundry.applications?.handlebars?.loadTemplates ?? loadTemplates;
   loadTemplatesFn([
+    "systems/foil/templates/apps/creature-generator.hbs",
     "systems/foil/templates/actor/partials/item-list.hbs",
     "systems/foil/templates/actor/partials/dice-pool.hbs",
     "systems/foil/templates/actor/partials/skills-table.hbs",
@@ -88,7 +90,21 @@ Hooks.once("init", function() {
   ]);
 });
 
+/** The Creature Generator button in the Actors directory (GMG 9.1.0 to 9.3.0). */
+Hooks.on("renderActorDirectory", (app, html) => {
+  if (!game.user.isGM) return;
+  const root = html instanceof HTMLElement ? html : html?.[0];
+  if (!root || root.querySelector(".foil-creature-generator")) return;
+  const btn = document.createElement("button");
+  btn.type = "button";
+  btn.className = "foil-creature-generator";
+  btn.innerHTML = '<i class="fas fa-dragon"></i> Creature Generator';
+  btn.addEventListener("click", () => openCreatureGenerator());
+  (root.querySelector(".header-actions") ?? root.querySelector(".directory-header") ?? root).append(btn);
+});
+
 Hooks.once("ready", async function() {
+  game.foil = { openCreatureGenerator };
   registerLogHooks();
   // `game.ready` flips true (and any sheet a user clicks open can start
   // rendering) without Foundry waiting on this async hook — so a sheet

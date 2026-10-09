@@ -21,7 +21,8 @@ const actorCtx = new Set([...ctxKeys("src/actor/actor-sheet.js", "async _prepare
 for (const m of src("src/actor/actor-sheet.js").matchAll(/_commonContext\(\),\s*([A-Za-z]+):/g)) actorCtx.add(m[1]);
 const itemCtx  = ctxKeys("src/item/item-sheet.js",  "async _prepareContext(", 3);
 const appCtx   = new Set([...ctxKeys("src/apps/advancement.js", "async _prepareContext(", 2),
-                          ...ctxKeys("src/apps/chargen.js",     "async _prepareContext(", 2)]);
+                          ...ctxKeys("src/apps/chargen.js",     "async _prepareContext(", 2),
+                          ...ctxKeys("src/apps/creature-generator.js", "async _prepareContext(", 2)]);
 // keys the item sheet adds conditionally, plus block-scoped locals
 const EXTRA = new Set(["qualityRows","effectRows","enchantEffectRows","kitRows","modifierRows","talentRows",
   "featRows","knowHowRows","trainingRows",

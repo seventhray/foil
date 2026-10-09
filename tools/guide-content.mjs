@@ -110,7 +110,7 @@ p("Character sheet", `
 `),
 
 p("Creature sheet", `
-<p>A creature uses the same Attributes, Skills, Stress, and Incapacitation. Its own fields: <strong>Tier</strong>, <strong>Behavior</strong> (what it does once an Attribute is Incapacitated, GMG 9.8.0), <strong>Vulnerable</strong>, and a typed <strong>Resistance</strong>. <strong>Total Potential</strong>, the four Potentials summed, shows as GM shorthand.</p>`),
+<p>A creature uses the same Attributes, Skills, Stress, and Incapacitation. Its own fields: <strong>Tier</strong>, <strong>Behavior</strong> (what it does once an Attribute is Incapacitated, GMG 9.8.0), <strong>Vulnerable</strong>, and a typed <strong>Resistance</strong>. <strong>Total Potential</strong>, the four Potentials summed, shows as GM shorthand. The <strong>Creature Generator</strong> button in the Actors directory (GM only) turns a Threat, a CR, or a tier into Potentials, dice, Allowance, Ceiling, Training, and a Resistance budget (GMG 9.1.0 to 9.3.0), and creates the creature with them set.</p>`),
 
 p("What the system does for you", `
 <p>Foilbound on Foundry stays close to pen and paper. It derives values and rolls dice. Three things are automated:</p>
