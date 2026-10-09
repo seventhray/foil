@@ -1,7 +1,7 @@
 """tools/verify/validate-bestiary.py
 
 Checks every built creature in the vault against the GMG's creature-building
-rules (4.1.0-4.5.1): the creature formulas from its XP (its own `xp:`, else its
+rules (4.1.0-4.5.1): the creature formulas from its Threat (its own `threat:`, else its
 tier's), and the Trait and Monster Feat prices read from the GMG itself. Not part of run.mjs, since it reads the
 Obsidian vault rather than the system. Run it after changing the rules or the
 Bestiary: a creature that breaks a stated rule means the creature or the rule
@@ -30,7 +30,7 @@ def table_after(heading, first_col):
 
 
 num = lambda s: int(re.search(r"-?\d+", s).group(0))
-TIER_XP = {r[0]: num(r[1]) for r in table_after("## 9.1.0 Tier", "Tier | XP")}
+TIER_XP = {r[0]: num(r[1]) for r in table_after("## 9.1.0 Tier", "Tier | Threat")}
 
 
 def half_up(x):
@@ -38,7 +38,7 @@ def half_up(x):
 
 
 def numbers(xp):
-    """GMG 9.1.0's creature formulas for a creature XP."""
+    """GMG 9.1.0's creature formulas for a creature Threat."""
     pot = 2 * half_up((20 + xp / 32) / 2)
     if xp >= 0:
         allow, train, pts = half_up(40 + 3.6 * xp ** 0.5), half_up(2 + xp / 500), half_up(2 + xp / 533)
@@ -60,7 +60,7 @@ for path in sorted(glob.glob(os.path.join(CREATURES, "*.md"))):
     if not m or m.group(1) not in TIER_XP or "not yet built" in s:
         continue
     t = m.group(1)
-    own = re.search(r"^xp:\s*(-?\d+)\s*$", s, re.M)   # a creature's own XP, else its tier's
+    own = re.search(r"^threat:\s*(-?\d+)\s*$", s, re.M)   # a creature's own Threat, else its tier's
     T = numbers(int(own.group(1)) if own else TIER_XP[t])
     checked += 1
     bad = []
