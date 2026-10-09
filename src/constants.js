@@ -35,7 +35,7 @@ export const SKILL_ABBR = {
   prowess: "PW", discipline: "DI", assertiveness: "AS", acuity: "AC", guile: "GL", resonance: "RS"
 };
 
-// A Primary Attribute allows the three Skills built on it (PHB 4.1.0, 7.10.0).
+// A Primary Attribute allows the three Skills built on it (PHB 4.1.0, 7.11.0).
 export const PRIMARY_SKILLS = Object.fromEntries(ATTRIBUTE_KEYS.map(a =>
   [a, SKILL_KEYS.filter(s => SKILL_ATTRS[s].includes(a))]));
 
@@ -102,7 +102,7 @@ export const BONUS_PRICE = {
   large:  [0, 30, 90, 270, 800, 2400]
 };
 
-// Materials (PHB 5.3.1, 7.4.2): Tier price by Scarcity. The named material is description.
+// Materials (PHB 5.3.1, 7.10.2): Tier price by Scarcity. The named material is description.
 export const MATERIAL_CATEGORIES = ["metal", "gemstone", "wood", "textile", "leather", "reagent", "stone"];
 export const MATERIAL_CATEGORY_LABEL = {
   metal: "Metal", gemstone: "Gemstone", wood: "Wood", textile: "Textile",
@@ -210,7 +210,7 @@ export const REST_RATION_HOURS = 8;
 
 // Advancement costs (PHB 2.3.0).
 // Advancement (PHB 2.3.0). A Talent step costs by the die's current size; d12 to d20
-// is a Transformation (PHB 2.3.1, 7.12.0). Training climbs 2 per point already held.
+// is a Transformation (PHB 2.3.1, 7.3.0). Training climbs 2 per point already held.
 export const XP_COST = { talent: { 4: 8, 6: 12, 8: 16, 10: 20 }, d12ToD20: 100, knowHow: { base: 12, perDie: 4 }, training: 8, trainingStep: 2 };
 /** Margin cap as a share of the Primary Attribute's Potential, by weight; Heavy doubles first (PHB 6.7.0). */
 export const MARGIN_CAP = { light: [1, 2, "half"], medium: [1, 1, "all of"], heavy: [1, 1, "all of"] };

@@ -120,7 +120,7 @@ function prepareCore(sys) {
     sk.trainingBase  = Number(sk.training ?? 0);
     sk.trainingBonus = Number(mods.training[key] ?? 0);
     sk.trainingTotal = sk.trainingBase + sk.trainingBonus;
-    // Gear's +N to a Skill adds to rolls without being Training (PHB 7.5.4).
+    // Gear's +N to a Skill adds to rolls without being Training (PHB 7.9.4).
     sk.skillBonus    = Number(mods.skillBonus?.[key] ?? 0);
     const flat       = sk.trainingTotal + sk.skillBonus;
     // Training can't pass the dice in the Skill's two pools (PHB 2.2.1).

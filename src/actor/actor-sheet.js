@@ -164,7 +164,7 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
         view.kit = (s.kit ?? []).map((k, idx) => ({ idx, name: k.name, skillLabel: SKILL_LABEL[k.skill] ?? k.skill, effect: k.effect, effectHtml: glossarize(k.effect) }));
         view.typesHtml = glossarize(s.typesLabel);
         if (!s.innate) view.place = locationView(s.location);
-        // An Instrument's built-in Techniques join the Techniques tab, with their source (PHB 7.2.0).
+        // An Instrument's built-in Techniques join the Techniques tab, with their source (PHB 7.4.0).
         for (const k of view.kit) groups.builtin.push({ ...k, id: item.id, source: item.name, ready: s.innate || s.location === "equipped" });
       } else if (item.type === "technique") {
         view.effectDisplay = glossarize(s.effectSummary);
@@ -264,7 +264,7 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
     await this._postRoll(this._skillFormula(key), `${SKILL_LABEL[key]}`, this._rollNotes(key).join(" "));
   }
 
-  /** Roll one of an Instrument's three built-in Techniques (PHB 7.2.0). */
+  /** Roll one of an Instrument's three built-in Techniques (PHB 7.4.0). */
   static async _onRollKit(event, target) {
     const id = target.closest("[data-item-id]")?.dataset.itemId;
     const inst = this.actor.items.get(id);

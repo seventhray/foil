@@ -67,7 +67,7 @@ export class InstrumentData extends foundry.abstract.TypeDataModel {
       typesDisplay: str(""),
       price: int(0),
       rider: str(""),
-      // Three built-in Techniques, one per Skill its Primary Attribute reaches (PHB 7.2.0).
+      // Three built-in Techniques, one per Skill its Primary Attribute reaches (PHB 7.4.0).
       kit: new f.ArrayField(new f.SchemaField({
         name: str(""),
         skill: new f.StringField({ required: true, initial: "prowess", choices: SKILL_KEYS }),
@@ -298,7 +298,7 @@ export class EquipmentData extends foundry.abstract.TypeDataModel {
       price: int(0),
       // Carried weight in pounds (PHB 5.2.4, 5.2.6).
       weight: new f.NumberField({ required: true, initial: 0, min: 0 }),
-      // A Shield's weight class (PHB 7.5.3).
+      // A Shield's weight class (PHB 7.9.3).
       weightClass: new f.StringField({ required: true, blank: true, initial: "", choices: ["", ...WEIGHT_KEYS] }),
       size: sizeField("medium"),
       materials: str(""),
@@ -395,7 +395,7 @@ export class BackgroundData extends foundry.abstract.TypeDataModel {
   }
 }
 
-/** An Origin (PHB 2.5.1, 7.8.0). The document type stays `origin` for existing worlds. */
+/** An Origin (PHB 2.5.1, 7.5.0). The document type stays `origin` for existing worlds. */
 export class OriginData extends foundry.abstract.TypeDataModel {
   static defineSchema() {
     return {

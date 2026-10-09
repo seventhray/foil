@@ -76,7 +76,7 @@ function instrumentTypeDoc([name, key, family, o, desc]) {
     } };
 }
 
-// ─── Vocabulary: Qualities (PHB 7.5.1, Fundamental Math Passive Properties) ─
+// ─── Vocabulary: Qualities (PHB 7.9.1, Fundamental Math Passive Properties) ─
 const QUALITIES = [
   ["Resistance", "resistance", "resistance", "resistanceKind", "+N physical or mental", "Reduce the Stress of every Technique of that kind by N."],
   ["Skill Bonus", "skill-bonus", "skill", "skill", "+N to a Skill", "Add N to the named Skill's rolls."],
@@ -247,7 +247,7 @@ function parseEffects(text) {
   return { list, stress, unparsed };
 }
 
-// New capabilities sustained by Upkeep (PHB 7.7.3). No Effect in the table
+// New capabilities sustained by Upkeep (PHB 7.2.3). No Effect in the table
 // prices the capability itself, so these carry their printed XP only.
 const MOVEMENT_TRAITS = new Set(["Fly", "Swim", "Burrow", "Climb", "Incorporeal Movement"]);
 // Quick-trigger rows where the 8 XP floor hides whether Stress is implied:
@@ -299,7 +299,7 @@ function techniqueDoc(n) {
   };
 }
 
-// ─── Instruments (Catalog notes, PHB 7.2.x, 7.3.0, 2.5.3) ──────────────────
+// ─── Instruments (Catalog notes, PHB 7.4.x, 7.7.0, 2.5.3) ──────────────────
 const SIZE_TABLE = tableAfter(PHB, /^### 5\.3\.2 Crafting/);
 const sizeOf = {}, materialsOf = {};
 for (const row of SIZE_TABLE) {
@@ -379,7 +379,7 @@ function innateDoc(i) {
   };
 }
 
-// ─── Equipment (PHB 7.5.x, 7.4.4) ───────────────────────────────────────────
+// ─── Equipment (PHB 7.9.x, 7.10.4) ───────────────────────────────────────────
 const q = (key, value = 0, param = "") => ({ key, value, param });
 const SKILLS = ["prowess", "discipline", "assertiveness", "acuity", "guile", "resonance"];
 const EQUIP_IMG = { armor: "icons/svg/shield.svg", shield: "icons/svg/shield.svg", ward: "icons/svg/holy-shield.svg",
@@ -397,12 +397,12 @@ const equip = (name, category, price, o = {}) => ({
 
 function equipmentDocs() {
   const out = [];
-  for (const r of tableAfter(PHB, /^### 7\.5\.2 Armor/)) {
+  for (const r of tableAfter(PHB, /^### 7\.9\.2 Armor/)) {
     out.push(equip(r.Armor, "armor", num(r.Price), {
       weight: num(r.Weight), size: "large", qualities: [q("resistance", num(r.Resistance), "physical")], notes: r.Notes ?? ""
     }));
   }
-  for (const r of tableAfter(PHB, /^### 7\.5\.3 Shields/)) {
+  for (const r of tableAfter(PHB, /^### 7\.9\.3 Shields/)) {
     const quals = [];
     const res = r.Properties.match(/physical Resistance \+(\d)/i);
     if (res) quals.push(q("resistance", +res[1], "physical"));
@@ -427,18 +427,18 @@ function equipmentDocs() {
       else warnings.push(`5.2.4: unknown row "${r.Item}"`);
     }
   }
-  for (const r of tableAfter(PHB, /^### 7\.5\.4 Adventuring Gear/)) {
+  for (const r of tableAfter(PHB, /^### 7\.9\.4 Adventuring Gear/)) {
     out.push(equip(r.Item, "gear", num(r.Price), { effect: r["Helps with"], size: "small", materials: "" }));
   }
-  // Consumables (PHB 7.5.5): poisons and throwables are Reagent; medicine heals; the rest is gear.
-  for (const r of tableAfter(PHB, /^### 7\.5\.5 Consumables/)) {
+  // Consumables (PHB 7.9.5): poisons and throwables are Reagent; medicine heals; the rest is gear.
+  for (const r of tableAfter(PHB, /^### 7\.9\.5 Consumables/)) {
     const category = /thrown|coats a weapon/.test(r.Effect) ? "potion"
                    : /Stress|poison or sickness/.test(r.Effect) ? "medicine" : "gear";
     out.push(equip(r.Item, category, num(r.Price), {
       effect: r.Effect, duration: r.Duration, uses: r.Uses, size: "small", materials: category === "potion" ? "Reagent" : ""
     }));
   }
-  for (const r of tableAfter(PHB, /^### 7\.4\.4 Focus Gems/)) {
+  for (const r of tableAfter(PHB, /^### 7\.10\.4 Focus Gems/)) {
     out.push(equip(`${r.Gem} (Tier 1)`, "gem", num(r["Price per Tier"]), {
       gemType: lc(r.Gem), tier: 1, size: "small", materials: "Gemstone",
       effect: `${r["Damage Type"] === "None" ? "" : r["Damage Type"] + "; "}${r["Adds, per Tier"]} per Tier`
@@ -447,7 +447,7 @@ function equipmentDocs() {
   return out;
 }
 
-// ─── Feats (Catalog notes, PHB 7.7.x, 7.8.x) ───────────────────────────────
+// ─── Feats (Catalog notes, PHB 7.2.x, 7.5.x) ───────────────────────────────
 // Flat, always-on grants become sheet modifiers; conditional Feats stay prose.
 function featModifiers(effect) {
   const mods = [];
@@ -472,12 +472,12 @@ function featDoc(n) {
   };
 }
 
-// ─── Origins (PHB 7.8.x) and Backgrounds (PHB 7.9.0) ────────────────────
+// ─── Origins (PHB 7.5.x) and Backgrounds (PHB 7.6.0) ────────────────────
 function ancestryDocs() {
-  const body = sectionText(PHB, /^## 7\.8\.0 Origins/);
+  const body = sectionText(PHB, /^## 7\.5\.0 Origins/);
   const out = [];
-  for (const block of body.split(/\n(?=### 7\.8\.\d+ )/).slice(1)) {
-    const head = block.match(/^### (7\.8\.\d+) (.+)$/m);
+  for (const block of body.split(/\n(?=### 7\.5\.\d+ )/).slice(1)) {
+    const head = block.match(/^### (7\.5\.\d+) (.+)$/m);
     const name = head[2].trim();
     const desc = (block.match(/^\*(.+)\*$/m) ?? [])[1] ?? "";
     const feats = [...block.matchAll(/^\*\*Feat:\*\* ([^.]+)\./gm)].map(m => m[1].trim());
@@ -495,7 +495,7 @@ function ancestryDocs() {
 }
 
 function backgroundDocs() {
-  return tableAfter(PHB, /^## 7\.9\.0 Backgrounds/).map(r => {
+  return tableAfter(PHB, /^## 7\.6\.0 Backgrounds/).map(r => {
     const training = Object.fromEntries(SKILLS.map(k => [k, 0]));
     for (const s of r.Skills.replace(/^\+1 Training in /, "").split(",").map(x => lc(x))) {
       if (s in training) training[s] = 1;

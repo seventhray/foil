@@ -5,7 +5,7 @@
  * Stays open across purchases so a session's award can be spent in one sitting.
  *
  * Costs (PHB 2.3.0): a die one size 8/12/16/20 XP by its size, d12 to d20 100 XP
- * (a Transformation, noted, not enforced; what it gives, PHB 7.12.0, is added by hand), a Know-how 1d4 12 XP plus 4 per die in the pool, +1 Training 8 XP plus 2 per point held
+ * (a Transformation, noted, not enforced; what it gives, PHB 7.3.0, is added by hand), a Know-how 1d4 12 XP plus 4 per die in the pool, +1 Training 8 XP plus 2 per point held
  * (capped at the dice in the Skill's two pools, PHB 2.2.1), a Technique or Feat
  * its listed XP. A Feat's Requires is shown, and checked by the table.
  */
@@ -53,7 +53,7 @@ export class FoilAdvancement extends HandlebarsApplicationMixin(ApplicationV2) {
         .filter(size => Number(dice[`d${size}`] ?? 0) > 0)
         .map(size => {
           const next = DIE_SIZES[DIE_SIZES.indexOf(size) + 1];
-          const note = size >= 12 ? " (a Transformation; add what it gives, PHB 7.12.0)" : "";
+          const note = size >= 12 ? " (a Transformation; add what it gives, PHB 7.3.0)" : "";
           return { size, next, cost: dieStepCost(size), label: `d${size} to d${next}${note}` };
         });
       return { key, label: ATTR_LABEL[key], diceFormula: a.diceFormula || "none", steps,

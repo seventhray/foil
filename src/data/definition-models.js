@@ -59,7 +59,7 @@ export class InstrumentTypeData extends foundry.abstract.TypeDataModel {
 }
 
 /**
- * A passive Quality carried by Equipment (PHB 7.5.1): Resistance +N of a kind,
+ * A passive Quality carried by Equipment (PHB 7.9.1): Resistance +N of a kind,
  * +N to a Skill, Aid +N to a task.
  */
 export class QualityData extends foundry.abstract.TypeDataModel {
