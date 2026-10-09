@@ -35,7 +35,7 @@ export const SKILL_ABBR = {
   prowess: "PW", discipline: "DI", assertiveness: "AS", acuity: "AC", guile: "GL", resonance: "RS"
 };
 
-// A Primary Attribute allows the three Skills built on it (PHB 4.1.0, 7.11.0).
+// A Primary Attribute allows the three Skills built on it (PHB 4.1.0).
 export const PRIMARY_SKILLS = Object.fromEntries(ATTRIBUTE_KEYS.map(a =>
   [a, SKILL_KEYS.filter(s => SKILL_ATTRS[s].includes(a))]));
 

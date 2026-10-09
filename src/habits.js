@@ -44,16 +44,6 @@ export const HABIT_TABLES = {
       "roll": 8,
       "habit": "I trust what I can verify, not what I'm told.",
       "lean": "low"
-    },
-    {
-      "roll": 9,
-      "habit": "I trust people slowly, in proportion to what they've actually shown me.",
-      "lean": "neutral"
-    },
-    {
-      "roll": 10,
-      "habit": "Whether I trust you depends entirely on what's at stake.",
-      "lean": "neutral"
     }
   ],
   "order": [
@@ -96,16 +86,6 @@ export const HABIT_TABLES = {
       "roll": 8,
       "habit": "I'll break a promise the moment keeping it stops making sense.",
       "lean": "low"
-    },
-    {
-      "roll": 9,
-      "habit": "Rules are tools, not commandments; I use the ones that work.",
-      "lean": "neutral"
-    },
-    {
-      "roll": 10,
-      "habit": "I plan for the big things and improvise the rest.",
-      "lean": "neutral"
     }
   ],
   "individualism": [
@@ -148,16 +128,6 @@ export const HABIT_TABLES = {
       "roll": 8,
       "habit": "I put myself between danger and whoever's behind me, without being asked.",
       "lean": "low"
-    },
-    {
-      "roll": 9,
-      "habit": "I look out for myself and the group in equal measure, no more for either.",
-      "lean": "neutral"
-    },
-    {
-      "roll": 10,
-      "habit": "I share what I don't need and keep what I do.",
-      "lean": "neutral"
     }
   ],
   "levity": [
@@ -200,16 +170,6 @@ export const HABIT_TABLES = {
       "roll": 8,
       "habit": "Silence sits easier with me than small talk.",
       "lean": "low"
-    },
-    {
-      "roll": 9,
-      "habit": "I laugh when it's earned and stay quiet when it isn't.",
-      "lean": "neutral"
-    },
-    {
-      "roll": 10,
-      "habit": "Some days are lighter than others, and I let them be.",
-      "lean": "neutral"
     }
   ]
 };

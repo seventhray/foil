@@ -237,10 +237,10 @@ export class FoilChargen extends HandlebarsApplicationMixin(ApplicationV2) {
     });
   }
 
-  /** Roll 1d10 on an axis's Habit Table (PHB 3.4.0). */
+  /** Roll 1d8 on an axis's Habit Table (PHB 3.4.0). */
   static async _onRollTrait(event, target) {
     const axis = target.dataset.axis;
-    const roll = await new Roll("1d10").evaluate();
+    const roll = await new Roll("1d8").evaluate();
     const row = (HABIT_TABLES[axis] ?? []).find(r => r.roll === roll.total);
     if (row) this.choices.foil[axis] = { lean: row.lean === "neutral" ? "" : row.lean, habit: row.habit };
     this.render();

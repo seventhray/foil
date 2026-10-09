@@ -147,7 +147,7 @@ export class FoilCreatureGenerator extends HandlebarsApplicationMixin(Applicatio
       skillA: skillOptions(s.train[0]), skillB: skillOptions(s.train[1]),
       isThreat: s.source === "threat", isCr: s.source === "cr" || s.source === "d20", isTier: s.source === "tier", isD20: s.source === "d20",
       scoreRows: ["str", "dex", "con", "int", "wis", "cha"].map(k => ({ key: k, label: k.toUpperCase(), value: s.abilities[k] })),
-      centerNote: fromScores ? `Center ${scores.center.toFixed(1)}; steps follow GMG 12.7.0` : "",
+      centerNote: fromScores ? `Center ${scores.center.toFixed(1)}; steps follow GMG 11.7.0` : "",
       vulnRows: s.vuln.map((v, i) => ({ i, n: v.n, refund: refundPerPoint(v.scope) * Number(v.n),
         groups: SCOPE_GROUPS.filter(g => g.label !== "Material").map(g => ({ label: g.label, options: g.options.map(([value, label]) => ({ value, label, selected: value === v.scope })) })),
         nChoices: [1, 2, 3, 4, 5, 6].map(x => ({ value: x, label: String(x), selected: x === Number(v.n) })) })),

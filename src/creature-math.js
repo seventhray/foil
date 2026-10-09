@@ -1,6 +1,6 @@
 /**
  * src/creature-math.js
- * Creature building (GMG 9.1.0 to 9.3.0, 12.3.0, 12.7.0), pure so it runs headlessly.
+ * Creature building (GMG 9.1.0 to 9.3.0, 11.3.0, 11.7.0), pure so it runs headlessly.
  * Threat is the creature's counterpart to a character's XP.
  */
 
@@ -35,7 +35,7 @@ export function creatureNumbers(threat) {
   };
 }
 
-/** CR to Threat (GMG 12.7.0). Fractions are written "1/8", "1/4", "1/2". */
+/** CR to Threat (GMG 11.7.0). Fractions are written "1/8", "1/4", "1/2". */
 const CR_THREAT = { "0": -384, "1/8": -384, "1/4": -256, "1/2": -128, "1": -64, "2": 32, "3": 104, "4": 160, "5": 208, "6": 256, "7": 304,
   "8": 360, "9": 424, "10": 488, "11": 560, "12": 632, "13": 712, "14": 800, "15": 888, "16": 984, "17": 1088, "18": 1192, "19": 1304, "20": 1416 };
 export const CR_CHOICES = Object.keys(CR_THREAT).filter(k => k !== "0").concat(["21+"]);
@@ -70,7 +70,7 @@ export function differentiate(baseline, steps) {
   return { potentials: out, notes, total: Object.values(out).reduce((a, b) => a + b, 0) };
 }
 
-// Dice for a target Potential (GMG 12.3.0).
+// Dice for a target Potential (GMG 11.3.0).
 const TABLE = { 8: "1d8", 10: "1d10", 12: "1d12", 14: "1d6+1d8", 16: "2d8", 18: "1d8+1d10", 20: "1d20", 22: "1d10+1d12", 24: "2d12",
   26: "1d20+1d6", 28: "1d20+1d8", 30: "1d20+1d10", 32: "1d20+1d12", 34: "1d20+1d8+1d6", 36: "1d20+2d8", 38: "1d20+1d10+1d8", 40: "2d20",
   42: "1d20+1d12+1d10", 44: "2d20+1d4", 46: "2d20+1d6", 48: "2d20+1d8", 52: "2d20+1d12", 56: "2d20+2d8", 60: "3d20", 64: "3d20+1d4",
@@ -100,13 +100,13 @@ export function diceFor(target) {
   return { formula, counts, potential };
 }
 
-// ─── d20 stat-block conversion (GMG 12.2.0, 12.5.0, 12.7.0) ───────────────────
+// ─── d20 stat-block conversion (GMG 11.2.0, 11.5.0, 11.7.0) ───────────────────
 
-/** Source abilities for each Attribute (GMG 12.2.0). */
+/** Source abilities for each Attribute (GMG 11.2.0). */
 export const SOURCE_ABILITIES = { might: ["str", "con"], finesse: ["dex", "con"], wit: ["int", "wis"], presence: ["cha", "wis"] };
 
 /**
- * Differentiate from Ability Scores (GMG 12.7.0): average each Attribute's two source abilities, take the
+ * Differentiate from Ability Scores (GMG 11.7.0): average each Attribute's two source abilities, take the
  * center of the four, and move an Attribute one step per 4 points from the center, past 4, up to two steps.
  */
 export function abilitySteps(scores) {
@@ -122,7 +122,7 @@ export function abilitySteps(scores) {
   return { source, center, steps };
 }
 
-/** Armor Class to physical Resistance (GMG 12.5.0). */
+/** Armor Class to physical Resistance (GMG 11.5.0). */
 export const acToResistance = ac => (ac >= 20 ? 3 : ac >= 17 ? 2 : ac >= 13 ? 1 : 0);
 
 // ─── Vulnerable funding Resistance (GMG 9.3.0) ────────────────────────────────
