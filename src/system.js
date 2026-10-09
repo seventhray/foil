@@ -114,11 +114,11 @@ Hooks.once("ready", async function() {
   // so any such sheet self-corrects instead of staying stale for its
   // whole lifetime.
   await buildRegistry();
-  // Existing characters get the innate Techniques once (PHB 2.5.4).
+  // Existing characters get the Mind Instrument once (PHB 2.5.3).
   if (game.user.isGM && game.users.activeGM?.isSelf) {
     const { grantStartingKit } = await import("./apps/chargen.js");
-    for (const actor of game.actors.filter(x => x.type === "character" && !x.getFlag("foil", "innateTechniques"))) {
-      try { await grantStartingKit(actor); await actor.setFlag("foil", "innateTechniques", true); }
+    for (const actor of game.actors.filter(x => x.type === "character" && !x.getFlag("foil", "innateMind"))) {
+      try { await grantStartingKit(actor); await actor.setFlag("foil", "innateMind", true); }
       catch (err) { console.error("FOIL | Failed to grant innate Techniques", err); }
     }
   }
@@ -126,7 +126,7 @@ Hooks.once("ready", async function() {
   for (const app of Object.values(ui.windows)) app.render();
 });
 
-// Every new character has the innate Instruments Body and Voice (PHB 2.5.3).
+// Every new character has the innate Instruments Body, Voice, and Mind (PHB 2.5.3).
 // Grant them on creation, idempotently, and only on the client that created the
 // actor (avoids duplicate creates in play).
 Hooks.on("createActor", async (actor, options, userId) => {

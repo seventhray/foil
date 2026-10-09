@@ -106,7 +106,7 @@ export const GLOSSARY = {
   },
   "foil exposed": {
     "name": "Foil Exposed",
-    "text": "Resisted with Guile or Discipline. The source learns one Habit of the creature, which the Technique names. Once, when the creature Opposes the source, the source may give that Oppose roll -2. It ends when used, or after 10 minutes. A creature has one Foil Exposed for each of its Habits, from each source. > [!EXAMPLE] > Mira uses Read Habit on the captain: Resonance 15 against his Discipline 10. Mira learns his Habit, \"Rules are the first thing to go when it actually matters.\" Mira then Intimidates the captain through the Voice, and spends the Foil Exposed to give his Oppose -2."
+    "text": "Resisted with Guile or Discipline. The source learns one Habit of the creature, which the Technique names. Once, when the creature Opposes the source, the source may give that Oppose roll -2. It ends when used, or after 10 minutes. A creature has one Foil Exposed for each of its Habits, from each source. > [!EXAMPLE] > Mira uses Intuit on the captain: Resonance 15 against his Discipline 10. Mira learns his Habit, \"Rules are the first thing to go when it actually matters.\" Mira then Intimidates the captain through the Voice, and spends the Foil Exposed to give his Oppose -2."
   },
   "foil token": {
     "name": "Foil Token",

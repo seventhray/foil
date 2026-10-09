@@ -219,7 +219,7 @@ export class TechniqueData extends foundry.abstract.TypeDataModel {
       // Range for a Technique that has no Instrument, and the nearest band it works from (blank for none).
       range: new f.StringField({ required: true, blank: true, initial: "", choices: ["", ...RANGE_BANDS] }),
       minRange: new f.StringField({ required: true, blank: true, initial: "", choices: ["", ...RANGE_BANDS] }),
-      // Skills the Technique may roll when it names more than one (Read Habit rolls Acuity or Resonance).
+      // Skills the Technique may roll when it names more than one (a Technique may name two Skills).
       skillChoices: new f.ArrayField(new f.StringField({ required: true, choices: SKILL_KEYS }), { required: true, initial: [] }),
       // A Skill the Technique names outright (River Walk rolls Acuity).
       skill: new f.StringField({ required: true, blank: true, initial: "", choices: ["", ...SKILL_KEYS] }),

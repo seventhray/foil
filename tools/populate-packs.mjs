@@ -354,7 +354,7 @@ function toolDoc(n) {
   };
 }
 
-// Body and Voice (PHB 2.5.3), the two innate Instruments every character starts with.
+// Body, Voice, and Mind (PHB 2.5.3), the three innate Instruments every character starts with.
 const INNATE_INSTRUMENTS = [
   { name: "Body", primaryAttribute: "might", types: ["quick", "blunt", "grappling"], range: "Close",
     kit: [
@@ -367,11 +367,17 @@ const INNATE_INSTRUMENTS = [
       { name: "Intimidate", skill: "assertiveness", effect: "Applies Intimidated." },
       { name: "Mislead", skill: "guile", effect: "Applies Misled." },
       { name: "Sway", skill: "resonance", effect: "Applies Swayed." }
+    ] },
+  { name: "Mind", primaryAttribute: "wit", types: ["quick"], range: "Near",
+    kit: [
+      { name: "Deduce", skill: "discipline", effect: "Works out a problem or recalls a fact." },
+      { name: "Analyze", skill: "acuity", effect: "Learns a creature's Attributes, or notices something specific." },
+      { name: "Intuit", skill: "resonance", effect: "Applies Foil Exposed, or gives insight into a situation." }
     ] }
 ];
 function innateDoc(i) {
   return {
-    name: i.name, type: "instrument", img: i.name === "Body" ? "icons/svg/combat.svg" : "icons/svg/sound.svg",
+    name: i.name, type: "instrument", img: { Body: "icons/svg/combat.svg", Voice: "icons/svg/sound.svg", Mind: "icons/svg/eye.svg" }[i.name],
     system: {
       category: "innate", weight: "light", primaryAttribute: i.primaryAttribute, range: i.range,
       types: i.types, typesDisplay: "", price: 0, rider: "Innate: every character has it, free (PHB 2.5.3).",
@@ -622,15 +628,7 @@ const grantedTechniques = CAT.feats.flatMap(f => {
   const [effect, ...rest] = m[4].split(/\.\s+/);
   return [{ name, requires: m[2] ?? m[3], effect, description: rest.join(". ").replace(/\.$/, "") + (rest.length ? "." : ""), origin_grant: f.origin, xp: null }];
 });
-const readHabit = {
-  name: "Read Habit", type: "technique", img: "icons/svg/aura.svg",
-  system: {
-    requires: [], innate: true, skill: "", skillChoices: ["acuity", "resonance"], range: "near", family: "", subgroup: "",
-    effects: [e("foil-exposed"), e("quick")], floor: false, ancestryGrant: "",
-    description: "<p>Every character knows it, free (PHB 2.5.4). Quick, against a creature within Near: Acuity or Resonance, resisted with Guile or Discipline. Applies Foil Exposed (PHB 6.8.24).</p>"
-  }
-};
-const techniques = [...[...CAT.techniques].sort(byOrder), ...grantedTechniques].map(techniqueDoc).concat([readHabit]);
+const techniques = [...[...CAT.techniques].sort(byOrder), ...grantedTechniques].map(techniqueDoc);
 const instruments = [
   ...INNATE_INSTRUMENTS.map(innateDoc),
   ...[...CAT.instruments].sort(byOrder).map(instrumentDoc),
