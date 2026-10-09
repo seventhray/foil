@@ -236,6 +236,10 @@ export const GLOSSARY = {
     "name": "Parry",
     "text": "Defends with the Quick Action when a Technique targets it, before the Oppose roll."
   },
+  "passive": {
+    "name": "Passive",
+    "text": "A Skill's Average plus its Training. It is the Difficulty against a creature that isn't pushing back."
+  },
   "pattern": {
     "name": "Pattern",
     "text": "Hit every creature in a Beam, Cone, Radius, or Wall. A Radius or Wall may be placed away from the caster."
