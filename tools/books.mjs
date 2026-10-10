@@ -33,7 +33,8 @@ export const PHB_PATH = path.join(BOOKS, `Foilbound TTRPG Player's Handbook v${B
 export const GMG_PATH = path.join(BOOKS, `Foilbound TTRPG Game Master's Guide v${BOOK_VERSION}.md`);
 export const FM_PATH = path.join(BOOKS, "Design Docs", "Fundamental Math.md");
 
-const readBook = file => { setting("FOIL_BOOKS"); return fs.readFileSync(file, "utf8"); };
+// Block ids (^qs-...) exist for Obsidian embeds in the quickstart; no reader wants them.
+const readBook = file => { setting("FOIL_BOOKS"); return fs.readFileSync(file, "utf8").replace(/[ \t]+\^qs-[\w-]+[ \t]*$/gm, "").replace(/^\^qs-[\w-]+[ \t]*\n?/gm, ""); };
 export const readPHB = () => readBook(PHB_PATH);
 export const readGMG = () => readBook(GMG_PATH);
 export const readFM = () => readBook(FM_PATH);
