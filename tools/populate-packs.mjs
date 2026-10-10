@@ -516,7 +516,7 @@ function backgroundDocs() {
 }
 
 // ─── Habit Tables (PHB 3.4.x) → src/habits.js, read by the Create app ────
-const AXES = { Faith: ["faith", "Trusting", "Mistrusting"], Order: ["order", "Ordered", "Disordered"],
+const AXES = { Faith: ["faith", "Trusting", "Mistrusting"], Order: ["order", "Methodical", "Intuitive"],
   Individualism: ["individualism", "Individual", "Communal"], Levity: ["levity", "Light", "Grave"] };
 function habitsModule() {
   const out = {};
