@@ -231,6 +231,10 @@ export class CharacterData extends foundry.abstract.TypeDataModel {
       prompts: new f.SchemaField({
         whoTheyAre: str(""), wants: str(""), fightFor: str(""), fears: str("")
       }),
+      appearance: new f.SchemaField({
+        age: str(""), height: str(""), weight: str(""), hair: str(""), eyes: str(""), skin: str(""),
+        marks: str(""), other: str("")
+      }),
       notes: html("")
     };
   }
