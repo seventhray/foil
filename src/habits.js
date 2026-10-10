@@ -50,42 +50,42 @@ export const HABIT_TABLES = {
     {
       "roll": 1,
       "habit": "I keep my gear in the same place every time, so I can find it in the dark.",
-      "lean": "high"
+      "lean": "neutral"
     },
     {
       "roll": 2,
       "habit": "I think a plan beats improvising, nine times out of ten.",
-      "lean": "high"
+      "lean": "neutral"
     },
     {
       "roll": 3,
       "habit": "Rules exist because someone already learned the hard way; I'd rather not relearn it.",
-      "lean": "high"
+      "lean": "neutral"
     },
     {
       "roll": 4,
       "habit": "I'd rather lose by the rules than win by breaking them.",
-      "lean": "high"
+      "lean": "neutral"
     },
     {
       "roll": 5,
       "habit": "I've never met a plan that survived contact with anything.",
-      "lean": "low"
+      "lean": "neutral"
     },
     {
       "roll": 6,
       "habit": "Rules are the first thing to go when it actually matters.",
-      "lean": "low"
+      "lean": "neutral"
     },
     {
       "roll": 7,
       "habit": "I leave a mess and let tomorrow deal with it.",
-      "lean": "low"
+      "lean": "neutral"
     },
     {
       "roll": 8,
       "habit": "I'll break a promise the moment keeping it stops making sense.",
-      "lean": "low"
+      "lean": "neutral"
     }
   ],
   "individualism": [

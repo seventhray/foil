@@ -145,7 +145,7 @@ export const EQUIPMENT_CATEGORIES = Object.keys(EQUIPMENT_CATEGORY_LABEL);
 // FOIL axes and their poles (PHB 3.1.0). A Habit leans High or Low; none is Neutral (PHB 3.4.0).
 export const FOIL_AXES = [
   { key: "faith",         label: "Faith",         high: "Trusting",   low: "Mistrusting" },
-  { key: "order",         label: "Order",         high: "Ordered",    low: "Disordered" },
+  { key: "order",         label: "Order",         high: "Methodical",    low: "Intuitive" },
   { key: "individualism", label: "Individualism", high: "Individual", low: "Communal" },
   { key: "levity",        label: "Levity",        high: "Light",      low: "Grave" }
 ];
