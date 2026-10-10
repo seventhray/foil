@@ -1,0 +1,52 @@
+{
+  "_id": "USRo8wWBriaBLHwb",
+  "name": "Healing Rain",
+  "type": "technique",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "requires": [
+      "fortifying"
+    ],
+    "innate": false,
+    "skill": "",
+    "family": "Fortifying",
+    "subgroup": "Group Support (Selective)",
+    "effects": [
+      {
+        "key": "mend",
+        "magnitude": 2,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveR": 0
+      },
+      {
+        "key": "selective",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveR": 2
+      },
+      {
+        "key": "resistance",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveR": 0
+      }
+    ],
+    "floor": true,
+    "ancestryGrant": "",
+    "description": ""
+  },
+  "effects": [],
+  "folder": "XQdXpbzeLH0Vf3Lp",
+  "sort": 1900000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!USRo8wWBriaBLHwb"
+}

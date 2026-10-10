@@ -1,0 +1,44 @@
+{
+  "_id": "3BwHyhQ6GGxXvLQG",
+  "name": "Sinew Cut",
+  "type": "technique",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "requires": [
+      "edged"
+    ],
+    "innate": false,
+    "skill": "",
+    "family": "Melee",
+    "subgroup": "Debilitating",
+    "effects": [
+      {
+        "key": "stress",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveR": 0
+      },
+      {
+        "key": "weaken-minute",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveR": 0
+      }
+    ],
+    "floor": false,
+    "ancestryGrant": "",
+    "description": ""
+  },
+  "effects": [],
+  "folder": "JVVEZL5EHFE7oCoI",
+  "sort": 7500000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!3BwHyhQ6GGxXvLQG"
+}
