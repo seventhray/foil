@@ -578,7 +578,7 @@ export const TRAITS = [
  },
  {
   "name": "Amphibious",
-  "xp": 8
+  "xp": 12
  },
  {
   "name": "Burrow",
