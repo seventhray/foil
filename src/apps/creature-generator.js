@@ -1,6 +1,6 @@
 /**
  * src/apps/creature-generator.js
- * Creature generator (GMG 9.1.0 to 9.3.0): pick a Threat, a CR, or a tier, Attribute steps, and
+ * Creature generator (GMG 9.1.0 to 9.3.0): pick a Threat, a tier, or a d20 stat block, Attribute steps, and
  * Resistance, and read off the Potentials, dice, Allowance, Ceiling, Training, and
  * Resistance budget. Creates the creature Actor with its dice, Training, and Resistance set.
  */
@@ -59,7 +59,7 @@ export class FoilCreatureGenerator extends HandlebarsApplicationMixin(Applicatio
   _threat() {
     const s = this.state;
     if (s.source === "threat") return Number(s.threat) || 0;
-    if (s.source === "cr" || s.source === "d20") return crToThreat(s.cr) ?? 0;
+    if (s.source === "d20") return crToThreat(s.cr) ?? 0;
     return TIER_THREAT[Number(s.tier)] ?? 0;
   }
 
@@ -149,10 +149,10 @@ export class FoilCreatureGenerator extends HandlebarsApplicationMixin(Applicatio
       totalTarget: n.totalPotential,
       tierChoices: Object.keys(TIER_THREAT).map(t => ({ value: t, label: `Tier ${t} (Threat ${TIER_THREAT[t]})`, selected: String(t) === String(s.tier) })),
       crChoices: CR_CHOICES.map(c => ({ value: c, label: `CR ${c}`, selected: c === s.cr })),
-      sourceChoices: [["tier", "Tier"], ["d20", "d20 stat block (CR, scores, AC)"], ["cr", "CR only"], ["threat", "Threat"]].map(([value, label]) => ({ value, label, selected: value === s.source })),
+      sourceChoices: [["tier", "Tier"], ["d20", "d20 stat block (CR, scores, AC)"], ["threat", "Threat"]].map(([value, label]) => ({ value, label, selected: value === s.source })),
       resistanceChoices: { physical: opts(ratings, s.physical), mental: opts(ratings, s.mental) },
       trainRows, behaviorRows,
-      isThreat: s.source === "threat", isCr: s.source === "cr" || s.source === "d20", isTier: s.source === "tier", isD20: s.source === "d20",
+      isThreat: s.source === "threat", isCr: s.source === "d20", isTier: s.source === "tier", isD20: s.source === "d20",
       scoreRows: ["str", "dex", "con", "int", "wis", "cha"].map(k => ({ key: k, label: k.toUpperCase(), value: s.abilities[k] })),
       centerNote: fromScores ? `Center ${scores.center.toFixed(1)}; steps follow GMG 11.7.0` : "",
       vulnRows: s.vuln.map((v, i) => ({ i, n: v.n, refund: refundPerPoint(v.scope) * Number(v.n),

@@ -1,12 +1,12 @@
 <div class="foil-sheet chargen-body">
-  <p class="chargen-intro">Pick a Threat, a CR, or a tier. The numbers follow GMG 9.1.0 to 9.3.0.</p>
+  <p class="chargen-intro">Pick a tier, a d20 stat block, or a Threat. The numbers follow GMG 9.1.0 to 9.3.0.</p>
   <div class="chargen-grid">
     <fieldset>
       <legend data-tooltip="What the creature is called on its sheet.">Name</legend>
       <input type="text" name="name" value="{{state.name}}" placeholder="New Creature" />
     </fieldset>
     <fieldset>
-      <legend data-tooltip="Threat is the creature counterpart to XP. Pick a tier, a CR, a d20 stat block, or a Threat number; it sets baseline Potential, Resistance, Training, Allowance, and Ceiling (GMG 9.1.0).">Start from</legend>
+      <legend data-tooltip="Threat is the creature counterpart to XP. Pick a tier, a d20 stat block, or a Threat number; it sets baseline Potential, Resistance, Training, Allowance, and Ceiling (GMG 9.1.0).">Start from</legend>
       <select name="source">{{#each sourceChoices}}<option value="{{this.value}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>
       {{#if isTier}}<select name="tier">{{#each tierChoices}}<option value="{{this.value}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>{{/if}}
       {{#if isCr}}<select name="cr">{{#each crChoices}}<option value="{{this.value}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>{{/if}}
