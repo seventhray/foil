@@ -367,25 +367,41 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
       skill = sys.skillChoices.includes(pick.skill) ? pick.skill : sys.skillChoices[0];
     }
     if (!sys.innate) {
-      const valid = this._validInstruments(tech);
+      let valid = this._validInstruments(tech);
       if (!valid.length) {
         ui.notifications?.warn(`No Instrument carries what ${tech.name} requires (${sys.requiresLabel}).`);
         return;
       }
-      inst = valid[0];
+      // The Skills an Instrument rolls are the ones its Primary Attribute reaches (PHB 4.1.0).
       const skillsOf = i => i.type === "instrument" ? i.system.primarySkills : ["prowess", "discipline", "assertiveness"];
-      const needPick = valid.length > 1 || !skill;
-      if (needPick) {
+      if (skill) {
+        const fit = valid.filter(i => skillsOf(i).includes(skill));
+        if (!fit.length) {
+          ui.notifications?.warn(`${tech.name} rolls ${SKILL_LABEL[skill]}, which ${valid.map(i => i.name).join(", ")} can't (PHB 4.1.0).`);
+          return;
+        }
+        valid = fit;
+      }
+      inst = valid[0];
+      if (valid.length > 1 || !skill) {
+        const skillOptions = i => skillsOf(i).map(k => `<option value="${k}">${SKILL_LABEL[k]}</option>`).join("");
         let content = `<p><strong>${esc(tech.name)}</strong></p>`;
         content += valid.length > 1
           ? `<div class="form-group"><label>Instrument</label><select name="instrumentId">${valid.map(i =>
-              `<option value="${i.id}">${i.name}${i.system.primaryAttribute ? ` (${ATTR_LABEL[i.system.primaryAttribute]})` : ""}</option>`).join("")}</select></div>`
+              `<option value="${i.id}" data-skills="${skillsOf(i).join(",")}">${esc(i.name)}${i.system.primaryAttribute ? ` (${ATTR_LABEL[i.system.primaryAttribute]})` : ""}</option>`).join("")}</select></div>`
           : `<input type="hidden" name="instrumentId" value="${inst.id}" />`;
         if (!skill) {
-          const opts = SKILL_KEYS.map(k => `<option value="${k}">${SKILL_LABEL[k]}</option>`).join("");
-          content += `<div class="form-group"><label>Skill <em>(one the Instrument's Primary Attribute allows)</em></label><select name="skill">${opts}</select></div>`;
+          content += `<div class="form-group"><label>Skill <em>(one ${esc(valid.length > 1 ? "the chosen" : inst.name + "'s")} Primary Attribute allows)</em></label><select name="skill">${skillOptions(inst)}</select></div>`;
         }
-        const answer = await ask(`Use ${tech.name}`, content, "Roll");
+        const onRender = root => {
+          const pick = root.querySelector('select[name="instrumentId"]'), sk = root.querySelector('select[name="skill"]');
+          if (!pick || !sk) return;
+          pick.addEventListener("change", () => {
+            const allowed = pick.selectedOptions[0]?.dataset.skills?.split(",") ?? [];
+            sk.innerHTML = allowed.map(k => `<option value="${k}">${SKILL_LABEL[k]}</option>`).join("");
+          });
+        };
+        const answer = await ask(`Use ${tech.name}`, content, "Roll", onRender);
         if (!answer) return;
         inst = this.actor.items.get(answer.instrumentId) ?? inst;
         skill = skill || answer.skill;
