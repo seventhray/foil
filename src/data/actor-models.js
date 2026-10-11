@@ -263,6 +263,8 @@ export class CreatureData extends foundry.abstract.TypeDataModel {
     return {
       ...coreSchema(),
       tier: int(1, { min: 1 }),
+      // The creature counterpart to XP (GMG 9.1.0); the tier is the table row nearest it.
+      threat: int(0),
       // What it does once an Attribute is Incapacitated (GMG 9.8.0). Blank: it Holds.
       behavior: str(""),
       // Vulnerable N to a scope: Broad, a Family, a damage type or Instrument Type, or a Material (PHB 6.6.0, GMG 9.3.0).

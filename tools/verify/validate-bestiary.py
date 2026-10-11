@@ -1,19 +1,18 @@
 """tools/verify/validate-bestiary.py
 
 Checks every built creature in the vault against the GMG's creature-building
-rules (4.1.0-4.5.1): the creature formulas from its Threat (its own `threat:`, else its
-tier's), and the Trait and Monster Feat prices read from the GMG itself. Not part of run.mjs, since it reads the
+rules (9.1.0-9.8.0): the creature formulas from its `threat:`, and the Trait and Monster Feat prices read from the GMG itself. Not part of run.mjs, since it reads the
 Obsidian vault rather than the system. Run it after changing the rules or the
 Bestiary: a creature that breaks a stated rule means the creature or the rule
 has to change.
 
-    FOIL_BOOKS=/path/to/Foilbound FOIL_CREATURES=/path/to/Campaign/Creatures \\
+    FOIL_BOOKS=/path/to/Foilbound FOIL_CREATURES=/path/to/Campaign/Creatures:/path/to/Campaign/Characters/NPCs \\
       python3 tools/verify/validate-bestiary.py
 """
 import glob, os, re, sys
 
 BOOKS = os.environ.get("FOIL_BOOKS") or sys.exit("Set FOIL_BOOKS to the folder holding the rulebooks.")
-CREATURES = os.environ.get("FOIL_CREATURES") or sys.exit("Set FOIL_CREATURES to the Campaign/Creatures folder.")
+CREATURES = os.environ.get("FOIL_CREATURES") or sys.exit("Set FOIL_CREATURES to the Campaign/Creatures folder, plus any NPC folders, separated by colons.")
 GMG = open(sorted(glob.glob(os.path.join(BOOKS, "Foilbound TTRPG Game Master's Guide v*.md")))[-1], encoding="utf-8").read()
 
 
@@ -54,17 +53,24 @@ STEP = 2                  # one row of the Target Potential table (GMG 9.2.0)
 GRANT_ACTION = 14         # Legendary Action, per use (GMG 9.5.1)
 
 issues, checked = [], 0
-for path in sorted(glob.glob(os.path.join(CREATURES, "*.md"))):
+for path in sorted(p for d in CREATURES.split(os.pathsep) for p in glob.glob(os.path.join(d, "**", "*.md"), recursive=True)):
     s = open(path, encoding="utf-8").read()
     name = os.path.basename(path)[:-3]
     m = re.search(r"^tier:\s*(\d+)\s*$", s, re.M)
     if not m or m.group(1) not in TIER_XP or "not yet built" in s:
         continue
     t = m.group(1)
-    own = re.search(r"^threat:\s*(-?\d+)\s*$", s, re.M)   # a creature's own Threat, else its tier's
-    T = numbers(int(own.group(1)) if own else TIER_XP[t])
+    own = re.search(r"^threat:\s*(-?\d+)\s*$", s, re.M)
     checked += 1
     bad = []
+    if not own:
+        issues.append((int(t), name, ["has no threat: rating (9.1.0)"]))
+        continue
+    threat = int(own.group(1))
+    nearest = min(TIER_XP, key=lambda k: (abs(TIER_XP[k] - threat), int(k)))   # a tie goes to the lower tier
+    if nearest != t:
+        bad.append(f"tier {t} is not the tier nearest Threat {threat}, which is {nearest} (9.1.0)")
+    T = numbers(threat)
     pots = {k: int(v) for k, v in re.findall(r"^(might|finesse|wit|presence):.*\((\d+)\)", s, re.M)}
     for k, v in pots.items():
         if abs(v - T["pot"]) > 2 * STEP:

@@ -64,6 +64,15 @@ export const NATURAL_WEAPONS = [
   "range": "Touching"
  },
  {
+  "name": "Mandibles",
+  "group": "melee",
+  "types": [
+   "pointed"
+  ],
+  "pick": false,
+  "range": "Touching"
+ },
+ {
   "name": "Pharyngeal Jaw",
   "group": "melee",
   "types": [
@@ -275,6 +284,15 @@ export const NATURAL_WEAPONS = [
   "range": "Sight"
  },
  {
+  "name": "Hypnotic Gaze",
+  "group": "arcane",
+  "types": [
+   "incorporeal"
+  ],
+  "pick": false,
+  "range": "Short"
+ },
+ {
   "name": "Mind Lash",
   "group": "arcane",
   "types": [
@@ -306,6 +324,15 @@ export const NATURAL_WEAPONS = [
   "group": "arcane",
   "types": [
    "incorporeal"
+  ],
+  "pick": false,
+  "range": "Touching"
+ },
+ {
+  "name": "Searing Touch",
+  "group": "arcane",
+  "types": [
+   "kinetic"
   ],
   "pick": false,
   "range": "Touching"
@@ -522,6 +549,14 @@ export const MONSTER_FEATS = [
   "xpText": "8",
   "requires": "a beak or similar Pointed natural weapon",
   "effect": "The first Technique this creature lands through that weapon each conflict gains Pierce 1."
+ },
+ {
+  "name": "Two Heads",
+  "xp": 12,
+  "per": "",
+  "xpText": "12",
+  "requires": "two or more heads",
+  "effect": "+2 to Oppose against any Technique that would apply Blinded, Charmed, Frightened, or Stunned."
  },
  {
   "name": "Specialized Resistance",

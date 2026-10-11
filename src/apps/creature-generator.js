@@ -276,7 +276,7 @@ export class FoilCreatureGenerator extends HandlebarsApplicationMixin(Applicatio
     const behavior = s.behaviors.filter(b => b.trait).map(b => (b.param ? b.trait.replace(/\[[^\]]*\]/, `[${b.param}]`) : b.trait)).join(", ");
     const actor = await Actor.create({
       name: s.name || "New Creature", type: "creature",
-      system: { tier: n.tier, behavior, vulnerabilities: s.vuln.map(v => ({ scope: v.scope, material: "", n: Number(v.n) })), attributes, skills, resistance: { physical: Number(s.physical), mental: Number(s.mental) }, notes },
+      system: { tier: n.tier, threat: n.threat, behavior, vulnerabilities: s.vuln.map(v => ({ scope: v.scope, material: "", n: Number(v.n) })), attributes, skills, resistance: { physical: Number(s.physical), mental: Number(s.mental) }, notes },
       items
     });
     ui.notifications?.info(`${actor.name} created at Tier ${n.tier}.`);
