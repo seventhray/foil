@@ -7,7 +7,7 @@
 
 import { ATTRIBUTE_KEYS, ATTR_LABEL, SKILL_KEYS, SKILL_LABEL, BEHAVIOR_TRAITS, BEHAVIOR_HELP, trainingCost } from "../constants.js";
 import { NATURAL_WEAPONS, MONSTER_FEATS, TRAITS } from "../creature-data.js";
-import { balanceSteps, TIER_THREAT, CR_CHOICES, creatureNumbers, crToThreat, assignAttributes, diceFor, abilitySteps, acToResistance, refundPerPoint, vulnerableRefund } from "../creature-math.js";
+import { TIER_THREAT, CR_CHOICES, creatureNumbers, crToThreat, assignAttributes, diceFor, abilitySteps, acToResistance, refundPerPoint, vulnerableRefund } from "../creature-math.js";
 import { lookup, termsIn } from "../glossary-ui.js";
 import { SCOPE_GROUPS } from "../resist.js";
 
@@ -82,10 +82,8 @@ export class FoilCreatureGenerator extends HandlebarsApplicationMixin(Applicatio
     const refund = vulnerableRefund(s.vuln);
     const budget = n.resistanceBudget + refund;
     const spent = 8 * (Number(s.physical) + Number(s.mental));
-    const down = Math.max(0, Math.floor((n.potential - 8) / 2));
     const rows = ATTRIBUTE_KEYS.map(k => ({
       key: k, label: ATTR_LABEL[k], steps: s.steps[k], potential: diff.potentials[k], dice: diceFor(diff.potentials[k]).formula,
-      stepChoices: Array.from({ length: down + 13 }, (_, i) => i - down).map(v => ({ value: v, label: v > 0 ? `+${v}` : `${v}`, selected: v === s.steps[k] }))
     }));
     const ratings = Array.from({ length: n.resistanceCap + 1 }, (_, i) => i);
     const opts = (list, cur) => list.map(v => ({ value: v, label: String(v), selected: String(v) === String(cur) }));
@@ -216,7 +214,7 @@ export class FoilCreatureGenerator extends HandlebarsApplicationMixin(Applicatio
           else if (el.name?.startsWith("vuln.")) {
             const [, i, field] = el.name.split(".");
             s.vuln[Number(i)][field] = field === "n" ? Number(v) : v;
-          } else if (el.name?.startsWith("step.")) { s.manual = true; const k = el.name.slice(5); s.steps[k] = Number(v); balanceSteps(s.steps, k); }
+          } else if (el.name?.startsWith("pot.")) { s.manual = true; s.steps[el.name.slice(4)] = Math.round(((Number(v) || 0) - creatureNumbers(this._threat()).potential) / 2); }
           else if (el.name?.startsWith("slot.")) {
             const [, i, field] = el.name.split(".");
             const slot = s.instruments[Number(i)];

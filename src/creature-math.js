@@ -65,19 +65,6 @@ export function assignAttributes(baseline, steps) {
   return { potentials: out, notes, total: Object.values(out).reduce((a, b) => a + b, 0) };
 }
 
-/**
- * Keeps the steps' total within one of zero (GMG 9.2.0) after `changed` was set,
- * by moving the other Attributes one step at a time, Wit and Presence first.
- */
-export function balanceSteps(steps, changed) {
-  const order = ["wit", "presence", "finesse", "might"].filter(k => k !== changed);
-  const total = () => Object.values(steps).reduce((a, b) => a + b, 0);
-  for (let guard = 0; guard < 16 && Math.abs(total()) > 1; guard++) {
-    const dir = total() > 0 ? -1 : 1;
-    steps[order[0]] += dir;
-  }
-}
-
 // Dice for a target Potential (GMG 11.3.0).
 const TABLE = { 8: "1d8", 10: "1d10", 12: "1d12", 14: "1d6+1d8", 16: "2d8", 18: "1d8+1d10", 20: "1d20", 22: "1d10+1d12", 24: "2d12",
   26: "1d20+1d6", 28: "1d20+1d8", 30: "1d20+1d10", 32: "1d20+1d12", 34: "1d20+1d8+1d6", 36: "1d20+2d8", 38: "1d20+1d10+1d8", 40: "2d20",

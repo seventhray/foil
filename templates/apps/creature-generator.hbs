@@ -25,17 +25,17 @@
   {{/if}}
 
   <fieldset>
-    <legend data-tooltip="Move any Attribute up or down in steps of 2 Potential, up to two steps either way. Total Potential stays within one step of the tier's number. Dice are read off the Potential.">Assign Attributes <em>(GMG 9.2.0)</em></legend>
+    <legend data-tooltip="Each Attribute starts at the tier's baseline Potential. Move any Attribute up or down in steps of 2 Potential. Total Potential should land within one step of the tier's number. Dice are read off the Potential.">Assign Attributes <em>(GMG 9.2.0)</em></legend>
     <table class="gen-table">
-      <thead><tr><th></th><th data-tooltip="Steps from the baseline. One step is 2 Potential.">Steps</th><th data-tooltip="The Attribute's Potential: the most its dice can average to.">Potential</th><th data-tooltip="The dice the Attribute rolls at that Potential.">Dice</th></tr></thead>
+      <thead><tr><th></th><th data-tooltip="The Attribute's Potential: the most its dice can average to. Moves in steps of 2.">Potential</th><th data-tooltip="The dice the Attribute rolls at that Potential.">Dice</th></tr></thead>
       <tbody>
         {{#each rows}}
           <tr><th>{{this.label}}</th>
-            <td><select name="step.{{this.key}}" class="mini-num">{{#each this.stepChoices}}<option value="{{this.value}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>{{/each}}</select></td>
-            <td>{{this.potential}}</td><td>{{this.dice}}</td></tr>
+            <td><input type="number" name="pot.{{this.key}}" value="{{this.potential}}" min="0" step="2" class="mini-num" /></td>
+            <td>{{this.dice}}</td></tr>
         {{/each}}
       </tbody>
-      <tfoot><tr><th>Total Potential</th><td></td><td>{{total}}</td><td>tier number {{totalTarget}}</td></tr></tfoot>
+      <tfoot><tr><th>Total Potential</th><td>{{total}} <span class="abbr">(tier number {{totalTarget}})</span></td><td></td></tr></tfoot>
     </table>
   </fieldset>
 
