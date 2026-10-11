@@ -72,9 +72,6 @@ for path in sorted(p for d in CREATURES.split(os.pathsep) for p in glob.glob(os.
         bad.append(f"tier {t} is not the tier nearest Threat {threat}, which is {nearest} (9.1.0)")
     T = numbers(threat)
     pots = {k: int(v) for k, v in re.findall(r"^(might|finesse|wit|presence):.*\((\d+)\)", s, re.M)}
-    for k, v in pots.items():
-        if abs(v - T["pot"]) > 2 * STEP:
-            bad.append(f"{k} Potential {v} is more than two steps from {T['pot']} (4.2.0)")
     health = int((re.search(r"\*\*Total Potential\*\*\s*(\d+)", s) or [0, 0])[1])
     if pots and health != sum(pots.values()):
         bad.append(f"Total Potential {health} isn't the sum of its Potentials, {sum(pots.values())}")

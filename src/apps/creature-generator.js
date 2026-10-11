@@ -82,9 +82,10 @@ export class FoilCreatureGenerator extends HandlebarsApplicationMixin(Applicatio
     const refund = vulnerableRefund(s.vuln);
     const budget = n.resistanceBudget + refund;
     const spent = 8 * (Number(s.physical) + Number(s.mental));
+    const down = Math.max(0, Math.floor((n.potential - 8) / 2));
     const rows = ATTRIBUTE_KEYS.map(k => ({
       key: k, label: ATTR_LABEL[k], steps: s.steps[k], potential: diff.potentials[k], dice: diceFor(diff.potentials[k]).formula,
-      stepChoices: [-2, -1, 0, 1, 2].map(v => ({ value: v, label: v > 0 ? `+${v}` : `${v}`, selected: v === s.steps[k] }))
+      stepChoices: Array.from({ length: down + 13 }, (_, i) => i - down).map(v => ({ value: v, label: v > 0 ? `+${v}` : `${v}`, selected: v === s.steps[k] }))
     }));
     const ratings = Array.from({ length: n.resistanceCap + 1 }, (_, i) => i);
     const opts = (list, cur) => list.map(v => ({ value: v, label: String(v), selected: String(v) === String(cur) }));

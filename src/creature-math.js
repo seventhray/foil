@@ -50,15 +50,14 @@ export function crToThreat(cr) {
 }
 
 /**
- * The Potentials after Assign Attributes. No Attribute moves more than two steps, and the
- * Total Potential lands within one step of the tier's number (GMG 9.2.0).
+ * The Potentials after Assign Attributes. The Total Potential lands within one step of the
+ * tier's number (GMG 9.2.0).
  */
 export function assignAttributes(baseline, steps) {
   const out = {}, notes = [];
   let sum = 0;
   for (const k of ["might", "finesse", "wit", "presence"]) {
-    const s = Math.max(-2, Math.min(2, Math.trunc(steps[k] ?? 0)));
-    if (s !== steps[k]) notes.push(`${k} moves at most two steps`);
+    const s = Math.trunc(steps[k] ?? 0);
     out[k] = Math.max(0, baseline + 2 * s);
     sum += s;
   }
@@ -75,9 +74,7 @@ export function balanceSteps(steps, changed) {
   const total = () => Object.values(steps).reduce((a, b) => a + b, 0);
   for (let guard = 0; guard < 16 && Math.abs(total()) > 1; guard++) {
     const dir = total() > 0 ? -1 : 1;
-    const t = order.find(o => Math.abs(steps[o] + dir) <= 2);
-    if (t === undefined) { steps[changed] += dir; continue; }
-    steps[t] += dir;
+    steps[order[0]] += dir;
   }
 }
 
@@ -119,7 +116,7 @@ export const SOURCE_ABILITIES = { might: ["str", "con"], finesse: ["dex", "con"]
 
 /**
  * Assign Attributes from Ability Scores (GMG 11.7.0): average each Attribute's two source abilities, take the
- * center of the four, and move an Attribute one step per 4 points from the center, past 4, up to two steps.
+ * center of the four, and move an Attribute one step per 4 points from the center, past 4.
  */
 export function abilitySteps(scores) {
   const source = {};
@@ -128,7 +125,7 @@ export function abilitySteps(scores) {
   const steps = {};
   for (const [attr, v] of Object.entries(source)) {
     const d = v - center;
-    const mag = Math.abs(d) > 4 ? Math.min(2, Math.floor(Math.abs(d) / 4)) : 0;
+    const mag = Math.abs(d) > 4 ? Math.floor(Math.abs(d) / 4) : 0;
     steps[attr] = d < 0 ? -mag : mag;
   }
   return { source, center, steps };
