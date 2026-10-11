@@ -5,6 +5,7 @@
  * vocabulary itself.
  */
 
+import { annotateVars } from "../var-tips.js";
 import { typeOptions, effectOptions, qualityOptions, effectMap, qualityMap } from "../registry.js";
 import {
   WEIGHT_KEYS, WEIGHT_CLASS, ATTRIBUTE_KEYS, ATTR_LABEL, SKILL_KEYS, SKILL_LABEL, SIZE, SIZE_KEYS,
@@ -54,6 +55,11 @@ const PRICING_KIND_INFO = {
 };
 
 export class FoilItemSheet extends HandlebarsApplicationMixin(ItemSheetV2Base) {
+  async _onRender(context, options) {
+    await super._onRender(context, options);
+    annotateVars(this.element);
+  }
+
 
   static DEFAULT_OPTIONS = {
     classes: ["foil", "sheet", "item"],

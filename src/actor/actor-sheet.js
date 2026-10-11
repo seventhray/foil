@@ -14,6 +14,7 @@
  * Everything else (other Conditions, Habits) stays with the table.
  */
 
+import { annotateVars } from "../var-tips.js";
 import {
   ATTRIBUTE_KEYS, ATTR_LABEL, SKILL_ATTRS, SKILL_KEYS, SKILL_LABEL, SKILL_ABBR, FOIL_AXES,
   FOIL_TOKEN_MAX, CONDITIONS, EQUIPMENT_CATEGORY_LABEL, LOCATION_LABEL,
@@ -716,6 +717,7 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
     await super._onRender(context, options);
     this.element.querySelector(".window-content")?.classList.add("foil-sheet", this.actor.type);
     if (!this._termsBound) { bindTerms(this.element); this._termsBound = true; }
+    annotateVars(this.element);
     // A Stress field writes back current Potential: max minus the Stress entered.
     for (const input of this.element.querySelectorAll("input[data-stress]")) {
       input.addEventListener("change", event => {

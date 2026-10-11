@@ -14,8 +14,8 @@
           {{#if this.skillBonus}}<span class="mod" title="+N to the Skill from worn gear; not Training">(+{{this.skillBonus}})</span>{{/if}}
           {{#if this.overCap}}<i class="fas fa-triangle-exclamation item-warning" title="Over the cap of +{{this.trainingCap}}"></i>{{/if}}
         </td>
-        <td class="readout range"><span class="lo">{{this.rollMin}}</span><span class="sep">/</span><span class="mid">{{this.rollAvg}}</span><span class="sep">/</span><span class="hi">{{this.rollMax}}</span></td>
-        <td class="readout num">{{this.passive}}</td>
+        <td class="readout range" data-var="skills.{{this.key}}.rollMin, rollAvg, rollMax"><span class="lo">{{this.rollMin}}</span><span class="sep">/</span><span class="mid">{{this.rollAvg}}</span><span class="sep">/</span><span class="hi">{{this.rollMax}}</span></td>
+        <td class="readout num" data-var="skills.{{this.key}}.passive">{{this.passive}}</td>
       </tr>
     {{/each}}
   </tbody>

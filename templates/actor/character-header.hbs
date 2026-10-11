@@ -22,13 +22,13 @@
       <label>XP Spent</label>
       <input type="number" name="system.xp.spent" value="{{xp.spent}}" />
       <label>XP Unspent</label>
-      <span class="readout">{{xp.available}}</span>
+      <span class="readout" data-var="xp.available">{{xp.available}}</span>
     </div>
     <div class="tracker-row">
       <div class="tracker token-tracker" title="Earned by invoking a held Habit, once a scene; spent to halve the Stress from one source or to reroll one die (PHB 3.2.0)">
         <label>Foil Tokens</label>
         <a data-action="earnToken" data-delta="-1" title="Remove one"><i class="fas fa-minus"></i></a>
-        <span class="readout big">{{tokens.value}} / {{tokens.max}}</span>
+        <span class="readout big" data-var="foilTokens">{{tokens.value}} / {{tokens.max}}</span>
         <a data-action="earnToken" data-delta="1" title="Earn one"><i class="fas fa-plus"></i></a>
         <button type="button" class="mini-btn" data-action="absorbStress" title="Spend one to halve the Stress from one source">Halve Stress</button>
       </div>
@@ -41,7 +41,7 @@
       </div>
       <div class="tracker {{#if carry.penalty}}warn{{/if}}" title="The Mass of everything carried, worn Armor included; past 4x Might Potential, every roll takes a penalty (PHB 5.2.6)">
         <label>Mass</label>
-        <span class="readout">{{carry.weight}} / {{carry.limit}} lbs</span>
+        <span class="readout" data-var="carry.weight, carry.limit">{{carry.weight}} / {{carry.limit}} lbs</span>
         {{#if carry.penalty}}<span class="state-tag">-{{carry.penalty}} to rolls</span>{{/if}}
       </div>
     </div>

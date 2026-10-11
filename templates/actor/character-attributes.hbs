@@ -11,8 +11,8 @@
         {{> systems/foil/templates/actor/partials/dice-pool.hbs}}
         <div class="attr-card-row">
           <div class="mini"><label title="Stress taken; Incapacitated once it reaches Potential (PHB 6.7.0)">Stress</label>
-            <input type="number" data-stress="{{this.key}}" value="{{this.stress}}" min="0" /></div>
-          <div class="mini"><label title="The most this Attribute's dice can roll; Stress up to it (PHB 6.7.0)">Potential</label><span class="readout">{{this.potentialMax}}</span></div>
+            <input type="number" data-var="attributes.{{this.key}}.potential.current" data-stress="{{this.key}}" value="{{this.stress}}" min="0" /></div>
+          <div class="mini"><label title="The most this Attribute's dice can roll; Stress up to it (PHB 6.7.0)">Potential</label><span class="readout" data-var="attributes.{{this.key}}.potential.max">{{this.potentialMax}}</span></div>
         </div>
         {{#if this.resistanceExtra}}<div class="attr-res" title="Resistance for this Attribute only: {{this.resistanceFromLabel}} (PHB 5.2.4)">Resistance {{this.resistanceTotal}} &middot; {{this.resistanceFromLabel}}</div>{{/if}}
         {{#if this.incapacitated}}<div class="state-tag" title="Rolls no dice. Lifts once healing brings its Stress down to {{this.recoverStress}} (PHB 6.8.1)">Incapacitated &middot; lifts at {{this.recoverStress}} Stress</div>{{/if}}
@@ -22,12 +22,12 @@
   <div class="resistance-row">
     <div class="res-field">
       <label title="Covers Might and Finesse (PHB 6.6.0)">Physical Resistance</label>
-      <span class="res-total">{{resistance.physicalTotal}}</span>
+      <span class="res-total" data-var="resistance.physicalTotal">{{resistance.physicalTotal}}</span>
       <span class="res-from" title="{{resistance.physicalFromLabel}}">{{resistance.physicalFromLabel}}</span>
     </div>
     <div class="res-field">
       <label title="Covers Wit and Presence (PHB 6.6.0)">Mental Resistance</label>
-      <span class="res-total">{{resistance.mentalTotal}}</span>
+      <span class="res-total" data-var="resistance.mentalTotal">{{resistance.mentalTotal}}</span>
       <span class="res-from" title="{{resistance.mentalFromLabel}}">{{resistance.mentalFromLabel}}</span>
     </div>
   </div>
