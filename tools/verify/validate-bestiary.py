@@ -78,8 +78,8 @@ for path in sorted(p for d in CREATURES.split(os.pathsep) for p in glob.glob(os.
     if abs(health - T["health"]) > STEP:
         bad.append(f"Total Potential {health} is more than one step from {T['health']} (4.2.0)")
     train = [int(x) for x in re.findall(r"\+(\d+)", (re.search(r"\*\*Training\*\*([^\n]*)", s) or [0, ""])[1])]
-    if any(x > T["train"] for x in train):
-        bad.append(f"Training {sorted(set(train))} is past the tier's +{T['train']} (9.4.0)")
+    if any(x > max(4, T["train"]) for x in train):
+        bad.append(f"Training {sorted(set(train))} is past +{max(4, T['train'])} (9.4.0)")
     res = {k: int(v) for k, v in re.findall(r"(physical|mental) ([+-]\d+)", (re.search(r"\*\*Resistance\*\*([^·\n]*)", s) or [0, ""])[1])}
     for k, v in res.items():
         if abs(v) > T["cap"]:

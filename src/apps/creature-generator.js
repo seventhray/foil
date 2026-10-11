@@ -19,6 +19,9 @@ const cap = t => t.replace(/^./, c => c.toUpperCase());
 const plain = doc => { const o = doc.toObject(); delete o._id; return o; };
 const sameTypes = (a, b) => a.length === b.length && a.every(t => b.includes(t));
 
+/** Every creature can buy Training up to +4 from its Allowance; a tier whose own Training is higher keeps it (GMG 9.4.0). */
+const TRAINING_CAP = 4;
+
 /** A Technique's effect, Requires line, description, and the glossary entries for the terms in its effect. */
 function techniqueInfo(d) {
   const plain = v => String(v ?? "").replace(/<[^>]*>/g, "").trim();
@@ -75,6 +78,7 @@ export class FoilCreatureGenerator extends HandlebarsApplicationMixin(Applicatio
   async _prepareContext() {
     const s = this.state;
     const n = creatureNumbers(this._threat());
+    const trainCap = Math.max(TRAINING_CAP, n.training);
     const fromScores = s.source === "d20" && !s.manual;
     const scores = abilitySteps(s.abilities);
     if (fromScores) s.steps = { ...scores.steps };
@@ -126,14 +130,14 @@ export class FoilCreatureGenerator extends HandlebarsApplicationMixin(Applicatio
         isRes: f.name === "Specialized Resistance", familyScope: s.feats[`${f.name}:scope`] === "family",
         qty, qtyChoices: Array.from({ length: max }, (_, v) => ({ value: v + 1, label: String(v + 1), selected: v + 1 === qty })) };
     });
-    const traitRows = TRAITS.map(t => ({ name: t.name, effect: lookup(t.name)?.text ?? "", xp: t.xp, checked: s.traits.includes(t.name), over: t.xp > n.ceiling }));
+    const traitRows = TRAITS.map(t => ({ name: t.name, effect: t.effect || lookup(t.name)?.text || "", xp: t.xp, checked: s.traits.includes(t.name), over: t.xp > n.ceiling }));
     const trainRows = s.train.map((t, i) => {
-      const level = t.skill ? Math.min(Number(t.level ?? n.training) || 0, n.training) : 0;
+      const level = t.skill ? Math.min(Number(t.level ?? Math.max(1, n.training)) || 0, trainCap) : 0;
       let cost = 0;
       for (let h = 0; h < level; h++) cost += trainingCost(h);
       return { idx: i, cost, level,
         skillChoices: [{ value: "", label: "None", selected: !t.skill }, ...SKILL_KEYS.map(k => ({ value: k, label: SKILL_LABEL[k], selected: k === t.skill }))],
-        levelChoices: Array.from({ length: n.training }, (_, v) => ({ value: v + 1, label: `+${v + 1}`, selected: v + 1 === level })) };
+        levelChoices: Array.from({ length: trainCap }, (_, v) => ({ value: v + 1, label: `+${v + 1}`, selected: v + 1 === level })) };
     });
     const spentAllowance = trainRows.reduce((a, t) => a + t.cost, 0) + techniques.filter(t => t.checked).reduce((a, t) => a + t.xp, 0)
       + featRows.reduce((a, f) => a + f.cost, 0) + traitRows.filter(t => t.checked).reduce((a, t) => a + t.xp, 0);
@@ -170,6 +174,7 @@ export class FoilCreatureGenerator extends HandlebarsApplicationMixin(Applicatio
       refund: refund,
       slots: slots,
       techniques: techniques,
+      trainCap,
       featRows: featRows.filter(f => f.qty > 0), featOptions: featRows.filter(f => !f.qty),
       traitRows: traitRows.filter(t => t.checked), traitOptions: traitRows.filter(t => !t.checked),
       allowanceSpent: spentAllowance,
@@ -250,12 +255,13 @@ export class FoilCreatureGenerator extends HandlebarsApplicationMixin(Applicatio
   static async _onCreate() {
     const s = this.state;
     const n = creatureNumbers(this._threat());
+    const trainCap = Math.max(TRAINING_CAP, n.training);
     const diff = assignAttributes(n.potential, s.steps);
     const attributes = {};
     for (const k of ATTRIBUTE_KEYS) attributes[k] = { dice: diceFor(diff.potentials[k]).counts };
     const skills = {};
-    for (const t of s.train.filter(x => x.skill)) skills[t.skill] = { training: Math.min(Number(t.level ?? n.training), n.training) };
-    const notes = `<p>Threat ${n.threat}, Tier ${n.tier}. Allowance ${n.allowance} XP, Ceiling ${n.ceiling} XP, Training up to +${n.training}, `
+    for (const t of s.train.filter(x => x.skill)) skills[t.skill] = { training: Math.min(Number(t.level ?? Math.max(1, n.training)), trainCap) };
+    const notes = `<p>Threat ${n.threat}, Tier ${n.tier}. Allowance ${n.allowance} XP, Ceiling ${n.ceiling} XP, Training up to +${trainCap}, `
       + `Resistance budget ${n.resistanceBudget} (cap +${n.resistanceCap}). Spend the Allowance on Training, Feats and Techniques (GMG 9.4.0 to 9.7.0).</p>`;
     const packs = this._cache ?? await loadPacks();
     const items = [];

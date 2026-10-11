@@ -357,6 +357,15 @@ export const NATURAL_WEAPONS = [
   "range": "Touching"
  },
  {
+  "name": "Boulder Throw",
+  "group": "ranged",
+  "types": [
+   "thrown"
+  ],
+  "pick": false,
+  "range": "Short to Mid"
+ },
+ {
   "name": "Bone-Trumpet",
   "group": "sonic",
   "types": [
@@ -570,62 +579,77 @@ export const MONSTER_FEATS = [
 export const TRAITS = [
  {
   "name": "Fly",
-  "xp": 8
+  "xp": 8,
+  "effect": "Move through open air, ignoring ground-based terrain and any Grappling or Move Effect that requires solid footing beneath the target, for the duration of Upkeep"
  },
  {
   "name": "Swim",
-  "xp": 8
+  "xp": 8,
+  "effect": "Moves through water at full speed."
  },
  {
   "name": "Amphibious",
-  "xp": 12
+  "xp": 12,
+  "effect": "Moves through water at full speed, as Swim does, and breathes water."
  },
  {
   "name": "Burrow",
-  "xp": 8
+  "xp": 8,
+  "effect": "Move through loose earth as though it were open ground, for the duration of Upkeep"
  },
  {
   "name": "Climb",
-  "xp": 8
+  "xp": 8,
+  "effect": "Move along vertical surfaces at full speed without a roll, for the duration of Upkeep"
  },
  {
   "name": "Incorporeal Movement",
-  "xp": 8
+  "xp": 8,
+  "effect": "Move through walls, doors, and other solid barriers as though they weren't there, for the duration of Upkeep"
  },
  {
   "name": "Darkvision",
-  "xp": 8
+  "xp": 8,
+  "effect": "See in darkness as though it were lit, as long as some light reaches it."
  },
  {
   "name": "Tremorsense",
-  "xp": 8
+  "xp": 8,
+  "effect": "Sense the exact position of anything touching the ground or a connected surface within Close range, even unseen."
  },
  {
   "name": "Blindsight, Echolocation, or Thermal Sight",
-  "xp": 8
+  "xp": 8,
+  "effect": "Perceive without sight within Near range. Blinded, magical darkness, and sight-based Illusion don't stop you from targeting or Opposing normally."
  },
  {
   "name": "Keen Scent",
-  "xp": 8
+  "xp": 8,
+  "effect": "Track a creature's trail by scent alone. Within Close range, sense a hidden or invisible creature without a roll."
  },
  {
   "name": "Web Sense",
-  "xp": 8
+  "xp": 8,
+  "effect": "Sense anything touching a Web this creature has placed, anywhere on it, without a roll."
  },
  {
   "name": "Unstoppable",
-  "xp": 24
+  "xp": 24,
+  "effect": "Immune to Grappled, Restrained, and Prone."
  },
  {
   "name": "True Sight",
-  "xp": 16
+  "xp": 16,
+  "effect": "See through Illusion automatically. Perceive incorporeal or invisible creatures within Near range as plainly as anything else."
  },
  {
   "name": "Regeneration",
-  "xp": 32
+  "xp": 32,
+  "effect": "Every 10 rounds of a conflict, recover 1d4 Stress from that Attribute, unless a GM-stated counter-condition (a damage type or Instrument fitting your story, fire for a troll, silver for some undead) applied since the last recovery."
  },
  {
   "name": "Rejuvenation",
-  "xp": 48
+  "xp": 48,
+  "effect": "If you would be Destroyed, every Attribute's Stress clears instead after a GM-set span (typically 1d10 days) unless a stated counter-condition (a phylactery destroyed, a body burned and scattered, whatever anchors your return) is met first."
  }
 ];

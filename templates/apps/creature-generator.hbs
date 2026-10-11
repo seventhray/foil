@@ -56,7 +56,7 @@
       <a class="inline-add" data-action="addVuln" data-tooltip="Vulnerable N is -N Resistance against a Broad kind, a Family, a damage type, or an Instrument Type. Each point refunds Resistance budget."><i class="fas fa-plus"></i> Add a Vulnerable</a>
     </fieldset>
     <fieldset>
-      <legend data-tooltip="Training is a Skill bonus. Each Skill can have up to the tier's Training. Each +1 costs Allowance XP at the PHB advancement price (8, then 10, 12, and so on).">Training <em>(up to +{{n.training}} a Skill, bought from the Allowance)</em></legend>
+      <legend data-tooltip="Training is a Skill bonus. Each Skill can have up to +4, or the tier's Training if that is higher. Each +1 costs Allowance XP at the PHB advancement price (8, then 10, 12, and so on).">Training <em>(up to +{{n.training}} a Skill, bought from the Allowance)</em></legend>
       {{#each trainRows}}
         <div class="gen-slot">
           <select name="train.{{this.idx}}.skill">{{#each this.skillChoices}}<option value="{{this.value}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>
@@ -142,7 +142,7 @@
   <fieldset>
     <legend data-tooltip="Allowance is what the creature can spend on Training, Feats, and Techniques together. Ceiling caps any single one.">Result</legend>
     <p>Threat <strong>{{n.threat}}</strong> &middot; Tier <strong>{{n.tier}}</strong> &middot; Baseline Potential <strong>{{n.potential}}</strong> &middot; Total Potential <strong>{{n.totalPotential}}</strong></p>
-    <p>Allowance <strong>{{n.allowance}} XP</strong> (spent {{allowanceSpent}}, left {{allowanceLeft}}) &middot; Ceiling <strong>{{n.ceiling}} XP</strong> &middot; Training <strong>+{{n.training}}</strong></p>
+    <p>Allowance <strong>{{n.allowance}} XP</strong> (spent {{allowanceSpent}}, left {{allowanceLeft}}) &middot; Ceiling <strong>{{n.ceiling}} XP</strong> &middot; Training <strong>up to +{{trainCap}}</strong></p>
     {{#each warnings}}<p class="type-warning-banner">{{this}}</p>{{/each}}
   </fieldset>
 
