@@ -125,7 +125,7 @@ export class FoilCreatureGenerator extends HandlebarsApplicationMixin(Applicatio
       const unit = f.name === "Specialized Resistance" && s.feats[`${f.name}:scope`] === "family" ? 8 : f.xp;
       return { name: f.name, requires: f.requires, effect: f.effect, xpText: f.xpText, cost: unit * qty, over: unit * qty > n.ceiling,
         isRes: f.name === "Specialized Resistance", familyScope: s.feats[`${f.name}:scope`] === "family",
-        qtyChoices: Array.from({ length: max + 1 }, (_, v) => ({ value: v, label: String(v), selected: v === qty })) };
+        qty, qtyChoices: Array.from({ length: max }, (_, v) => ({ value: v + 1, label: String(v + 1), selected: v + 1 === qty })) };
     });
     const traitRows = TRAITS.map(t => ({ name: t.name, effect: lookup(t.name)?.text ?? "", xp: t.xp, checked: s.traits.includes(t.name), over: t.xp > n.ceiling }));
     const trainRows = s.train.map((t, i) => {
@@ -171,8 +171,8 @@ export class FoilCreatureGenerator extends HandlebarsApplicationMixin(Applicatio
       refund: refund,
       slots: slots,
       techniques: techniques,
-      featRows: featRows,
-      traitRows: traitRows,
+      featRows: featRows.filter(f => f.qty > 0), featOptions: featRows.filter(f => !f.qty),
+      traitRows: traitRows.filter(t => t.checked), traitOptions: traitRows.filter(t => !t.checked),
       allowanceSpent: spentAllowance,
       allowanceLeft: n.allowance - spentAllowance
     };
@@ -181,6 +181,14 @@ export class FoilCreatureGenerator extends HandlebarsApplicationMixin(Applicatio
   _onRender() {
     if (this._bound) return;
     this._bound = true;
+    this.element.addEventListener("click", ev => {
+      const btn = ev.target.closest("[data-remove]");
+      if (!btn) return;
+      const [kind, name] = [btn.dataset.remove, btn.dataset.name];
+      if (kind === "feat") this.state.feats[name] = 0;
+      else this.state.traits = this.state.traits.filter(x => x !== name);
+      this.render();
+    });
     this.element.addEventListener("change", ev => {
       const el = ev.target;
       const s = this.state;
@@ -216,7 +224,9 @@ export class FoilCreatureGenerator extends HandlebarsApplicationMixin(Applicatio
           } else if (el.name?.startsWith("tech.")) {
             const name = el.name.slice(5);
             s.techniques = el.checked ? [...new Set([...s.techniques, name])] : s.techniques.filter(x => x !== name);
-          } else if (el.name?.startsWith("feat.")) {
+          } else if (el.name === "addfeat") { if (v) s.feats[v] = 1; }
+          else if (el.name === "addtrait") { if (v) s.traits = [...new Set([...s.traits, v])]; }
+          else if (el.name?.startsWith("feat.")) {
             const name = el.name.slice(5);
             if (name.endsWith(":scope")) s.feats[name] = v; else s.feats[name] = Number(v);
           } else if (el.name?.startsWith("trait.")) {

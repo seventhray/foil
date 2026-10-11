@@ -923,6 +923,8 @@
 .creature-generator .gen-slot { display: flex; flex-wrap: wrap; gap: 4px; margin: 2px 0; }
 .creature-generator .gen-slot input[type="text"] { flex: 1 1 100%; width: auto; }
 .creature-generator .gen-slot select { flex: 1 1 0; min-width: 0; }
+.creature-generator .gen-add { margin-bottom: 4px; }
+.creature-generator .gen-entry a[data-remove] { cursor: pointer; color: var(--bad); margin-left: 6px; }
 .creature-generator .gen-list { display: flex; flex-direction: column; max-height: 340px; overflow-y: auto; border: 1px solid var(--line); border-radius: 3px; }
 .creature-generator .gen-entry { display: grid; grid-template-columns: 52px 1fr auto; gap: 1px 8px; align-items: baseline; padding: 4px 6px; border-bottom: 1px solid var(--line); }
 .creature-generator .gen-entry:last-child { border-bottom: 0; }

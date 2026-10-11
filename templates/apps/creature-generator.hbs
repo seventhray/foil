@@ -106,29 +106,35 @@
 
   <fieldset>
     <legend data-tooltip="Feats made for creatures, bought from the Allowance. Each has a quantity, and none can cost more than the Ceiling (GMG 9.5.1).">Monster Feats <em>(GMG 9.5.1)</em></legend>
+    <select name="addfeat" class="gen-add"><option value="">Add a Monster Feat…</option>{{#each featOptions}}<option value="{{this.name}}">{{this.name}} ({{this.xpText}} XP)</option>{{/each}}</select>
+    {{#if featRows.length}}
     <div class="gen-list">
       {{#each featRows}}
         <div class="gen-entry {{#if this.over}}warn{{/if}}">
           <select name="feat.{{this.name}}" class="mini-num">{{#each this.qtyChoices}}<option value="{{this.value}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>
           <span class="gen-name">{{this.name}}</span>
-          <span class="abbr">{{this.xpText}}{{#if this.cost}} &middot; {{this.cost}} XP{{/if}}</span>
+          <span class="abbr">{{this.cost}} XP <a data-remove="feat" data-name="{{this.name}}" title="Remove">&times;</a></span>
           <span class="gen-desc">{{this.effect}} <em>Requires {{this.requires}}.</em></span>
           {{#if this.isRes}}<select name="feat.{{this.name}}:scope" class="gen-opt"><option value="type">Damage type (4 per point)</option><option value="family" {{#if this.familyScope}}selected{{/if}}>Family (8 per point)</option></select>{{/if}}
         </div>
+    {{/if}}
       {{/each}}
     </div>
   </fieldset>
 
   <fieldset>
     <legend data-tooltip="Movement and senses a creature can buy (Fly, Swim, and so on), at the XP shown (GMG 9.5.0).">Traits <em>(GMG 9.5.0)</em></legend>
+    <select name="addtrait" class="gen-add"><option value="">Add a Trait…</option>{{#each traitOptions}}<option value="{{this.name}}">{{this.name}} ({{this.xp}} XP)</option>{{/each}}</select>
+    {{#if traitRows.length}}
     <div class="gen-list">
       {{#each traitRows}}
-        <label class="gen-entry {{#if this.over}}warn{{/if}}">
-          <input type="checkbox" name="trait.{{this.name}}" {{#if this.checked}}checked{{/if}} />
+        <div class="gen-entry {{#if this.over}}warn{{/if}}">
+          <span></span>
           <span class="gen-name">{{this.name}}</span>
-          <span class="abbr">{{this.xp}} XP</span>
+          <span class="abbr">{{this.xp}} XP <a data-remove="trait" data-name="{{this.name}}" title="Remove">&times;</a></span>
           {{#if this.effect}}<span class="gen-desc">{{this.effect}}</span>{{/if}}
-        </label>
+        </div>
+    {{/if}}
       {{/each}}
     </div>
   </fieldset>
