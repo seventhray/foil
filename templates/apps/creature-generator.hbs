@@ -78,6 +78,20 @@
   </fieldset>
 
   <fieldset>
+    <legend data-tooltip="Body, Voice, and Mind are the innate Instruments every character has. A creature can have any of them, turned on or off at no cost (GMG 9.6.0).">Innate Instruments <em>(free, on or off; GMG 9.6.0)</em></legend>
+    <div class="gen-list">
+      {{#each innateRows}}
+        <label class="gen-entry">
+          <input type="checkbox" name="innate.{{this.name}}" {{#if this.checked}}checked{{/if}} />
+          <span class="gen-name">{{this.name}}</span>
+          <span class="abbr">{{this.primary}} &middot; {{this.range}}</span>
+          <span class="gen-desc">{{this.types}}. {{this.kit}}</span>
+        </label>
+      {{/each}}
+    </div>
+  </fieldset>
+
+  <fieldset>
     <legend data-tooltip="The creature's Instruments are free. Natural Weapons and Instruments set which Techniques it can carry and what its attacks look like (GMG 9.6.0).">Instruments <em>(pick 2 or 3, free; GMG 9.6.0)</em></legend>
     {{#each slots}}
       <div class="gen-slot">

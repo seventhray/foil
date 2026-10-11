@@ -19,6 +19,9 @@ const cap = t => t.replace(/^./, c => c.toUpperCase());
 const plain = doc => { const o = doc.toObject(); delete o._id; return o; };
 const sameTypes = (a, b) => a.length === b.length && a.every(t => b.includes(t));
 
+/** Every creature has the three innate Instruments of a character, and the GM turns each on or off free (GMG 9.6.0). */
+const INNATE_NAMES = ["Body", "Voice", "Mind"];
+
 /** Every creature can buy Training up to +4 from its Allowance; a tier whose own Training is higher keeps it (GMG 9.4.0). */
 const TRAINING_CAP = 4;
 
@@ -53,7 +56,7 @@ export class FoilCreatureGenerator extends HandlebarsApplicationMixin(Applicatio
     behaviors: [{ trait: "", param: "" }, { trait: "", param: "" }, { trait: "", param: "" }],
     abilities: { str: 10, dex: 10, con: 10, int: 10, wis: 10, cha: 10 }, ac: 10, vuln: [],
     instruments: [0, 1, 2].map(() => ({ pick: "", type: "", damage: "", primary: "" })),
-    techniques: [], feats: {}, traits: []
+    techniques: [], feats: {}, traits: [], innate: { Body: false, Voice: false, Mind: false }
   };
   _cache = null;
 
@@ -116,7 +119,8 @@ export class FoilCreatureGenerator extends HandlebarsApplicationMixin(Applicatio
         types
       };
     });
-    const heldTypes = new Set(slots.flatMap(x => x.types));
+    const innateDocs = packs.instruments.filter(d => d.system.innate && INNATE_NAMES.includes(d.name));
+    const heldTypes = new Set([...slots.flatMap(x => x.types), ...innateDocs.filter(d => s.innate[d.name]).flatMap(d => d.system.types ?? [])]);
     const techniques = packs.techniques.filter(d => !d.system.innate).map(d => {
       const req = d.system.requires ?? [];
       const usable = !req.length || req.some(t => heldTypes.has(t));
@@ -175,6 +179,7 @@ export class FoilCreatureGenerator extends HandlebarsApplicationMixin(Applicatio
       slots: slots,
       techniques: techniques,
       trainCap,
+      innateRows: INNATE_NAMES.map(name => { const d = innateDocs.find(x => x.name === name); return { name, checked: !!s.innate[name], types: (d?.system.types ?? []).map(cap).join(", "), primary: d ? cap(d.system.primaryAttribute) : "", range: d?.system.range ?? "", kit: (d?.system.kit ?? []).map(k => `${k.name}: ${k.effect}`).join(" ") }; }),
       featRows: featRows.filter(f => f.qty > 0), featOptions: featRows.filter(f => !f.qty),
       traitRows: traitRows.filter(t => t.checked), traitOptions: traitRows.filter(t => !t.checked),
       allowanceSpent: spentAllowance,
@@ -225,6 +230,7 @@ export class FoilCreatureGenerator extends HandlebarsApplicationMixin(Applicatio
             const slot = s.instruments[Number(i)];
             slot[field] = v;
             if (field === "pick") { slot.type = ""; slot.damage = ""; slot.primary = ""; }
+          } else if (el.name?.startsWith("innate.")) { s.innate[el.name.slice(7)] = el.checked;
           } else if (el.name?.startsWith("tech.")) {
             const name = el.name.slice(5);
             s.techniques = el.checked ? [...new Set([...s.techniques, name])] : s.techniques.filter(x => x !== name);
@@ -265,6 +271,10 @@ export class FoilCreatureGenerator extends HandlebarsApplicationMixin(Applicatio
       + `Resistance budget ${n.resistanceBudget} (cap +${n.resistanceCap}). Spend the Allowance on Training, Feats and Techniques (GMG 9.4.0 to 9.7.0).</p>`;
     const packs = this._cache ?? await loadPacks();
     const items = [];
+    for (const name of INNATE_NAMES.filter(x => s.innate[x])) {
+      const doc = packs.instruments.find(d => d.system.innate && d.name === name);
+      if (doc) items.push(plain(doc));
+    }
     for (const slot of s.instruments.filter(x => x.pick)) {
       if (slot.pick.startsWith("ph:")) {
         const doc = packs.instruments.find(d => d.name === slot.pick.slice(3));
