@@ -923,6 +923,15 @@
 .creature-generator .gen-slot { display: flex; flex-wrap: wrap; gap: 4px; margin: 2px 0; }
 .creature-generator .gen-slot input[type="text"] { flex: 1 1 100%; width: auto; }
 .creature-generator .gen-slot select { flex: 1 1 0; min-width: 0; }
+.creature-generator .gen-list { display: flex; flex-direction: column; max-height: 340px; overflow-y: auto; border: 1px solid var(--line); border-radius: 3px; }
+.creature-generator .gen-entry { display: grid; grid-template-columns: 52px 1fr auto; gap: 1px 8px; align-items: baseline; padding: 4px 6px; border-bottom: 1px solid var(--line); }
+.creature-generator .gen-entry:last-child { border-bottom: 0; }
+.creature-generator .gen-entry input[type="checkbox"] { justify-self: center; }
+.creature-generator .gen-entry .gen-name { font-weight: bold; }
+.creature-generator .gen-entry .gen-desc { grid-column: 2 / -1; font-size: 0.82em; color: var(--ink-soft); }
+.creature-generator .gen-entry .gen-term { display: block; margin-top: 1px; }
+.creature-generator .gen-entry .gen-opt { grid-column: 2 / -1; }
+.creature-generator .gen-entry.warn .gen-name { color: var(--bad); }
 .creature-generator .gen-checks { display: grid; grid-template-columns: 1fr 1fr; gap: 1px 10px; }
 .creature-generator .gen-feat { display: flex; gap: 6px; align-items: center; margin: 1px 0; }
 .creature-generator .gen-feat .mini-num { width: 48px; flex: 0 0 48px; }

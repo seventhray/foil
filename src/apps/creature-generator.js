@@ -19,14 +19,13 @@ const cap = t => t.replace(/^./, c => c.toUpperCase());
 const plain = doc => { const o = doc.toObject(); delete o._id; return o; };
 const sameTypes = (a, b) => a.length === b.length && a.every(t => b.includes(t));
 
-/** What a Technique does, its Requires line, and its description, as plain text for a hover. */
-function techniqueHelp(d) {
+/** A Technique's effect, Requires line, description, and the glossary entries for the terms in its effect. */
+function techniqueInfo(d) {
   const plain = v => String(v ?? "").replace(/<[^>]*>/g, "").trim();
   const sys = d.system;
   const effect = plain(sys.effectText || sys.effect);
-  const requires = (sys.requires ?? []).length ? `Requires ${sys.requires.join(" or ")}.` : "";
-  const terms = termsIn(effect).slice(0, 4).map(t => `${t.name}: ${t.text}`);
-  return [effect, requires, plain(sys.description), ...terms].filter(Boolean).join(" ");
+  const requires = (sys.requires ?? []).map(r => r.charAt(0).toUpperCase() + r.slice(1)).join(" or ");
+  return { effect, requires, description: plain(sys.description), terms: termsIn(effect).slice(0, 4).map(t => ({ name: t.name, text: t.text })), strain: sys.strain ?? 0 };
 }
 
 /** Load the instrument and Technique compendiums once. */
@@ -118,7 +117,7 @@ export class FoilCreatureGenerator extends HandlebarsApplicationMixin(Applicatio
     const techniques = packs.techniques.filter(d => !d.system.innate).map(d => {
       const req = d.system.requires ?? [];
       const usable = !req.length || req.some(t => heldTypes.has(t));
-      return { name: d.name, help: techniqueHelp(d), xp: d.system.xpCost, usable, over: d.system.xpCost > n.ceiling, checked: s.techniques.includes(d.name) };
+      return { name: d.name, ...techniqueInfo(d), xp: d.system.xpCost, usable, over: d.system.xpCost > n.ceiling, checked: s.techniques.includes(d.name) };
     }).filter(t => t.usable || t.checked).sort((a, b) => a.xp - b.xp || a.name.localeCompare(b.name));
     const featRows = MONSTER_FEATS.map(f => {
       const qty = Number(s.feats[f.name] ?? 0);
@@ -128,7 +127,7 @@ export class FoilCreatureGenerator extends HandlebarsApplicationMixin(Applicatio
         isRes: f.name === "Specialized Resistance", familyScope: s.feats[`${f.name}:scope`] === "family",
         qtyChoices: Array.from({ length: max + 1 }, (_, v) => ({ value: v, label: String(v), selected: v === qty })) };
     });
-    const traitRows = TRAITS.map(t => ({ name: t.name, help: lookup(t.name)?.text ?? "", xp: t.xp, checked: s.traits.includes(t.name), over: t.xp > n.ceiling }));
+    const traitRows = TRAITS.map(t => ({ name: t.name, effect: lookup(t.name)?.text ?? "", xp: t.xp, checked: s.traits.includes(t.name), over: t.xp > n.ceiling }));
     const trainRows = s.train.map((t, i) => {
       const level = t.skill ? Math.min(Number(t.level ?? n.training) || 0, n.training) : 0;
       let cost = 0;

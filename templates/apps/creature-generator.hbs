@@ -91,30 +91,44 @@
 
   <fieldset>
     <legend data-tooltip="Techniques the creature can use. Built-in ones are free; others cost XP from the Allowance, and none can cost more than the Ceiling (GMG 9.7.0).">Techniques <em>(the built-in ones are free; others cost from the Allowance, GMG 9.7.0)</em></legend>
-    <div class="gen-checks">
+    <div class="gen-list">
       {{#each techniques}}
-        <label class="{{#if this.over}}warn{{/if}}" data-tooltip="{{this.help}}"><input type="checkbox" name="tech.{{this.name}}" {{#if this.checked}}checked{{/if}} /> {{this.name}} <span class="abbr">{{this.xp}} XP</span></label>
+        <label class="gen-entry {{#if this.over}}warn{{/if}}">
+          <input type="checkbox" name="tech.{{this.name}}" {{#if this.checked}}checked{{/if}} />
+          <span class="gen-name">{{this.name}}</span>
+          <span class="abbr">{{this.xp}} XP{{#if this.strain}} &middot; Strain {{this.strain}}{{/if}}</span>
+          <span class="gen-desc">{{this.effect}}{{#if this.requires}} <em>Requires {{this.requires}}.</em>{{/if}}{{#if this.description}} {{this.description}}{{/if}}
+            {{#each this.terms}}<span class="gen-term"><strong>{{this.name}}:</strong> {{this.text}}</span>{{/each}}</span>
+        </label>
       {{else}}<p class="hint">Pick Instruments to list the Techniques they can carry.</p>{{/each}}
     </div>
   </fieldset>
 
   <fieldset>
     <legend data-tooltip="Feats made for creatures, bought from the Allowance. Each has a quantity, and none can cost more than the Ceiling (GMG 9.5.1).">Monster Feats <em>(GMG 9.5.1)</em></legend>
-    {{#each featRows}}
-      <div class="gen-feat {{#if this.over}}warn{{/if}}" data-tooltip="{{this.effect}}">
-        <select name="feat.{{this.name}}" class="mini-num">{{#each this.qtyChoices}}<option value="{{this.value}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>
-        <span>{{this.name}}</span>
-        {{#if this.isRes}}<select name="feat.{{this.name}}:scope"><option value="type">Damage type (4 per point)</option><option value="family" {{#if this.familyScope}}selected{{/if}}>Family (8 per point)</option></select>{{/if}}
-        <span class="abbr">{{this.xpText}}{{#if this.cost}} &middot; {{this.cost}} XP{{/if}}</span>
-      </div>
-    {{/each}}
+    <div class="gen-list">
+      {{#each featRows}}
+        <div class="gen-entry {{#if this.over}}warn{{/if}}">
+          <select name="feat.{{this.name}}" class="mini-num">{{#each this.qtyChoices}}<option value="{{this.value}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>
+          <span class="gen-name">{{this.name}}</span>
+          <span class="abbr">{{this.xpText}}{{#if this.cost}} &middot; {{this.cost}} XP{{/if}}</span>
+          <span class="gen-desc">{{this.effect}} <em>Requires {{this.requires}}.</em></span>
+          {{#if this.isRes}}<select name="feat.{{this.name}}:scope" class="gen-opt"><option value="type">Damage type (4 per point)</option><option value="family" {{#if this.familyScope}}selected{{/if}}>Family (8 per point)</option></select>{{/if}}
+        </div>
+      {{/each}}
+    </div>
   </fieldset>
 
   <fieldset>
     <legend data-tooltip="Movement and senses a creature can buy (Fly, Swim, and so on), at the XP shown (GMG 9.5.0).">Traits <em>(GMG 9.5.0)</em></legend>
-    <div class="gen-checks">
+    <div class="gen-list">
       {{#each traitRows}}
-        <label class="{{#if this.over}}warn{{/if}}" data-tooltip="{{this.help}}"><input type="checkbox" name="trait.{{this.name}}" {{#if this.checked}}checked{{/if}} /> {{this.name}} <span class="abbr">{{this.xp}} XP</span></label>
+        <label class="gen-entry {{#if this.over}}warn{{/if}}">
+          <input type="checkbox" name="trait.{{this.name}}" {{#if this.checked}}checked{{/if}} />
+          <span class="gen-name">{{this.name}}</span>
+          <span class="abbr">{{this.xp}} XP</span>
+          {{#if this.effect}}<span class="gen-desc">{{this.effect}}</span>{{/if}}
+        </label>
       {{/each}}
     </div>
   </fieldset>
