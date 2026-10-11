@@ -106,10 +106,9 @@ for path in sorted(glob.glob(os.path.join(CREATURES, "*.md"))):
             bad.append(f"Feat {base} costs {FEATS[base]} (4.5.1), not {xp}")
         if xp > T["ceil"]:
             bad.append(f"{base} {xp} XP is over the Ceiling {T['ceil']} (4.5.0)")
-    if spent > T["allow"] * 1.1:
-        bad.append(f"spends {spent} of {T['allow']} Allowance, more than a tenth over the target (4.5.0)")
-    if spent < T["allow"] / 2:
-        bad.append(f"spends {spent} of {T['allow']} Allowance, leaving most of it unspent (4.5.0)")
+    # The Allowance is a target: spend it to within 10 percent, no exceptions (GMG 9.5.0).
+    if spent > T["allow"] * 1.1 or spent < T["allow"] * 0.9:
+        bad.append(f"spends {spent} of {T['allow']} Allowance, outside 10 percent of the target (9.5.0)")
     if bad:
         issues.append((int(t), name, bad))
 
