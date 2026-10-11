@@ -23,6 +23,16 @@ export function lookup(term) {
   return GLOSSARY[k] ?? GLOSSARY[ALIASES[k]] ?? null;
 }
 
+/** The glossary entries for the known terms in a text, each once, in order of appearance. */
+export function termsIn(text) {
+  const seen = new Map();
+  for (const m of String(text ?? "").matchAll(PATTERN ?? /$^/g)) {
+    const entry = lookup(m[0]);
+    if (entry && !seen.has(entry.name)) seen.set(entry.name, entry);
+  }
+  return [...seen.values()];
+}
+
 /** Plain text in, HTML out, with each known term wrapped. */
 export function glossarize(text) {
   const src = String(text ?? "");

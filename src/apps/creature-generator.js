@@ -8,7 +8,7 @@
 import { ATTRIBUTE_KEYS, ATTR_LABEL, SKILL_KEYS, SKILL_LABEL, BEHAVIOR_TRAITS, BEHAVIOR_HELP, trainingCost } from "../constants.js";
 import { NATURAL_WEAPONS, MONSTER_FEATS, TRAITS } from "../creature-data.js";
 import { balanceSteps, TIER_THREAT, CR_CHOICES, creatureNumbers, crToThreat, assignAttributes, diceFor, abilitySteps, acToResistance, refundPerPoint, vulnerableRefund } from "../creature-math.js";
-import { lookup } from "../glossary-ui.js";
+import { lookup, termsIn } from "../glossary-ui.js";
 import { SCOPE_GROUPS } from "../resist.js";
 
 const { HandlebarsApplicationMixin, ApplicationV2 } = foundry.applications.api;
@@ -18,6 +18,16 @@ const PRIMARY_BY_GROUP = { melee: "might", grappling: "might", arcane: "wit", so
 const cap = t => t.replace(/^./, c => c.toUpperCase());
 const plain = doc => { const o = doc.toObject(); delete o._id; return o; };
 const sameTypes = (a, b) => a.length === b.length && a.every(t => b.includes(t));
+
+/** What a Technique does, its Requires line, and its description, as plain text for a hover. */
+function techniqueHelp(d) {
+  const plain = v => String(v ?? "").replace(/<[^>]*>/g, "").trim();
+  const sys = d.system;
+  const effect = plain(sys.effectText || sys.effect);
+  const requires = (sys.requires ?? []).length ? `Requires ${sys.requires.join(" or ")}.` : "";
+  const terms = termsIn(effect).slice(0, 4).map(t => `${t.name}: ${t.text}`);
+  return [effect, requires, plain(sys.description), ...terms].filter(Boolean).join(" ");
+}
 
 /** Load the instrument and Technique compendiums once. */
 async function loadPacks() {
@@ -108,7 +118,7 @@ export class FoilCreatureGenerator extends HandlebarsApplicationMixin(Applicatio
     const techniques = packs.techniques.filter(d => !d.system.innate).map(d => {
       const req = d.system.requires ?? [];
       const usable = !req.length || req.some(t => heldTypes.has(t));
-      return { name: d.name, help: String(d.system.effectText || d.system.effect || "").replace(/<[^>]*>/g, ""), xp: d.system.xpCost, usable, over: d.system.xpCost > n.ceiling, checked: s.techniques.includes(d.name) };
+      return { name: d.name, help: techniqueHelp(d), xp: d.system.xpCost, usable, over: d.system.xpCost > n.ceiling, checked: s.techniques.includes(d.name) };
     }).filter(t => t.usable || t.checked).sort((a, b) => a.xp - b.xp || a.name.localeCompare(b.name));
     const featRows = MONSTER_FEATS.map(f => {
       const qty = Number(s.feats[f.name] ?? 0);
