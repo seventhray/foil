@@ -20,7 +20,7 @@
  * @param {string} a.capLabel     how the cap was set, such as "half Might Potential"
  * @param {number} a.mult         the weight's margin multiplier (a.double is the older Heavy flag)
  * @param {"physical"|"mental"} a.kind  the kind of Attribute aimed at
- * @param {number} a.resistance   the target's Resistance of that kind (negative = Vulnerable)
+ * @param {number} a.resistance   the target's Resistance of that kind (negative adds Stress)
  * @param {object|null} a.type    { label, physical, mental, pierce, doubleResistance }
  * @param {number} a.bespoke      the Technique's own bonus
  * @param {number} a.other        any other bonus (a Feat such as Heavy Hand)
@@ -48,7 +48,7 @@ export function stressFor({ attack, oppose, cap, kind = "physical", resistance =
   const doubled = !!type?.doubleResistance && kind === "physical" && effRes > 0;
   if (doubled) effRes *= 2;
   if (res > 0) parts.push(`Resistance ${res}${totalPierce ? `, Pierce ${totalPierce} leaves ${res > totalPierce ? res - totalPierce : 0}` : ""}${doubled ? `, doubled against ${type.label} to ${effRes}` : ""}`);
-  else if (res < 0) parts.push(`Vulnerable ${-res}`);
+  else if (res < 0) parts.push(`Resistance below 0 adds ${-res}`);
   const stress = Math.max(0, capped + typeBonus + Number(bespoke || 0) + Number(other || 0) - effRes);
   return { landed: true, stress, margin, capped, parts };
 }
