@@ -75,7 +75,7 @@ export function bestiaryDocs(lib) {
       if (/innate Instrument/.test(rest)) { const d = inst.get(lc(base)); if (d) items.push(clone(d)); continue; }
       if (/part of its baseline kit|built-in Techniques free|Blocking Instrument/.test(rest)) {
         const phb = inst.get(lc(base));
-        const type = through?.[1] ?? rest.match(/\): (\w+) Instrument/)?.[1] ?? "Blunt";
+        const type = through?.[1] ?? rest.match(/\): (?:(?:Light|Medium|Heavy) )?(\w+) Instrument/)?.[1] ?? "Blunt";
         if (phb && !NATURAL_WEAPONS.some(w => w.name === base)) items.push(clone(phb));
         else { const it = natural(base, type, through?.[2] ?? ""); if (weightWord) { it.system.weight = lc(weightWord); it.system.innate = false; } items.push(it); }
         continue;

@@ -93,7 +93,7 @@
       "img": "icons/svg/claw.svg",
       "system": {
         "types": [
-          "blunt"
+          "pointed"
         ],
         "range": "Touching",
         "weight": "light",
@@ -103,17 +103,17 @@
         "price": 0,
         "kit": [
           {
-            "name": "Bash",
+            "name": "Stab",
             "skill": "prowess",
             "effect": "Deals Stress to Might or Finesse."
           },
           {
-            "name": "Sweep",
+            "name": "Vital Strike",
             "skill": "acuity",
-            "effect": "Applies Prone."
+            "effect": "Applies Weakened [Finesse]."
           },
           {
-            "name": "Feint Jab",
+            "name": "Backstab",
             "skill": "guile",
             "effect": "Applies Reeling."
           }

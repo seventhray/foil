@@ -94,7 +94,50 @@
   },
   "items": [
     {
-      "_id": "DI1utLlMlYdHSaBr",
+      "_id": "vAaPDkAhYK5wPyig",
+      "name": "Tentacles",
+      "type": "instrument",
+      "img": "icons/svg/claw.svg",
+      "system": {
+        "types": [
+          "grappling"
+        ],
+        "range": "Near",
+        "weight": "light",
+        "innate": true,
+        "primaryAttribute": "might",
+        "category": "melee",
+        "price": 0,
+        "kit": [
+          {
+            "name": "Snare",
+            "skill": "prowess",
+            "effect": "Applies Grappled."
+          },
+          {
+            "name": "Tumble",
+            "skill": "acuity",
+            "effect": "Applies Prone."
+          },
+          {
+            "name": "Tangle",
+            "skill": "guile",
+            "effect": "Applies Restrained."
+          }
+        ],
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!z6xyJtZwwGsGyYFf.vAaPDkAhYK5wPyig"
+    },
+    {
+      "_id": "H6TmchjwLxvx1naI",
       "name": "Bite",
       "type": "instrument",
       "img": "icons/svg/claw.svg",
@@ -129,144 +172,15 @@
       },
       "effects": [],
       "folder": null,
-      "sort": 100000,
-      "ownership": {
-        "default": 0
-      },
-      "flags": {},
-      "_key": "!actors.items!z6xyJtZwwGsGyYFf.DI1utLlMlYdHSaBr"
-    },
-    {
-      "_id": "AQQKrPzAkzc8yZHz",
-      "name": "Tendrils",
-      "type": "instrument",
-      "img": "icons/svg/claw.svg",
-      "system": {
-        "types": [
-          "grappling"
-        ],
-        "range": "Close",
-        "weight": "light",
-        "innate": true,
-        "primaryAttribute": "might",
-        "category": "melee",
-        "price": 0,
-        "kit": [
-          {
-            "name": "Snare",
-            "skill": "prowess",
-            "effect": "Applies Grappled."
-          },
-          {
-            "name": "Tumble",
-            "skill": "acuity",
-            "effect": "Applies Prone."
-          },
-          {
-            "name": "Tangle",
-            "skill": "guile",
-            "effect": "Applies Restrained."
-          }
-        ],
-        "description": ""
-      },
-      "effects": [],
-      "folder": null,
       "sort": 200000,
       "ownership": {
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!z6xyJtZwwGsGyYFf.AQQKrPzAkzc8yZHz"
+      "_key": "!actors.items!z6xyJtZwwGsGyYFf.H6TmchjwLxvx1naI"
     },
     {
-      "_id": "rumcHMt2aJp71tKd",
-      "name": "Tentacles",
-      "type": "instrument",
-      "img": "icons/svg/claw.svg",
-      "system": {
-        "types": [
-          "blunt"
-        ],
-        "range": "Near",
-        "weight": "light",
-        "innate": true,
-        "primaryAttribute": "might",
-        "category": "melee",
-        "price": 0,
-        "kit": [
-          {
-            "name": "Bash",
-            "skill": "prowess",
-            "effect": "Deals Stress to Might or Finesse."
-          },
-          {
-            "name": "Sweep",
-            "skill": "acuity",
-            "effect": "Applies Prone."
-          },
-          {
-            "name": "Feint Jab",
-            "skill": "guile",
-            "effect": "Applies Reeling."
-          }
-        ],
-        "description": ""
-      },
-      "effects": [],
-      "folder": null,
-      "sort": 300000,
-      "ownership": {
-        "default": 0
-      },
-      "flags": {},
-      "_key": "!actors.items!z6xyJtZwwGsGyYFf.rumcHMt2aJp71tKd"
-    },
-    {
-      "_id": "qcpn8ZPuI943NioH",
-      "name": "Bite",
-      "type": "instrument",
-      "img": "icons/svg/claw.svg",
-      "system": {
-        "types": [
-          "blunt"
-        ],
-        "range": "Touching",
-        "weight": "light",
-        "innate": true,
-        "primaryAttribute": "might",
-        "category": "melee",
-        "price": 0,
-        "kit": [
-          {
-            "name": "Bash",
-            "skill": "prowess",
-            "effect": "Deals Stress to Might or Finesse."
-          },
-          {
-            "name": "Sweep",
-            "skill": "acuity",
-            "effect": "Applies Prone."
-          },
-          {
-            "name": "Feint Jab",
-            "skill": "guile",
-            "effect": "Applies Reeling."
-          }
-        ],
-        "description": ""
-      },
-      "effects": [],
-      "folder": null,
-      "sort": 400000,
-      "ownership": {
-        "default": 0
-      },
-      "flags": {},
-      "_key": "!actors.items!z6xyJtZwwGsGyYFf.qcpn8ZPuI943NioH"
-    },
-    {
-      "_id": "QGpniHUETtCnS6yS",
+      "_id": "efkE6itHLbY7Vo3X",
       "name": "Reel In",
       "type": "technique",
       "img": "icons/svg/aura.svg",
@@ -302,15 +216,15 @@
       },
       "effects": [],
       "folder": null,
-      "sort": 500000,
+      "sort": 300000,
       "ownership": {
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!z6xyJtZwwGsGyYFf.QGpniHUETtCnS6yS"
+      "_key": "!actors.items!z6xyJtZwwGsGyYFf.efkE6itHLbY7Vo3X"
     },
     {
-      "_id": "m0orYAXqfnkY3Yn4",
+      "_id": "DPx6q7P5Oe5QPXr9",
       "name": "Acid Bite",
       "type": "technique",
       "img": "icons/svg/aura.svg",
@@ -346,15 +260,15 @@
       },
       "effects": [],
       "folder": null,
-      "sort": 600000,
+      "sort": 400000,
       "ownership": {
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!z6xyJtZwwGsGyYFf.m0orYAXqfnkY3Yn4"
+      "_key": "!actors.items!z6xyJtZwwGsGyYFf.DPx6q7P5Oe5QPXr9"
     },
     {
-      "_id": "2REmIkEln4BHqVu3",
+      "_id": "oqw1TdCpZCKp2NIK",
       "name": "Ambush Predator",
       "type": "feat",
       "img": "icons/svg/upgrade.svg",
@@ -370,15 +284,15 @@
       },
       "effects": [],
       "folder": null,
-      "sort": 700000,
+      "sort": 500000,
       "ownership": {
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!z6xyJtZwwGsGyYFf.2REmIkEln4BHqVu3"
+      "_key": "!actors.items!z6xyJtZwwGsGyYFf.oqw1TdCpZCKp2NIK"
     },
     {
-      "_id": "9BFdPwrFJ54E0LCE",
+      "_id": "fEjSJTedlAxylrqp",
       "name": "Specialized Immunity [Blinded]",
       "type": "feat",
       "img": "icons/svg/upgrade.svg",
@@ -394,15 +308,15 @@
       },
       "effects": [],
       "folder": null,
-      "sort": 800000,
+      "sort": 600000,
       "ownership": {
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!z6xyJtZwwGsGyYFf.9BFdPwrFJ54E0LCE"
+      "_key": "!actors.items!z6xyJtZwwGsGyYFf.fEjSJTedlAxylrqp"
     },
     {
-      "_id": "roJxfqCmZo0ZcM3N",
+      "_id": "sGKzroWpatLFnJtD",
       "name": "Specialized Immunity [Frightened]",
       "type": "feat",
       "img": "icons/svg/upgrade.svg",
@@ -418,12 +332,12 @@
       },
       "effects": [],
       "folder": null,
-      "sort": 900000,
+      "sort": 700000,
       "ownership": {
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!z6xyJtZwwGsGyYFf.roJxfqCmZo0ZcM3N"
+      "_key": "!actors.items!z6xyJtZwwGsGyYFf.sGKzroWpatLFnJtD"
     }
   ],
   "_key": "!actors!z6xyJtZwwGsGyYFf"
