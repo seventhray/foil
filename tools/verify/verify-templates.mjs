@@ -44,3 +44,5 @@ else console.log("helpers: every dashed helper invoked is registered");
 
 const missing = [...partials].filter(p => p && !fs.existsSync(p.replace("systems/foil", ROOT)));
 console.log(missing.length ? `MISSING PARTIALS: ${missing.join(", ")}` : `partials: all ${partials.size} resolve`);
+// A template that fails to parse stops its window from opening, so the run fails.
+if (syntaxFail || unknownHelpers.size || missing.length) process.exit(1);
