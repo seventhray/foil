@@ -97,8 +97,8 @@
   },
   "items": [
     {
-      "_id": "F7xrHB0KS57zlD3g",
-      "name": "Mace",
+      "_id": "0ECTZhSYSkChO6Ar",
+      "name": "Sceptre",
       "type": "instrument",
       "img": "icons/svg/sword.svg",
       "system": {
@@ -142,7 +142,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!Zs7OgSDpOVyHmyw7.F7xrHB0KS57zlD3g"
+      "_key": "!actors.items!Zs7OgSDpOVyHmyw7.0ECTZhSYSkChO6Ar"
     },
     {
       "_id": "sfqELyCvRwiD7S60",

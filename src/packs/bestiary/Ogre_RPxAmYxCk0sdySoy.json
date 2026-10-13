@@ -94,8 +94,8 @@
   },
   "items": [
     {
-      "_id": "rmyzoLN2nb9V5V8s",
-      "name": "Mace",
+      "_id": "QZ8x5zcdQtj862iU",
+      "name": "Club",
       "type": "instrument",
       "img": "icons/svg/sword.svg",
       "system": {
@@ -139,7 +139,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!RPxAmYxCk0sdySoy.rmyzoLN2nb9V5V8s"
+      "_key": "!actors.items!RPxAmYxCk0sdySoy.QZ8x5zcdQtj862iU"
     },
     {
       "_id": "SnxhMeYEBDuIHWbB",

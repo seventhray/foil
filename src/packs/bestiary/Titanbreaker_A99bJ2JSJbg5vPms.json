@@ -94,8 +94,8 @@
   },
   "items": [
     {
-      "_id": "MteizhZQRLHJ71Xc",
-      "name": "Maul",
+      "_id": "ynGe0YbsqEhXAYU4",
+      "name": "Greatclub",
       "type": "instrument",
       "img": "icons/svg/sword.svg",
       "system": {
@@ -139,7 +139,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!A99bJ2JSJbg5vPms.MteizhZQRLHJ71Xc"
+      "_key": "!actors.items!A99bJ2JSJbg5vPms.ynGe0YbsqEhXAYU4"
     },
     {
       "_id": "3pJK9flKqdtc2Nfd",

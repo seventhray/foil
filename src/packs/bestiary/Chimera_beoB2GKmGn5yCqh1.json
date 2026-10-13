@@ -224,8 +224,8 @@
       "_key": "!actors.items!beoB2GKmGn5yCqh1.RHwXMerFFq3r2Cb1"
     },
     {
-      "_id": "7K5obCnqintVcZel",
-      "name": "Claws",
+      "_id": "Iyu73NsuE5FOq1NO",
+      "name": "Lion's Claws",
       "type": "instrument",
       "img": "icons/svg/claw.svg",
       "system": {
@@ -255,7 +255,7 @@
             "effect": "Applies Reeling."
           }
         ],
-        "description": "<p>its lion head.</p>"
+        "description": ""
       },
       "effects": [],
       "folder": null,
@@ -264,7 +264,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!beoB2GKmGn5yCqh1.7K5obCnqintVcZel"
+      "_key": "!actors.items!beoB2GKmGn5yCqh1.Iyu73NsuE5FOq1NO"
     },
     {
       "_id": "j1lk4G9Wm0rrMmtt",

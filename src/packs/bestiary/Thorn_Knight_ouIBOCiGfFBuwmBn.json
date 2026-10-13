@@ -91,8 +91,8 @@
   },
   "items": [
     {
-      "_id": "2rCj4qtSKZcJ3CLQ",
-      "name": "Shortsword",
+      "_id": "BxTSUUkuKlSQZ9GH",
+      "name": "Thorn Blade",
       "type": "instrument",
       "img": "icons/svg/sword.svg",
       "system": {
@@ -138,7 +138,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!ouIBOCiGfFBuwmBn.2rCj4qtSKZcJ3CLQ"
+      "_key": "!actors.items!ouIBOCiGfFBuwmBn.BxTSUUkuKlSQZ9GH"
     },
     {
       "_id": "0Np6BQzzmqCbXypD",

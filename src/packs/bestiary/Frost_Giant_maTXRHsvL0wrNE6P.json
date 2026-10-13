@@ -137,8 +137,8 @@
       "_key": "!actors.items!maTXRHsvL0wrNE6P.biXWePIEekHQN2DH"
     },
     {
-      "_id": "fOPjNiaAv3B7xMtZ",
-      "name": "Battleaxe",
+      "_id": "WHCvEKTgveGy75Ec",
+      "name": "Greataxe",
       "type": "instrument",
       "img": "icons/svg/sword.svg",
       "system": {
@@ -182,7 +182,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!maTXRHsvL0wrNE6P.fOPjNiaAv3B7xMtZ"
+      "_key": "!actors.items!maTXRHsvL0wrNE6P.WHCvEKTgveGy75Ec"
     },
     {
       "_id": "0dB8Vp3m69yg5PHE",

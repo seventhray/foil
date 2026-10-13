@@ -73,6 +73,10 @@ export function bestiaryDocs(lib) {
       const strain = rest.match(/Strain (\d+)/);
       if (/innate Instrument/.test(rest)) { const d = inst.get(lc(base)); if (d) items.push(clone(d)); continue; }
       if (/part of its baseline kit|built-in Techniques free|Blocking Instrument/.test(rest)) {
+        // "Khopesh (as a Sabre, ...)": a stylized weapon is the named Instrument under its own name.
+        const like = head.match(/\(as (?:an? )?([^,)]+)/)?.[1] ?? rest.match(/^\s*\(as (?:an? )?([^,)]+)/)?.[1];
+        if (like && inst.get(lc(like))) { items.push({ ...clone(inst.get(lc(like))), name: base }); continue; }
+        if (like && NATURAL_WEAPONS.some(w => w.name === like)) { items.push({ ...natural(like, through?.[1] ?? "Blunt", through?.[2] ?? ""), name: base }); continue; }
         const phb = inst.get(lc(base));
         const type = through?.[1] ?? rest.match(/\): (\w+) Instrument/)?.[1] ?? "Blunt";
         items.push(phb && !NATURAL_WEAPONS.some(w => w.name === base) ? clone(phb) : natural(base, type, through?.[2] ?? ""));

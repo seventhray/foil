@@ -97,8 +97,8 @@
   },
   "items": [
     {
-      "_id": "ep7M4QFC3weaaCTa",
-      "name": "Quarterstaff",
+      "_id": "8eWi0JruwyuY1zpW",
+      "name": "Staff of Office",
       "type": "instrument",
       "img": "icons/svg/sword.svg",
       "system": {
@@ -143,7 +143,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!ss5vdTzkDwzweYHh.ep7M4QFC3weaaCTa"
+      "_key": "!actors.items!ss5vdTzkDwzweYHh.8eWi0JruwyuY1zpW"
     },
     {
       "_id": "qN2sgsPhAQSYpG9Y",

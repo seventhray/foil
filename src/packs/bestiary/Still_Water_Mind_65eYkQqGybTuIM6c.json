@@ -138,8 +138,8 @@
       "_key": "!actors.items!65eYkQqGybTuIM6c.CH6LcBaiu2XB4ddv"
     },
     {
-      "_id": "0syn7pzHWIAwCZFP",
-      "name": "Mind Lash",
+      "_id": "HeqCIwheB2ZCk9L4",
+      "name": "Crushing Depths",
       "type": "instrument",
       "img": "icons/svg/claw.svg",
       "system": {
@@ -169,7 +169,7 @@
             "effect": "Applies Weakened [Presence]."
           }
         ],
-        "description": "<p>raw mental pressure.</p>"
+        "description": ""
       },
       "effects": [],
       "folder": null,
@@ -178,7 +178,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!65eYkQqGybTuIM6c.0syn7pzHWIAwCZFP"
+      "_key": "!actors.items!65eYkQqGybTuIM6c.HeqCIwheB2ZCk9L4"
     },
     {
       "_id": "TsRK8KpJ4R4yPI5F",

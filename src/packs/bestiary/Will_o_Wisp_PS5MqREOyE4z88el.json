@@ -87,8 +87,8 @@
   },
   "items": [
     {
-      "_id": "yHOhdPSJWJdzdggi",
-      "name": "Evil Eye",
+      "_id": "KQjYWGOhzlFsnoa0",
+      "name": "Lure-Light",
       "type": "instrument",
       "img": "icons/svg/claw.svg",
       "system": {
@@ -118,7 +118,7 @@
             "effect": "Applies Weakened [Presence]."
           }
         ],
-        "description": "<p>its lure-light.</p>"
+        "description": ""
       },
       "effects": [],
       "folder": null,
@@ -127,7 +127,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!PS5MqREOyE4z88el.yHOhdPSJWJdzdggi"
+      "_key": "!actors.items!PS5MqREOyE4z88el.KQjYWGOhzlFsnoa0"
     },
     {
       "_id": "eAEvQxe589J9R5Ny",
