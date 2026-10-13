@@ -140,39 +140,34 @@
       "_id": "WHCvEKTgveGy75Ec",
       "name": "Greataxe",
       "type": "instrument",
-      "img": "icons/svg/sword.svg",
+      "img": "icons/svg/claw.svg",
       "system": {
-        "category": "melee",
-        "weight": "heavy",
-        "primaryAttribute": "might",
-        "range": "Close",
         "types": [
           "edged"
         ],
-        "typesDisplay": "",
-        "price": 50,
-        "rider": "",
+        "range": "Close",
+        "weight": "heavy",
+        "innate": false,
+        "primaryAttribute": "might",
+        "category": "melee",
+        "price": 0,
         "kit": [
           {
-            "name": "Cleave",
+            "name": "Stab",
             "skill": "prowess",
             "effect": "Deals Stress to Might or Finesse."
           },
           {
-            "name": "Upend",
-            "skill": "discipline",
-            "effect": "Applies Prone."
+            "name": "Vital Strike",
+            "skill": "acuity",
+            "effect": "Applies Weakened [Finesse]."
           },
           {
-            "name": "War Cry",
-            "skill": "assertiveness",
-            "effect": "Deals Stress to Presence or Wit."
+            "name": "Backstab",
+            "skill": "guile",
+            "effect": "Applies Reeling."
           }
         ],
-        "innate": false,
-        "bonus": 0,
-        "size": "medium",
-        "materials": "Metal + Wood",
         "description": ""
       },
       "effects": [],

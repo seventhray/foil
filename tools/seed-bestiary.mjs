@@ -69,17 +69,15 @@ export function bestiaryDocs(lib) {
     for (const [, head, rest] of block.matchAll(/^>\s*-\s*\*\*([^*]+)\*\*(.*)$/gm)) {
       const base = head.replace(/\s*\(.*\)$/, "").trim();
       const xp = Number(rest.match(/(\d+)\s*XP/)?.[1] ?? 0);
-      const through = rest.match(/through an? (\w+)(?: or \w+)? Instrument(?: \(([^)]*)\))?/);
+      const weightWord = rest.match(/through an? (Medium|Heavy) /)?.[1];
+      const through = rest.match(/through an? (?:(?:Light|Medium|Heavy) )?(\w+)(?: or \w+)? Instrument(?: \(([^)]*)\))?/);
       const strain = rest.match(/Strain (\d+)/);
       if (/innate Instrument/.test(rest)) { const d = inst.get(lc(base)); if (d) items.push(clone(d)); continue; }
       if (/part of its baseline kit|built-in Techniques free|Blocking Instrument/.test(rest)) {
-        // "Khopesh (as a Sabre, ...)": a stylized weapon is the named Instrument under its own name.
-        const like = head.match(/\(as (?:an? )?([^,)]+)/)?.[1] ?? rest.match(/^\s*\(as (?:an? )?([^,)]+)/)?.[1];
-        if (like && inst.get(lc(like))) { items.push({ ...clone(inst.get(lc(like))), name: base }); continue; }
-        if (like && NATURAL_WEAPONS.some(w => w.name === like)) { items.push({ ...natural(like, through?.[1] ?? "Blunt", through?.[2] ?? ""), name: base }); continue; }
         const phb = inst.get(lc(base));
         const type = through?.[1] ?? rest.match(/\): (\w+) Instrument/)?.[1] ?? "Blunt";
-        items.push(phb && !NATURAL_WEAPONS.some(w => w.name === base) ? clone(phb) : natural(base, type, through?.[2] ?? ""));
+        if (phb && !NATURAL_WEAPONS.some(w => w.name === base)) items.push(clone(phb));
+        else { const it = natural(base, type, through?.[2] ?? ""); if (weightWord) { it.system.weight = lc(weightWord); it.system.innate = false; } items.push(it); }
         continue;
       }
       if (/^: /.test(rest) && (through || /Evade/.test(rest))) {
@@ -103,7 +101,7 @@ export function bestiaryDocs(lib) {
     // A Technique needs an Instrument of its Type. Where the stat block names none, the Voice, the Mind,
     // or a natural weapon of that Type carries it.
     const held = () => new Set(items.filter(i => i.type === "instrument").flatMap(i => i.system.types ?? []));
-    for (const [, type, via] of block.matchAll(/through an? (\w+)(?: or \w+)? Instrument(?: \(([^)]*)\))?/g)) {
+    for (const [, type, via] of block.matchAll(/through an? (?:(?:Light|Medium|Heavy) )?(\w+)(?: or \w+)? Instrument(?: \(([^)]*)\))?/g)) {
       const t = lc(type);
       if (held().has(t) || ["parry", "ranged"].includes(t)) continue;
       const innate = t === "sonic" ? "voice" : t === "incorporeal" && /Mind/.test(via ?? "") ? "mind" : null;

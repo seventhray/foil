@@ -100,39 +100,34 @@
       "_id": "0ECTZhSYSkChO6Ar",
       "name": "Sceptre",
       "type": "instrument",
-      "img": "icons/svg/sword.svg",
+      "img": "icons/svg/claw.svg",
       "system": {
-        "category": "melee",
-        "weight": "medium",
-        "primaryAttribute": "might",
-        "range": "Close",
         "types": [
           "blunt"
         ],
-        "typesDisplay": "",
-        "price": 35,
-        "rider": "",
+        "range": "Close",
+        "weight": "medium",
+        "innate": false,
+        "primaryAttribute": "might",
+        "category": "melee",
+        "price": 0,
         "kit": [
           {
-            "name": "Crush",
+            "name": "Bash",
             "skill": "prowess",
             "effect": "Deals Stress to Might or Finesse."
           },
           {
-            "name": "Stagger",
-            "skill": "discipline",
+            "name": "Sweep",
+            "skill": "acuity",
             "effect": "Applies Prone."
           },
           {
-            "name": "Intimidating Blow",
-            "skill": "assertiveness",
-            "effect": "Deals Stress to Presence or Wit."
+            "name": "Feint Jab",
+            "skill": "guile",
+            "effect": "Applies Reeling."
           }
         ],
-        "innate": false,
-        "bonus": 0,
-        "size": "medium",
-        "materials": "Metal + Wood",
         "description": ""
       },
       "effects": [],

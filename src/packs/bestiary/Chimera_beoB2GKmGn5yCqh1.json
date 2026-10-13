@@ -232,7 +232,7 @@
         "types": [
           "edged"
         ],
-        "range": "Touching to Close",
+        "range": "Close",
         "weight": "light",
         "innate": true,
         "primaryAttribute": "might",

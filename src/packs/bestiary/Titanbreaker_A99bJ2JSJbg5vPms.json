@@ -97,39 +97,34 @@
       "_id": "ynGe0YbsqEhXAYU4",
       "name": "Greatclub",
       "type": "instrument",
-      "img": "icons/svg/sword.svg",
+      "img": "icons/svg/claw.svg",
       "system": {
-        "category": "melee",
-        "weight": "heavy",
-        "primaryAttribute": "might",
-        "range": "Close",
         "types": [
           "blunt"
         ],
-        "typesDisplay": "",
-        "price": 50,
-        "rider": "",
+        "range": "Close",
+        "weight": "heavy",
+        "innate": false,
+        "primaryAttribute": "might",
+        "category": "melee",
+        "price": 0,
         "kit": [
           {
-            "name": "Smash",
+            "name": "Bash",
             "skill": "prowess",
             "effect": "Deals Stress to Might or Finesse."
           },
           {
-            "name": "Bonebreaker",
-            "skill": "discipline",
+            "name": "Sweep",
+            "skill": "acuity",
             "effect": "Applies Prone."
           },
           {
-            "name": "Dread Blow",
-            "skill": "assertiveness",
-            "effect": "Deals Stress to Presence or Wit."
+            "name": "Feint Jab",
+            "skill": "guile",
+            "effect": "Applies Reeling."
           }
         ],
-        "innate": false,
-        "bonus": 0,
-        "size": "medium",
-        "materials": "Metal + Wood",
         "description": ""
       },
       "effects": [],

@@ -94,41 +94,34 @@
       "_id": "BxTSUUkuKlSQZ9GH",
       "name": "Thorn Blade",
       "type": "instrument",
-      "img": "icons/svg/sword.svg",
+      "img": "icons/svg/claw.svg",
       "system": {
-        "category": "melee",
-        "weight": "light",
-        "primaryAttribute": "finesse",
-        "range": "Close",
         "types": [
-          "edged",
-          "pointed",
-          "parry"
+          "pointed"
         ],
-        "typesDisplay": "",
-        "price": 30,
-        "rider": "",
+        "range": "Close",
+        "weight": "light",
+        "innate": true,
+        "primaryAttribute": "might",
+        "category": "melee",
+        "price": 0,
         "kit": [
           {
-            "name": "Thrust",
+            "name": "Stab",
             "skill": "prowess",
             "effect": "Deals Stress to Might or Finesse."
           },
           {
-            "name": "Precise Cut",
+            "name": "Vital Strike",
             "skill": "acuity",
             "effect": "Applies Weakened [Finesse]."
           },
           {
-            "name": "Feinted Slash",
+            "name": "Backstab",
             "skill": "guile",
             "effect": "Applies Reeling."
           }
         ],
-        "innate": false,
-        "bonus": 0,
-        "size": "medium",
-        "materials": "Metal + Leather",
         "description": ""
       },
       "effects": [],

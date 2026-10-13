@@ -95,7 +95,7 @@
         "types": [
           "incorporeal"
         ],
-        "range": "Sight",
+        "range": "Close",
         "weight": "light",
         "innate": true,
         "primaryAttribute": "wit",

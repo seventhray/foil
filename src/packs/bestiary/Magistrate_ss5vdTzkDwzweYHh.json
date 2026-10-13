@@ -100,19 +100,17 @@
       "_id": "8eWi0JruwyuY1zpW",
       "name": "Staff of Office",
       "type": "instrument",
-      "img": "icons/svg/sword.svg",
+      "img": "icons/svg/claw.svg",
       "system": {
-        "category": "melee",
-        "weight": "medium",
-        "primaryAttribute": "finesse",
-        "range": "Near",
         "types": [
-          "blunt",
-          "blocking"
+          "blunt"
         ],
-        "typesDisplay": "",
-        "price": 45,
-        "rider": "",
+        "range": "Close",
+        "weight": "medium",
+        "innate": false,
+        "primaryAttribute": "might",
+        "category": "melee",
+        "price": 0,
         "kit": [
           {
             "name": "Bash",
@@ -130,10 +128,6 @@
             "effect": "Applies Reeling."
           }
         ],
-        "innate": false,
-        "bonus": 0,
-        "size": "medium",
-        "materials": "Wood",
         "description": ""
       },
       "effects": [],
