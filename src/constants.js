@@ -210,15 +210,16 @@ export const ORIGIN_NAMES = ["Riverlands", "Highlands", "Woodlands", "Deep Stone
   "Open Plains", "Island Shores", "Sunbaked Desert", "Crowded City", "Back Alleys", "Quiet Village", "Ruined Lands", "Ashen Badlands"];
 /** Instrument Ranges as the books print them (PHB 4.1.2). */
 export const RANGE_CHOICES = ["Range 0", "Range 1", "Range 2", "Range 4", "Range 8", "Range 20", "Range 60"];
-/** The two Skills that resist each Condition when a Technique deals no Stress (PHB 6.5.0, 6.8.x). */
-export const CONDITION_OPPOSE = {
-  Grappled: ["prowess", "discipline"], Restrained: ["prowess", "discipline"], Prone: ["prowess", "acuity"],
-  Slowed: ["prowess", "discipline"], Stunned: ["prowess", "discipline"], Blinded: ["acuity", "discipline"], Reeling: ["acuity", "discipline"],
-  Swayed: ["acuity", "resonance"], Misled: ["acuity", "guile"], Frightened: ["discipline", "resonance"],
-  Controlled: ["discipline", "resonance"], Baited: ["discipline", "acuity"], Intimidated: ["assertiveness", "resonance"],
-  Impressed: ["assertiveness", "acuity"], Relaxed: ["guile", "discipline"], Charmed: ["resonance", "acuity"],
-  Enthralled: ["resonance", "discipline"], Angered: ["resonance", "discipline"], "Foil Exposed": ["guile", "discipline"]
+/** The Skills that resist each Condition when a Technique deals no Stress (PHB 6.5.0, 6.8.0). */
+// Each opposed Condition names one Attribute; the creature Opposes with any Skill built on it (PHB 6.8.0).
+export const CONDITION_ATTR = {
+  Grappled: "might", Restrained: "might", Slowed: "might", Stunned: "might",
+  Prone: "finesse", Reeling: "finesse",
+  Blinded: "wit", Baited: "wit", Misled: "wit", Swayed: "wit", Relaxed: "wit", Impressed: "wit", "Foil Exposed": "wit",
+  Frightened: "presence", Controlled: "presence", Intimidated: "presence", Angered: "presence", Enthralled: "presence", Charmed: "presence"
 };
+/** The Skills that can Oppose each Condition: every Skill built on its Attribute. */
+export const CONDITION_OPPOSE = Object.fromEntries(Object.entries(CONDITION_ATTR).map(([c, a]) => [c, PRIMARY_SKILLS[a]]));
 
 // Mass (PHB 5.2.6): past 4x Might Potential, -1 to rolls per multiple.
 export const CARRY_FREE_MULTIPLE = 4;

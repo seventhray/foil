@@ -6,7 +6,7 @@ export const GLOSSARY = {
   },
   "angered": {
     "name": "Angered",
-    "text": "Resisted with Resonance or Discipline. Furious beyond talking down. It won't Flee or Yield, and keeps fighting any conflict that breaks out. It ends when it acts on the anger, or after the duration."
+    "text": "Resisted with Presence. Furious beyond talking down. It won't Flee or Yield, and keeps fighting any conflict that breaks out. It ends when it acts on the anger, or after the duration."
   },
   "attribute": {
     "name": "Attribute",
@@ -18,7 +18,7 @@ export const GLOSSARY = {
   },
   "baited": {
     "name": "Baited",
-    "text": "Resisted with Discipline or Acuity. Fixated on the source. In conflict, it targets the source first. It ends when it acts against the source, or after the duration."
+    "text": "Resisted with Wit. Fixated on the source. In conflict, it targets the source first. It ends when it acts against the source, or after the duration."
   },
   "beam": {
     "name": "Beam",
@@ -26,7 +26,7 @@ export const GLOSSARY = {
   },
   "blinded": {
     "name": "Blinded",
-    "text": "Resisted with Acuity or Discipline. The creature can't see. Its rolls take -2. Its Techniques that need line of sight work only at Range 0. It ends at the end of its next turn."
+    "text": "Resisted with Wit. The creature can't see. Its rolls take -2. Its Techniques that need line of sight work only at Range 0. It ends at the end of its next turn."
   },
   "blocking": {
     "name": "Blocking",
@@ -38,7 +38,7 @@ export const GLOSSARY = {
   },
   "charmed": {
     "name": "Charmed",
-    "text": "Resisted with Resonance or Acuity. The creature can't use a Technique against the source or its allies. It ends when that side deals it Stress, or after the duration."
+    "text": "Resisted with Presence. The creature can't use a Technique against the source or its allies. It ends when that side deals it Stress, or after the duration."
   },
   "cone": {
     "name": "Cone",
@@ -50,7 +50,7 @@ export const GLOSSARY = {
   },
   "controlled": {
     "name": "Controlled",
-    "text": "Resisted with Discipline or Resonance. The source directs the creature's next turn: its movement, Skill, and target. It won't be made to harm itself. Controlled ends after that turn unless the source Upkeeps it. Each upkeep rolls again, and the creature Opposes again."
+    "text": "Resisted with Presence. The source directs the creature's next turn: its movement, Skill, and target. It won't be made to harm itself. Controlled ends after that turn unless the source Upkeeps it. Each upkeep rolls again, and the creature Opposes again."
   },
   "counter": {
     "name": "Counter",
@@ -86,7 +86,7 @@ export const GLOSSARY = {
   },
   "enthralled": {
     "name": "Enthralled",
-    "text": "Resisted with Resonance or Discipline. Devoted to the source. The creature agrees eagerly and helps unasked. It may Oppose again to break free, with Resonance or Discipline, at each natural pause in a scene or each of its turns in a conflict. It ends when the source or an ally harms it, or the source leaves."
+    "text": "Resisted with Presence. Devoted to the source. The creature agrees eagerly and helps unasked. It may Oppose again to break free at each natural pause in a scene or each of its turns in a conflict. It ends when the source or an ally harms it, or the source leaves."
   },
   "evade": {
     "name": "Evade",
@@ -106,7 +106,7 @@ export const GLOSSARY = {
   },
   "foil exposed": {
     "name": "Foil Exposed",
-    "text": "Resisted with Guile or Discipline. The source learns one Habit of the creature, which the Technique names. Once, when the creature Opposes the source, the source may give that Oppose roll -2. It ends when used, or after 10 minutes. A creature has one Foil Exposed for each of its Habits, from each source. > [!EXAMPLE] > Mira uses Intuit on the captain: Resonance 15 against his Discipline 10. Mira learns his Habit, \"Rules are the first thing to go when it actually matters.\" Mira then Intimidates the captain through the Voice, and spends the Foil Exposed to give his Oppose -2."
+    "text": "Resisted with Wit. The source learns one Habit of the creature, which the Technique names. Once, when the creature Opposes the source, the source may give that Oppose roll -2. It ends when used, or after 10 minutes. A creature has one Foil Exposed for each of its Habits, from each source. > [!EXAMPLE] > Mira uses Intuit on the captain: Resonance 15 against his Discipline 10. Mira learns his Habit, \"Rules are the first thing to go when it actually matters.\" Mira then Intimidates the captain through the Voice, and spends the Foil Exposed to give his Oppose -2."
   },
   "foil token": {
     "name": "Foil Token",
@@ -118,11 +118,11 @@ export const GLOSSARY = {
   },
   "frightened": {
     "name": "Frightened",
-    "text": "Resisted with Discipline or Resonance. While the creature can perceive the source, its rolls take -1. It can't willingly move closer to the source. It ends when the source leaves its perception or the duration ends. > [!EXAMPLE] > In round 3 Wren uses Unsettling Pulse through the Wand on the captain: Resonance 20 against his Discipline 13. It lands, so the captain's rolls take -1 and he can't step toward Wren."
+    "text": "Resisted with Presence. While the creature can perceive the source, its rolls take -1. It can't willingly move closer to the source. It ends when the source leaves its perception or the duration ends. > [!EXAMPLE] > In round 3 Wren uses Unsettling Pulse through the Wand on the captain: Resonance 20 against his Discipline 13. It lands, so the captain's rolls take -1 and he can't step toward Wren."
   },
   "grappled": {
     "name": "Grappled",
-    "text": "Resisted with Prowess or Discipline. The creature can't change its Range on its own. It breaks free by spending its Action and beating the grapple's roll with Prowess or Discipline. Holding a grapple is free. The grappler moves at 1/4 speed, bringing the Grappled creature along."
+    "text": "Resisted with Might. The creature can't change its Range on its own. It breaks free by spending its Action and beating the grapple's roll. Holding a grapple is free. The grappler moves at 1/4 speed, bringing the Grappled creature along."
   },
   "grappling": {
     "name": "Grappling",
@@ -150,7 +150,7 @@ export const GLOSSARY = {
   },
   "impressed": {
     "name": "Impressed",
-    "text": "Resisted with Assertiveness or Acuity. The creature grants the source's next reasonable request that doesn't work against its own interests. It ends once granted, or after the duration."
+    "text": "Resisted with Wit. The creature grants the source's next reasonable request that doesn't work against its own interests. It ends once granted, or after the duration."
   },
   "incapacitated": {
     "name": "Incapacitated",
@@ -174,7 +174,7 @@ export const GLOSSARY = {
   },
   "intimidated": {
     "name": "Intimidated",
-    "text": "Resisted with Assertiveness or Resonance. On the source's next turn, it may issue one demand, which the creature obeys. First, the creature may Oppose once at -1, with Assertiveness or Resonance, to refuse. Intimidated ends when the demand is obeyed or refused, or at the end of the source's turn without one."
+    "text": "Resisted with Presence. On the source's next turn, it may issue one demand, which the creature obeys. First, the creature may Oppose once at -1 to refuse. Intimidated ends when the demand is obeyed or refused, or at the end of the source's turn without one."
   },
   "invisible": {
     "name": "Invisible",
@@ -214,7 +214,7 @@ export const GLOSSARY = {
   },
   "misled": {
     "name": "Misled",
-    "text": "Resisted with Acuity or Guile. Believes one plausible false statement from the source. It ends when given reason to doubt, or after the duration. Lasts 10 minutes by default."
+    "text": "Resisted with Wit. Believes one plausible false statement from the source. It ends when given reason to doubt, or after the duration. Lasts 10 minutes by default."
   },
   "move": {
     "name": "Move",
@@ -222,7 +222,7 @@ export const GLOSSARY = {
   },
   "oppose": {
     "name": "Oppose",
-    "text": "A roll made to resist an incoming Technique. Use any Skill built on the Attribute under attack, or a Skill the Condition names."
+    "text": "A roll made to resist an incoming Technique. Use any Skill built on the Attribute under attack, or on the Attribute its Condition names."
   },
   "origin": {
     "name": "Origin",
@@ -266,7 +266,7 @@ export const GLOSSARY = {
   },
   "prone": {
     "name": "Prone",
-    "text": "Resisted with Prowess or Acuity. The creature is knocked down. Its rolls take -1. Melee Techniques against it gain +1. It stands with its Quick Action."
+    "text": "Resisted with Finesse. The creature is knocked down. Its rolls take -1. Melee Techniques against it gain +1. It stands with its Quick Action."
   },
   "quick": {
     "name": "Quick",
@@ -290,11 +290,11 @@ export const GLOSSARY = {
   },
   "reeling": {
     "name": "Reeling",
-    "text": "Resisted with Acuity or Discipline. The creature's Oppose rolls take -N for the duration."
+    "text": "Resisted with Finesse. The creature's Oppose rolls take -N for the duration."
   },
   "relaxed": {
     "name": "Relaxed",
-    "text": "Resisted with Guile or Discipline. The creature answers honestly and holds nothing back, unless that would clearly be a mistake. It ends when the source or an ally threatens or harms it."
+    "text": "Resisted with Wit. The creature answers honestly and holds nothing back, unless that would clearly be a mistake. It ends when the source or an ally threatens or harms it."
   },
   "resistance": {
     "name": "Resistance",
@@ -302,7 +302,7 @@ export const GLOSSARY = {
   },
   "restrained": {
     "name": "Restrained",
-    "text": "Resisted with Prowess or Discipline. The creature's Finesse is Incapacitated as long as it is Restrained and it cannot move. The Technique that applies it states how it ends."
+    "text": "Resisted with Might. The creature's Finesse is Incapacitated as long as it is Restrained and it cannot move. The Technique that applies it states how it ends."
   },
   "selective": {
     "name": "Selective",
@@ -314,7 +314,7 @@ export const GLOSSARY = {
   },
   "slowed": {
     "name": "Slowed",
-    "text": "Resisted with Prowess or Discipline. The creature moves at half speed and can't spend its Quick Action to move farther. It loses its chase rolls. It ends at the end of its next turn."
+    "text": "Resisted with Might. The creature moves at half speed and can't spend its Quick Action to move farther. It loses its chase rolls. It ends at the end of its next turn."
   },
   "sonic": {
     "name": "Sonic",
@@ -330,11 +330,11 @@ export const GLOSSARY = {
   },
   "stunned": {
     "name": "Stunned",
-    "text": "Resisted with Prowess or Discipline. The creature spends no Action or Quick Action. It ends at the end of its next turn."
+    "text": "Resisted with Might. The creature spends no Action or Quick Action. It ends at the end of its next turn."
   },
   "swayed": {
     "name": "Swayed",
-    "text": "Resisted with Acuity or Resonance. Leans toward trusting and helping the source, short of acting against its own interests. Lasts 10 minutes by default."
+    "text": "Resisted with Wit. Leans toward trusting and helping the source, short of acting against its own interests. Lasts 10 minutes by default."
   },
   "target": {
     "name": "Target",

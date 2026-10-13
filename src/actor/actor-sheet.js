@@ -18,7 +18,7 @@ import { annotateVars } from "../var-tips.js";
 import {
   ATTRIBUTE_KEYS, ATTR_LABEL, SKILL_ATTRS, SKILL_KEYS, SKILL_LABEL, SKILL_ABBR, FOIL_AXES,
   FOIL_TOKEN_MAX, CONDITIONS, EQUIPMENT_CATEGORY_LABEL, LOCATION_LABEL,
-  REST_BLOCK_HOURS, REST_RATION_HOURS, MARGIN_CAP, marginCap, CONDITION_OPPOSE, EFFECT_CONDITION
+  REST_BLOCK_HOURS, REST_RATION_HOURS, MARGIN_CAP, marginCap, CONDITION_OPPOSE, CONDITION_ATTR, EFFECT_CONDITION
 } from "../constants.js";
 import { equipmentSummary } from "../registry.js";
 import { stressFor } from "../stress.js";
@@ -236,7 +236,7 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
     if (inst.system.reload) notes.push(`Reload: ${inst.system.reload === "quick" ? "Quick Action" : "Action"}.`);
     const stress = /Deals Stress/i.test(kit.effect);
     const applied = !stress && kit.effect.match(/^Applies (Foil Exposed|\w+)/i)?.[1];
-    if (applied && CONDITION_OPPOSE[applied]) notes.push(`The target resists with ${CONDITION_OPPOSE[applied].map(k => SKILL_LABEL[k]).join(" or ")} (PHB 6.5.0).`);
+    if (applied && CONDITION_OPPOSE[applied]) notes.push(`The target resists with any ${ATTR_LABEL[CONDITION_ATTR[applied]]} Skill (PHB 6.8.0).`);
     const targeted = stress || /^Applies\b/i.test(kit.effect);
     if (targeted && inst.system.weightDice) notes.push(`${inst.system.weightLabel}: +${inst.system.weightDice}.`);
     notes.push(...this._rangeNotes({ band: inst.system.rangeBand, min: inst.system.minRange }));
@@ -420,7 +420,7 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
     if (wdice) notes.push(`${inst.system.weightLabel}: +${wdice}.`);
     const applied = !sys.dealsStress ? (sys.effects ?? []).find(e => CONDITION_OPPOSE[EFFECT_CONDITION[e.key]]) : null;
     const condition = applied ? { name: EFFECT_CONDITION[applied.key], note: applied.key.startsWith("reeling") ? `${applied.magnitude ?? 1}` : "", rounds: applied.duration || (applied.key.endsWith("-minute") ? "1 minute" : "") } : null;
-    if (condition) notes.push(`The target resists with ${CONDITION_OPPOSE[condition.name].map(k => SKILL_LABEL[k]).join(" or ")} (PHB 6.5.0).`);
+    if (condition) notes.push(`The target resists with any ${ATTR_LABEL[CONDITION_ATTR[condition.name]]} Skill (PHB 6.8.0).`);
     await this._postRoll(this._skillFormula(skill, bonus, wdice), `${esc(tech.name)} (${SKILL_LABEL[skill]})`, notes.join("<br>"), roll => ({
       cond: this._condFlag(),
       ...(condition ? this._conditionFlag(tech.name, roll.total, condition, { melee: !!inst?.system.isMelee }) : {}),
