@@ -1,0 +1,36 @@
+{
+  "_id": "DyI8VtNLeNcG5kqL",
+  "name": "Unnerve",
+  "type": "technique",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "requires": [
+      "sonic"
+    ],
+    "innate": false,
+    "skill": "",
+    "family": "Sonic",
+    "subgroup": "Debilitating & Reactive",
+    "effects": [
+      {
+        "key": "weaken",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveR": 0
+      }
+    ],
+    "floor": false,
+    "ancestryGrant": "",
+    "description": ""
+  },
+  "effects": [],
+  "folder": "gmEqSBIe0REe2ZFU",
+  "sort": 11800000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!DyI8VtNLeNcG5kqL"
+}

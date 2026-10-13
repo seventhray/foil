@@ -1,0 +1,41 @@
+{
+  "_id": "LRULNiEKYuECLakr",
+  "name": "Rattle",
+  "type": "technique",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "requires": [
+      "sonic",
+      "edged",
+      "pointed",
+      "blunt",
+      "grappling",
+      "parry"
+    ],
+    "innate": false,
+    "skill": "",
+    "family": "Sonic",
+    "subgroup": "Control & Deception",
+    "effects": [
+      {
+        "key": "reeling",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveR": 0
+      }
+    ],
+    "floor": false,
+    "ancestryGrant": "",
+    "description": ""
+  },
+  "effects": [],
+  "folder": "pB2CzrOfw2IrBT6I",
+  "sort": 11700000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!LRULNiEKYuECLakr"
+}

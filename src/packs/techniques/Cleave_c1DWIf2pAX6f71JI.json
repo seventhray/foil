@@ -1,0 +1,48 @@
+{
+  "_id": "c1DWIf2pAX6f71JI",
+  "name": "Cleave",
+  "type": "technique",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "requires": [
+      "edged",
+      "pointed",
+      "blunt",
+      "grappling",
+      "parry"
+    ],
+    "innate": false,
+    "skill": "",
+    "family": "Melee",
+    "subgroup": "Control",
+    "effects": [
+      {
+        "key": "stress",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveR": 0
+      },
+      {
+        "key": "quick",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveR": 0
+      }
+    ],
+    "floor": true,
+    "ancestryGrant": "",
+    "description": ""
+  },
+  "effects": [],
+  "folder": "ryXbZIw3uzqfYhV2",
+  "sort": 8700000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!c1DWIf2pAX6f71JI"
+}

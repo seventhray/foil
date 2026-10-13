@@ -1,0 +1,37 @@
+{
+  "_id": "DLqs4PBb1Xyb3EBu",
+  "name": "Shove",
+  "type": "technique",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "requires": [
+      "blunt",
+      "grappling"
+    ],
+    "innate": false,
+    "skill": "",
+    "family": "Grappling",
+    "subgroup": "",
+    "effects": [
+      {
+        "key": "move",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveR": 0
+      }
+    ],
+    "floor": false,
+    "ancestryGrant": "",
+    "description": ""
+  },
+  "effects": [],
+  "folder": "U6AWbnUDIrqKqFUn",
+  "sort": 2600000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!DLqs4PBb1Xyb3EBu"
+}

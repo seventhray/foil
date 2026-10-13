@@ -1,0 +1,36 @@
+{
+  "_id": "A6GNDb9Bv7h8EZz4",
+  "name": "Disguise",
+  "type": "technique",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "requires": [
+      "tool"
+    ],
+    "innate": false,
+    "skill": "",
+    "family": "Tool",
+    "subgroup": "",
+    "effects": [
+      {
+        "key": "skill-mod-minute",
+        "magnitude": 2,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveR": 0
+      }
+    ],
+    "floor": false,
+    "ancestryGrant": "",
+    "description": ""
+  },
+  "effects": [],
+  "folder": "NirUjaMWAhAveGrJ",
+  "sort": 11900000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!A6GNDb9Bv7h8EZz4"
+}

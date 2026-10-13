@@ -1,0 +1,43 @@
+{
+  "_id": "6eL5sAoAhlFDc7TC",
+  "name": "Hinder",
+  "type": "technique",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "requires": [
+      "edged",
+      "pointed",
+      "blunt",
+      "grappling",
+      "parry",
+      "thrown",
+      "drawn",
+      "fired"
+    ],
+    "innate": false,
+    "skill": "",
+    "family": "Melee",
+    "subgroup": "Control",
+    "effects": [
+      {
+        "key": "slowed",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveR": 0
+      }
+    ],
+    "floor": false,
+    "ancestryGrant": "",
+    "description": ""
+  },
+  "effects": [],
+  "folder": "ryXbZIw3uzqfYhV2",
+  "sort": 8900000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!6eL5sAoAhlFDc7TC"
+}
