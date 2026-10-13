@@ -23,7 +23,7 @@
       {
         "name": "Reassure",
         "skill": "guile",
-        "effect": "Removes a Frightened, Wary, or Intimidated Condition from an ally within Near."
+        "effect": "Removes a Frightened, Wary, or Intimidated Condition from an ally within Range 2."
       },
       {
         "name": "Mending Light",
