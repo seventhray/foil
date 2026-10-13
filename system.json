@@ -160,6 +160,17 @@
         "PLAYER": "OBSERVER",
         "ASSISTANT": "OWNER"
       }
+    },
+    {
+      "name": "bestiary",
+      "label": "FOIL Bestiary",
+      "path": "packs/bestiary",
+      "type": "Actor",
+      "system": "foil",
+      "ownership": {
+        "PLAYER": "NONE",
+        "ASSISTANT": "OWNER"
+      }
     }
   ],
   "packFolders": [
@@ -179,7 +190,8 @@
         "feats",
         "equipment",
         "backgrounds",
-        "ancestries"
+        "ancestries",
+        "bestiary"
       ]
     },
     {

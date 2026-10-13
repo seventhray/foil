@@ -1,0 +1,492 @@
+{
+  "_id": "lwrDJsmRX2j9p0j3",
+  "name": "Leviathan",
+  "type": "creature",
+  "img": "icons/svg/mystery-man.svg",
+  "system": {
+    "tier": 8,
+    "threat": 832,
+    "behavior": "Territorial [its trench]",
+    "vulnerabilities": [],
+    "attributes": {
+      "might": {
+        "dice": {
+          "d4": 0,
+          "d6": 1,
+          "d8": 0,
+          "d10": 0,
+          "d12": 0,
+          "d20": 2
+        },
+        "potential": {
+          "current": 46
+        },
+        "incapacitated": false
+      },
+      "finesse": {
+        "dice": {
+          "d4": 0,
+          "d6": 1,
+          "d8": 0,
+          "d10": 0,
+          "d12": 0,
+          "d20": 2
+        },
+        "potential": {
+          "current": 46
+        },
+        "incapacitated": false
+      },
+      "wit": {
+        "dice": {
+          "d4": 0,
+          "d6": 1,
+          "d8": 0,
+          "d10": 0,
+          "d12": 0,
+          "d20": 2
+        },
+        "potential": {
+          "current": 46
+        },
+        "incapacitated": false
+      },
+      "presence": {
+        "dice": {
+          "d4": 0,
+          "d6": 1,
+          "d8": 0,
+          "d10": 0,
+          "d12": 0,
+          "d20": 2
+        },
+        "potential": {
+          "current": 46
+        },
+        "incapacitated": false
+      }
+    },
+    "skills": {
+      "prowess": {
+        "training": 4
+      },
+      "discipline": {
+        "training": 4
+      }
+    },
+    "resistance": {
+      "physical": 4,
+      "mental": 0
+    },
+    "notes": "<p><em>A whale-scale deep-sea beast, surfacing rarely and regretted every time</em></p><p>Surfaces under ships. The fight is on the deck and in the water at once.</p>"
+  },
+  "folder": "a6sag5XJHITShA7Q",
+  "sort": 8100000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "effects": [],
+  "prototypeToken": {
+    "name": "Leviathan",
+    "actorLink": false,
+    "disposition": -1
+  },
+  "items": [
+    {
+      "_id": "fbJKzPq2JqgzgnOv",
+      "name": "Bite",
+      "type": "instrument",
+      "img": "icons/svg/claw.svg",
+      "system": {
+        "types": [
+          "pointed"
+        ],
+        "range": "Touching",
+        "weight": "light",
+        "innate": true,
+        "primaryAttribute": "might",
+        "category": "melee",
+        "price": 0,
+        "kit": [
+          {
+            "name": "Stab",
+            "skill": "prowess",
+            "effect": "Deals Stress to Might or Finesse."
+          },
+          {
+            "name": "Vital Strike",
+            "skill": "acuity",
+            "effect": "Applies Weakened [Finesse]."
+          },
+          {
+            "name": "Backstab",
+            "skill": "guile",
+            "effect": "Applies Reeling."
+          }
+        ],
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!lwrDJsmRX2j9p0j3.fbJKzPq2JqgzgnOv"
+    },
+    {
+      "_id": "EDHBixdTmRgfy8Zd",
+      "name": "Maw",
+      "type": "instrument",
+      "img": "icons/svg/claw.svg",
+      "system": {
+        "types": [
+          "grappling"
+        ],
+        "range": "Touching",
+        "weight": "light",
+        "innate": true,
+        "primaryAttribute": "might",
+        "category": "melee",
+        "price": 0,
+        "kit": [
+          {
+            "name": "Snare",
+            "skill": "prowess",
+            "effect": "Applies Grappled."
+          },
+          {
+            "name": "Tumble",
+            "skill": "acuity",
+            "effect": "Applies Prone."
+          },
+          {
+            "name": "Tangle",
+            "skill": "guile",
+            "effect": "Applies Restrained."
+          }
+        ],
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!lwrDJsmRX2j9p0j3.EDHBixdTmRgfy8Zd"
+    },
+    {
+      "_id": "rpbBQNaSRZvCsuY1",
+      "name": "Tail Strike",
+      "type": "instrument",
+      "img": "icons/svg/claw.svg",
+      "system": {
+        "types": [
+          "blunt"
+        ],
+        "range": "Close",
+        "weight": "light",
+        "innate": true,
+        "primaryAttribute": "might",
+        "category": "melee",
+        "price": 0,
+        "kit": [
+          {
+            "name": "Bash",
+            "skill": "prowess",
+            "effect": "Deals Stress to Might or Finesse."
+          },
+          {
+            "name": "Sweep",
+            "skill": "acuity",
+            "effect": "Applies Prone."
+          },
+          {
+            "name": "Feint Jab",
+            "skill": "guile",
+            "effect": "Applies Reeling."
+          }
+        ],
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 300000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!lwrDJsmRX2j9p0j3.rpbBQNaSRZvCsuY1"
+    },
+    {
+      "_id": "NpwkvYlz6wLlHXrp",
+      "name": "Maiming Strike",
+      "type": "technique",
+      "img": "icons/svg/aura.svg",
+      "system": {
+        "requires": [
+          "edged",
+          "pointed"
+        ],
+        "innate": false,
+        "skill": "",
+        "family": "Melee",
+        "subgroup": "Debilitating",
+        "effects": [
+          {
+            "key": "stress",
+            "magnitude": 1,
+            "pattern": "single",
+            "bands": 0,
+            "placement": 0,
+            "selectiveR": 0
+          },
+          {
+            "key": "pierce",
+            "magnitude": 2,
+            "pattern": "single",
+            "bands": 0,
+            "placement": 0,
+            "selectiveR": 0
+          },
+          {
+            "key": "weaken",
+            "magnitude": 1,
+            "pattern": "single",
+            "bands": 0,
+            "placement": 0,
+            "selectiveR": 0
+          }
+        ],
+        "floor": false,
+        "ancestryGrant": "",
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 400000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!lwrDJsmRX2j9p0j3.NpwkvYlz6wLlHXrp"
+    },
+    {
+      "_id": "cdAasG8WbUe5XnB1",
+      "name": "Tail Sweep",
+      "type": "technique",
+      "img": "icons/svg/aura.svg",
+      "system": {
+        "requires": [
+          "blunt"
+        ],
+        "innate": false,
+        "skill": "",
+        "family": "",
+        "subgroup": "",
+        "effects": [
+          {
+            "key": "stress",
+            "magnitude": 1,
+            "pattern": "single",
+            "bands": 0,
+            "placement": 0,
+            "selectiveR": 0
+          },
+          {
+            "key": "pattern",
+            "magnitude": 1,
+            "pattern": "cone",
+            "bands": 1,
+            "placement": 0,
+            "selectiveR": 0
+          }
+        ],
+        "floor": false,
+        "ancestryGrant": "",
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 500000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!lwrDJsmRX2j9p0j3.cdAasG8WbUe5XnB1"
+    },
+    {
+      "_id": "mdOfu5wNrxDZ89OB",
+      "name": "Drag Down",
+      "type": "technique",
+      "img": "icons/svg/aura.svg",
+      "system": {
+        "requires": [
+          "grappling"
+        ],
+        "innate": false,
+        "skill": "",
+        "family": "",
+        "subgroup": "",
+        "effects": [
+          {
+            "key": "stress",
+            "magnitude": 1,
+            "pattern": "single",
+            "bands": 0,
+            "placement": 0,
+            "selectiveR": 0
+          },
+          {
+            "key": "prone",
+            "magnitude": 1,
+            "pattern": "single",
+            "bands": 0,
+            "placement": 0,
+            "selectiveR": 0
+          },
+          {
+            "key": "weaken-minute",
+            "magnitude": 1,
+            "pattern": "single",
+            "bands": 0,
+            "placement": 0,
+            "selectiveR": 0
+          }
+        ],
+        "floor": false,
+        "ancestryGrant": "",
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 600000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!lwrDJsmRX2j9p0j3.mdOfu5wNrxDZ89OB"
+    },
+    {
+      "_id": "1wo9nBc6H2pAoB4j",
+      "name": "Break",
+      "type": "technique",
+      "img": "icons/svg/aura.svg",
+      "system": {
+        "requires": [
+          "blunt"
+        ],
+        "innate": false,
+        "skill": "",
+        "family": "Melee",
+        "subgroup": "Debilitating",
+        "effects": [
+          {
+            "key": "stress",
+            "magnitude": 1,
+            "pattern": "single",
+            "bands": 0,
+            "placement": 0,
+            "selectiveR": 0
+          },
+          {
+            "key": "weaken-minute",
+            "magnitude": 1,
+            "pattern": "single",
+            "bands": 0,
+            "placement": 0,
+            "selectiveR": 0
+          }
+        ],
+        "floor": false,
+        "ancestryGrant": "",
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 700000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!lwrDJsmRX2j9p0j3.1wo9nBc6H2pAoB4j"
+    },
+    {
+      "_id": "Dpp9DjK4ZvzFoiHk",
+      "name": "Swim",
+      "type": "feat",
+      "img": "icons/svg/upgrade.svg",
+      "system": {
+        "featType": "trait",
+        "xpCost": 8,
+        "requirements": "",
+        "effect": "moves through water at full speed.",
+        "ancestry": "",
+        "grantsTechnique": "",
+        "modifiers": [],
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 800000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!lwrDJsmRX2j9p0j3.Dpp9DjK4ZvzFoiHk"
+    },
+    {
+      "_id": "ikQNOFeY7lIEyUrG",
+      "name": "Juggernaut",
+      "type": "feat",
+      "img": "icons/svg/upgrade.svg",
+      "system": {
+        "featType": "trait",
+        "xpCost": 12,
+        "requirements": "",
+        "effect": "the first Technique to land on this creature in a conflict deals half its Stress, rounded down.",
+        "ancestry": "",
+        "grantsTechnique": "",
+        "modifiers": [],
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 900000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!lwrDJsmRX2j9p0j3.ikQNOFeY7lIEyUrG"
+    },
+    {
+      "_id": "ogNWpkUko8WSoDOS",
+      "name": "Dread Presence",
+      "type": "feat",
+      "img": "icons/svg/upgrade.svg",
+      "system": {
+        "featType": "trait",
+        "xpCost": 12,
+        "requirements": "",
+        "effect": "enemies within Close range of this creature suffer -1 on Skill rolls made to Oppose it.",
+        "ancestry": "",
+        "grantsTechnique": "",
+        "modifiers": [],
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 1000000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!lwrDJsmRX2j9p0j3.ogNWpkUko8WSoDOS"
+    }
+  ],
+  "_key": "!actors!lwrDJsmRX2j9p0j3"
+}

@@ -1,0 +1,380 @@
+{
+  "_id": "o1W8i6oCIHmTfL9T",
+  "name": "Elemental Titan",
+  "type": "creature",
+  "img": "icons/svg/mystery-man.svg",
+  "system": {
+    "tier": 9,
+    "threat": 1152,
+    "behavior": "Mindless",
+    "vulnerabilities": [],
+    "attributes": {
+      "might": {
+        "dice": {
+          "d4": 0,
+          "d6": 0,
+          "d8": 2,
+          "d10": 0,
+          "d12": 0,
+          "d20": 2
+        },
+        "potential": {
+          "current": 56
+        },
+        "incapacitated": false
+      },
+      "finesse": {
+        "dice": {
+          "d4": 0,
+          "d6": 0,
+          "d8": 2,
+          "d10": 0,
+          "d12": 0,
+          "d20": 2
+        },
+        "potential": {
+          "current": 56
+        },
+        "incapacitated": false
+      },
+      "wit": {
+        "dice": {
+          "d4": 0,
+          "d6": 0,
+          "d8": 2,
+          "d10": 0,
+          "d12": 0,
+          "d20": 2
+        },
+        "potential": {
+          "current": 56
+        },
+        "incapacitated": false
+      },
+      "presence": {
+        "dice": {
+          "d4": 0,
+          "d6": 0,
+          "d8": 2,
+          "d10": 0,
+          "d12": 0,
+          "d20": 2
+        },
+        "potential": {
+          "current": 56
+        },
+        "incapacitated": false
+      }
+    },
+    "skills": {
+      "prowess": {
+        "training": 4
+      },
+      "discipline": {
+        "training": 4
+      }
+    },
+    "resistance": {
+      "physical": 4,
+      "mental": 0
+    },
+    "notes": "<p><em>A towering column of raw elemental force, barely restrained, and worse the moment it isn't anymore</em></p><p>Pick its element when it appears. Every big attack costs it Strain, so it wears itself down as it wears down the party.</p>"
+  },
+  "folder": "KX1lIH519xqxsrPG",
+  "sort": 5300000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "effects": [],
+  "prototypeToken": {
+    "name": "Elemental Titan",
+    "actorLink": false,
+    "disposition": -1
+  },
+  "items": [
+    {
+      "_id": "5WifmyY9PEIYtims",
+      "name": "Slam",
+      "type": "instrument",
+      "img": "icons/svg/claw.svg",
+      "system": {
+        "types": [
+          "blunt"
+        ],
+        "range": "Touching to Close",
+        "weight": "light",
+        "innate": true,
+        "primaryAttribute": "might",
+        "category": "melee",
+        "price": 0,
+        "kit": [
+          {
+            "name": "Bash",
+            "skill": "prowess",
+            "effect": "Deals Stress to Might or Finesse."
+          },
+          {
+            "name": "Sweep",
+            "skill": "acuity",
+            "effect": "Applies Prone."
+          },
+          {
+            "name": "Feint Jab",
+            "skill": "guile",
+            "effect": "Applies Reeling."
+          }
+        ],
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!o1W8i6oCIHmTfL9T.5WifmyY9PEIYtims"
+    },
+    {
+      "_id": "kTrk2FD5YKmTit3o",
+      "name": "Static Field",
+      "type": "instrument",
+      "img": "icons/svg/claw.svg",
+      "system": {
+        "types": [
+          "kinetic"
+        ],
+        "range": "Close",
+        "weight": "light",
+        "innate": true,
+        "primaryAttribute": "wit",
+        "category": "arcane",
+        "price": 0,
+        "kit": [
+          {
+            "name": "Force Bolt",
+            "skill": "discipline",
+            "effect": "Deals Stress to Might or Finesse."
+          },
+          {
+            "name": "Mind-Piercing Ray",
+            "skill": "acuity",
+            "effect": "Deals Stress to Wit or Presence."
+          },
+          {
+            "name": "Unsettling Pulse",
+            "skill": "resonance",
+            "effect": "Applies Frightened."
+          }
+        ],
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!o1W8i6oCIHmTfL9T.kTrk2FD5YKmTit3o"
+    },
+    {
+      "_id": "oAdVuJ7e7vkhzB8D",
+      "name": "Seismic Slam",
+      "type": "technique",
+      "img": "icons/svg/aura.svg",
+      "system": {
+        "requires": [
+          "kinetic"
+        ],
+        "innate": false,
+        "skill": "",
+        "family": "Kinetic",
+        "subgroup": "Area & Lingering",
+        "effects": [
+          {
+            "key": "stress",
+            "magnitude": 1,
+            "pattern": "single",
+            "bands": 0,
+            "placement": 0,
+            "selectiveR": 0
+          },
+          {
+            "key": "prone",
+            "magnitude": 1,
+            "pattern": "single",
+            "bands": 0,
+            "placement": 0,
+            "selectiveR": 0
+          },
+          {
+            "key": "pattern",
+            "magnitude": 1,
+            "pattern": "radius",
+            "bands": 2,
+            "placement": 0,
+            "selectiveR": 0
+          }
+        ],
+        "floor": false,
+        "ancestryGrant": "",
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 300000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!o1W8i6oCIHmTfL9T.oAdVuJ7e7vkhzB8D"
+    },
+    {
+      "_id": "CvbsKBnVCmON58z4",
+      "name": "Concussive Repulsion",
+      "type": "technique",
+      "img": "icons/svg/aura.svg",
+      "system": {
+        "requires": [
+          "kinetic"
+        ],
+        "innate": false,
+        "skill": "",
+        "family": "Kinetic",
+        "subgroup": "Area & Lingering",
+        "effects": [
+          {
+            "key": "stress",
+            "magnitude": 1,
+            "pattern": "single",
+            "bands": 0,
+            "placement": 0,
+            "selectiveR": 0
+          },
+          {
+            "key": "pattern",
+            "magnitude": 1,
+            "pattern": "radius",
+            "bands": 2,
+            "placement": 0,
+            "selectiveR": 0
+          },
+          {
+            "key": "move",
+            "magnitude": 1,
+            "pattern": "single",
+            "bands": 0,
+            "placement": 0,
+            "selectiveR": 0
+          }
+        ],
+        "floor": false,
+        "ancestryGrant": "",
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 400000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!o1W8i6oCIHmTfL9T.CvbsKBnVCmON58z4"
+    },
+    {
+      "_id": "hxpbAGuXRiYRdbxD",
+      "name": "Break",
+      "type": "technique",
+      "img": "icons/svg/aura.svg",
+      "system": {
+        "requires": [
+          "blunt"
+        ],
+        "innate": false,
+        "skill": "",
+        "family": "Melee",
+        "subgroup": "Debilitating",
+        "effects": [
+          {
+            "key": "stress",
+            "magnitude": 1,
+            "pattern": "single",
+            "bands": 0,
+            "placement": 0,
+            "selectiveR": 0
+          },
+          {
+            "key": "weaken-minute",
+            "magnitude": 1,
+            "pattern": "single",
+            "bands": 0,
+            "placement": 0,
+            "selectiveR": 0
+          }
+        ],
+        "floor": false,
+        "ancestryGrant": "",
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 500000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!o1W8i6oCIHmTfL9T.hxpbAGuXRiYRdbxD"
+    },
+    {
+      "_id": "d5KbMNMzfCixzNJC",
+      "name": "Fatal Burst",
+      "type": "feat",
+      "img": "icons/svg/upgrade.svg",
+      "system": {
+        "featType": "trait",
+        "xpCost": 8,
+        "requirements": "",
+        "effect": "when this creature is Destroyed, everything within Near range of it immediately takes Stress equal to this creature's Training bonus, this creature's choice of Attribute among the ones it could normally target.",
+        "ancestry": "",
+        "grantsTechnique": "",
+        "modifiers": [],
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 600000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!o1W8i6oCIHmTfL9T.d5KbMNMzfCixzNJC"
+    },
+    {
+      "_id": "TUuVKpHWEC74WN6T",
+      "name": "Juggernaut",
+      "type": "feat",
+      "img": "icons/svg/upgrade.svg",
+      "system": {
+        "featType": "trait",
+        "xpCost": 12,
+        "requirements": "",
+        "effect": "the first Technique to land on this creature in a conflict deals half its Stress, rounded down.",
+        "ancestry": "",
+        "grantsTechnique": "",
+        "modifiers": [],
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 700000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!o1W8i6oCIHmTfL9T.TUuVKpHWEC74WN6T"
+    }
+  ],
+  "_key": "!actors!o1W8i6oCIHmTfL9T"
+}

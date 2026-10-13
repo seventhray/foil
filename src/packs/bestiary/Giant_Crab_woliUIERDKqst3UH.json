@@ -1,0 +1,211 @@
+{
+  "_id": "woliUIERDKqst3UH",
+  "name": "Giant Crab",
+  "type": "creature",
+  "img": "icons/svg/mystery-man.svg",
+  "system": {
+    "tier": 1,
+    "threat": -384,
+    "behavior": "Territorial [its stretch of beach]",
+    "vulnerabilities": [],
+    "attributes": {
+      "might": {
+        "dice": {
+          "d4": 0,
+          "d6": 0,
+          "d8": 1,
+          "d10": 0,
+          "d12": 0,
+          "d20": 0
+        },
+        "potential": {
+          "current": 8
+        },
+        "incapacitated": false
+      },
+      "finesse": {
+        "dice": {
+          "d4": 0,
+          "d6": 0,
+          "d8": 1,
+          "d10": 0,
+          "d12": 0,
+          "d20": 0
+        },
+        "potential": {
+          "current": 8
+        },
+        "incapacitated": false
+      },
+      "wit": {
+        "dice": {
+          "d4": 0,
+          "d6": 0,
+          "d8": 1,
+          "d10": 0,
+          "d12": 0,
+          "d20": 0
+        },
+        "potential": {
+          "current": 8
+        },
+        "incapacitated": false
+      },
+      "presence": {
+        "dice": {
+          "d4": 0,
+          "d6": 0,
+          "d8": 1,
+          "d10": 0,
+          "d12": 0,
+          "d20": 0
+        },
+        "potential": {
+          "current": 8
+        },
+        "incapacitated": false
+      }
+    },
+    "skills": {},
+    "resistance": {
+      "physical": 0,
+      "mental": 0
+    },
+    "notes": "<p><em>A black-shelled crab that lies buried in the sand until something walks overhead</em></p><p>Rises from beneath the sand to seize the first creature to cross it. Its AC 15 shell does not fit a Tier 1 Resistance budget (0 points), so the shell is dropped.</p>"
+  },
+  "folder": "GhI8hbbJ8OqVysU3",
+  "sort": 6300000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "effects": [],
+  "prototypeToken": {
+    "name": "Giant Crab",
+    "actorLink": false,
+    "disposition": -1
+  },
+  "items": [
+    {
+      "_id": "EIwg4qbh7k26q1oW",
+      "name": "Gripping Claw",
+      "type": "instrument",
+      "img": "icons/svg/claw.svg",
+      "system": {
+        "types": [
+          "grappling"
+        ],
+        "range": "Touching to Close",
+        "weight": "light",
+        "innate": true,
+        "primaryAttribute": "might",
+        "category": "melee",
+        "price": 0,
+        "kit": [
+          {
+            "name": "Snare",
+            "skill": "prowess",
+            "effect": "Applies Grappled."
+          },
+          {
+            "name": "Tumble",
+            "skill": "acuity",
+            "effect": "Applies Prone."
+          },
+          {
+            "name": "Tangle",
+            "skill": "guile",
+            "effect": "Applies Restrained."
+          }
+        ],
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!woliUIERDKqst3UH.EIwg4qbh7k26q1oW"
+    },
+    {
+      "_id": "PdV5kbHoQkRSwwcy",
+      "name": "Pincers",
+      "type": "instrument",
+      "img": "icons/svg/claw.svg",
+      "system": {
+        "types": [
+          "blunt"
+        ],
+        "range": "Touching to Close",
+        "weight": "light",
+        "innate": true,
+        "primaryAttribute": "might",
+        "category": "melee",
+        "price": 0,
+        "kit": [
+          {
+            "name": "Bash",
+            "skill": "prowess",
+            "effect": "Deals Stress to Might or Finesse."
+          },
+          {
+            "name": "Sweep",
+            "skill": "acuity",
+            "effect": "Applies Prone."
+          },
+          {
+            "name": "Feint Jab",
+            "skill": "guile",
+            "effect": "Applies Reeling."
+          }
+        ],
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!woliUIERDKqst3UH.PdV5kbHoQkRSwwcy"
+    },
+    {
+      "_id": "gz7QTLAciYaHLTf7",
+      "name": "Scuttle",
+      "type": "technique",
+      "img": "icons/svg/aura.svg",
+      "system": {
+        "requires": [],
+        "innate": false,
+        "skill": "",
+        "family": "",
+        "subgroup": "",
+        "effects": [
+          {
+            "key": "evade",
+            "magnitude": 1,
+            "pattern": "single",
+            "bands": 0,
+            "placement": 0,
+            "selectiveR": 0
+          }
+        ],
+        "floor": false,
+        "ancestryGrant": "",
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 300000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!woliUIERDKqst3UH.gz7QTLAciYaHLTf7"
+    }
+  ],
+  "_key": "!actors!woliUIERDKqst3UH"
+}

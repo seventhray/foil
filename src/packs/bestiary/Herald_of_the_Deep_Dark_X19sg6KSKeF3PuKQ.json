@@ -1,0 +1,431 @@
+{
+  "_id": "X19sg6KSKeF3PuKQ",
+  "name": "Herald of the Deep Dark",
+  "type": "creature",
+  "img": "icons/svg/mystery-man.svg",
+  "system": {
+    "tier": 10,
+    "threat": 1536,
+    "behavior": "Zealous",
+    "vulnerabilities": [],
+    "attributes": {
+      "might": {
+        "dice": {
+          "d4": 0,
+          "d6": 0,
+          "d8": 1,
+          "d10": 0,
+          "d12": 0,
+          "d20": 3
+        },
+        "potential": {
+          "current": 68
+        },
+        "incapacitated": false
+      },
+      "finesse": {
+        "dice": {
+          "d4": 0,
+          "d6": 0,
+          "d8": 1,
+          "d10": 0,
+          "d12": 0,
+          "d20": 3
+        },
+        "potential": {
+          "current": 68
+        },
+        "incapacitated": false
+      },
+      "wit": {
+        "dice": {
+          "d4": 0,
+          "d6": 0,
+          "d8": 1,
+          "d10": 0,
+          "d12": 0,
+          "d20": 3
+        },
+        "potential": {
+          "current": 68
+        },
+        "incapacitated": false
+      },
+      "presence": {
+        "dice": {
+          "d4": 0,
+          "d6": 0,
+          "d8": 1,
+          "d10": 0,
+          "d12": 0,
+          "d20": 3
+        },
+        "potential": {
+          "current": 68
+        },
+        "incapacitated": false
+      }
+    },
+    "skills": {
+      "resonance": {
+        "training": 5
+      },
+      "assertiveness": {
+        "training": 5
+      }
+    },
+    "resistance": {
+      "physical": 2,
+      "mental": 3
+    },
+    "notes": "<p><em>The thing every Dread Herald actually answers to, when it bothers to notice they exist</em></p><p>Announces itself across a whole valley. By the time it is in reach, most of a party is already shaken.</p>"
+  },
+  "folder": "YGrrf4NUQjIr3ADS",
+  "sort": 7700000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "effects": [],
+  "prototypeToken": {
+    "name": "Herald of the Deep Dark",
+    "actorLink": false,
+    "disposition": -1
+  },
+  "items": [
+    {
+      "_id": "eld6JEeEo1ZEk4W4",
+      "name": "Claws",
+      "type": "instrument",
+      "img": "icons/svg/claw.svg",
+      "system": {
+        "types": [
+          "edged"
+        ],
+        "range": "Touching to Close",
+        "weight": "light",
+        "innate": true,
+        "primaryAttribute": "might",
+        "category": "melee",
+        "price": 0,
+        "kit": [
+          {
+            "name": "Stab",
+            "skill": "prowess",
+            "effect": "Deals Stress to Might or Finesse."
+          },
+          {
+            "name": "Vital Strike",
+            "skill": "acuity",
+            "effect": "Applies Weakened [Finesse]."
+          },
+          {
+            "name": "Backstab",
+            "skill": "guile",
+            "effect": "Applies Reeling."
+          }
+        ],
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!X19sg6KSKeF3PuKQ.eld6JEeEo1ZEk4W4"
+    },
+    {
+      "_id": "lf0FQJ7XsPSE1O9G",
+      "name": "Mind Lash",
+      "type": "instrument",
+      "img": "icons/svg/claw.svg",
+      "system": {
+        "types": [
+          "incorporeal"
+        ],
+        "range": "Mid",
+        "weight": "light",
+        "innate": true,
+        "primaryAttribute": "wit",
+        "category": "arcane",
+        "price": 0,
+        "kit": [
+          {
+            "name": "Force Strike",
+            "skill": "discipline",
+            "effect": "Deals Stress to Might or Finesse."
+          },
+          {
+            "name": "Mind-Piercing Bolt",
+            "skill": "acuity",
+            "effect": "Deals Stress to Wit or Presence."
+          },
+          {
+            "name": "Unraveling Pulse",
+            "skill": "resonance",
+            "effect": "Applies Weakened [Presence]."
+          }
+        ],
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!X19sg6KSKeF3PuKQ.lf0FQJ7XsPSE1O9G"
+    },
+    {
+      "_id": "xQH9rGwruGm4isvl",
+      "name": "Roar",
+      "type": "instrument",
+      "img": "icons/svg/claw.svg",
+      "system": {
+        "types": [
+          "sonic"
+        ],
+        "range": "Mid",
+        "weight": "light",
+        "innate": true,
+        "primaryAttribute": "presence",
+        "category": "sonic",
+        "price": 0,
+        "kit": [
+          {
+            "name": "Rousing Chord",
+            "skill": "assertiveness",
+            "effect": "Applies Intimidated."
+          },
+          {
+            "name": "Cutting Verse",
+            "skill": "guile",
+            "effect": "Applies Baited."
+          },
+          {
+            "name": "Discordant Note",
+            "skill": "resonance",
+            "effect": "Deals Stress to Wit or Presence."
+          }
+        ],
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 300000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!X19sg6KSKeF3PuKQ.xQH9rGwruGm4isvl"
+    },
+    {
+      "_id": "f998ksxOdp7E6zjz",
+      "name": "Fog of Madness",
+      "type": "technique",
+      "img": "icons/svg/aura.svg",
+      "system": {
+        "requires": [
+          "incorporeal"
+        ],
+        "innate": false,
+        "skill": "",
+        "family": "Incorporeal",
+        "subgroup": "Debilitating",
+        "effects": [
+          {
+            "key": "stress",
+            "magnitude": 1,
+            "pattern": "single",
+            "bands": 0,
+            "placement": 0,
+            "selectiveR": 0
+          },
+          {
+            "key": "weaken",
+            "magnitude": 1,
+            "pattern": "single",
+            "bands": 0,
+            "placement": 0,
+            "selectiveR": 0
+          },
+          {
+            "key": "pattern",
+            "magnitude": 1,
+            "pattern": "radius",
+            "bands": 2,
+            "placement": 0,
+            "selectiveR": 0
+          }
+        ],
+        "floor": false,
+        "ancestryGrant": "",
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 400000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!X19sg6KSKeF3PuKQ.f998ksxOdp7E6zjz"
+    },
+    {
+      "_id": "J3WFCP4UGJ1MygaI",
+      "name": "Soul Harvest",
+      "type": "technique",
+      "img": "icons/svg/aura.svg",
+      "system": {
+        "requires": [
+          "incorporeal"
+        ],
+        "innate": false,
+        "skill": "",
+        "family": "Incorporeal",
+        "subgroup": "Draining",
+        "effects": [
+          {
+            "key": "stress",
+            "magnitude": 1,
+            "pattern": "single",
+            "bands": 0,
+            "placement": 0,
+            "selectiveR": 0
+          },
+          {
+            "key": "drain",
+            "magnitude": 1,
+            "pattern": "single",
+            "bands": 0,
+            "placement": 0,
+            "selectiveR": 0
+          },
+          {
+            "key": "pattern",
+            "magnitude": 1,
+            "pattern": "radius",
+            "bands": 2,
+            "placement": 0,
+            "selectiveR": 0
+          }
+        ],
+        "floor": false,
+        "ancestryGrant": "",
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 500000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!X19sg6KSKeF3PuKQ.J3WFCP4UGJ1MygaI"
+    },
+    {
+      "_id": "Fr58BGRQuOuDm1Bv",
+      "name": "Terrifying Roar",
+      "type": "technique",
+      "img": "icons/svg/aura.svg",
+      "system": {
+        "requires": [
+          "sonic"
+        ],
+        "innate": false,
+        "skill": "",
+        "family": "",
+        "subgroup": "",
+        "effects": [
+          {
+            "key": "stress",
+            "magnitude": 1,
+            "pattern": "single",
+            "bands": 0,
+            "placement": 0,
+            "selectiveR": 0
+          },
+          {
+            "key": "frightened",
+            "magnitude": 1,
+            "pattern": "single",
+            "bands": 0,
+            "placement": 0,
+            "selectiveR": 0
+          },
+          {
+            "key": "pattern",
+            "magnitude": 1,
+            "pattern": "radius",
+            "bands": 2,
+            "placement": 0,
+            "selectiveR": 0
+          }
+        ],
+        "floor": false,
+        "ancestryGrant": "",
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 600000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!X19sg6KSKeF3PuKQ.Fr58BGRQuOuDm1Bv"
+    },
+    {
+      "_id": "TjuwisRuy3MfKmZy",
+      "name": "Dread Presence",
+      "type": "feat",
+      "img": "icons/svg/upgrade.svg",
+      "system": {
+        "featType": "trait",
+        "xpCost": 12,
+        "requirements": "",
+        "effect": "enemies within Close range of this creature suffer -1 on Skill rolls made to Oppose it.",
+        "ancestry": "",
+        "grantsTechnique": "",
+        "modifiers": [],
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 700000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!X19sg6KSKeF3PuKQ.TjuwisRuy3MfKmZy"
+    },
+    {
+      "_id": "fhino82wPptdzvVi",
+      "name": "Legendary Action",
+      "type": "feat",
+      "img": "icons/svg/upgrade.svg",
+      "system": {
+        "featType": "trait",
+        "xpCost": 28,
+        "requirements": "",
+        "effect": "immediately after an enemy ends its turn, attacks that enemy, once per round.",
+        "ancestry": "",
+        "grantsTechnique": "",
+        "modifiers": [],
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 800000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!X19sg6KSKeF3PuKQ.fhino82wPptdzvVi"
+    }
+  ],
+  "_key": "!actors!X19sg6KSKeF3PuKQ"
+}

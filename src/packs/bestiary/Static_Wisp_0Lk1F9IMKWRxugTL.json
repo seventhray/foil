@@ -1,0 +1,192 @@
+{
+  "_id": "0Lk1F9IMKWRxugTL",
+  "name": "Static Wisp",
+  "type": "creature",
+  "img": "icons/svg/mystery-man.svg",
+  "system": {
+    "tier": 2,
+    "threat": -256,
+    "behavior": "Mindless",
+    "vulnerabilities": [],
+    "attributes": {
+      "might": {
+        "dice": {
+          "d4": 0,
+          "d6": 0,
+          "d8": 0,
+          "d10": 1,
+          "d12": 0,
+          "d20": 0
+        },
+        "potential": {
+          "current": 10
+        },
+        "incapacitated": false
+      },
+      "finesse": {
+        "dice": {
+          "d4": 0,
+          "d6": 1,
+          "d8": 1,
+          "d10": 0,
+          "d12": 0,
+          "d20": 0
+        },
+        "potential": {
+          "current": 14
+        },
+        "incapacitated": false
+      },
+      "wit": {
+        "dice": {
+          "d4": 0,
+          "d6": 0,
+          "d8": 0,
+          "d10": 0,
+          "d12": 1,
+          "d20": 0
+        },
+        "potential": {
+          "current": 12
+        },
+        "incapacitated": false
+      },
+      "presence": {
+        "dice": {
+          "d4": 0,
+          "d6": 0,
+          "d8": 0,
+          "d10": 0,
+          "d12": 1,
+          "d20": 0
+        },
+        "potential": {
+          "current": 12
+        },
+        "incapacitated": false
+      }
+    },
+    "skills": {},
+    "resistance": {
+      "physical": 0,
+      "mental": 0
+    },
+    "notes": "<p><em>A crackling knot of captured lightning, fast and impossible to corner</em></p><p>Darts in, shocks, and darts out. It is drawn to metal armor and drawn blades.</p>"
+  },
+  "folder": "waHrVCvmZV9sEJ2n",
+  "sort": 10800000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "effects": [],
+  "prototypeToken": {
+    "name": "Static Wisp",
+    "actorLink": false,
+    "disposition": -1
+  },
+  "items": [
+    {
+      "_id": "R6zxJUnNhRihrt6m",
+      "name": "Static Field",
+      "type": "instrument",
+      "img": "icons/svg/claw.svg",
+      "system": {
+        "types": [
+          "kinetic"
+        ],
+        "range": "Close",
+        "weight": "light",
+        "innate": true,
+        "primaryAttribute": "wit",
+        "category": "arcane",
+        "price": 0,
+        "kit": [
+          {
+            "name": "Force Bolt",
+            "skill": "discipline",
+            "effect": "Deals Stress to Might or Finesse."
+          },
+          {
+            "name": "Mind-Piercing Ray",
+            "skill": "acuity",
+            "effect": "Deals Stress to Wit or Presence."
+          },
+          {
+            "name": "Unsettling Pulse",
+            "skill": "resonance",
+            "effect": "Applies Frightened."
+          }
+        ],
+        "description": "<p>Lightning.</p>"
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!0Lk1F9IMKWRxugTL.R6zxJUnNhRihrt6m"
+    },
+    {
+      "_id": "7fzqN2CANryD5LSQ",
+      "name": "Fly",
+      "type": "feat",
+      "img": "icons/svg/upgrade.svg",
+      "system": {
+        "featType": "trait",
+        "xpCost": 8,
+        "requirements": "",
+        "effect": "moves through the air at full speed.",
+        "ancestry": "",
+        "grantsTechnique": "",
+        "modifiers": [],
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!0Lk1F9IMKWRxugTL.7fzqN2CANryD5LSQ"
+    },
+    {
+      "_id": "APlWuoS9aq4nTHCe",
+      "name": "Arc Away",
+      "type": "technique",
+      "img": "icons/svg/aura.svg",
+      "system": {
+        "requires": [],
+        "innate": false,
+        "skill": "",
+        "family": "",
+        "subgroup": "",
+        "effects": [
+          {
+            "key": "evade",
+            "magnitude": 1,
+            "pattern": "single",
+            "bands": 0,
+            "placement": 0,
+            "selectiveR": 0
+          }
+        ],
+        "floor": false,
+        "ancestryGrant": "",
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 300000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!0Lk1F9IMKWRxugTL.APlWuoS9aq4nTHCe"
+    }
+  ],
+  "_key": "!actors!0Lk1F9IMKWRxugTL"
+}

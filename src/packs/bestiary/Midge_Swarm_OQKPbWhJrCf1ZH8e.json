@@ -1,0 +1,230 @@
+{
+  "_id": "OQKPbWhJrCf1ZH8e",
+  "name": "Midge Swarm",
+  "type": "creature",
+  "img": "icons/svg/mystery-man.svg",
+  "system": {
+    "tier": 3,
+    "threat": -64,
+    "behavior": "Mindless",
+    "vulnerabilities": [],
+    "attributes": {
+      "might": {
+        "dice": {
+          "d4": 0,
+          "d6": 0,
+          "d8": 1,
+          "d10": 1,
+          "d12": 0,
+          "d20": 0
+        },
+        "potential": {
+          "current": 18
+        },
+        "incapacitated": false
+      },
+      "finesse": {
+        "dice": {
+          "d4": 0,
+          "d6": 0,
+          "d8": 0,
+          "d10": 0,
+          "d12": 0,
+          "d20": 1
+        },
+        "potential": {
+          "current": 20
+        },
+        "incapacitated": false
+      },
+      "wit": {
+        "dice": {
+          "d4": 0,
+          "d6": 0,
+          "d8": 1,
+          "d10": 1,
+          "d12": 0,
+          "d20": 0
+        },
+        "potential": {
+          "current": 18
+        },
+        "incapacitated": false
+      },
+      "presence": {
+        "dice": {
+          "d4": 0,
+          "d6": 0,
+          "d8": 1,
+          "d10": 1,
+          "d12": 0,
+          "d20": 0
+        },
+        "potential": {
+          "current": 18
+        },
+        "incapacitated": false
+      }
+    },
+    "skills": {},
+    "resistance": {
+      "physical": 1,
+      "mental": 0
+    },
+    "notes": "<p><em>A glittering cloud of corrosion midges that hungers for the rust and iron of the old guard post</em></p><p>Descends on whoever carries the most iron. After it has landed 1d4 + 2 hits it settles and cannot bite for 24 hours. Corrosion and Detect Iron are excluded from the conversion, and the condition immunities and Vulnerable fire do not fit the Allowance of 24.</p>"
+  },
+  "folder": "oestcF1oEEFrxKyA",
+  "sort": 8600000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "effects": [],
+  "prototypeToken": {
+    "name": "Midge Swarm",
+    "actorLink": false,
+    "disposition": -1
+  },
+  "items": [
+    {
+      "_id": "FnkKJqZEQxKAXQgG",
+      "name": "Bite",
+      "type": "instrument",
+      "img": "icons/svg/claw.svg",
+      "system": {
+        "types": [
+          "pointed"
+        ],
+        "range": "Touching",
+        "weight": "light",
+        "innate": true,
+        "primaryAttribute": "might",
+        "category": "melee",
+        "price": 0,
+        "kit": [
+          {
+            "name": "Stab",
+            "skill": "prowess",
+            "effect": "Deals Stress to Might or Finesse."
+          },
+          {
+            "name": "Vital Strike",
+            "skill": "acuity",
+            "effect": "Applies Weakened [Finesse]."
+          },
+          {
+            "name": "Backstab",
+            "skill": "guile",
+            "effect": "Applies Reeling."
+          }
+        ],
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!OQKPbWhJrCf1ZH8e.FnkKJqZEQxKAXQgG"
+    },
+    {
+      "_id": "dYucE36CapvRkg8t",
+      "name": "Swarm",
+      "type": "feat",
+      "img": "icons/svg/upgrade.svg",
+      "system": {
+        "featType": "trait",
+        "xpCost": 8,
+        "requirements": "",
+        "effect": "Area Patterns deal this creature half Stress, rounded down. It Opposes single-target attacks at -1.",
+        "ancestry": "",
+        "grantsTechnique": "",
+        "modifiers": [],
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!OQKPbWhJrCf1ZH8e.dYucE36CapvRkg8t"
+    },
+    {
+      "_id": "YZydESClat6DphgT",
+      "name": "Fly",
+      "type": "feat",
+      "img": "icons/svg/upgrade.svg",
+      "system": {
+        "featType": "trait",
+        "xpCost": 8,
+        "requirements": "",
+        "effect": "moves through the air at full speed.",
+        "ancestry": "",
+        "grantsTechnique": "",
+        "modifiers": [],
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 300000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!OQKPbWhJrCf1ZH8e.YZydESClat6DphgT"
+    },
+    {
+      "_id": "oS8HHma5uTFtM8ot",
+      "name": "Ambush Predator",
+      "type": "feat",
+      "img": "icons/svg/upgrade.svg",
+      "system": {
+        "featType": "trait",
+        "xpCost": 8,
+        "requirements": "",
+        "effect": "the first Technique this creature lands on a target that hasn't yet acted this conflict deals +2 additional Stress.",
+        "ancestry": "",
+        "grantsTechnique": "",
+        "modifiers": [],
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 400000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!OQKPbWhJrCf1ZH8e.oS8HHma5uTFtM8ot"
+    },
+    {
+      "_id": "DH0SbA1bGkOBZrXr",
+      "name": "Pack Tactics +2",
+      "type": "feat",
+      "img": "icons/svg/upgrade.svg",
+      "system": {
+        "featType": "trait",
+        "xpCost": 12,
+        "requirements": "",
+        "effect": "+1 to its Techniques for each other creature bearing this same Feat within Close range, up to +2.",
+        "ancestry": "",
+        "grantsTechnique": "",
+        "modifiers": [],
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 500000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!OQKPbWhJrCf1ZH8e.DH0SbA1bGkOBZrXr"
+    }
+  ],
+  "_key": "!actors!OQKPbWhJrCf1ZH8e"
+}

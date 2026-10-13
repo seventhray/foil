@@ -1,0 +1,464 @@
+{
+  "_id": "cQPggr9q3j4A4FbF",
+  "name": "Thornheart Colossus",
+  "type": "creature",
+  "img": "icons/svg/mystery-man.svg",
+  "system": {
+    "tier": 8,
+    "threat": 832,
+    "behavior": "Territorial [its grove]",
+    "vulnerabilities": [],
+    "attributes": {
+      "might": {
+        "dice": {
+          "d4": 0,
+          "d6": 1,
+          "d8": 0,
+          "d10": 0,
+          "d12": 0,
+          "d20": 2
+        },
+        "potential": {
+          "current": 46
+        },
+        "incapacitated": false
+      },
+      "finesse": {
+        "dice": {
+          "d4": 0,
+          "d6": 1,
+          "d8": 0,
+          "d10": 0,
+          "d12": 0,
+          "d20": 2
+        },
+        "potential": {
+          "current": 46
+        },
+        "incapacitated": false
+      },
+      "wit": {
+        "dice": {
+          "d4": 0,
+          "d6": 1,
+          "d8": 0,
+          "d10": 0,
+          "d12": 0,
+          "d20": 2
+        },
+        "potential": {
+          "current": 46
+        },
+        "incapacitated": false
+      },
+      "presence": {
+        "dice": {
+          "d4": 0,
+          "d6": 1,
+          "d8": 0,
+          "d10": 0,
+          "d12": 0,
+          "d20": 2
+        },
+        "potential": {
+          "current": 46
+        },
+        "incapacitated": false
+      }
+    },
+    "skills": {
+      "prowess": {
+        "training": 4
+      },
+      "discipline": {
+        "training": 4
+      }
+    },
+    "resistance": {
+      "physical": 4,
+      "mental": 0
+    },
+    "notes": "<p><em>An ancient beast so old the living thornwood grew into it</em></p><p>Old, slow to anger, and impossible to move once angry.</p>"
+  },
+  "folder": "a6sag5XJHITShA7Q",
+  "sort": 11800000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "effects": [],
+  "prototypeToken": {
+    "name": "Thornheart Colossus",
+    "actorLink": false,
+    "disposition": -1
+  },
+  "items": [
+    {
+      "_id": "lvLltVE01US5zief",
+      "name": "Horns",
+      "type": "instrument",
+      "img": "icons/svg/claw.svg",
+      "system": {
+        "types": [
+          "pointed"
+        ],
+        "range": "Touching to Close",
+        "weight": "light",
+        "innate": true,
+        "primaryAttribute": "might",
+        "category": "melee",
+        "price": 0,
+        "kit": [
+          {
+            "name": "Stab",
+            "skill": "prowess",
+            "effect": "Deals Stress to Might or Finesse."
+          },
+          {
+            "name": "Vital Strike",
+            "skill": "acuity",
+            "effect": "Applies Weakened [Finesse]."
+          },
+          {
+            "name": "Backstab",
+            "skill": "guile",
+            "effect": "Applies Reeling."
+          }
+        ],
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!cQPggr9q3j4A4FbF.lvLltVE01US5zief"
+    },
+    {
+      "_id": "BYsrvEYBHIA3YVRK",
+      "name": "Slam",
+      "type": "instrument",
+      "img": "icons/svg/claw.svg",
+      "system": {
+        "types": [
+          "blunt"
+        ],
+        "range": "Touching to Close",
+        "weight": "light",
+        "innate": true,
+        "primaryAttribute": "might",
+        "category": "melee",
+        "price": 0,
+        "kit": [
+          {
+            "name": "Bash",
+            "skill": "prowess",
+            "effect": "Deals Stress to Might or Finesse."
+          },
+          {
+            "name": "Sweep",
+            "skill": "acuity",
+            "effect": "Applies Prone."
+          },
+          {
+            "name": "Feint Jab",
+            "skill": "guile",
+            "effect": "Applies Reeling."
+          }
+        ],
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!cQPggr9q3j4A4FbF.BYsrvEYBHIA3YVRK"
+    },
+    {
+      "_id": "FXajhC9EY3ReiYI1",
+      "name": "Coils",
+      "type": "instrument",
+      "img": "icons/svg/claw.svg",
+      "system": {
+        "types": [
+          "grappling"
+        ],
+        "range": "Touching",
+        "weight": "light",
+        "innate": true,
+        "primaryAttribute": "might",
+        "category": "melee",
+        "price": 0,
+        "kit": [
+          {
+            "name": "Snare",
+            "skill": "prowess",
+            "effect": "Applies Grappled."
+          },
+          {
+            "name": "Tumble",
+            "skill": "acuity",
+            "effect": "Applies Prone."
+          },
+          {
+            "name": "Tangle",
+            "skill": "guile",
+            "effect": "Applies Restrained."
+          }
+        ],
+        "description": "<p>its thorned vines.</p>"
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 300000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!cQPggr9q3j4A4FbF.FXajhC9EY3ReiYI1"
+    },
+    {
+      "_id": "qUDQOWRXQHusnA10",
+      "name": "Maiming Strike",
+      "type": "technique",
+      "img": "icons/svg/aura.svg",
+      "system": {
+        "requires": [
+          "edged",
+          "pointed"
+        ],
+        "innate": false,
+        "skill": "",
+        "family": "Melee",
+        "subgroup": "Debilitating",
+        "effects": [
+          {
+            "key": "stress",
+            "magnitude": 1,
+            "pattern": "single",
+            "bands": 0,
+            "placement": 0,
+            "selectiveR": 0
+          },
+          {
+            "key": "pierce",
+            "magnitude": 2,
+            "pattern": "single",
+            "bands": 0,
+            "placement": 0,
+            "selectiveR": 0
+          },
+          {
+            "key": "weaken",
+            "magnitude": 1,
+            "pattern": "single",
+            "bands": 0,
+            "placement": 0,
+            "selectiveR": 0
+          }
+        ],
+        "floor": false,
+        "ancestryGrant": "",
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 400000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!cQPggr9q3j4A4FbF.qUDQOWRXQHusnA10"
+    },
+    {
+      "_id": "TaRQ6Hk6HqbbqEMr",
+      "name": "Break",
+      "type": "technique",
+      "img": "icons/svg/aura.svg",
+      "system": {
+        "requires": [
+          "blunt"
+        ],
+        "innate": false,
+        "skill": "",
+        "family": "Melee",
+        "subgroup": "Debilitating",
+        "effects": [
+          {
+            "key": "stress",
+            "magnitude": 1,
+            "pattern": "single",
+            "bands": 0,
+            "placement": 0,
+            "selectiveR": 0
+          },
+          {
+            "key": "weaken-minute",
+            "magnitude": 1,
+            "pattern": "single",
+            "bands": 0,
+            "placement": 0,
+            "selectiveR": 0
+          }
+        ],
+        "floor": false,
+        "ancestryGrant": "",
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 500000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!cQPggr9q3j4A4FbF.TaRQ6Hk6HqbbqEMr"
+    },
+    {
+      "_id": "MMg09FQItLIYrYH9",
+      "name": "Constricting Grasp",
+      "type": "technique",
+      "img": "icons/svg/aura.svg",
+      "system": {
+        "requires": [
+          "grappling"
+        ],
+        "innate": false,
+        "skill": "",
+        "family": "",
+        "subgroup": "",
+        "effects": [
+          {
+            "key": "stress",
+            "magnitude": 1,
+            "pattern": "single",
+            "bands": 0,
+            "placement": 0,
+            "selectiveR": 0
+          },
+          {
+            "key": "weaken-minute",
+            "magnitude": 1,
+            "pattern": "single",
+            "bands": 0,
+            "placement": 0,
+            "selectiveR": 0
+          }
+        ],
+        "floor": false,
+        "ancestryGrant": "",
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 600000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!cQPggr9q3j4A4FbF.MMg09FQItLIYrYH9"
+    },
+    {
+      "_id": "kwbZ9VXSD10BKRmj",
+      "name": "Adaptive Hide",
+      "type": "feat",
+      "img": "icons/svg/upgrade.svg",
+      "system": {
+        "featType": "trait",
+        "xpCost": 12,
+        "requirements": "",
+        "effect": "the first time in a conflict this creature takes Stress from a given Instrument Type, it gains Resistance +2 against that Instrument Type for the rest of the conflict.",
+        "ancestry": "",
+        "grantsTechnique": "",
+        "modifiers": [],
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 700000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!cQPggr9q3j4A4FbF.kwbZ9VXSD10BKRmj"
+    },
+    {
+      "_id": "iE102S6kAhgf5aeW",
+      "name": "Juggernaut",
+      "type": "feat",
+      "img": "icons/svg/upgrade.svg",
+      "system": {
+        "featType": "trait",
+        "xpCost": 12,
+        "requirements": "",
+        "effect": "the first Technique to land on this creature in a conflict deals half its Stress, rounded down.",
+        "ancestry": "",
+        "grantsTechnique": "",
+        "modifiers": [],
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 800000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!cQPggr9q3j4A4FbF.iE102S6kAhgf5aeW"
+    },
+    {
+      "_id": "Spo7NI5MVUZKnwGT",
+      "name": "Second Wind",
+      "type": "feat",
+      "img": "icons/svg/upgrade.svg",
+      "system": {
+        "featType": "trait",
+        "xpCost": 12,
+        "requirements": "",
+        "effect": "the first time an Attribute of this creature's would be Incapacitated in a conflict, its Stress stops 1 short of its Potential instead.",
+        "ancestry": "",
+        "grantsTechnique": "",
+        "modifiers": [],
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 900000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!cQPggr9q3j4A4FbF.Spo7NI5MVUZKnwGT"
+    },
+    {
+      "_id": "fyCKPp8jsIqLkC1V",
+      "name": "Heavy Hand",
+      "type": "feat",
+      "img": "icons/svg/upgrade.svg",
+      "system": {
+        "featType": "learned",
+        "xpCost": 12,
+        "requirements": "12 Might, 12 Finesse",
+        "effect": "When using a Melee Technique that deals Stress to the Target, deal +1 additional Stress.",
+        "ancestry": "",
+        "grantsTechnique": "",
+        "modifiers": [],
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 1000000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!cQPggr9q3j4A4FbF.fyCKPp8jsIqLkC1V"
+    }
+  ],
+  "_key": "!actors!cQPggr9q3j4A4FbF"
+}

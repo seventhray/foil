@@ -1,0 +1,266 @@
+{
+  "_id": "dkAlRiE9NWMDFNQt",
+  "name": "Scout",
+  "type": "creature",
+  "img": "icons/svg/mystery-man.svg",
+  "system": {
+    "tier": 3,
+    "threat": -128,
+    "behavior": "Opportunist",
+    "vulnerabilities": [],
+    "attributes": {
+      "might": {
+        "dice": {
+          "d4": 0,
+          "d6": 0,
+          "d8": 2,
+          "d10": 0,
+          "d12": 0,
+          "d20": 0
+        },
+        "potential": {
+          "current": 16
+        },
+        "incapacitated": false
+      },
+      "finesse": {
+        "dice": {
+          "d4": 0,
+          "d6": 0,
+          "d8": 2,
+          "d10": 0,
+          "d12": 0,
+          "d20": 0
+        },
+        "potential": {
+          "current": 16
+        },
+        "incapacitated": false
+      },
+      "wit": {
+        "dice": {
+          "d4": 0,
+          "d6": 0,
+          "d8": 2,
+          "d10": 0,
+          "d12": 0,
+          "d20": 0
+        },
+        "potential": {
+          "current": 16
+        },
+        "incapacitated": false
+      },
+      "presence": {
+        "dice": {
+          "d4": 0,
+          "d6": 0,
+          "d8": 2,
+          "d10": 0,
+          "d12": 0,
+          "d20": 0
+        },
+        "potential": {
+          "current": 16
+        },
+        "incapacitated": false
+      }
+    },
+    "skills": {
+      "prowess": {
+        "training": 1
+      }
+    },
+    "resistance": {
+      "physical": 1,
+      "mental": 0
+    },
+    "notes": "<p><em>A woodland skirmisher in scale mail, quick with a bow from cover</em></p><p>Fights from cover at range, then draws steel when pressed.</p>"
+  },
+  "folder": "oestcF1oEEFrxKyA",
+  "sort": 10000000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "effects": [],
+  "prototypeToken": {
+    "name": "Scout",
+    "actorLink": false,
+    "disposition": -1
+  },
+  "items": [
+    {
+      "_id": "WjxrvF1qnHhSaB5o",
+      "name": "Shortsword",
+      "type": "instrument",
+      "img": "icons/svg/sword.svg",
+      "system": {
+        "category": "melee",
+        "weight": "light",
+        "primaryAttribute": "finesse",
+        "range": "Close",
+        "types": [
+          "edged",
+          "pointed",
+          "parry"
+        ],
+        "typesDisplay": "",
+        "price": 30,
+        "rider": "",
+        "kit": [
+          {
+            "name": "Thrust",
+            "skill": "prowess",
+            "effect": "Deals Stress to Might or Finesse."
+          },
+          {
+            "name": "Precise Cut",
+            "skill": "acuity",
+            "effect": "Applies Weakened [Finesse]."
+          },
+          {
+            "name": "Feinted Slash",
+            "skill": "guile",
+            "effect": "Applies Reeling."
+          }
+        ],
+        "innate": false,
+        "bonus": 0,
+        "size": "medium",
+        "materials": "Metal + Leather",
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!dkAlRiE9NWMDFNQt.WjxrvF1qnHhSaB5o"
+    },
+    {
+      "_id": "83plLjFlXnapJnkN",
+      "name": "Longbow",
+      "type": "instrument",
+      "img": "icons/svg/sword.svg",
+      "system": {
+        "category": "ranged",
+        "weight": "medium",
+        "primaryAttribute": "might",
+        "range": "Long Range",
+        "types": [
+          "pointed",
+          "drawn"
+        ],
+        "typesDisplay": "",
+        "price": 75,
+        "rider": "Reload Quick Action.",
+        "kit": [
+          {
+            "name": "Full Draw",
+            "skill": "prowess",
+            "effect": "Deals Stress to Might or Finesse."
+          },
+          {
+            "name": "Pin Down",
+            "skill": "discipline",
+            "effect": "Applies Prone."
+          },
+          {
+            "name": "Warning Shot",
+            "skill": "assertiveness",
+            "effect": "Deals Stress to Presence or Wit."
+          }
+        ],
+        "innate": false,
+        "bonus": 0,
+        "size": "medium",
+        "materials": "Wood + Textile",
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!dkAlRiE9NWMDFNQt.83plLjFlXnapJnkN"
+    },
+    {
+      "_id": "lQreP6AZv7Ruu3s6",
+      "name": "Darkvision",
+      "type": "feat",
+      "img": "icons/svg/upgrade.svg",
+      "system": {
+        "featType": "trait",
+        "xpCost": 8,
+        "requirements": "",
+        "effect": "sees in dim light and darkness as in daylight.",
+        "ancestry": "",
+        "grantsTechnique": "",
+        "modifiers": [],
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 300000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!dkAlRiE9NWMDFNQt.lQreP6AZv7Ruu3s6"
+    },
+    {
+      "_id": "QEFIp9PriRgosP0v",
+      "name": "Hunter's Mark",
+      "type": "feat",
+      "img": "icons/svg/upgrade.svg",
+      "system": {
+        "featType": "learned",
+        "xpCost": 12,
+        "requirements": "12 Finesse, 12 Wit",
+        "effect": "When using a Ranged Technique that deals Stress to the Target, deal +1 additional Stress.",
+        "ancestry": "",
+        "grantsTechnique": "",
+        "modifiers": [],
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 400000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!dkAlRiE9NWMDFNQt.QEFIp9PriRgosP0v"
+    },
+    {
+      "_id": "rAYDdkM3zuBHn7Sz",
+      "name": "Ambush Predator",
+      "type": "feat",
+      "img": "icons/svg/upgrade.svg",
+      "system": {
+        "featType": "trait",
+        "xpCost": 8,
+        "requirements": "",
+        "effect": "the first Technique this creature lands on a target that hasn't yet acted this conflict deals +2 additional Stress.",
+        "ancestry": "",
+        "grantsTechnique": "",
+        "modifiers": [],
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 500000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!dkAlRiE9NWMDFNQt.rAYDdkM3zuBHn7Sz"
+    }
+  ],
+  "_key": "!actors!dkAlRiE9NWMDFNQt"
+}

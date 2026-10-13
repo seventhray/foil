@@ -1,0 +1,415 @@
+{
+  "_id": "OzjkKuff0cCoIRwB",
+  "name": "Lich",
+  "type": "creature",
+  "img": "icons/svg/mystery-man.svg",
+  "system": {
+    "tier": 10,
+    "threat": 1536,
+    "behavior": "Bound [its phylactery]",
+    "vulnerabilities": [],
+    "attributes": {
+      "might": {
+        "dice": {
+          "d4": 0,
+          "d6": 0,
+          "d8": 1,
+          "d10": 0,
+          "d12": 0,
+          "d20": 3
+        },
+        "potential": {
+          "current": 68
+        },
+        "incapacitated": false
+      },
+      "finesse": {
+        "dice": {
+          "d4": 0,
+          "d6": 0,
+          "d8": 1,
+          "d10": 0,
+          "d12": 0,
+          "d20": 3
+        },
+        "potential": {
+          "current": 68
+        },
+        "incapacitated": false
+      },
+      "wit": {
+        "dice": {
+          "d4": 0,
+          "d6": 0,
+          "d8": 1,
+          "d10": 0,
+          "d12": 0,
+          "d20": 3
+        },
+        "potential": {
+          "current": 68
+        },
+        "incapacitated": false
+      },
+      "presence": {
+        "dice": {
+          "d4": 0,
+          "d6": 0,
+          "d8": 1,
+          "d10": 0,
+          "d12": 0,
+          "d20": 3
+        },
+        "potential": {
+          "current": 68
+        },
+        "incapacitated": false
+      }
+    },
+    "skills": {
+      "resonance": {
+        "training": 5
+      },
+      "guile": {
+        "training": 5
+      }
+    },
+    "resistance": {
+      "physical": 5,
+      "mental": 0
+    },
+    "notes": "<p><em>Set-piece controller, control and denial on a light frame</em></p><p><font color=\"#7f7f7f\">Describe the creature's behaviour, including its habits in daily life, how it interacts with its environment, and the tactics it uses when in combat.</font></p>"
+  },
+  "folder": "YGrrf4NUQjIr3ADS",
+  "sort": 8200000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "effects": [],
+  "prototypeToken": {
+    "name": "Lich",
+    "actorLink": false,
+    "disposition": -1
+  },
+  "items": [
+    {
+      "_id": "Mu7nlL5kF5qYTX8W",
+      "name": "Kinetic attack",
+      "type": "instrument",
+      "img": "icons/svg/claw.svg",
+      "system": {
+        "types": [
+          "kinetic"
+        ],
+        "range": "Close",
+        "weight": "light",
+        "innate": true,
+        "primaryAttribute": "wit",
+        "category": "arcane",
+        "price": 0,
+        "kit": [
+          {
+            "name": "Force Bolt",
+            "skill": "discipline",
+            "effect": "Deals Stress to Might or Finesse."
+          },
+          {
+            "name": "Mind-Piercing Ray",
+            "skill": "acuity",
+            "effect": "Deals Stress to Wit or Presence."
+          },
+          {
+            "name": "Unsettling Pulse",
+            "skill": "resonance",
+            "effect": "Applies Frightened."
+          }
+        ],
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!OzjkKuff0cCoIRwB.Mu7nlL5kF5qYTX8W"
+    },
+    {
+      "_id": "nBQCZAWGuVX79ku7",
+      "name": "Incorporeal attack",
+      "type": "instrument",
+      "img": "icons/svg/claw.svg",
+      "system": {
+        "types": [
+          "incorporeal"
+        ],
+        "range": "Close",
+        "weight": "light",
+        "innate": true,
+        "primaryAttribute": "wit",
+        "category": "arcane",
+        "price": 0,
+        "kit": [
+          {
+            "name": "Force Strike",
+            "skill": "discipline",
+            "effect": "Deals Stress to Might or Finesse."
+          },
+          {
+            "name": "Mind-Piercing Bolt",
+            "skill": "acuity",
+            "effect": "Deals Stress to Wit or Presence."
+          },
+          {
+            "name": "Unraveling Pulse",
+            "skill": "resonance",
+            "effect": "Applies Weakened [Presence]."
+          }
+        ],
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!OzjkKuff0cCoIRwB.nBQCZAWGuVX79ku7"
+    },
+    {
+      "_id": "7UwydUaIfrO54xjF",
+      "name": "Frost Ray",
+      "type": "technique",
+      "img": "icons/svg/aura.svg",
+      "system": {
+        "requires": [
+          "incorporeal"
+        ],
+        "innate": false,
+        "skill": "",
+        "family": "",
+        "subgroup": "",
+        "effects": [],
+        "floor": false,
+        "ancestryGrant": "",
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 300000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!OzjkKuff0cCoIRwB.7UwydUaIfrO54xjF"
+    },
+    {
+      "_id": "tfN3s3FL0iwCO9rp",
+      "name": "Paralyzing Touch",
+      "type": "technique",
+      "img": "icons/svg/aura.svg",
+      "system": {
+        "requires": [
+          "incorporeal"
+        ],
+        "innate": false,
+        "skill": "",
+        "family": "",
+        "subgroup": "",
+        "effects": [
+          {
+            "key": "stress",
+            "magnitude": 1,
+            "pattern": "single",
+            "bands": 0,
+            "placement": 0,
+            "selectiveR": 0
+          },
+          {
+            "key": "reeling-minute",
+            "magnitude": 1,
+            "pattern": "single",
+            "bands": 0,
+            "placement": 0,
+            "selectiveR": 0
+          }
+        ],
+        "floor": false,
+        "ancestryGrant": "",
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 400000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!OzjkKuff0cCoIRwB.tfN3s3FL0iwCO9rp"
+    },
+    {
+      "_id": "rWAwrWUCfbs4g65L",
+      "name": "Annihilating Beam",
+      "type": "technique",
+      "img": "icons/svg/aura.svg",
+      "system": {
+        "requires": [
+          "kinetic"
+        ],
+        "innate": false,
+        "skill": "",
+        "family": "Kinetic",
+        "subgroup": "Piercing",
+        "effects": [
+          {
+            "key": "stress",
+            "magnitude": 1,
+            "pattern": "single",
+            "bands": 0,
+            "placement": 0,
+            "selectiveR": 0
+          },
+          {
+            "key": "pierce",
+            "magnitude": 2,
+            "pattern": "single",
+            "bands": 0,
+            "placement": 0,
+            "selectiveR": 0
+          }
+        ],
+        "floor": false,
+        "ancestryGrant": "",
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 500000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!OzjkKuff0cCoIRwB.rWAwrWUCfbs4g65L"
+    },
+    {
+      "_id": "P7rJ3zSFNXSislqn",
+      "name": "Dominate",
+      "type": "technique",
+      "img": "icons/svg/aura.svg",
+      "system": {
+        "requires": [
+          "incorporeal"
+        ],
+        "innate": false,
+        "skill": "",
+        "family": "Incorporeal",
+        "subgroup": "Control",
+        "effects": [
+          {
+            "key": "controlled",
+            "magnitude": 1,
+            "pattern": "single",
+            "bands": 0,
+            "placement": 0,
+            "selectiveR": 0
+          },
+          {
+            "key": "upkeep",
+            "magnitude": 1,
+            "pattern": "single",
+            "bands": 0,
+            "placement": 0,
+            "selectiveR": 0
+          }
+        ],
+        "floor": false,
+        "ancestryGrant": "",
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 600000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!OzjkKuff0cCoIRwB.P7rJ3zSFNXSislqn"
+    },
+    {
+      "_id": "j3SzUtKAcCTB6ZSM",
+      "name": "Undaunted",
+      "type": "feat",
+      "img": "icons/svg/upgrade.svg",
+      "system": {
+        "featType": "trait",
+        "xpCost": 24,
+        "requirements": "",
+        "effect": "once per round, when a Technique would apply a Condition, Weakened, or Reeling to it, treats the failed Oppose as a success instead; Stress from the same hit still lands.",
+        "ancestry": "",
+        "grantsTechnique": "",
+        "modifiers": [],
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 700000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!OzjkKuff0cCoIRwB.j3SzUtKAcCTB6ZSM"
+    },
+    {
+      "_id": "pBDho9a8NpIwWuS5",
+      "name": "Rejuvenation",
+      "type": "feat",
+      "img": "icons/svg/upgrade.svg",
+      "system": {
+        "featType": "trait",
+        "xpCost": 48,
+        "requirements": "",
+        "effect": "full Health after a GM-set span (typically 1d10 days) unless the phylactery is destroyed first.",
+        "ancestry": "",
+        "grantsTechnique": "",
+        "modifiers": [],
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 800000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!OzjkKuff0cCoIRwB.pBDho9a8NpIwWuS5"
+    },
+    {
+      "_id": "koGOEVDesGaXyoJU",
+      "name": "Regeneration",
+      "type": "feat",
+      "img": "icons/svg/upgrade.svg",
+      "system": {
+        "featType": "trait",
+        "xpCost": 32,
+        "requirements": "",
+        "effect": "optional, for a tougher fight.",
+        "ancestry": "",
+        "grantsTechnique": "",
+        "modifiers": [],
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 900000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!OzjkKuff0cCoIRwB.koGOEVDesGaXyoJU"
+    }
+  ],
+  "_key": "!actors!OzjkKuff0cCoIRwB"
+}

@@ -29,6 +29,7 @@ import {
 import { buildPacks } from "./build-packs.mjs";
 import { buildGlossary } from "./build-glossary.mjs";
 import { buildCreatureData } from "./build-creature-data.mjs";
+import { bestiaryDocs } from "./seed-bestiary.mjs";
 import { EQUIPMENT_CATEGORY_LABEL } from "../src/constants.js";
 
 
@@ -594,8 +595,27 @@ function writeGuidePack(packName, journals) {
   console.log(`  ${packName}: ${docs.length} journals / ${docs.reduce((n, d) => n + d.pages.length, 0)} pages.`);
 }
 
+/** The Bestiary: creature actors with their items embedded, one folder per tier. */
+function writeActorPack(packName, actors) {
+  const folders = folderDocs(packName, actors.map(a => [`Tier ${a.tier}`]), "Actor");
+  const out = actors.map(({ tier, items, ...doc }, i) => {
+    const _id = stableId(packName, "actor", doc.name);
+    return {
+      _id, ...doc, folder: folders.get(`Tier ${tier}`)._id, sort: (i + 1) * 100000, ownership: { default: 0 }, flags: {}, effects: [],
+      prototypeToken: { name: doc.name, actorLink: false, disposition: -1 },
+      items: items.map((it, k) => {
+        const iid = stableId(packName, "item", doc.name, it.type, it.name, k);
+        return { _id: iid, ...it, effects: [], folder: null, sort: (k + 1) * 100000, ownership: { default: 0 }, flags: {}, _key: `!actors.items!${_id}.${iid}` };
+      }),
+      _key: `!actors!${_id}`
+    };
+  });
+  writeSource(packName, [...folders.values(), ...out]);
+  console.log(`  ${packName}: ${out.length} creatures in ${folders.size} folders.`);
+}
+
 /** Folder docs for a pack: one per distinct path in `paths`, nested by path segment. */
-function folderDocs(packName, paths) {
+function folderDocs(packName, paths, type = "Item") {
   const folders = new Map();
   for (const segs of paths) {
     for (let i = 1; i <= segs.length; i++) {
@@ -603,7 +623,7 @@ function folderDocs(packName, paths) {
       if (folders.has(key)) continue;
       const _id = stableId(packName, "folder", key);
       const parent = i > 1 ? folders.get(segs.slice(0, i - 1).join("/"))._id : null;
-      folders.set(key, { _id, name: segs[i - 1], type: "Item", folder: parent, sort: (folders.size + 1) * 100000,
+      folders.set(key, { _id, name: segs[i - 1], type, folder: parent, sort: (folders.size + 1) * 100000,
         color: null, description: "", flags: {}, _key: `!folders!${_id}` });
     }
   }
@@ -674,6 +694,8 @@ for (const [k, n] of Object.entries(expect)) {
   if (CAT[k].length !== n) warnings.push(`Catalog/${k}: ${CAT[k].length} notes, expected ${n}`);
 }
 
+const bestiary = bestiaryDocs({ instruments, techniques, feats, techniqueDoc });
+for (const n of bestiary.notes) warnings.push(n);
 console.log(`FOIL | Seeding packs from ${path.basename(process.env.FOIL_BOOKS ?? "the vault")} (system ${SYSTEM_VERSION})…`);
 const habits = habitsModule();
 if (!process.argv.includes("--dry-run")) fs.writeFileSync(path.join(SYSTEM_ROOT, "src", "habits.js"), habits);
@@ -681,7 +703,7 @@ if (process.argv.includes("--habits-only")) { console.log("  wrote src/habits.js
 if (process.argv.includes("--dry-run")) {
   console.log(`  dry run: ${INSTRUMENT_TYPES.length} types, ${QUALITIES.length} qualities, ${EFFECTS.length} effects, `
     + `${instruments.length} instruments, ${techniques.length} techniques, ${feats.length} feats, ${equipment.length} equipment, `
-    + `${backgrounds.length} backgrounds, ${ancestries.length} origins, ${GUIDE.length} guide journals`);
+    + `${backgrounds.length} backgrounds, ${ancestries.length} origins, ${bestiary.actors.length} creatures, ${GUIDE.length} guide journals`);
 } else {
   writePack("instrument-types", INSTRUMENT_TYPES.map(instrumentTypeDoc));
   writePack("qualities", QUALITIES.map(qualityDoc));
@@ -693,6 +715,7 @@ if (process.argv.includes("--dry-run")) {
   writePack("backgrounds", backgrounds);
   writePack("ancestries", ancestries);
   writeGuidePack("guide", GUIDE);
+  writeActorPack("bestiary", bestiary.actors);
   console.log(`  glossary: ${buildGlossary()} terms.`);
   console.log("  creature data:", JSON.stringify(buildCreatureData()));
   if (!process.argv.includes("--no-build")) await buildPacks();
