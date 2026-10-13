@@ -302,6 +302,20 @@ function techniqueDoc(n) {
   };
 }
 
+// `--price "<Effect line>" [--requires "<Requires>"]` prints what the Effects table charges for one line, then exits.
+// Creature Techniques outside the Catalog are priced this way, never by hand.
+if (process.argv.includes("--price")) {
+  const arg = k => process.argv[process.argv.indexOf(k) + 1];
+  for (const line of arg("--price").split("||")) {
+    const effect = line.trim();
+    const doc = techniqueDoc({ name: "(priced)", requires: process.argv.includes("--requires") ? arg("--requires") : "", effect, xp: null });
+    const priced = priceTechnique(doc.system.effects, EFFECT_REG, { floor: doc.system.floor });
+    const bad = priceFails.pop();
+    console.log(`${priced.xp} XP, Strain ${priced.strain}  [${effect}]${bad && /unparsed/.test(bad) ? "  UNPARSED" + bad.split("unparsed")[1] : ""}`);
+  }
+  process.exit(0);
+}
+
 // ─── Instruments (Catalog notes, PHB 7.4.x, 7.7.0, 2.5.3) ──────────────────
 const SIZE_TABLE = tableAfter(PHB, /^### 5\.3\.2 Crafting/);
 const sizeOf = {}, materialsOf = {};

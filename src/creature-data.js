@@ -338,6 +338,15 @@ export const NATURAL_WEAPONS = [
   "range": "Touching"
  },
  {
+  "name": "Freezing Touch",
+  "group": "arcane",
+  "types": [
+   "kinetic"
+  ],
+  "pick": false,
+  "range": "Touching"
+ },
+ {
   "name": "Life-Fount",
   "group": "arcane",
   "types": [
