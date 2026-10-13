@@ -35,9 +35,9 @@ Players get these tools:
 Target a token before rolling a Technique to run the whole exchange:
 
 - The target's owner is asked to Oppose with a legal Skill.
-- The margin, Conditions, Resistance, and Vulnerable become Stress.
+- The margin, Conditions, and Resistance become Stress.
 - The owner confirms the Stress before it lands.
-- Overflow, Foil Exposed, and a reach warning are handled on the way.
+- Overflow, Foil Exposed, and a Range warning are handled on the way.
 
 Game Masters get these tools:
 

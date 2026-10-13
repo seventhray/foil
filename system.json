@@ -1,7 +1,7 @@
 {
   "id": "foil",
   "title": "Foilbound",
-  "description": "A game system for Foilbound, a tabletop RPG. Four Attribute dice pools, four FOIL axes, and one set of rules for fights of the body, the mind, and the heart.",
+  "description": "One engine for fights of the body, the mind, and the soul. Four Attribute pools, four FOIL axes, and a single margin-to-Stress rule resolve a sword duel, a courtroom argument, and a haunting alike. Every Technique, Feat, and creature is priced by the same accessible rules, so a character and a monster are grounded in the same economy.",
   "version": "0.7.3",
   "compatibility": {
     "minimum": "13",
