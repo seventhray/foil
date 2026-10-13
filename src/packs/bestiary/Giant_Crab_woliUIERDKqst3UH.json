@@ -93,7 +93,7 @@
       "img": "icons/svg/claw.svg",
       "system": {
         "types": [
-          "grappling"
+          "blunt"
         ],
         "range": "Touching to Close",
         "weight": "light",
@@ -103,19 +103,19 @@
         "price": 0,
         "kit": [
           {
-            "name": "Snare",
+            "name": "Bash",
             "skill": "prowess",
-            "effect": "Applies Grappled."
+            "effect": "Deals Stress to Might or Finesse."
           },
           {
-            "name": "Tumble",
+            "name": "Sweep",
             "skill": "acuity",
             "effect": "Applies Prone."
           },
           {
-            "name": "Tangle",
+            "name": "Feint Jab",
             "skill": "guile",
-            "effect": "Applies Restrained."
+            "effect": "Applies Reeling."
           }
         ],
         "description": ""
