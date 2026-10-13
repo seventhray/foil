@@ -4,21 +4,21 @@
   "type": "creature",
   "img": "icons/svg/mystery-man.svg",
   "system": {
-    "tier": 2,
-    "threat": -256,
+    "tier": 4,
+    "threat": 0,
     "behavior": "Territorial [its den]",
     "attributes": {
       "might": {
         "dice": {
           "d4": 0,
-          "d6": 1,
-          "d8": 1,
+          "d6": 0,
+          "d8": 0,
           "d10": 0,
-          "d12": 0,
+          "d12": 2,
           "d20": 0
         },
         "potential": {
-          "current": 14
+          "current": 24
         },
         "incapacitated": false
       },
@@ -28,11 +28,11 @@
           "d6": 0,
           "d8": 0,
           "d10": 0,
-          "d12": 1,
-          "d20": 0
+          "d12": 0,
+          "d20": 1
         },
         "potential": {
-          "current": 12
+          "current": 20
         },
         "incapacitated": false
       },
@@ -40,13 +40,13 @@
         "dice": {
           "d4": 0,
           "d6": 0,
-          "d8": 0,
+          "d8": 1,
           "d10": 1,
           "d12": 0,
           "d20": 0
         },
         "potential": {
-          "current": 10
+          "current": 18
         },
         "incapacitated": false
       },
@@ -54,25 +54,29 @@
         "dice": {
           "d4": 0,
           "d6": 0,
-          "d8": 0,
-          "d10": 0,
-          "d12": 1,
+          "d8": 1,
+          "d10": 1,
+          "d12": 0,
           "d20": 0
         },
         "potential": {
-          "current": 12
+          "current": 18
         },
         "incapacitated": false
       }
     },
-    "skills": {},
+    "skills": {
+      "prowess": {
+        "training": 2
+      }
+    },
     "resistance": {
-      "physical": 0,
+      "physical": 1,
       "mental": 0
     },
     "notes": "<p><em>An ordinary bear, short-tempered about anything near its den or its kill</em></p><p>Bluffs first with a roar and a false charge. It fights to the end at its den and breaks off anywhere else.</p>"
   },
-  "folder": "waHrVCvmZV9sEJ2n",
+  "folder": "lbAiucKhjwD2rzG9",
   "sort": 1900000,
   "ownership": {
     "default": 0
@@ -214,6 +218,107 @@
       },
       "flags": {},
       "_key": "!actors.items!R1K40RW9wtz1bVfa.N9WBA0lWBsIQ7R4z"
+    },
+    {
+      "_id": "9AVeYTSklwsGwUCj",
+      "name": "Keen Scent",
+      "type": "feat",
+      "img": "icons/svg/upgrade.svg",
+      "system": {
+        "featType": "trait",
+        "xpCost": 8,
+        "requirements": "",
+        "effect": "track a creature's trail by scent alone. Within Range 1, sense a hidden or invisible creature without a roll.",
+        "ancestry": "",
+        "grantsTechnique": "",
+        "modifiers": [],
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 400000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!R1K40RW9wtz1bVfa.9AVeYTSklwsGwUCj"
+    },
+    {
+      "_id": "dC3czyx3AHiKeOTY",
+      "name": "Maiming Strike",
+      "type": "technique",
+      "img": "icons/svg/aura.svg",
+      "system": {
+        "requires": [
+          "edged",
+          "pointed"
+        ],
+        "innate": false,
+        "skill": "",
+        "family": "Melee",
+        "subgroup": "Debilitating",
+        "effects": [
+          {
+            "key": "stress",
+            "magnitude": 1,
+            "pattern": "single",
+            "bands": 0,
+            "placement": 0,
+            "selectiveR": 0
+          },
+          {
+            "key": "pierce",
+            "magnitude": 2,
+            "pattern": "single",
+            "bands": 0,
+            "placement": 0,
+            "selectiveR": 0
+          },
+          {
+            "key": "weaken",
+            "magnitude": 1,
+            "pattern": "single",
+            "bands": 0,
+            "placement": 0,
+            "selectiveR": 0
+          }
+        ],
+        "floor": false,
+        "ancestryGrant": "",
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 500000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!R1K40RW9wtz1bVfa.dC3czyx3AHiKeOTY"
+    },
+    {
+      "_id": "JN14PxMy3q7hkpJz",
+      "name": "Second Wind",
+      "type": "feat",
+      "img": "icons/svg/upgrade.svg",
+      "system": {
+        "featType": "trait",
+        "xpCost": 12,
+        "requirements": "",
+        "effect": "the first time an Attribute of this creature's would be Incapacitated in a conflict, its Stress stops 1 short of its Potential instead.",
+        "ancestry": "",
+        "grantsTechnique": "",
+        "modifiers": [],
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 600000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!R1K40RW9wtz1bVfa.JN14PxMy3q7hkpJz"
     }
   ],
   "_key": "!actors!R1K40RW9wtz1bVfa"
