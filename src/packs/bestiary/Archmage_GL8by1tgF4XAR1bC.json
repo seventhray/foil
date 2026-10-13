@@ -97,34 +97,41 @@
       "_id": "dCeZNMwlddMCNChg",
       "name": "Grand Staff",
       "type": "instrument",
-      "img": "icons/svg/claw.svg",
+      "img": "icons/svg/sword.svg",
       "system": {
-        "types": [
-          "kinetic"
-        ],
-        "range": "Close",
-        "weight": "light",
-        "innate": true,
-        "primaryAttribute": "wit",
         "category": "arcane",
-        "price": 0,
+        "weight": "heavy",
+        "primaryAttribute": "presence",
+        "range": "Long Range",
+        "types": [
+          "kinetic",
+          "incorporeal",
+          "fortifying"
+        ],
+        "typesDisplay": "",
+        "price": 70,
+        "rider": "",
         "kit": [
           {
-            "name": "Force Bolt",
-            "skill": "discipline",
+            "name": "Grand Strike",
+            "skill": "assertiveness",
             "effect": "Deals Stress to Might or Finesse."
           },
           {
-            "name": "Mind-Piercing Ray",
-            "skill": "acuity",
+            "name": "Mind Break",
+            "skill": "guile",
             "effect": "Deals Stress to Wit or Presence."
           },
           {
-            "name": "Unsettling Pulse",
+            "name": "Restorative Surge",
             "skill": "resonance",
-            "effect": "Applies Frightened."
+            "effect": "Removes 3 Stress from an ally's Attribute."
           }
         ],
+        "innate": false,
+        "bonus": 0,
+        "size": "medium",
+        "materials": "Wood",
         "description": ""
       },
       "effects": [],
@@ -137,7 +144,56 @@
       "_key": "!actors.items!GL8by1tgF4XAR1bC.dCeZNMwlddMCNChg"
     },
     {
-      "_id": "iLLsGOhaWua1OxUp",
+      "_id": "fxue2ALyeVWSMKYl",
+      "name": "Mind",
+      "type": "instrument",
+      "img": "icons/svg/eye.svg",
+      "system": {
+        "category": "innate",
+        "weight": "light",
+        "primaryAttribute": "wit",
+        "range": "Near",
+        "types": [
+          "quick",
+          "incorporeal"
+        ],
+        "typesDisplay": "",
+        "price": 0,
+        "rider": "Innate: every character has it, free (PHB 2.5.3).",
+        "kit": [
+          {
+            "name": "Deduce",
+            "skill": "discipline",
+            "effect": "Works out a problem or recalls a fact."
+          },
+          {
+            "name": "Analyze",
+            "skill": "acuity",
+            "effect": "Learns a creature's Attributes, or notices something specific."
+          },
+          {
+            "name": "Intuit",
+            "skill": "resonance",
+            "effect": "Applies Foil Exposed, or gives insight into a situation."
+          }
+        ],
+        "innate": true,
+        "bonus": 0,
+        "size": "medium",
+        "materials": "",
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!GL8by1tgF4XAR1bC.fxue2ALyeVWSMKYl"
+    },
+    {
+      "_id": "ps1mSPbDzYfI1Pi8",
       "name": "Fireball",
       "type": "technique",
       "img": "icons/svg/aura.svg",
@@ -173,15 +229,15 @@
       },
       "effects": [],
       "folder": null,
-      "sort": 200000,
+      "sort": 300000,
       "ownership": {
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!GL8by1tgF4XAR1bC.iLLsGOhaWua1OxUp"
+      "_key": "!actors.items!GL8by1tgF4XAR1bC.ps1mSPbDzYfI1Pi8"
     },
     {
-      "_id": "s3QsTAA6wtFICMW6",
+      "_id": "vLKxYTqbuJT9odYQ",
       "name": "Annihilating Beam",
       "type": "technique",
       "img": "icons/svg/aura.svg",
@@ -217,15 +273,15 @@
       },
       "effects": [],
       "folder": null,
-      "sort": 300000,
+      "sort": 400000,
       "ownership": {
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!GL8by1tgF4XAR1bC.s3QsTAA6wtFICMW6"
+      "_key": "!actors.items!GL8by1tgF4XAR1bC.vLKxYTqbuJT9odYQ"
     },
     {
-      "_id": "XoNy2lJ7UwGzqsEZ",
+      "_id": "il7T41URVKlXWtwY",
       "name": "Cage of Force",
       "type": "technique",
       "img": "icons/svg/aura.svg",
@@ -269,15 +325,15 @@
       },
       "effects": [],
       "folder": null,
-      "sort": 400000,
+      "sort": 500000,
       "ownership": {
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!GL8by1tgF4XAR1bC.XoNy2lJ7UwGzqsEZ"
+      "_key": "!actors.items!GL8by1tgF4XAR1bC.il7T41URVKlXWtwY"
     },
     {
-      "_id": "qCUzDKpXwlURpyfQ",
+      "_id": "HzrrWSKKKqyFjTyp",
       "name": "Blink",
       "type": "technique",
       "img": "icons/svg/aura.svg",
@@ -305,39 +361,59 @@
       },
       "effects": [],
       "folder": null,
-      "sort": 500000,
-      "ownership": {
-        "default": 0
-      },
-      "flags": {},
-      "_key": "!actors.items!GL8by1tgF4XAR1bC.qCUzDKpXwlURpyfQ"
-    },
-    {
-      "_id": "pKO1P1ZJYYlpMFOQ",
-      "name": "Teleport",
-      "type": "feat",
-      "img": "icons/svg/upgrade.svg",
-      "system": {
-        "featType": "trait",
-        "xpCost": 12,
-        "requirements": "",
-        "effect": "Move 3 bands through an Instrument (Grand Staff), GM's choice of destination from the catalogue, 12 XP.",
-        "ancestry": "",
-        "grantsTechnique": "",
-        "modifiers": [],
-        "description": ""
-      },
-      "effects": [],
-      "folder": null,
       "sort": 600000,
       "ownership": {
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!GL8by1tgF4XAR1bC.pKO1P1ZJYYlpMFOQ"
+      "_key": "!actors.items!GL8by1tgF4XAR1bC.HzrrWSKKKqyFjTyp"
     },
     {
-      "_id": "297iMuQaBqSD8RfU",
+      "_id": "cw0wepYIuHIWFvLi",
+      "name": "Guided Bolt",
+      "type": "technique",
+      "img": "icons/svg/aura.svg",
+      "system": {
+        "requires": [
+          "kinetic"
+        ],
+        "innate": false,
+        "skill": "",
+        "family": "Kinetic",
+        "subgroup": "Piercing",
+        "effects": [
+          {
+            "key": "stress",
+            "magnitude": 1,
+            "pattern": "single",
+            "bands": 0,
+            "placement": 0,
+            "selectiveR": 0
+          },
+          {
+            "key": "roll-bonus",
+            "magnitude": 2,
+            "pattern": "single",
+            "bands": 0,
+            "placement": 0,
+            "selectiveR": 0
+          }
+        ],
+        "floor": false,
+        "ancestryGrant": "",
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 700000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!GL8by1tgF4XAR1bC.cw0wepYIuHIWFvLi"
+    },
+    {
+      "_id": "ooxpKNDAjHWj4YQ0",
       "name": "Dread Presence",
       "type": "feat",
       "img": "icons/svg/upgrade.svg",
@@ -353,15 +429,15 @@
       },
       "effects": [],
       "folder": null,
-      "sort": 700000,
+      "sort": 800000,
       "ownership": {
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!GL8by1tgF4XAR1bC.297iMuQaBqSD8RfU"
+      "_key": "!actors.items!GL8by1tgF4XAR1bC.ooxpKNDAjHWj4YQ0"
     },
     {
-      "_id": "Fg3ocF9JekApXi2w",
+      "_id": "d7HcyWHZ49wGBerp",
       "name": "Undaunted",
       "type": "feat",
       "img": "icons/svg/upgrade.svg",
@@ -377,12 +453,12 @@
       },
       "effects": [],
       "folder": null,
-      "sort": 800000,
+      "sort": 900000,
       "ownership": {
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!GL8by1tgF4XAR1bC.Fg3ocF9JekApXi2w"
+      "_key": "!actors.items!GL8by1tgF4XAR1bC.d7HcyWHZ49wGBerp"
     }
   ],
   "_key": "!actors!GL8by1tgF4XAR1bC"

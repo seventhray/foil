@@ -224,15 +224,15 @@
       "_key": "!actors.items!beoB2GKmGn5yCqh1.RHwXMerFFq3r2Cb1"
     },
     {
-      "_id": "Iyu73NsuE5FOq1NO",
-      "name": "Lion's Claws",
+      "_id": "7K5obCnqintVcZel",
+      "name": "Claws",
       "type": "instrument",
       "img": "icons/svg/claw.svg",
       "system": {
         "types": [
           "edged"
         ],
-        "range": "Close",
+        "range": "Touching to Close",
         "weight": "light",
         "innate": true,
         "primaryAttribute": "might",
@@ -264,7 +264,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!beoB2GKmGn5yCqh1.Iyu73NsuE5FOq1NO"
+      "_key": "!actors.items!beoB2GKmGn5yCqh1.7K5obCnqintVcZel"
     },
     {
       "_id": "j1lk4G9Wm0rrMmtt",

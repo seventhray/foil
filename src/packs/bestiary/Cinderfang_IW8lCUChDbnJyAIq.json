@@ -94,15 +94,15 @@
   },
   "items": [
     {
-      "_id": "qEq5JqgQN3JmZZFa",
-      "name": "Tail",
+      "_id": "ocMadX6d4hCYkM1K",
+      "name": "Bite",
       "type": "instrument",
       "img": "icons/svg/claw.svg",
       "system": {
         "types": [
-          "edged"
+          "pointed"
         ],
-        "range": "Close",
+        "range": "Touching",
         "weight": "light",
         "innate": true,
         "primaryAttribute": "might",
@@ -134,18 +134,61 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!IW8lCUChDbnJyAIq.qEq5JqgQN3JmZZFa"
+      "_key": "!actors.items!IW8lCUChDbnJyAIq.ocMadX6d4hCYkM1K"
     },
     {
-      "_id": "R08onSoDmUumsoXm",
-      "name": "Corrupted flame",
+      "_id": "DWnirIpHEU3fKF7r",
+      "name": "Tail Strike",
+      "type": "instrument",
+      "img": "icons/svg/claw.svg",
+      "system": {
+        "types": [
+          "edged"
+        ],
+        "range": "Close",
+        "weight": "light",
+        "innate": true,
+        "primaryAttribute": "might",
+        "category": "melee",
+        "price": 0,
+        "kit": [
+          {
+            "name": "Stab",
+            "skill": "prowess",
+            "effect": "Deals Stress to Might or Finesse."
+          },
+          {
+            "name": "Vital Strike",
+            "skill": "acuity",
+            "effect": "Applies Weakened [Finesse]."
+          },
+          {
+            "name": "Backstab",
+            "skill": "guile",
+            "effect": "Applies Reeling."
+          }
+        ],
+        "description": "<p>its stinger.</p>"
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!IW8lCUChDbnJyAIq.DWnirIpHEU3fKF7r"
+    },
+    {
+      "_id": "mBE70lEGCjJtB6mv",
+      "name": "Breath Weapon",
       "type": "instrument",
       "img": "icons/svg/claw.svg",
       "system": {
         "types": [
           "kinetic"
         ],
-        "range": "Close",
+        "range": "Short to Mid",
         "weight": "light",
         "innate": true,
         "primaryAttribute": "wit",
@@ -168,19 +211,19 @@
             "effect": "Applies Frightened."
           }
         ],
-        "description": ""
+        "description": "<p>Fire.</p>"
       },
       "effects": [],
       "folder": null,
-      "sort": 200000,
+      "sort": 300000,
       "ownership": {
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!IW8lCUChDbnJyAIq.R08onSoDmUumsoXm"
+      "_key": "!actors.items!IW8lCUChDbnJyAIq.mBE70lEGCjJtB6mv"
     },
     {
-      "_id": "oeo1TrRvq73WE6eI",
+      "_id": "ohCx7CTOQRePsD8q",
       "name": "Fireball",
       "type": "technique",
       "img": "icons/svg/aura.svg",
@@ -216,15 +259,15 @@
       },
       "effects": [],
       "folder": null,
-      "sort": 300000,
+      "sort": 400000,
       "ownership": {
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!IW8lCUChDbnJyAIq.oeo1TrRvq73WE6eI"
+      "_key": "!actors.items!IW8lCUChDbnJyAIq.ohCx7CTOQRePsD8q"
     },
     {
-      "_id": "JkxFk9HRzCRmUTN4",
+      "_id": "nPXjIT12q1IDoYyD",
       "name": "Poison Sting",
       "type": "technique",
       "img": "icons/svg/aura.svg",
@@ -260,15 +303,15 @@
       },
       "effects": [],
       "folder": null,
-      "sort": 400000,
+      "sort": 500000,
       "ownership": {
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!IW8lCUChDbnJyAIq.JkxFk9HRzCRmUTN4"
+      "_key": "!actors.items!IW8lCUChDbnJyAIq.nPXjIT12q1IDoYyD"
     },
     {
-      "_id": "0TojZHeNiIeAUjtU",
+      "_id": "We6hUPSBeIdN9tOv",
       "name": "Legendary Action",
       "type": "feat",
       "img": "icons/svg/upgrade.svg",
@@ -284,15 +327,15 @@
       },
       "effects": [],
       "folder": null,
-      "sort": 500000,
+      "sort": 600000,
       "ownership": {
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!IW8lCUChDbnJyAIq.0TojZHeNiIeAUjtU"
+      "_key": "!actors.items!IW8lCUChDbnJyAIq.We6hUPSBeIdN9tOv"
     },
     {
-      "_id": "IOmj1r9fMAfTTKfE",
+      "_id": "jOFlFoUoNzcfHObm",
       "name": "Dread Presence",
       "type": "feat",
       "img": "icons/svg/upgrade.svg",
@@ -308,15 +351,15 @@
       },
       "effects": [],
       "folder": null,
-      "sort": 600000,
+      "sort": 700000,
       "ownership": {
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!IW8lCUChDbnJyAIq.IOmj1r9fMAfTTKfE"
+      "_key": "!actors.items!IW8lCUChDbnJyAIq.jOFlFoUoNzcfHObm"
     },
     {
-      "_id": "oPTbH0f5HBqfb2kT",
+      "_id": "3RTfk8Kc7ScQt9jf",
       "name": "Adaptive Hide",
       "type": "feat",
       "img": "icons/svg/upgrade.svg",
@@ -332,12 +375,12 @@
       },
       "effects": [],
       "folder": null,
-      "sort": 700000,
+      "sort": 800000,
       "ownership": {
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!IW8lCUChDbnJyAIq.oPTbH0f5HBqfb2kT"
+      "_key": "!actors.items!IW8lCUChDbnJyAIq.3RTfk8Kc7ScQt9jf"
     }
   ],
   "_key": "!actors!IW8lCUChDbnJyAIq"

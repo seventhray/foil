@@ -91,8 +91,8 @@
   },
   "items": [
     {
-      "_id": "zTErwRzkRD2bhOb1",
-      "name": "Incorporeal attack",
+      "_id": "CqjlnF8B9mEcMX6i",
+      "name": "Chilling Presence",
       "type": "instrument",
       "img": "icons/svg/claw.svg",
       "system": {
@@ -131,10 +131,53 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!q2iwtVVAC25DJ2aw.zTErwRzkRD2bhOb1"
+      "_key": "!actors.items!q2iwtVVAC25DJ2aw.CqjlnF8B9mEcMX6i"
     },
     {
-      "_id": "N28uh1MjhwQUPvLc",
+      "_id": "aQiW0wDlihspV0OM",
+      "name": "Curse Touch",
+      "type": "instrument",
+      "img": "icons/svg/claw.svg",
+      "system": {
+        "types": [
+          "incorporeal"
+        ],
+        "range": "Touching",
+        "weight": "light",
+        "innate": true,
+        "primaryAttribute": "wit",
+        "category": "arcane",
+        "price": 0,
+        "kit": [
+          {
+            "name": "Force Strike",
+            "skill": "discipline",
+            "effect": "Deals Stress to Might or Finesse."
+          },
+          {
+            "name": "Mind-Piercing Bolt",
+            "skill": "acuity",
+            "effect": "Deals Stress to Wit or Presence."
+          },
+          {
+            "name": "Unraveling Pulse",
+            "skill": "resonance",
+            "effect": "Applies Weakened [Presence]."
+          }
+        ],
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!q2iwtVVAC25DJ2aw.aQiW0wDlihspV0OM"
+    },
+    {
+      "_id": "Y8MeKwoDMluVnsFm",
       "name": "Horrifying Visage",
       "type": "technique",
       "img": "icons/svg/aura.svg",
@@ -153,15 +196,15 @@
       },
       "effects": [],
       "folder": null,
-      "sort": 200000,
+      "sort": 300000,
       "ownership": {
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!q2iwtVVAC25DJ2aw.N28uh1MjhwQUPvLc"
+      "_key": "!actors.items!q2iwtVVAC25DJ2aw.Y8MeKwoDMluVnsFm"
     },
     {
-      "_id": "M2HJjzdjvTPZDA8v",
+      "_id": "dA2JFk8W2cYTB60M",
       "name": "Possession",
       "type": "technique",
       "img": "icons/svg/aura.svg",
@@ -189,15 +232,15 @@
       },
       "effects": [],
       "folder": null,
-      "sort": 300000,
+      "sort": 400000,
       "ownership": {
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!q2iwtVVAC25DJ2aw.M2HJjzdjvTPZDA8v"
+      "_key": "!actors.items!q2iwtVVAC25DJ2aw.dA2JFk8W2cYTB60M"
     },
     {
-      "_id": "nPMLVgojLZvCUzLY",
+      "_id": "28FmAVbKdeHN3z7N",
       "name": "Incorporeal Movement",
       "type": "feat",
       "img": "icons/svg/upgrade.svg",
@@ -213,15 +256,15 @@
       },
       "effects": [],
       "folder": null,
-      "sort": 400000,
+      "sort": 500000,
       "ownership": {
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!q2iwtVVAC25DJ2aw.nPMLVgojLZvCUzLY"
+      "_key": "!actors.items!q2iwtVVAC25DJ2aw.28FmAVbKdeHN3z7N"
     },
     {
-      "_id": "r8joGUKS11NmM4qG",
+      "_id": "GBeKqHjIVfjnDH9C",
       "name": "Cause Fear",
       "type": "technique",
       "img": "icons/svg/aura.svg",
@@ -257,15 +300,15 @@
       },
       "effects": [],
       "folder": null,
-      "sort": 500000,
+      "sort": 600000,
       "ownership": {
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!q2iwtVVAC25DJ2aw.r8joGUKS11NmM4qG"
+      "_key": "!actors.items!q2iwtVVAC25DJ2aw.GBeKqHjIVfjnDH9C"
     },
     {
-      "_id": "t5F4qdBJSVB54RI7",
+      "_id": "Gs6oHRGzNB4JVFZJ",
       "name": "Soul Leech",
       "type": "technique",
       "img": "icons/svg/aura.svg",
@@ -301,15 +344,15 @@
       },
       "effects": [],
       "folder": null,
-      "sort": 600000,
+      "sort": 700000,
       "ownership": {
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!q2iwtVVAC25DJ2aw.t5F4qdBJSVB54RI7"
+      "_key": "!actors.items!q2iwtVVAC25DJ2aw.Gs6oHRGzNB4JVFZJ"
     },
     {
-      "_id": "79cfncaLIAek9avw",
+      "_id": "6rVpCf2UzP89v0uS",
       "name": "Cruel Whisper",
       "type": "feat",
       "img": "icons/svg/upgrade.svg",
@@ -325,15 +368,15 @@
       },
       "effects": [],
       "folder": null,
-      "sort": 700000,
+      "sort": 800000,
       "ownership": {
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!q2iwtVVAC25DJ2aw.79cfncaLIAek9avw"
+      "_key": "!actors.items!q2iwtVVAC25DJ2aw.6rVpCf2UzP89v0uS"
     },
     {
-      "_id": "iBoE9wLLtE4cG372",
+      "_id": "ZnG8wCOFBtDBmWxc",
       "name": "Undaunted",
       "type": "feat",
       "img": "icons/svg/upgrade.svg",
@@ -349,36 +392,12 @@
       },
       "effects": [],
       "folder": null,
-      "sort": 800000,
-      "ownership": {
-        "default": 0
-      },
-      "flags": {},
-      "_key": "!actors.items!q2iwtVVAC25DJ2aw.iBoE9wLLtE4cG372"
-    },
-    {
-      "_id": "KobW5U4B1hm6G8py",
-      "name": "Specialized Resistance",
-      "type": "feat",
-      "img": "icons/svg/upgrade.svg",
-      "system": {
-        "featType": "trait",
-        "xpCost": 8,
-        "requirements": "",
-        "effect": "8 XP, an incorporeal body.",
-        "ancestry": "",
-        "grantsTechnique": "",
-        "modifiers": [],
-        "description": ""
-      },
-      "effects": [],
-      "folder": null,
       "sort": 900000,
       "ownership": {
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!q2iwtVVAC25DJ2aw.KobW5U4B1hm6G8py"
+      "_key": "!actors.items!q2iwtVVAC25DJ2aw.ZnG8wCOFBtDBmWxc"
     },
     {
       "_id": "IxO7fsooeTGeDjGY",
@@ -427,6 +446,30 @@
       },
       "flags": {},
       "_key": "!actors.items!q2iwtVVAC25DJ2aw.vjgiEEhun66i5bhC"
+    },
+    {
+      "_id": "tnJDG6GEwBElBVFj",
+      "name": "Specialized Resistance",
+      "type": "feat",
+      "img": "icons/svg/upgrade.svg",
+      "system": {
+        "featType": "trait",
+        "xpCost": 8,
+        "requirements": "",
+        "effect": "8 XP, an incorporeal body.",
+        "ancestry": "",
+        "grantsTechnique": "",
+        "modifiers": [],
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 1200000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!q2iwtVVAC25DJ2aw.tnJDG6GEwBElBVFj"
     }
   ],
   "_key": "!actors!q2iwtVVAC25DJ2aw"

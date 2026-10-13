@@ -5,25 +5,11 @@
   "img": "icons/svg/mystery-man.svg",
   "system": {
     "tier": 4,
-    "threat": 32,
+    "threat": 0,
     "behavior": "Territorial [its clearing]",
     "vulnerabilities": [],
     "attributes": {
       "might": {
-        "dice": {
-          "d4": 0,
-          "d6": 0,
-          "d8": 0,
-          "d10": 0,
-          "d12": 2,
-          "d20": 0
-        },
-        "potential": {
-          "current": 24
-        },
-        "incapacitated": false
-      },
-      "finesse": {
         "dice": {
           "d4": 0,
           "d6": 0,
@@ -34,6 +20,20 @@
         },
         "potential": {
           "current": 22
+        },
+        "incapacitated": false
+      },
+      "finesse": {
+        "dice": {
+          "d4": 0,
+          "d6": 0,
+          "d8": 0,
+          "d10": 0,
+          "d12": 0,
+          "d20": 1
+        },
+        "potential": {
+          "current": 20
         },
         "incapacitated": false
       },
@@ -71,7 +71,7 @@
         "training": 2
       },
       "discipline": {
-        "training": 2
+        "training": 1
       }
     },
     "resistance": {

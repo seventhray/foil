@@ -94,7 +94,50 @@
   },
   "items": [
     {
-      "_id": "816OcHcBnWRkXu5n",
+      "_id": "9b7SD59weDw7yo8u",
+      "name": "Curse Touch",
+      "type": "instrument",
+      "img": "icons/svg/claw.svg",
+      "system": {
+        "types": [
+          "incorporeal"
+        ],
+        "range": "Touching",
+        "weight": "light",
+        "innate": true,
+        "primaryAttribute": "wit",
+        "category": "arcane",
+        "price": 0,
+        "kit": [
+          {
+            "name": "Force Strike",
+            "skill": "discipline",
+            "effect": "Deals Stress to Might or Finesse."
+          },
+          {
+            "name": "Mind-Piercing Bolt",
+            "skill": "acuity",
+            "effect": "Deals Stress to Wit or Presence."
+          },
+          {
+            "name": "Unraveling Pulse",
+            "skill": "resonance",
+            "effect": "Applies Weakened [Presence]."
+          }
+        ],
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!A2O0HefnDWDNKI9E.9b7SD59weDw7yo8u"
+    },
+    {
+      "_id": "vyQYjaIDHDDnW0Ei",
       "name": "Voice",
       "type": "instrument",
       "img": "icons/svg/sound.svg",
@@ -135,55 +178,12 @@
       },
       "effects": [],
       "folder": null,
-      "sort": 100000,
-      "ownership": {
-        "default": 0
-      },
-      "flags": {},
-      "_key": "!actors.items!A2O0HefnDWDNKI9E.816OcHcBnWRkXu5n"
-    },
-    {
-      "_id": "hubWkQXIWFU0qRUs",
-      "name": "Incorporeal attack",
-      "type": "instrument",
-      "img": "icons/svg/claw.svg",
-      "system": {
-        "types": [
-          "incorporeal"
-        ],
-        "range": "Close",
-        "weight": "light",
-        "innate": true,
-        "primaryAttribute": "wit",
-        "category": "arcane",
-        "price": 0,
-        "kit": [
-          {
-            "name": "Force Strike",
-            "skill": "discipline",
-            "effect": "Deals Stress to Might or Finesse."
-          },
-          {
-            "name": "Mind-Piercing Bolt",
-            "skill": "acuity",
-            "effect": "Deals Stress to Wit or Presence."
-          },
-          {
-            "name": "Unraveling Pulse",
-            "skill": "resonance",
-            "effect": "Applies Weakened [Presence]."
-          }
-        ],
-        "description": ""
-      },
-      "effects": [],
-      "folder": null,
       "sort": 200000,
       "ownership": {
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!A2O0HefnDWDNKI9E.hubWkQXIWFU0qRUs"
+      "_key": "!actors.items!A2O0HefnDWDNKI9E.vyQYjaIDHDDnW0Ei"
     },
     {
       "_id": "FLRLVLX96E6h8EoI",

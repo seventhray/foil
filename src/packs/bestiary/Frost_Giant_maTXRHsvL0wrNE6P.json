@@ -137,37 +137,42 @@
       "_key": "!actors.items!maTXRHsvL0wrNE6P.biXWePIEekHQN2DH"
     },
     {
-      "_id": "WHCvEKTgveGy75Ec",
-      "name": "Greataxe",
+      "_id": "fOPjNiaAv3B7xMtZ",
+      "name": "Battleaxe",
       "type": "instrument",
-      "img": "icons/svg/claw.svg",
+      "img": "icons/svg/sword.svg",
       "system": {
+        "category": "melee",
+        "weight": "heavy",
+        "primaryAttribute": "might",
+        "range": "Close",
         "types": [
           "edged"
         ],
-        "range": "Close",
-        "weight": "light",
-        "innate": true,
-        "primaryAttribute": "might",
-        "category": "melee",
-        "price": 0,
+        "typesDisplay": "",
+        "price": 50,
+        "rider": "",
         "kit": [
           {
-            "name": "Stab",
+            "name": "Cleave",
             "skill": "prowess",
             "effect": "Deals Stress to Might or Finesse."
           },
           {
-            "name": "Vital Strike",
-            "skill": "acuity",
-            "effect": "Applies Weakened [Finesse]."
+            "name": "Upend",
+            "skill": "discipline",
+            "effect": "Applies Prone."
           },
           {
-            "name": "Backstab",
-            "skill": "guile",
-            "effect": "Applies Reeling."
+            "name": "War Cry",
+            "skill": "assertiveness",
+            "effect": "Deals Stress to Presence or Wit."
           }
         ],
+        "innate": false,
+        "bonus": 0,
+        "size": "medium",
+        "materials": "Metal + Wood",
         "description": ""
       },
       "effects": [],
@@ -177,7 +182,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!maTXRHsvL0wrNE6P.WHCvEKTgveGy75Ec"
+      "_key": "!actors.items!maTXRHsvL0wrNE6P.fOPjNiaAv3B7xMtZ"
     },
     {
       "_id": "0dB8Vp3m69yg5PHE",

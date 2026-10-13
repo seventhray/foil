@@ -94,58 +94,15 @@
   },
   "items": [
     {
-      "_id": "7y7L6kkVpsxTBYpp",
-      "name": "Burning gaze",
-      "type": "instrument",
-      "img": "icons/svg/claw.svg",
-      "system": {
-        "types": [
-          "incorporeal"
-        ],
-        "range": "Close",
-        "weight": "light",
-        "innate": true,
-        "primaryAttribute": "wit",
-        "category": "arcane",
-        "price": 0,
-        "kit": [
-          {
-            "name": "Force Strike",
-            "skill": "discipline",
-            "effect": "Deals Stress to Might or Finesse."
-          },
-          {
-            "name": "Mind-Piercing Bolt",
-            "skill": "acuity",
-            "effect": "Deals Stress to Wit or Presence."
-          },
-          {
-            "name": "Unraveling Pulse",
-            "skill": "resonance",
-            "effect": "Applies Weakened [Presence]."
-          }
-        ],
-        "description": ""
-      },
-      "effects": [],
-      "folder": null,
-      "sort": 100000,
-      "ownership": {
-        "default": 0
-      },
-      "flags": {},
-      "_key": "!actors.items!wYQfWp7YPskwugQG.7y7L6kkVpsxTBYpp"
-    },
-    {
-      "_id": "XHpEebctr1zT4UBx",
-      "name": "Lash of living fire",
+      "_id": "RmbzXtcr0Z7DEnDL",
+      "name": "Searing Touch",
       "type": "instrument",
       "img": "icons/svg/claw.svg",
       "system": {
         "types": [
           "kinetic"
         ],
-        "range": "Close",
+        "range": "Touching",
         "weight": "light",
         "innate": true,
         "primaryAttribute": "wit",
@@ -168,7 +125,50 @@
             "effect": "Applies Frightened."
           }
         ],
-        "description": ""
+        "description": "<p>Fire.</p>"
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!wYQfWp7YPskwugQG.RmbzXtcr0Z7DEnDL"
+    },
+    {
+      "_id": "2EjaICfeCWZAS6DV",
+      "name": "Evil Eye",
+      "type": "instrument",
+      "img": "icons/svg/claw.svg",
+      "system": {
+        "types": [
+          "incorporeal"
+        ],
+        "range": "Sight",
+        "weight": "light",
+        "innate": true,
+        "primaryAttribute": "wit",
+        "category": "arcane",
+        "price": 0,
+        "kit": [
+          {
+            "name": "Force Strike",
+            "skill": "discipline",
+            "effect": "Deals Stress to Might or Finesse."
+          },
+          {
+            "name": "Mind-Piercing Bolt",
+            "skill": "acuity",
+            "effect": "Deals Stress to Wit or Presence."
+          },
+          {
+            "name": "Unraveling Pulse",
+            "skill": "resonance",
+            "effect": "Applies Weakened [Presence]."
+          }
+        ],
+        "description": "<p>its burning gaze.</p>"
       },
       "effects": [],
       "folder": null,
@@ -177,7 +177,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!wYQfWp7YPskwugQG.XHpEebctr1zT4UBx"
+      "_key": "!actors.items!wYQfWp7YPskwugQG.2EjaICfeCWZAS6DV"
     },
     {
       "_id": "4yaKzZi2Z6gs2LlP",
@@ -236,8 +236,25 @@
         "skill": "",
         "family": "",
         "subgroup": "",
-        "effects": [],
-        "floor": false,
+        "effects": [
+          {
+            "key": "stress",
+            "magnitude": 1,
+            "pattern": "single",
+            "bands": 0,
+            "placement": 0,
+            "selectiveR": 0
+          },
+          {
+            "key": "quick",
+            "magnitude": 1,
+            "pattern": "single",
+            "bands": 0,
+            "placement": 0,
+            "selectiveR": 0
+          }
+        ],
+        "floor": true,
         "ancestryGrant": "",
         "description": ""
       },
@@ -251,8 +268,8 @@
       "_key": "!actors.items!wYQfWp7YPskwugQG.ysCWBOgvkNusgnwV"
     },
     {
-      "_id": "CVfZdnSQs78IfpSO",
-      "name": "Withering Gaze",
+      "_id": "yb0CaPJvCu3fp7l4",
+      "name": "Burning Gaze",
       "type": "technique",
       "img": "icons/svg/aura.svg",
       "system": {
@@ -292,7 +309,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!wYQfWp7YPskwugQG.CVfZdnSQs78IfpSO"
+      "_key": "!actors.items!wYQfWp7YPskwugQG.yb0CaPJvCu3fp7l4"
     },
     {
       "_id": "6MciwXTe6QqyYEP8",

@@ -94,15 +94,15 @@
   },
   "items": [
     {
-      "_id": "BkudWEhFcD3Gt98l",
-      "name": "Bite that eats through armor",
+      "_id": "SlQkIXZTMg2Ayj02",
+      "name": "Bite",
       "type": "instrument",
       "img": "icons/svg/claw.svg",
       "system": {
         "types": [
           "pointed"
         ],
-        "range": "Close",
+        "range": "Touching",
         "weight": "light",
         "innate": true,
         "primaryAttribute": "might",
@@ -134,46 +134,40 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!1AFBXUUaLyrpLBEu.BkudWEhFcD3Gt98l"
+      "_key": "!actors.items!1AFBXUUaLyrpLBEu.SlQkIXZTMg2Ayj02"
     },
     {
-      "_id": "MciZs96NsjmYAlNI",
-      "name": "Voice",
+      "_id": "CbLEuGgm7gLdTbOE",
+      "name": "Claws",
       "type": "instrument",
-      "img": "icons/svg/sound.svg",
+      "img": "icons/svg/claw.svg",
       "system": {
-        "category": "innate",
-        "weight": "light",
-        "primaryAttribute": "presence",
-        "range": "Mid Range",
         "types": [
-          "quick",
-          "sonic"
+          "edged"
         ],
-        "typesDisplay": "",
+        "range": "Touching to Close",
+        "weight": "light",
+        "innate": true,
+        "primaryAttribute": "might",
+        "category": "melee",
         "price": 0,
-        "rider": "Innate: every character has it, free (PHB 2.5.3).",
         "kit": [
           {
-            "name": "Intimidate",
-            "skill": "assertiveness",
-            "effect": "Applies Intimidated."
+            "name": "Stab",
+            "skill": "prowess",
+            "effect": "Deals Stress to Might or Finesse."
           },
           {
-            "name": "Mislead",
+            "name": "Vital Strike",
+            "skill": "acuity",
+            "effect": "Applies Weakened [Finesse]."
+          },
+          {
+            "name": "Backstab",
             "skill": "guile",
-            "effect": "Applies Misled."
-          },
-          {
-            "name": "Sway",
-            "skill": "resonance",
-            "effect": "Applies Swayed."
+            "effect": "Applies Reeling."
           }
         ],
-        "innate": true,
-        "bonus": 0,
-        "size": "medium",
-        "materials": "",
         "description": ""
       },
       "effects": [],
@@ -183,22 +177,22 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!1AFBXUUaLyrpLBEu.MciZs96NsjmYAlNI"
+      "_key": "!actors.items!1AFBXUUaLyrpLBEu.CbLEuGgm7gLdTbOE"
     },
     {
-      "_id": "kMLI1ZR27RB3OTaL",
-      "name": "Maw",
+      "_id": "JuHmGZdcM4BJNO20",
+      "name": "Breath Weapon",
       "type": "instrument",
       "img": "icons/svg/claw.svg",
       "system": {
         "types": [
           "kinetic"
         ],
-        "range": "Touching",
+        "range": "Short to Mid",
         "weight": "light",
         "innate": true,
-        "primaryAttribute": "might",
-        "category": "melee",
+        "primaryAttribute": "wit",
+        "category": "arcane",
         "price": 0,
         "kit": [
           {
@@ -217,7 +211,7 @@
             "effect": "Applies Frightened."
           }
         ],
-        "description": ""
+        "description": "<p>Acid.</p>"
       },
       "effects": [],
       "folder": null,
@@ -226,10 +220,53 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!1AFBXUUaLyrpLBEu.kMLI1ZR27RB3OTaL"
+      "_key": "!actors.items!1AFBXUUaLyrpLBEu.JuHmGZdcM4BJNO20"
     },
     {
-      "_id": "rdKc6hDw5989FKbV",
+      "_id": "fT0gyGFz3lgdgq76",
+      "name": "Roar",
+      "type": "instrument",
+      "img": "icons/svg/claw.svg",
+      "system": {
+        "types": [
+          "sonic"
+        ],
+        "range": "Mid",
+        "weight": "light",
+        "innate": true,
+        "primaryAttribute": "presence",
+        "category": "sonic",
+        "price": 0,
+        "kit": [
+          {
+            "name": "Rousing Chord",
+            "skill": "assertiveness",
+            "effect": "Applies Intimidated."
+          },
+          {
+            "name": "Cutting Verse",
+            "skill": "guile",
+            "effect": "Applies Baited."
+          },
+          {
+            "name": "Discordant Note",
+            "skill": "resonance",
+            "effect": "Deals Stress to Wit or Presence."
+          }
+        ],
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 400000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!1AFBXUUaLyrpLBEu.fT0gyGFz3lgdgq76"
+    },
+    {
+      "_id": "X3ACQyWh6NqcIiWN",
       "name": "Acid Breath",
       "type": "technique",
       "img": "icons/svg/aura.svg",
@@ -265,15 +302,15 @@
       },
       "effects": [],
       "folder": null,
-      "sort": 400000,
+      "sort": 500000,
       "ownership": {
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!1AFBXUUaLyrpLBEu.rdKc6hDw5989FKbV"
+      "_key": "!actors.items!1AFBXUUaLyrpLBEu.X3ACQyWh6NqcIiWN"
     },
     {
-      "_id": "1yG6UHDAPZgzPBIx",
+      "_id": "dvITGGWH6KEKAGGZ",
       "name": "Frightful Presence",
       "type": "technique",
       "img": "icons/svg/aura.svg",
@@ -309,15 +346,15 @@
       },
       "effects": [],
       "folder": null,
-      "sort": 500000,
+      "sort": 600000,
       "ownership": {
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!1AFBXUUaLyrpLBEu.1yG6UHDAPZgzPBIx"
+      "_key": "!actors.items!1AFBXUUaLyrpLBEu.dvITGGWH6KEKAGGZ"
     },
     {
-      "_id": "FYQcceuY2BPUjDql",
+      "_id": "oCaYFkLL907olEd2",
       "name": "Corrosive Bite",
       "type": "technique",
       "img": "icons/svg/aura.svg",
@@ -353,15 +390,15 @@
       },
       "effects": [],
       "folder": null,
-      "sort": 600000,
+      "sort": 700000,
       "ownership": {
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!1AFBXUUaLyrpLBEu.FYQcceuY2BPUjDql"
+      "_key": "!actors.items!1AFBXUUaLyrpLBEu.oCaYFkLL907olEd2"
     },
     {
-      "_id": "7kDOjhTpcJlPEg7u",
+      "_id": "5T0D1X49aXFG0lSA",
       "name": "Legendary Action",
       "type": "feat",
       "img": "icons/svg/upgrade.svg",
@@ -377,15 +414,15 @@
       },
       "effects": [],
       "folder": null,
-      "sort": 700000,
+      "sort": 800000,
       "ownership": {
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!1AFBXUUaLyrpLBEu.7kDOjhTpcJlPEg7u"
+      "_key": "!actors.items!1AFBXUUaLyrpLBEu.5T0D1X49aXFG0lSA"
     },
     {
-      "_id": "WQT5ASwsPXZcO1yF",
+      "_id": "RMFkdoryV9ZoDTZY",
       "name": "Wings",
       "type": "feat",
       "img": "icons/svg/upgrade.svg",
@@ -401,15 +438,15 @@
       },
       "effects": [],
       "folder": null,
-      "sort": 800000,
+      "sort": 900000,
       "ownership": {
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!1AFBXUUaLyrpLBEu.WQT5ASwsPXZcO1yF"
+      "_key": "!actors.items!1AFBXUUaLyrpLBEu.RMFkdoryV9ZoDTZY"
     },
     {
-      "_id": "cPdzMHjEIwrDdEPa",
+      "_id": "cyLsUD8VBdIKriPI",
       "name": "Adaptive Hide",
       "type": "feat",
       "img": "icons/svg/upgrade.svg",
@@ -425,12 +462,12 @@
       },
       "effects": [],
       "folder": null,
-      "sort": 900000,
+      "sort": 1000000,
       "ownership": {
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!1AFBXUUaLyrpLBEu.cPdzMHjEIwrDdEPa"
+      "_key": "!actors.items!1AFBXUUaLyrpLBEu.cyLsUD8VBdIKriPI"
     }
   ],
   "_key": "!actors!1AFBXUUaLyrpLBEu"

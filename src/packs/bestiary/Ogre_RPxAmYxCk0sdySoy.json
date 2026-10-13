@@ -94,37 +94,42 @@
   },
   "items": [
     {
-      "_id": "QZ8x5zcdQtj862iU",
-      "name": "Club",
+      "_id": "rmyzoLN2nb9V5V8s",
+      "name": "Mace",
       "type": "instrument",
-      "img": "icons/svg/claw.svg",
+      "img": "icons/svg/sword.svg",
       "system": {
+        "category": "melee",
+        "weight": "medium",
+        "primaryAttribute": "might",
+        "range": "Close",
         "types": [
           "blunt"
         ],
-        "range": "Close",
-        "weight": "light",
-        "innate": true,
-        "primaryAttribute": "might",
-        "category": "melee",
-        "price": 0,
+        "typesDisplay": "",
+        "price": 35,
+        "rider": "",
         "kit": [
           {
-            "name": "Bash",
+            "name": "Crush",
             "skill": "prowess",
             "effect": "Deals Stress to Might or Finesse."
           },
           {
-            "name": "Sweep",
-            "skill": "acuity",
+            "name": "Stagger",
+            "skill": "discipline",
             "effect": "Applies Prone."
           },
           {
-            "name": "Feint Jab",
-            "skill": "guile",
-            "effect": "Applies Reeling."
+            "name": "Intimidating Blow",
+            "skill": "assertiveness",
+            "effect": "Deals Stress to Presence or Wit."
           }
         ],
+        "innate": false,
+        "bonus": 0,
+        "size": "medium",
+        "materials": "Metal + Wood",
         "description": ""
       },
       "effects": [],
@@ -134,7 +139,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!RPxAmYxCk0sdySoy.QZ8x5zcdQtj862iU"
+      "_key": "!actors.items!RPxAmYxCk0sdySoy.rmyzoLN2nb9V5V8s"
     },
     {
       "_id": "SnxhMeYEBDuIHWbB",

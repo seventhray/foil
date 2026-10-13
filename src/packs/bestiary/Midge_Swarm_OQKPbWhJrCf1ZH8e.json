@@ -5,7 +5,7 @@
   "img": "icons/svg/mystery-man.svg",
   "system": {
     "tier": 3,
-    "threat": -64,
+    "threat": -128,
     "behavior": "Mindless",
     "vulnerabilities": [],
     "attributes": {
@@ -13,13 +13,13 @@
         "dice": {
           "d4": 0,
           "d6": 0,
-          "d8": 1,
-          "d10": 1,
+          "d8": 2,
+          "d10": 0,
           "d12": 0,
           "d20": 0
         },
         "potential": {
-          "current": 18
+          "current": 16
         },
         "incapacitated": false
       },
@@ -27,13 +27,13 @@
         "dice": {
           "d4": 0,
           "d6": 0,
-          "d8": 0,
-          "d10": 0,
+          "d8": 1,
+          "d10": 1,
           "d12": 0,
-          "d20": 1
+          "d20": 0
         },
         "potential": {
-          "current": 20
+          "current": 18
         },
         "incapacitated": false
       },
@@ -41,13 +41,13 @@
         "dice": {
           "d4": 0,
           "d6": 0,
-          "d8": 1,
-          "d10": 1,
+          "d8": 2,
+          "d10": 0,
           "d12": 0,
           "d20": 0
         },
         "potential": {
-          "current": 18
+          "current": 16
         },
         "incapacitated": false
       },
@@ -55,13 +55,13 @@
         "dice": {
           "d4": 0,
           "d6": 0,
-          "d8": 1,
-          "d10": 1,
+          "d8": 2,
+          "d10": 0,
           "d12": 0,
           "d20": 0
         },
         "potential": {
-          "current": 18
+          "current": 16
         },
         "incapacitated": false
       }

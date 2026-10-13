@@ -137,37 +137,42 @@
       "_key": "!actors.items!4U3Pdalhod7rRmVc.YUewi3ElIH4xIcLE"
     },
     {
-      "_id": "CyebSMZqQqpISi2n",
-      "name": "Greatclub",
+      "_id": "bCP81PA5eb7zbuUb",
+      "name": "Maul",
       "type": "instrument",
-      "img": "icons/svg/claw.svg",
+      "img": "icons/svg/sword.svg",
       "system": {
+        "category": "melee",
+        "weight": "heavy",
+        "primaryAttribute": "might",
+        "range": "Close",
         "types": [
           "blunt"
         ],
-        "range": "Close",
-        "weight": "light",
-        "innate": true,
-        "primaryAttribute": "might",
-        "category": "melee",
-        "price": 0,
+        "typesDisplay": "",
+        "price": 50,
+        "rider": "",
         "kit": [
           {
-            "name": "Bash",
+            "name": "Smash",
             "skill": "prowess",
             "effect": "Deals Stress to Might or Finesse."
           },
           {
-            "name": "Sweep",
-            "skill": "acuity",
+            "name": "Bonebreaker",
+            "skill": "discipline",
             "effect": "Applies Prone."
           },
           {
-            "name": "Feint Jab",
-            "skill": "guile",
-            "effect": "Applies Reeling."
+            "name": "Dread Blow",
+            "skill": "assertiveness",
+            "effect": "Deals Stress to Presence or Wit."
           }
         ],
+        "innate": false,
+        "bonus": 0,
+        "size": "medium",
+        "materials": "Metal + Wood",
         "description": ""
       },
       "effects": [],
@@ -177,7 +182,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!4U3Pdalhod7rRmVc.CyebSMZqQqpISi2n"
+      "_key": "!actors.items!4U3Pdalhod7rRmVc.bCP81PA5eb7zbuUb"
     },
     {
       "_id": "rWbuDXq17HwjDLhs",

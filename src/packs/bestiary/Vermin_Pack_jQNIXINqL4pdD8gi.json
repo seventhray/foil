@@ -6,7 +6,7 @@
   "system": {
     "tier": 1,
     "threat": -384,
-    "behavior": "Pack-Bound [pack]",
+    "behavior": "Pack-Bound [the pack]",
     "vulnerabilities": [],
     "attributes": {
       "might": {

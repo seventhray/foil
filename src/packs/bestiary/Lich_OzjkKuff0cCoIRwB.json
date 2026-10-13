@@ -94,58 +94,15 @@
   },
   "items": [
     {
-      "_id": "Mu7nlL5kF5qYTX8W",
-      "name": "Kinetic attack",
-      "type": "instrument",
-      "img": "icons/svg/claw.svg",
-      "system": {
-        "types": [
-          "kinetic"
-        ],
-        "range": "Close",
-        "weight": "light",
-        "innate": true,
-        "primaryAttribute": "wit",
-        "category": "arcane",
-        "price": 0,
-        "kit": [
-          {
-            "name": "Force Bolt",
-            "skill": "discipline",
-            "effect": "Deals Stress to Might or Finesse."
-          },
-          {
-            "name": "Mind-Piercing Ray",
-            "skill": "acuity",
-            "effect": "Deals Stress to Wit or Presence."
-          },
-          {
-            "name": "Unsettling Pulse",
-            "skill": "resonance",
-            "effect": "Applies Frightened."
-          }
-        ],
-        "description": ""
-      },
-      "effects": [],
-      "folder": null,
-      "sort": 100000,
-      "ownership": {
-        "default": 0
-      },
-      "flags": {},
-      "_key": "!actors.items!OzjkKuff0cCoIRwB.Mu7nlL5kF5qYTX8W"
-    },
-    {
-      "_id": "nBQCZAWGuVX79ku7",
-      "name": "Incorporeal attack",
+      "_id": "UlGXQ5NIWHdVCzEj",
+      "name": "Curse Touch",
       "type": "instrument",
       "img": "icons/svg/claw.svg",
       "system": {
         "types": [
           "incorporeal"
         ],
-        "range": "Close",
+        "range": "Touching",
         "weight": "light",
         "innate": true,
         "primaryAttribute": "wit",
@@ -172,15 +129,114 @@
       },
       "effects": [],
       "folder": null,
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!OzjkKuff0cCoIRwB.UlGXQ5NIWHdVCzEj"
+    },
+    {
+      "_id": "fE9e7jibm6lsdKJ9",
+      "name": "Grand Staff",
+      "type": "instrument",
+      "img": "icons/svg/sword.svg",
+      "system": {
+        "category": "arcane",
+        "weight": "heavy",
+        "primaryAttribute": "presence",
+        "range": "Long Range",
+        "types": [
+          "kinetic",
+          "incorporeal",
+          "fortifying"
+        ],
+        "typesDisplay": "",
+        "price": 70,
+        "rider": "",
+        "kit": [
+          {
+            "name": "Grand Strike",
+            "skill": "assertiveness",
+            "effect": "Deals Stress to Might or Finesse."
+          },
+          {
+            "name": "Mind Break",
+            "skill": "guile",
+            "effect": "Deals Stress to Wit or Presence."
+          },
+          {
+            "name": "Restorative Surge",
+            "skill": "resonance",
+            "effect": "Removes 3 Stress from an ally's Attribute."
+          }
+        ],
+        "innate": false,
+        "bonus": 0,
+        "size": "medium",
+        "materials": "Wood",
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
       "sort": 200000,
       "ownership": {
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!OzjkKuff0cCoIRwB.nBQCZAWGuVX79ku7"
+      "_key": "!actors.items!OzjkKuff0cCoIRwB.fE9e7jibm6lsdKJ9"
     },
     {
-      "_id": "7UwydUaIfrO54xjF",
+      "_id": "JoDjYZlNAt3JNKyQ",
+      "name": "Mind",
+      "type": "instrument",
+      "img": "icons/svg/eye.svg",
+      "system": {
+        "category": "innate",
+        "weight": "light",
+        "primaryAttribute": "wit",
+        "range": "Near",
+        "types": [
+          "quick",
+          "incorporeal"
+        ],
+        "typesDisplay": "",
+        "price": 0,
+        "rider": "Innate: every character has it, free (PHB 2.5.3).",
+        "kit": [
+          {
+            "name": "Deduce",
+            "skill": "discipline",
+            "effect": "Works out a problem or recalls a fact."
+          },
+          {
+            "name": "Analyze",
+            "skill": "acuity",
+            "effect": "Learns a creature's Attributes, or notices something specific."
+          },
+          {
+            "name": "Intuit",
+            "skill": "resonance",
+            "effect": "Applies Foil Exposed, or gives insight into a situation."
+          }
+        ],
+        "innate": true,
+        "bonus": 0,
+        "size": "medium",
+        "materials": "",
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 300000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!OzjkKuff0cCoIRwB.JoDjYZlNAt3JNKyQ"
+    },
+    {
+      "_id": "N3G7F1GOQE2fh7KS",
       "name": "Frost Ray",
       "type": "technique",
       "img": "icons/svg/aura.svg",
@@ -199,15 +255,15 @@
       },
       "effects": [],
       "folder": null,
-      "sort": 300000,
+      "sort": 400000,
       "ownership": {
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!OzjkKuff0cCoIRwB.7UwydUaIfrO54xjF"
+      "_key": "!actors.items!OzjkKuff0cCoIRwB.N3G7F1GOQE2fh7KS"
     },
     {
-      "_id": "tfN3s3FL0iwCO9rp",
+      "_id": "ZkJ5vDLMjRXBY9Z2",
       "name": "Paralyzing Touch",
       "type": "technique",
       "img": "icons/svg/aura.svg",
@@ -243,15 +299,15 @@
       },
       "effects": [],
       "folder": null,
-      "sort": 400000,
+      "sort": 500000,
       "ownership": {
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!OzjkKuff0cCoIRwB.tfN3s3FL0iwCO9rp"
+      "_key": "!actors.items!OzjkKuff0cCoIRwB.ZkJ5vDLMjRXBY9Z2"
     },
     {
-      "_id": "rWAwrWUCfbs4g65L",
+      "_id": "xyZtlwBymEWRfrrx",
       "name": "Annihilating Beam",
       "type": "technique",
       "img": "icons/svg/aura.svg",
@@ -287,15 +343,15 @@
       },
       "effects": [],
       "folder": null,
-      "sort": 500000,
+      "sort": 600000,
       "ownership": {
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!OzjkKuff0cCoIRwB.rWAwrWUCfbs4g65L"
+      "_key": "!actors.items!OzjkKuff0cCoIRwB.xyZtlwBymEWRfrrx"
     },
     {
-      "_id": "P7rJ3zSFNXSislqn",
+      "_id": "AIM0FfZzLpJv4mET",
       "name": "Dominate",
       "type": "technique",
       "img": "icons/svg/aura.svg",
@@ -331,15 +387,15 @@
       },
       "effects": [],
       "folder": null,
-      "sort": 600000,
+      "sort": 700000,
       "ownership": {
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!OzjkKuff0cCoIRwB.P7rJ3zSFNXSislqn"
+      "_key": "!actors.items!OzjkKuff0cCoIRwB.AIM0FfZzLpJv4mET"
     },
     {
-      "_id": "j3SzUtKAcCTB6ZSM",
+      "_id": "5OFbslkEpvQRxYlm",
       "name": "Undaunted",
       "type": "feat",
       "img": "icons/svg/upgrade.svg",
@@ -355,15 +411,15 @@
       },
       "effects": [],
       "folder": null,
-      "sort": 700000,
+      "sort": 800000,
       "ownership": {
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!OzjkKuff0cCoIRwB.j3SzUtKAcCTB6ZSM"
+      "_key": "!actors.items!OzjkKuff0cCoIRwB.5OFbslkEpvQRxYlm"
     },
     {
-      "_id": "pBDho9a8NpIwWuS5",
+      "_id": "sgBPalzrUt74F2lK",
       "name": "Rejuvenation",
       "type": "feat",
       "img": "icons/svg/upgrade.svg",
@@ -379,15 +435,15 @@
       },
       "effects": [],
       "folder": null,
-      "sort": 800000,
+      "sort": 900000,
       "ownership": {
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!OzjkKuff0cCoIRwB.pBDho9a8NpIwWuS5"
+      "_key": "!actors.items!OzjkKuff0cCoIRwB.sgBPalzrUt74F2lK"
     },
     {
-      "_id": "koGOEVDesGaXyoJU",
+      "_id": "aPm7IQjm4vUUNntJ",
       "name": "Regeneration",
       "type": "feat",
       "img": "icons/svg/upgrade.svg",
@@ -395,7 +451,7 @@
         "featType": "trait",
         "xpCost": 32,
         "requirements": "",
-        "effect": "optional, for a tougher fight.",
+        "effect": "every 10 rounds of a conflict, recovers 1d4 Stress from Might, unless a Fire or Acid hit landed on it since the last recovery.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [],
@@ -403,12 +459,12 @@
       },
       "effects": [],
       "folder": null,
-      "sort": 900000,
+      "sort": 1000000,
       "ownership": {
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!OzjkKuff0cCoIRwB.koGOEVDesGaXyoJU"
+      "_key": "!actors.items!OzjkKuff0cCoIRwB.aPm7IQjm4vUUNntJ"
     }
   ],
   "_key": "!actors!OzjkKuff0cCoIRwB"

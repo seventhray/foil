@@ -94,15 +94,15 @@
   },
   "items": [
     {
-      "_id": "ucosGYjjDBQQRI2u",
-      "name": "Fangs",
+      "_id": "Qy9fU8D6FERv2jkj",
+      "name": "Bite",
       "type": "instrument",
       "img": "icons/svg/claw.svg",
       "system": {
         "types": [
           "pointed"
         ],
-        "range": "Close",
+        "range": "Touching",
         "weight": "light",
         "innate": true,
         "primaryAttribute": "might",
@@ -134,22 +134,65 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!CSLW5Hts7F7Ipnz2.ucosGYjjDBQQRI2u"
+      "_key": "!actors.items!CSLW5Hts7F7Ipnz2.Qy9fU8D6FERv2jkj"
     },
     {
-      "_id": "1aDKvl7Vatj8DEg2",
-      "name": "Maw",
+      "_id": "BlpGJxt1G482CFGg",
+      "name": "Coils",
       "type": "instrument",
       "img": "icons/svg/claw.svg",
       "system": {
         "types": [
-          "kinetic"
+          "grappling"
         ],
         "range": "Touching",
         "weight": "light",
         "innate": true,
         "primaryAttribute": "might",
         "category": "melee",
+        "price": 0,
+        "kit": [
+          {
+            "name": "Snare",
+            "skill": "prowess",
+            "effect": "Applies Grappled."
+          },
+          {
+            "name": "Tumble",
+            "skill": "acuity",
+            "effect": "Applies Prone."
+          },
+          {
+            "name": "Tangle",
+            "skill": "guile",
+            "effect": "Applies Restrained."
+          }
+        ],
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!CSLW5Hts7F7Ipnz2.BlpGJxt1G482CFGg"
+    },
+    {
+      "_id": "koAI9ucMoq9UzI87",
+      "name": "Breath Weapon",
+      "type": "instrument",
+      "img": "icons/svg/claw.svg",
+      "system": {
+        "types": [
+          "kinetic"
+        ],
+        "range": "Short to Mid",
+        "weight": "light",
+        "innate": true,
+        "primaryAttribute": "wit",
+        "category": "arcane",
         "price": 0,
         "kit": [
           {
@@ -168,19 +211,19 @@
             "effect": "Applies Frightened."
           }
         ],
-        "description": ""
+        "description": "<p>Lightning.</p>"
       },
       "effects": [],
       "folder": null,
-      "sort": 200000,
+      "sort": 300000,
       "ownership": {
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!CSLW5Hts7F7Ipnz2.1aDKvl7Vatj8DEg2"
+      "_key": "!actors.items!CSLW5Hts7F7Ipnz2.koAI9ucMoq9UzI87"
     },
     {
-      "_id": "EJFUMTeYY9c1kmBZ",
+      "_id": "FF34vTPNuIhC62QI",
       "name": "Lightning Breath",
       "type": "technique",
       "img": "icons/svg/aura.svg",
@@ -216,15 +259,15 @@
       },
       "effects": [],
       "folder": null,
-      "sort": 300000,
+      "sort": 400000,
       "ownership": {
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!CSLW5Hts7F7Ipnz2.EJFUMTeYY9c1kmBZ"
+      "_key": "!actors.items!CSLW5Hts7F7Ipnz2.FF34vTPNuIhC62QI"
     },
     {
-      "_id": "74Ryg3XFQxdRJrmy",
+      "_id": "aomss5xfeCIok695",
       "name": "Venomous Fangs",
       "type": "technique",
       "img": "icons/svg/aura.svg",
@@ -260,15 +303,15 @@
       },
       "effects": [],
       "folder": null,
-      "sort": 400000,
+      "sort": 500000,
       "ownership": {
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!CSLW5Hts7F7Ipnz2.74Ryg3XFQxdRJrmy"
+      "_key": "!actors.items!CSLW5Hts7F7Ipnz2.aomss5xfeCIok695"
     },
     {
-      "_id": "XTQ4CuWP6gU7QTYU",
+      "_id": "mOKHa4mdT3NwZMvo",
       "name": "Rend",
       "type": "technique",
       "img": "icons/svg/aura.svg",
@@ -305,15 +348,15 @@
       },
       "effects": [],
       "folder": null,
-      "sort": 500000,
+      "sort": 600000,
       "ownership": {
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!CSLW5Hts7F7Ipnz2.XTQ4CuWP6gU7QTYU"
+      "_key": "!actors.items!CSLW5Hts7F7Ipnz2.mOKHa4mdT3NwZMvo"
     },
     {
-      "_id": "hFrIapNQfPEmlFUU",
+      "_id": "GDELlzb9lTT4Oxpz",
       "name": "Ambush Predator",
       "type": "feat",
       "img": "icons/svg/upgrade.svg",
@@ -329,15 +372,15 @@
       },
       "effects": [],
       "folder": null,
-      "sort": 600000,
+      "sort": 700000,
       "ownership": {
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!CSLW5Hts7F7Ipnz2.hFrIapNQfPEmlFUU"
+      "_key": "!actors.items!CSLW5Hts7F7Ipnz2.GDELlzb9lTT4Oxpz"
     },
     {
-      "_id": "tcu4tFuEtBVxSSyi",
+      "_id": "HWNIfECPbNetwfQu",
       "name": "Dread Presence",
       "type": "feat",
       "img": "icons/svg/upgrade.svg",
@@ -353,15 +396,15 @@
       },
       "effects": [],
       "folder": null,
-      "sort": 700000,
+      "sort": 800000,
       "ownership": {
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!CSLW5Hts7F7Ipnz2.tcu4tFuEtBVxSSyi"
+      "_key": "!actors.items!CSLW5Hts7F7Ipnz2.HWNIfECPbNetwfQu"
     },
     {
-      "_id": "JYPjEdFswXv54xUi",
+      "_id": "IkP9lma8J3XcKRD7",
       "name": "Focused Blast",
       "type": "feat",
       "img": "icons/svg/upgrade.svg",
@@ -377,15 +420,15 @@
       },
       "effects": [],
       "folder": null,
-      "sort": 800000,
+      "sort": 900000,
       "ownership": {
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!CSLW5Hts7F7Ipnz2.JYPjEdFswXv54xUi"
+      "_key": "!actors.items!CSLW5Hts7F7Ipnz2.IkP9lma8J3XcKRD7"
     },
     {
-      "_id": "0RG5VioSEGQKhNa3",
+      "_id": "qk1SZqBCpkuTRnON",
       "name": "Heavy Hand",
       "type": "feat",
       "img": "icons/svg/upgrade.svg",
@@ -401,15 +444,15 @@
       },
       "effects": [],
       "folder": null,
-      "sort": 900000,
+      "sort": 1000000,
       "ownership": {
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!CSLW5Hts7F7Ipnz2.0RG5VioSEGQKhNa3"
+      "_key": "!actors.items!CSLW5Hts7F7Ipnz2.qk1SZqBCpkuTRnON"
     },
     {
-      "_id": "BPorgDJsbUpb7Mhi",
+      "_id": "oEcFTM2DOlCkYqOu",
       "name": "Undaunted",
       "type": "feat",
       "img": "icons/svg/upgrade.svg",
@@ -425,12 +468,12 @@
       },
       "effects": [],
       "folder": null,
-      "sort": 1000000,
+      "sort": 1100000,
       "ownership": {
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!CSLW5Hts7F7Ipnz2.BPorgDJsbUpb7Mhi"
+      "_key": "!actors.items!CSLW5Hts7F7Ipnz2.oEcFTM2DOlCkYqOu"
     }
   ],
   "_key": "!actors!CSLW5Hts7F7Ipnz2"

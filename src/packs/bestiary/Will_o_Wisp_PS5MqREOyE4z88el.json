@@ -87,15 +87,15 @@
   },
   "items": [
     {
-      "_id": "5vg841M8sIOHWCto",
-      "name": "Incorporeal attack",
+      "_id": "yHOhdPSJWJdzdggi",
+      "name": "Evil Eye",
       "type": "instrument",
       "img": "icons/svg/claw.svg",
       "system": {
         "types": [
           "incorporeal"
         ],
-        "range": "Close",
+        "range": "Sight",
         "weight": "light",
         "innate": true,
         "primaryAttribute": "wit",
@@ -118,7 +118,7 @@
             "effect": "Applies Weakened [Presence]."
           }
         ],
-        "description": ""
+        "description": "<p>its lure-light.</p>"
       },
       "effects": [],
       "folder": null,
@@ -127,24 +127,22 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!PS5MqREOyE4z88el.5vg841M8sIOHWCto"
+      "_key": "!actors.items!PS5MqREOyE4z88el.yHOhdPSJWJdzdggi"
     },
     {
-      "_id": "KjqEKsHnk9sFr7bm",
-      "name": "Lure-Light",
+      "_id": "eAEvQxe589J9R5Ny",
+      "name": "Drift Away",
       "type": "technique",
       "img": "icons/svg/aura.svg",
       "system": {
-        "requires": [
-          "incorporeal"
-        ],
+        "requires": [],
         "innate": false,
         "skill": "",
         "family": "",
         "subgroup": "",
         "effects": [
           {
-            "key": "stress",
+            "key": "evade",
             "magnitude": 1,
             "pattern": "single",
             "bands": 0,
@@ -163,7 +161,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!PS5MqREOyE4z88el.KjqEKsHnk9sFr7bm"
+      "_key": "!actors.items!PS5MqREOyE4z88el.eAEvQxe589J9R5Ny"
     }
   ],
   "_key": "!actors!PS5MqREOyE4z88el"

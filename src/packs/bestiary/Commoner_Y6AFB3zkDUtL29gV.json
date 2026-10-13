@@ -87,21 +87,42 @@
   },
   "items": [
     {
-      "_id": "4Ot3qmnhzNalkNkR",
-      "name": "Club",
+      "_id": "teBUwgPYqixc66Tq",
+      "name": "Mace",
       "type": "instrument",
-      "img": "icons/svg/claw.svg",
+      "img": "icons/svg/sword.svg",
       "system": {
-        "types": [
-          "medium"
-        ],
-        "range": "Close",
-        "weight": "light",
-        "innate": true,
-        "primaryAttribute": "might",
         "category": "melee",
-        "price": 0,
-        "kit": [],
+        "weight": "medium",
+        "primaryAttribute": "might",
+        "range": "Close",
+        "types": [
+          "blunt"
+        ],
+        "typesDisplay": "",
+        "price": 35,
+        "rider": "",
+        "kit": [
+          {
+            "name": "Crush",
+            "skill": "prowess",
+            "effect": "Deals Stress to Might or Finesse."
+          },
+          {
+            "name": "Stagger",
+            "skill": "discipline",
+            "effect": "Applies Prone."
+          },
+          {
+            "name": "Intimidating Blow",
+            "skill": "assertiveness",
+            "effect": "Deals Stress to Presence or Wit."
+          }
+        ],
+        "innate": false,
+        "bonus": 0,
+        "size": "medium",
+        "materials": "Metal + Wood",
         "description": ""
       },
       "effects": [],
@@ -111,7 +132,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!Y6AFB3zkDUtL29gV.4Ot3qmnhzNalkNkR"
+      "_key": "!actors.items!Y6AFB3zkDUtL29gV.teBUwgPYqixc66Tq"
     },
     {
       "_id": "CRMzGsJPkjn6URrX",
