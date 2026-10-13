@@ -1,0 +1,44 @@
+{
+  "_id": "wTAcEaZlv5znfKSl",
+  "name": "Reel In",
+  "type": "technique",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "requires": [
+      "grappling"
+    ],
+    "innate": false,
+    "skill": "",
+    "family": "Grappling",
+    "subgroup": "",
+    "effects": [
+      {
+        "key": "grappled",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveR": 0
+      },
+      {
+        "key": "move",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveR": 0
+      }
+    ],
+    "floor": false,
+    "ancestryGrant": "",
+    "description": ""
+  },
+  "effects": [],
+  "folder": "U6AWbnUDIrqKqFUn",
+  "sort": 2500000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!wTAcEaZlv5znfKSl"
+}
