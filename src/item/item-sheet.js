@@ -46,9 +46,9 @@ const PATTERN_SHAPES = ["single", "beam", "cone", "radius", "wall"];
 const PRICING_KIND_INFO = {
   perPoint:    "Base XP + per-point XP x the magnitude N (Pierce N, +N, -N [target Attribute]).",
   flat:        "A fixed XP cost (Stress 4, a Condition, Illusion, Drain).",
-  pattern:     "Beam or Wall: 1 + 2 + ... per band. Cone 3x, Radius 12x the Beam cost. Placement adds R.",
-  selective:   "Creatures within R bands: range at 1 XP per band, plus an 8 XP premium; Strain is paid per target.",
-  extendRange: "Per-band XP for each band of extra reach.",
+  pattern:     "Beam or Wall: 1 + 2 + ... per rung of the Range ladder. Cone 3x, Radius 12x the Beam cost. Placement adds R.",
+  selective:   "Creatures within Range R: 1 XP per rung, plus an 8 XP premium; Strain is paid per target.",
+  extendRange: "XP for each rung of extra Range.",
   upkeep:      "Flat XP; doesn't count toward the +4 per extra Effect.",
   quick:       "A free tag; doesn't count toward the premium. A stated trigger sets the 8 XP floor.",
   counter:     "A fixed XP cost to contest another Technique."

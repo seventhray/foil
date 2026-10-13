@@ -254,7 +254,7 @@ export const GLOSSARY = {
   },
   "potential": {
     "name": "Potential",
-    "text": "The highest number an Attribute's dice can roll. It also sets how much Stress that Attribute can take before it gives out."
+    "text": "The highest number an Attribute's dice can roll. It also sets how much Stress that Attribute can take before it gives out. A Skill's Potential is the Potential of its two Attributes plus its Training."
   },
   "price": {
     "name": "Price",
