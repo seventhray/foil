@@ -126,7 +126,7 @@ export const acToResistance = ac => (ac >= 20 ? 3 : ac >= 17 ? 2 : ac >= 13 ? 1 
 const PHYSICAL_FAMILIES = ["melee", "ranged", "grappling", "kinetic"];
 const MENTAL_FAMILIES = ["sonic", "incorporeal"];
 const PHYSICAL_TYPES = ["edged", "pointed", "blunt", "fire", "cold", "lightning", "acid", "force"];
-const MENTAL_TYPES = ["psychic", "spirit"];
+const MENTAL_TYPES = ["psychic"];
 
 /** Budget refunded for each point of a Vulnerable, by its scope. */
 export function refundPerPoint(scope) {

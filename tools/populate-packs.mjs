@@ -423,7 +423,7 @@ function equipmentDocs() {
   const out = [];
   for (const r of tableAfter(PHB, /^### 7\.9\.2 Armor/)) {
     out.push(equip(r.Armor, "armor", num(r.Price), {
-      weight: num(r.Weight), size: "large", qualities: [q("resistance", num(r.Resistance), "physical")], notes: r.Notes ?? ""
+      weight: num(r.Mass ?? r.Weight), size: "large", qualities: [q("resistance", num(r.Resistance), "physical")], notes: r.Notes ?? ""
     }));
   }
   for (const r of tableAfter(PHB, /^### 7\.9\.3 Shields/)) {

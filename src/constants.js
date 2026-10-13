@@ -121,7 +121,7 @@ export const RESISTANCE_LABEL = { physical: "Physical", mental: "Mental" };
 export const DAMAGE_TYPES = {
   edged: "physical", pointed: "physical", blunt: "physical",
   fire: "physical", cold: "physical", lightning: "physical", acid: "physical", force: "physical",
-  psychic: "mental", spirit: "mental"
+  psychic: "mental"
 };
 
 // Focus Gems (PHB 5.2.3): Arcane Instruments only; each adds its Tier to one Effect.
@@ -130,8 +130,8 @@ export const FOCUS_GEMS = {
   carnelian: { label: "Carnelian", damageType: "force",      adds: "Move goes 1 more band",                        pricePerTier: 40 },
   emerald:   { label: "Emerald",   damageType: "acid",       adds: "Pierce +1",                                    pricePerTier: 40 },
   sapphire:  { label: "Sapphire",  damageType: "psychic",    adds: "Illusion: -1 to the Oppose to see through it", pricePerTier: 60 },
-  amethyst:  { label: "Amethyst",  damageType: "spirit",     adds: "Condition: -1 to the Oppose against it",       pricePerTier: 60 },
-  tanzanite: { label: "Tanzanite", damageType: "spirit",     adds: "Drain heals 1 more",                           pricePerTier: 60 },
+  amethyst:  { label: "Amethyst",  damageType: "psychic",    adds: "Condition: -1 to the Oppose against it",       pricePerTier: 60 },
+  tanzanite: { label: "Tanzanite", damageType: "psychic",    adds: "Drain heals 1 more",                           pricePerTier: 60 },
   citrine:   { label: "Citrine",   damageType: "",           adds: "Mend removes 1 more Stress",                   pricePerTier: 60 },
   diamond:   { label: "Diamond",   damageType: "",           adds: "Resistance it grants +1",                      pricePerTier: 40 }
 };

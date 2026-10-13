@@ -173,19 +173,21 @@
       "_key": "!actors.items!woliUIERDKqst3UH.PdV5kbHoQkRSwwcy"
     },
     {
-      "_id": "gz7QTLAciYaHLTf7",
-      "name": "Scuttle",
+      "_id": "1oOLAp4mNSdDpZxF",
+      "name": "Shove Aside",
       "type": "technique",
       "img": "icons/svg/aura.svg",
       "system": {
-        "requires": [],
+        "requires": [
+          "grappling"
+        ],
         "innate": false,
         "skill": "",
         "family": "",
         "subgroup": "",
         "effects": [
           {
-            "key": "evade",
+            "key": "move",
             "magnitude": 1,
             "pattern": "single",
             "bands": 0,
@@ -204,7 +206,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!woliUIERDKqst3UH.gz7QTLAciYaHLTf7"
+      "_key": "!actors.items!woliUIERDKqst3UH.1oOLAp4mNSdDpZxF"
     }
   ],
   "_key": "!actors!woliUIERDKqst3UH"

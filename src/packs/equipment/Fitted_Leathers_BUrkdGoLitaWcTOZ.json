@@ -6,7 +6,7 @@
   "system": {
     "category": "armor",
     "price": 40,
-    "weight": 0,
+    "weight": 10,
     "weightClass": "",
     "size": "large",
     "materials": "Leather",

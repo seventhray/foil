@@ -13,7 +13,7 @@ import { SCOPE_GROUPS } from "../resist.js";
 
 const { HandlebarsApplicationMixin, ApplicationV2 } = foundry.applications.api;
 
-const DAMAGE_BY_TYPE = { kinetic: ["fire", "cold", "lightning", "acid", "force"], incorporeal: ["psychic", "spirit"] };
+const DAMAGE_BY_TYPE = { kinetic: ["fire", "cold", "lightning", "acid", "force"], incorporeal: ["psychic"] };
 const PRIMARY_BY_GROUP = { melee: "might", grappling: "might", arcane: "wit", sonic: "presence" };
 const cap = t => t.replace(/^./, c => c.toUpperCase());
 const plain = doc => { const o = doc.toObject(); delete o._id; return o; };

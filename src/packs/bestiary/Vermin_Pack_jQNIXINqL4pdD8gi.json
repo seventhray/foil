@@ -130,19 +130,21 @@
       "_key": "!actors.items!jQNIXINqL4pdD8gi.Bqej90mL1Zb1aUgs"
     },
     {
-      "_id": "4VgB2pPxXWTJrBov",
-      "name": "Scatter",
+      "_id": "IWwWW2AhRlO0oOJk",
+      "name": "Nip at Heels",
       "type": "technique",
       "img": "icons/svg/aura.svg",
       "system": {
-        "requires": [],
+        "requires": [
+          "pointed"
+        ],
         "innate": false,
         "skill": "",
         "family": "",
         "subgroup": "",
         "effects": [
           {
-            "key": "evade",
+            "key": "slowed",
             "magnitude": 1,
             "pattern": "single",
             "bands": 0,
@@ -161,7 +163,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!jQNIXINqL4pdD8gi.4VgB2pPxXWTJrBov"
+      "_key": "!actors.items!jQNIXINqL4pdD8gi.IWwWW2AhRlO0oOJk"
     }
   ],
   "_key": "!actors!jQNIXINqL4pdD8gi"

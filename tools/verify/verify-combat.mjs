@@ -1,4 +1,6 @@
 /** Condition modifiers on rolls and on Techniques rolled against a target (PHB 6.8.0). */
+import { travelLeg } from "../../src/travel.js";
+import { opposeExtras, failCard, stressCard, opposeDialog } from "../../src/oppose-text.js";
 import { entryLabel, withDuration } from "../../src/pricing.js";
 import { reachBand, reachLine, rangeWarning, bandOfFeet } from "../../src/range.js";
 import { aggregateModifiers } from "../../src/modifiers.js";
@@ -88,5 +90,14 @@ const controller = abilitySteps({ str: 11, dex: 16, con: 16, int: 20, wis: 14, c
 check("the GMG controller example moves nothing", Object.values(controller.steps), [0, 0, 0, 0]);
 check("AC converts to physical Resistance by the table", [10, 12, 13, 16, 17, 19, 20, 25].map(acToResistance), [0, 0, 1, 1, 2, 2, 3, 3]);
 check("Vulnerable refunds by scope: Broad 8, Family 2 or 4, damage type 1 or 2", vulnerableRefund([{ scope: "physical", n: 1 }, { scope: "kinetic", n: 4 }, { scope: "sonic", n: 1 }, { scope: "fire", n: 2 }, { scope: "psychic", n: 1 }]), 8 + 8 + 4 + 2 + 2);
+
+check("A Travel leg costs 1, 2 on a failure, plus the Mass penalty, and eats a ration", [travelLeg({}).stress, travelLeg({ failed: true }).stress, travelLeg({ massPenalty: 2 }).stress, travelLeg({ rations: 0 }).rationUsed, travelLeg({ rations: 3 }).rationUsed], [1, 2, 3, false, true]);
+
+check("The Oppose flow's wording and modifiers come from oppose-text.js", [
+  opposeExtras({ conditionParts: [{ label: "Reeling", value: -1 }], block: 1, guard: true, exposedSpent: [{ note: "Faith: Trusting; by Verren" }], other: 2 }).map(e => e.value).join(","),
+  failCard("Bite", "Kessen", "9 against 12").includes("Bite fails against Kessen"),
+  stressCard("Kessen", "might", { stress: 4, parts: ["margin 6"] }, "9 against 3").includes("4 Stress"),
+  opposeDialog({ flagName: "Bite", attackLine: "9", defenderName: "Kessen", conditionName: null, aim: "might", skills: [], flagHtml: "", opts: "", attackerName: "Wolf", exposed: [], kind: "physical" }).includes('name="parry"')
+], ["-1,1,2,-2,2", true, true, true]);
 
 process.exit(failed ? 1 : 0);
