@@ -158,7 +158,7 @@ const FAMILY_TYPES = {
   melee: MELEE, ranged: RANGED, arcane: ARCANE, "any arcane": ARCANE,
   sonic: ["sonic"], kinetic: ["kinetic"], incorporeal: ["incorporeal"], fortifying: ["fortifying"],
   edged: ["edged"], pointed: ["pointed"], blunt: ["blunt"], grappling: ["grappling"],
-  parry: ["parry"], blocking: ["blocking"], thrown: ["thrown"], drawn: ["drawn"], fired: ["fired"], tool: ["tool"]
+  parry: ["parry"], blocking: ["blocking"], thrown: ["thrown"], drawn: ["drawn"], fired: ["fired"], tool: ["tool"], none: []
 };
 function parseRequires(text) {
   const t = lc(text);
@@ -655,7 +655,7 @@ for (const bg of backgrounds) {
 const featNames = new Set(feats.map(f => f.name));
 for (const a of ancestries) for (const f of a.system.feats) if (!featNames.has(f)) warnings.push(`${a.name}: Feat "${f}" not in the Catalog`);
 
-const expect = { techniques: 114, feats: 57, instruments: 34, tools: 17 };
+const expect = { techniques: 120, feats: 57, instruments: 34, tools: 17 };
 for (const [k, n] of Object.entries(expect)) {
   if (CAT[k].length !== n) warnings.push(`Catalog/${k}: ${CAT[k].length} notes, expected ${n}`);
 }
