@@ -12,6 +12,12 @@
 
 import { ATTRIBUTE_KEYS, ATTR_LABEL, SKILL_KEYS, SKILL_LABEL, XP_COST, trainingCost, knowHowCost } from "../constants.js";
 import { DIE_SIZES } from "../dice.js";
+import { termsIn } from "../glossary-ui.js";
+
+const plain = v => String(v ?? "").replace(/<[^>]*>/g, "").trim();
+/** An entry's full text for the panel under a dropdown: effect, Requires, description, glossary terms. */
+const detail = (effect, requires, description) => ({ effect: plain(effect), requires, description: plain(description),
+  terms: termsIn(plain(effect)).slice(0, 4).map(t => ({ name: t.name, text: t.text })) });
 
 const dieStepCost = size => size >= 12 ? XP_COST.d12ToD20 : XP_COST.talent[size];
 
@@ -72,13 +78,13 @@ export class FoilAdvancement extends HandlebarsApplicationMixin(ApplicationV2) {
     const techDocs = (await game.packs.get("foil.techniques")?.getDocuments()) ?? [];
     const techniques = techDocs
       .filter(t => !owned.has(t.name.toLowerCase()))
-      .map(t => ({ id: t.id, name: t.name, xp: t.system.xpCost, requires: t.system.requiresLabel }))
+      .map(t => ({ id: t.id, name: t.name, xp: t.system.xpCost, strain: t.system.strain, requires: t.system.requiresLabel, ...detail(t.system.effectText || t.system.effect, t.system.requiresLabel, t.system.description) }))
       .sort((a, b) => a.name.localeCompare(b.name));
 
     const featDocs = (await game.packs.get("foil.feats")?.getDocuments()) ?? [];
     const feats = featDocs
       .filter(f => f.system.featType !== "ancestry" && !owned.has(f.name.toLowerCase()))
-      .map(f => ({ id: f.id, name: f.name, xp: f.system.xpCost, requirements: f.system.requirements }))
+      .map(f => ({ id: f.id, name: f.name, xp: f.system.xpCost, requirements: f.system.requirements, ...detail(f.system.effect, f.system.requirements, "") }))
       .sort((a, b) => a.name.localeCompare(b.name));
 
     return {
@@ -145,6 +151,16 @@ export class FoilAdvancement extends HandlebarsApplicationMixin(ApplicationV2) {
     if (!ok) return;
     await this.actor.createEmbeddedDocuments("Item", [doc.toObject()]);
     this.render();
+  }
+
+  /** Show the full text of the chosen entry under its dropdown. */
+  _onRender() {
+    for (const row of this.element.querySelectorAll(".adv-pick-row")) {
+      const sel = row.querySelector("select"), box = row.querySelector(".adv-detail");
+      const show = () => { const t = row.querySelector(`template[data-id="${sel.value}"]`); box.innerHTML = t ? t.innerHTML : ""; };
+      sel.addEventListener("change", show);
+      show();
+    }
   }
 
   static async _onLearnTechnique(event, target) { return FoilAdvancement._learn.call(this, target, "foil.techniques"); }

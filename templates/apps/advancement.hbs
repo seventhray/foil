@@ -47,21 +47,29 @@
 
   <fieldset class="adv-pick-row">
     <legend>Learn a Technique</legend>
-    <select>
-      {{#each techniques}}
-        <option value="{{this.id}}">{{this.name}}: {{this.xp}} XP ({{this.requires}})</option>
-      {{/each}}
-    </select>
-    <a class="adv-btn" data-action="learnTechnique">Learn</a>
+    <div class="adv-pick">
+      <select>
+        {{#each techniques}}
+          <option value="{{this.id}}">{{this.name}} ({{this.xp}} XP{{#if this.strain}}, Strain {{this.strain}}{{/if}})</option>
+        {{/each}}
+      </select>
+      <a class="adv-btn" data-action="learnTechnique">Learn</a>
+    </div>
+    <div class="adv-detail"></div>
+    {{#each techniques}}<template data-id="{{this.id}}"><p>{{this.effect}}{{#if this.requires}} <em>Requires {{this.requires}}.</em>{{/if}}{{#if this.description}} {{this.description}}{{/if}}</p>{{#each this.terms}}<p class="gen-term"><strong>{{this.name}}:</strong> {{this.text}}</p>{{/each}}</template>{{/each}}
   </fieldset>
 
   <fieldset class="adv-pick-row">
     <legend>Learn a Feat</legend>
-    <select>
-      {{#each feats}}
-        <option value="{{this.id}}" title="{{this.requirements}}">{{this.name}}: {{this.xp}} XP{{#if this.requirements}} (requires {{this.requirements}}){{/if}}</option>
-      {{/each}}
-    </select>
-    <a class="adv-btn" data-action="learnFeat">Learn</a>
+    <div class="adv-pick">
+      <select>
+        {{#each feats}}
+          <option value="{{this.id}}">{{this.name}} ({{this.xp}} XP)</option>
+        {{/each}}
+      </select>
+      <a class="adv-btn" data-action="learnFeat">Learn</a>
+    </div>
+    <div class="adv-detail"></div>
+    {{#each feats}}<template data-id="{{this.id}}"><p>{{this.effect}}{{#if this.requirements}} <em>Requires {{this.requirements}}.</em>{{/if}}</p>{{#each this.terms}}<p class="gen-term"><strong>{{this.name}}:</strong> {{this.text}}</p>{{/each}}</template>{{/each}}
   </fieldset>
 </div>

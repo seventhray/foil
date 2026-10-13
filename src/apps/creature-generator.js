@@ -177,7 +177,7 @@ export class FoilCreatureGenerator extends HandlebarsApplicationMixin(Applicatio
       budget: budget,
       refund: refund,
       slots: slots,
-      techniques: techniques,
+      techniqueRows: techniques.filter(t => t.checked), techniqueOptions: techniques.filter(t => !t.checked),
       trainCap,
       innateRows: INNATE_NAMES.map(name => { const d = innateDocs.find(x => x.name === name); return { name, checked: !!s.innate[name], types: (d?.system.types ?? []).map(cap).join(", "), primary: d ? cap(d.system.primaryAttribute) : "", range: d?.system.range ?? "", kit: (d?.system.kit ?? []).map(k => `${k.name}: ${k.effect}`).join(" ") }; }),
       featRows: featRows.filter(f => f.qty > 0), featOptions: featRows.filter(f => !f.qty),
@@ -194,7 +194,8 @@ export class FoilCreatureGenerator extends HandlebarsApplicationMixin(Applicatio
       const btn = ev.target.closest("[data-remove]");
       if (!btn) return;
       const [kind, name] = [btn.dataset.remove, btn.dataset.name];
-      if (kind === "feat") this.state.feats[name] = 0;
+      if (kind === "tech") this.state.techniques = this.state.techniques.filter(x => x !== name);
+      else if (kind === "feat") this.state.feats[name] = 0;
       else this.state.traits = this.state.traits.filter(x => x !== name);
       this.render();
     });
@@ -231,9 +232,7 @@ export class FoilCreatureGenerator extends HandlebarsApplicationMixin(Applicatio
             slot[field] = v;
             if (field === "pick") { slot.type = ""; slot.damage = ""; slot.primary = ""; }
           } else if (el.name?.startsWith("innate.")) { s.innate[el.name.slice(7)] = el.checked;
-          } else if (el.name?.startsWith("tech.")) {
-            const name = el.name.slice(5);
-            s.techniques = el.checked ? [...new Set([...s.techniques, name])] : s.techniques.filter(x => x !== name);
+          } else if (el.name === "addtech") { if (v) s.techniques = [...new Set([...s.techniques, v])];
           } else if (el.name === "addfeat") { if (v) s.feats[v] = 1; }
           else if (el.name === "addtrait") { if (v) s.traits = [...new Set([...s.traits, v])]; }
           else if (el.name?.startsWith("feat.")) {

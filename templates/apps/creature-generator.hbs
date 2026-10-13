@@ -105,17 +105,21 @@
 
   <fieldset>
     <legend data-tooltip="Techniques the creature can use. Built-in ones are free; others cost XP from the Allowance, and none can cost more than the Ceiling (GMG 9.7.0).">Techniques <em>(the built-in ones are free; others cost from the Allowance, GMG 9.7.0)</em></legend>
+    <select name="addtech" class="gen-add"><option value="">Add a Technique…</option>{{#each techniqueOptions}}<option value="{{this.name}}">{{this.name}} ({{this.xp}} XP{{#if this.strain}}, Strain {{this.strain}}{{/if}})</option>{{/each}}</select>
+    {{#unless techniqueOptions.length}}{{#unless techniqueRows.length}}<p class="hint">Pick Instruments to list the Techniques they can carry.</p>{{/unless}}{{/unless}}
+    {{#if techniqueRows.length}}
     <div class="gen-list">
-      {{#each techniques}}
-        <label class="gen-entry {{#if this.over}}warn{{/if}}">
-          <input type="checkbox" name="tech.{{this.name}}" {{#if this.checked}}checked{{/if}} />
+      {{#each techniqueRows}}
+        <div class="gen-entry {{#if this.over}}warn{{/if}}">
+          <span></span>
           <span class="gen-name">{{this.name}}</span>
-          <span class="abbr">{{this.xp}} XP{{#if this.strain}} &middot; Strain {{this.strain}}{{/if}}</span>
+          <span class="abbr">{{this.xp}} XP{{#if this.strain}} &middot; Strain {{this.strain}}{{/if}} <a data-remove="tech" data-name="{{this.name}}" title="Remove">&times;</a></span>
           <span class="gen-desc">{{this.effect}}{{#if this.requires}} <em>Requires {{this.requires}}.</em>{{/if}}{{#if this.description}} {{this.description}}{{/if}}
             {{#each this.terms}}<span class="gen-term"><strong>{{this.name}}:</strong> {{this.text}}</span>{{/each}}</span>
-        </label>
-      {{else}}<p class="hint">Pick Instruments to list the Techniques they can carry.</p>{{/each}}
+        </div>
+      {{/each}}
     </div>
+    {{/if}}
   </fieldset>
 
   <fieldset>

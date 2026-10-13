@@ -941,3 +941,8 @@
 
 .creature-generator .gen-scores { display: flex; flex-wrap: wrap; gap: 6px 12px; }
 .creature-generator .gen-scores input { width: 52px; }
+
+.advancement .adv-pick { display: flex; gap: 6px; align-items: center; }
+.advancement .adv-pick select { flex: 1 1 auto; min-width: 0; }
+.advancement .adv-detail { margin-top: 4px; font-size: 0.85em; color: var(--ink-soft); }
+.advancement .adv-detail p { margin: 2px 0; }
