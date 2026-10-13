@@ -7,7 +7,6 @@
     "tier": 9,
     "threat": 1152,
     "behavior": "Zealous",
-    "vulnerabilities": [],
     "attributes": {
       "might": {
         "dice": {
@@ -125,7 +124,7 @@
             "effect": "Applies Frightened."
           }
         ],
-        "description": "<p>Fire.</p>"
+        "description": ""
       },
       "effects": [],
       "folder": null,

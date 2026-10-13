@@ -28,7 +28,7 @@ import { allowedAims, conditionFlags, conditionMods, signedParts, skillFormula, 
 import { resolveOppose } from "../oppose.js";
 import { restPlan } from "../rest.js";
 import { travelLeg } from "../travel.js";
-import { SCOPE_GROUPS } from "../resist.js";
+import { familiesOf } from "../resist.js";
 import { reachBand, reachLine, rangeWarning } from "../range.js";
 import { logEvent, who } from "../playtest-log.js";
 import { glossarize, bindTerms, lookup } from "../glossary-ui.js";
@@ -55,8 +55,6 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
     form: { submitOnChange: true, closeOnSubmit: false },
     actions: {
       rollSkill:        FoilActorSheet._onRollSkill,
-      addVulnerability: FoilActorSheet._onAddVulnerability,
-      removeVulnerability: FoilActorSheet._onRemoveVulnerability,
       rollKit:          FoilActorSheet._onRollKit,
       rollTechnique:    FoilActorSheet._onRollTechnique,
       rollEnchantment:  FoilActorSheet._onRollEnchantment,
@@ -126,15 +124,6 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
         ].map(o => ({ ...o, selected: o.value === (v.lean ?? "") }))
       };
     });
-  }
-
-  /** Vulnerable rows for the creature header: scope choices with the current one selected. */
-  _vulnRows() {
-    return (this.actor.system.vulnerabilities ?? []).map((v, idx) => ({
-      idx, ...v, isMaterial: v.scope === "material",
-      groups: SCOPE_GROUPS.map(g => ({ label: g.label, options: g.options.map(([value, label]) => ({ value, label, selected: value === v.scope })) })),
-      nChoices: [1, 2, 3, 4, 5, 6].map(n => ({ value: n, label: `${n}`, selected: n === Number(v.n) }))
-    }));
   }
 
   /** The character's one Origin or Background, for the header. */
@@ -226,18 +215,6 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
     if (cm.parts.length) notes.push(`${signedParts(cm.parts)}.`);
     notes.push(...conditionFlags(sys.conditions, { skill, technique }));
     return notes;
-  }
-
-  static async _onAddVulnerability() {
-    const list = foundry.utils.deepClone(this.actor.system.vulnerabilities ?? []);
-    list.push({ scope: "fire", material: "", n: 1 });
-    await this.actor.update({ "system.vulnerabilities": list });
-  }
-
-  static async _onRemoveVulnerability(event, target) {
-    const list = foundry.utils.deepClone(this.actor.system.vulnerabilities ?? []);
-    list.splice(Number(target.dataset.index), 1);
-    await this.actor.update({ "system.vulnerabilities": list });
   }
 
   static async _onRollSkill(event, target) {
@@ -476,14 +453,10 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
    * The chat-card payload the Stress button reads. The margin cap follows the
    * Instrument's weight (PHB 6.7.0).
    */
-  /** What a hit through this Instrument counts as for Vulnerable and narrow Resistance (GMG 9.3.0). */
+  /** What a hit through this Instrument counts as for narrow Resistance (GMG 9.5.1). */
   _attackInfo(inst) {
-    const reg = globalThis.CONFIG?.FOIL?.instrumentTypes ?? {};
     const types = inst.system.types ?? [];
-    return {
-      types, damageTypes: inst.system.damageTypes ?? [], materials: inst.system.materials ?? "",
-      families: [...new Set(types.flatMap(k => [reg[k]?.family, k === "grappling" || k === "kinetic" || k === "incorporeal" || k === "sonic" ? k : null]).filter(Boolean))]
-    };
+    return { types, families: familiesOf(types), materials: inst.system.materials ?? "" };
   }
 
   _stressFlag(inst, name, total, { bespoke = 0, pierce = 0, aim = { targets: [] } } = {}) {
@@ -830,7 +803,7 @@ export class FoilCreatureSheet extends FoilActorSheet {
   };
 
   async _prepareContext(options) {
-    return { ...this._commonContext(), health: this.actor.system.health ?? 0, vulnRows: this._vulnRows() };
+    return { ...this._commonContext(), health: this.actor.system.health ?? 0 };
   }
 }
 
@@ -847,7 +820,7 @@ async function computeStress(flag) {
     `<p>${esc(flag.name)} rolled <strong>${flag.attackTotal}</strong>.</p>`
     + `<div class="form-group"><label>Target's Oppose total</label><input type="number" name="oppose" autofocus /></div>`
     + `<div class="form-group"><label>Attribute aimed at</label><select name="kind"><option value="physical">Might or Finesse</option><option value="mental">Wit or Presence</option></select></div>`
-    + `<div class="form-group"><label>Target's Resistance of that kind <em>(negative for Vulnerable)</em></label><input type="number" name="resistance" value="0" /></div>`
+    + `<div class="form-group"><label>Target's Resistance of that kind</label><input type="number" name="resistance" value="0" /></div>`
     + ((flag.types ?? []).length ? `<div class="form-group"><label>Type effect <em>(one, your choice)</em></label><select name="type">${typeOpts}</select></div>` : "")
     + `<div class="form-group"><label>Other Stress bonus <em>(a Feat such as Heavy Hand)</em></label><input type="number" name="other" value="0" /></div>`,
     "Compute");

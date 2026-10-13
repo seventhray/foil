@@ -160,7 +160,7 @@ export async function resolveOppose(message, index) {
       content: conditionAppliedCard(actor.name, cnd.name, go) });
   }
 
-  const scoped = scopedResistance({ vulnerabilities: sys.vulnerabilities, narrowResistance: sys.narrowResistance }, { ...(flag.attackInfo ?? {}), kind });
+  const scoped = scopedResistance({ narrowResistance: sys.narrowResistance }, { ...(flag.attackInfo ?? {}), kind });
   const resistance = Number(sys.attributes?.[aim]?.resistanceTotal ?? sys.resistance?.[`${kind}Total`] ?? 0) + (answer.parry ? 1 : 0) + scoped.net;
   const type = flag.typeIndex === "" || flag.typeIndex === undefined || flag.typeIndex === null ? null : flag.types?.[Number(flag.typeIndex)] ?? null;
   const r = stressFor({

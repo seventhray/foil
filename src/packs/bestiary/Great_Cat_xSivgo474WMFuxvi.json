@@ -7,7 +7,6 @@
     "tier": 4,
     "threat": 0,
     "behavior": "Opportunist",
-    "vulnerabilities": [],
     "attributes": {
       "might": {
         "dice": {

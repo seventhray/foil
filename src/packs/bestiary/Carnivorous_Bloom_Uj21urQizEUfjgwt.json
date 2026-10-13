@@ -7,7 +7,6 @@
     "tier": 6,
     "threat": 256,
     "behavior": "Territorial [its patch]",
-    "vulnerabilities": [],
     "attributes": {
       "might": {
         "dice": {

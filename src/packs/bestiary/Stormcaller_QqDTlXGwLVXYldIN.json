@@ -7,7 +7,6 @@
     "tier": 6,
     "threat": 256,
     "behavior": "Mindless",
-    "vulnerabilities": [],
     "attributes": {
       "might": {
         "dice": {
@@ -125,7 +124,7 @@
             "effect": "Applies Frightened."
           }
         ],
-        "description": "<p>Lightning.</p>"
+        "description": ""
       },
       "effects": [],
       "folder": null,

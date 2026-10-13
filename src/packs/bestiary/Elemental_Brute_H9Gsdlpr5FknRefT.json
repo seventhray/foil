@@ -7,7 +7,6 @@
     "tier": 6,
     "threat": 256,
     "behavior": "Mindless",
-    "vulnerabilities": [],
     "attributes": {
       "might": {
         "dice": {
@@ -75,7 +74,7 @@
       "physical": 2,
       "mental": 0
     },
-    "notes": "<p><em>A shape of raw elemental force given rough form by whatever magic dragged it out of wherever elemental things come from, only barely holding together</em></p><p>Pick its element when it appears, and give its Static Field that damage type. It breaks whatever is in front of it.</p>"
+    "notes": "<p><em>A shape of raw elemental force given rough form by whatever magic dragged it out of wherever elemental things come from, only barely holding together</em></p><p>Pick its element when it appears, and describe its Static Field as that element. It breaks whatever is in front of it.</p>"
   },
   "folder": "20lyztx7vQQXvuEu",
   "sort": 5100000,

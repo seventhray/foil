@@ -7,7 +7,6 @@
     "tier": 10,
     "threat": 1536,
     "behavior": "Mindless",
-    "vulnerabilities": [],
     "attributes": {
       "might": {
         "dice": {

@@ -7,7 +7,6 @@
     "tier": 10,
     "threat": 1536,
     "behavior": "Mindless",
-    "vulnerabilities": [],
     "attributes": {
       "might": {
         "dice": {
@@ -78,7 +77,7 @@
       "physical": 3,
       "mental": 2
     },
-    "notes": "<p><em>Not any one element anymore, just force itself, wearing whichever shape is most convenient to break something with</em></p><p>Changes its element whenever it likes, and its damage type with it. It is weather that has noticed the party.</p>"
+    "notes": "<p><em>Not any one element anymore, just force itself, wearing whichever shape is most convenient to break something with</em></p><p>Changes its element whenever it likes. It is weather that has noticed the party.</p>"
   },
   "folder": "YGrrf4NUQjIr3ADS",
   "sort": 5200000,

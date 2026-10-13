@@ -16,7 +16,6 @@ import {
 } from "../constants.js";
 import { aggregateModifiers } from "../modifiers.js";
 import { skillFormula } from "../combat.js";
-import { parseVulnerable, scopeLabel } from "../resist.js";
 
 function foilSchema() {
   const axes = {};
@@ -248,10 +247,6 @@ export class CharacterData extends foundry.abstract.TypeDataModel {
 export class CreatureData extends foundry.abstract.TypeDataModel {
   static migrateData(source) {
     migrateCore(source);
-    if (source && typeof source.vulnerable === "string") {
-      if (source.vulnerable.trim() && !(source.vulnerabilities ?? []).length) source.vulnerabilities = parseVulnerable(source.vulnerable);
-      delete source.vulnerable;
-    }
     if (source && typeof source.tier === "string") {
       const n = parseInt(source.tier, 10);
       source.tier = Number.isFinite(n) ? n : 1;
@@ -267,10 +262,6 @@ export class CreatureData extends foundry.abstract.TypeDataModel {
       threat: int(0),
       // What it does once an Attribute is Incapacitated (GMG 9.8.0). Blank: it Holds.
       behavior: str(""),
-      // Vulnerable N to a scope: Broad, a Family, a damage type or Instrument Type, or a Material (PHB 6.6.0, GMG 9.3.0).
-      vulnerabilities: new f.ArrayField(new f.SchemaField({
-        scope: str("fire"), material: str(""), n: int(1, { min: 1 })
-      })),
       notes: html("")
     };
   }
@@ -279,6 +270,5 @@ export class CreatureData extends foundry.abstract.TypeDataModel {
     prepareCore(this);
     // Total Potential: the four Potentials added together, creature-building shorthand (PHB Key Terms).
     this.health = ATTRIBUTE_KEYS.reduce((n, k) => n + (this.attributes[k]?.potential?.max ?? 0), 0);
-    this.vulnerabilitySummary = (this.vulnerabilities ?? []).map(v => `${scopeLabel(v)} ${v.n}`).join(", ");
   }
 }

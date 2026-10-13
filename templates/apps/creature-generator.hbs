@@ -44,16 +44,7 @@
       <legend data-tooltip="Resistance subtracts from Stress after margin and Pierce. A budget of 8 per point is split between physical and mental, up to the cap (GMG 9.3.0).">Resistance <em>(budget {{budget}}, cap +{{n.resistanceCap}})</em></legend>
       <label>Physical <select name="physical" class="mini-num">{{#each resistanceChoices.physical}}<option value="{{this.value}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>{{/each}}</select></label>
       <label>Mental <select name="mental" class="mini-num">{{#each resistanceChoices.mental}}<option value="{{this.value}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>{{/each}}</select></label>
-      <p class="hint">Spends {{spent}} of {{budget}}{{#if refund}} ({{n.resistanceBudget}} plus {{refund}} from Vulnerable){{/if}}.</p>
-      {{#each vulnRows}}
-        <div class="gen-slot">
-          <select name="vuln.{{this.i}}.scope">{{#each this.groups}}<optgroup label="{{this.label}}">{{#each this.options}}<option value="{{this.value}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>{{/each}}</optgroup>{{/each}}</select>
-          <select name="vuln.{{this.i}}.n" class="mini-num">{{#each this.nChoices}}<option value="{{this.value}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>
-          <span class="abbr">refunds {{this.refund}}</span>
-          <a data-action="removeVuln" data-index="{{this.i}}" title="Remove"><i class="fas fa-trash"></i></a>
-        </div>
-      {{/each}}
-      <a class="inline-add" data-action="addVuln" data-tooltip="Vulnerable N is -N Resistance against a Broad kind, a Family, a damage type, or an Instrument Type. Each point refunds Resistance budget."><i class="fas fa-plus"></i> Add a Vulnerable</a>
+      <p class="hint">Spends {{spent}} of {{budget}}.</p>
     </fieldset>
     <fieldset>
       <legend data-tooltip="Training is a Skill bonus. Each Skill can have up to +4, or the tier's Training if that is higher. Each +1 costs Allowance XP at the PHB advancement price (8, then 10, 12, and so on).">Training <em>(up to +{{n.training}} a Skill, bought from the Allowance)</em></legend>
@@ -97,7 +88,6 @@
       <div class="gen-slot">
         <select name="slot.{{this.i}}.pick"><option value="">None</option>{{#each this.groups}}<optgroup label="{{this.label}}">{{#each this.options}}<option value="{{this.value}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>{{/each}}</optgroup>{{/each}}</select>
         {{#if this.typeChoices}}<select name="slot.{{this.i}}.type">{{#each this.typeChoices}}<option value="{{this.value}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>{{/if}}
-        {{#if this.damageChoices}}<select name="slot.{{this.i}}.damage">{{#each this.damageChoices}}<option value="{{this.value}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>{{/if}}
         {{#if this.primaryChoices}}<select name="slot.{{this.i}}.primary" title="Primary Attribute">{{#each this.primaryChoices}}<option value="{{this.value}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>{{/if}}
       </div>
     {{/each}}
@@ -133,7 +123,7 @@
           <span class="gen-name">{{this.name}}</span>
           <span class="abbr">{{this.cost}} XP <a data-remove="feat" data-name="{{this.name}}" title="Remove">&times;</a></span>
           <span class="gen-desc">{{this.effect}} <em>Requires {{this.requires}}.</em></span>
-          {{#if this.isRes}}<select name="feat.{{this.name}}:scope" class="gen-opt"><option value="type">Damage type (4 per point)</option><option value="family" {{#if this.familyScope}}selected{{/if}}>Family (8 per point)</option></select>{{/if}}
+          {{#if this.isRes}}<select name="feat.{{this.name}}:scope" class="gen-opt"><option value="type">Instrument Type (4 per point)</option><option value="family" {{#if this.familyScope}}selected{{/if}}>Family: Melee, Ranged, or Arcane (8 per point)</option></select>{{/if}}
         </div>
       {{/each}}
     </div>

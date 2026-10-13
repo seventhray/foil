@@ -7,7 +7,6 @@
     "tier": 6,
     "threat": 256,
     "behavior": "Territorial [its den]",
-    "vulnerabilities": [],
     "attributes": {
       "might": {
         "dice": {
@@ -257,7 +256,7 @@
             "effect": "Applies Frightened."
           }
         ],
-        "description": "<p>Acid.</p>"
+        "description": ""
       },
       "effects": [],
       "folder": null,

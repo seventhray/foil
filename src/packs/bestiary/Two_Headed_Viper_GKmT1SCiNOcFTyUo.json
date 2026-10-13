@@ -7,7 +7,6 @@
     "tier": 3,
     "threat": -128,
     "behavior": "Territorial [the prison door]",
-    "vulnerabilities": [],
     "attributes": {
       "might": {
         "dice": {

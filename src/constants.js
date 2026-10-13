@@ -117,23 +117,16 @@ export const MATERIAL_SCARCITY_MULT = { common: 1, uncommon: 1.5, rare: 2, exoti
 export const RESISTANCE_KINDS = ["physical", "mental"];
 export const RESISTANCE_LABEL = { physical: "Physical", mental: "Mental" };
 
-// Damage types (PHB 4.1.1): what a creature can be Vulnerable or resistant to by name.
-export const DAMAGE_TYPES = {
-  edged: "physical", pointed: "physical", blunt: "physical",
-  fire: "physical", cold: "physical", lightning: "physical", acid: "physical", force: "physical",
-  psychic: "mental", spirit: "mental"
-};
-
 // Focus Gems (PHB 5.2.3): Arcane Instruments only; each adds its Tier to one Effect.
 export const FOCUS_GEMS = {
-  ruby:      { label: "Ruby",      damageType: "fire",       adds: "Lingering +1",                                 pricePerTier: 80 },
-  carnelian: { label: "Carnelian", damageType: "force",      adds: "Move goes 1 more band",                        pricePerTier: 40 },
-  emerald:   { label: "Emerald",   damageType: "acid",       adds: "Pierce +1",                                    pricePerTier: 40 },
-  sapphire:  { label: "Sapphire",  damageType: "psychic",    adds: "Illusion: -1 to the Oppose to see through it", pricePerTier: 60 },
-  amethyst:  { label: "Amethyst",  damageType: "spirit",     adds: "Condition: -1 to the Oppose against it",       pricePerTier: 60 },
-  tanzanite: { label: "Tanzanite", damageType: "spirit",     adds: "Drain heals 1 more",                           pricePerTier: 60 },
-  citrine:   { label: "Citrine",   damageType: "",           adds: "Mend removes 1 more Stress",                   pricePerTier: 60 },
-  diamond:   { label: "Diamond",   damageType: "",           adds: "Resistance it grants +1",                      pricePerTier: 40 }
+  ruby:      { label: "Ruby",      adds: "Lingering +1",                                 pricePerTier: 80 },
+  carnelian: { label: "Carnelian", adds: "Move goes 1 more band",                        pricePerTier: 40 },
+  emerald:   { label: "Emerald",   adds: "Pierce +1",                                    pricePerTier: 40 },
+  sapphire:  { label: "Sapphire",  adds: "Illusion: -1 to the Oppose to see through it", pricePerTier: 60 },
+  amethyst:  { label: "Amethyst",  adds: "Condition: -1 to the Oppose against it",       pricePerTier: 60 },
+  tanzanite: { label: "Tanzanite", adds: "Drain heals 1 more",                           pricePerTier: 60 },
+  citrine:   { label: "Citrine",   adds: "Mend removes 1 more Stress",                   pricePerTier: 60 },
+  diamond:   { label: "Diamond",   adds: "Resistance it grants +1",                      pricePerTier: 40 }
 };
 
 export const EQUIPMENT_CATEGORY_LABEL = {

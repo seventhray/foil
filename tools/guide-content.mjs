@@ -67,7 +67,7 @@ p("Stress, Resistance, and Incapacitation", `
 <li>Add the Technique's own bonus.</li>
 <li>Subtract the target's Resistance, less any Pierce, to a minimum of 0.</li>
 </ol>
-<p><strong>Resistance</strong> comes in two kinds. Physical covers Might and Finesse; mental covers Wit and Presence. A creature <strong>Vulnerable</strong> to something has negative Resistance against it, which adds Stress.</p>
+<p><strong>Resistance</strong> comes in two kinds. Physical covers Might and Finesse; mental covers Wit and Presence.</p>
 <p>An Attribute is <strong>Incapacitated</strong> when its Stress reaches its Potential. It contributes no dice. Incapacitation lifts once healing brings its Stress down to half its Potential or less, rounded down. Stress past a full bar <strong>overflows</strong> onto another Attribute, the defender's choice, and the receiving Attribute's Resistance doesn't reduce it.</p>
 <p><strong>Destroyed</strong> is all four Attributes Incapacitated at once. It is permanent, and a choice a side makes.</p>`),
 
@@ -110,7 +110,7 @@ p("Character sheet", `
 `),
 
 p("Creature sheet", `
-<p>A creature uses the same Attributes, Skills, Stress, and Incapacitation. Its own fields: <strong>Tier</strong>, <strong>Behavior</strong> (what it does once an Attribute is Incapacitated, GMG 9.8.0), <strong>Vulnerable</strong>, and a typed <strong>Resistance</strong>. <strong>Total Potential</strong>, the four Potentials summed, shows as GM shorthand. The <strong>Creature Generator</strong> button in the Actors directory (GM only) turns a Threat, a tier, a CR, or a whole d20 stat block (CR, ability scores, AC) into Potentials, dice, Allowance, Ceiling, Training, and a Resistance budget (GMG 9.1.0 to 9.3.0), and creates the creature with them set.</p>`),
+<p>A creature uses the same Attributes, Skills, Stress, and Incapacitation. Its own fields: <strong>Tier</strong>, <strong>Behavior</strong> (what it does once an Attribute is Incapacitated, GMG 9.8.0), and a typed <strong>Resistance</strong>. <strong>Total Potential</strong>, the four Potentials summed, shows as GM shorthand. The <strong>Creature Generator</strong> button in the Actors directory (GM only) turns a Threat, a tier, a CR, or a whole d20 stat block (CR, ability scores, AC) into Potentials, dice, Allowance, Ceiling, Training, and a Resistance budget (GMG 9.1.0 to 9.3.0), and creates the creature with them set.</p>`),
 
 p("What the system does for you", `
 <p>Foilbound on Foundry stays close to pen and paper. It derives values and rolls dice. Three things are automated:</p>

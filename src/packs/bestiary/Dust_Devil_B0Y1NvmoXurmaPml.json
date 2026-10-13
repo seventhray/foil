@@ -7,7 +7,6 @@
     "tier": 5,
     "threat": 128,
     "behavior": "Mindless",
-    "vulnerabilities": [],
     "attributes": {
       "might": {
         "dice": {
@@ -165,7 +164,7 @@
             "effect": "Applies Frightened."
           }
         ],
-        "description": "<p>Force.</p>"
+        "description": ""
       },
       "effects": [],
       "folder": null,

@@ -7,7 +7,6 @@
     "tier": 6,
     "threat": 256,
     "behavior": "Territorial [its hunting ground]",
-    "vulnerabilities": [],
     "attributes": {
       "might": {
         "dice": {

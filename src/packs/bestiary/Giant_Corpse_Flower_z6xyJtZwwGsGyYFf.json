@@ -7,7 +7,6 @@
     "tier": 4,
     "threat": 0,
     "behavior": "Territorial [its clearing]",
-    "vulnerabilities": [],
     "attributes": {
       "might": {
         "dice": {

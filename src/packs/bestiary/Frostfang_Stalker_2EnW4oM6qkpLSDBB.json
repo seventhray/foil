@@ -7,7 +7,6 @@
     "tier": 6,
     "threat": 256,
     "behavior": "Pack-Bound [the pack]",
-    "vulnerabilities": [],
     "attributes": {
       "might": {
         "dice": {

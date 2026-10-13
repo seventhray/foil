@@ -7,7 +7,6 @@
     "tier": 6,
     "threat": 256,
     "behavior": "Simpleminded",
-    "vulnerabilities": [],
     "attributes": {
       "might": {
         "dice": {

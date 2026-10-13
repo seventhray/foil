@@ -121,20 +121,3 @@ export function abilitySteps(scores) {
 /** Armor Class to physical Resistance (GMG 11.5.0). */
 export const acToResistance = ac => (ac >= 20 ? 3 : ac >= 17 ? 2 : ac >= 13 ? 1 : 0);
 
-// ─── Vulnerable funding Resistance (GMG 9.3.0) ────────────────────────────────
-
-const PHYSICAL_FAMILIES = ["melee", "ranged", "grappling", "kinetic"];
-const MENTAL_FAMILIES = ["sonic", "incorporeal"];
-const PHYSICAL_TYPES = ["edged", "pointed", "blunt", "fire", "cold", "lightning", "acid", "force"];
-const MENTAL_TYPES = ["psychic", "spirit"];
-
-/** Budget refunded for each point of a Vulnerable, by its scope. */
-export function refundPerPoint(scope) {
-  if (scope === "physical" || scope === "mental") return 8;
-  if (PHYSICAL_FAMILIES.includes(scope)) return 2;
-  if (MENTAL_FAMILIES.includes(scope)) return 4;
-  if (PHYSICAL_TYPES.includes(scope)) return 1;
-  if (MENTAL_TYPES.includes(scope)) return 2;
-  return 0;
-}
-export const vulnerableRefund = rows => rows.reduce((n, v) => n + refundPerPoint(v.scope) * (Number(v.n) || 0), 0);

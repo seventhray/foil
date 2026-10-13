@@ -580,9 +580,9 @@ export const MONSTER_FEATS = [
   "name": "Specialized Resistance",
   "xp": 4,
   "per": "point",
-  "xpText": "4 per point (damage type) or 8 per point (Family)",
+  "xpText": "4 per point (Instrument Type) or 8 per point (Family)",
   "requires": "any tier",
-  "effect": "Resistance +N (PHB 6.6.0) to a single Family of Instrument Type or a single damage type (9.3.0), capped at the creature's Resistance cap (9.1.0). Needs a stated reason: a hide that turns one kind of blow, a ward tuned to one kind of dread. Stacks with whatever Broad Resistance the tier's budget (9.3.0) already bought."
+  "effect": "Resistance +N (PHB 6.6.0) to one Instrument Type, or to a Family: Melee, Ranged, or Arcane (PHB 4.1.1), capped at the creature's Resistance cap (9.1.0). Needs a stated reason: a hide that turns one kind of blow, a ward tuned to one kind of dread. Stacks with whatever Broad Resistance the tier's budget (9.3.0) already bought."
  }
 ];
 export const TRAITS = [
@@ -654,7 +654,7 @@ export const TRAITS = [
  {
   "name": "Regeneration",
   "xp": 32,
-  "effect": "Every 10 rounds of a conflict, recover 1d4 Stress from that Attribute, unless a GM-stated counter-condition (a damage type or Instrument fitting your story, fire for a troll, silver for some undead) applied since the last recovery."
+  "effect": "Every 10 rounds of a conflict, recover 1d4 Stress from that Attribute, unless a GM-stated counter-condition (an element or Instrument fitting your story, fire for a troll, silver for some undead) applied since the last recovery."
  },
  {
   "name": "Rejuvenation",

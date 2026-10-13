@@ -8,7 +8,7 @@
  *   Only the margin is capped; the bonuses below add after it
  *   + one Stress-dealing Type's bonus (Edged: physical Resistance, after Pierce, counts double)
  *   + the Technique's own bonus, and any other stated bonus
- *   - Resistance after Pierce (Pierce never takes it below 0; Vulnerable is
+ *   - Resistance after Pierce (Pierce never takes it below 0; a negative Resistance is
  *     negative Resistance and adds, PHB 6.6.0), to a minimum of 0.
  */
 

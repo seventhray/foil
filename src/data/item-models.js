@@ -177,12 +177,10 @@ export class InstrumentData extends foundry.abstract.TypeDataModel {
     this.isArcane = channels.length > 0;
     const gem = FOCUS_GEMS[this.gem?.type];
     this.gemActive = !!gem && this.isArcane;
-    this.gemSummary = gem ? `${gem.label} (Tier ${this.gem.tier})${gem.damageType ? `, ${gem.damageType}` : ""}: `
+    this.gemSummary = gem ? `${gem.label} (Tier ${this.gem.tier}): `
       + gem.adds.replace(/(\+|-|)1\b/, (m, s) => `${s || ""}${this.gem.tier}`) : "";
     this.gemWarning = gem && !this.isArcane ? "A Focus Gem only works in an Arcane Instrument." : "";
-    this.damageTypes = [...types.filter(t => ["edged", "pointed", "blunt"].includes(t)),
-                        ...(this.gemActive && gem.damageType ? [gem.damageType] : [])];
-
+    
     this.typeWarning = types.length === 0 && !this.innate
       ? "No Instrument Types set: this Instrument can't be used for anything."
       : unknown.length ? `Unresolved Instrument Type(s): ${unknown.join(", ")}.` : "";
@@ -328,7 +326,7 @@ export class EquipmentData extends foundry.abstract.TypeDataModel {
     const gem = FOCUS_GEMS[this.gemType];
     if (this.category === "gem" && gem) {
       this.gemPrice = gem.pricePerTier * this.tier;
-      this.gemSummary = `${gem.damageType ? `${gem.damageType}; ` : ""}${gem.adds.replace(/(\+|-|)1\b/, (m, s) => `${s || ""}${this.tier}`)}`;
+      this.gemSummary = `${gem.adds.replace(/(\+|-|)1\b/, (m, s) => `${s || ""}${this.tier}`)}`;
     } else {
       this.gemPrice = 0;
       this.gemSummary = "";

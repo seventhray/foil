@@ -7,7 +7,6 @@
     "tier": 5,
     "threat": 128,
     "behavior": "Zealous, Emboldening",
-    "vulnerabilities": [],
     "attributes": {
       "might": {
         "dice": {

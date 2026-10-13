@@ -1,63 +1,55 @@
 /**
  * src/resist.js
- * Vulnerable and narrow Resistance against an incoming hit (PHB 6.6.0, GMG 9.3.0).
- * Pure, so it runs headlessly. A Vulnerable N or a narrow Resistance counts when the
- * attack's Instrument has the Type, the Family, the damage type, or the Material it names.
+ * Narrow Resistance against an incoming hit (Specialized Resistance, GMG 9.5.1). It counts when the
+ * attack's Instrument has the Type, or belongs to the Family, that the Resistance names.
+ * Pure, so it runs headlessly.
  */
 
-import { DAMAGE_TYPES } from "./constants.js";
+/** Instrument Families (PHB 4.1.1): Melee, Ranged, Arcane, each a group of Types. */
+export const RESISTANCE_FAMILIES = {
+  melee: ["edged", "pointed", "blunt", "grappling", "parry"],
+  ranged: ["thrown", "drawn", "fired"],
+  arcane: ["kinetic", "incorporeal", "fortifying"]
+};
 
-/** Instrument Type families a Vulnerable can name (GMG 9.3.0). */
-export const VULNERABLE_FAMILIES = { melee: "physical", ranged: "physical", grappling: "physical", kinetic: "physical", sonic: "mental", incorporeal: "mental" };
+/** Instrument Types a Specialized Resistance can name. */
+export const RESISTANCE_TYPES = ["edged", "pointed", "blunt", "grappling", "thrown", "drawn", "fired", "kinetic", "incorporeal", "sonic"];
 
-/** One scope choice per row: Broad, a Family, a damage type or Instrument Type, or a Material. */
+/** Every scope key a narrow Resistance row accepts. */
+export const RESISTANCE_SCOPES = [...Object.keys(RESISTANCE_FAMILIES), ...RESISTANCE_TYPES];
+
+/** One scope choice per row: Broad, a Family, or an Instrument Type. */
 export const SCOPE_GROUPS = [
   { label: "Broad", options: [["physical", "Physical"], ["mental", "Mental"]] },
-  { label: "Family", options: Object.keys(VULNERABLE_FAMILIES).map(f => [f, f.replace(/^./, c => c.toUpperCase())]) },
-  { label: "Damage type or Instrument Type", options: Object.keys(DAMAGE_TYPES).map(d => [d, d.replace(/^./, c => c.toUpperCase())]) },
-  { label: "Material", options: [["material", "Material (name it)"]] }
+  { label: "Family", options: Object.keys(RESISTANCE_FAMILIES).map(f => [f, f.replace(/^./, c => c.toUpperCase())]) },
+  { label: "Instrument Type", options: RESISTANCE_TYPES.map(t => [t, t.replace(/^./, c => c.toUpperCase())]) }
 ];
 
-export const scopeLabel = (entry) => entry.scope === "material" ? `${entry.material || "a Material"}`
-  : entry.scope.replace(/^./, c => c.toUpperCase());
+export const scopeLabel = entry => entry.scope.replace(/^./, c => c.toUpperCase());
 
-/** "Fire 2, silver 1" from the old free-text field. */
-export function parseVulnerable(text) {
-  const out = [];
-  for (const part of String(text ?? "").split(/[,;]/)) {
-    const m = part.trim().match(/^(.+?)\s+(\d+)$/);
-    if (!m) continue;
-    const name = m[1].trim().toLowerCase();
-    if (name in DAMAGE_TYPES || name in VULNERABLE_FAMILIES || name === "physical" || name === "mental") out.push({ scope: name, material: "", n: +m[2] });
-    else out.push({ scope: "material", material: m[1].trim(), n: +m[2] });
-  }
-  return out;
-}
+/** The Families an Instrument's Types belong to. */
+export const familiesOf = types => Object.entries(RESISTANCE_FAMILIES).filter(([, members]) => types.some(t => members.includes(t))).map(([f]) => f);
 
 /**
  * Does one scope apply to this attack?
- * @param {object} attack { types:[slug], families:[slug], damageTypes:[slug], materials:string, kind:"physical"|"mental" }
+ * @param {object} attack { types:[slug], families:[slug], kind:"physical"|"mental" }
  */
 export function scopeApplies(entry, attack) {
   const s = entry.scope;
   if (s === "physical" || s === "mental") return attack.kind === s;
-  if (s === "material") return !!entry.material && String(attack.materials ?? "").toLowerCase().includes(entry.material.toLowerCase());
-  if (s in VULNERABLE_FAMILIES) return (attack.families ?? []).includes(s);
-  return (attack.types ?? []).includes(s) || (attack.damageTypes ?? []).includes(s);
+  if (s in RESISTANCE_FAMILIES) return (attack.families ?? []).includes(s);
+  return (attack.types ?? []).includes(s);
 }
 
 /**
- * Net change to Resistance from this attack: narrow Resistance adds, Vulnerable subtracts.
+ * Net change to Resistance from this attack: each narrow Resistance that applies adds.
  * @returns {{ net:number, parts:string[] }}
  */
-export function scopedResistance({ vulnerabilities = [], narrowResistance = [] } = {}, attack = {}) {
+export function scopedResistance({ narrowResistance = [] } = {}, attack = {}) {
   let net = 0;
   const parts = [];
   for (const v of narrowResistance) {
     if (scopeApplies(v, attack)) { net += Number(v.n); parts.push(`${scopeLabel(v)} Resistance +${v.n}`); }
-  }
-  for (const v of vulnerabilities) {
-    if (scopeApplies(v, attack)) { net -= Number(v.n); parts.push(`Vulnerable to ${scopeLabel(v)} ${v.n}`); }
   }
   return { net, parts };
 }

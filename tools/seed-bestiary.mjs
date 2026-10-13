@@ -112,7 +112,7 @@ export function bestiaryDocs(lib) {
     if (!items.some(i => i.type === "instrument")) notes.push(`${name}: no Instrument read from its stat block`);
     actors.push({
       name, type: "creature", img: "icons/svg/mystery-man.svg", tier: Number(front("tier")),
-      system: { tier: Number(front("tier")), threat: Number(front("threat")) || 0, behavior: line("Behavior"), vulnerabilities: [],
+      system: { tier: Number(front("tier")), threat: Number(front("threat")) || 0, behavior: line("Behavior"),
         attributes, skills, resistance,
         notes: `<p><em>${concept}</em></p>${habits ? `<p><strong>Habits</strong> ${habits}</p>` : ""}${behaviour ? `<p>${behaviour}</p>` : ""}` },
       items

@@ -221,7 +221,7 @@ check("weight dice apply to targeted Techniques only", () => {
   return eq([a.offensive, b.offensive], [true, false]);
 });
 check("Pierce never makes Resistance negative", () => eq(stressFor({ attack: 15, oppose: 10, cap: 10, resistance: 1, pierce: 4 }).stress, 5));
-check("Vulnerable 2 adds 2", () => eq(stressFor({ attack: 15, oppose: 10, cap: 10, resistance: -2 }).stress, 7));
+check("Resistance below 0 adds Stress", () => eq(stressFor({ attack: 15, oppose: 10, cap: 10, resistance: -2 }).stress, 7));
 
 console.log(fails ? `\n${fails} FAILURE(S)` : "\nall model checks passed");
 process.exit(fails ? 1 : 0);

@@ -7,7 +7,6 @@
     "tier": 5,
     "threat": 128,
     "behavior": "Bound [its barrow]",
-    "vulnerabilities": [],
     "attributes": {
       "might": {
         "dice": {

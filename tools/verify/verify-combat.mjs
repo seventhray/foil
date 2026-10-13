@@ -4,8 +4,8 @@ import { opposeExtras, failCard, stressCard, opposeDialog } from "../../src/oppo
 import { entryLabel, withDuration } from "../../src/pricing.js";
 import { reachBand, reachLine, rangeWarning, bandOfFeet } from "../../src/range.js";
 import { aggregateModifiers } from "../../src/modifiers.js";
-import { parseVulnerable, scopedResistance } from "../../src/resist.js";
-import { abilitySteps, acToResistance, vulnerableRefund, creatureNumbers, tierFor, crToThreat, diceFor, assignAttributes } from "../../src/creature-math.js";
+import { scopedResistance, familiesOf, RESISTANCE_SCOPES } from "../../src/resist.js";
+import { abilitySteps, acToResistance, creatureNumbers, tierFor, crToThreat, diceFor, assignAttributes } from "../../src/creature-math.js";
 import { NATURAL_WEAPONS, MONSTER_FEATS, TRAITS } from "../../src/creature-data.js";
 import { restPlan } from "../../src/rest.js";
 import { conditionMods, conditionFlags, allowedAims, targetFlags, harmFlags, incomingMods, skillFormula, kindOf } from "../../src/combat.js";
@@ -63,14 +63,14 @@ const agg = aggregateModifiers([feat("Cave Reflexes", [{ type: "initiative", key
   feat("Camouflaged Skin", [{ type: "stealth", key: "", value: 2 }]), feat("Dark Sight", [{ type: "training", key: "acuity", value: 2 }])]);
 check("Feat modifiers add to Initiative, Stealth, and Training", [agg.initiative, agg.stealth, agg.training.acuity], [4, 2, 2]);
 
-const atk = { types: ["edged", "pointed"], families: ["melee"], damageTypes: ["edged", "pointed"], materials: "Metal + Leather", kind: "physical" };
-check("old Vulnerable text becomes scoped rows", parseVulnerable("Fire 2, silver 1, Melee 1"), [{ scope: "fire", material: "", n: 2 }, { scope: "material", material: "silver", n: 1 }, { scope: "melee", material: "", n: 1 }]);
-check("Vulnerable nets against a matching Instrument Type, Family, and Material only", [
-  scopedResistance({ vulnerabilities: [{ scope: "edged", n: 2 }] }, atk).net,
-  scopedResistance({ vulnerabilities: [{ scope: "melee", n: 1 }, { scope: "fire", n: 3 }] }, atk).net,
-  scopedResistance({ vulnerabilities: [{ scope: "material", material: "metal", n: 1 }] }, atk).net,
-  scopedResistance({ vulnerabilities: [{ scope: "mental", n: 4 }] }, atk).net], [-2, -1, -1, 0]);
-check("narrow Resistance adds and Vulnerable subtracts", scopedResistance({ vulnerabilities: [{ scope: "edged", n: 1 }], narrowResistance: [{ scope: "edged", n: 3 }] }, atk).net, 2);
+const atk = { types: ["edged", "pointed"], families: familiesOf(["edged", "pointed"]), kind: "physical" };
+check("An Instrument's Types belong to their Families", [familiesOf(["edged", "pointed"]), familiesOf(["thrown"]), familiesOf(["kinetic", "sonic"])], [["melee"], ["ranged"], ["arcane"]]);
+check("Specialized Resistance counts against a matching Instrument Type, Family, or Broad kind only", [
+  scopedResistance({ narrowResistance: [{ scope: "edged", n: 2 }] }, atk).net,
+  scopedResistance({ narrowResistance: [{ scope: "melee", n: 1 }, { scope: "arcane", n: 3 }] }, atk).net,
+  scopedResistance({ narrowResistance: [{ scope: "physical", n: 1 }] }, atk).net,
+  scopedResistance({ narrowResistance: [{ scope: "mental", n: 4 }, { scope: "kinetic", n: 2 }] }, atk).net], [2, 1, 1, 0]);
+check("Resistance scopes are Instrument Types and Families", RESISTANCE_SCOPES.includes("kinetic") && RESISTANCE_SCOPES.includes("melee") && !RESISTANCE_SCOPES.includes("fire"), true);
 
 const tierRows = [[1, -384, 8, 32, 0, 4, 16], [4, 0, 20, 80, 16, 76, 40], [5, 128, 24, 96, 16, 117, 48], [7, 384, 32, 128, 24, 171, 64], [9, 1152, 56, 224, 32, 250, 112], [10, 1536, 68, 272, 40, 301, 136]];
 check("creature formulas reproduce the GMG tier table", tierRows.map(([t, th]) => { const n = creatureNumbers(th); return [n.tier, n.potential, n.totalPotential, n.resistanceBudget, n.allowance, n.ceiling]; }),
@@ -89,7 +89,6 @@ check("the GMG brute example steps Might up and Wit down", [brute.steps.might, b
 const controller = abilitySteps({ str: 11, dex: 16, con: 16, int: 20, wis: 14, cha: 16 });
 check("the GMG controller example moves nothing", Object.values(controller.steps), [0, 0, 0, 0]);
 check("AC converts to physical Resistance by the table", [10, 12, 13, 16, 17, 19, 20, 25].map(acToResistance), [0, 0, 1, 1, 2, 2, 3, 3]);
-check("Vulnerable refunds by scope: Broad 8, Family 2 or 4, damage type 1 or 2", vulnerableRefund([{ scope: "physical", n: 1 }, { scope: "kinetic", n: 4 }, { scope: "sonic", n: 1 }, { scope: "fire", n: 2 }, { scope: "psychic", n: 1 }]), 8 + 8 + 4 + 2 + 2);
 
 check("A Travel leg costs 1, 2 on a failure, plus the Mass penalty, and eats a ration", [travelLeg({}).stress, travelLeg({ failed: true }).stress, travelLeg({ massPenalty: 2 }).stress, travelLeg({ rations: 0 }).rationUsed, travelLeg({ rations: 3 }).rationUsed], [1, 2, 3, false, true]);
 

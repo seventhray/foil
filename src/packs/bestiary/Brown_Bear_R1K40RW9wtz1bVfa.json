@@ -7,7 +7,6 @@
     "tier": 2,
     "threat": -256,
     "behavior": "Territorial [its den]",
-    "vulnerabilities": [],
     "attributes": {
       "might": {
         "dice": {

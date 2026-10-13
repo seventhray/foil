@@ -7,7 +7,6 @@
     "tier": 5,
     "threat": 128,
     "behavior": "Venal",
-    "vulnerabilities": [],
     "attributes": {
       "might": {
         "dice": {
