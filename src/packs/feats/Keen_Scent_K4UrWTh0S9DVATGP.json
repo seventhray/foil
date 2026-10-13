@@ -7,7 +7,7 @@
     "featType": "trait",
     "xpCost": 0,
     "requirements": "Keen senses",
-    "effect": "Track a creature's trail by scent alone. Within Close range, sense a hidden or invisible creature without a roll.",
+    "effect": "Track a creature's trail by scent alone. Within Range 1, sense a hidden or invisible creature without a roll.",
     "ancestry": "",
     "grantsTechnique": "",
     "modifiers": [],

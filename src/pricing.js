@@ -131,7 +131,7 @@ export function priceTechnique(effects = [], registry = {}, opts = {}) {
   return { xp, strain: strainFor(single), perTarget: !!sel, premium, floor, breakdown };
 }
 
-const BAND_NAME = ["", "Close", "Near", "Short", "Mid", "Long"];
+const BAND_NAME = ["", "Range 1", "Range 2", "Range 4", "Range 8", "Range 20"];
 /** Effects priced for 1 round, with a 1-minute twin keyed `<key>-minute`. */
 export const DURATIONS = ["1 round", "1 minute", "10 minutes", "1 hour", "1 day"];
 /** Condition Effects: priced flat, so their duration is informational. */
@@ -140,7 +140,7 @@ export const CONDITION_EFFECTS = new Set(["angered", "baited", "blinded", "charm
 export const DURATION_BASES = new Set(["skill-mod", "reeling", "weaken"]);
 export const withDuration = (key, minute) => `${String(key).replace(/-minute$/, "")}${minute && DURATION_BASES.has(String(key).replace(/-minute$/, "")) ? "-minute" : ""}`;
 
-/** A readable label for one composed entry ("Pierce 2", "Cone (Near)"). */
+/** A readable label for one composed entry ("Pierce 2", "Cone (Range 2)"). */
 export function entryLabel(entry, def) {
   const name = def?.label ?? entry.key;
   const mag = Number(entry.magnitude ?? 1);

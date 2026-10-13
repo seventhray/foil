@@ -22,11 +22,11 @@ export const GLOSSARY = {
   },
   "beam": {
     "name": "Beam",
-    "text": "a straight path from the caster. Reaching N bands costs the running sum 1 + 2 + ... + N."
+    "text": "a straight path from the caster. Counting N rungs costs the running sum 1 + 2 + ... + N."
   },
   "blinded": {
     "name": "Blinded",
-    "text": "Resisted with Acuity or Discipline. The creature can't see. Its rolls take -2. Its Techniques that need line of sight reach only Touching range. It ends at the end of its next turn."
+    "text": "Resisted with Acuity or Discipline. The creature can't see. Its rolls take -2. Its Techniques that need line of sight work only at Range 0. It ends at the end of its next turn."
   },
   "blocking": {
     "name": "Blocking",
@@ -42,7 +42,7 @@ export const GLOSSARY = {
   },
   "cone": {
     "name": "Cone",
-    "text": "a 90-degree arc from the caster. Three times the Beam cost for the same reach."
+    "text": "a 90-degree arc from the caster. Three times the Beam cost for the same Range."
   },
   "conflict": {
     "name": "Conflict",
@@ -90,11 +90,11 @@ export const GLOSSARY = {
   },
   "evade": {
     "name": "Evade",
-    "text": "Move one range band without spending the normal Disengage Quick Action and without provoking an Attack of Opportunity"
+    "text": "Move up to Range 2 without spending the normal Disengage Quick Action and without provoking an Attack of Opportunity"
   },
   "extend range": {
     "name": "Extend Range",
-    "text": "Reach one band beyond the Instrument"
+    "text": "The Instrument's Range goes one rung up the ladder, such as Range 2 to Range 4"
   },
   "fired": {
     "name": "Fired",
@@ -122,7 +122,7 @@ export const GLOSSARY = {
   },
   "grappled": {
     "name": "Grappled",
-    "text": "Resisted with Prowess or Discipline. The creature can't change range band on its own. It breaks free by spending its Action and beating the grapple's roll with Prowess or Discipline. Holding a grapple is free. The grappler moves at 1/4 speed, bringing the Grappled creature along."
+    "text": "Resisted with Prowess or Discipline. The creature can't change its Range on its own. It breaks free by spending its Action and beating the grapple's roll with Prowess or Discipline. Holding a grapple is free. The grappler moves at 1/4 speed, bringing the Grappled creature along."
   },
   "grappling": {
     "name": "Grappling",
@@ -178,7 +178,7 @@ export const GLOSSARY = {
   },
   "invisible": {
     "name": "Invisible",
-    "text": "Laid on self or an ally with no roll. Techniques against the creature take -2 and reach only Touching range. It ends when the creature uses a Technique. True Sight, Blindsight, and Keen Scent ignore it."
+    "text": "Laid on self or an ally with no roll. Techniques against the creature take -2 and work only at Range 0. It ends when the creature uses a Technique. True Sight, Blindsight, and Keen Scent ignore it."
   },
   "kinetic": {
     "name": "Kinetic",
@@ -218,7 +218,7 @@ export const GLOSSARY = {
   },
   "move": {
     "name": "Move",
-    "text": "Push, pull, or reposition a target one range band"
+    "text": "Push, pull, or reposition a target up to Range 2"
   },
   "oppose": {
     "name": "Oppose",
@@ -282,7 +282,7 @@ export const GLOSSARY = {
   },
   "range": {
     "name": "Range",
-    "text": "How far an Instrument reaches: Touching, Close, Near, Short, Mid, Long, or Sight."
+    "text": "How far apart two creatures are, in steps of 5 feet. An Instrument or Technique names the Range it works at."
   },
   "redirect": {
     "name": "Redirect",
@@ -306,7 +306,7 @@ export const GLOSSARY = {
   },
   "selective": {
     "name": "Selective",
-    "text": "Choose creatures within R bands. Range is priced as an Effect, Selective adds 8 XP, and Strain is paid per target."
+    "text": "Choose creatures within Range R. Range is priced as an Effect, Selective adds 8 XP, and Strain is paid per target."
   },
   "skill": {
     "name": "Skill",

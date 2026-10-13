@@ -94,7 +94,7 @@
         "types": [
           "grappling"
         ],
-        "range": "Close",
+        "range": "Range 1",
         "weight": "light",
         "innate": true,
         "primaryAttribute": "might",
@@ -137,7 +137,7 @@
         "category": "melee",
         "weight": "light",
         "primaryAttribute": "finesse",
-        "range": "Close",
+        "range": "Range 1",
         "types": [
           "edged",
           "pointed",

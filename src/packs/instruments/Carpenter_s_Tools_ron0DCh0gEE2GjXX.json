@@ -7,7 +7,7 @@
     "category": "tool",
     "weight": "light",
     "primaryAttribute": "might",
-    "range": "Touching",
+    "range": "Range 0",
     "types": [
       "craft-wood"
     ],

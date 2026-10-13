@@ -101,7 +101,7 @@
         "category": "melee",
         "weight": "medium",
         "primaryAttribute": "might",
-        "range": "Close",
+        "range": "Range 1",
         "types": [
           "edged",
           "pointed",
@@ -151,7 +151,7 @@
         "types": [
           "incorporeal"
         ],
-        "range": "Touching",
+        "range": "Range 0",
         "weight": "light",
         "innate": true,
         "primaryAttribute": "wit",
@@ -194,7 +194,7 @@
         "category": "innate",
         "weight": "light",
         "primaryAttribute": "presence",
-        "range": "Mid Range",
+        "range": "Range 8",
         "types": [
           "quick",
           "sonic"
@@ -436,7 +436,7 @@
         "featType": "trait",
         "xpCost": 8,
         "requirements": "",
-        "effect": "when this creature is Destroyed, everything within Near range of it immediately takes Stress equal to this creature's Training bonus, this creature's choice of Attribute among the ones it could normally target.",
+        "effect": "when this creature is Destroyed, everything within Range 2 of it immediately takes Stress equal to this creature's Training bonus, this creature's choice of Attribute among the ones it could normally target.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [],
@@ -460,7 +460,7 @@
         "featType": "trait",
         "xpCost": 12,
         "requirements": "",
-        "effect": "enemies within Close range of this creature suffer -1 on Skill rolls made to Oppose it.",
+        "effect": "enemies within Range 1 of this creature suffer -1 on Skill rolls made to Oppose it.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [],

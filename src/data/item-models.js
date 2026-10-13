@@ -10,7 +10,7 @@
 import { f, slugField, slugArray, str, int, bool, html } from "./fields.js";
 import {
   WEIGHT_CLASS, WEIGHT_KEYS, ATTRIBUTE_KEYS, SKILL_KEYS, SKILL_LABEL, PRIMARY_SKILLS, SIZE_KEYS, BONUS_PRICE,
-  MATERIAL_TIER_PRICE, SIZE, TYPE_SURCHARGE, REACH_PRICE_PER_BAND, RANGE_BANDS, rangeBandOf, usualRange,
+  MATERIAL_TIER_PRICE, SIZE, TYPE_SURCHARGE, REACH_PRICE_PER_BAND, RANGE_BANDS, rangeBandOf, rangeTextOf, usualRange,
   FOCUS_GEMS, EQUIPMENT_CATEGORIES, LEGACY_SKILL_KEY, ITEM_LOCATIONS
 } from "../constants.js";
 import { priceTechnique, strainFor, SELECTIVE_PREMIUM } from "../pricing.js";
@@ -48,6 +48,7 @@ function resolveTypes(types) {
 
 export class InstrumentData extends foundry.abstract.TypeDataModel {
   static migrateData(source) {
+    if (typeof source?.range === "string") source.range = rangeTextOf(source.range);
     if (source?.types) source.types = mapTypes(source.types);
     if (source && "weight" in source && !WEIGHT_KEYS.includes(source.weight)) source.weight = "light";
     if (source?.location === "stored") source.location = "carried";
@@ -59,7 +60,7 @@ export class InstrumentData extends foundry.abstract.TypeDataModel {
       category: new f.StringField({ required: true, initial: "melee", choices: INSTRUMENT_CATEGORIES }),
       weight: new f.StringField({ required: true, initial: "light", choices: WEIGHT_KEYS }),
       primaryAttribute: new f.StringField({ required: true, initial: "might", choices: ATTRIBUTE_KEYS }),
-      range: str("Close"),
+      range: str("Range 1"),
       // The nearest band it works from, when it has one (blank for none).
       minRange: new f.StringField({ required: true, blank: true, initial: "", choices: ["", ...RANGE_BANDS] }),
       types: slugArray(),

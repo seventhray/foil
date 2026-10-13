@@ -21,6 +21,7 @@
 import crypto from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
+import { rangeMinOf } from "../src/constants.js";
 import { priceTechnique, strainFor } from "../src/pricing.js";
 import { GUIDE } from "./guide-content.mjs";
 import {
@@ -110,7 +111,7 @@ const EFFECTS = [
   ["Mend Xd4", "mend", "perPoint", { perPoint: 10 }, { requires: ["fortifying", "sonic"], label: "Mend Nd4" }, "Remove Xd4 Stress from one of an ally's Attributes in ten minutes, with no Medicine and no roll. Medicine or Mend once every 4 hours per creature (PHB 6.10.0)."],
   ["Lingering N", "lingering", "perPoint", { perPoint: 7 }, { requires: ["kinetic", "incorporeal", "pointed", "edged"], label: "Lingering N" }, "N more Stress at the start of the target's next turns."],
   ["Redirect", "redirect", "flat", { base: 8 }, { requires: ["blocking"] }, "Take an ally's incoming Stress instead."],
-  ["Move", "move", "flat", { base: 4 }, { requires: ["grappling", "blunt", "kinetic", "incorporeal"] }, "Move the target one band."],
+  ["Move", "move", "flat", { base: 4 }, { requires: ["grappling", "blunt", "kinetic", "incorporeal"] }, "Move the target up to Range 2."],
   ["Disarm", "disarm", "flat", { base: 8 }, { requires: [...MELEE, "kinetic"] }, "The target drops the Instrument it used last. Innate Instruments can't be dropped."],
   ["Evade", "evade", "flat", { base: 4 }, { requires: ["kinetic", "incorporeal"] }, "Move without provoking."],
   ["Illusion", "illusion", "flat", { base: 8 }, { requires: ["incorporeal", "sonic"] }, "A false sight or sound."],
@@ -176,7 +177,8 @@ function parseRequires(text) {
 }
 
 // ─── Effect text → composed Effects ────────────────────────────────────────
-const BAND = { close: 1, near: 2, short: 3, mid: 4, long: 5 };
+// Pattern, Selective and Extend Range count rungs of the Range ladder: Range 1 = 1, 2 = 2, 4 = 3, 8 = 4, 20 = 5.
+const BAND = { 1: 1, 2: 2, 4: 3, 8: 4, 20: 5 };
 const CONDITION_KEYS = ["grappled", "prone", "restrained", "charmed", "frightened", "controlled", "intimidated",
   "baited", "angered", "relaxed", "impressed", "wary", "enthralled", "blinded", "slowed", "stunned", "invisible", "foil-exposed"];
 const e = (key, extra = {}) => ({ key, magnitude: 1, pattern: "single", bands: 0, placement: 0, selectiveR: 0, ...extra });
@@ -213,9 +215,9 @@ function parseEffects(text) {
   const clauses = splitTop(src).flatMap(c => /^\+\d+( \[Skill\])? and Resistance/i.test(c) ? c.split(/ and /) : [c]);
   for (const raw of clauses) {
     let c = raw.replace(/\.$/, "").trim();
-    const sel = c.match(/(?:to )?chosen allies within (\w+) \(Selective\)/i);
+    const sel = c.match(/(?:to )?chosen allies within Range (\d+) \(Selective\)/i);
     if (sel) {
-      list.push(e("selective", { selectiveR: BAND[lc(sel[1])] ?? 0 }));
+      list.push(e("selective", { selectiveR: BAND[sel[1]] ?? 0 }));
       c = c.replace(sel[0], "").trim();
       if (!c) continue;
     }
@@ -233,9 +235,9 @@ function parseEffects(text) {
     if ((m = c.match(/^(?:Gain )?Resistance \+(\d+)/i))) { list.push(e("resistance", { magnitude: +m[1] })); continue; }
     if ((m = c.match(/^Mend (\d+)d4/i))) { list.push(e("mend", { magnitude: +m[1] })); continue; }
     if ((m = c.match(/^Lingering (\d+)$/i))) { list.push(e("lingering", { magnitude: +m[1] })); continue; }
-    if ((m = c.match(/^(Beam|Cone|Radius|Wall) \((\w+)\)$/i))) { list.push(e("pattern", { pattern: lc(m[1]), bands: BAND[lc(m[2])] ?? 0 })); continue; }
+    if ((m = c.match(/^(Beam|Cone|Radius|Wall) \(Range (\d+)\)$/i))) { list.push(e("pattern", { pattern: lc(m[1]), bands: BAND[m[2]] ?? 0 })); continue; }
     if (/^Extend Range$/i.test(c)) { list.push(e("extend-range", { bands: 1 })); continue; }
-    if (/^Move (the|each) target 1 band$/i.test(c)) { list.push(e("move")); continue; }
+    if (/^Move (the|each) target up to Range 2$/i.test(c)) { list.push(e("move")); continue; }
     if (/^Hasten \(Action\)/i.test(c)) { list.push(e("hasten-action")); if (/\band \+1( \[Skill\])?$/.test(c)) list.push(e("skill-mod")); continue; }
     if (/^Hasten \(Quick Action\)/i.test(c)) { list.push(e("hasten-quick")); continue; }
     if ((m = c.match(/^(Evade|Illusion|Drain|Counter|Redirect|Disarm)\b/i))) { list.push(e(lc(m[1]))); continue; }
@@ -263,7 +265,7 @@ const HAND_EFFECTS = {
   "River Walk": () => [e("evade")],
   Charge: () => [e("prone"), e("reeling", { magnitude: 2 })]
 };
-const TECH_RANGE = { Charge: { minRange: "near" } };
+const TECH_RANGE = { Charge: { minRange: "short" } };
 const priceFails = [];
 
 function techniqueDoc(n) {
@@ -348,7 +350,7 @@ function instrumentDoc(n) {
     name: n.name, type: "instrument", img: "icons/svg/sword.svg",
     system: {
       category: lc(n.category ?? "melee"), weight, primaryAttribute: lc(n.primary_attribute),
-      range: n.range ?? "Close", types, typesDisplay: n.name === "Wand" ? "" : (n.types_display ?? ""),
+      range: n.range ?? "Range 1", ...(rangeMinOf(n.range) ? { minRange: rangeMinOf(n.range) } : {}), types, typesDisplay: n.name === "Wand" ? "" : (n.types_display ?? ""),
       price: Number(n.price) || 0, rider: n.rider ?? "", kit,
       innate: false, bonus: 0, size: sizeOf[key] ?? "medium", materials: materialsOf[key] ?? "",
       description: ""
@@ -363,7 +365,7 @@ function toolDoc(n) {
   return {
     name: n.name, type: "instrument", img: "icons/svg/pick.svg",
     system: {
-      category: "tool", weight: "light", primaryAttribute: lc(n.primary_attribute), range: "Touching",
+      category: "tool", weight: "light", primaryAttribute: lc(n.primary_attribute), range: "Range 0",
       types, typesDisplay: n.instrument_type ?? "", price: Number(n.price) || 0, rider: "", kit: [],
       innate: false, bonus: 0, size: key === "smithing tools" ? "large" : "medium",
       materials: craft ? craft[1] : "Metal", description: ""
@@ -373,19 +375,19 @@ function toolDoc(n) {
 
 // Body, Voice, and Mind (PHB 2.5.3), the three innate Instruments every character starts with.
 const INNATE_INSTRUMENTS = [
-  { name: "Body", primaryAttribute: "might", types: ["quick", "blunt", "grappling"], range: "Close",
+  { name: "Body", primaryAttribute: "might", types: ["quick", "blunt", "grappling"], range: "Range 1",
     kit: [
       { name: "Strike", skill: "prowess", effect: "Deals Stress to Might or Finesse." },
       { name: "Grapple", skill: "discipline", effect: "Applies Grappled." },
       { name: "Menace", skill: "assertiveness", effect: "Deals Stress to Presence or Wit." }
     ] },
-  { name: "Voice", primaryAttribute: "presence", types: ["quick", "sonic"], range: "Mid Range",
+  { name: "Voice", primaryAttribute: "presence", types: ["quick", "sonic"], range: "Range 8",
     kit: [
       { name: "Intimidate", skill: "assertiveness", effect: "Applies Intimidated." },
       { name: "Mislead", skill: "guile", effect: "Applies Misled." },
       { name: "Sway", skill: "resonance", effect: "Applies Swayed." }
     ] },
-  { name: "Mind", primaryAttribute: "wit", types: ["quick", "incorporeal"], range: "Near",
+  { name: "Mind", primaryAttribute: "wit", types: ["quick", "incorporeal"], range: "Range 2",
     kit: [
       { name: "Deduce", skill: "discipline", effect: "Works out a problem or recalls a fact." },
       { name: "Analyze", skill: "acuity", effect: "Learns a creature's Attributes, or notices something specific." },

@@ -7,7 +7,7 @@
     "category": "arcane",
     "weight": "light",
     "primaryAttribute": "wit",
-    "range": "Close",
+    "range": "Range 1",
     "types": [
       "blocking",
       "fortifying"

@@ -101,7 +101,7 @@
         "category": "melee",
         "weight": "medium",
         "primaryAttribute": "might",
-        "range": "Near",
+        "range": "Range 2",
         "types": [
           "pointed",
           "parry"
@@ -150,7 +150,7 @@
         "category": "ranged",
         "weight": "medium",
         "primaryAttribute": "might",
-        "range": "Long Range",
+        "range": "Range 20",
         "types": [
           "pointed",
           "drawn"
@@ -199,7 +199,7 @@
         "types": [
           "blunt"
         ],
-        "range": "Touching",
+        "range": "Range 0",
         "weight": "light",
         "innate": true,
         "primaryAttribute": "might",
@@ -439,7 +439,7 @@
         "featType": "trait",
         "xpCost": 8,
         "requirements": "",
-        "effect": "track a creature's trail by scent alone. Within Close range, sense a hidden or invisible creature without a roll.",
+        "effect": "track a creature's trail by scent alone. Within Range 1, sense a hidden or invisible creature without a roll.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [],

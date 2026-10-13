@@ -94,7 +94,7 @@
         "types": [
           "blunt"
         ],
-        "range": "Close",
+        "range": "Range 1",
         "weight": "medium",
         "innate": false,
         "primaryAttribute": "might",

@@ -7,7 +7,8 @@
     "category": "melee",
     "weight": "heavy",
     "primaryAttribute": "might",
-    "range": "Near",
+    "range": "Range 2-4",
+    "minRange": "near",
     "types": [
       "edged",
       "pointed"

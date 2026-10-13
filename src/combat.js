@@ -65,7 +65,7 @@ export function conditionFlags(conditions = [], { skill = "", technique = false 
     if (has("Charmed")) out.push(check("Charmed", "can't use a Technique against the source or its allies"));
     if (has("Controlled")) out.push(check("Controlled", "the source directs its Skill and target"));
     if (has("Baited")) out.push(check("Baited", "targets the source first"));
-    if (has("Blinded")) out.push(check("Blinded", "a Technique that needs line of sight reaches only Touching range"));
+    if (has("Blinded")) out.push(check("Blinded", "a Technique that needs line of sight works only at Range 0"));
     if (has("Invisible")) out.push(check("Invisible", "ends when it uses a Technique"));
   }
   return out;
@@ -74,7 +74,7 @@ export function conditionFlags(conditions = [], { skill = "", technique = false 
 /** Conditions on a target that may matter to the Technique rolled against it. */
 export function targetFlags(conditions = []) {
   return conditions.some(c => c.name === "Invisible")
-    ? [check("Invisible", "reaches only Touching range, and True Sight, Blindsight and Keen Scent ignore it, -2 included")] : [];
+    ? [check("Invisible", "works only at Range 0, and True Sight, Blindsight and Keen Scent ignore it, -2 included")] : [];
 }
 
 const HARM_ENDS = { Charmed: "ends when the source's side deals it Stress", Enthralled: "ends when the source or an ally harms it",

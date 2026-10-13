@@ -44,7 +44,7 @@ export function bestiaryDocs(lib) {
     const types = [lc(type)];
     const group = w?.group ?? (["kinetic", "incorporeal", "fortifying"].includes(types[0]) ? "arcane" : types[0] === "sonic" ? "sonic" : "melee");
     return { name, type: "instrument", img: "icons/svg/claw.svg",
-      system: { types, range: w?.range ?? "Close", weight: "light", innate: true, primaryAttribute: PRIMARY_BY_GROUP[group] ?? "might",
+      system: { types, range: w?.range ?? "Range 1", weight: "light", innate: true, primaryAttribute: PRIMARY_BY_GROUP[group] ?? "might",
         category: group === "sonic" ? "sonic" : group === "arcane" ? "arcane" : "melee", price: 0, kit: kitFor(types),
         description: note ? `<p>${note}.</p>` : "" } };
   };
@@ -85,7 +85,7 @@ export function bestiaryDocs(lib) {
         if (known) { items.push(clone(known)); continue; }
         const effect = rest.replace(/^: /, "").replace(/ through an? .*$/, "").replace(/, \d+ XP.*$/, "").trim() + (strain ? `, Strain ${strain[1]}` : "");
         // The stat blocks and GMG 9.7.1 spell some Effects differently from the Catalog; read them the same way.
-        const norm = effect.replace(/Pattern /g, "").replace(/ Range\)/g, ")").replace(/\b(Beam|Cone|Radius|Wall),? (Close|Near|Short|Mid|Long)\b/g, "$1 ($2)")
+        const norm = effect.replace(/Pattern /g, "")
           .replace(/Condition:? \(?(\w+)\)?/g, "$1").replace(/Stress to that attacker[^,]*(, as if [^,]*)?/, "Stress").replace(/,\s*,/g, ",").replace(/,\s*$/, "");
         const doc = lib.techniqueDoc({ name: base, requires: through ? through[1] : "None", effect: norm, xp: xp || null, strain: strain ? Number(strain[1]) : undefined });
         items.push(doc);

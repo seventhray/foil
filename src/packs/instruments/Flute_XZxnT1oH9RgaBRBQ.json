@@ -7,7 +7,7 @@
     "category": "sonic",
     "weight": "light",
     "primaryAttribute": "presence",
-    "range": "Mid Range",
+    "range": "Range 8",
     "types": [
       "sonic",
       "tool"

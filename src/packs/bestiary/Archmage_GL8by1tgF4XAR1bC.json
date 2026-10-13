@@ -101,7 +101,7 @@
         "category": "arcane",
         "weight": "heavy",
         "primaryAttribute": "presence",
-        "range": "Long Range",
+        "range": "Range 20",
         "types": [
           "kinetic",
           "incorporeal",
@@ -151,7 +151,7 @@
         "category": "innate",
         "weight": "light",
         "primaryAttribute": "wit",
-        "range": "Near",
+        "range": "Range 2",
         "types": [
           "quick",
           "incorporeal"
@@ -420,7 +420,7 @@
         "featType": "trait",
         "xpCost": 12,
         "requirements": "",
-        "effect": "enemies within Close range of this creature suffer -1 on Skill rolls made to Oppose it.",
+        "effect": "enemies within Range 1 of this creature suffer -1 on Skill rolls made to Oppose it.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [],

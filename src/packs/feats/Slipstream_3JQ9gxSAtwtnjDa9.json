@@ -7,7 +7,7 @@
     "featType": "learned",
     "xpCost": 18,
     "requirements": "12 Might, 12 Finesse",
-    "effect": "When using a Melee Technique, you may Move yourself one range (up to Short Range) without spending your Quick Action.",
+    "effect": "When using a Melee Technique, you may Move yourself up to Range 2 without spending your Quick Action.",
     "ancestry": "",
     "grantsTechnique": "",
     "modifiers": [],

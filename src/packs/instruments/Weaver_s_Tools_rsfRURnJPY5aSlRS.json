@@ -7,7 +7,7 @@
     "category": "tool",
     "weight": "light",
     "primaryAttribute": "finesse",
-    "range": "Touching",
+    "range": "Range 0",
     "types": [
       "craft-textile"
     ],

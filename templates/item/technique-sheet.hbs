@@ -10,7 +10,7 @@
     <input type="checkbox" name="system.innate" {{#if system.innate}}checked{{/if}} />
     <label>Nearest range <em>(optional; the target must be at least this far)</em></label>
     <select name="system.minRange">{{#each bandOptions}}<option value="{{this.value}}" {{#if (foil-eq this.value ../system.minRange)}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>
-    <label>Reach <em>(only for a Technique with no Instrument)</em></label>
+    <label>Range <em>(only for a Technique with no Instrument)</em></label>
     <select name="system.range">{{#each bandOptions}}<option value="{{this.value}}" {{#if (foil-eq this.value ../system.range)}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>
     <label>Skill <em>(if it names one)</em></label>
     <select name="system.skill">{{#each skillOrNoneOptions}}<option value="{{this.value}}" {{#if (foil-eq this.value ../system.skill)}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>

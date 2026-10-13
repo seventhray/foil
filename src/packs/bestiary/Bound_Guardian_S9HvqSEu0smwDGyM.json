@@ -98,7 +98,7 @@
         "types": [
           "blunt"
         ],
-        "range": "Touching to Close",
+        "range": "Range 1",
         "weight": "light",
         "innate": true,
         "primaryAttribute": "might",

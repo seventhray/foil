@@ -7,7 +7,7 @@
     "category": "ranged",
     "weight": "light",
     "primaryAttribute": "finesse",
-    "range": "Short Range",
+    "range": "Range 4",
     "types": [
       "pointed",
       "thrown"

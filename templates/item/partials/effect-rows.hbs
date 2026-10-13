@@ -13,11 +13,11 @@
       <input type="number" class="mini-num" name="{{../path}}.{{this.idx}}.magnitude" value="{{this.magnitude}}" /></div>{{/if}}
     {{#if this.showPattern}}<div class="ef-field wide"><label class="mini-label" title="Pattern shape">Shape</label>
       <select name="{{../path}}.{{this.idx}}.pattern">{{#each ../patternShapes}}<option value="{{this.value}}" {{#if (foil-eq this.value ../pattern)}}selected{{/if}}>{{this.label}}</option>{{/each}}</select></div>{{/if}}
-    {{#if this.showBands}}<div class="ef-field"><label class="mini-label" title="Bands of reach (Close 1, Near 2, Short 3, Mid 4, Long 5)">Reach</label>
+    {{#if this.showBands}}<div class="ef-field"><label class="mini-label" title="Rungs of the Range ladder (Range 1 = 1, 2 = 2, 4 = 3, 8 = 4, 20 = 5)">Range</label>
       <input type="number" class="mini-num" name="{{../path}}.{{this.idx}}.bands" value="{{this.bands}}" /></div>{{/if}}
-    {{#if this.showPattern}}<div class="ef-field"><label class="mini-label" title="Placement R: a Radius or Wall set up to R bands away">Place</label>
+    {{#if this.showPattern}}<div class="ef-field"><label class="mini-label" title="Placement R: a Radius or Wall set up to R rungs away">Place</label>
       <input type="number" class="mini-num" name="{{../path}}.{{this.idx}}.placement" value="{{this.placement}}" /></div>{{/if}}
-    {{#if this.showSelective}}<div class="ef-field"><label class="mini-label" title="Selective: chooses creatures within this many bands">Within</label>
+    {{#if this.showSelective}}<div class="ef-field"><label class="mini-label" title="Selective: chooses creatures within this many rungs">Within</label>
       <input type="number" class="mini-num" name="{{../path}}.{{this.idx}}.selectiveR" value="{{this.selectiveR}}" /></div>{{/if}}
     <span class="ef-readout" {{#if this.help}}data-tooltip="{{this.help}}"{{/if}}>{{this.label}}</span>
     <a class="row-del" data-action="removeRow" data-path="{{../path}}" data-index="{{this.idx}}" title="Remove"><i class="fas fa-trash"></i></a>

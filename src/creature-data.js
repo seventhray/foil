@@ -7,7 +7,7 @@ export const NATURAL_WEAPONS = [
    "edged"
   ],
   "pick": false,
-  "range": "Touching to Close"
+  "range": "Range 1"
  },
  {
   "name": "Spines",
@@ -16,7 +16,7 @@ export const NATURAL_WEAPONS = [
    "edged"
   ],
   "pick": false,
-  "range": "Touching to Close"
+  "range": "Range 1"
  },
  {
   "name": "Bite",
@@ -25,7 +25,7 @@ export const NATURAL_WEAPONS = [
    "pointed"
   ],
   "pick": false,
-  "range": "Touching"
+  "range": "Range 0"
  },
  {
   "name": "Tusks",
@@ -34,7 +34,7 @@ export const NATURAL_WEAPONS = [
    "pointed"
   ],
   "pick": false,
-  "range": "Touching"
+  "range": "Range 0"
  },
  {
   "name": "Beak",
@@ -43,7 +43,7 @@ export const NATURAL_WEAPONS = [
    "pointed"
   ],
   "pick": false,
-  "range": "Touching"
+  "range": "Range 0"
  },
  {
   "name": "Stinger",
@@ -52,7 +52,7 @@ export const NATURAL_WEAPONS = [
    "pointed"
   ],
   "pick": false,
-  "range": "Touching"
+  "range": "Range 0"
  },
  {
   "name": "Proboscis",
@@ -61,7 +61,7 @@ export const NATURAL_WEAPONS = [
    "pointed"
   ],
   "pick": false,
-  "range": "Touching"
+  "range": "Range 0"
  },
  {
   "name": "Mandibles",
@@ -70,7 +70,7 @@ export const NATURAL_WEAPONS = [
    "pointed"
   ],
   "pick": false,
-  "range": "Touching"
+  "range": "Range 0"
  },
  {
   "name": "Pharyngeal Jaw",
@@ -79,7 +79,7 @@ export const NATURAL_WEAPONS = [
    "pointed"
   ],
   "pick": false,
-  "range": "Touching"
+  "range": "Range 0"
  },
  {
   "name": "Horns",
@@ -89,7 +89,7 @@ export const NATURAL_WEAPONS = [
    "pointed"
   ],
   "pick": true,
-  "range": "Touching to Close"
+  "range": "Range 1"
  },
  {
   "name": "Hooves",
@@ -98,7 +98,7 @@ export const NATURAL_WEAPONS = [
    "blunt"
   ],
   "pick": false,
-  "range": "Touching"
+  "range": "Range 0"
  },
  {
   "name": "Crushing Jaws",
@@ -107,7 +107,7 @@ export const NATURAL_WEAPONS = [
    "blunt"
   ],
   "pick": false,
-  "range": "Touching"
+  "range": "Range 0"
  },
  {
   "name": "Slam",
@@ -116,7 +116,7 @@ export const NATURAL_WEAPONS = [
    "blunt"
   ],
   "pick": false,
-  "range": "Touching to Close"
+  "range": "Range 1"
  },
  {
   "name": "Tail Strike",
@@ -126,7 +126,7 @@ export const NATURAL_WEAPONS = [
    "edged"
   ],
   "pick": true,
-  "range": "Close"
+  "range": "Range 1"
  },
  {
   "name": "Pincers",
@@ -136,7 +136,7 @@ export const NATURAL_WEAPONS = [
    "edged"
   ],
   "pick": true,
-  "range": "Touching to Close"
+  "range": "Range 1"
  },
  {
   "name": "Wing Buffet",
@@ -145,7 +145,7 @@ export const NATURAL_WEAPONS = [
    "blunt"
   ],
   "pick": false,
-  "range": "Close"
+  "range": "Range 1"
  },
  {
   "name": "Barbed Whip",
@@ -154,7 +154,7 @@ export const NATURAL_WEAPONS = [
    "edged"
   ],
   "pick": false,
-  "range": "Close"
+  "range": "Range 1"
  },
  {
   "name": "Tentacles",
@@ -163,7 +163,7 @@ export const NATURAL_WEAPONS = [
    "grappling"
   ],
   "pick": false,
-  "range": "Near"
+  "range": "Range 2"
  },
  {
   "name": "Tongue-Lash",
@@ -172,7 +172,7 @@ export const NATURAL_WEAPONS = [
    "grappling"
   ],
   "pick": false,
-  "range": "Near"
+  "range": "Range 2"
  },
  {
   "name": "Coils",
@@ -181,7 +181,7 @@ export const NATURAL_WEAPONS = [
    "grappling"
   ],
   "pick": false,
-  "range": "Touching"
+  "range": "Range 0"
  },
  {
   "name": "Maw",
@@ -190,7 +190,7 @@ export const NATURAL_WEAPONS = [
    "grappling"
   ],
   "pick": false,
-  "range": "Touching"
+  "range": "Range 0"
  },
  {
   "name": "Sticky Secretion",
@@ -199,7 +199,7 @@ export const NATURAL_WEAPONS = [
    "grappling"
   ],
   "pick": false,
-  "range": "Touching"
+  "range": "Range 0"
  },
  {
   "name": "Many Limbs",
@@ -208,7 +208,7 @@ export const NATURAL_WEAPONS = [
    "grappling"
   ],
   "pick": false,
-  "range": "Touching"
+  "range": "Range 0"
  },
  {
   "name": "Prehensile Tail",
@@ -217,7 +217,7 @@ export const NATURAL_WEAPONS = [
    "grappling"
   ],
   "pick": false,
-  "range": "Close"
+  "range": "Range 1"
  },
  {
   "name": "Gripping Claw",
@@ -226,7 +226,7 @@ export const NATURAL_WEAPONS = [
    "grappling"
   ],
   "pick": false,
-  "range": "Touching to Close"
+  "range": "Range 1"
  },
  {
   "name": "Web",
@@ -236,7 +236,7 @@ export const NATURAL_WEAPONS = [
    "thrown"
   ],
   "pick": false,
-  "range": "Short"
+  "range": "Range 4"
  },
  {
   "name": "Breath Weapon",
@@ -245,7 +245,7 @@ export const NATURAL_WEAPONS = [
    "kinetic"
   ],
   "pick": false,
-  "range": "Short to Mid"
+  "range": "Range 8"
  },
  {
   "name": "Acid Sac",
@@ -254,7 +254,7 @@ export const NATURAL_WEAPONS = [
    "kinetic"
   ],
   "pick": false,
-  "range": "Short to Mid"
+  "range": "Range 8"
  },
  {
   "name": "Spore Cloud",
@@ -263,7 +263,7 @@ export const NATURAL_WEAPONS = [
    "kinetic"
   ],
   "pick": false,
-  "range": "Close"
+  "range": "Range 1"
  },
  {
   "name": "Static Field",
@@ -272,7 +272,7 @@ export const NATURAL_WEAPONS = [
    "kinetic"
   ],
   "pick": false,
-  "range": "Close"
+  "range": "Range 1"
  },
  {
   "name": "Evil Eye",
@@ -281,7 +281,7 @@ export const NATURAL_WEAPONS = [
    "incorporeal"
   ],
   "pick": false,
-  "range": "Sight"
+  "range": "Range 60"
  },
  {
   "name": "Hypnotic Gaze",
@@ -290,7 +290,7 @@ export const NATURAL_WEAPONS = [
    "incorporeal"
   ],
   "pick": false,
-  "range": "Short"
+  "range": "Range 4"
  },
  {
   "name": "Mind Lash",
@@ -299,7 +299,7 @@ export const NATURAL_WEAPONS = [
    "incorporeal"
   ],
   "pick": false,
-  "range": "Mid"
+  "range": "Range 8"
  },
  {
   "name": "Chilling Presence",
@@ -308,7 +308,7 @@ export const NATURAL_WEAPONS = [
    "incorporeal"
   ],
   "pick": false,
-  "range": "Close"
+  "range": "Range 1"
  },
  {
   "name": "Curse Touch",
@@ -317,7 +317,7 @@ export const NATURAL_WEAPONS = [
    "incorporeal"
   ],
   "pick": false,
-  "range": "Touching"
+  "range": "Range 0"
  },
  {
   "name": "Siphoning Maw",
@@ -326,7 +326,7 @@ export const NATURAL_WEAPONS = [
    "incorporeal"
   ],
   "pick": false,
-  "range": "Touching"
+  "range": "Range 0"
  },
  {
   "name": "Searing Touch",
@@ -335,7 +335,7 @@ export const NATURAL_WEAPONS = [
    "kinetic"
   ],
   "pick": false,
-  "range": "Touching"
+  "range": "Range 0"
  },
  {
   "name": "Freezing Touch",
@@ -344,7 +344,7 @@ export const NATURAL_WEAPONS = [
    "kinetic"
   ],
   "pick": false,
-  "range": "Touching"
+  "range": "Range 0"
  },
  {
   "name": "Life-Fount",
@@ -353,7 +353,7 @@ export const NATURAL_WEAPONS = [
    "fortifying"
   ],
   "pick": false,
-  "range": "Near"
+  "range": "Range 2"
  },
  {
   "name": "Ward-Hide",
@@ -363,7 +363,7 @@ export const NATURAL_WEAPONS = [
    "fortifying"
   ],
   "pick": false,
-  "range": "Touching"
+  "range": "Range 0"
  },
  {
   "name": "Boulder Throw",
@@ -372,7 +372,7 @@ export const NATURAL_WEAPONS = [
    "thrown"
   ],
   "pick": false,
-  "range": "Short to Mid"
+  "range": "Range 8"
  },
  {
   "name": "Bone-Trumpet",
@@ -381,7 +381,7 @@ export const NATURAL_WEAPONS = [
    "sonic"
   ],
   "pick": false,
-  "range": "Long"
+  "range": "Range 20"
  },
  {
   "name": "Roar",
@@ -390,7 +390,7 @@ export const NATURAL_WEAPONS = [
    "sonic"
   ],
   "pick": false,
-  "range": "Mid"
+  "range": "Range 8"
  },
  {
   "name": "Shriek",
@@ -399,7 +399,7 @@ export const NATURAL_WEAPONS = [
    "sonic"
   ],
   "pick": false,
-  "range": "Mid"
+  "range": "Range 8"
  },
  {
   "name": "Wail",
@@ -408,7 +408,7 @@ export const NATURAL_WEAPONS = [
    "sonic"
   ],
   "pick": false,
-  "range": "Mid"
+  "range": "Range 8"
  },
  {
   "name": "Screech",
@@ -417,7 +417,7 @@ export const NATURAL_WEAPONS = [
    "sonic"
   ],
   "pick": false,
-  "range": "Near"
+  "range": "Range 2"
  },
  {
   "name": "Drone",
@@ -426,7 +426,7 @@ export const NATURAL_WEAPONS = [
    "sonic"
   ],
   "pick": false,
-  "range": "Near"
+  "range": "Range 2"
  },
  {
   "name": "Buzzing Wings",
@@ -435,7 +435,7 @@ export const NATURAL_WEAPONS = [
    "sonic"
   ],
   "pick": false,
-  "range": "Near"
+  "range": "Range 2"
  },
  {
   "name": "Hiss",
@@ -444,7 +444,7 @@ export const NATURAL_WEAPONS = [
    "sonic"
   ],
   "pick": false,
-  "range": "Close"
+  "range": "Range 1"
  }
 ];
 export const MONSTER_FEATS = [
@@ -470,7 +470,7 @@ export const MONSTER_FEATS = [
   "per": "",
   "xpText": "12",
   "requires": "any tier",
-  "effect": "Enemies within Close range of this creature suffer -1 on Skill rolls made to Oppose it."
+  "effect": "Enemies within Range 1 of this creature suffer -1 on Skill rolls made to Oppose it."
  },
  {
   "name": "Fatal Burst",
@@ -478,7 +478,7 @@ export const MONSTER_FEATS = [
   "per": "",
   "xpText": "8",
   "requires": "any tier",
-  "effect": "When this creature is Destroyed, everything within Near range of it immediately takes Stress equal to this creature's Training bonus, this creature's choice of Attribute among the ones it could normally target."
+  "effect": "When this creature is Destroyed, everything within Range 2 of it immediately takes Stress equal to this creature's Training bonus, this creature's choice of Attribute among the ones it could normally target."
  },
  {
   "name": "Undaunted",
@@ -510,7 +510,7 @@ export const MONSTER_FEATS = [
   "per": "+1",
   "xpText": "6 per +1 (max +3)",
   "requires": "any tier",
-  "effect": "+1 to this creature's Techniques for each other creature bearing this same Feat within Close range, up to the bought maximum."
+  "effect": "+1 to this creature's Techniques for each other creature bearing this same Feat within Range 1, up to the bought maximum."
  },
  {
   "name": "Swarm",
@@ -624,17 +624,17 @@ export const TRAITS = [
  {
   "name": "Tremorsense",
   "xp": 8,
-  "effect": "Sense the exact position of anything touching the ground or a connected surface within Close range, even unseen."
+  "effect": "Sense the exact position of anything touching the ground or a connected surface within Range 1, even unseen."
  },
  {
   "name": "Blindsight, Echolocation, or Thermal Sight",
   "xp": 8,
-  "effect": "Perceive without sight within Near range. Blinded, magical darkness, and sight-based Illusion don't stop you from targeting or Opposing normally."
+  "effect": "Perceive without sight within Range 2. Blinded, magical darkness, and sight-based Illusion don't stop you from targeting or Opposing normally."
  },
  {
   "name": "Keen Scent",
   "xp": 8,
-  "effect": "Track a creature's trail by scent alone. Within Close range, sense a hidden or invisible creature without a roll."
+  "effect": "Track a creature's trail by scent alone. Within Range 1, sense a hidden or invisible creature without a roll."
  },
  {
   "name": "Web Sense",
@@ -649,7 +649,7 @@ export const TRAITS = [
  {
   "name": "True Sight",
   "xp": 16,
-  "effect": "See through Illusion automatically. Perceive incorporeal or invisible creatures within Near range as plainly as anything else."
+  "effect": "See through Illusion automatically. Perceive incorporeal or invisible creatures within Range 2 as plainly as anything else."
  },
  {
   "name": "Regeneration",

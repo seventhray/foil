@@ -54,9 +54,9 @@ check("effect labels show N and duration", [entryLabel({ key: "weaken", magnitud
 check("a Lasts choice swaps an Effect for its 1-minute twin", [withDuration("reeling", true), withDuration("reeling-minute", false), withDuration("pierce", true)], ["reeling-minute", "reeling", "pierce"]);
 
 check("feet map to the PHB 4.1.2 bands", [0, 4, 5, 19, 20, 99, 100, 300].map(bandOfFeet), ["touching", "touching", "close", "near", "short", "mid", "long", "sight"]);
-check("reach lines read plainly", [reachLine("close"), reachLine("", "near"), reachLine("short", "near"), reachLine("")], ["Reach: up to Close.", "Reach: Near or farther.", "Reach: Near to Short.", ""]);
+check("reach lines read plainly", [reachLine("close"), reachLine("", "near"), reachLine("short", "near"), reachLine("")], ["Range: up to Range 1.", "Range: Range 2 or farther.", "Range: Range 2 to Range 4.", ""]);
 check("Extend Range adds bands to the Instrument's reach", [reachBand("close", 1), reachBand("long", 3), reachBand("", 2)], ["near", "sight", ""]);
-check("range warnings only fire outside the reach", [rangeWarning("Orc", 8, "close"), rangeWarning("Orc", 35, "close").includes("reach ends at Close"), rangeWarning("Orc", 12, "short", "near"), rangeWarning("Orc", 6, "short", "near").includes("needs Near")], ["", true, "", true]);
+check("range warnings only fire outside the reach", [rangeWarning("Orc", 8, "close"), rangeWarning("Orc", 35, "close").includes("Range ends at Range 1"), rangeWarning("Orc", 12, "short", "near"), rangeWarning("Orc", 6, "short", "near").includes("needs Range 2")], ["", true, "", true]);
 
 const feat = (name, modifiers) => ({ name, type: "feat", system: { modifiers } });
 const agg = aggregateModifiers([feat("Cave Reflexes", [{ type: "initiative", key: "", value: 2 }]), feat("Vigilant", [{ type: "initiative", key: "", value: 2 }]),

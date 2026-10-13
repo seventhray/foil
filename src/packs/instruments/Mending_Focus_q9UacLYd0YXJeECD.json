@@ -7,7 +7,7 @@
     "category": "arcane",
     "weight": "light",
     "primaryAttribute": "presence",
-    "range": "Short Range",
+    "range": "Range 4",
     "types": [
       "fortifying"
     ],

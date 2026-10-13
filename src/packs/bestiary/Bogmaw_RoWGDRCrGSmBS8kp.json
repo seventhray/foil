@@ -77,7 +77,7 @@
       "physical": 0,
       "mental": 0
     },
-    "notes": "<p><em>A swamp ambush horror that's mostly mouth, waiting under still water for something to wade too close</em></p><p>Waits under still water with its mouth open. Its tongue reaches Near range and brings the target to the teeth.</p>"
+    "notes": "<p><em>A swamp ambush horror that's mostly mouth, waiting under still water for something to wade too close</em></p><p>Waits under still water with its mouth open. Its tongue reaches Range 2 and brings the target to the teeth.</p>"
   },
   "folder": "20lyztx7vQQXvuEu",
   "sort": 1500000,
@@ -101,7 +101,7 @@
         "types": [
           "pointed"
         ],
-        "range": "Touching",
+        "range": "Range 0",
         "weight": "light",
         "innate": true,
         "primaryAttribute": "might",
@@ -144,7 +144,7 @@
         "types": [
           "grappling"
         ],
-        "range": "Touching",
+        "range": "Range 0",
         "weight": "light",
         "innate": true,
         "primaryAttribute": "might",
@@ -187,7 +187,7 @@
         "types": [
           "grappling"
         ],
-        "range": "Near",
+        "range": "Range 2",
         "weight": "light",
         "innate": true,
         "primaryAttribute": "might",

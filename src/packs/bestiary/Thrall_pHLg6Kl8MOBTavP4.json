@@ -98,7 +98,7 @@
         "category": "melee",
         "weight": "light",
         "primaryAttribute": "finesse",
-        "range": "Close",
+        "range": "Range 1",
         "types": [
           "edged",
           "pointed",
@@ -193,7 +193,7 @@
         "featType": "trait",
         "xpCost": 12,
         "requirements": "",
-        "effect": "+1 to this creature's Techniques for each other creature bearing this same Feat within Close range, up to +2. Holds the line only as part of a line.",
+        "effect": "+1 to this creature's Techniques for each other creature bearing this same Feat within Range 1, up to +2. Holds the line only as part of a line.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [],

@@ -7,7 +7,7 @@
     "category": "ranged",
     "weight": "heavy",
     "primaryAttribute": "wit",
-    "range": "Long Range",
+    "range": "Range 20",
     "types": [
       "pointed",
       "fired"

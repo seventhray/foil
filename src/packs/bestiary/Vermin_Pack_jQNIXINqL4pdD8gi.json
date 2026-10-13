@@ -94,7 +94,7 @@
         "types": [
           "pointed"
         ],
-        "range": "Touching",
+        "range": "Range 0",
         "weight": "light",
         "innate": true,
         "primaryAttribute": "might",

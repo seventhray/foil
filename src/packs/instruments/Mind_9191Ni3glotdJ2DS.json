@@ -7,7 +7,7 @@
     "category": "innate",
     "weight": "light",
     "primaryAttribute": "wit",
-    "range": "Near",
+    "range": "Range 2",
     "types": [
       "quick",
       "incorporeal"

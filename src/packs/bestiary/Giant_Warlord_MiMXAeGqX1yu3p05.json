@@ -101,7 +101,7 @@
         "types": [
           "blunt"
         ],
-        "range": "Close",
+        "range": "Range 1",
         "weight": "heavy",
         "innate": false,
         "primaryAttribute": "might",
@@ -144,7 +144,7 @@
         "category": "innate",
         "weight": "light",
         "primaryAttribute": "presence",
-        "range": "Mid Range",
+        "range": "Range 8",
         "types": [
           "quick",
           "sonic"
@@ -325,7 +325,7 @@
         "featType": "trait",
         "xpCost": 12,
         "requirements": "",
-        "effect": "enemies within Close range of this creature suffer -1 on Skill rolls made to Oppose it.",
+        "effect": "enemies within Range 1 of this creature suffer -1 on Skill rolls made to Oppose it.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [],

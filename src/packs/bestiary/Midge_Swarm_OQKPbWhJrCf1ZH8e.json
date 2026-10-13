@@ -94,7 +94,7 @@
         "types": [
           "pointed"
         ],
-        "range": "Touching",
+        "range": "Range 0",
         "weight": "light",
         "innate": true,
         "primaryAttribute": "might",
@@ -209,7 +209,7 @@
         "featType": "trait",
         "xpCost": 12,
         "requirements": "",
-        "effect": "+1 to its Techniques for each other creature bearing this same Feat within Close range, up to +2.",
+        "effect": "+1 to its Techniques for each other creature bearing this same Feat within Range 1, up to +2.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [],

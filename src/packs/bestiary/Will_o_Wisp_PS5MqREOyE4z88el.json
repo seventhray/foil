@@ -94,7 +94,7 @@
         "types": [
           "incorporeal"
         ],
-        "range": "Close",
+        "range": "Range 1",
         "weight": "light",
         "innate": true,
         "primaryAttribute": "wit",

@@ -7,7 +7,7 @@
     "featType": "trait",
     "xpCost": 0,
     "requirements": "Sight past sight",
-    "effect": "Perceive without sight within Near range. Blinded, magical darkness, and sight-based Illusion don't stop you from targeting or Opposing normally.",
+    "effect": "Perceive without sight within Range 2. Blinded, magical darkness, and sight-based Illusion don't stop you from targeting or Opposing normally.",
     "ancestry": "",
     "grantsTechnique": "",
     "modifiers": [],

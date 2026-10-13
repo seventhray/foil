@@ -98,7 +98,7 @@
         "types": [
           "edged"
         ],
-        "range": "Touching to Close",
+        "range": "Range 1",
         "weight": "light",
         "innate": true,
         "primaryAttribute": "might",
@@ -141,7 +141,7 @@
         "types": [
           "incorporeal"
         ],
-        "range": "Touching",
+        "range": "Range 0",
         "weight": "light",
         "innate": true,
         "primaryAttribute": "wit",

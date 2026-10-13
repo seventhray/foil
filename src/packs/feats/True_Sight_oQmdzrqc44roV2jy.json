@@ -7,7 +7,7 @@
     "featType": "trait",
     "xpCost": 0,
     "requirements": "Piercing eyes",
-    "effect": "See through Illusion automatically. Perceive incorporeal or invisible creatures within Near range as plainly as anything else.",
+    "effect": "See through Illusion automatically. Perceive incorporeal or invisible creatures within Range 2 as plainly as anything else.",
     "ancestry": "",
     "grantsTechnique": "",
     "modifiers": [],

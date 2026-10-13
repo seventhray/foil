@@ -101,7 +101,7 @@
         "types": [
           "grappling"
         ],
-        "range": "Touching",
+        "range": "Range 0",
         "weight": "light",
         "innate": true,
         "primaryAttribute": "might",
@@ -144,7 +144,7 @@
         "types": [
           "grappling"
         ],
-        "range": "Near",
+        "range": "Range 2",
         "weight": "light",
         "innate": true,
         "primaryAttribute": "might",

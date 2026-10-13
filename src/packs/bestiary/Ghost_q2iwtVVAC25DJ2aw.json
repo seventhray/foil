@@ -98,7 +98,7 @@
         "types": [
           "incorporeal"
         ],
-        "range": "Close",
+        "range": "Range 1",
         "weight": "light",
         "innate": true,
         "primaryAttribute": "wit",
@@ -141,7 +141,7 @@
         "types": [
           "incorporeal"
         ],
-        "range": "Touching",
+        "range": "Range 0",
         "weight": "light",
         "innate": true,
         "primaryAttribute": "wit",

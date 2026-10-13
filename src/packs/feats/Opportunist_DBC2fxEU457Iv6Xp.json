@@ -7,7 +7,7 @@
     "featType": "learned",
     "xpCost": 8,
     "requirements": "12 Finesse, 12 Presence",
-    "effect": "Enemies cannot Disengage from your Touching or Close reach; leaving it always provokes your Attack of Opportunity.",
+    "effect": "Enemies within Range 1 of you cannot Disengage, and leaving it always provokes your Attack of Opportunity.",
     "ancestry": "",
     "grantsTechnique": "",
     "modifiers": [],

@@ -20,7 +20,7 @@
     "magnitudeLabel": "",
     "exemptFromPremium": false,
     "setsFloor": false,
-    "description": "<p>Move the target one band.</p>"
+    "description": "<p>Move the target up to Range 2.</p>"
   },
   "effects": [],
   "folder": null,

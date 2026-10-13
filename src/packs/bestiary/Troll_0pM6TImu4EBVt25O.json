@@ -98,7 +98,7 @@
         "types": [
           "edged"
         ],
-        "range": "Touching to Close",
+        "range": "Range 1",
         "weight": "light",
         "innate": true,
         "primaryAttribute": "might",
@@ -306,7 +306,7 @@
         "featType": "trait",
         "xpCost": 12,
         "requirements": "",
-        "effect": "enemies within Close range suffer -1 on Skill rolls made to Oppose it. Nothing about it looks like it's going to stay down.",
+        "effect": "enemies within Range 1 suffer -1 on Skill rolls made to Oppose it. Nothing about it looks like it's going to stay down.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [],

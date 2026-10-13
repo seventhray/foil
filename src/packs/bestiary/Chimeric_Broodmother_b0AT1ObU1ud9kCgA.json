@@ -101,7 +101,7 @@
         "types": [
           "edged"
         ],
-        "range": "Touching to Close",
+        "range": "Range 1",
         "weight": "light",
         "innate": true,
         "primaryAttribute": "might",
@@ -144,7 +144,7 @@
         "types": [
           "pointed"
         ],
-        "range": "Touching",
+        "range": "Range 0",
         "weight": "light",
         "innate": true,
         "primaryAttribute": "might",
@@ -187,7 +187,7 @@
         "types": [
           "sonic"
         ],
-        "range": "Mid",
+        "range": "Range 8",
         "weight": "light",
         "innate": true,
         "primaryAttribute": "presence",
@@ -375,7 +375,7 @@
         "featType": "trait",
         "xpCost": 8,
         "requirements": "",
-        "effect": "track a creature's trail by scent alone. Within Close range, sense a hidden or invisible creature without a roll.",
+        "effect": "track a creature's trail by scent alone. Within Range 1, sense a hidden or invisible creature without a roll.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [],

@@ -101,7 +101,7 @@
         "types": [
           "pointed"
         ],
-        "range": "Touching",
+        "range": "Range 0",
         "weight": "light",
         "innate": true,
         "primaryAttribute": "might",
@@ -144,7 +144,7 @@
         "types": [
           "edged"
         ],
-        "range": "Touching to Close",
+        "range": "Range 1",
         "weight": "light",
         "innate": true,
         "primaryAttribute": "might",
@@ -187,7 +187,7 @@
         "types": [
           "kinetic"
         ],
-        "range": "Short to Mid",
+        "range": "Range 8",
         "weight": "light",
         "innate": true,
         "primaryAttribute": "wit",
@@ -230,7 +230,7 @@
         "types": [
           "sonic"
         ],
-        "range": "Mid",
+        "range": "Range 8",
         "weight": "light",
         "innate": true,
         "primaryAttribute": "presence",

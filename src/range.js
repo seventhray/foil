@@ -15,14 +15,14 @@ export const bandOfFeet = feet => RANGE_BANDS.find(b => feet <= BAND_END_FEET[b]
 /**
  * @param {string} reachBand   the furthest band reached ("" when the Technique states no reach)
  * @param {string} minBand     the nearest band it works from ("" for none)
- * @returns {string} "Reach: Near or farther." and the like
+ * @returns {string} "Range: Range 2 or farther." and the like
  */
 export function reachLine(reachBand, minBand = "") {
   const top = reachBand ? RANGE_LABEL[reachBand] : "";
   const low = minBand ? RANGE_LABEL[minBand] : "";
-  if (low && top) return low === top ? `Reach: ${top}.` : `Reach: ${low} to ${top}.`;
-  if (low) return `Reach: ${low} or farther.`;
-  return top ? `Reach: up to ${top}.` : "";
+  if (low && top) return low === top ? `Range: ${top}.` : `Range: ${low} to ${top}.`;
+  if (low) return `Range: ${low} or farther.`;
+  return top ? `Range: up to ${top}.` : "";
 }
 
 /** The furthest band an Instrument reaches, plus bands a Technique extends it by. */
@@ -40,7 +40,7 @@ export function rangeWarning(name, feet, reach, minBand = "") {
   if (!Number.isFinite(feet)) return "";
   const safe = String(name ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
   const away = `${safe} is about ${Math.round(feet)} ft away (${RANGE_LABEL[bandOfFeet(feet)]})`;
-  if (reach && feet > BAND_END_FEET[reach]) return `${away}; reach ends at ${RANGE_LABEL[reach]}, ${BAND_END_FEET[reach]} ft.`;
+  if (reach && feet > BAND_END_FEET[reach]) return `${away}; its Range ends at ${RANGE_LABEL[reach]}, ${BAND_END_FEET[reach]} ft.`;
   if (minBand && feet < BAND_START_FEET[minBand]) return `${away}; this needs ${RANGE_LABEL[minBand]} (${BAND_START_FEET[minBand]} ft) or farther.`;
   return "";
 }

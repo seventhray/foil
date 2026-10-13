@@ -7,7 +7,7 @@
     "category": "tool",
     "weight": "light",
     "primaryAttribute": "wit",
-    "range": "Touching",
+    "range": "Range 0",
     "types": [
       "craft-metal"
     ],

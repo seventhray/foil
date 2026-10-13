@@ -94,7 +94,7 @@
         "category": "melee",
         "weight": "light",
         "primaryAttribute": "finesse",
-        "range": "Close",
+        "range": "Range 1",
         "types": [
           "edged",
           "pointed",

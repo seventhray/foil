@@ -101,7 +101,7 @@
         "category": "melee",
         "weight": "light",
         "primaryAttribute": "finesse",
-        "range": "Close",
+        "range": "Range 1",
         "types": [
           "edged",
           "pointed",
@@ -151,7 +151,7 @@
         "category": "innate",
         "weight": "light",
         "primaryAttribute": "presence",
-        "range": "Mid Range",
+        "range": "Range 8",
         "types": [
           "quick",
           "sonic"
@@ -200,7 +200,7 @@
         "category": "innate",
         "weight": "light",
         "primaryAttribute": "wit",
-        "range": "Near",
+        "range": "Range 2",
         "types": [
           "quick",
           "incorporeal"

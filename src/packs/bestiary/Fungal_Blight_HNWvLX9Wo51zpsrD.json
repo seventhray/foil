@@ -94,7 +94,7 @@
         "types": [
           "blunt"
         ],
-        "range": "Touching to Close",
+        "range": "Range 1",
         "weight": "light",
         "innate": true,
         "primaryAttribute": "might",
@@ -137,7 +137,7 @@
         "types": [
           "kinetic"
         ],
-        "range": "Close",
+        "range": "Range 1",
         "weight": "light",
         "innate": true,
         "primaryAttribute": "wit",
@@ -180,7 +180,7 @@
         "featType": "trait",
         "xpCost": 8,
         "requirements": "",
-        "effect": "when this creature is Destroyed, everything within Near range of it immediately takes Stress equal to this creature's Training bonus, this creature's choice of Attribute among the ones it could normally target.",
+        "effect": "when this creature is Destroyed, everything within Range 2 of it immediately takes Stress equal to this creature's Training bonus, this creature's choice of Attribute among the ones it could normally target.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [],

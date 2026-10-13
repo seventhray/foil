@@ -137,7 +137,7 @@ p("Pricing a Technique", `
 <p>A Technique's XP is priced from its Effects (PHB 4.2.1), and the sheet shows the computed price beside the printed one.</p>
 <ol>
 <li>Sum the Effects. Stress is an Effect at 4 XP.</li>
-<li>A Pattern, Selective, or Extend Range is priced by reach and counts as an Effect.</li>
+<li>A Pattern, Selective, or Extend Range is priced by Range and counts as an Effect.</li>
 <li>Add 4 XP for every Effect beyond the first. Quick and Upkeep don't count; Upkeep costs a flat 4 XP and Quick 3.</li>
 <li>A Fortifying Technique, a ward or bonus lasting 1 round or longer, or a Quick trigger costs at least 8 XP.</li>
 <li>Strain is floor((XP - 24) / 8), never below 0.</li>
@@ -156,7 +156,7 @@ p("Pricing a Technique", `
 <tr><td>Prone / Controlled</td><td>7 / 21</td></tr>
 <tr><td>Counter</td><td>12</td></tr>
 </tbody></table>
-<p>Beam or Wall reach costs 1 + 2 + ... per band; a Cone 3x that, a Radius 12x. Selective costs N + (R x N).</p>`),
+<p>Beam or Wall costs 1 + 2 + ... per rung of the Range ladder (Range 1, 2, 4, 8, 20); a Cone 3x that, a Radius 12x. Selective costs N + (R x N).</p>`),
 
 p("Pricing an Instrument", `
 <p>Base price by weight class: Light 15p, Medium 30p, Heavy 45p. Each Type adds: Edged, Blunt, Kinetic, Incorporeal, or Fortifying 5p; Pointed 10p; Drawn 25p; Fired 50p. Reach past the usual Range adds 10p a band (PHB 5.2.2).</p>

@@ -101,7 +101,7 @@
         "types": [
           "kinetic"
         ],
-        "range": "Close",
+        "range": "Range 1",
         "weight": "light",
         "innate": true,
         "primaryAttribute": "wit",
@@ -144,7 +144,7 @@
         "types": [
           "edged"
         ],
-        "range": "Close",
+        "range": "Range 1",
         "weight": "heavy",
         "innate": false,
         "primaryAttribute": "might",
@@ -275,7 +275,7 @@
         "featType": "trait",
         "xpCost": 12,
         "requirements": "",
-        "effect": "enemies within Close range suffer -1 on Skill rolls made to Oppose it.",
+        "effect": "enemies within Range 1 suffer -1 on Skill rolls made to Oppose it.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [],

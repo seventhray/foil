@@ -101,7 +101,7 @@
         "category": "melee",
         "weight": "heavy",
         "primaryAttribute": "might",
-        "range": "Close",
+        "range": "Range 1",
         "types": [
           "edged",
           "pointed"
@@ -150,7 +150,7 @@
         "types": [
           "kinetic"
         ],
-        "range": "Short to Mid",
+        "range": "Range 8",
         "weight": "light",
         "innate": true,
         "primaryAttribute": "wit",

@@ -7,7 +7,7 @@
     "category": "arcane",
     "weight": "heavy",
     "primaryAttribute": "presence",
-    "range": "Long Range",
+    "range": "Range 20",
     "types": [
       "kinetic",
       "incorporeal",

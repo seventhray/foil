@@ -7,7 +7,7 @@
     "featType": "trait",
     "xpCost": 0,
     "requirements": "Tremor sense",
-    "effect": "Sense the exact position of anything touching the ground or a connected surface within Close range, even unseen.",
+    "effect": "Sense the exact position of anything touching the ground or a connected surface within Range 1, even unseen.",
     "ancestry": "",
     "grantsTechnique": "",
     "modifiers": [],

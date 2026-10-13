@@ -98,7 +98,7 @@
         "category": "melee",
         "weight": "light",
         "primaryAttribute": "finesse",
-        "range": "Close",
+        "range": "Range 1",
         "types": [
           "edged",
           "pointed",
@@ -148,7 +148,7 @@
         "category": "ranged",
         "weight": "medium",
         "primaryAttribute": "might",
-        "range": "Long Range",
+        "range": "Range 20",
         "types": [
           "pointed",
           "drawn"

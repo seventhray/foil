@@ -7,7 +7,7 @@
     "category": "sonic",
     "weight": "light",
     "primaryAttribute": "presence",
-    "range": "Long Range",
+    "range": "Range 20",
     "types": [
       "sonic"
     ],

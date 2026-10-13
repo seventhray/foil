@@ -7,7 +7,7 @@
     "category": "sonic",
     "weight": "medium",
     "primaryAttribute": "might",
-    "range": "Long Range",
+    "range": "Range 20",
     "types": [
       "sonic",
       "tool"

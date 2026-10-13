@@ -101,7 +101,7 @@
         "types": [
           "blunt"
         ],
-        "range": "Touching to Close",
+        "range": "Range 1",
         "weight": "light",
         "innate": true,
         "primaryAttribute": "might",
@@ -144,7 +144,7 @@
         "types": [
           "kinetic"
         ],
-        "range": "Close",
+        "range": "Range 1",
         "weight": "light",
         "innate": true,
         "primaryAttribute": "wit",

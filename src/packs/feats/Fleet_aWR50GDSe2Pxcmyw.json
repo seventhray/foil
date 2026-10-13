@@ -7,7 +7,7 @@
     "featType": "learned",
     "xpCost": 8,
     "requirements": "12 Finesse",
-    "effect": "Closing all the way into Touching range costs nothing extra.",
+    "effect": "Closing all the way to Range 0 costs nothing extra.",
     "ancestry": "",
     "grantsTechnique": "",
     "modifiers": [],

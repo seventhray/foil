@@ -98,7 +98,7 @@
         "category": "innate",
         "weight": "light",
         "primaryAttribute": "presence",
-        "range": "Mid Range",
+        "range": "Range 8",
         "types": [
           "quick",
           "sonic"
@@ -147,7 +147,7 @@
         "types": [
           "pointed"
         ],
-        "range": "Touching",
+        "range": "Range 0",
         "weight": "light",
         "innate": true,
         "primaryAttribute": "might",
@@ -190,7 +190,7 @@
         "types": [
           "edged"
         ],
-        "range": "Touching to Close",
+        "range": "Range 1",
         "weight": "light",
         "innate": true,
         "primaryAttribute": "might",
@@ -233,7 +233,7 @@
         "types": [
           "kinetic"
         ],
-        "range": "Short to Mid",
+        "range": "Range 8",
         "weight": "light",
         "innate": true,
         "primaryAttribute": "wit",
@@ -276,7 +276,7 @@
         "types": [
           "blunt"
         ],
-        "range": "Close",
+        "range": "Range 1",
         "weight": "light",
         "innate": true,
         "primaryAttribute": "might",
@@ -544,7 +544,7 @@
         "featType": "trait",
         "xpCost": 8,
         "requirements": "",
-        "effect": "track a creature's trail by scent alone. Within Close range, sense a hidden or invisible creature without a roll.",
+        "effect": "track a creature's trail by scent alone. Within Range 1, sense a hidden or invisible creature without a roll.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [],
@@ -592,7 +592,7 @@
         "featType": "trait",
         "xpCost": 12,
         "requirements": "",
-        "effect": "enemies within Close range of this creature suffer -1 on Skill rolls made to Oppose it.",
+        "effect": "enemies within Range 1 of this creature suffer -1 on Skill rolls made to Oppose it.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [],

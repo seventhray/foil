@@ -55,21 +55,48 @@ export const WEIGHT_KEYS = Object.keys(WEIGHT_CLASS);
 
 // Range bands, in order; a range includes those under it (PHB 4.1.2).
 export const RANGE_BANDS = ["touching", "close", "near", "short", "mid", "long", "sight"];
+// A Range is the band that starts at that many 5-foot steps (PHB 4.1.2). The band keys stay the stable identifiers.
+export const RANGE_STEP = { touching: 0, close: 1, near: 2, short: 4, mid: 8, long: 20, sight: 60 };
 export const RANGE_LABEL = {
-  touching: "Touching", close: "Close", near: "Near", short: "Short",
-  mid: "Mid", long: "Long", sight: "Sight"
+  touching: "Range 0", close: "Range 1", near: "Range 2", short: "Range 4",
+  mid: "Range 8", long: "Range 20", sight: "Range 60"
 };
 export const RANGE_FEET = {
   touching: "0-4 ft", close: "5-9 ft", near: "10-19 ft", short: "20-39 ft",
   mid: "40-99 ft", long: "100-299 ft", sight: "300 ft +"
 };
 
-/** The furthest band a free-text range names ("Touching to Close" -> close). */
+/**
+ * The furthest band a free-text range names. "Range 4" is short; "Range 2-4" runs from near
+ * up to the band before Range 4 (near); the older band words still read ("Touching to Close" -> close).
+ */
 export function rangeBandOf(text) {
-  const words = String(text ?? "").toLowerCase().match(/[a-z]+/g) ?? [];
+  const t = String(text ?? "");
+  const nums = t.match(/\d+/g);
+  if (nums) {
+    const steps = RANGE_BANDS.map(b => RANGE_STEP[b]);
+    const top = /\d\s*-\s*\d/.test(t) ? steps.filter(s => s < Number(nums[nums.length - 1])).pop() : steps.filter(s => s <= Number(nums[0])).pop();
+    return RANGE_BANDS[steps.indexOf(top)] ?? "";
+  }
+  const words = t.toLowerCase().match(/[a-z]+/g) ?? [];
   let best = -1;
   for (const w of words) best = Math.max(best, RANGE_BANDS.indexOf(w));
   return best >= 0 ? RANGE_BANDS[best] : "";
+}
+
+/** The nearest band a "Range a-b" interval works from; "" for a plain Range. */
+export function rangeMinOf(text) {
+  const m = String(text ?? "").match(/(\d+)\s*-\s*\d+/);
+  if (!m) return "";
+  return RANGE_BANDS.find(b => RANGE_STEP[b] === Number(m[1])) ?? "";
+}
+
+/** Older range strings ("Close", "Mid Range") as the Range text the books now print. */
+export function rangeTextOf(text) {
+  const t = String(text ?? "");
+  if (!t || /\d/.test(t)) return t;
+  const b = rangeBandOf(t);
+  return b ? RANGE_LABEL[b] : t;
 }
 
 // Instrument price surcharges by Instrument Type, and reach pricing (PHB 5.2.2).
@@ -120,7 +147,7 @@ export const RESISTANCE_LABEL = { physical: "Physical", mental: "Mental" };
 // Focus Gems (PHB 5.2.3): Arcane Instruments only; each adds its Tier to one Effect.
 export const FOCUS_GEMS = {
   ruby:      { label: "Ruby",      adds: "Lingering +1",                                 pricePerTier: 80 },
-  carnelian: { label: "Carnelian", adds: "Move goes 1 more band",                        pricePerTier: 40 },
+  carnelian: { label: "Carnelian", adds: "Move goes one step up the Range ladder",                        pricePerTier: 40 },
   emerald:   { label: "Emerald",   adds: "Pierce +1",                                    pricePerTier: 40 },
   sapphire:  { label: "Sapphire",  adds: "Illusion: -1 to the Oppose to see through it", pricePerTier: 60 },
   amethyst:  { label: "Amethyst",  adds: "Condition: -1 to the Oppose against it",       pricePerTier: 60 },
@@ -182,7 +209,7 @@ export const TECHNIQUE_FAMILIES = {
 export const ORIGIN_NAMES = ["Riverlands", "Highlands", "Woodlands", "Deep Stone", "Frozen North", "Fenland", "Jungle Canopy",
   "Open Plains", "Island Shores", "Sunbaked Desert", "Crowded City", "Back Alleys", "Quiet Village", "Ruined Lands", "Ashen Badlands"];
 /** Instrument Ranges as the books print them (PHB 4.1.2). */
-export const RANGE_CHOICES = ["Touching", "Close", "Near", "Short Range", "Mid Range", "Long Range", "Sight"];
+export const RANGE_CHOICES = ["Range 0", "Range 1", "Range 2", "Range 4", "Range 8", "Range 20", "Range 60"];
 /** The two Skills that resist each Condition when a Technique deals no Stress (PHB 6.5.0, 6.8.x). */
 export const CONDITION_OPPOSE = {
   Grappled: ["prowess", "discipline"], Restrained: ["prowess", "discipline"], Prone: ["prowess", "acuity"],

@@ -98,7 +98,7 @@
         "types": [
           "incorporeal"
         ],
-        "range": "Touching",
+        "range": "Range 0",
         "weight": "light",
         "innate": true,
         "primaryAttribute": "wit",
@@ -141,7 +141,7 @@
         "types": [
           "incorporeal"
         ],
-        "range": "Close",
+        "range": "Range 1",
         "weight": "light",
         "innate": true,
         "primaryAttribute": "wit",
@@ -368,7 +368,7 @@
         "featType": "trait",
         "xpCost": 12,
         "requirements": "",
-        "effect": "enemies within Close range of this creature suffer -1 on Skill rolls made to Oppose it.",
+        "effect": "enemies within Range 1 of this creature suffer -1 on Skill rolls made to Oppose it.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [],

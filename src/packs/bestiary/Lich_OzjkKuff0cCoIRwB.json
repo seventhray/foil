@@ -101,7 +101,7 @@
         "types": [
           "incorporeal"
         ],
-        "range": "Touching",
+        "range": "Range 0",
         "weight": "light",
         "innate": true,
         "primaryAttribute": "wit",
@@ -144,7 +144,7 @@
         "category": "arcane",
         "weight": "heavy",
         "primaryAttribute": "presence",
-        "range": "Long Range",
+        "range": "Range 20",
         "types": [
           "kinetic",
           "incorporeal",
@@ -194,7 +194,7 @@
         "category": "innate",
         "weight": "light",
         "primaryAttribute": "wit",
-        "range": "Near",
+        "range": "Range 2",
         "types": [
           "quick",
           "incorporeal"
