@@ -6,7 +6,8 @@
  *   then capped by its weight: half its Primary Potential for Light, all of it for
  *   Medium or Heavy.
  *   Only the margin is capped; the bonuses below add after it
- *   + one Stress-dealing Type's bonus (Edged: physical Resistance, after Pierce, counts double)
+ *   + the bonus of the Type the Technique was declared with (Edged: physical Resistance, after
+ *     Pierce, counts double), and Drawn or Fired on top of it (PHB 4.1.1)
  *   + the Technique's own bonus, and any other stated bonus
  *   - Resistance after Pierce (Pierce never takes it below 0; a negative Resistance is
  *     negative Resistance and adds, PHB 6.6.0), to a minimum of 0.
@@ -22,12 +23,19 @@
  * @param {"physical"|"mental"} a.kind  the kind of Attribute aimed at
  * @param {number} a.resistance   the target's Resistance of that kind (negative adds Stress)
  * @param {object|null} a.type    { label, physical, mental, pierce, doubleResistance }
+ * @param {object[]} a.always    Types whose bonus is never chosen and always adds (Drawn, Fired)
  * @param {number} a.bespoke      the Technique's own bonus
  * @param {number} a.other        any other bonus (a Feat such as Heavy Hand)
  * @param {number} a.pierce       Pierce from the Technique, the Instrument's +N, a Focus Gem
  * @returns {{ landed:boolean, stress:number, margin:number, capped:number, parts:string[] }}
  */
-export function stressFor({ attack, oppose, cap, kind = "physical", resistance = 0, type = null,
+/** Drawn and Fired are not chosen: their bonus adds to every Technique through the Instrument (PHB 4.1.1). */
+export const ALWAYS_TYPES = ["drawn", "fired"];
+export const isAlwaysType = t => ALWAYS_TYPES.includes(String(t?.key ?? t?.label ?? "").toLowerCase());
+/** The always-on Types of a list, leaving out the one that was (wrongly) picked as the chosen Type. */
+export const alwaysTypes = (types = [], chosen = null) => (types ?? []).filter(t => isAlwaysType(t) && t !== chosen);
+
+export function stressFor({ attack, oppose, cap, kind = "physical", resistance = 0, type = null, always = [],
                             bespoke = 0, other = 0, pierce = 0, name = "the Technique", capAttr = "", capLabel = "", double = false, mult = 1 }) {
   const raw = Number(attack) - Number(oppose);
   const m = double ? 2 : Number(mult) || 1;
@@ -41,6 +49,10 @@ export function stressFor({ attack, oppose, cap, kind = "physical", resistance =
     typeBonus = kind === "physical" ? Number(type.physical ?? 0) : Number(type.mental ?? 0);
     if (typeBonus) parts.push(`${type.label} ${typeBonus > 0 ? "+" : ""}${typeBonus}`);
     if (kind === "physical") totalPierce += Number(type.pierce ?? 0);
+  }
+  for (const a of always ?? []) {
+    const b = kind === "physical" ? Number(a.physical ?? 0) : Number(a.mental ?? 0);
+    if (b) { typeBonus += b; parts.push(`${a.label} ${b > 0 ? "+" : ""}${b}`); }
   }
   if (bespoke) parts.push(`+${bespoke} from ${name}`);
   if (other) parts.push(`${other > 0 ? "+" : ""}${other} other`);

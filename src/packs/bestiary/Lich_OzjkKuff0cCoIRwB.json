@@ -426,7 +426,7 @@
         "featType": "trait",
         "xpCost": 48,
         "requirements": "",
-        "effect": "full Health after a GM-set span (typically 1d10 days) unless the phylactery is destroyed first.",
+        "effect": "full Total Potential after a GM-set span (typically 1d10 days) unless the phylactery is destroyed first.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [],

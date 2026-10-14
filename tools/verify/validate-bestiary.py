@@ -76,16 +76,16 @@ for path in sorted(p for d in CREATURES.split(os.pathsep) for p in glob.glob(os.
     if pots and health != sum(pots.values()):
         bad.append(f"Total Potential {health} isn't the sum of its Potentials, {sum(pots.values())}")
     if abs(health - T["health"]) > STEP:
-        bad.append(f"Total Potential {health} is more than one step from {T['health']} (4.2.0)")
+        bad.append(f"Total Potential {health} is more than one step from {T['health']} (9.2.0)")
     train = [int(x) for x in re.findall(r"\+(\d+)", (re.search(r"\*\*Training\*\*([^\n]*)", s) or [0, ""])[1])]
     if any(x > max(4, T["train"]) for x in train):
         bad.append(f"Training {sorted(set(train))} is past +{max(4, T['train'])} (9.4.0)")
     res = {k: int(v) for k, v in re.findall(r"(physical|mental) ([+-]\d+)", (re.search(r"\*\*Resistance\*\*([^·\n]*)", s) or [0, ""])[1])}
     for k, v in res.items():
         if abs(v) > T["cap"]:
-            bad.append(f"{k} Resistance {v:+d} is past its cap +{T['cap']} (4.1.0)")
+            bad.append(f"{k} Resistance {v:+d} is past its cap +{T['cap']} (9.1.0)")
     if sum(max(0, v) for v in res.values()) * 8 > T["res"] + 8 * sum(-min(0, v) for v in res.values()):
-        bad.append(f"Resistance {res} costs more than the tier's budget {T['res']} (4.3.0)")
+        bad.append(f"Resistance {res} costs more than the tier's budget {T['res']} (9.3.0)")
     spent = sum(sum(8 + 2 * h for h in range(x)) for x in train)   # Training is bought from the Allowance (GMG 9.4.0)
     for line in re.findall(r"^>\s*-\s*\*\*(.+)$", s, re.M):
         item = re.match(r"([^*]+)\*\*(.*)", line)
@@ -104,11 +104,11 @@ for path in sorted(p for d in CREATURES.split(os.pathsep) for p in glob.glob(os.
             if uses > 5 * per_round:
                 bad.append(f"Legendary Action {uses} uses is more than {5 * per_round} a conflict can use")
         elif base in TRAITS and xp != TRAITS[base]:
-            bad.append(f"Trait {base} costs {TRAITS[base]} (4.5.0), not {xp}")
+            bad.append(f"Trait {base} costs {TRAITS[base]} (9.5.0), not {xp}")
         elif base in FEATS and FEATS[base].isdigit() and xp != int(FEATS[base]):
-            bad.append(f"Feat {base} costs {FEATS[base]} (4.5.1), not {xp}")
+            bad.append(f"Feat {base} costs {FEATS[base]} (9.5.1), not {xp}")
         if xp > T["ceil"]:
-            bad.append(f"{base} {xp} XP is over the Ceiling {T['ceil']} (4.5.0)")
+            bad.append(f"{base} {xp} XP is over the Ceiling {T['ceil']} (9.5.0)")
     # The Allowance is a target: spend it to within 10 percent, no exceptions (GMG 9.5.0).
     if spent > T["allow"] * 1.1 or spent < T["allow"] * 0.9:
         bad.append(f"spends {spent} of {T['allow']} Allowance, outside 10 percent of the target (9.5.0)")

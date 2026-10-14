@@ -7,7 +7,7 @@
     "featType": "learned",
     "xpCost": 8,
     "requirements": "12 Might, 12 Finesse",
-    "effect": "When you Oppose a melee Technique within Range 1 using Prowess and beat it, deal 1d4 Stress to the attacker's Might.",
+    "effect": "When you Oppose a Melee Technique within Range 1 using Prowess and beat it, deal 1d4 Stress to the attacker's Might.",
     "ancestry": "",
     "grantsTechnique": "",
     "modifiers": [],

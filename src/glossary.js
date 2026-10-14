@@ -118,7 +118,7 @@ export const GLOSSARY = {
   },
   "frightened": {
     "name": "Frightened",
-    "text": "Resisted with Presence. While the creature can perceive the source, its rolls take -1. It can't willingly move closer to the source. It ends when the source leaves its perception or the duration ends. > [!EXAMPLE] > In round 3 Wren uses Unsettling Pulse through the Wand on the captain: Resonance 20 against his Discipline 13. It lands, so the captain's rolls take -1 and he can't step toward Wren."
+    "text": "Resisted with Presence. While the creature can perceive the source, its rolls take -1. It can't willingly move closer to the source. It ends when the source leaves its perception or the duration ends. > [!EXAMPLE] > In round 3 Wren uses Unsettling Pulse through the Wand on the captain: Resonance 20 against his Assertiveness 13. It lands, so the captain's rolls take -1 and he can't step toward Wren."
   },
   "grappled": {
     "name": "Grappled",

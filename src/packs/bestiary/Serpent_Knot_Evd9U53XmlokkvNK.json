@@ -318,7 +318,7 @@
         "featType": "trait",
         "xpCost": 32,
         "requirements": "",
-        "effect": "every 10 rounds of a conflict, recover 1d4 Stress from that Attribute, unless a GM-stated counter-condition (an element or Instrument fitting your story, fire for a troll, silver for some undead) applied since the last recovery.",
+        "effect": "every 10 rounds of a conflict, recovers 1d4 Stress from Might, unless a counter-condition the GM states applied since the last recovery.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [],

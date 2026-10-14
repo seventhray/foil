@@ -317,8 +317,8 @@
       "_key": "!actors.items!A2O0HefnDWDNKI9E.KHr4PhLDhMfHkJWL"
     },
     {
-      "_id": "1rZGU6bSRGrZn8AF",
-      "name": "Cowing Rebuke",
+      "_id": "uDII48RMFV18h3aX",
+      "name": "Stern Rebuke",
       "type": "technique",
       "img": "icons/svg/aura.svg",
       "system": {
@@ -331,7 +331,7 @@
         "subgroup": "",
         "effects": [
           {
-            "key": "intimidated",
+            "key": "reeling-minute",
             "magnitude": 1,
             "pattern": "single",
             "bands": 0,
@@ -340,7 +340,7 @@
           }
         ],
         "floor": false,
-        "ancestryGrant": "Frozen North",
+        "ancestryGrant": "",
         "description": ""
       },
       "effects": [],
@@ -350,7 +350,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!A2O0HefnDWDNKI9E.1rZGU6bSRGrZn8AF"
+      "_key": "!actors.items!A2O0HefnDWDNKI9E.uDII48RMFV18h3aX"
     },
     {
       "_id": "tnxf6HGjHAq3yR6i",

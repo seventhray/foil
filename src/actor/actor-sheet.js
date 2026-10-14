@@ -21,7 +21,7 @@ import {
   REST_BLOCK_HOURS, REST_RATION_HOURS, MARGIN_CAP, marginCap, CONDITION_OPPOSE, CONDITION_ATTR, EFFECT_CONDITION
 } from "../constants.js";
 import { equipmentSummary } from "../registry.js";
-import { stressFor } from "../stress.js";
+import { stressFor, alwaysTypes, isAlwaysType } from "../stress.js";
 import { ask, dialogApi, addButton, esc } from "../dialogs.js";
 import "../chat-actions.js";
 import { allowedAims, conditionFlags, conditionMods, signedParts, skillFormula, targetFlags } from "../combat.js";
@@ -283,11 +283,11 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
     const types = inst.system.stressTypes ?? [];
     const allowed = allowedAims({ text, stressTypes: inst.system.stressTypes ?? [], requires });
     const attrs = (allowed.length ? allowed : ATTRIBUTE_KEYS).map(k => `<option value="${k}">${ATTR_LABEL[k]}</option>`).join("");
-    const typeOpts = [...types.map((t, i) => `<option value="${i}">${esc(t.label)}</option>`), `<option value="">None</option>`].join("");
+    const typeOpts = [...types.map((t, i) => isAlwaysType(t) ? "" : `<option value="${i}">${esc(t.label)}</option>`), `<option value="">None</option>`].join("");
     const answer = await ask(`${name}: aim`,
       `<p>Target${tokens.length > 1 ? "s" : ""}: ${tokens.map(t => esc(t.name)).join(", ")}</p>${notes.length ? `<p><em>${notes.join("<br>")}</em></p>` : ""}`
       + `<div class="form-group"><label>Attribute aimed at</label><select name="aim">${attrs}</select></div>`
-      + (types.length ? `<div class="form-group"><label>Type effect <em>(one, your choice)</em></label><select name="type">${typeOpts}</select></div>` : "")
+      + (types.some(t => !isAlwaysType(t)) ? `<div class="form-group"><label>Type used <em>(one for this Technique; Drawn and Fired always add)</em></label><select name="type">${typeOpts}</select></div>` : "")
       + `<div class="form-group"><label>Other Stress bonus <em>(a Feat such as Heavy Hand)</em></label><input type="number" name="other" value="0" /></div>`,
       "Roll");
     if (!answer) return null;
@@ -295,7 +295,7 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
       notes,
       targets: tokens.map(t => ({ uuid: t.document.uuid, actorId: t.actor?.id ?? "", name: t.name })),
       aim: (allowed.length ? allowed : ATTRIBUTE_KEYS).includes(answer.aim) ? answer.aim : (allowed[0] ?? "might"),
-      typeIndex: types.length ? (answer.type ?? "0") : "",
+      typeIndex: types.some(t => !isAlwaysType(t)) ? (answer.type ?? "") : "",
       other: Math.trunc(Number(answer.other) || 0)
     };
   }
@@ -814,14 +814,15 @@ export class FoilCreatureSheet extends FoilActorSheet {
  * Applying it to the target stays with the table.
  */
 async function computeStress(flag) {
-  const typeOpts = [`<option value="">None</option>`, ...(flag.types ?? []).map((t, i) =>
-    `<option value="${i}" ${i === 0 ? "selected" : ""}>${esc(t.label)}</option>`)].join("");
+  const pick = (flag.types ?? []).findIndex(t => !isAlwaysType(t));
+  const typeOpts = [`<option value="">None</option>`, ...(flag.types ?? []).map((t, i) => isAlwaysType(t) ? "" :
+    `<option value="${i}" ${i === pick ? "selected" : ""}>${esc(t.label)}</option>`)].join("");
   const answer = await ask(`${flag.name}: Stress`,
     `<p>${esc(flag.name)} rolled <strong>${flag.attackTotal}</strong>.</p>`
     + `<div class="form-group"><label>Target's Oppose total</label><input type="number" name="oppose" autofocus /></div>`
     + `<div class="form-group"><label>Attribute aimed at</label><select name="kind"><option value="physical">Might or Finesse</option><option value="mental">Wit or Presence</option></select></div>`
     + `<div class="form-group"><label>Target's Resistance of that kind</label><input type="number" name="resistance" value="0" /></div>`
-    + ((flag.types ?? []).length ? `<div class="form-group"><label>Type effect <em>(one, your choice)</em></label><select name="type">${typeOpts}</select></div>` : "")
+    + (pick >= 0 ? `<div class="form-group"><label>Type used <em>(one for this Technique; Drawn and Fired always add)</em></label><select name="type">${typeOpts}</select></div>` : "")
     + `<div class="form-group"><label>Other Stress bonus <em>(a Feat such as Heavy Hand)</em></label><input type="number" name="other" value="0" /></div>`,
     "Compute");
   if (!answer) return;
@@ -835,6 +836,7 @@ async function computeStress(flag) {
     kind: answer.kind === "mental" ? "mental" : "physical",
     resistance: Number(answer.resistance) || 0,
     type: answer.type === "" || answer.type === undefined ? null : flag.types?.[Number(answer.type)] ?? null,
+    always: alwaysTypes(flag.types),
     bespoke: Number(flag.bespoke ?? 0), other: Number(answer.other) || 0, pierce: Number(flag.pierce ?? 0)
   });
   if (!r.landed) {
