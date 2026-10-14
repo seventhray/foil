@@ -103,7 +103,7 @@ export const SOURCE_ABILITIES = { might: ["str", "con"], finesse: ["dex", "con"]
 
 /**
  * Assign Attributes from Ability Scores (GMG 11.7.0): average each Attribute's two source abilities, take the
- * center of the four, and move an Attribute one step per 4 points from the center, past 4.
+ * center of the four, and move an Attribute one step for each full 4 points from the center.
  */
 export function abilitySteps(scores) {
   const source = {};
@@ -112,7 +112,7 @@ export function abilitySteps(scores) {
   const steps = {};
   for (const [attr, v] of Object.entries(source)) {
     const d = v - center;
-    const mag = Math.abs(d) > 4 ? Math.floor(Math.abs(d) / 4) : 0;
+    const mag = Math.floor(Math.abs(d) / 4);
     steps[attr] = d < 0 ? -mag : mag;
   }
   return { source, center, steps };
