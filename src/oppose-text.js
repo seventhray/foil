@@ -43,7 +43,7 @@ export const conditionAppliedCard = (defenderName, conditionName, go) =>
 export const stressCard = (defenderName, aim, r, versus) =>
   flavor(`<strong>${r.stress} Stress</strong> to ${esc(defenderName)}'s ${ATTR_LABEL[aim]}<br><em>${versus}.<br>${r.parts.map(esc).join("<br>")}</em>`);
 export const stressAppliedCard = (amount, lines, note) =>
-  flavor(`<strong>${amount} Stress applied</strong><br><em>${lines.join(", ")}${note}</em>`);
+  flavor(`<strong>${amount} Stress applied</strong><br><em>${lines.join("<br>")}${note}</em>`);
 export const rerollCard = (title, total, die, again) =>
   flavor(`<strong>${title}: ${total}</strong><br><em>Foil Token spent. d${die.faces} rerolled ${die.value} &rarr; ${again}.</em>`);
 

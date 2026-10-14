@@ -43,15 +43,17 @@ async function offerReroll(actor, roll, title) {
 
 
 /** Lay Stress on an Attribute; what it cannot hold overflows where the defender chooses (PHB 6.7.0). */
-async function applyStress(actor, aim, amount, halved = false) {
-  const lines = [];
+async function applyStress(actor, aim, amount, halved = false, from = amount) {
+  // The math of what lands: the Foil Token halving, then each Attribute it fills or overflows onto.
+  const lines = halved ? [`Foil Token: ${from} / 2, rounded down = ${amount}`] : [];
   let left = amount, attr = aim, destroyed = false;
   const applied = [];
   while (left > 0) {
     const take = Math.min(left, actor.potentialOf(attr));
     if (take > 0) {
       const { before, after } = await actor.takeStress(attr, take);
-      lines.push(`${ATTR_LABEL[attr]} ${before} &rarr; ${after}`);
+      const max = actor.system.attributes?.[attr]?.potential?.max ?? "";
+      lines.push(`${attr === aim ? "" : "overflow to "}${ATTR_LABEL[attr]} takes ${take}: Potential left ${before} &rarr; ${after} of ${max}`);
       applied.push({ attr, amount: take });
       left -= take;
     }
@@ -192,12 +194,13 @@ export async function resolveOppose(message, index) {
   const cur = actor.potentialOf(aim);
   const go = await ask(`Apply Stress to ${actor.name}`, applyStressDialog({ defenderName: actor.name, aim, amount: r.stress, cur, max: sys.attributes?.[aim]?.potential?.max ?? cur, tokens: hasToken(actor) ? actor.foilTokens : 0 }), "Apply");
   let amount = Math.max(0, Math.trunc(Number(go?.amount) || 0));
+  const from = amount;
   const halved = !!go?.halve && hasToken(actor);
   if (go?.halve && hasToken(actor)) {
     amount = Math.floor(amount / 2);
     await actor.setFoilTokens(actor.foilTokens - 1);
   }
-  if (go && amount) await applyStress(actor, aim, amount, halved);
+  if (go && amount) await applyStress(actor, aim, amount, halved, from);
 }
 
 Hooks.on("createChatMessage", async message => {
