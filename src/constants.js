@@ -68,7 +68,7 @@ export const RANGE_FEET = {
 
 /**
  * The furthest band a free-text range names. "Range 4" is short; "Range 2-4" runs from near
- * up to Range 4 (short); the older band words still read ("Touching to Close" -> close).
+ * up to and including Range 4 (short); the older band words still read ("Touching to Close" -> close).
  */
 export function rangeBandOf(text) {
   const t = String(text ?? "");
