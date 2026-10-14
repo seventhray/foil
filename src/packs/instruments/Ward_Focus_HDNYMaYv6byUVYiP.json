@@ -29,7 +29,7 @@
       {
         "name": "Calm the Nerves",
         "skill": "resonance",
-        "effect": "Removes a Frightened, Wary, or Intimidated Condition from an ally within Close."
+        "effect": "Removes a Frightened, Wary, or Intimidated Condition from an ally within Range 1."
       }
     ],
     "innate": false,
