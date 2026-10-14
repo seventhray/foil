@@ -86,6 +86,7 @@ check("creature formulas reproduce the GMG tier table", tierRows.map(([t, th]) =
   tierRows.map(([t, th, p, tp, rb, a, c]) => [t, p, tp, rb, a, c]));
 check("a tier is the nearest anchor, a tie going lower", [tierFor(64), tierFor(65), tierFor(-1000), tierFor(2000)], [4, 5, 1, 10]);
 check("CR converts to Threat, past CR 21 by 64 each", [crToThreat("9"), crToThreat("1/2"), crToThreat("24")], [424, -128, 1728]);
+check("the Allowance range is 0.9 to 1.1 of the formula (GMG 9.1.0)", [0, 128, 1536].map(t => { const n = creatureNumbers(t); return [n.allowanceMin, n.allowanceMax]; }), [[69, 83], [106, 128], [271, 331]]);
 check("Threat 1728 gives Potential 74 and Allowance 310", [creatureNumbers(1728).potential, creatureNumbers(1728).allowance], [74, 310]);
 check("dice follow the Target Potential table", [diceFor(20).formula, diceFor(14).formula, diceFor(3).formula, diceFor(50).formula, diceFor(1).formula], ["1d20", "1d6+1d8", "1d4", "2d20+1d10", "none"]);
 check("Assign Attributes moves two Potential a step and flags a bad total", [assignAttributes(20, { might: 2, finesse: 0, wit: -1, presence: -1 }).potentials.might, assignAttributes(20, { might: 2, finesse: 0, wit: -1, presence: -1 }).notes.length, assignAttributes(20, { might: 2, finesse: 2, wit: 0, presence: 0 }).notes.length], [24, 0, 1]);
@@ -94,7 +95,7 @@ check("the GMG's Natural Weapons, Monster Feats, and Traits load", [NATURAL_WEAP
 check("Legendary Action prices per use and Specialized Resistance per point", [MONSTER_FEATS.find(f => f.name === "Legendary Action").per, MONSTER_FEATS.find(f => f.name === "Specialized Resistance").per], ["use", "point"]);
 
 const brute = abilitySteps({ str: 25, dex: 9, con: 23, int: 10, wis: 14, cha: 13 });
-check("the creature numbers show their math (GMG 9.1.0)", creatureNumbers(0).math.at(-1), "Allowance: 40 + 3.6 x sqrt(0), rounded = 40 + 2 x the Training cost of +2 (18) = 76 XP");
+check("the creature numbers show their math (GMG 9.1.0)", creatureNumbers(0).math.at(-2), "Allowance: 40 + 3.6 x sqrt(0), rounded = 40 + 2 x the Training cost of +2 (18) = 76 XP");
 check("exactly 4 from center is one full step (GMG 11.7.0)", abilitySteps({ str: 22, dex: 10, con: 10, int: 10, wis: 10, cha: 14 }).steps, { might: 1, finesse: 0, wit: 0, presence: 0 });
 check("the GMG brute example steps Might up and Wit down", [brute.steps.might, brute.steps.finesse, brute.steps.wit, brute.steps.presence, brute.center], [1, 0, -1, 0, 16.375]);
 const controller = abilitySteps({ str: 11, dex: 16, con: 16, int: 20, wis: 14, cha: 16 });

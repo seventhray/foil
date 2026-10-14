@@ -150,7 +150,7 @@
   <fieldset>
     <legend data-tooltip="Allowance is what the creature can spend on Training, Feats, and Techniques together. Ceiling caps any single one.">Result</legend>
     <p>Threat <strong>{{n.threat}}</strong> &middot; Tier <strong>{{n.tier}}</strong> &middot; Baseline Potential <strong>{{n.potential}}</strong> &middot; Total Potential <strong>{{n.totalPotential}}</strong></p>
-    <p>Allowance <strong>{{n.allowance}} XP</strong> (spent {{allowanceSpent}}, left {{allowanceLeft}}) &middot; Ceiling <strong>{{n.ceiling}} XP</strong> &middot; Training <strong>up to +{{trainCap}}</strong></p>
+    <p>Allowance <strong>{{n.allowanceMin}} to {{n.allowanceMax}} XP</strong> (spent {{allowanceSpent}}, {{allowanceLeft}} to the Max) &middot; Ceiling <strong>{{n.ceiling}} XP</strong> &middot; Training <strong>up to +{{trainCap}}</strong></p>
     <div class="derived-line math-line"><em>{{#each mathLines}}{{this}}<br>{{/each}}</em></div>
     {{#each warnings}}<p class="type-warning-banner">{{this}}</p>{{/each}}
   </fieldset>

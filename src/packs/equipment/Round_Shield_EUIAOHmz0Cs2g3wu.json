@@ -8,8 +8,8 @@
     "price": 30,
     "weight": 0,
     "weightClass": "light",
-    "size": "medium",
-    "materials": "Wood + Metal",
+    "size": "small",
+    "materials": "Wood",
     "location": "carried",
     "qualities": [
       {

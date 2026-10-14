@@ -36,8 +36,8 @@
     ],
     "innate": false,
     "bonus": 0,
-    "size": "medium",
-    "materials": "Metal + Leather",
+    "size": "small",
+    "materials": "Metal",
     "description": ""
   },
   "effects": [],

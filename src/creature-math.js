@@ -40,10 +40,13 @@ export function creatureNumbers(threat) {
            : `Resistance points: (${potential} - 8) / 8, rounded down = ${Math.max(0, points)}; budget 8 x ${Math.max(0, points)} = ${8 * Math.max(0, points)}; cap +${Math.max(0, points) + 1}`,
     `Allowance: ${nonneg ? `40 + 3.6 x sqrt(${threat}), rounded = ${base}` : `2 x ${potential} - 12 = ${base}`} + 2 x the Training cost of +${Math.max(0, train)} (${trainingTotal(Math.max(0, train))}) = ${base + 2 * trainingTotal(Math.max(0, train))} XP`
   ];
+  const center = base + 2 * trainingTotal(Math.max(0, train));
+  const allowanceMin = Math.ceil(center * 0.9 - 1e-9), allowanceMax = Math.floor(center * 1.1 + 1e-9);
+  math.push(`Allowance range: Min 0.9 x ${center} = ${(center * 0.9).toFixed(1)}, rounded up = ${allowanceMin} XP; Max 1.1 x ${center} = ${(center * 1.1).toFixed(1)}, rounded down = ${allowanceMax} XP`);
   return {
     math,
     threat, tier: tierFor(threat), potential, totalPotential: 4 * potential, ceiling: 2 * potential,
-    allowance: base + 2 * trainingTotal(Math.max(0, train)),
+    allowance: center, allowanceMin, allowanceMax,
     training: Math.max(0, train), resistancePoints: Math.max(0, points), resistanceBudget: 8 * Math.max(0, points),
     resistanceCap: Math.max(0, points) + 1
   };

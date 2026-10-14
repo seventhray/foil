@@ -35,8 +35,8 @@
     ],
     "innate": false,
     "bonus": 0,
-    "size": "medium",
-    "materials": "Wood + Leather",
+    "size": "small",
+    "materials": "Wood",
     "description": ""
   },
   "effects": [],

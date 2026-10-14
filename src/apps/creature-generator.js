@@ -141,10 +141,10 @@ export class FoilCreatureGenerator extends HandlebarsApplicationMixin(Applicatio
       + featRows.reduce((a, f) => a + f.cost, 0) + traitRows.filter(t => t.checked).reduce((a, t) => a + t.xp, 0);
     const picked = s.instruments.filter(x => x.pick).length;
     if (picked < 2 || picked > 3) warnings.push("Pick 2 or 3 Instruments (GMG 9.6.0)");
-    if (spentAllowance > n.allowance) warnings.push(`Allowance overspent: ${spentAllowance} of ${n.allowance} XP`);
+    if (spentAllowance > n.allowanceMax) warnings.push(`Allowance overspent: ${spentAllowance} against a Max of ${n.allowanceMax} XP`);
     for (const t of techniques.filter(x => x.checked && x.over)) warnings.push(`${t.name} costs more than the Ceiling of ${n.ceiling} XP`);
     for (const f of featRows.filter(x => x.over)) warnings.push(`${f.name} costs more than the Ceiling of ${n.ceiling} XP`);
-    if (spentAllowance < n.allowance / 2) warnings.push("Most of the Allowance is unspent: the creature is underbuilt (GMG 9.5.0)");
+    if (spentAllowance < n.allowanceMin) warnings.push(`Allowance underspent: ${spentAllowance} against a Min of ${n.allowanceMin} XP, so the creature is underbuilt (GMG 9.5.0)`);
     const behaviorRows = s.behaviors.map((b, i) => ({
       idx: i, param: b.param, help: BEHAVIOR_HELP[b.trait] ?? "What the creature does once an Attribute is Incapacitated. With no Trait it Holds and fights on.", needsParam: /\[/.test(b.trait),
       choices: [{ value: "", label: i === 0 ? "None (Holds)" : "None", selected: !b.trait }, ...BEHAVIOR_TRAITS.map(t => ({ value: t, label: t, selected: t === b.trait }))]
@@ -181,9 +181,9 @@ export class FoilCreatureGenerator extends HandlebarsApplicationMixin(Applicatio
         ...rows.map(r => `${r.label}: ${n.potential} ${r.steps >= 0 ? "+" : "-"} 2 x ${Math.abs(r.steps ?? 0)} steps = ${r.potential} (${r.dice})`),
         `Total Potential: ${rows.map(r => r.potential).join(" + ")} = ${diff.total}, against ${n.totalPotential}`,
         `Resistance: 8 x (${s.physical} Physical + ${s.mental} Mental) = ${spent} of ${budget}`,
-        `Allowance spent: Training ${trainRows.reduce((a, t) => a + t.cost, 0)} + Techniques ${techniques.filter(t => t.checked).reduce((a, t) => a + t.xp, 0)} + Feats ${featRows.reduce((a, f) => a + f.cost, 0)} + Traits ${traitRows.filter(t => t.checked).reduce((a, t) => a + t.xp, 0)} = ${spentAllowance} of ${n.allowance}`
+        `Allowance spent: Training ${trainRows.reduce((a, t) => a + t.cost, 0)} + Techniques ${techniques.filter(t => t.checked).reduce((a, t) => a + t.xp, 0)} + Feats ${featRows.reduce((a, f) => a + f.cost, 0)} + Traits ${traitRows.filter(t => t.checked).reduce((a, t) => a + t.xp, 0)} = ${spentAllowance}, between a Min of ${n.allowanceMin} and a Max of ${n.allowanceMax}`
       ],
-      allowanceLeft: n.allowance - spentAllowance
+      allowanceLeft: n.allowanceMax - spentAllowance
     };
   }
 
@@ -253,7 +253,7 @@ export class FoilCreatureGenerator extends HandlebarsApplicationMixin(Applicatio
     for (const k of ATTRIBUTE_KEYS) attributes[k] = { dice: diceFor(diff.potentials[k]).counts };
     const skills = {};
     for (const t of s.train.filter(x => x.skill)) skills[t.skill] = { training: Math.min(Number(t.level ?? Math.max(1, n.training)), trainCap) };
-    const notes = `<p>Threat ${n.threat}, Tier ${n.tier}. Allowance ${n.allowance} XP, Ceiling ${n.ceiling} XP, Training up to +${trainCap}, `
+    const notes = `<p>Threat ${n.threat}, Tier ${n.tier}. Allowance ${n.allowanceMin} to ${n.allowanceMax} XP, Ceiling ${n.ceiling} XP, Training up to +${trainCap}, `
       + `Resistance budget ${n.resistanceBudget} (cap +${n.resistanceCap}). Spend the Allowance on Training, Feats and Techniques (GMG 9.4.0 to 9.7.0).</p>`;
     const packs = this._cache ?? await loadPacks();
     const items = [];

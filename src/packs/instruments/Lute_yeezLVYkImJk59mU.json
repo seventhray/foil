@@ -35,8 +35,8 @@
     ],
     "innate": false,
     "bonus": 0,
-    "size": "medium",
-    "materials": "Wood + Textile",
+    "size": "small",
+    "materials": "Wood",
     "description": ""
   },
   "effects": [],
