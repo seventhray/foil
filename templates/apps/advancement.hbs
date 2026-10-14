@@ -7,7 +7,7 @@
   <div class="xp-summary">
     <span>Total <strong>{{xp.total}}</strong></span>
     <span>Spent <strong>{{xp.spent}}</strong></span>
-    <span>Available <strong>{{xp.available}}</strong></span>
+    <span>Available <strong>{{xp.available}}</strong> <em>({{xp.total}} - {{xp.spent}})</em></span>
   </div>
 
   <fieldset>
@@ -18,11 +18,11 @@
         <div class="adv-btn-row">
           {{#each this.steps}}
             <a class="adv-btn" data-action="advanceDie" data-attr="{{../key}}" data-size="{{this.size}}" data-next="{{this.next}}">
-              Talent: {{this.label}} <em>({{this.cost}} XP)</em>
+              Talent: {{this.label}} <em>({{this.cost}} XP: {{this.math}})</em>
             </a>
           {{/each}}
           <a class="adv-btn" data-action="addDie" data-attr="{{this.key}}">
-            Know-how: add 1d4 <em>({{this.newDieCost}} XP)</em>
+            Know-how: add 1d4 <em>({{this.newDieMath}})</em>
           </a>
         </div>
       </div>
@@ -38,7 +38,7 @@
           {{#if this.capped}}
             <span class="hint">At cap</span>
           {{else}}
-            <a class="adv-btn" data-action="train" data-skill="{{this.key}}">+1 Training <em>({{this.cost}} XP)</em></a>
+            <a class="adv-btn" data-action="train" data-skill="{{this.key}}">+1 Training <em>({{this.math}})</em></a>
           {{/if}}
         </div>
       </div>

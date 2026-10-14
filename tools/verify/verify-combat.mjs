@@ -94,6 +94,7 @@ check("the GMG's Natural Weapons, Monster Feats, and Traits load", [NATURAL_WEAP
 check("Legendary Action prices per use and Specialized Resistance per point", [MONSTER_FEATS.find(f => f.name === "Legendary Action").per, MONSTER_FEATS.find(f => f.name === "Specialized Resistance").per], ["use", "point"]);
 
 const brute = abilitySteps({ str: 25, dex: 9, con: 23, int: 10, wis: 14, cha: 13 });
+check("the creature numbers show their math (GMG 9.1.0)", creatureNumbers(0).math.at(-1), "Allowance: 40 + 3.6 x sqrt(0), rounded = 40 + 2 x the Training cost of +2 (18) = 76 XP");
 check("exactly 4 from center is one full step (GMG 11.7.0)", abilitySteps({ str: 22, dex: 10, con: 10, int: 10, wis: 10, cha: 14 }).steps, { might: 1, finesse: 0, wit: 0, presence: 0 });
 check("the GMG brute example steps Might up and Wit down", [brute.steps.might, brute.steps.finesse, brute.steps.wit, brute.steps.presence, brute.center], [1, 0, -1, 0, 16.375]);
 const controller = abilitySteps({ str: 11, dex: 16, con: 16, int: 20, wis: 14, cha: 16 });

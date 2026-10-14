@@ -60,10 +60,12 @@ export class FoilAdvancement extends HandlebarsApplicationMixin(ApplicationV2) {
         .map(size => {
           const next = DIE_SIZES[DIE_SIZES.indexOf(size) + 1];
           const note = size >= 12 ? " (a Transformation; add what it gives, PHB 7.3.0)" : "";
-          return { size, next, cost: dieStepCost(size), label: `d${size} to d${next}${note}` };
+          const math = size >= 12 ? `d12 to d20: ${XP_COST.d12ToD20} XP` : `a d${size} steps up for ${XP_COST.talent[size]} XP (8 per d4, 12 per d6, 16 per d8, 20 per d10)`;
+          return { size, next, cost: dieStepCost(size), label: `d${size} to d${next}${note}`, math };
         });
+      const held = Object.values(dice).reduce((n, c) => n + (Number(c) || 0), 0);
       return { key, label: ATTR_LABEL[key], diceFormula: a.diceFormula || "none", steps,
-        newDieCost: knowHowCost(dice) };
+        newDieCost: knowHowCost(dice), newDieMath: `${XP_COST.knowHow.base} + ${XP_COST.knowHow.perDie} x ${held} dice held = ${knowHowCost(dice)} XP` };
     });
 
     const skills = sys.skills ?? {};
@@ -71,7 +73,8 @@ export class FoilAdvancement extends HandlebarsApplicationMixin(ApplicationV2) {
       const s = skills[key] ?? {};
       const total = Number(s.trainingTotal ?? s.training ?? 0);
       const cap = Number(s.trainingCap ?? 4);
-      return { key, label: SKILL_LABEL[key], training: total, cap, capped: total >= cap, cost: trainingCost(total) };
+      return { key, label: SKILL_LABEL[key], training: total, cap, capped: total >= cap, cost: trainingCost(total),
+        math: `${XP_COST.training} + ${XP_COST.trainingStep} x ${total} held = ${trainingCost(total)} XP; cap +${cap} is the dice in both pools` };
     });
 
     const owned = new Set(this.actor.items.map(i => i.name.toLowerCase()));

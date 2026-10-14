@@ -102,7 +102,18 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
       const s = skills[key] ?? {};
       const pair = SKILL_ATTRS[key];
       const avg = s.rollAvg ?? 0;
+      // The readouts' math: each live pool's dice range, then Training and gear (Mass and Conditions apply on the roll).
+      const attrs = this.actor.system.attributes ?? {};
+      const live = pair.filter(ak => attrs[ak] && !attrs[ak].down && attrs[ak].diceFormula);
+      const flat = Number(s.trainingTotal ?? 0) + Number(s.skillBonus ?? 0);
+      const dice = live.map(ak => `${ATTR_LABEL[ak]} ${attrs[ak].diceFormula} (${attrs[ak].min}-${attrs[ak].max}, avg ${attrs[ak].avg})`);
+      const dropped = pair.filter(ak => attrs[ak]?.down).map(ak => `${ATTR_LABEL[ak]} Incapacitated, no dice`);
+      const sumAvg = live.reduce((n, ak) => n + Number(attrs[ak].avg ?? 0), 0);
+      const readoutMath = [...dice, ...dropped, `Training ${s.trainingBase ?? 0}`, ...(s.trainingBonus ? [`Training from Feats ${s.trainingBonus}`] : []),
+        ...(s.skillBonus ? [`gear ${s.skillBonus}`] : [])].join(" + ")
+        + `. Passive: ${sumAvg} rounded down + ${flat} = ${s.passive ?? 0}. Training cap ${s.trainingCap ?? 0} (dice in both pools). On a roll, Mass and Conditions also apply.`;
       return {
+        readoutMath,
         key, label: SKILL_LABEL[key], abbr: SKILL_ABBR[key],
         pairLabel: `${ATTR_LABEL[pair[0]]} + ${ATTR_LABEL[pair[1]]}`,
         training: s.trainingBase ?? 0, trainingBonus: s.trainingBonus ?? 0, skillBonus: s.skillBonus ?? 0,
@@ -214,7 +225,9 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
   _instrumentExtras(inst, skill) {
     if (!inst) return [];
     const out = [];
-    if (inst.system.bonusRoll) out.push({ label: `${inst.name} +${inst.system.bonus}`, value: Number(inst.system.bonusRoll) });
+    const own = Number(inst.system.bonusRoll ?? 0) - Number(inst.system.enchantRoll ?? 0);
+    if (own) out.push({ label: `${inst.name} +${inst.system.bonus}`, value: own });
+    if (inst.system.enchantRoll) out.push({ label: `${inst.name} Enchantment`, value: Number(inst.system.enchantRoll) });
     if (inst.system.enchantSkill?.skill === skill && inst.system.enchantSkill.n) out.push({ label: `${inst.name} Enchantment`, value: Number(inst.system.enchantSkill.n) });
     return out;
   }
@@ -263,7 +276,7 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
         ...(applied && CONDITION_OPPOSE[applied] ? this._conditionFlag(kit.name, roll.total, { name: applied, note: "" }, { melee: !!inst.system.isMelee }) : {}),
         ...(stress ? this._stressFlag(inst, kit.name, roll.total, { aim,
           bespoke: [{ label: kit.name, value: bespokeBonus(kit.effect) }, { label: `${inst.name} Enchantment`, value: Number(inst.system.enchantStress ?? 0) }],
-          pierce: [{ label: `${inst.name} +${inst.system.bonus}`, value: Number(inst.system.bonusPierce ?? 0) }] }) : {})
+          pierce: [{ label: `${inst.name} +${inst.system.bonus}`, value: Number(inst.system.bonusPierce ?? 0) - Number(inst.system.enchantPierce ?? 0) }, { label: `${inst.name} Enchantment`, value: Number(inst.system.enchantPierce ?? 0) }] }) : {})
       }));
   }
 
@@ -433,6 +446,8 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
 
     const gem = inst?.system.gemActive ? inst.system.gem : null;
     const gemPierce = gem?.type === "emerald" && sys.pierceTotal ? Number(gem.tier) : 0;
+    if (gem && gem.type !== "emerald") notes.push(`Focus Gem: ${esc(inst.system.gemSummary)} (1 per Tier x Tier ${gem.tier}; apply at the table, PHB 5.2.3).`);
+    else if (gem && !gemPierce) notes.push(`Focus Gem: ${esc(inst.system.gemSummary)} (adds nothing: this Technique has no Pierce).`);
     const wdice = sys.offensive && inst?.type === "instrument" && inst.system.weightDice ? [{ label: inst.system.weightLabel || "Weight", dice: inst.system.weightDice }] : [];
     notes.unshift(this._math(skill, bonus, wdice));
     const applied = !sys.dealsStress ? (sys.effects ?? []).find(e => CONDITION_OPPOSE[EFFECT_CONDITION[e.key]]) : null;
@@ -443,7 +458,7 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
       ...(condition ? this._conditionFlag(tech.name, roll.total, condition, { melee: !!inst?.system.isMelee }) : {}),
       ...(sys.dealsStress && inst ? this._stressFlag(inst, tech.name, roll.total, {
         bespoke: [{ label: tech.name, value: Number(sys.stressRider ?? 0) }, { label: `${inst.name} Enchantment`, value: Number(inst.system.enchantStress ?? 0) }],
-        pierce: [{ label: tech.name, value: Number(sys.pierceTotal ?? 0) }, { label: `${inst.name} +${inst.system.bonus}`, value: Number(inst.system.bonusPierce ?? 0) }, { label: "Emerald", value: gemPierce }], aim
+        pierce: [{ label: tech.name, value: Number(sys.pierceTotal ?? 0) }, { label: `${inst.name} +${inst.system.bonus}`, value: Number(inst.system.bonusPierce ?? 0) - Number(inst.system.enchantPierce ?? 0) }, { label: `${inst.name} Enchantment`, value: Number(inst.system.enchantPierce ?? 0) }, { label: "Emerald", value: gemPierce }], aim
       }) : {})
     }));
   }
@@ -645,13 +660,13 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
     for (const key of ATTRIBUTE_KEYS) {
       if (!Number(this.actor.system.attributes?.[key]?.potential?.max)) continue;
       const { before, after } = await this.actor.takeStress(key, leg.stress);
-      lines.push(`${ATTR_LABEL[key]} ${before} &rarr; ${after}`);
+      lines.push(`${ATTR_LABEL[key]} Potential ${before} &rarr; ${after}`);
     }
     if (leg.rationUsed) await this.actor.update({ "system.rations": rations - 1 });
-    const note = `${leg.stress} Stress each (${leg.base}${leg.extra ? ` + ${leg.extra} for Mass` : ""})${leg.rationUsed ? ", 1 ration eaten" : ", no ration to eat"}`;
+    const note = `${leg.stress} Stress each: ${leg.base} (${answer.result === "fail" ? "failed leg" : "leg"}) + ${leg.extra} (Mass penalty) = ${leg.stress}${leg.rationUsed ? `; 1 ration eaten (${rations} &rarr; ${rations - 1})` : "; no ration to eat"}`;
     logEvent("travel", { actor: who(this.actor), failed: answer.result === "fail", stress: leg.stress, massExtra: leg.extra, rationUsed: leg.rationUsed, summary: lines });
     await ChatMessage.create({ speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-      content: `<div class="foil-flavor"><strong>${this.actor.name} travels a leg</strong><br><em>${note}: ${lines.join("; ")}</em></div>` });
+      content: `<div class="foil-flavor"><strong>${this.actor.name} travels a leg</strong><br><em>${note}<br>${lines.join("<br>")}</em></div>` });
   }
 
   static async _onRest() {
@@ -701,18 +716,19 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
       if (r.fed <= 0) continue;
       const roll = await new Roll(`${r.fed}d4`).evaluate();
       const { before, after } = await this.actor.heal(r.key, roll.total);
-      lines.push(`${ATTR_LABEL[r.key]} ${before} &rarr; ${after} (${r.fed}d4 = ${roll.total})`);
+      const faces = roll.dice.flatMap(d => d.results.map(x => x.result)).join(", ");
+      lines.push(`${ATTR_LABEL[r.key]}: ${r.fed} x ${REST_BLOCK_HOURS} h = ${r.fed}d4 [${faces}] = ${roll.total} off, Potential ${before} &rarr; ${after} of ${r.max}`);
     }
     if (!lines.length) lines.push("No ration to eat: the time passes, but heals nothing");
     else if (plan.unfedHours) lines.push(`${plan.unfedHours} hours unfed heal nothing`);
     if (plan.used) {
       await this.actor.update({ "system.rations": rationsOn - plan.used });
-      lines.push(`${plan.used} ration${plan.used === 1 ? "" : "s"} eaten`);
+      lines.push(`${plan.hours} h / ${REST_RATION_HOURS} h per ration, rounded up = ${plan.needed}; ${plan.used} ration${plan.used === 1 ? "" : "s"} eaten (${rationsOn} &rarr; ${rationsOn - plan.used})`);
     }
     logEvent("rest", { actor: who(this.actor), hours: plan.hours, rationsUsed: plan.used, unfedHours: plan.unfedHours,
       attributes: plan.rows.filter(r => r.chosen).map(r => ({ attribute: r.key, blocks: r.chosen, fed: r.fed, from: r.cur })), summary: lines });
     await ChatMessage.create({ speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-      content: `<div class="foil-flavor"><strong>${this.actor.name} rests ${plan.hours} hours</strong><br><em>${lines.join("; ")}</em></div>` });
+      content: `<div class="foil-flavor"><strong>${this.actor.name} rests ${plan.hours} hours</strong><br><em>${lines.join("<br>")}</em></div>` });
   }
 
   // ─── Embedded item CRUD ─────────────────────────────────────────────────────
@@ -865,7 +881,7 @@ async function computeStress(flag) {
     return ChatMessage.create({ speaker, content: `<div class="foil-flavor"><strong>${esc(flag.name)} fails.</strong><br><em>The Oppose beat it (PHB 6.5.0).</em></div>` });
   }
   return ChatMessage.create({ speaker, content:
-    `<div class="foil-flavor"><strong>${r.stress} Stress</strong> to the Attribute aimed at<br><em>${r.parts.join("; ")}.</em></div>` });
+    `<div class="foil-flavor"><strong>${r.stress} Stress</strong> to the Attribute aimed at<br><em>${r.parts.map(esc).join("<br>")}</em></div>` });
 }
 
 /** Spend a Foil Token to reroll one die of a posted Skill roll; the new result stands (PHB 3.2.0). */

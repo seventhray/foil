@@ -148,6 +148,8 @@ export class InstrumentData extends foundry.abstract.TypeDataModel {
     this.bonusPrice = (BONUS_PRICE[this.size] ?? BONUS_PRICE.medium)[this.bonus] ?? 0;
     // Crafting (PHB 5.3.2): the size's batches at the item's Tier (its bonus).
     this.craftCost = (SIZE[this.size]?.batches ?? 2) * (MATERIAL_TIER_PRICE[this.bonus] ?? 0);
+    this.bonusMath = `+${this.bonus} on a ${SIZE[this.size]?.label ?? this.size} item = ${this.bonusPrice}p (PHB 7.10.1)`;
+    this.craftMath = `${SIZE[this.size]?.batches ?? 2} batches (${SIZE[this.size]?.label ?? this.size}) x Tier ${this.bonus} Common ${MATERIAL_TIER_PRICE[this.bonus] ?? 0}p = ${this.craftCost}p (PHB 5.3.1, 5.3.2)`;
 
     // Type effects (PHB 4.1.1).
     // A Light Instrument's built-ins can use the Quick Action (PHB 4.1.1). The Quick Type
@@ -171,6 +173,8 @@ export class InstrumentData extends foundry.abstract.TypeDataModel {
     const eb = this.enchantment?.bonus ?? {};
     this.enchantSkill = { skill: "", n: 0 };
     this.enchantStress = 0;
+    this.enchantRoll = 0;
+    this.enchantPierce = 0;
     if (eb.kind) {
       // 10p per XP, from the Effects table: a Skill or roll point 6 XP, Pierce 4, Stress 8 (PHB 5.3.4).
       const perPoint = { skill: 60, roll: 60, aid: 60, pierce: 40, stress: 80 }[eb.kind] ?? 0;
@@ -180,8 +184,8 @@ export class InstrumentData extends foundry.abstract.TypeDataModel {
       this.enchantBonus = { price, label: `${what}${(eb.situational || eb.kind === "aid") ? ` (${eb.circumstance || "situational"})` : ""}`, applies: !eb.situational && eb.kind !== "aid",
                             difficulty: [8, 12, 16, 20, 24, 32][eb.n] ?? 12, materialTier: eb.n };
       if (this.enchantBonus.applies) {
-        if (eb.kind === "roll") this.bonusRoll += eb.n;
-        else if (eb.kind === "pierce") this.bonusPierce += eb.n;
+        if (eb.kind === "roll") { this.bonusRoll += eb.n; this.enchantRoll = eb.n; }
+        else if (eb.kind === "pierce") { this.bonusPierce += eb.n; this.enchantPierce = eb.n; }
         else if (eb.kind === "stress") this.enchantStress = eb.n;
         else if (eb.kind === "skill") this.enchantSkill = { skill: eb.skill, n: eb.n };
       }

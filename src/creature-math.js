@@ -30,9 +30,20 @@ export function creatureNumbers(threat) {
   const nonneg = threat >= 0;
   const train = nonneg ? halfUp(2 + threat / 500) : Math.floor((potential - 8) / 8);
   const points = nonneg ? halfUp(2 + threat / 533) : Math.floor((potential - 8) / 8);
+  const base = nonneg ? halfUp(40 + 3.6 * Math.sqrt(threat)) : 2 * potential - 12;
+  // Each number's math (GMG 9.1.0), shown by the Creature Generator.
+  const math = [
+    `Baseline Potential: 20 ${threat < 0 ? "-" : "+"} ${Math.abs(threat)} / 32 = ${(20 + threat / 32).toFixed(2)}, to the nearest even = ${potential}; Total Potential 4 x ${potential} = ${4 * potential}`,
+    `Ceiling: 2 x ${potential} = ${2 * potential} XP`,
+    nonneg ? `Training: 2 + ${threat} / 500 = ${(2 + threat / 500).toFixed(2)}, rounded = ${Math.max(0, train)}` : `Training: (${potential} - 8) / 8, rounded down = ${Math.max(0, train)}`,
+    nonneg ? `Resistance points: 2 + ${threat} / 533 = ${(2 + threat / 533).toFixed(2)}, rounded = ${Math.max(0, points)}; budget 8 x ${Math.max(0, points)} = ${8 * Math.max(0, points)}; cap ${Math.max(0, points)} + 1 = +${Math.max(0, points) + 1}`
+           : `Resistance points: (${potential} - 8) / 8, rounded down = ${Math.max(0, points)}; budget 8 x ${Math.max(0, points)} = ${8 * Math.max(0, points)}; cap +${Math.max(0, points) + 1}`,
+    `Allowance: ${nonneg ? `40 + 3.6 x sqrt(${threat}), rounded = ${base}` : `2 x ${potential} - 12 = ${base}`} + 2 x the Training cost of +${Math.max(0, train)} (${trainingTotal(Math.max(0, train))}) = ${base + 2 * trainingTotal(Math.max(0, train))} XP`
+  ];
   return {
+    math,
     threat, tier: tierFor(threat), potential, totalPotential: 4 * potential, ceiling: 2 * potential,
-    allowance: (nonneg ? halfUp(40 + 3.6 * Math.sqrt(threat)) : 2 * potential - 12) + 2 * trainingTotal(Math.max(0, train)),
+    allowance: base + 2 * trainingTotal(Math.max(0, train)),
     training: Math.max(0, train), resistancePoints: Math.max(0, points), resistanceBudget: 8 * Math.max(0, points),
     resistanceCap: Math.max(0, points) + 1
   };

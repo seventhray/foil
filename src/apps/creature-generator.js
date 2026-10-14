@@ -173,6 +173,16 @@ export class FoilCreatureGenerator extends HandlebarsApplicationMixin(Applicatio
       featRows: featRows.filter(f => f.qty > 0), featOptions: featRows.filter(f => !f.qty),
       traitRows: traitRows.filter(t => t.checked), traitOptions: traitRows.filter(t => !t.checked),
       allowanceSpent: spentAllowance,
+      mathLines: [
+        ...(s.source === "d20" ? [`Threat from CR ${s.cr} = ${this._threat()} (GMG 11.7.0)`] : []),
+        ...n.math,
+        ...(fromScores ? [`Center: (${Object.values(scores.source).map(v => v.toFixed(1)).join(" + ")}) / 4 = ${scores.center.toFixed(2)}`,
+          ...ATTRIBUTE_KEYS.map(k => `${ATTR_LABEL[k]}: source ${scores.source[k].toFixed(1)}, ${(scores.source[k] - scores.center).toFixed(2)} from center, ${scores.steps[k]} step(s) of 4`)] : []),
+        ...rows.map(r => `${r.label}: ${n.potential} ${r.steps >= 0 ? "+" : "-"} 2 x ${Math.abs(r.steps ?? 0)} steps = ${r.potential} (${r.dice})`),
+        `Total Potential: ${rows.map(r => r.potential).join(" + ")} = ${diff.total}, against ${n.totalPotential}`,
+        `Resistance: 8 x (${s.physical} Physical + ${s.mental} Mental) = ${spent} of ${budget}`,
+        `Allowance spent: Training ${trainRows.reduce((a, t) => a + t.cost, 0)} + Techniques ${techniques.filter(t => t.checked).reduce((a, t) => a + t.xp, 0)} + Feats ${featRows.reduce((a, f) => a + f.cost, 0)} + Traits ${traitRows.filter(t => t.checked).reduce((a, t) => a + t.xp, 0)} = ${spentAllowance} of ${n.allowance}`
+      ],
       allowanceLeft: n.allowance - spentAllowance
     };
   }
