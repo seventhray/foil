@@ -27,6 +27,8 @@ git clone https://github.com/seventhray/foil.git foil
 Players get these tools:
 
 - Character sheets. Click a Skill, a Technique, or an Instrument's built-in Technique to roll it.
+- Every roll, Stress, price, Strain, and Mass figure shows its math: each source, multiplier, and cap.
+- Instruments have a Min and Max Range. A Range warning appears when a target is outside it.
 - Create builds a starting character. Advance spends XP.
 - A Technique's Strain lands on the Instrument's Primary Attribute when it is rolled.
 - Rest splits hours among Attributes in 2-hour steps and tracks rations.
@@ -37,7 +39,7 @@ Target a token before rolling a Technique to run the whole exchange:
 - The target's owner is asked to Oppose with a legal Skill.
 - The margin, Conditions, and Resistance become Stress.
 - The owner confirms the Stress before it lands.
-- Overflow, Foil Exposed, and a Range warning are handled on the way.
+- Overflow and Foil Exposed are handled on the way.
 
 Game Masters get these tools:
 
@@ -47,7 +49,7 @@ Game Masters get these tools:
 
 ## Compendiums
 
-Instruments, Techniques, Feats, Equipment, Backgrounds, and Origins. Instrument Types, Properties, and Effects are the building blocks. A user guide opens inside Foundry.
+Instruments, Techniques, Feats, Equipment, Backgrounds, Origins, and a Bestiary of the built creatures. Instrument Types, Properties, and Effects are the building blocks. A user guide opens inside Foundry.
 
 ## Development
 
