@@ -510,7 +510,7 @@ export const MONSTER_FEATS = [
   "per": "+1",
   "xpText": "6 per +1 (max +3)",
   "requires": "any tier",
-  "effect": "+1 to this creature's Techniques for each other creature bearing this same Feat within Range 1, up to the bought maximum."
+  "effect": "+1 to this creature's Techniques for each other creature bearing this same Feat within Range 1 of its target, up to the bought maximum."
  },
  {
   "name": "Swarm",

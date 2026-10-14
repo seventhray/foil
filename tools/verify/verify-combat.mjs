@@ -20,6 +20,10 @@ const check = (name, got, want) => {
 const c = (name, note = "") => ({ name, rounds: "", note });
 check("Weakened on a named Attribute hits Skills built on it", conditionMods([c("Weakened", "Might 2")], { skill: "prowess" }).total, -2);
 check("Weakened on a named Attribute spares other Skills", conditionMods([c("Weakened", "Might 2")], { skill: "resonance" }).total, 0);
+check("Weakened instances stack", conditionMods([c("Weakened", "Might 1"), c("Weakened", "Might 2")], { skill: "prowess" }).total, -3);
+check("A repeated Reeling keeps the larger N", conditionMods([c("Reeling", "1"), c("Reeling", "2")], { oppose: true }).total, -2);
+check("A repeated Prone and Blinded count once", conditionMods([c("Prone"), c("Prone"), c("Blinded"), c("Blinded")]).total, -3);
+check("A repeated Prone gives Melee +1 once", incomingMods([c("Prone"), c("Prone")], { melee: true }).total, 1);
 check("Weakened with no Attribute named hits every roll", conditionMods([c("Weakened", "")], { skill: "guile" }).total, -1);
 check("Weakened instances stack", conditionMods([c("Weakened", "wit 1"), c("Weakened", "Wit 2")], { skill: "acuity" }).total, -3);
 check("Reeling only touches Oppose rolls", [conditionMods([c("Reeling", "2")], { skill: "acuity" }).total, conditionMods([c("Reeling", "2")], { skill: "acuity", oppose: true }).total], [0, -2]);

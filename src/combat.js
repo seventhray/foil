@@ -22,6 +22,7 @@ const amountOf = (note, fallback = 1) => {
 export function conditionMods(conditions = [], { skill, oppose = false } = {}) {
   const parts = [];
   const attrs = SKILL_ATTRS[skill] ?? [];
+  let reeling = 0, blinded = false, prone = false;   // a repeat of these keeps one instance, the larger N (PHB 6.8.0)
   for (const c of conditions) {
     const note = String(c.note ?? "").toLowerCase();
     switch (c.name) {
@@ -31,21 +32,22 @@ export function conditionMods(conditions = [], { skill, oppose = false } = {}) {
         else if (!named.length) parts.push({ label: "Weakened (no Attribute named, applied to all)", value: -amountOf(c.note) });
         break;
       }
-      case "Reeling": if (oppose) parts.push({ label: "Reeling", value: -amountOf(c.note) }); break;
-      case "Blinded": parts.push({ label: "Blinded", value: -2 }); break;
-      case "Prone":   parts.push({ label: "Prone", value: -1 }); break;
+      case "Reeling": reeling = Math.max(reeling, amountOf(c.note)); break;
+      case "Blinded": blinded = true; break;
+      case "Prone":   prone = true; break;
     }
   }
+  if (oppose && reeling) parts.push({ label: "Reeling", value: -reeling });
+  if (blinded) parts.push({ label: "Blinded", value: -2 });
+  if (prone) parts.push({ label: "Prone", value: -1 });
   return { total: parts.reduce((n, p) => n + p.value, 0), parts };
 }
 
 /** What a target's Conditions do to the Technique rolled against it: Invisible -2, Prone +1 for Melee. */
 export function incomingMods(conditions = [], { melee = false } = {}) {
   const parts = [];
-  for (const c of conditions) {
-    if (c.name === "Invisible") parts.push({ label: "Invisible", value: -2 });
-    else if (c.name === "Prone" && melee) parts.push({ label: "Prone", value: 1 });
-  }
+  if (conditions.some(c => c.name === "Invisible")) parts.push({ label: "Invisible", value: -2 });
+  if (melee && conditions.some(c => c.name === "Prone")) parts.push({ label: "Prone", value: 1 });
   return { total: parts.reduce((n, p) => n + p.value, 0), parts };
 }
 
