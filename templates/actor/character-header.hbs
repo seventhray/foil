@@ -40,7 +40,7 @@
         <a data-action="adjustRations" data-delta="1" title="Add one"><i class="fas fa-plus"></i></a>
         <span class="readout" title="Each ration weighs {{carry.rationEach}} lbs and counts toward Mass">{{carry.rationMass}} lbs</span>
       </div>
-      <div class="tracker {{#if carry.penalty}}warn{{/if}}" title="The Mass of everything carried, worn Armor included; past 4x Might Potential, every roll takes a penalty (PHB 5.2.6)">
+      <div class="tracker {{#if carry.penalty}}warn{{/if}}" title="{{carry.math}} (PHB 5.2.6)">
         <label>Mass</label>
         <span class="readout" data-var="carry.weight, carry.limit">{{carry.weight}} / {{carry.limit}} lbs</span>
         {{#if carry.penalty}}<span class="state-tag">-{{carry.penalty}} to rolls</span>{{/if}}

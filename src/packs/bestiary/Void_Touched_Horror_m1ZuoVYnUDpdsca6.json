@@ -77,7 +77,7 @@
       "physical": 3,
       "mental": 2
     },
-    "notes": "<p><em>A gargantuan creature the void has reshaped into a form that keeps almost making sense and then doesn't</em></p><p>Cannot leave its lair, and gets worse as it is hurt.</p>"
+    "notes": "<p><em>A gargantuan creature the void has reshaped into a form that keeps almost making sense</em></p><p>Cannot leave its lair, and gets worse as it is hurt.</p>"
   },
   "folder": "YGrrf4NUQjIr3ADS",
   "sort": 13200000,
@@ -336,8 +336,8 @@
       "_key": "!actors.items!m1ZuoVYnUDpdsca6.NF1VPDpTRREDQbc8"
     },
     {
-      "_id": "CFkgMlcXoo71wa7O",
-      "name": "Berserk",
+      "_id": "JVuxurVH9KVjv6Xu",
+      "name": "Wounded Fury",
       "type": "feat",
       "img": "icons/svg/upgrade.svg",
       "system": {
@@ -357,7 +357,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!m1ZuoVYnUDpdsca6.CFkgMlcXoo71wa7O"
+      "_key": "!actors.items!m1ZuoVYnUDpdsca6.JVuxurVH9KVjv6Xu"
     },
     {
       "_id": "Emnd5kSmiOoxDDGG",

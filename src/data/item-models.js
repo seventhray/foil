@@ -10,7 +10,7 @@
 import { f, slugField, slugArray, str, int, bool, html } from "./fields.js";
 import {
   WEIGHT_CLASS, WEIGHT_KEYS, ATTRIBUTE_KEYS, SKILL_KEYS, SKILL_LABEL, PRIMARY_SKILLS, SIZE_KEYS, BONUS_PRICE,
-  MATERIAL_TIER_PRICE, SIZE, TYPE_SURCHARGE, REACH_PRICE_PER_BAND, RANGE_BANDS, rangeBandOf, rangeTextOf, usualRange,
+  MATERIAL_TIER_PRICE, SIZE, TYPE_SURCHARGE, REACH_PRICE_PER_BAND, RANGE_BANDS, RANGE_LABEL, rangeBandOf, rangeMinOf, rangeTextFor, rangeTextOf, usualRange,
   FOCUS_GEMS, EQUIPMENT_CATEGORIES, LEGACY_SKILL_KEY, ITEM_LOCATIONS
 } from "../constants.js";
 import { priceTechnique, strainFor, SELECTIVE_PREMIUM } from "../pricing.js";
@@ -48,7 +48,12 @@ function resolveTypes(types) {
 
 export class InstrumentData extends foundry.abstract.TypeDataModel {
   static migrateData(source) {
-    if (typeof source?.range === "string") source.range = rangeTextOf(source.range);
+    if (typeof source?.range === "string") {
+      source.range = rangeTextOf(source.range);
+      // Min and Max Range read from older Range text ("Range 2-4").
+      if (!source.maxRange) source.maxRange = rangeBandOf(source.range);
+      if (!source.minRange) source.minRange = rangeMinOf(source.range);
+    }
     if (source?.types) source.types = mapTypes(source.types);
     if (source && "weight" in source && !WEIGHT_KEYS.includes(source.weight)) source.weight = "light";
     if (source?.location === "stored") source.location = "carried";
@@ -61,6 +66,8 @@ export class InstrumentData extends foundry.abstract.TypeDataModel {
       weight: new f.StringField({ required: true, initial: "light", choices: WEIGHT_KEYS }),
       primaryAttribute: new f.StringField({ required: true, initial: "might", choices: ATTRIBUTE_KEYS }),
       range: str("Range 1"),
+      // The farthest band it reaches; the Range text follows Min and Max.
+      maxRange: new f.StringField({ required: true, blank: true, initial: "close", choices: ["", ...RANGE_BANDS] }),
       // The nearest band it works from, when it has one (blank for none).
       minRange: new f.StringField({ required: true, blank: true, initial: "", choices: ["", ...RANGE_BANDS] }),
       types: slugArray(),
@@ -118,7 +125,8 @@ export class InstrumentData extends foundry.abstract.TypeDataModel {
     if (this.innate) this.location = "equipped";
     this.equipped = this.location === "equipped";
     this.carriedWeight = this.innate ? 0 : w.lbs;
-    this.rangeBand = rangeBandOf(this.range);
+    this.rangeBand = this.maxRange || rangeBandOf(this.range);
+    this.range = rangeTextFor(this.minRange, this.rangeBand) || this.range;
     this.primarySkills = PRIMARY_SKILLS[this.primaryAttribute] ?? [];
     this.typesLabel = this.typesDisplay || types.map(k => defs.find(d => d.key === k)?.label ?? k).join(", ");
 
@@ -128,6 +136,11 @@ export class InstrumentData extends foundry.abstract.TypeDataModel {
       - (this.typesDisplay && channels.length > 1 ? (channels.length - 1) * 5 : 0);
     const usual = usualRange(this.category, this.weight, types);
     const extra = Math.max(0, RANGE_BANDS.indexOf(this.rangeBand) - RANGE_BANDS.indexOf(usual));
+    const typeTerms = types.filter(t => TYPE_SURCHARGE[t]).map(t => `${defs.find(d => d.key === t)?.label ?? t} ${TYPE_SURCHARGE[t]}`);
+    const shared = this.typesDisplay && channels.length > 1 ? (channels.length - 1) * 5 : 0;
+    this.priceMath = [`${w.label} ${w.price}`, ...typeTerms, ...(shared ? [`pick-one channels -${shared}`] : []),
+      `reach ${REACH_PRICE_PER_BAND * extra} (${extra} step${extra === 1 ? "" : "s"} past the usual ${RANGE_LABEL[usual] ?? usual}, x${REACH_PRICE_PER_BAND})`].join(" + ")
+      .replace(/\+ pick-one channels -/, "- pick-one channels ");
     // Tools sit on their own cheap penny scale, outside the formula (Fundamental Math).
     const formulaApplies = !this.innate && this.category !== "tool";
     this.formulaPrice = formulaApplies ? w.price + surcharge + REACH_PRICE_PER_BAND * extra : this.price;
@@ -243,6 +256,7 @@ export class TechniqueData extends foundry.abstract.TypeDataModel {
     this.perTarget = (this.effects ?? []).some(e => e.key === "selective");
     this.strain = strainFor(this.xpCost - (this.perTarget ? SELECTIVE_PREMIUM : 0));
     this.pricingBreakdown = priced.breakdown;
+    this.priceMath = priced.math ?? "";
 
     const has = key => (this.effects ?? []).filter(e => e.key === key);
     const sum = key => has(key).reduce((n, e) => n + Number(e.magnitude ?? 0), 0);

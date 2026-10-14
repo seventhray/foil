@@ -8,6 +8,7 @@
     "weight": "medium",
     "primaryAttribute": "might",
     "range": "Range 20",
+    "maxRange": "long",
     "types": [
       "pointed",
       "drawn"

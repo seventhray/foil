@@ -8,6 +8,7 @@
     "weight": "light",
     "primaryAttribute": "finesse",
     "range": "Range 1",
+    "maxRange": "close",
     "types": [
       "edged"
     ],

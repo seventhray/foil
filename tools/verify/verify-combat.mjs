@@ -8,7 +8,7 @@ import { scopedResistance, familiesOf, RESISTANCE_SCOPES } from "../../src/resis
 import { abilitySteps, acToResistance, creatureNumbers, tierFor, crToThreat, diceFor, assignAttributes } from "../../src/creature-math.js";
 import { NATURAL_WEAPONS, MONSTER_FEATS, TRAITS } from "../../src/creature-data.js";
 import { restPlan } from "../../src/rest.js";
-import { conditionMods, conditionFlags, allowedAims, targetFlags, harmFlags, incomingMods, skillFormula, kindOf } from "../../src/combat.js";
+import { conditionMods, conditionFlags, allowedAims, targetFlags, harmFlags, incomingMods, skillFormula, skillMath, kindOf } from "../../src/combat.js";
 
 let failed = 0;
 const check = (name, got, want) => {
@@ -29,7 +29,12 @@ check("Weakened instances stack", conditionMods([c("Weakened", "wit 1"), c("Weak
 check("Reeling only touches Oppose rolls", [conditionMods([c("Reeling", "2")], { skill: "acuity" }).total, conditionMods([c("Reeling", "2")], { skill: "acuity", oppose: true }).total], [0, -2]);
 check("Blinded -2 and Prone -1", conditionMods([c("Blinded"), c("Prone")], { skill: "prowess" }).total, -3);
 check("Invisible -2 against the attack, Prone +1 for Melee only", [incomingMods([c("Invisible")]).total, incomingMods([c("Prone")], { melee: true }).total, incomingMods([c("Prone")]).total], [-2, 1, 0]);
-check("formula folds Mass and Conditions", skillFormula({ skills: { prowess: { formula: "2d8" } }, carry: { penalty: 1 }, conditions: [c("Blinded")] }, "prowess", 1), "2d8 - 2");
+check("formula folds Mass and Conditions, each term tagged with its source", skillFormula({ skills: { prowess: { formula: "2d8" } }, carry: { penalty: 1 }, conditions: [c("Blinded")] }, "prowess", 1), "2d8[Skill] - 1[Mass] - 2[Blinded] + 1[Bonus]");
+check("the math line names every source, its cap, and the dropped Attribute", skillMath({
+  attributes: { might: { diceFormula: "1d8+1d6" }, finesse: { down: true } },
+  skills: { prowess: { trainingBase: 2, trainingBonus: 1, trainingTotal: 3, trainingCap: 3, skillBonus: 0 } },
+  carry: { penalty: 0 }, conditions: [c("Prone")] }, "prowess", [{ label: "Longsword +1", value: 1 }], [{ label: "Heavy", dice: "1d4" }]),
+  "Math: Might 1d8+1d6, Finesse +0 (Incapacitated, no dice), Training +2 (cap 3), Training from Feats +1, Prone -1, Longsword +1 +1, Heavy 1d4.");
 check("Might and Finesse are physical, Wit and Presence mental", ["might", "finesse", "wit", "presence"].map(kindOf), ["physical", "physical", "mental", "mental"]);
 
 check("Frightened and Restrained are flagged, not applied", [conditionFlags([c("Frightened"), c("Restrained")], { skill: "prowess" }).length, conditionMods([c("Frightened"), c("Restrained")], { skill: "prowess" }).total], [2, 0]);

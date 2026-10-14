@@ -6,7 +6,7 @@
   "system": {
     "tier": 3,
     "threat": -128,
-    "behavior": "Territorial [the prison door]",
+    "behavior": "Territorial [its den]",
     "attributes": {
       "might": {
         "dice": {
@@ -70,7 +70,7 @@
       "physical": 0,
       "mental": 0
     },
-    "notes": "<p><em>A giant poisonous snake with a second head, coiled behind the door of a prison</em></p><p>Waits against the door and attacks anyone who opens it unless that person is an undisguised serpentfolk. If it has not been detected it acts first. Its poison does not fit the Allowance of 20 and is dropped.</p>"
+    "notes": "<p><em>A giant poisonous snake with a second head</em></p><p>Lies still in its den and strikes whatever comes through the way in.</p>"
   },
   "folder": "oestcF1oEEFrxKyA",
   "sort": 12400000,

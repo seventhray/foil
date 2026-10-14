@@ -8,6 +8,7 @@
     "weight": "medium",
     "primaryAttribute": "finesse",
     "range": "Range 2",
+    "maxRange": "near",
     "types": [
       "blunt",
       "blocking"

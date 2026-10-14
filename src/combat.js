@@ -106,10 +106,60 @@ export function allowedAims({ text = "", stressTypes = [], requires = [] } = {})
 export const signedParts = parts => parts.map(p => `${p.label} ${p.value > 0 ? "+" : ""}${p.value}`).join(", ");
 
 /** A Skill formula with Mass (PHB 5.2.6) and Conditions folded in, plus any weight dice (PHB 4.1.1). */
-export function skillFormula(sys, skill, extra = 0, dice = "", { oppose = false } = {}) {
-  const parts = [sys.skills?.[skill]?.formula || "0"];
-  if (dice) parts.push(dice);
-  const flat = Number(extra || 0) - Number(sys.carry?.penalty ?? 0) + conditionMods(sys.conditions, { skill, oppose }).total;
-  if (flat) parts.push(String(flat));
-  return parts.join(" + ").replace("+ -", "- ");
+const tag = s => String(s).replace(/[\[\]]/g, "");
+const signed = n => `${n < 0 ? "-" : "+"}${Math.abs(n)}`;
+const asParts = (x, label) => Array.isArray(x) ? x.filter(p => p && (p.value || p.dice)) : (Number(x) ? [{ label, value: Number(x) }] : []);
+
+/**
+ * Every term of a Skill roll with its source (PHB 2.2.0): each Attribute's dice, Training and
+ * its cap, gear, Mass, the roller's Conditions, then the extras and dice given.
+ * extras and dice take a number or string (one unnamed source) or a list of { label, value } / { label, dice }.
+ * @returns {{ label:string, value?:number, dice?:string, note?:string }[]}
+ */
+export function skillTerms(sys, skill, extras = [], dice = [], { oppose = false, conditions = true } = {}) {
+  const sk = sys.skills?.[skill] ?? {};
+  const terms = [];
+  const pair = SKILL_ATTRS[skill] ?? [];
+  if (pair.some(ak => sys.attributes?.[ak])) {
+    for (const ak of pair) {
+      const a = sys.attributes?.[ak];
+      if (!a) continue;
+      if (a.down) terms.push({ label: ATTR_LABEL[ak], value: 0, note: "Incapacitated, no dice" });
+      else if (a.diceFormula) terms.push({ label: ATTR_LABEL[ak], dice: a.diceFormula });
+    }
+  } else if (sk.formula) terms.push({ label: "Skill", dice: sk.formula });
+  if (sk.trainingTotal !== undefined) {
+    const cap = sk.trainingCap !== undefined ? `cap ${sk.trainingCap}${sk.overCap ? ", over it" : ""}` : "";
+    terms.push({ label: "Training", value: Number(sk.trainingBase ?? 0), note: cap });
+    if (sk.trainingBonus) terms.push({ label: "Training from Feats", value: Number(sk.trainingBonus) });
+    if (sk.skillBonus) terms.push({ label: "Gear", value: Number(sk.skillBonus) });
+  }
+  if (sys.carry?.penalty) terms.push({ label: "Mass", value: -Number(sys.carry.penalty), note: `${sys.carry.weight} lbs, ${sys.carry.limit} free` });
+  if (conditions) for (const c of conditionMods(sys.conditions, { skill, oppose }).parts) terms.push({ label: c.label, value: c.value });
+  terms.push(...asParts(extras, "Bonus"));
+  for (const d of (Array.isArray(dice) ? dice : dice ? [{ label: "Weight", dice }] : [])) if (d?.dice) terms.push({ label: d.label, dice: d.dice });
+  return terms;
+}
+
+/** The roll formula, each term tagged with its source so the dice tooltip shows it. */
+export function termsFormula(terms) {
+  const out = [];
+  for (const t of terms) {
+    if (t.dice) out.push(String(t.dice).replace(/(\d*d\d+)/g, `$1[${tag(t.label)}]`));
+    else if (t.value) out.push(`${t.value}[${tag(t.label)}]`);
+  }
+  return (out.join(" + ") || "0").replace(/\+ -/g, "- ");
+}
+
+/** The roll's math as a line of text: every source, zero ones included. */
+export function termsMath(terms) {
+  return terms.map(t => `${t.label} ${t.dice ? t.dice : signed(t.value ?? 0)}${t.note ? ` (${t.note})` : ""}`).join(", ");
+}
+
+export function skillFormula(sys, skill, extra = 0, dice = "", opts = {}) {
+  return termsFormula(skillTerms(sys, skill, extra, dice, opts));
+}
+
+export function skillMath(sys, skill, extra = 0, dice = "", opts = {}) {
+  return `Math: ${termsMath(skillTerms(sys, skill, extra, dice, opts))}.`;
 }

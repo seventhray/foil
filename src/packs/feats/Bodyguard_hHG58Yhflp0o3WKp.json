@@ -7,7 +7,7 @@
     "featType": "learned",
     "xpCost": 8,
     "requirements": "12 Might",
-    "effect": "While you Guard an ally, once per round when a Technique lands on their Might or Finesse, redirect its Stress onto your Might, reduced by your physical Resistance.",
+    "effect": "While you Guard an ally, once per round when a Technique lands on their Might or Finesse, redirect its Stress onto your Might, reduced by your Physical Resistance.",
     "ancestry": "",
     "grantsTechnique": "",
     "modifiers": [],

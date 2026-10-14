@@ -12,9 +12,9 @@
     {{/unless}}
     <label>Primary Attribute <em>(sets its three Skills)</em></label>
     <select name="system.primaryAttribute">{{#each attributeOptions}}<option value="{{this.value}}" {{#if (foil-eq this.value ../system.primaryAttribute)}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>
-    <label>Range</label>
-    <select name="system.range">{{#each rangeOptions}}<option value="{{this.value}}" {{#if (foil-eq this.value ../system.range)}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>
-    <label>Nearest range <em>(optional; it can't be used closer)</em></label>
+    <label>Max Range <em>(the farthest it reaches)</em></label>
+    <select name="system.maxRange">{{#each maxBandOptions}}<option value="{{this.value}}" {{#if (foil-eq this.value ../system.maxRange)}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>
+    <label>Min Range <em>(optional; it can't be used closer)</em></label>
     <select name="system.minRange">{{#each bandOptions}}<option value="{{this.value}}" {{#if (foil-eq this.value ../system.minRange)}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>
     <label>Price (p)</label>
     <input type="number" name="system.price" value="{{system.price}}" />
@@ -41,6 +41,7 @@
     &middot; crafts from <strong data-var="craftCost">{{system.craftCost}}p</strong> of materials
     &middot; Mass <strong data-var="carriedWeight">{{system.carriedWeight}} lbs</strong>{{#if system.weightDice}} &middot; attacks add <strong>{{system.weightDice}}</strong>{{/if}}{{#if system.twoHanded}} &middot; two hands{{/if}}{{#if system.doublesMargin}} &middot; takes the Action and the Quick Action{{/if}}{{#if (foil-eq system.marginMultiplier 2)}} &middot; margin x2{{/if}}
   </div>
+  <div class="derived-line math-line"><em>Price: {{system.priceMath}} = {{system.formulaPrice}}p (PHB 5.2.2)</em></div>
   {{#if system.bonus}}<div class="derived-line">
     {{#if system.bonusRoll}}+{{system.bonusRoll}} to rolls{{/if}}{{#if system.bonusPierce}} &middot; Pierce +{{system.bonusPierce}}{{/if}}{{#if system.bonusOppose}}+{{system.bonusOppose}} to Oppose rolls only{{/if}}
   </div>{{/if}}

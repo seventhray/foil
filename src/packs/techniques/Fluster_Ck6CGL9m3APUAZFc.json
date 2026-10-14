@@ -1,6 +1,6 @@
 {
-  "_id": "LRULNiEKYuECLakr",
-  "name": "Rattle",
+  "_id": "Ck6CGL9m3APUAZFc",
+  "name": "Fluster",
   "type": "technique",
   "img": "icons/svg/aura.svg",
   "system": {
@@ -37,5 +37,5 @@
     "default": 0
   },
   "flags": {},
-  "_key": "!items!LRULNiEKYuECLakr"
+  "_key": "!items!Ck6CGL9m3APUAZFc"
 }

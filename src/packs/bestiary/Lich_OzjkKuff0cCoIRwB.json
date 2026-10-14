@@ -145,6 +145,7 @@
         "weight": "heavy",
         "primaryAttribute": "presence",
         "range": "Range 20",
+        "maxRange": "long",
         "types": [
           "kinetic",
           "incorporeal",
@@ -450,7 +451,7 @@
         "featType": "trait",
         "xpCost": 32,
         "requirements": "",
-        "effect": "every 10 rounds of a conflict, recovers 1d4 Stress from Might, unless a Fire or Acid hit landed on it since the last recovery.",
+        "effect": "every 10 rounds of a conflict, recovers 1d4 Stress from Might or Finesse, unless a Fire or Acid hit landed on it since the last recovery.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [],

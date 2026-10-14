@@ -8,7 +8,7 @@
 
 import { ATTRIBUTE_KEYS, ATTR_LABEL, SKILL_LABEL, PRIMARY_SKILLS, CONDITION_OPPOSE, CONDITION_PRESETS, FOIL_AXES } from "./constants.js";
 import { stressFor, alwaysTypes } from "./stress.js";
-import { conditionFlags, conditionMods, harmFlags, harmNames, incomingMods, kindOf, signedParts, skillFormula, targetFlags } from "./combat.js";
+import { conditionFlags, conditionMods, harmFlags, harmNames, incomingMods, kindOf, signedParts, skillFormula, skillMath, targetFlags } from "./combat.js";
 import { ask, esc } from "./dialogs.js";
 import { resolveActor } from "./chat-actions.js";
 import { logEvent, who } from "./playtest-log.js";
@@ -100,7 +100,7 @@ export async function resolveOppose(message, index) {
   const best = skills.reduce((a, k) => ((sys.skills?.[k]?.rollAvg ?? 0) > (sys.skills?.[a]?.rollAvg ?? 0) ? k : a), skills[0]);
   const opts = skills.map(k => `<option value="${k}" ${k === best ? "selected" : ""}>${SKILL_LABEL[k]} (${sys.skills?.[k]?.formula || "no dice"})</option>`).join("");
   const attackLine = incoming.parts.length
-    ? `${flag.attackTotal} ${signedParts(incoming.parts)} = <strong>${attack}</strong>` : `<strong>${attack}</strong>`;
+    ? `${flag.attackTotal} ${signedParts(incoming.parts)} = <strong>${attack}</strong>` : `<strong>${attack}</strong> (no modifiers from ${esc(actor.name)}'s Conditions)`;
 
   const attackerName = game.actors.get(flag.actorId)?.name ?? "";
   const exposed = (sys.conditions ?? []).map((c, i) => ({ ...c, i })).filter(c => c.name === "Foil Exposed" && attackerName && String(c.note).endsWith(`by ${attackerName}`));
@@ -121,10 +121,12 @@ export async function resolveOppose(message, index) {
     const left = foundry.utils.deepClone(actor.system.conditions ?? []).filter((c, i) => !spent.some(s => s.i === i));
     await actor.update({ "system.conditions": left });
   }
-  const flat = extras.reduce((n, p) => n + p.value, 0) - cm.total;
-  const roll = await new Roll(skillFormula(sys, skill, flat, "", { oppose: true })).evaluate();
+  // The Conditions are already in extras, so the roll doesn't add them twice.
+  const own = extras.filter(p => !cm.parts.includes(p));
+  const roll = await new Roll(skillFormula(sys, skill, own, "", { oppose: true })).evaluate();
+  const math = skillMath(sys, skill, own, "", { oppose: true });
   await roll.toMessage({ speaker: ChatMessage.getSpeaker({ actor }),
-    flavor: `<div class="foil-flavor"><strong>Oppose: ${SKILL_LABEL[skill]}</strong>${extras.length ? `<br><em>${signedParts(extras)}.</em>` : ""}${oppFlags.length ? `<br><em>${oppFlags.join("<br>")}</em>` : ""}</div>` });
+    flavor: `<div class="foil-flavor"><strong>Oppose: ${SKILL_LABEL[skill]}</strong><br><em>${esc(math)}</em>${oppFlags.length ? `<br><em>${oppFlags.join("<br>")}</em>` : ""}</div>` });
   const oppose = await offerReroll(actor, roll, `Oppose: ${SKILL_LABEL[skill]}`);
   const logBase = {
     attacker: who(game.actors.get(flag.actorId)), defender: who(actor), technique: flag.name, instrument: flag.instrument ?? null,
@@ -162,10 +164,19 @@ export async function resolveOppose(message, index) {
 
   const scoped = scopedResistance({ narrowResistance: sys.narrowResistance }, { ...(flag.attackInfo ?? {}), kind });
   const resistance = Number(sys.attributes?.[aim]?.resistanceTotal ?? sys.resistance?.[`${kind}Total`] ?? 0) + (answer.parry ? 1 : 0) + scoped.net;
+  // Every source of that Resistance, named on the card.
+  const kindLabel = kind === "physical" ? "Physical" : "Mental";
+  const resistanceParts = [
+    `${kindLabel} ${Number(sys.resistance?.[`${kind}Total`] ?? 0)}${sys.resistance?.[`${kind}FromLabel`] ? ` (${sys.resistance[`${kind}FromLabel`]})` : ""}`,
+    ...(sys.attributes?.[aim]?.resistanceExtra ? [`${ATTR_LABEL[aim]} only +${sys.attributes[aim].resistanceExtra}${sys.attributes[aim].resistanceFromLabel ? ` (${sys.attributes[aim].resistanceFromLabel})` : ""}`] : []),
+    ...(answer.parry ? ["Parry +1"] : []),
+    ...scoped.parts
+  ];
   const type = flag.typeIndex === "" || flag.typeIndex === undefined || flag.typeIndex === null ? null : flag.types?.[Number(flag.typeIndex)] ?? null;
   const r = stressFor({
-    attack, oppose, name: flag.name, cap: flag.cap, capLabel: flag.capLabel, mult: Number(flag.mult ?? 1),
-    kind, resistance, type, always: alwaysTypes(flag.types, type), bespoke: Number(flag.bespoke ?? 0), other: Number(flag.other ?? 0), pierce: Number(flag.pierce ?? 0)
+    attack, oppose, name: flag.name, cap: flag.cap, capLabel: flag.capLabel, mult: Number(flag.mult ?? 1), multLabel: flag.multLabel ?? "",
+    kind, resistance, resistanceParts, type, always: alwaysTypes(flag.types, type), bespoke: Number(flag.bespoke ?? 0), bespokeParts: flag.bespokeParts ?? null,
+    other: Number(flag.other ?? 0), pierce: Number(flag.pierce ?? 0), pierceParts: flag.pierceParts ?? null
   });
   logEvent("oppose", { ...logBase, landed: r.landed, margin: r.margin, cappedMargin: r.capped, stress: r.stress,
     cap: flag.cap, mult: Number(flag.mult ?? 1), resistance, kind, scopedResistance: scoped.parts, type: type?.label ?? null,

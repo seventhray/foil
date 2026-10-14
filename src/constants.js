@@ -68,14 +68,14 @@ export const RANGE_FEET = {
 
 /**
  * The furthest band a free-text range names. "Range 4" is short; "Range 2-4" runs from near
- * up to the band before Range 4 (near); the older band words still read ("Touching to Close" -> close).
+ * up to Range 4 (short); the older band words still read ("Touching to Close" -> close).
  */
 export function rangeBandOf(text) {
   const t = String(text ?? "");
   const nums = t.match(/\d+/g);
   if (nums) {
     const steps = RANGE_BANDS.map(b => RANGE_STEP[b]);
-    const top = /\d\s*-\s*\d/.test(t) ? steps.filter(s => s < Number(nums[nums.length - 1])).pop() : steps.filter(s => s <= Number(nums[0])).pop();
+    const top = steps.filter(s => s <= Number(nums[nums.length - 1])).pop();
     return RANGE_BANDS[steps.indexOf(top)] ?? "";
   }
   const words = t.toLowerCase().match(/[a-z]+/g) ?? [];
@@ -89,6 +89,13 @@ export function rangeMinOf(text) {
   const m = String(text ?? "").match(/(\d+)\s*-\s*\d+/);
   if (!m) return "";
   return RANGE_BANDS.find(b => RANGE_STEP[b] === Number(m[1])) ?? "";
+}
+
+/** The Range text for a Min and Max band: "Range 2-4", or "Range 4" with no Min. */
+export function rangeTextFor(minBand, maxBand) {
+  const hi = RANGE_STEP[maxBand], lo = RANGE_STEP[minBand];
+  if (hi === undefined) return "";
+  return lo !== undefined && lo < hi ? `Range ${lo}-${hi}` : `Range ${hi}`;
 }
 
 /** Older range strings ("Close", "Mid Range") as the Range text the books now print. */
@@ -181,7 +188,7 @@ export const CONDITIONS = [
 ];
 /** How long each Condition lasts when a Technique states nothing else (PHB 6.8.0 to 6.8.23). */
 export const CONDITION_PRESETS = {
-  Grappled: "until it breaks free", Weakened: "10 minutes", Restrained: "as the Technique states", Reeling: "10 minutes",
+  Grappled: "until it breaks free", Weakened: "10 minutes", Restrained: "until it breaks free", Reeling: "10 minutes",
   Prone: "until it stands", Charmed: "10 minutes", Frightened: "10 minutes", Controlled: "its next turn",
   Intimidated: "until the demand", Baited: "10 minutes", Angered: "10 minutes", Relaxed: "until threatened",
   Impressed: "until granted", Wary: "10 minutes", Enthralled: "until the source harms it", Swayed: "10 minutes",
@@ -193,7 +200,7 @@ export const EFFECT_CONDITION = {
   weaken: "Weakened", "weaken-minute": "Weakened", reeling: "Reeling", "reeling-minute": "Reeling",
   grappled: "Grappled", restrained: "Restrained", prone: "Prone", charmed: "Charmed", frightened: "Frightened",
   controlled: "Controlled", intimidated: "Intimidated", baited: "Baited", angered: "Angered", relaxed: "Relaxed",
-  impressed: "Impressed", enthralled: "Enthralled", blinded: "Blinded", slowed: "Slowed", stunned: "Stunned", "foil-exposed": "Foil Exposed"
+  impressed: "Impressed", swayed: "Swayed", misled: "Misled", enthralled: "Enthralled", blinded: "Blinded", slowed: "Slowed", stunned: "Stunned", "foil-exposed": "Foil Exposed"
 };
 /** Technique catalog families and their groups (the compendium folders). */
 export const TECHNIQUE_FAMILIES = {

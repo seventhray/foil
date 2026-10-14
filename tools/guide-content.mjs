@@ -47,8 +47,8 @@ p("Instruments and Types", `
 <p>Every character has three innate Instruments, always ready. <strong>Body</strong> is Might Primary, Light, Blunt, Grappling, Close: Strike, Grapple, Menace. <strong>Voice</strong> is Presence Primary, Light, Sonic, Mid Range: Intimidate, Mislead, Sway. <strong>Mind</strong> is Wit Primary, Light, Incorporeal, Near: Deduce, Analyze, Intuit.</p>
 <table><thead><tr><th>Type</th><th>Type effect</th></tr></thead><tbody>
 <tr><td>Edged</td><td>+3 Stress against a physical Attribute. Physical Resistance counts double against Edged, after Pierce</td></tr>
-<tr><td>Pointed</td><td>Pierce 1 against physical Resistance, +1 Stress against a physical Attribute</td></tr>
-<tr><td>Blunt</td><td>Pierce 3 against physical Resistance</td></tr>
+<tr><td>Pointed</td><td>Pierce 1 against Physical Resistance, +1 Stress against a physical Attribute</td></tr>
+<tr><td>Blunt</td><td>Pierce 3 against Physical Resistance</td></tr>
 <tr><td>Drawn / Fired</td><td>+2 / +4 Stress; reload with the Quick Action / the Action</td></tr>
 <tr><td>Kinetic</td><td>+1 against a physical Attribute, -1 against a mental one</td></tr>
 <tr><td>Incorporeal, Sonic</td><td>+1 against a mental Attribute, -1 against a physical one</td></tr>

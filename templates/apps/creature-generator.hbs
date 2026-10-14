@@ -15,12 +15,12 @@
   </div>
   {{#if isD20}}
     <fieldset>
-      <legend data-tooltip="Enter the converted creature's ability scores and AC. Steps follow how far each Attribute sits from the center of the four; AC sets physical Resistance.">d20 stat block <em>(GMG 11.2.0, 11.5.0, 11.7.0)</em></legend>
+      <legend data-tooltip="Enter the converted creature's ability scores and AC. Steps follow how far each Attribute sits from the center of the four; AC sets Physical Resistance.">d20 stat block <em>(GMG 11.2.0, 11.5.0, 11.7.0)</em></legend>
       <div class="gen-scores">
         {{#each scoreRows}}<label>{{this.label}} <input type="number" name="score.{{this.key}}" value="{{this.value}}" min="1" max="30" /></label>{{/each}}
         <label>AC <input type="number" name="ac" value="{{state.ac}}" min="0" max="40" /></label>
       </div>
-      <p class="hint">{{centerNote}}. AC sets physical Resistance.</p>
+      <p class="hint">{{centerNote}}. AC sets Physical Resistance.</p>
     </fieldset>
   {{/if}}
 

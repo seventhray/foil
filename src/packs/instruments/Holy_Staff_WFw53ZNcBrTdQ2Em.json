@@ -8,6 +8,7 @@
     "weight": "medium",
     "primaryAttribute": "presence",
     "range": "Range 8",
+    "maxRange": "mid",
     "types": [
       "fortifying"
     ],

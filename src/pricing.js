@@ -128,7 +128,16 @@ export function priceTechnique(effects = [], registry = {}, opts = {}) {
   const single = Math.max(sum + flat + premium, floor);
   const xp = single + (sel ? SELECTIVE_PREMIUM : 0);
   if (sel) breakdown.push({ key: "selective-premium", label: "Selective premium", cost: SELECTIVE_PREMIUM });
-  return { xp, strain: strainFor(single), perTarget: !!sel, premium, floor, breakdown };
+  // The whole sum, every term named (PHB 4.2.1, 4.2.3).
+  const terms = breakdown.filter(b => b.key !== "selective-premium").map(b => `${b.label} ${b.cost}`);
+  terms.push(`premium ${premium} (${Math.max(0, counted - 1)} Effect${counted - 1 === 1 ? "" : "s"} past the first x${PREMIUM_PER_EFFECT})`);
+  const raw = sum + flat + premium;
+  const strain = strainFor(single);
+  const math = `${terms.join(" + ")} = ${raw}`
+    + (floor ? `; floor ${floor}${raw < floor ? `, raised to ${floor}` : ""}` : "")
+    + (sel ? `; + Selective premium ${SELECTIVE_PREMIUM} = ${xp}` : "")
+    + `. Strain: (${single} - ${STRAIN_FREE_XP}) / ${STRAIN_DIVISOR}, rounded down, at least 0 = ${strain}${sel ? ", per target" : ""}.`;
+  return { xp, strain, perTarget: !!sel, premium, floor, breakdown, math };
 }
 
 const BAND_NAME = ["", "Range 1", "Range 2", "Range 4", "Range 8", "Range 20"];

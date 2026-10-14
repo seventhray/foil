@@ -8,6 +8,7 @@
     "weight": "heavy",
     "primaryAttribute": "might",
     "range": "Range 1",
+    "maxRange": "close",
     "types": [
       "edged",
       "pointed"

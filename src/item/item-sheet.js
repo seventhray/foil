@@ -138,6 +138,7 @@ export class FoilItemSheet extends HandlebarsApplicationMixin(ItemSheetV2Base) {
       rangeOptions: withCurrent(RANGE_CHOICES, sys.range),
       enchantKindOptions: [opt("", "None"), opt("skill", "+N to a Skill"), opt("roll", "+N to its rolls"), opt("pierce", "Pierce N"), opt("stress", "+N Stress after the margin"), opt("aid", "Aid +N to a task")],
       bandOptions: [opt("", "None"), ...RANGE_BANDS.map(b => opt(b, RANGE_LABEL[b]))],
+      maxBandOptions: RANGE_BANDS.map(b => opt(b, RANGE_LABEL[b])),
       originOptions: [opt("", "None"), ...withCurrent([...ORIGIN_NAMES, ...worldNames("origin")].sort(), sys.ancestryGrant || sys.ancestry)],
       techniqueNameOptions: [opt("", "None"), ...withCurrent([...packNames("foil.techniques"), ...worldNames("technique")].sort(), sys.grantsTechnique)],
       familyChoices: [opt("", "None (Innate)"), ...withCurrent(Object.keys(TECHNIQUE_FAMILIES), sys.family)],

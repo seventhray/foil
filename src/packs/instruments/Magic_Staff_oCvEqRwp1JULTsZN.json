@@ -8,6 +8,7 @@
     "weight": "medium",
     "primaryAttribute": "wit",
     "range": "Range 8",
+    "maxRange": "mid",
     "types": [
       "kinetic",
       "incorporeal"

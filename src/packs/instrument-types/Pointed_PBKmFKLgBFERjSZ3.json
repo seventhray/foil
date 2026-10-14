@@ -15,7 +15,7 @@
     "blocking": false,
     "reload": "",
     "isTool": false,
-    "description": "<p>Pierce 1 against physical Resistance. +1 Stress against a physical Attribute.</p>"
+    "description": "<p>Pierce 1 against Physical Resistance. +1 Stress against a physical Attribute.</p>"
   },
   "effects": [],
   "folder": null,

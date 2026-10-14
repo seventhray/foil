@@ -8,6 +8,7 @@
     "weight": "heavy",
     "primaryAttribute": "presence",
     "range": "Range 8",
+    "maxRange": "mid",
     "types": [
       "kinetic"
     ],

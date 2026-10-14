@@ -35,32 +35,49 @@ export const isAlwaysType = t => ALWAYS_TYPES.includes(String(t?.key ?? t?.label
 /** The always-on Types of a list, leaving out the one that was (wrongly) picked as the chosen Type. */
 export const alwaysTypes = (types = [], chosen = null) => (types ?? []).filter(t => isAlwaysType(t) && t !== chosen);
 
-export function stressFor({ attack, oppose, cap, kind = "physical", resistance = 0, type = null, always = [],
-                            bespoke = 0, other = 0, pierce = 0, name = "the Technique", capAttr = "", capLabel = "", double = false, mult = 1 }) {
+export function stressFor({ attack, oppose, cap, kind = "physical", resistance = 0, resistanceParts = null, type = null, always = [],
+                            bespoke = 0, bespokeParts = null, other = 0, pierce = 0, pierceParts = null, name = "the Technique",
+                            capAttr = "", capLabel = "", double = false, mult = 1, multLabel = "" }) {
+  const sgn = n => `${n < 0 ? "-" : "+"}${Math.abs(n)}`;
+  const list = (parts, total, fallback) => (parts?.length ? parts : total ? [{ label: fallback, value: total }] : []);
   const raw = Number(attack) - Number(oppose);
   const m = double ? 2 : Number(mult) || 1;
   const margin = m !== 1 && raw > 0 ? Math.floor(raw * m) : raw;
-  if (margin < 0) return { landed: false, stress: 0, margin, capped: 0, parts: ["the Oppose beat it"] };
-  const capped = Math.min(margin, Math.max(0, Number(cap) || 0));
-  const parts = [`margin ${m !== 1 && raw > 0 ? `${raw}, x${m} to ` : ""}${margin}${capped < margin ? `, capped at ${cap}${capLabel ? ` (${capLabel})` : capAttr ? ` (half ${capAttr} Potential)` : ""}` : ""}`];
-  const res = Number(resistance) || 0;
-  let typeBonus = 0, totalPierce = Number(pierce) || 0;
+  const parts = [`margin ${attack} - ${oppose} = ${raw}`];
+  if (raw < 0) return { landed: false, stress: 0, margin, capped: 0, parts: [...parts, "the Oppose beat it"] };
+  parts.push(`x${m}${multLabel ? ` (${multLabel})` : ""} = ${margin}`);
+  const capNum = Math.max(0, Number(cap) || 0);
+  const capped = Math.min(margin, capNum);
+  parts.push(`cap ${capNum}${capLabel ? ` (${capLabel})` : capAttr ? ` (half ${capAttr} Potential)` : ""}: ${capped}`);
+
+  const adds = [];
+  let totalPierce = 0;
+  const pierces = list(pierceParts, Number(pierce) || 0, "Pierce").map(p => ({ label: p.label, value: Number(p.value) || 0 }));
   if (type) {
-    typeBonus = kind === "physical" ? Number(type.physical ?? 0) : Number(type.mental ?? 0);
-    if (typeBonus) parts.push(`${type.label} ${typeBonus > 0 ? "+" : ""}${typeBonus}`);
-    if (kind === "physical") totalPierce += Number(type.pierce ?? 0);
-  }
-  for (const a of always ?? []) {
-    const b = kind === "physical" ? Number(a.physical ?? 0) : Number(a.mental ?? 0);
-    if (b) { typeBonus += b; parts.push(`${a.label} ${b > 0 ? "+" : ""}${b}`); }
-  }
-  if (bespoke) parts.push(`+${bespoke} from ${name}`);
-  if (other) parts.push(`${other > 0 ? "+" : ""}${other} other`);
+    const b = kind === "physical" ? Number(type.physical ?? 0) : Number(type.mental ?? 0);
+    adds.push({ label: `${type.label} (declared Type)`, value: b });
+    if (kind === "physical" && Number(type.pierce ?? 0)) pierces.push({ label: type.label, value: Number(type.pierce) });
+  } else adds.push({ label: "declared Type: none", value: 0 });
+  for (const a of always ?? []) adds.push({ label: a.label, value: kind === "physical" ? Number(a.physical ?? 0) : Number(a.mental ?? 0) });
+  const own = list(bespokeParts, Number(bespoke) || 0, name);
+  if (own.length) adds.push(...own.map(p => ({ label: p.label, value: Number(p.value) || 0 })));
+  else adds.push({ label: name, value: 0 });
+  adds.push({ label: "other", value: Number(other) || 0 });
+  parts.push(...adds.map(a => `${a.label} ${sgn(a.value)}`));
+  totalPierce = pierces.reduce((n, p) => n + p.value, 0);
+
+  const res = Number(resistance) || 0;
   let effRes = res > 0 ? Math.max(0, res - totalPierce) : res;
   const doubled = !!type?.doubleResistance && kind === "physical" && effRes > 0;
   if (doubled) effRes *= 2;
-  if (res > 0) parts.push(`Resistance ${res}${totalPierce ? `, Pierce ${totalPierce} leaves ${res > totalPierce ? res - totalPierce : 0}` : ""}${doubled ? `, doubled against ${type.label} to ${effRes}` : ""}`);
-  else if (res < 0) parts.push(`Resistance below 0 adds ${-res}`);
-  const stress = Math.max(0, capped + typeBonus + Number(bespoke || 0) + Number(other || 0) - effRes);
+  const from = resistanceParts?.length ? ` (${resistanceParts.join(", ")})` : "";
+  parts.push(`Resistance ${res}${from}`);
+  parts.push(`Pierce ${totalPierce}${pierces.length ? ` (${pierces.map(p => `${p.label} ${p.value}`).join(", ")})` : ""}${res > 0 ? `, leaves ${Math.max(0, res - totalPierce)}` : res < 0 ? ", none to lower" : ""}`);
+  if (doubled) parts.push(`doubled against ${type.label}: ${effRes}`);
+  if (res < 0) parts.push(`Resistance below 0 adds ${-res}`);
+  const sum = adds.reduce((n, a) => n + a.value, 0);
+  const before = capped + sum - effRes;
+  const stress = Math.max(0, before);
+  parts.push(`${capped} ${sgn(sum)} ${effRes < 0 ? "+" : "-"} ${Math.abs(effRes)} = ${before}${before < 0 ? ", raised to 0" : ""}`);
   return { landed: true, stress, margin, capped, parts };
 }

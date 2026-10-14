@@ -102,6 +102,7 @@
         "weight": "light",
         "primaryAttribute": "wit",
         "range": "Range 4",
+        "maxRange": "short",
         "types": [
           "quick",
           "kinetic"

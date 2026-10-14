@@ -457,7 +457,7 @@ export const MONSTER_FEATS = [
   "effect": "Immediately after an enemy ends its turn, this creature may attack that enemy, in addition to its Action and Quick Action. Once per round, or twice per round at Tier 10, up to the uses bought for each conflict."
  },
  {
-  "name": "Berserk",
+  "name": "Wounded Fury",
   "xp": 8,
   "per": "",
   "xpText": "8",
@@ -639,7 +639,7 @@ export const TRAITS = [
  {
   "name": "Web Sense",
   "xp": 8,
-  "effect": "Sense anything touching a Web this creature has placed, anywhere on it, without a roll."
+  "effect": "The creature senses anything touching a Web it has placed, anywhere on it, without a roll."
  },
  {
   "name": "Unstoppable",
@@ -654,7 +654,7 @@ export const TRAITS = [
  {
   "name": "Regeneration",
   "xp": 32,
-  "effect": "Every 10 rounds of a conflict, recover 1d4 Stress from that Attribute, unless a GM-stated counter-condition (an element or Instrument fitting your story, fire for a troll, silver for some undead) applied since the last recovery."
+  "effect": "Every 10 rounds of a conflict, recover 1d4 Stress from Might or Finesse, unless a GM-stated counter-condition (an element or Instrument fitting your story, fire for a troll, silver for some undead) applied since the last recovery."
  },
  {
   "name": "Rejuvenation",

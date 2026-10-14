@@ -122,7 +122,7 @@ for (const [name, cat, weight, types, range, price] of [
   ["Longsword", "melee", "medium", ["edged", "pointed", "parry"], "Close", 45],
   ["Quarterstaff", "melee", "medium", ["blunt", "blocking"], "Near", 45],
   ["Greatsword", "melee", "heavy", ["edged", "pointed"], "Close", 60],
-  ["Halberd", "melee", "heavy", ["edged", "pointed"], "Near", 70],
+  ["Halberd", "melee", "heavy", ["edged", "pointed"], "Range 2-4", 80],
   ["Longbow", "ranged", "medium", ["pointed", "drawn"], "Long Range", 75],
   ["Arbalest", "ranged", "heavy", ["pointed", "fired"], "Long Range", 105],
   ["Sling", "ranged", "light", ["thrown"], "Mid Range", 25],
@@ -131,6 +131,15 @@ for (const [name, cat, weight, types, range, price] of [
 ]) check(`${name} prices at ${price}p`, () => {
   const i = new InstrumentData({ category: cat, weight, types, range, price }); i.prepareDerivedData();
   return eq(i.formulaPrice, price);
+});
+check("Min and Max Range set the Range text and the reach (PHB 4.1.2)", () => {
+  const h = new InstrumentData({ category: "melee", weight: "heavy", types: ["edged", "pointed"], range: "Range 2-4" }); h.prepareDerivedData();
+  const s = new InstrumentData({ category: "melee", weight: "medium", types: ["pointed"], minRange: "", maxRange: "near" }); s.prepareDerivedData();
+  return eq([h.minRange, h.maxRange, h.rangeBand, h.range, s.range], ["near", "short", "short", "Range 2-4", "Range 2"]);
+});
+check("the price math names every term (PHB 5.2.2)", () => {
+  const h = new InstrumentData({ category: "melee", weight: "heavy", types: ["edged", "pointed"], range: "Range 2-4" }); h.prepareDerivedData();
+  return eq(h.priceMath, "Heavy 45 + edged 5 + pointed 10 + reach 20 (2 steps past the usual Range 1, x10)");
 });
 check("+2 Medium Instrument adds 45p, +2 to rolls, Pierce +1, crafts from 46p", () => {
   const i = new InstrumentData({ category: "melee", weight: "medium", types: ["edged", "pointed"], bonus: 2, size: "medium" }); i.prepareDerivedData();
@@ -167,6 +176,10 @@ const REG = {
 };
 const x = (effects, opts) => priceTechnique(effects, REG, opts).xp;
 check("Sunder (Stress, Pierce 1) is 12", () => eq(x([{ key: "stress" }, { key: "pierce", magnitude: 1 }]), 12));
+check("a Technique's price math names each Effect, the premium, and Strain", () => {
+  const m = priceTechnique([{ key: "stress" }, { key: "pierce", magnitude: 1 }, { key: "weaken", magnitude: 1 }], REG).math;
+  return eq([/= 22/.test(m), /premium 8 \(2 Effects past the first x4\)/.test(m), /Strain: \(22 - 24\) \/ 8, rounded down, at least 0 = 0/.test(m)], [true, true, true]);
+});
 check("Gutting Blow (Stress, Pierce 1, -1 Attribute) is 22", () => eq(x([{ key: "stress" }, { key: "pierce", magnitude: 1 }, { key: "weaken", magnitude: 1 }]), 22));
 check("Harrow (Stress, -1 Attribute, Cone Near) is 27", () => eq(x([{ key: "stress" }, { key: "weaken", magnitude: 1 }, { key: "pattern", pattern: "cone", bands: 2 }]), 27));
 check("Roaring Fireball (Stress, Radius Near) is 44", () => eq(x([{ key: "stress" }, { key: "pattern", pattern: "radius", bands: 2 }]), 44));
@@ -189,6 +202,11 @@ console.log("\nStress (PHB 6.7.0):");
 const edged = { label: "Edged", physical: 3, mental: 0, pierce: 0, doubleResistance: true };
 const pointed = { label: "Pointed", physical: 1, mental: 0, pierce: 1 };
 const sonic = { label: "Sonic", physical: -1, mental: 1, pierce: 0 };
+check("the Stress math shows every step, zero terms and the cap included (PHB 6.7.0)", () =>
+  eq(stressFor({ attack: 17, oppose: 12, cap: 16, capLabel: "all Might Potential", mult: 1, multLabel: "Medium", resistance: 2,
+    resistanceParts: ["Physical 2 (+2 Mail)"], type: edged, pierceParts: [{ label: "Relentless Blow", value: 4 }], name: "Relentless Blow" }).parts,
+    ["margin 17 - 12 = 5", "x1 (Medium) = 5", "cap 16 (all Might Potential): 5", "Edged (declared Type) +3", "Relentless Blow +0", "other +0",
+     "Resistance 2 (Physical 2 (+2 Mail))", "Pierce 4 (Relentless Blow 4), leaves 0", "5 +3 - 0 = 8"]));
 check("PHB 6.7.0 Hand Axe: margin 10, +3 Edged, Mail 2 counts double: 9; unarmored: 13", () =>
   eq([stressFor({ attack: 16, oppose: 6, cap: 12, resistance: 2, type: edged }).stress,
       stressFor({ attack: 16, oppose: 6, cap: 12, resistance: 0, type: edged }).stress], [9, 13]));

@@ -8,6 +8,7 @@
     "weight": "heavy",
     "primaryAttribute": "wit",
     "range": "Range 20",
+    "maxRange": "long",
     "types": [
       "pointed",
       "fired"

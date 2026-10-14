@@ -1,0 +1,31 @@
+{
+  "_id": "0xhkm4vGdM8mOJTw",
+  "name": "Misled",
+  "type": "effect",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "key": "misled",
+    "requires": [
+      "incorporeal",
+      "sonic"
+    ],
+    "pricingKind": "flat",
+    "pricingParams": {
+      "base": 10,
+      "perPoint": 0,
+      "perBand": 1
+    },
+    "magnitudeLabel": "",
+    "exemptFromPremium": false,
+    "setsFloor": false,
+    "description": "<p>PHB 6.8.19.</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 4000000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!0xhkm4vGdM8mOJTw"
+}

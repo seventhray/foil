@@ -102,6 +102,7 @@
         "weight": "medium",
         "primaryAttribute": "might",
         "range": "Range 1",
+        "maxRange": "close",
         "types": [
           "edged",
           "pointed",
@@ -161,7 +162,7 @@
           {
             "name": "Steel the Mind",
             "skill": "discipline",
-            "effect": "Grants Resistance +1 (mental) to self or an ally for 1 round."
+            "effect": "Grants Resistance +1 (Mental) to self or an ally for 1 round."
           },
           {
             "name": "Foresee the Blow",
@@ -319,7 +320,7 @@
         "featType": "learned",
         "xpCost": 8,
         "requirements": "12 Might",
-        "effect": "While you Guard an ally, once per round when a Technique lands on their Might or Finesse, redirect its Stress onto your Might, reduced by your physical Resistance.",
+        "effect": "While you Guard an ally, once per round when a Technique lands on their Might or Finesse, redirect its Stress onto your Might, reduced by your Physical Resistance.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [],

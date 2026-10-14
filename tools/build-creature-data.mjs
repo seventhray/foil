@@ -62,6 +62,9 @@ export function buildCreatureData() {
   const describe = name => {
     if (name === "Amphibious") return AMPHIBIOUS;
     if (name === "Swim") return "Moves through water at full speed.";
+    // A creature-only Trait is described in the GMG, as a sentence that opens "<name> needs".
+    const own = top.join(" ").match(new RegExp(`${name} needs [^.]+\\.\\s+([^.]+\\.)`));
+    if (own) return own[1];
     const row = phbTraits.find(c => clean(c[0]).split(/,\s*(?:or\s+)?|\s+or\s+/).includes(name) || clean(c[0]) === name);
     if (row) return clean(row[4]);
     const tech = catalog.find(t => t.name === name);

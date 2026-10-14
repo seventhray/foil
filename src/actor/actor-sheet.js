@@ -24,7 +24,7 @@ import { equipmentSummary } from "../registry.js";
 import { stressFor, alwaysTypes, isAlwaysType } from "../stress.js";
 import { ask, dialogApi, addButton, esc } from "../dialogs.js";
 import "../chat-actions.js";
-import { allowedAims, conditionFlags, conditionMods, signedParts, skillFormula, targetFlags } from "../combat.js";
+import { allowedAims, conditionFlags, conditionMods, signedParts, skillFormula, skillMath, targetFlags } from "../combat.js";
 import { resolveOppose } from "../oppose.js";
 import { restPlan } from "../rest.js";
 import { travelLeg } from "../travel.js";
@@ -205,21 +205,32 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
     return skillFormula(this.actor.system, skill, extra, dice);
   }
 
+  /** The roll's math, every source named (shown on every roll card). */
+  _math(skill, extra = 0, dice = "") {
+    return esc(skillMath(this.actor.system, skill, extra, dice));
+  }
+
+  /** An Instrument's own roll bonuses as named sources: its +N and an Enchantment on this Skill. */
+  _instrumentExtras(inst, skill) {
+    if (!inst) return [];
+    const out = [];
+    if (inst.system.bonusRoll) out.push({ label: `${inst.name} +${inst.system.bonus}`, value: Number(inst.system.bonusRoll) });
+    if (inst.system.enchantSkill?.skill === skill && inst.system.enchantSkill.n) out.push({ label: `${inst.name} Enchantment`, value: Number(inst.system.enchantSkill.n) });
+    return out;
+  }
+
   _rollNotes(skill, technique = false) {
     const sys = this.actor.system;
     const notes = [];
     const dropped = SKILL_ATTRS[skill].filter(ak => sys.attributes?.[ak]?.down).map(ak => ATTR_LABEL[ak]);
     if (dropped.length) notes.push(`${dropped.join(" and ")} Incapacitated: no dice from it.`);
-    if (sys.carry?.penalty) notes.push(`Mass ${sys.carry.weight} lbs: -${sys.carry.penalty}.`);
-    const cm = conditionMods(sys.conditions, { skill });
-    if (cm.parts.length) notes.push(`${signedParts(cm.parts)}.`);
     notes.push(...conditionFlags(sys.conditions, { skill, technique }));
     return notes;
   }
 
   static async _onRollSkill(event, target) {
     const key = target.dataset.key;
-    await this._postRoll(this._skillFormula(key), `${SKILL_LABEL[key]}`, this._rollNotes(key).join(" "));
+    await this._postRoll(this._skillFormula(key), `${SKILL_LABEL[key]}`, [this._math(key), ...this._rollNotes(key)].join("<br>"));
   }
 
   /** Roll one of an Instrument's three built-in Techniques (PHB 7.4.0). */
@@ -243,11 +254,16 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
     const aim = stress ? await this._aimAtTargets(inst, kit.name, kit.effect) : { targets: [] };
     if (!aim) return;
     notes.push(...(aim.notes ?? []));
-    await this._postRoll(this._skillFormula(kit.skill, Number(inst.system.bonusRoll) + (inst.system.enchantSkill?.skill === kit.skill ? inst.system.enchantSkill.n : 0), targeted ? inst.system.weightDice : ""), `${kit.name} (${SKILL_LABEL[kit.skill]})`,
+    const kitExtras = this._instrumentExtras(inst, kit.skill);
+    const kitDice = targeted && inst.system.weightDice ? [{ label: inst.system.weightLabel || "Weight", dice: inst.system.weightDice }] : [];
+    notes.unshift(this._math(kit.skill, kitExtras, kitDice));
+    await this._postRoll(this._skillFormula(kit.skill, kitExtras, kitDice), `${kit.name} (${SKILL_LABEL[kit.skill]})`,
       notes.join("<br>"), roll => ({
         cond: this._condFlag(),
         ...(applied && CONDITION_OPPOSE[applied] ? this._conditionFlag(kit.name, roll.total, { name: applied, note: "" }, { melee: !!inst.system.isMelee }) : {}),
-        ...(stress ? this._stressFlag(inst, kit.name, roll.total, { bespoke: bespokeBonus(kit.effect) + Number(inst.system.enchantStress ?? 0), pierce: inst.system.bonusPierce, aim }) : {})
+        ...(stress ? this._stressFlag(inst, kit.name, roll.total, { aim,
+          bespoke: [{ label: kit.name, value: bespokeBonus(kit.effect) }, { label: `${inst.name} Enchantment`, value: Number(inst.system.enchantStress ?? 0) }],
+          pierce: [{ label: `${inst.name} +${inst.system.bonus}`, value: Number(inst.system.bonusPierce ?? 0) }] }) : {})
       }));
   }
 
@@ -393,7 +409,7 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
     }
     skill ||= "prowess";
 
-    const bonus = Number(sys.rollBonus ?? 0) + Number(inst?.system.bonusRoll ?? 0) + (inst?.system.enchantSkill?.skill === skill ? inst.system.enchantSkill.n : 0);
+    const bonus = [{ label: tech.name, value: Number(sys.rollBonus ?? 0) }, ...this._instrumentExtras(inst, skill)];
     if (inst?.system.enchantBonus) notes.push(`Enchantment: ${inst.system.enchantBonus.label}${inst.system.enchantBonus.applies ? "" : " (apply at the table)"}.`);
     const notes = this._rollNotes(skill, true);
     notes.unshift(`${inst ? `Through ${esc(inst.name)}` : "Innate"}. ${esc(sys.effectSummary)}`);
@@ -411,13 +427,14 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
       const attr = inst?.system.primaryAttribute ?? SKILL_ATTRS[skill][0];
       const { before, after } = await this.actor.takeStress(attr, sys.strain);
       logEvent("strain", { actor: who(this.actor), source: tech.name, attribute: attr, amount: sys.strain, before, after });
-      notes.push(`Strain ${sys.strain} on ${ATTR_LABEL[attr]} (${before} &rarr; ${after}).`);
+      const xp = Number(sys.xpCost ?? 0) - (sys.perTarget ? 8 : 0);
+      notes.push(`Strain ${sys.strain} on ${ATTR_LABEL[attr]} (${before} &rarr; ${after}): (${xp} XP${sys.perTarget ? " before the Selective premium" : ""} - 24) / 8, rounded down (PHB 4.2.3).`);
     }
 
     const gem = inst?.system.gemActive ? inst.system.gem : null;
     const gemPierce = gem?.type === "emerald" && sys.pierceTotal ? Number(gem.tier) : 0;
-    const wdice = sys.offensive && inst?.type === "instrument" ? (inst.system.weightDice ?? "") : "";
-    if (wdice) notes.push(`${inst.system.weightLabel}: +${wdice}.`);
+    const wdice = sys.offensive && inst?.type === "instrument" && inst.system.weightDice ? [{ label: inst.system.weightLabel || "Weight", dice: inst.system.weightDice }] : [];
+    notes.unshift(this._math(skill, bonus, wdice));
     const applied = !sys.dealsStress ? (sys.effects ?? []).find(e => CONDITION_OPPOSE[EFFECT_CONDITION[e.key]]) : null;
     const condition = applied ? { name: EFFECT_CONDITION[applied.key], note: applied.key.startsWith("reeling") ? `${applied.magnitude ?? 1}` : "", rounds: applied.duration || (applied.key.endsWith("-minute") ? "1 minute" : "") } : null;
     if (condition) notes.push(`The target resists with any ${ATTR_LABEL[CONDITION_ATTR[condition.name]]} Skill (PHB 6.8.0).`);
@@ -425,7 +442,8 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
       cond: this._condFlag(),
       ...(condition ? this._conditionFlag(tech.name, roll.total, condition, { melee: !!inst?.system.isMelee }) : {}),
       ...(sys.dealsStress && inst ? this._stressFlag(inst, tech.name, roll.total, {
-        bespoke: Number(sys.stressRider ?? 0) + Number(inst.system.enchantStress ?? 0), pierce: Number(sys.pierceTotal ?? 0) + Number(inst.system.bonusPierce ?? 0) + gemPierce, aim
+        bespoke: [{ label: tech.name, value: Number(sys.stressRider ?? 0) }, { label: `${inst.name} Enchantment`, value: Number(inst.system.enchantStress ?? 0) }],
+        pierce: [{ label: tech.name, value: Number(sys.pierceTotal ?? 0) }, { label: `${inst.name} +${inst.system.bonus}`, value: Number(inst.system.bonusPierce ?? 0) }, { label: "Emerald", value: gemPierce }], aim
       }) : {})
     }));
   }
@@ -446,7 +464,9 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
       logEvent("strain", { actor: who(this.actor), source: `${inst.name} (Enchantment)`, attribute: inst.system.primaryAttribute, amount: ench.strain, before, after });
       notes.push(`Strain ${ench.strain} on ${ATTR_LABEL[inst.system.primaryAttribute]} (${before} &rarr; ${after}).`);
     }
-    await this._postRoll(this._skillFormula(answer.skill, inst.system.bonusRoll), `${esc(inst.name)} (${SKILL_LABEL[answer.skill]})`, notes.join("<br>"), () => ({ cond: this._condFlag() }));
+    const enchExtras = this._instrumentExtras(inst, answer.skill);
+    notes.unshift(this._math(answer.skill, enchExtras));
+    await this._postRoll(this._skillFormula(answer.skill, enchExtras), `${esc(inst.name)} (${SKILL_LABEL[answer.skill]})`, notes.join("<br>"), () => ({ cond: this._condFlag() }));
   }
 
   /**
@@ -459,7 +479,7 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
     return { types, families: familiesOf(types), materials: inst.system.materials ?? "" };
   }
 
-  _stressFlag(inst, name, total, { bespoke = 0, pierce = 0, aim = { targets: [] } } = {}) {
+  _stressFlag(inst, name, total, { bespoke = [], pierce = [], aim = { targets: [] } } = {}) {
     const primary = inst.system.primaryAttribute;
     const a = this.actor.system.attributes?.[primary];
     const potential = Number(a?.potential?.max ?? 0);
@@ -469,8 +489,10 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
       stress: {
         actorId: this.actor.id, name, attackTotal: total, instrument: inst.name,
         cap: marginCap(potential, weight), capLabel: label(weight),
-        mult: Number(inst.system.marginMultiplier ?? 1),
-        types: inst.system.stressTypes ?? [], bespoke, pierce, attackInfo: this._attackInfo(inst),
+        mult: Number(inst.system.marginMultiplier ?? 1), multLabel: inst.system.weightLabel || weight,
+        types: inst.system.stressTypes ?? [],
+        bespoke: bespoke.reduce((n, p) => n + p.value, 0), bespokeParts: bespoke.filter(p => p.value),
+        pierce: pierce.reduce((n, p) => n + p.value, 0), pierceParts: pierce.filter(p => p.value), attackInfo: this._attackInfo(inst),
         melee: !!inst.system.isMelee, targets: aim.targets, aim: aim.aim, typeIndex: aim.typeIndex, other: aim.other
       }
     };

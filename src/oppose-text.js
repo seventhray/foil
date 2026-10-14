@@ -26,7 +26,7 @@ export function opposeDialog({ flagName, attackLine, defenderName, conditionName
     + `<div class="form-group"><label>Oppose with</label><select name="skill">${opts}</select></div>`
     + exposed.map((c, n) => `<div class="form-group"><label>${esc(attackerName)} uses Foil Exposed: ${habitOf(c.note)} <em>(-2, used up)</em></label><input type="checkbox" name="exposed${n}" /></div>`).join("")
     + (cnd ? "" : `<div class="form-group"><label>Guard <em>(+2)</em></label><input type="checkbox" name="guard" /></div>`)
-    + (!cnd && kind === "physical" ? `<div class="form-group"><label>Parry <em>(physical Resistance +1)</em></label><input type="checkbox" name="parry" /></div>` : "")
+    + (!cnd && kind === "physical" ? `<div class="form-group"><label>Parry <em>(Physical Resistance +1)</em></label><input type="checkbox" name="parry" /></div>` : "")
     + `<div class="form-group"><label>Other Oppose modifier</label><input type="number" name="other" value="0" /></div>`;
 }
 
@@ -41,7 +41,7 @@ export const alreadyExposedCard = (defenderName, attackerName) =>
 export const conditionAppliedCard = (defenderName, conditionName, go) =>
   flavor(`<strong>${esc(defenderName)} is ${esc(conditionName)}</strong><br><em>${[go.rounds?.trim(), go.note?.trim()].filter(Boolean).join("; ")}.</em>`);
 export const stressCard = (defenderName, aim, r, versus) =>
-  flavor(`<strong>${r.stress} Stress</strong> to ${esc(defenderName)}'s ${ATTR_LABEL[aim]}<br><em>${versus}; ${r.parts.join("; ")}.</em>`);
+  flavor(`<strong>${r.stress} Stress</strong> to ${esc(defenderName)}'s ${ATTR_LABEL[aim]}<br><em>${versus}.<br>${r.parts.map(esc).join("<br>")}</em>`);
 export const stressAppliedCard = (amount, lines, note) =>
   flavor(`<strong>${amount} Stress applied</strong><br><em>${lines.join(", ")}${note}</em>`);
 export const rerollCard = (title, total, die, again) =>

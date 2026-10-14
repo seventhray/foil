@@ -21,7 +21,7 @@
 import crypto from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
-import { rangeMinOf } from "../src/constants.js";
+import { rangeBandOf, rangeMinOf } from "../src/constants.js";
 import { priceTechnique, strainFor } from "../src/pricing.js";
 import { GUIDE } from "./guide-content.mjs";
 import {
@@ -50,8 +50,8 @@ const CRAFT_MATERIALS = ["Metal", "Wood", "Leather", "Gemstone", "Textile", "Rea
 const INSTRUMENT_TYPES = [
   ["Quick", "quick", "other", { quick: true }, "Creatures only (GMG 9.6.0): this natural weapon's built-in Techniques may be used as a Quick Action. A Light Instrument already can (PHB 4.1.1)."],
   ["Edged", "edged", "melee", { stressPhysical: 3, doubleResistance: true }, "+3 Stress against a physical Attribute. Physical Resistance, after Pierce, counts double against it."],
-  ["Pointed", "pointed", "melee", { stressPhysical: 1, pierce: 1 }, "Pierce 1 against physical Resistance. +1 Stress against a physical Attribute."],
-  ["Blunt", "blunt", "melee", { pierce: 3 }, "Pierce 3 against physical Resistance."],
+  ["Pointed", "pointed", "melee", { stressPhysical: 1, pierce: 1 }, "Pierce 1 against Physical Resistance. +1 Stress against a physical Attribute."],
+  ["Blunt", "blunt", "melee", { pierce: 3 }, "Pierce 3 against Physical Resistance."],
   ["Thrown", "thrown", "ranged", {}, "No type effect. No reload."],
   ["Drawn", "drawn", "ranged", { stressPhysical: 2, stressMental: 2, reload: "quick" }, "+2 Stress. Reload: Quick Action."],
   ["Fired", "fired", "ranged", { stressPhysical: 4, stressMental: 4, reload: "action" }, "+4 Stress. Reload: Action."],
@@ -60,7 +60,7 @@ const INSTRUMENT_TYPES = [
   ["Sonic", "sonic", "sonic", { stressPhysical: -1, stressMental: 1 }, "+1 Stress against a mental Attribute. -1 against a physical Attribute."],
   ["Fortifying", "fortifying", "arcane", {}, "Support, aimed at an ally or the caster."],
   ["Grappling", "grappling", "melee", { dealsNoStress: true }, "Adds no Stress."],
-  ["Parry", "parry", "melee", {}, "Spend the Quick Action reactively for physical Resistance +1 against a Melee or Ranged Technique (PHB 6.5.2)."],
+  ["Parry", "parry", "melee", {}, "Spend the Quick Action reactively for Physical Resistance +1 against a Melee or Ranged Technique (PHB 6.5.2)."],
   ["Blocking", "blocking", "other", { blocking: true }, "+N applies to Oppose rolls. Guard with the Quick Action (PHB 6.5.1)."],
   ["Immobile", "immobile", "other", { stressPhysical: 2, stressMental: 2 }, "+2 Stress. Fixed at a location; using it means being there."],
   ["Tool", "tool", "other", { isTool: true }, "A Trade roll against a Difficulty (PHB 4.2.6)."],
@@ -136,6 +136,8 @@ const EFFECTS = [
   ["Angered", "angered", "flat", { base: 8 }, { requires: ["incorporeal", "sonic"] }, "PHB 6.8.13."],
   ["Relaxed", "relaxed", "flat", { base: 8 }, { requires: ["incorporeal", "sonic"] }, "PHB 6.8.14."],
   ["Impressed", "impressed", "flat", { base: 10 }, { requires: ["incorporeal", "sonic"] }, "PHB 6.8.15."],
+  ["Swayed", "swayed", "flat", { base: 8 }, { requires: ["incorporeal", "sonic"] }, "PHB 6.8.18."],
+  ["Misled", "misled", "flat", { base: 10 }, { requires: ["incorporeal", "sonic"] }, "PHB 6.8.19."],
   ["Wary", "wary", "flat", { base: 8 }, { requires: ["sonic", "fortifying"] }, "PHB 6.8.16."],
   ["Enthralled", "enthralled", "flat", { base: 20 }, { requires: ["incorporeal", "sonic"] }, "PHB 6.8.17."],
   ["Blinded", "blinded", "flat", { base: 16 }, { requires: [...MELEE, ...RANGED, "kinetic", "incorporeal"] }, "PHB 6.8.20."],
@@ -350,7 +352,7 @@ function instrumentDoc(n) {
     name: n.name, type: "instrument", img: "icons/svg/sword.svg",
     system: {
       category: lc(n.category ?? "melee"), weight, primaryAttribute: lc(n.primary_attribute),
-      range: n.range ?? "Range 1", ...(rangeMinOf(n.range) ? { minRange: rangeMinOf(n.range) } : {}), types, typesDisplay: n.name === "Wand" ? "" : (n.types_display ?? ""),
+      range: n.range ?? "Range 1", maxRange: rangeBandOf(n.range ?? "Range 1"), ...(rangeMinOf(n.range) ? { minRange: rangeMinOf(n.range) } : {}), types, typesDisplay: n.name === "Wand" ? "" : (n.types_display ?? ""),
       price: Number(n.price) || 0, rider: n.rider ?? "", kit,
       innate: false, bonus: 0, size: sizeOf[key] ?? "medium", materials: materialsOf[key] ?? "",
       description: ""
@@ -691,7 +693,7 @@ for (const bg of backgrounds) {
 const featNames = new Set(feats.map(f => f.name));
 for (const a of ancestries) for (const f of a.system.feats) if (!featNames.has(f)) warnings.push(`${a.name}: Feat "${f}" not in the Catalog`);
 
-const expect = { techniques: 120, feats: 57, instruments: 34, tools: 17 };
+const expect = { techniques: 120, feats: 56, instruments: 34, tools: 17 };
 for (const [k, n] of Object.entries(expect)) {
   if (CAT[k].length !== n) warnings.push(`Catalog/${k}: ${CAT[k].length} notes, expected ${n}`);
 }

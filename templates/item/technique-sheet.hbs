@@ -5,6 +5,7 @@
     <strong data-var="xpCost">{{system.xpCost}} XP</strong> &middot; Strain <strong data-var="strain">{{system.strain}}</strong>
     <em>(computed from the Effects below)</em>
   </div>
+  {{#if system.priceMath}}<div class="derived-line math-line"><em>{{system.priceMath}}</em></div>{{/if}}
   <div class="field-grid">
     <label>Innate <em>(no Instrument)</em></label>
     <input type="checkbox" name="system.innate" {{#if system.innate}}checked{{/if}} />

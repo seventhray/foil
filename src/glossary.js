@@ -34,7 +34,7 @@ export const GLOSSARY = {
   },
   "blunt": {
     "name": "Blunt",
-    "text": "Pierce 3 against physical Resistance."
+    "text": "Pierce 3 against Physical Resistance."
   },
   "charmed": {
     "name": "Charmed",
@@ -186,11 +186,11 @@ export const GLOSSARY = {
   },
   "light": {
     "name": "Light",
-    "text": "its margin caps at half the Primary Potential. After the Action uses a Technique through a Light Instrument, the Quick Action can use a Light Instrument's built-in Technique."
+    "text": "its margin caps at half the Primary Potential. It allows a Quick Action follow-up."
   },
   "light instrument": {
     "name": "Light Instrument",
-    "text": "its margin caps at half the Primary Potential. After the Action uses a Technique through a Light Instrument, the Quick Action can use a Light Instrument's built-in Technique."
+    "text": "its margin caps at half the Primary Potential. It allows a Quick Action follow-up."
   },
   "lines and veils": {
     "name": "Lines and Veils",
@@ -214,7 +214,7 @@ export const GLOSSARY = {
   },
   "misled": {
     "name": "Misled",
-    "text": "Resisted with Wit. Believes one plausible false statement from the source. It ends when given reason to doubt, or after the duration. Lasts 10 minutes by default."
+    "text": "Resisted with Wit. Believes one plausible false statement from the source. It ends when given reason to doubt, or after the duration."
   },
   "move": {
     "name": "Move",
@@ -250,7 +250,7 @@ export const GLOSSARY = {
   },
   "pointed": {
     "name": "Pointed",
-    "text": "+1 Stress against a physical Attribute. Pierce 1 against physical Resistance."
+    "text": "+1 Stress against a physical Attribute. Pierce 1 against Physical Resistance."
   },
   "potential": {
     "name": "Potential",
@@ -302,7 +302,7 @@ export const GLOSSARY = {
   },
   "restrained": {
     "name": "Restrained",
-    "text": "Resisted with Might. The creature's Finesse is Incapacitated as long as it is Restrained and it cannot move. The Technique that applies it states how it ends."
+    "text": "Resisted with Might. The creature's Finesse is Incapacitated as long as it is Restrained and it cannot move. It breaks free by spending its Action and beating the roll that Restrained it."
   },
   "selective": {
     "name": "Selective",
@@ -334,7 +334,7 @@ export const GLOSSARY = {
   },
   "swayed": {
     "name": "Swayed",
-    "text": "Resisted with Wit. Leans toward trusting and helping the source, short of acting against its own interests. Lasts 10 minutes by default."
+    "text": "Resisted with Wit. Leans toward trusting and helping the source, short of acting against its own interests. It ends after the duration."
   },
   "target": {
     "name": "Target",

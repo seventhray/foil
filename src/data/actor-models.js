@@ -110,6 +110,9 @@ function prepareCore(sys) {
     penalty: might > 0 && carried > CARRY_FREE_MULTIPLE * might
       ? Math.ceil(carried / might) - CARRY_FREE_MULTIPLE : 0
   };
+  // The Mass math, every term named (PHB 5.2.6).
+  sys.carry.math = `Mass ${carried} lbs (items ${carried - sys.carry.rationMass}, rations ${sys.carry.rationMass}); free up to ${CARRY_FREE_MULTIPLE} x Might Potential ${might} = ${sys.carry.limit}`
+    + (sys.carry.penalty ? `; penalty: ${carried} / ${might} rounded up, minus ${CARRY_FREE_MULTIPLE} = -${sys.carry.penalty}` : "; no penalty");
 
   const skills = sys.skills ?? {};
   for (const [key, pair] of Object.entries(SKILL_ATTRS)) {

@@ -8,6 +8,7 @@
     "weight": "heavy",
     "primaryAttribute": "wit",
     "range": "Range 8",
+    "maxRange": "mid",
     "types": [
       "incorporeal"
     ],

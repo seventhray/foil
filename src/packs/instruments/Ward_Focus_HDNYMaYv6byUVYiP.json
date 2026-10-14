@@ -8,6 +8,7 @@
     "weight": "light",
     "primaryAttribute": "wit",
     "range": "Range 1",
+    "maxRange": "close",
     "types": [
       "blocking",
       "fortifying"
@@ -19,7 +20,7 @@
       {
         "name": "Steel the Mind",
         "skill": "discipline",
-        "effect": "Grants Resistance +1 (mental) to self or an ally for 1 round."
+        "effect": "Grants Resistance +1 (Mental) to self or an ally for 1 round."
       },
       {
         "name": "Foresee the Blow",

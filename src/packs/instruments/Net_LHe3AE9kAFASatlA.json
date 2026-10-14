@@ -8,6 +8,7 @@
     "weight": "light",
     "primaryAttribute": "finesse",
     "range": "Range 4",
+    "maxRange": "short",
     "types": [
       "grappling"
     ],

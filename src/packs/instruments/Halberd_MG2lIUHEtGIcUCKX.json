@@ -8,13 +8,14 @@
     "weight": "heavy",
     "primaryAttribute": "might",
     "range": "Range 2-4",
+    "maxRange": "short",
     "minRange": "near",
     "types": [
       "edged",
       "pointed"
     ],
     "typesDisplay": "",
-    "price": 70,
+    "price": 80,
     "rider": "",
     "kit": [
       {

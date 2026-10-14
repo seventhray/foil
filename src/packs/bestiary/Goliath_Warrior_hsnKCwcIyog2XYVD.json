@@ -99,6 +99,7 @@
         "weight": "medium",
         "primaryAttribute": "might",
         "range": "Range 1",
+        "maxRange": "close",
         "types": [
           "blunt"
         ],
@@ -336,8 +337,8 @@
       "_key": "!actors.items!hsnKCwcIyog2XYVD.aJCfFqKH3W79vxs8"
     },
     {
-      "_id": "d5Pt0DcvrtM6ns19",
-      "name": "Berserk",
+      "_id": "APTGni4NrbV8UATU",
+      "name": "Wounded Fury",
       "type": "feat",
       "img": "icons/svg/upgrade.svg",
       "system": {
@@ -357,7 +358,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!hsnKCwcIyog2XYVD.d5Pt0DcvrtM6ns19"
+      "_key": "!actors.items!hsnKCwcIyog2XYVD.APTGni4NrbV8UATU"
     },
     {
       "_id": "wg2BGnFHITvl7nGH",

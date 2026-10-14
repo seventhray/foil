@@ -102,6 +102,7 @@
         "weight": "heavy",
         "primaryAttribute": "presence",
         "range": "Range 20",
+        "maxRange": "long",
         "types": [
           "kinetic",
           "incorporeal",
