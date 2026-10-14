@@ -10,7 +10,7 @@ import { typeOptions, effectOptions, qualityOptions, effectMap, qualityMap } fro
 import {
   WEIGHT_KEYS, WEIGHT_CLASS, ATTRIBUTE_KEYS, ATTR_LABEL, SKILL_KEYS, SKILL_LABEL, SIZE, SIZE_KEYS,
   FOCUS_GEMS, EQUIPMENT_CATEGORY_LABEL, RESISTANCE_KINDS, RESISTANCE_LABEL, cap, ITEM_LOCATIONS, LOCATION_LABEL,
-  TECHNIQUE_FAMILIES, ORIGIN_NAMES, RANGE_CHOICES, RANGE_BANDS, RANGE_LABEL
+  TECHNIQUE_FAMILIES, ORIGIN_NAMES, RANGE_CHOICES, RANGE_BANDS, RANGE_LABEL, CONDITION_PRESETS, EFFECT_CONDITION
 } from "../constants.js";
 import { QualityData, EffectData, InstrumentTypeData } from "../data/definition-models.js";
 import { entryLabel, DURATION_BASES, DURATIONS, CONDITION_EFFECTS, withDuration } from "../pricing.js";
@@ -158,7 +158,7 @@ export class FoilItemSheet extends HandlebarsApplicationMixin(ItemSheetV2Base) {
                kind: em[e.key]?.pricingKind ?? "", showN: em[e.key]?.pricingKind === "perPoint", showPattern: em[e.key]?.pricingKind === "pattern",
                showBands: ["pattern", "extendRange"].includes(em[e.key]?.pricingKind), showSelective: em[e.key]?.pricingKind === "selective",
                hasDuration: DURATION_BASES.has(base), minute: String(e.key).endsWith("-minute"),
-               durationChoices: CONDITION_EFFECTS.has(base) ? [{ value: "", label: "Default (10 minutes)" }, ...DURATIONS.map(d => ({ value: d, label: d }))].map(c => ({ ...c, selected: c.value === (e.duration ?? "") })) : null };
+               durationChoices: CONDITION_EFFECTS.has(base) ? [{ value: "", label: `Default (${CONDITION_PRESETS[EFFECT_CONDITION[base]] ?? "1 round"})` }, ...DURATIONS.map(d => ({ value: d, label: d }))].map(c => ({ ...c, selected: c.value === (e.duration ?? "") })) : null };
     });
     if (this.item.type === "technique") ctx.effectRows = effectRows(sys.effects);
     if (this.item.type === "instrument") {

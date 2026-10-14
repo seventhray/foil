@@ -70,7 +70,7 @@
       "physical": 0,
       "mental": 0
     },
-    "notes": "<p><em>A spore-choked mass of fungus wearing the shape of whatever it grew over first</em></p><p>Shambles at the nearest living thing. Its last burst of spores is the real danger, so players learn to finish it from range.</p>"
+    "notes": "<p><em>A spore-choked mass of fungus wearing the shape of whatever it grew over first</em></p><p>Lies still under its own spore mat until something living steps close, then lashes out at whatever has not yet moved.</p>"
   },
   "folder": "waHrVCvmZV9sEJ2n",
   "sort": 5900000,
@@ -172,15 +172,15 @@
       "_key": "!actors.items!HNWvLX9Wo51zpsrD.B5Qa8ZaBDU5ngYdB"
     },
     {
-      "_id": "nraFJnQhBiQTeIt3",
-      "name": "Fatal Burst",
+      "_id": "7erotxYfBPnAE7Vg",
+      "name": "Ambush Predator",
       "type": "feat",
       "img": "icons/svg/upgrade.svg",
       "system": {
         "featType": "trait",
         "xpCost": 8,
         "requirements": "",
-        "effect": "when this creature is Destroyed, everything within Range 2 of it immediately takes Stress equal to this creature's Training bonus, this creature's choice of Attribute among the ones it could normally target.",
+        "effect": "the first Technique this creature lands on a target that hasn't yet acted this conflict deals +2 additional Stress.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [],
@@ -193,7 +193,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!HNWvLX9Wo51zpsrD.nraFJnQhBiQTeIt3"
+      "_key": "!actors.items!HNWvLX9Wo51zpsrD.7erotxYfBPnAE7Vg"
     },
     {
       "_id": "Gv1VeeeyQ6CJgzKR",
