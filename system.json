@@ -2,7 +2,7 @@
   "id": "foil",
   "title": "Foilbound",
   "description": "One engine for fights of the body, the mind, and the soul. Four Attribute pools, four FOIL axes, and a single margin-to-Stress rule resolve a sword duel, a courtroom argument, and a haunting alike. Every Technique, Feat, and creature is priced by the same accessible rules, so a character and a monster are grounded in the same economy.",
-  "version": "0.7.4",
+  "version": "0.8.0",
   "compatibility": {
     "minimum": "13",
     "verified": "14"
@@ -15,7 +15,7 @@
   ],
   "url": "https://github.com/seventhray/foil",
   "manifest": "https://github.com/seventhray/foil/releases/latest/download/system.json",
-  "download": "https://github.com/seventhray/foil/releases/download/v0.7.4/foil.zip",
+  "download": "https://github.com/seventhray/foil/releases/download/v0.8.0/foil.zip",
   "bugs": "https://github.com/seventhray/foil/issues",
   "readme": "https://github.com/seventhray/foil#readme",
   "license": "LICENSE",
