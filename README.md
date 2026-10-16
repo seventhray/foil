@@ -69,6 +69,9 @@ To publish, set `version` and the `download` URL in `system.json`, commit, and r
 
 ## License
 
+Human designed, edited with language models, contains no generative AI content.
+
+
 The code is under the [MIT License](LICENSE). That covers the JavaScript, templates, styles, and build tools.
 
 The Foilbound game content is © 2026 seventhray, all rights reserved. That is the rules text and game data in the compendiums, the Habit Tables in `src/habits.js`, and the text in `tools/guide-content.mjs`.
