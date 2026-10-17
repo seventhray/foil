@@ -322,11 +322,11 @@ export const GLOSSARY = {
   },
   "strain": {
     "name": "Strain",
-    "text": "Stress a Technique deals its own user, on the Instrument's Primary Attribute. It ignores Resistance."
+    "text": "Stress that a being inflicts on itself through great effort, performing difficult or costly techniques"
   },
   "stress": {
     "name": "Stress",
-    "text": "The measure of damage (physical, mental, social)"
+    "text": "Damage (physical, mental, social) that is applied to each Attribute separately."
   },
   "stunned": {
     "name": "Stunned",
@@ -358,7 +358,7 @@ export const GLOSSARY = {
   },
   "upkeep": {
     "name": "Upkeep",
-    "text": "Keeps a Technique working each turn. Pay its Action or Quick Action and its Strain again."
+    "text": "Keeps an Action Technique working each turn. Pay a Quick Action and its Strain again."
   },
   "wall": {
     "name": "Wall",

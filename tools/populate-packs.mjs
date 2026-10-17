@@ -122,7 +122,7 @@ const EFFECTS = [
   ["Extend Range", "extend-range", "extendRange", { perBand: 1 }, { requires: ["kinetic", "incorporeal"] }, "1 XP per band of extra reach."],
   ["Pattern", "pattern", "pattern", {}, { requires: [...MELEE, ...RANGED, "sonic", ...ARCANE] }, "Beam or Wall: 1 + 2 + ... per band. Cone 3x, Radius 12x the Beam cost. A Melee Pattern reaches no farther than its Instrument's Range."],
   ["Selective", "selective", "selective", {}, { requires: [...RANGED, "sonic", ...ARCANE] }, "Creatures within R bands: range at 1 XP per band, plus an 8 XP premium; Strain is paid per target."],
-  ["Upkeep", "upkeep", "upkeep", { base: 4 }, { requires: ARCANE, exempt: true }, "Keep the Technique active by paying its Action and Strain each turn."],
+  ["Upkeep", "upkeep", "upkeep", { base: 4 }, { requires: ARCANE, exempt: true }, "Keep an Action Technique active by paying a Quick Action and its Strain at the start of each later turn."],
   ["Quick", "quick", "quick", { base: 3 }, { exempt: true, floor: true }, "3 XP, outside the combination premium. A stated trigger sets the 8 XP floor."],
   // Conditions (PHB 6.8.x), priced flat.
   ["Grappled", "grappled", "flat", { base: 4 }, { requires: ["grappling", "kinetic"] }, "PHB 6.8.3."],
@@ -285,6 +285,8 @@ function techniqueDoc(n) {
   else if (HAND_EFFECTS[n.name]) { effects = HAND_EFFECTS[n.name](); unparsed.length = 0; }
   else effects = stress ? [e("stress"), ...list] : list;
 
+  // PHB 4.2.5: only an Action Technique can have Upkeep.
+  if (/^Upkeep$/im.test(splitTop(n.effect ?? "").join("\n")) && /\bQuick\b/.test(n.effect ?? "")) priceFails.push(`${n.name}: Upkeep needs an Action Technique (PHB 4.2.5)`);
   const computed = price(effects);
   if (xp === null) xp = computed;
   if (effects.length && (computed !== xp || unparsed.length)) {

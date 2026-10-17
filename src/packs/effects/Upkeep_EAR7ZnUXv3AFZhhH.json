@@ -19,7 +19,7 @@
     "magnitudeLabel": "",
     "exemptFromPremium": true,
     "setsFloor": false,
-    "description": "<p>Keep the Technique active by paying its Action and Strain each turn.</p>"
+    "description": "<p>Keep an Action Technique active by paying a Quick Action and its Strain at the start of each later turn.</p>"
   },
   "effects": [],
   "folder": null,
