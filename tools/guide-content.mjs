@@ -93,7 +93,7 @@ p("Ending a conflict, resting, travel", `
   pages: [
 p("Character sheet", `
 <table><thead><tr><th>Field</th><th>What it is</th></tr></thead><tbody>
-<tr><td><strong>Create</strong></td><td>Builds a starting character in one window, following PHB 2.5.0: pick an Origin and a Background and see what each grants, preview the dice, Training, and Resistance, set FOIL traits (pick, roll, or write), and answer the prompts. Adds Body and Voice.</td></tr>
+<tr><td><strong>Create</strong></td><td>Builds a starting character in one window, following PHB 2.5.0: pick an Origin and a Background and see what each grants, roll Talent one die at a time and watch each die grow, preview the dice, Training, and Resistance, set FOIL traits (pick, roll, or write), and answer the prompts. Adds Body and Voice.</td></tr>
 <tr><td><strong>Drag and drop</strong></td><td>Drop any Item from the sidebar or a compendium onto the sheet. A dropped Origin or Background replaces the old one.</td></tr>
 <tr><td><strong>Advance</strong></td><td>Spends XP: a die one size 8, 12, 16, or 20 XP by its size, d12 to d20 100 XP as a Transformation (PHB 2.3.1), a new 1d4 12 XP plus 4 per die already in the pool, +1 Training 8 XP plus 2 per point held, or a Technique or Feat at its listed XP.</td></tr>
 <tr><td><strong>Attribute Dice</strong></td><td>How many of each die size sit in the pool. The system builds the formula and Potential.</td></tr>

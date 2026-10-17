@@ -1,6 +1,6 @@
 <div class="foil-sheet chargen-body">
   <p class="chargen-intro">
-    Build <strong>{{actorName}}</strong> (PHB 2.5.0). Every Attribute starts at 2d4; the Origin and Background add to them.
+    Build <strong>{{actorName}}</strong> (PHB 2.5.0). Every Attribute starts at 2d4. The Origin, the Talent roll, and the Background add to them.
     Body, Voice, and Mind are added automatically. This replaces the character's Attribute dice, Origin, and Background.
   </p>
 
@@ -19,7 +19,7 @@
             <p><strong>{{this.name}}.</strong> {{this.effect}}{{#if this.technique}} <em>({{this.technique}})</em>{{/if}}</p>
           {{/each}}
         </div>
-      {{else}}<p class="hint">Sets two dice by Talent and grants two Feats.</p>{{/if}}
+      {{else}}<p class="hint">Advances one or two dice by Talent and grants two Feats.</p>{{/if}}
     </fieldset>
 
     <fieldset>
@@ -40,6 +40,30 @@
       {{else}}<p class="hint">+1 Training in three Skills, 2d4 Know-how, coin, and a kit.</p>{{/if}}
     </fieldset>
   </div>
+
+  {{#if talentRoll}}
+  <fieldset class="chargen-talent">
+    <legend>Talent roll <em>(PHB 2.5.1; each pool three times, a die's highest number advances it one size, up to d12)</em></legend>
+    <div class="talent-pools">
+      {{#each talentRoll.attributes}}
+        <div class="talent-pool">
+          <strong>{{this.label}}</strong>
+          {{#each this.dice}}
+            <div class="talent-die">
+              <span class="talent-size">d{{this.size}}</span>
+              {{#each this.rolls}}<span class="talent-face{{#if this.advanced}} advanced{{/if}}" title="Pass {{this.pass}}: d{{this.size}} rolled {{this.result}}{{#if this.advanced}}, advances to d{{this.to}}{{/if}}">{{this.result}}</span>{{/each}}
+            </div>
+          {{/each}}
+        </div>
+      {{/each}}
+    </div>
+    {{#if talentRoll.done}}
+      <p class="hint">Talent rolled: {{talentRoll.advances}} dice advanced.</p>
+    {{else}}
+      <button type="button" class="chargen-btn" data-action="rollTalent"><i class="fas fa-dice"></i> Roll {{talentRoll.next}}</button>
+    {{/if}}
+  </fieldset>
+  {{/if}}
 
   <fieldset>
     <legend>Result</legend>

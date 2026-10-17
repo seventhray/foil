@@ -2,7 +2,9 @@
  * src/apps/chargen.js
  * Starting Character (PHB 2.5.0), all six steps in one window:
  *   1. Every Attribute starts at 2d4.
- *   2. Origin: Talent on two dice, two Feats (and any Technique a Feat teaches).
+ *   2. Origin: Talent on one or two dice, two Feats (and any Technique a Feat teaches),
+ *      then the Talent roll: each pool rolled three times, one die at a time; a die
+ *      that rolls its highest advances one size, up to d12.
  *   3. Background: +1 Training in three Skills, 2d4 Know-how, coin, and a kit.
  *   4. Starting Point (PHB 2.3.2) sets Starting XP and Starting Coin;
  *      Fresh Start, or none, takes the Background's coin.
@@ -36,6 +38,10 @@ const PROMPTS = [
 
 const INNATE_INSTRUMENTS = ["Body", "Voice", "Mind"];
 const DIE_KEYS = ["d4", "d6", "d8", "d10", "d12", "d20"];
+const NEXT_SIZE = { 4: 6, 6: 8, 8: 10, 10: 12 };
+// The Talent roll (PHB 2.5.1): three passes over the two dice in each pool.
+const TALENT_PASSES = 3;
+const TALENT_ROLLS = TALENT_PASSES * ATTRIBUTE_KEYS.length * 2;
 
 /** Split a Background kit string ("Longsword, Leather armor, Traveler Pack.") into item names. */
 export function parseKit(kit) {
@@ -84,16 +90,31 @@ export async function grantStartingKit(actor) {
   return toCreate.length;
 }
 
-/** The starting pools from an Origin and a Background (PHB 2.5.0 steps 1-3). */
-function startingPools(ancestry, background) {
-  const pools = Object.fromEntries(ATTRIBUTE_KEYS.map(k => [k, { d4: 2 }]));
+/** Each pool's two dice after the Origin's Talent and the rolls so far, as die sizes. */
+function talentDice(ancestry, rolls = []) {
+  const dice = Object.fromEntries(ATTRIBUTE_KEYS.map(k => [k, [4, 4]]));
   for (const t of ancestry?.system.talent ?? []) {
-    const p = pools[t.attribute];
-    if (!p?.d4) continue;
-    p.d4 -= 1;
-    p[`d${t.die}`] = (p[`d${t.die}`] ?? 0) + 1;
+    const i = dice[t.attribute]?.indexOf(4) ?? -1;
+    if (i >= 0) dice[t.attribute][i] = Number(t.die);
   }
-  for (const a of background?.system.knowHow ?? []) if (pools[a]) pools[a].d4 += 1;
+  for (const r of rolls) if (r.advanced) dice[r.attribute][r.index] = r.to;
+  return dice;
+}
+
+/** Which die the next Talent roll is for: pass by pass, Attribute by Attribute, die by die. */
+function nextTalentRoll(n) {
+  if (n >= TALENT_ROLLS) return null;
+  const perPass = ATTRIBUTE_KEYS.length * 2;
+  const inPass = n % perPass;
+  return { pass: Math.floor(n / perPass) + 1, attribute: ATTRIBUTE_KEYS[Math.floor(inPass / 2)], index: inPass % 2 };
+}
+
+/** The starting pools (PHB 2.5.0 steps 1-3): Origin Talent, the Talent rolls, then Background Know-how. */
+function startingPools(ancestry, background, rolls = []) {
+  const pools = Object.fromEntries(ATTRIBUTE_KEYS.map(k => [k, {}]));
+  for (const [k, sizes] of Object.entries(talentDice(ancestry, rolls)))
+    for (const size of sizes) pools[k][`d${size}`] = (pools[k][`d${size}`] ?? 0) + 1;
+  for (const a of background?.system.knowHow ?? []) if (pools[a]) pools[a].d4 = (pools[a].d4 ?? 0) + 1;
   return pools;
 }
 
@@ -117,6 +138,8 @@ export class FoilChargen extends HandlebarsApplicationMixin(ApplicationV2) {
     // Choices survive re-renders; FOIL and prompts start from what the sheet already has.
     this.choices = {
       ancestry: "", background: "", startingPoint: "",
+      // The Talent rolls, kept so a re-render never rerolls; a new Origin clears them.
+      talentRolls: [],
       foil: Object.fromEntries(FOIL_AXES.map(a => [a.key, {
         lean: sys.foil?.[a.key]?.lean === "neutral" ? "" : (sys.foil?.[a.key]?.lean ?? ""), habit: sys.foil?.[a.key]?.habit ?? ""
       }])),
@@ -130,7 +153,7 @@ export class FoilChargen extends HandlebarsApplicationMixin(ApplicationV2) {
     window: { title: "Create a Starting Character", icon: "fas fa-wand-magic-sparkles", resizable: true },
     position: { width: 760, height: "auto" },
     form: { handler: FoilChargen._onSubmit, closeOnSubmit: true },
-    actions: { rollTrait: FoilChargen._onRollTrait }
+    actions: { rollTrait: FoilChargen._onRollTrait, rollTalent: FoilChargen._onRollTalent }
   };
 
   static PARTS = { main: { template: "systems/foil/templates/apps/chargen.hbs" } };
@@ -161,8 +184,21 @@ export class FoilChargen extends HandlebarsApplicationMixin(ApplicationV2) {
       return { name: n, line: d ? kitLine(d) : "(not in the compendium)" };
     });
 
+    // The Talent roll: each die as it stands, every roll so far, and the next one.
+    const dice = talentDice(ancestry, st.talentRolls);
+    const next = nextTalentRoll(st.talentRolls.length);
+    const talentRoll = ancestry ? {
+      attributes: ATTRIBUTE_KEYS.map(k => ({
+        label: ATTR_LABEL[k],
+        dice: dice[k].map((size, i) => ({ size, rolls: st.talentRolls.filter(r => r.attribute === k && r.index === i) }))
+      })),
+      next: next ? `Pass ${next.pass} of ${TALENT_PASSES}: ${ATTR_LABEL[next.attribute]} die ${next.index + 1} (d${dice[next.attribute][next.index]})` : "",
+      done: !next,
+      advances: st.talentRolls.filter(r => r.advanced).length
+    } : null;
+
     // Preview: dice, Training, Resistance.
-    const pools = startingPools(ancestry, background);
+    const pools = startingPools(ancestry, background, st.talentRolls);
     const attributes = ATTRIBUTE_KEYS.map(k => {
       const pool = poolFromCounts(pools[k]);
       return { key: k, label: ATTR_LABEL[k], formula: pool.formula, potential: pool.max };
@@ -193,6 +229,7 @@ export class FoilChargen extends HandlebarsApplicationMixin(ApplicationV2) {
       ancestryInfo: ancestry ? {
         description: (ancestry.system.description ?? "").match(/^<p>.*?<\/p>/)?.[0] ?? "", talent: ancestry.system.talentSummary, feats: ancestryFeats
       } : null,
+      talentRoll,
       backgroundInfo: background ? {
         description: background.system.description, training: background.system.grantsSummary,
         knowHow: background.system.knowHowSummary, coin: background.system.coin, kit
@@ -219,6 +256,7 @@ export class FoilChargen extends HandlebarsApplicationMixin(ApplicationV2) {
     this.element.addEventListener("change", event => {
       const data = foundry.utils.expandObject(new foundry.applications.ux.FormDataExtended(this.element).object);
       const picked = event.target.name?.match(/^pick\.(\w+)$/);
+      if ((data.ancestry ?? "") !== this.choices.ancestry) this.choices.talentRolls = [];
       Object.assign(this.choices, {
         ancestry: data.ancestry ?? "", background: data.background ?? "",
         startingPoint: data.startingPoint ?? ""
@@ -243,6 +281,21 @@ export class FoilChargen extends HandlebarsApplicationMixin(ApplicationV2) {
     this.render();
   }
 
+  /** Roll the next die of the Talent roll (PHB 2.5.1). Its highest number advances it one size, up to d12. */
+  static async _onRollTalent(event, target) {
+    const rolls = this.choices.talentRolls;
+    const next = nextTalentRoll(rolls.length);
+    if (!next) return;
+    const ancestry = (await packDocsByName("foil.ancestries")).get(this.choices.ancestry.toLowerCase());
+    if (!ancestry) return;
+    const size = talentDice(ancestry, rolls)[next.attribute][next.index];
+    const roll = await new Roll(`1d${size}`).evaluate();
+    await game.dice3d?.showForRoll(roll, game.user, true);
+    const advanced = roll.total === size && size in NEXT_SIZE;
+    rolls.push({ ...next, size, result: roll.total, advanced, to: advanced ? NEXT_SIZE[size] : size });
+    this.render();
+  }
+
   static async _onSubmit(event, form, formData) {
     const actor = this.actor;
     if (!actor) return;
@@ -254,7 +307,8 @@ export class FoilChargen extends HandlebarsApplicationMixin(ApplicationV2) {
     const background = (await packDocsByName("foil.backgrounds")).get(data.background.toLowerCase());
     if (!ancestry || !background) throw new Error("That Origin or Background isn't in the compendium.");
 
-    const pools = startingPools(ancestry, background);
+    if (this.choices.talentRolls.length < TALENT_ROLLS) throw new Error("Finish the Talent roll first.");
+    const pools = startingPools(ancestry, background, this.choices.talentRolls);
     const update = {};
     for (const k of ATTRIBUTE_KEYS) {
       for (const d of DIE_KEYS) update[`system.attributes.${k}.dice.${d}`] = pools[k][d] ?? 0;
