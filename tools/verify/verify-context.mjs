@@ -10,7 +10,8 @@ const ctxKeys = (file, marker, count) => {
   for (let i=0;i<count;i++) {
     idx = s.indexOf(marker, idx); if (idx<0) break;
     const seg = s.slice(idx, s.indexOf("\n  }", idx));
-    for (const m of seg.matchAll(/^\s*([A-Za-z][A-Za-z0-9_]*)\s*:/gm)) out.add(m[1]);
+    // "key: value" and the shorthand "key," both provide a key.
+    for (const m of seg.matchAll(/^\s*([A-Za-z][A-Za-z0-9_]*)\s*(?::|,\s*$)/gm)) out.add(m[1]);
     idx += marker.length;
   }
   return out;

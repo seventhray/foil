@@ -2,7 +2,7 @@
 export const GLOSSARY = {
   "action": {
     "name": "Action",
-    "text": "The main thing a character spends each round to act or move. Most Techniques cost it."
+    "text": "The base measure of agency for a being in time sensitive scenes"
   },
   "angered": {
     "name": "Angered",
@@ -10,11 +10,11 @@ export const GLOSSARY = {
   },
   "attribute": {
     "name": "Attribute",
-    "text": "One of four traits: Might, Finesse, Wit, or Presence. Each is a pool of dice."
+    "text": "Might, Finesse, Wit, or Presence; a fundamental building block of a being"
   },
   "attribute dice (ad)": {
     "name": "Attribute Dice (AD)",
-    "text": "The dice in an Attribute's pool. Roll them to act or to Oppose."
+    "text": "An uncapped pool of mixed-size dice for each Attribute"
   },
   "baited": {
     "name": "Baited",
@@ -46,7 +46,7 @@ export const GLOSSARY = {
   },
   "conflict": {
     "name": "Conflict",
-    "text": "A contest resolved by rolling: act, Oppose, take Stress. It ends when a side Flees, Yields, or is Destroyed."
+    "text": "A scene where beings are attempting to harm one another physically, mentally, or socially"
   },
   "controlled": {
     "name": "Controlled",
@@ -166,11 +166,11 @@ export const GLOSSARY = {
   },
   "instrument": {
     "name": "Instrument",
-    "text": "What a character acts through: a sword, a bow, a spell focus, a voice, even bare hands. Every Instrument has one Range, one Primary Attribute, and one or more Instrument Types."
+    "text": "The thing a being uses to interact with the world"
   },
   "instrument type": {
     "name": "Instrument Type",
-    "text": "A tag an Instrument has, such as Edged or Parry. Each one changes the Stress a landed hit deals or what the Instrument can do. This change is called a type effect."
+    "text": "A property of an Instrument that describes the form it takes and effects it has"
   },
   "intimidated": {
     "name": "Intimidated",
@@ -226,7 +226,7 @@ export const GLOSSARY = {
   },
   "origin": {
     "name": "Origin",
-    "text": "The kind of place a character came from. It grants two Feats at character creation."
+    "text": "The environment a character grew in"
   },
   "overflow": {
     "name": "Overflow",
@@ -236,9 +236,9 @@ export const GLOSSARY = {
     "name": "Parry",
     "text": "Spends the Quick Action before the Oppose roll against a Melee or Ranged Technique for Physical Resistance +1."
   },
-  "passive": {
-    "name": "Passive",
-    "text": "A Skill's Average, Training included. It is the Difficulty against a creature that isn't pushing back."
+  "passive skill": {
+    "name": "Passive Skill",
+    "text": "The average expected value of a given Skill"
   },
   "pattern": {
     "name": "Pattern",
@@ -254,7 +254,7 @@ export const GLOSSARY = {
   },
   "potential": {
     "name": "Potential",
-    "text": "The highest number an Attribute's dice can roll. It also sets how much Stress that Attribute can take before it gives out. A Skill's Potential is the Potential of its two Attributes plus its Training."
+    "text": "The maximum total of an AD pool, which represents the amount of Stress an Attribute can take"
   },
   "price": {
     "name": "Price",
@@ -262,7 +262,7 @@ export const GLOSSARY = {
   },
   "primary attribute": {
     "name": "Primary Attribute",
-    "text": "The one Attribute an Instrument is built around. It sets which three Skills can roll that Instrument."
+    "text": "A property of and Instrument that reveals how it is used"
   },
   "prone": {
     "name": "Prone",
@@ -274,15 +274,15 @@ export const GLOSSARY = {
   },
   "quick action": {
     "name": "Quick Action",
-    "text": "A second, smaller thing a character spends each round, on your turn or held to use reactively."
+    "text": "A way to perform faster actions in time sensitive scenes"
   },
   "radius": {
     "name": "Radius",
     "text": "a circle of the given size. Four times the Cone cost, twelve times the Beam, for the same size."
   },
-  "range": {
-    "name": "Range",
-    "text": "How far apart two creatures are, in steps of 5 feet. An Instrument or Technique names the Range it works at."
+  "range band": {
+    "name": "Range Band",
+    "text": "A unit of distance equal to 5ft, which measures the distances between points and the distance an instrument or Technique is effective"
   },
   "redirect": {
     "name": "Redirect",
@@ -310,7 +310,7 @@ export const GLOSSARY = {
   },
   "skill": {
     "name": "Skill",
-    "text": "One of six rolls, each made from a pair of Attributes plus Training."
+    "text": "Using two attributes together to perform actions; both AD pools rolled together plus Training"
   },
   "slowed": {
     "name": "Slowed",
@@ -326,7 +326,7 @@ export const GLOSSARY = {
   },
   "stress": {
     "name": "Stress",
-    "text": "A counter on an Attribute. It builds toward Incapacitation and caps at that Attribute's Potential. A landed hit adds Stress to the Attribute the attacker named."
+    "text": "The measure of damage (physical, mental, social)"
   },
   "stunned": {
     "name": "Stunned",
@@ -342,7 +342,7 @@ export const GLOSSARY = {
   },
   "technique": {
     "name": "Technique",
-    "text": "A learned ability bought with XP. It adds Effects on top of an Instrument's use."
+    "text": "The abilities or moves a being performs through an instrument"
   },
   "thrown": {
     "name": "Thrown",
@@ -354,7 +354,7 @@ export const GLOSSARY = {
   },
   "training": {
     "name": "Training",
-    "text": "A flat bonus added to one Skill's rolls."
+    "text": "A flat bonus added to one Skill's rolls"
   },
   "upkeep": {
     "name": "Upkeep",

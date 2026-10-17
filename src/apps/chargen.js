@@ -187,7 +187,7 @@ export class FoilChargen extends HandlebarsApplicationMixin(ApplicationV2) {
     // The Talent roll: each die as it stands, every roll so far, and the next one.
     const dice = talentDice(ancestry, st.talentRolls);
     const next = nextTalentRoll(st.talentRolls.length);
-    const talentRoll = ancestry ? {
+    const rollInfo = ancestry ? {
       attributes: ATTRIBUTE_KEYS.map(k => ({
         label: ATTR_LABEL[k],
         dice: dice[k].map((size, i) => ({ size, rolls: st.talentRolls.filter(r => r.attribute === k && r.index === i) }))
@@ -229,7 +229,7 @@ export class FoilChargen extends HandlebarsApplicationMixin(ApplicationV2) {
       ancestryInfo: ancestry ? {
         description: (ancestry.system.description ?? "").match(/^<p>.*?<\/p>/)?.[0] ?? "", talent: ancestry.system.talentSummary, feats: ancestryFeats
       } : null,
-      talentRoll,
+      talentRoll: rollInfo,
       backgroundInfo: background ? {
         description: background.system.description, training: background.system.grantsSummary,
         knowHow: background.system.knowHowSummary, coin: background.system.coin, kit
