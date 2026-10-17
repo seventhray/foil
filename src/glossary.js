@@ -10,7 +10,7 @@ export const GLOSSARY = {
   },
   "attribute": {
     "name": "Attribute",
-    "text": "Might, Finesse, Wit, or Presence; a fundamental building block of a being"
+    "text": "Might, Finesse, Wit, or Presence, the four fundamental building blocks of a being"
   },
   "attribute dice (ad)": {
     "name": "Attribute Dice (AD)",
@@ -64,10 +64,6 @@ export const GLOSSARY = {
     "name": "Destroyed",
     "text": "Destruction is permanent: death, or a mind or self broken past recovering. A creature is Destroyed when all four of its Attributes are Incapacitated at the same time. Destroying an opponent is a choice."
   },
-  "difficulty": {
-    "name": "Difficulty",
-    "text": "The number a roll must reach when no one Opposes it. The GM sets it."
-  },
   "disarm": {
     "name": "Disarm",
     "text": "The target drops the Instrument it used last; picking it up costs its Quick Action, the same as switching. Innate Instruments can't be dropped"
@@ -100,17 +96,17 @@ export const GLOSSARY = {
     "name": "Fired",
     "text": "+4 Stress"
   },
-  "foil": {
-    "name": "FOIL",
-    "text": "The Habit system: four axes, Faith, Order, Individualism, Levity. A Habit is a character's lean on one axis."
-  },
   "foil exposed": {
     "name": "Foil Exposed",
     "text": "Resisted with Wit. The source learns one Habit of the creature, which the Technique names. Once, when the creature Opposes the source, the source may give that Oppose roll -2. It ends when used, or after 10 minutes. A creature has one Foil Exposed for each of its Habits, from each source. > [!EXAMPLE] > Mira uses Intuit on the captain: Resonance 15 against his Discipline 10. Mira learns his Habit, \"Rules are the first thing to go when it actually matters.\" Mira then Intimidates the captain through the Voice, and spends the Foil Exposed to give his Oppose -2."
   },
+  "foil habit": {
+    "name": "FOIL Habit",
+    "text": "Four axes, Faith, Order, Individualism, Levity that describe how a character habitually behaves"
+  },
   "foil token": {
     "name": "Foil Token",
-    "text": "Earned by invoking a held Habit, spent to halve the Stress from one source or to reroll one die just rolled. A character holds at most four."
+    "text": "Earned by invoking a FOIL Habit, spent to halve the Stress from one source or to reroll one die just rolled"
   },
   "fortifying": {
     "name": "Fortifying",
@@ -156,10 +152,6 @@ export const GLOSSARY = {
     "name": "Incapacitated",
     "text": "An Attribute is Incapacitated when its Stress reaches its Potential. It adds no dice to any roll that draws on it. It can still be targeted, by Techniques and by healing. Incapacitation lifts once healing brings its Stress down to half its Potential, rounded down. Healing short of that lowers its Stress, and new Stress fills it again before overflowing. A character with an Incapacitated Attribute stays in the conflict with a full Action, Quick Action, and movement. It can use any Technique whose Skill still has dice. > [!EXAMPLE] > A creature has taken heavy damage: Might, Wit, and Presence are all Incapacitated, leaving only Finesse standing. Prowess (Might + Finesse), Acuity (Finesse + Wit), and Guile (Finesse + Presence) still roll, each on Finesse's dice alone. Discipline, Assertiveness, and Resonance are dead: neither of their Attributes has dice left, so nothing that rolls them can be attempted. | Attribute | Incapacitated looks like | | --------- | ------------------------ | | Might | The body gives out: strength fails, legs buckle, breath won't come. | | Finesse | Control slips: reactions slow, balance falters, hands shake. | | Wit | The mind stalls: thoughts scatter, memory slips, nothing adds up. | | Presence | Words fail: eloquence goes, feelings spill over, reading the room grows hard. | The player calls it first, and the GM steps in only if asked. Show it once, in a sentence, and play on. > [!EXAMPLE] > In round 2 Kessen uses Relentless Blow through the Longsword on the captain's Might: Prowess 17 against his 12, a margin of 5. Pierce 4 clears the Mail, and Edged adds 3, for 8 Stress. His Might reaches 18 of 16 and is Incapacitated, and the extra 2 overflows onto his Presence. The captain's legs buckle and the Mace sags, but he is still in the fight."
   },
-  "incapacitation": {
-    "name": "Incapacitation",
-    "text": "One Attribute failing. Its Stress has reached its Potential, so it rolls no dice. The character stays in play."
-  },
   "incorporeal": {
     "name": "Incorporeal",
     "text": "+1 Stress against a mental Attribute. -1 against a physical one."
@@ -192,10 +184,6 @@ export const GLOSSARY = {
     "name": "Light Instrument",
     "text": "its margin caps at half the Primary Potential. It allows a Quick Action follow-up."
   },
-  "lines and veils": {
-    "name": "Lines and Veils",
-    "text": "A table agreement made before play: a Line never happens, a Veil happens but stays off-screen."
-  },
   "lingering": {
     "name": "Lingering",
     "text": "The target takes N Stress at the start of its turn for two rounds; this Stress ignores Resistance"
@@ -222,7 +210,7 @@ export const GLOSSARY = {
   },
   "oppose": {
     "name": "Oppose",
-    "text": "A roll made to resist an incoming Technique. Use any Skill built on the Attribute under attack, or on the Attribute its Condition names."
+    "text": "A roll made to resist an effect or Technique"
   },
   "origin": {
     "name": "Origin",
@@ -230,7 +218,7 @@ export const GLOSSARY = {
   },
   "overflow": {
     "name": "Overflow",
-    "text": "Stress that spills onto another Attribute once the first one is full. The defender picks where it goes."
+    "text": "When Stress is applied to an Incapacitated Attribute and gets reassigned to a different Attribute"
   },
   "parry": {
     "name": "Parry",
@@ -246,7 +234,7 @@ export const GLOSSARY = {
   },
   "pierce": {
     "name": "Pierce",
-    "text": "Lowers the target's Resistance against one hit, to no less than 0."
+    "text": "Ignore N of the Target's Resistance"
   },
   "pointed": {
     "name": "Pointed",
@@ -256,13 +244,9 @@ export const GLOSSARY = {
     "name": "Potential",
     "text": "The maximum total of an AD pool, which represents the amount of Stress an Attribute can take"
   },
-  "price": {
-    "name": "Price",
-    "text": "What an item costs. 100 pennies make one silver, so 170 pennies is 1 silver and 70."
-  },
   "primary attribute": {
     "name": "Primary Attribute",
-    "text": "A property of and Instrument that reveals how it is used"
+    "text": "A property of an Instrument that reveals how it is used"
   },
   "prone": {
     "name": "Prone",
@@ -280,9 +264,9 @@ export const GLOSSARY = {
     "name": "Radius",
     "text": "a circle of the given size. Four times the Cone cost, twelve times the Beam, for the same size."
   },
-  "range band": {
-    "name": "Range Band",
-    "text": "A unit of distance equal to 5ft, which measures the distances between points and the distance an instrument or Technique is effective"
+  "range": {
+    "name": "Range",
+    "text": "A unit of distance equal to 5ft, which measures the distances between points and the distance an Instrument or Technique is effective"
   },
   "redirect": {
     "name": "Redirect",
@@ -298,7 +282,7 @@ export const GLOSSARY = {
   },
   "resistance": {
     "name": "Resistance",
-    "text": "A number that lowers the Stress of every hit that lands. Physical Resistance covers Might and Finesse. Mental Resistance covers Wit and Presence."
+    "text": "A way to reduce incoming Stress on physical or mental Attributes"
   },
   "restrained": {
     "name": "Restrained",
@@ -310,7 +294,7 @@ export const GLOSSARY = {
   },
   "skill": {
     "name": "Skill",
-    "text": "Using two attributes together to perform actions; both AD pools rolled together plus Training"
+    "text": "Two Attributes used together, rolled as both AD pools plus Training"
   },
   "slowed": {
     "name": "Slowed",
@@ -322,11 +306,11 @@ export const GLOSSARY = {
   },
   "strain": {
     "name": "Strain",
-    "text": "Stress that a being inflicts on itself through great effort, performing difficult or costly techniques"
+    "text": "Stress that a being inflicts on itself through great effort, performing difficult or costly Techniques"
   },
   "stress": {
     "name": "Stress",
-    "text": "Damage (physical, mental, social) that is applied to each Attribute separately."
+    "text": "Damage (physical, mental, social) that is applied to each Attribute separately"
   },
   "stunned": {
     "name": "Stunned",
@@ -336,13 +320,9 @@ export const GLOSSARY = {
     "name": "Swayed",
     "text": "Resisted with Wit. Leans toward trusting and helping the source, short of acting against its own interests. It ends after the duration."
   },
-  "target": {
-    "name": "Target",
-    "text": "The creature or character a Technique acts against. The attacker names the Attribute it harms when they act."
-  },
   "technique": {
     "name": "Technique",
-    "text": "The abilities or moves a being performs through an instrument"
+    "text": "The abilities or moves a being performs through an Instrument"
   },
   "thrown": {
     "name": "Thrown",
@@ -358,7 +338,7 @@ export const GLOSSARY = {
   },
   "upkeep": {
     "name": "Upkeep",
-    "text": "Keeps an Action Technique working each turn. Pay a Quick Action and its Strain again."
+    "text": "Re-applies its effects each of your turns for the same Action or Quick Action it originally cost, plus Strain. An area kept this way is a Zone."
   },
   "wall": {
     "name": "Wall",
