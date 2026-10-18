@@ -1,0 +1,24 @@
+{
+  "_id": "wTuKs44maJQXYH7p",
+  "name": "Mental Regeneration",
+  "type": "feat",
+  "img": "icons/svg/upgrade.svg",
+  "system": {
+    "featType": "trait",
+    "xpCost": 0,
+    "requirements": "Mending mind",
+    "effect": "Every 10 rounds of a conflict, recover 1d4 Stress from Wit or Presence, unless a GM-stated counter-condition (an element or Instrument fitting your story) applied since the last recovery.",
+    "ancestry": "",
+    "grantsTechnique": "",
+    "modifiers": [],
+    "description": ""
+  },
+  "effects": [],
+  "folder": "K3LvJ6DSm4Kp7t3s",
+  "sort": 4900000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!wTuKs44maJQXYH7p"
+}

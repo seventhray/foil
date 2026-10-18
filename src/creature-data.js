@@ -657,6 +657,11 @@ export const TRAITS = [
   "effect": "Every 10 rounds of a conflict, recover 1d4 Stress from Might or Finesse, unless a GM-stated counter-condition (an element or Instrument fitting your story, fire for a troll, silver for some undead) applied since the last recovery."
  },
  {
+  "name": "Mental Regeneration",
+  "xp": 32,
+  "effect": "Every 10 rounds of a conflict, recover 1d4 Stress from Wit or Presence, unless a GM-stated counter-condition (an element or Instrument fitting your story) applied since the last recovery."
+ },
+ {
   "name": "Rejuvenation",
   "xp": 48,
   "effect": "If you would be Destroyed, every Attribute's Stress clears instead after a GM-set span (typically 1d10 days) unless a stated counter-condition (a phylactery destroyed, a body burned and scattered, whatever anchors your return) is met first."
