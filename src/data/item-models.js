@@ -281,7 +281,7 @@ export class TechniqueData extends foundry.abstract.TypeDataModel {
       : sameSet(["thrown", "drawn", "fired"]) ? "Ranged"
       : sameSet(["edged", "pointed", "blunt", "grappling", "parry"]) ? "Melee"
       : types.length ? types.map(k => defs.find(d => d.key === k)?.label ?? k).join(" or ") : "Any";
-    this.typeWarning = unknown.length ? `Unresolved Instrument Type(s) in Requires: ${unknown.join(", ")}.` : "";
+    this.typeWarning = unknown.length ? `Unresolved Instrument Type(s) in Requirement: ${unknown.join(", ")}.` : "";
 
     const base = (priced.breakdown ?? []).map(b => b.label).join(", ");
     this.effectSummary = this.strain ? (base ? `${base}, Strain ${this.strain}${this.perTarget ? " per target" : ""}` : `Strain ${this.strain}`) : base;

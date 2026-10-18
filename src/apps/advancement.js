@@ -7,7 +7,7 @@
  * Costs (PHB 2.3.0): a die one size 8/12/16/20 XP by its size, d12 to d20 100 XP
  * (a Transformation, noted, not enforced; what it gives, PHB 7.3.0, is added by hand), a Know-how 1d4 12 XP plus 4 per die in the pool, +1 Training 8 XP plus 2 per point held
  * (capped at the dice in the Skill's two pools, PHB 2.2.1), a Technique or Feat
- * its listed XP. A Feat's Requires is shown, and checked by the table.
+ * its listed XP. A Feat's Requirements are shown, and checked by the table.
  */
 
 import { ATTRIBUTE_KEYS, ATTR_LABEL, SKILL_KEYS, SKILL_LABEL, XP_COST, trainingCost, knowHowCost } from "../constants.js";
@@ -15,7 +15,7 @@ import { DIE_SIZES } from "../dice.js";
 import { termsIn } from "../glossary-ui.js";
 
 const plain = v => String(v ?? "").replace(/<[^>]*>/g, "").trim();
-/** An entry's full text for the panel under a dropdown: effect, Requires, description, glossary terms. */
+/** An entry's full text for the panel under a dropdown: effect, Requirement, description, glossary terms. */
 const detail = (effect, requires, description) => ({ effect: plain(effect), requires, description: plain(description),
   terms: termsIn(plain(effect)).slice(0, 4).map(t => ({ name: t.name, text: t.text })) });
 

@@ -5,7 +5,7 @@
     <select name="system.featType">{{#each featTypeOptions}}<option value="{{this.value}}" {{#if (foil-eq this.value ../system.featType)}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>
     <label>XP</label>
     <input type="number" name="system.xpCost" value="{{system.xpCost}}" />
-    <label>Requires</label>
+    <label>Requirements</label>
     <input type="text" name="system.requirements" value="{{system.requirements}}" />
     <label>Origin</label>
     <select name="system.ancestry">{{#each originOptions}}<option value="{{this.value}}" {{#if (foil-eq this.value ../system.ancestry)}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>

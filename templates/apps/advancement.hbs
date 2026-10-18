@@ -56,7 +56,7 @@
       <a class="adv-btn" data-action="learnTechnique">Learn</a>
     </div>
     <div class="adv-detail"></div>
-    {{#each techniques}}<template data-id="{{this.id}}"><p>{{this.effect}}{{#if this.requires}} <em>Requires {{this.requires}}.</em>{{/if}}{{#if this.description}} {{this.description}}{{/if}}</p>{{#each this.terms}}<p class="gen-term"><strong>{{this.name}}:</strong> {{this.text}}</p>{{/each}}</template>{{/each}}
+    {{#each techniques}}<template data-id="{{this.id}}"><p>{{this.effect}}{{#if this.requires}} <em>Requirement: {{this.requires}}.</em>{{/if}}{{#if this.description}} {{this.description}}{{/if}}</p>{{#each this.terms}}<p class="gen-term"><strong>{{this.name}}:</strong> {{this.text}}</p>{{/each}}</template>{{/each}}
   </fieldset>
 
   <fieldset class="adv-pick-row">
@@ -70,6 +70,6 @@
       <a class="adv-btn" data-action="learnFeat">Learn</a>
     </div>
     <div class="adv-detail"></div>
-    {{#each feats}}<template data-id="{{this.id}}"><p>{{this.effect}}{{#if this.requirements}} <em>Requires {{this.requirements}}.</em>{{/if}}</p>{{#each this.terms}}<p class="gen-term"><strong>{{this.name}}:</strong> {{this.text}}</p>{{/each}}</template>{{/each}}
+    {{#each feats}}<template data-id="{{this.id}}"><p>{{this.effect}}{{#if this.requirements}} <em>Requirements: {{this.requirements}}.</em>{{/if}}</p>{{#each this.terms}}<p class="gen-term"><strong>{{this.name}}:</strong> {{this.text}}</p>{{/each}}</template>{{/each}}
   </fieldset>
 </div>

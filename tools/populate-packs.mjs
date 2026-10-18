@@ -157,7 +157,7 @@ function effectDoc(row) {
 }
 const EFFECT_REG = Object.fromEntries(EFFECTS.map(r => [r[1], { label: r[0], ...effectSystem(r) }]));
 
-// ─── Requires text → Instrument Type slugs ─────────────────────────────────
+// ─── Requirement text → Instrument Type slugs ─────────────────────────────────
 const FAMILY_TYPES = {
   melee: MELEE, ranged: RANGED, arcane: ARCANE, "any arcane": ARCANE,
   sonic: ["sonic"], kinetic: ["kinetic"], incorporeal: ["incorporeal"], fortifying: ["fortifying"],
@@ -173,7 +173,7 @@ function parseRequires(text) {
   for (const part of first.split(/\s*(?:,|\bor\b)\s*/).filter(Boolean)) {
     const types = FAMILY_TYPES[part.trim()];
     if (types) types.forEach(k => out.add(k));
-    else warnings.push(`Requires term not recognized: "${part}" in "${text}"`);
+    else warnings.push(`Requirement term not recognized: "${part}" in "${text}"`);
   }
   return { requires: [...out], innate: false };
 }
@@ -309,7 +309,7 @@ function techniqueDoc(n) {
   };
 }
 
-// `--price "<Effect line>" [--requires "<Requires>"]` prints what the Effects table charges for one line, then exits.
+// `--price "<Effect line>" [--requires "<Requirement>"]` prints what the Effects table charges for one line, then exits.
 // Creature Techniques outside the Catalog are priced this way, never by hand.
 if (process.argv.includes("--price")) {
   const arg = k => process.argv[process.argv.indexOf(k) + 1];

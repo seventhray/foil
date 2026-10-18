@@ -23,7 +23,7 @@ const INNATE_NAMES = ["Body", "Voice", "Mind"];
 /** Every creature can buy Training up to +4 from its Allowance; a tier whose own Training is higher keeps it (GMG 9.4.0). */
 const TRAINING_CAP = 4;
 
-/** A Technique's effect, Requires line, description, and the glossary entries for the terms in its effect. */
+/** A Technique's effect, Requirement, description, and the glossary entries for the terms in its effect. */
 function techniqueInfo(d) {
   const plain = v => String(v ?? "").replace(/<[^>]*>/g, "").trim();
   const sys = d.system;

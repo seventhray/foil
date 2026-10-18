@@ -25,7 +25,7 @@
     <select name="system.ancestryGrant">{{#each originOptions}}<option value="{{this.value}}" {{#if (foil-eq this.value ../system.ancestryGrant)}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>
   </div>
   <fieldset>
-    <legend>Requires Instrument Type <em>(any one of)</em></legend>
+    <legend>Requirement: Instrument Type <em>(any one of)</em></legend>
     <select name="system.requires" multiple size="10" class="multi">
       {{#each typeOptions}}<option value="{{this.key}}" {{#if this.help}}title="{{this.help}}"{{/if}} {{#if this.checked}}selected{{/if}}>{{this.label}}</option>{{/each}}
     </select>

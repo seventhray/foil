@@ -50,7 +50,7 @@ export function buildCreatureData() {
     const xpText = clean(r.XP);
     const base = Number(xpText.match(/\d+/)?.[0] ?? 0);
     const per = (xpText.match(/per (use|Condition|point|\+1)/i)?.[1] ?? "").toLowerCase();
-    return { name: clean(r.Feat), xp: base, per, xpText, requires: clean(r.Requires), effect: clean(r.Effect) };
+    return { name: clean(r.Feat), xp: base, per, xpText, requires: clean(r.Requirements), effect: clean(r.Effect) };
   });
 
   // Traits (the table before 9.5.1).

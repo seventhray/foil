@@ -104,7 +104,7 @@
           <span></span>
           <span class="gen-name">{{this.name}}</span>
           <span class="abbr">{{this.xp}} XP{{#if this.strain}} &middot; Strain {{this.strain}}{{/if}} <a data-remove="tech" data-name="{{this.name}}" title="Remove">&times;</a></span>
-          <span class="gen-desc">{{this.effect}}{{#if this.requires}} <em>Requires {{this.requires}}.</em>{{/if}}{{#if this.description}} {{this.description}}{{/if}}
+          <span class="gen-desc">{{this.effect}}{{#if this.requires}} <em>Requirement: {{this.requires}}.</em>{{/if}}{{#if this.description}} {{this.description}}{{/if}}
             {{#each this.terms}}<span class="gen-term"><strong>{{this.name}}:</strong> {{this.text}}</span>{{/each}}</span>
         </div>
       {{/each}}
@@ -122,7 +122,7 @@
           <select name="feat.{{this.name}}" class="mini-num">{{#each this.qtyChoices}}<option value="{{this.value}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>
           <span class="gen-name">{{this.name}}</span>
           <span class="abbr">{{this.cost}} XP <a data-remove="feat" data-name="{{this.name}}" title="Remove">&times;</a></span>
-          <span class="gen-desc">{{this.effect}} <em>Requires {{this.requires}}.</em></span>
+          <span class="gen-desc">{{this.effect}} <em>Requirements: {{this.requires}}.</em></span>
           {{#if this.isRes}}<select name="feat.{{this.name}}:scope" class="gen-opt"><option value="type">Instrument Type (4 per point)</option><option value="family" {{#if this.familyScope}}selected{{/if}}>Family: Melee, Ranged, or Arcane (8 per point)</option></select>{{/if}}
         </div>
       {{/each}}
