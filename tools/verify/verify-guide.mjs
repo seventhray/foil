@@ -58,9 +58,9 @@ ok("Foil Tokens: max four, halve one source, reroll one die", /at most \*\*four\
 ok("rest 1d4 per 2 hours, one ration per 8", /Every 2 hours of rest removes \*\*1d4 Stress\*\*/.test(phb) && /Each 8 hours uses one ration/.test(phb) && /1d4 Stress every 2 hours/.test(all));
 ok("carrying past 4x Might Potential", /Up to 4x Might Potential \| None/.test(phb) && /past 4x Might Potential/.test(all));
 ok("combination premium 4 XP per Effect beyond the first", /plus 4 XP for each Effect past the first/.test(phb) && /4 XP for every Effect beyond the first/.test(all));
-ok("Effect prices match Fundamental Math", /\*\*Stress\*\*\s*\|\s*4\s*\|/.test(fm) && /\*\*-N\*\* \[target Attribute\]\s*\|\s*6 x N, or 24 x N for 1 minute/.test(fm)
-  && /\*\*Mend Xd4\*\*\s*\|\s*10 x X/.test(fm) && /\*\*Counter\*\*\s*\|\s*12/.test(fm) && /<td>6 x N, or 24 x N for 1 minute<\/td>/.test(all) && /<td>10 x X<\/td>/.test(all)
-  && /\*\*Lingering N\*\*\s*\|\s*7 x N/.test(fm) && /\*\*Hasten \(Action\)\*\*\s*\|\s*14/.test(fm) && /\*\*Hasten \(Quick Action\)\*\*\s*\|\s*11/.test(fm) && /\*\*Quick\*\*\s*\|\s*3\s/.test(fm) && /<td>7 x N<\/td>/.test(all));
+ok("Effect prices match PHB 4.2.1", /\*\*Stress\*\*\s*\|\s*4\s*\|/.test(phb) && /\*\*-N\*\* \[target Attribute\]\s*\|\s*6 x N, or 24 x N for 1 minute/.test(phb)
+  && /\*\*Mend Xd4\*\*\s*\|\s*10 x X/.test(phb) && /\*\*Counter\*\*\s*\|\s*12/.test(phb) && /<td>6 x N, or 24 x N for 1 minute<\/td>/.test(all) && /<td>10 x X<\/td>/.test(all)
+  && /\*\*Lingering N\*\*\s*\|\s*7 x N/.test(phb) && /\*\*Hasten \(Action\)\*\*\s*\|\s*14/.test(phb) && /\*\*Hasten \(Quick Action\)\*\*\s*\|\s*11/.test(phb) && /\*\*Quick\*\*\s*\|\s*3\s/.test(phb) && /<td>7 x N<\/td>/.test(all));
 ok("bonus price ladder", /\| \+4\s*\| \+200p\s*\| \+400p\s*\| \+800p/.test(phb) && /<td>\+4<\/td><td>200p<\/td><td>400p<\/td><td>800p<\/td>/.test(all));
 ok("Body and Voice kits", /\*\*Strike\*\* \(Prowess\)/.test(phb) && /\*\*Sway\*\* \(Resonance\)/.test(phb) && /Strike, Grapple, Menace/.test(all) && /Intimidate, Mislead, Sway/.test(all));
 ok("Mind kit", /\*\*Deduce\*\* \(Discipline\)/.test(phb) && /\*\*Intuit\*\* \(Resonance\)/.test(phb) && /Deduce, Analyze, Intuit/.test(all));
