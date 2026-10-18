@@ -135,7 +135,7 @@ function prepareCore(sys) {
     sk.rollAvg = sum("avg") + flat;
     sk.rollMax = sum("max") + flat;
     // A creature that isn't pushing back sets its Passive Skill as the Difficulty (PHB 2.2.2).
-    sk.passive = Math.floor(sum("avg")) + flat;
+    sk.passive = Math.floor(sk.rollMax / 2);
 
     const parts = pair.filter(ak => live(ak)?.diceFormula).map(ak => attrs[ak].diceFormula);
     if (flat) parts.push(String(flat));

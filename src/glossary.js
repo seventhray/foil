@@ -226,7 +226,7 @@ export const GLOSSARY = {
   },
   "passive skill": {
     "name": "Passive Skill",
-    "text": "A Skill's Average, including its Training, rounded down"
+    "text": "Half a Skill's Potential, rounded down"
   },
   "pattern": {
     "name": "Pattern",

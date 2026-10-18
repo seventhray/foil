@@ -105,13 +105,11 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
       // The readouts' math: each live pool's dice range, then Training and gear (Mass and Conditions apply on the roll).
       const attrs = this.actor.system.attributes ?? {};
       const live = pair.filter(ak => attrs[ak] && !attrs[ak].down && attrs[ak].diceFormula);
-      const flat = Number(s.trainingTotal ?? 0) + Number(s.skillBonus ?? 0);
       const dice = live.map(ak => `${ATTR_LABEL[ak]} ${attrs[ak].diceFormula} (${attrs[ak].min}-${attrs[ak].max}, avg ${attrs[ak].avg})`);
       const dropped = pair.filter(ak => attrs[ak]?.down).map(ak => `${ATTR_LABEL[ak]} Incapacitated, no dice`);
-      const sumAvg = live.reduce((n, ak) => n + Number(attrs[ak].avg ?? 0), 0);
       const readoutMath = [...dice, ...dropped, `Training ${s.trainingBase ?? 0}`, ...(s.trainingBonus ? [`Training from Feats ${s.trainingBonus}`] : []),
         ...(s.skillBonus ? [`gear ${s.skillBonus}`] : [])].join(" + ")
-        + `. Passive: ${sumAvg} rounded down + ${flat} = ${s.passive ?? 0}. Training cap ${s.trainingCap ?? 0} (dice in both pools). On a roll, Mass and Conditions also apply.`;
+        + `. Passive: half of ${s.rollMax ?? 0}, rounded down, = ${s.passive ?? 0}. Training cap ${s.trainingCap ?? 0} (dice in both pools). On a roll, Mass and Conditions also apply.`;
       return {
         readoutMath,
         key, label: SKILL_LABEL[key], abbr: SKILL_ABBR[key],

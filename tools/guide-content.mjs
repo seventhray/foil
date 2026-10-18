@@ -40,7 +40,7 @@ p("Attributes, Potential, and Skills", `
 <tr><td>Resonance</td><td>Wit + Presence</td><td>Insight, persuasion, connection, encouragement</td></tr>
 </tbody></table>
 <p><strong>Training</strong> costs 8 XP, plus 2 for each point the Skill already has. It can't pass the number of dice in the Skill's two pools.</p>
-<p>A creature that isn't pushing back has a <strong>Passive Skill</strong> for each Skill: the Average of its two Attributes, rounded down, plus Training. It stands in as the Difficulty.</p>`),
+<p>A creature that isn't pushing back has a <strong>Passive Skill</strong> for each Skill: half the Skill's Potential, rounded down. It stands in as the Difficulty.</p>`),
 
 p("Instruments and Types", `
 <p>An <strong>Instrument</strong> has one Range, one <strong>Primary Attribute</strong>, and one or more <strong>Instrument Types</strong>. The Primary Attribute sets which three Skills can roll it. Every Instrument carries three built-in Techniques, one per Skill, free.</p>
