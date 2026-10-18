@@ -12,7 +12,7 @@
     ],
     "pricingKind": "upkeep",
     "pricingParams": {
-      "base": 4,
+      "base": 8,
       "perPoint": 0,
       "perBand": 1
     },

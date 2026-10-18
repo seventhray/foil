@@ -171,7 +171,7 @@ const REG = {
   resistance: { pricingKind: "perPoint", pricingParams: { perPoint: 4 } },
   pattern: { pricingKind: "pattern", pricingParams: {} },
   selective: { pricingKind: "selective", pricingParams: {} },
-  upkeep: { pricingKind: "upkeep", pricingParams: { base: 4 }, exemptFromPremium: true },
+  upkeep: { pricingKind: "upkeep", pricingParams: { base: 8 }, exemptFromPremium: true },
   quick: { pricingKind: "quick", pricingParams: {}, exemptFromPremium: true, setsFloor: true }
 };
 const x = (effects, opts) => priceTechnique(effects, REG, opts).xp;
@@ -183,8 +183,8 @@ check("a Technique's price math names each Effect, the premium, and Strain", () 
 check("Gutting Blow (Stress, Pierce 1, -1 Attribute) is 22", () => eq(x([{ key: "stress" }, { key: "pierce", magnitude: 1 }, { key: "weaken", magnitude: 1 }]), 22));
 check("Harrow (Stress, -1 Attribute, Cone Near) is 27", () => eq(x([{ key: "stress" }, { key: "weaken", magnitude: 1 }, { key: "pattern", pattern: "cone", bands: 2 }]), 27));
 check("Roaring Fireball (Stress, Radius Near) is 44", () => eq(x([{ key: "stress" }, { key: "pattern", pattern: "radius", bands: 2 }]), 44));
-check("Hallowed Circle (Resistance +1, Selective 4 Near, Upkeep) is 22", () =>
-  eq(x([{ key: "resistance", magnitude: 1 }, { key: "selective", selectiveR: 2 }, { key: "upkeep" }]), 22));
+check("Hallowed Circle (Resistance +1, Selective 4 Near, Upkeep) is 26", () =>
+  eq(x([{ key: "resistance", magnitude: 1 }, { key: "selective", selectiveR: 2 }, { key: "upkeep" }]), 26));
 check("Bind (-1 Attribute for 1 minute) is 24", () => eq(x([{ key: "weaken-minute", magnitude: 1 }]), 24));
 check("Frightful Presence (-1 Oppose for 1 minute) is 16", () => eq(x([{ key: "reeling-minute", magnitude: 1 }]), 16));
 check("-2 Oppose for 1 round is 8, a modifier is linear in N", () => eq([x([{ key: "reeling", magnitude: 2 }]), x([{ key: "weaken", magnitude: 3 }])], [8, 18]));

@@ -385,43 +385,7 @@
       "_key": "!actors.items!Zs7OgSDpOVyHmyw7.DiJb12uLUkcYbKnH"
     },
     {
-      "_id": "SF8qebCSXyp3uwxD",
-      "name": "Beguile",
-      "type": "technique",
-      "img": "icons/svg/aura.svg",
-      "system": {
-        "requires": [
-          "sonic"
-        ],
-        "innate": false,
-        "skill": "",
-        "family": "Sonic",
-        "subgroup": "Control & Deception",
-        "effects": [
-          {
-            "key": "charmed",
-            "magnitude": 1,
-            "pattern": "single",
-            "bands": 0,
-            "placement": 0,
-            "selectiveR": 0
-          }
-        ],
-        "floor": false,
-        "ancestryGrant": "",
-        "description": ""
-      },
-      "effects": [],
-      "folder": null,
-      "sort": 700000,
-      "ownership": {
-        "default": 0
-      },
-      "flags": {},
-      "_key": "!actors.items!Zs7OgSDpOVyHmyw7.SF8qebCSXyp3uwxD"
-    },
-    {
-      "_id": "cvjgSQNvfOB9PS72",
+      "_id": "noCwhnNSH7slGkKC",
       "name": "Dread Presence",
       "type": "feat",
       "img": "icons/svg/upgrade.svg",
@@ -437,12 +401,12 @@
       },
       "effects": [],
       "folder": null,
-      "sort": 800000,
+      "sort": 700000,
       "ownership": {
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!Zs7OgSDpOVyHmyw7.cvjgSQNvfOB9PS72"
+      "_key": "!actors.items!Zs7OgSDpOVyHmyw7.noCwhnNSH7slGkKC"
     }
   ],
   "_key": "!actors!Zs7OgSDpOVyHmyw7"

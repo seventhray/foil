@@ -12,7 +12,7 @@
  *  2. A Pattern (Beam, Cone, Radius, Wall) or Extend Range is
  *     priced by reach and counts as one of the Technique's Effects.
  *  3. +4 XP for every Effect beyond the first. Quick and Upkeep don't count;
- *     each has its own flat price (Upkeep 4 XP, Quick 3).
+ *     each has its own flat price (Upkeep 8 XP, Quick 3).
  *     Selective names N targets within R bands: the range is priced at 1 XP
  *     per band as an Effect, and Selective adds an 8 XP premium. Strain is
  *     that of the one-target price, paid for each target at use.
@@ -84,7 +84,7 @@ export function priceEntry(entry, def) {
       counts = false;
       break;
     case "upkeep":
-      cost = Number(p.base ?? 4);
+      cost = Number(p.base ?? 8);
       counts = false;
       break;
     case "quick":
