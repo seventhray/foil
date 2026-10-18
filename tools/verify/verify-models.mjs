@@ -57,7 +57,7 @@ check("Training cap is the dice in the two pools", () => {
   const c = char({ attributes: pools({ d6: 2, d4: 1 }, { d8: 1, d4: 2 }, { d4: 2 }, { d4: 2 }) });
   return eq([c.skills.prowess.trainingCap, c.skills.resonance.trainingCap, c.skills.discipline.trainingCap], [6, 4, 5]);
 });
-check("passive value is floor(average) + Training", () => {
+check("Passive Skill is floor(average) + Training", () => {
   const c = char({ attributes: pools({ d8: 1 }, { d10: 1 }, { d4: 1 }, { d4: 1 }), skills: { prowess: { training: 1 } } });
   return eq(c.skills.prowess.passive, 11);
 });

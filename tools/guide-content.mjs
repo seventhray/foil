@@ -40,7 +40,7 @@ p("Attributes, Potential, and Skills", `
 <tr><td>Resonance</td><td>Wit + Presence</td><td>Insight, persuasion, connection, encouragement</td></tr>
 </tbody></table>
 <p><strong>Training</strong> costs 8 XP, plus 2 for each point the Skill already has. It can't pass the number of dice in the Skill's two pools.</p>
-<p>A creature that isn't pushing back has a <strong>passive</strong> value in each Skill: the Average of its two Attributes, rounded down, plus Training. It stands in as the Difficulty.</p>`),
+<p>A creature that isn't pushing back has a <strong>Passive Skill</strong> for each Skill: the Average of its two Attributes, rounded down, plus Training. It stands in as the Difficulty.</p>`),
 
 p("Instruments and Types", `
 <p>An <strong>Instrument</strong> has one Range, one <strong>Primary Attribute</strong>, and one or more <strong>Instrument Types</strong>. The Primary Attribute sets which three Skills can roll it. Every Instrument carries three built-in Techniques, one per Skill, free.</p>
@@ -99,7 +99,7 @@ p("Character sheet", `
 <tr><td><strong>Attribute Dice</strong></td><td>How many of each die size sit in the pool. The system builds the formula and Potential.</td></tr>
 <tr><td><strong>Stress, Potential</strong></td><td>The Stress on the Attribute, beside its Potential. When Stress reaches Potential the Attribute is Incapacitated; it recovers once Stress falls to the amount shown.</td></tr>
 <tr><td><strong>Resistance</strong></td><td>Derived from equipped armor, shields, wards, and Feats, with what granted it.</td></tr>
-<tr><td><strong>Skills</strong></td><td>Formula, Training (with its cap), passive value, and roll range. Click to roll.</td></tr>
+<tr><td><strong>Skills</strong></td><td>Formula, Training (with its cap), Passive Skill, and roll range. Click to roll.</td></tr>
 <tr><td><strong>Foil Tokens</strong></td><td>Earn one on an invoke; <em>Halve Stress</em> spends one.</td></tr>
 <tr><td><strong>Rations, Carried</strong></td><td>Rations weigh 2 lbs each. Carried turns red with its roll penalty once over 4x Might Potential.</td></tr>
 <tr><td><strong>Location</strong></td><td>Each Instrument and piece of Equipment is equipped, carried, or stored; click its icon to change it. Only equipped gear grants its Resistance or bonus, stored gear weighs nothing, and a Heavy Instrument warns when something else is also in hand. Switching to a carried Instrument costs the Quick Action.</td></tr>
