@@ -645,24 +645,22 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
     new FP({ type: "image", current: this.actor.img, callback: path => this.actor.update({ img: path }) }).render(true);
   }
 
-  /** One Travel leg (PHB 6.11.0): Stress to every Attribute, more when overloaded (PHB 5.2.6), and a ration. */
+  /** One Travel leg (PHB 6.11.0): Stress to every Attribute, more when overloaded (PHB 5.2.6). */
   static async _onTravel() {
     const penalty = Number(this.actor.system.carry?.penalty ?? 0);
-    const rations = Number(this.actor.system.rations ?? 0);
-    const content = `<p>Each leg costs 1 Stress to every Attribute, 2 on a failure${penalty ? `, and ${penalty} more because ${this.actor.name} is overloaded` : ""}. It uses one ration.</p>`
+    const content = `<p>Each leg costs 1 Stress to every Attribute, 2 on a failure${penalty ? `, and ${penalty} more because ${this.actor.name} is overloaded` : ""}.</p>`
       + `<div class="form-group"><label>The leg roll</label><select name="result"><option value="pass">Succeeded</option><option value="fail">Failed</option></select></div>`;
     const answer = await ask(`${this.actor.name} travels a leg`, content, "Travel");
     if (!answer) return;
-    const leg = travelLeg({ failed: answer.result === "fail", massPenalty: penalty, rations });
+    const leg = travelLeg({ failed: answer.result === "fail", massPenalty: penalty });
     const lines = [];
     for (const key of ATTRIBUTE_KEYS) {
       if (!Number(this.actor.system.attributes?.[key]?.potential?.max)) continue;
       const { before, after } = await this.actor.takeStress(key, leg.stress);
       lines.push(`${ATTR_LABEL[key]} Potential ${before} &rarr; ${after}`);
     }
-    if (leg.rationUsed) await this.actor.update({ "system.rations": rations - 1 });
-    const note = `${leg.stress} Stress each: ${leg.base} (${answer.result === "fail" ? "failed leg" : "leg"}) + ${leg.extra} (Mass penalty) = ${leg.stress}${leg.rationUsed ? `; 1 ration eaten (${rations} &rarr; ${rations - 1})` : "; no ration to eat"}`;
-    logEvent("travel", { actor: who(this.actor), failed: answer.result === "fail", stress: leg.stress, massExtra: leg.extra, rationUsed: leg.rationUsed, summary: lines });
+    const note = `${leg.stress} Stress each: ${leg.base} (${answer.result === "fail" ? "failed leg" : "leg"}) + ${leg.extra} (Mass penalty) = ${leg.stress}`;
+    logEvent("travel", { actor: who(this.actor), failed: answer.result === "fail", stress: leg.stress, massExtra: leg.extra, summary: lines });
     await ChatMessage.create({ speaker: ChatMessage.getSpeaker({ actor: this.actor }),
       content: `<div class="foil-flavor"><strong>${this.actor.name} travels a leg</strong><br><em>${note}<br>${lines.join("<br>")}</em></div>` });
   }
