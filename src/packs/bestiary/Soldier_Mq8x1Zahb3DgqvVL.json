@@ -1,0 +1,214 @@
+{
+  "_id": "Mq8x1Zahb3DgqvVL",
+  "name": "Soldier",
+  "type": "creature",
+  "img": "icons/svg/mystery-man.svg",
+  "system": {
+    "tier": 3,
+    "threat": -128,
+    "behavior": "Disciplined [its sergeant]",
+    "attributes": {
+      "might": {
+        "dice": {
+          "d4": 0,
+          "d6": 0,
+          "d8": 1,
+          "d10": 1,
+          "d12": 0,
+          "d20": 0
+        },
+        "potential": {
+          "current": 18
+        },
+        "incapacitated": false
+      },
+      "finesse": {
+        "dice": {
+          "d4": 0,
+          "d6": 0,
+          "d8": 2,
+          "d10": 0,
+          "d12": 0,
+          "d20": 0
+        },
+        "potential": {
+          "current": 16
+        },
+        "incapacitated": false
+      },
+      "wit": {
+        "dice": {
+          "d4": 0,
+          "d6": 0,
+          "d8": 2,
+          "d10": 0,
+          "d12": 0,
+          "d20": 0
+        },
+        "potential": {
+          "current": 16
+        },
+        "incapacitated": false
+      },
+      "presence": {
+        "dice": {
+          "d4": 0,
+          "d6": 1,
+          "d8": 1,
+          "d10": 0,
+          "d12": 0,
+          "d20": 0
+        },
+        "potential": {
+          "current": 14
+        },
+        "incapacitated": false
+      }
+    },
+    "skills": {
+      "prowess": {
+        "training": 2
+      }
+    },
+    "resistance": {
+      "physical": 1,
+      "mental": 0
+    },
+    "notes": "<p><em>A drilled soldier in a mail shirt, one of a line</em></p><p><strong>Habits</strong> Order Methodical: I think a plan beats improvising, nine times out of ten. Individualism Communal: My word to the group outweighs my own preference every time.</p><p>Fights in a line beside other Soldiers. The line breaks when its sergeant falls.</p>"
+  },
+  "folder": "oestcF1oEEFrxKyA",
+  "sort": 13000000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "effects": [],
+  "prototypeToken": {
+    "name": "Soldier",
+    "actorLink": false,
+    "disposition": -1
+  },
+  "items": [
+    {
+      "_id": "M2q3hrpIO8bLOY2N",
+      "name": "Longsword",
+      "type": "instrument",
+      "img": "icons/svg/sword.svg",
+      "system": {
+        "category": "melee",
+        "weight": "medium",
+        "primaryAttribute": "might",
+        "range": "Range 1",
+        "maxRange": "close",
+        "types": [
+          "edged",
+          "pointed",
+          "parry"
+        ],
+        "typesDisplay": "",
+        "price": 45,
+        "rider": "",
+        "kit": [
+          {
+            "name": "Broad Cut",
+            "skill": "prowess",
+            "effect": "Deals Stress to Might or Finesse."
+          },
+          {
+            "name": "Entangle",
+            "skill": "discipline",
+            "effect": "Applies Grappled."
+          },
+          {
+            "name": "Challenge",
+            "skill": "assertiveness",
+            "effect": "Deals Stress to Presence or Wit."
+          }
+        ],
+        "innate": false,
+        "bonus": 0,
+        "size": "medium",
+        "materials": "Metal + Leather",
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!Mq8x1Zahb3DgqvVL.M2q3hrpIO8bLOY2N"
+    },
+    {
+      "_id": "UOAjq12r6sp0udTK",
+      "name": "Sunder",
+      "type": "technique",
+      "img": "icons/svg/aura.svg",
+      "system": {
+        "requires": [
+          "edged",
+          "pointed"
+        ],
+        "innate": false,
+        "skill": "",
+        "family": "Melee",
+        "subgroup": "Piercing",
+        "effects": [
+          {
+            "key": "stress",
+            "magnitude": 1,
+            "pattern": "single",
+            "bands": 0,
+            "placement": 0,
+            "selectiveR": 0
+          },
+          {
+            "key": "pierce",
+            "magnitude": 1,
+            "pattern": "single",
+            "bands": 0,
+            "placement": 0,
+            "selectiveR": 0
+          }
+        ],
+        "floor": false,
+        "ancestryGrant": "",
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!Mq8x1Zahb3DgqvVL.UOAjq12r6sp0udTK"
+    },
+    {
+      "_id": "mIYAxfYDCg1POPyo",
+      "name": "Overwhelm",
+      "type": "feat",
+      "img": "icons/svg/upgrade.svg",
+      "system": {
+        "featType": "learned",
+        "xpCost": 8,
+        "requirements": "16 Might, 16 Finesse, 16 Presence",
+        "effect": "When you land a second Technique this round on an Attribute you already hit, that Technique gains Pierce 1.",
+        "ancestry": "",
+        "grantsTechnique": "",
+        "modifiers": [],
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 300000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!Mq8x1Zahb3DgqvVL.mIYAxfYDCg1POPyo"
+    }
+  ],
+  "_key": "!actors!Mq8x1Zahb3DgqvVL"
+}

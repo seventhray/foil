@@ -1,0 +1,187 @@
+{
+  "_id": "QQBfVLSntMunBBGT",
+  "name": "Watchman",
+  "type": "creature",
+  "img": "icons/svg/mystery-man.svg",
+  "system": {
+    "tier": 2,
+    "threat": -256,
+    "behavior": "Disciplined [its sergeant]",
+    "attributes": {
+      "might": {
+        "dice": {
+          "d4": 0,
+          "d6": 1,
+          "d8": 1,
+          "d10": 0,
+          "d12": 0,
+          "d20": 0
+        },
+        "potential": {
+          "current": 14
+        },
+        "incapacitated": false
+      },
+      "finesse": {
+        "dice": {
+          "d4": 0,
+          "d6": 0,
+          "d8": 0,
+          "d10": 0,
+          "d12": 1,
+          "d20": 0
+        },
+        "potential": {
+          "current": 12
+        },
+        "incapacitated": false
+      },
+      "wit": {
+        "dice": {
+          "d4": 0,
+          "d6": 0,
+          "d8": 0,
+          "d10": 0,
+          "d12": 1,
+          "d20": 0
+        },
+        "potential": {
+          "current": 12
+        },
+        "incapacitated": false
+      },
+      "presence": {
+        "dice": {
+          "d4": 0,
+          "d6": 0,
+          "d8": 0,
+          "d10": 1,
+          "d12": 0,
+          "d20": 0
+        },
+        "potential": {
+          "current": 10
+        },
+        "incapacitated": false
+      }
+    },
+    "skills": {
+      "prowess": {
+        "training": 1
+      }
+    },
+    "resistance": {
+      "physical": 0,
+      "mental": 0
+    },
+    "notes": "<p><em>A town watchman with a spear, a lantern, and a bell to ring</em></p><p><strong>Habits</strong> Order Methodical: Rules exist because someone already learned the hard way; I'd rather not relearn it. Individualism Communal: I'll go hungry before the group does.</p><p>Holds a street or a gate while the sergeant stands. The Watchman rings for help before closing in.</p>"
+  },
+  "folder": "waHrVCvmZV9sEJ2n",
+  "sort": 16100000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "effects": [],
+  "prototypeToken": {
+    "name": "Watchman",
+    "actorLink": false,
+    "disposition": -1
+  },
+  "items": [
+    {
+      "_id": "TjOxQFBAhNMXGuF5",
+      "name": "Spear",
+      "type": "instrument",
+      "img": "icons/svg/sword.svg",
+      "system": {
+        "category": "melee",
+        "weight": "medium",
+        "primaryAttribute": "might",
+        "range": "Range 2",
+        "maxRange": "near",
+        "types": [
+          "pointed",
+          "parry"
+        ],
+        "typesDisplay": "",
+        "price": 50,
+        "rider": "",
+        "kit": [
+          {
+            "name": "Lunge",
+            "skill": "prowess",
+            "effect": "Deals Stress to Might or Finesse."
+          },
+          {
+            "name": "Topple",
+            "skill": "discipline",
+            "effect": "Applies Prone."
+          },
+          {
+            "name": "War Cry",
+            "skill": "assertiveness",
+            "effect": "Deals Stress to Presence or Wit."
+          }
+        ],
+        "innate": false,
+        "bonus": 0,
+        "size": "medium",
+        "materials": "Metal + Wood",
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!QQBfVLSntMunBBGT.TjOxQFBAhNMXGuF5"
+    },
+    {
+      "_id": "XSQLMCvixkGHECfk",
+      "name": "Hinder",
+      "type": "technique",
+      "img": "icons/svg/aura.svg",
+      "system": {
+        "requires": [
+          "edged",
+          "pointed",
+          "blunt",
+          "grappling",
+          "parry",
+          "thrown",
+          "drawn",
+          "fired"
+        ],
+        "innate": false,
+        "skill": "",
+        "family": "Melee",
+        "subgroup": "Control",
+        "effects": [
+          {
+            "key": "slowed",
+            "magnitude": 1,
+            "pattern": "single",
+            "bands": 0,
+            "placement": 0,
+            "selectiveR": 0
+          }
+        ],
+        "floor": false,
+        "ancestryGrant": "",
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!QQBfVLSntMunBBGT.XSQLMCvixkGHECfk"
+    }
+  ],
+  "_key": "!actors!QQBfVLSntMunBBGT"
+}

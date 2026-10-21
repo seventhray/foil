@@ -1,0 +1,233 @@
+{
+  "_id": "AlQ6D1UncTr11QL6",
+  "name": "Hunter",
+  "type": "creature",
+  "img": "icons/svg/mystery-man.svg",
+  "system": {
+    "tier": 3,
+    "threat": -128,
+    "behavior": "Opportunist",
+    "attributes": {
+      "might": {
+        "dice": {
+          "d4": 0,
+          "d6": 0,
+          "d8": 2,
+          "d10": 0,
+          "d12": 0,
+          "d20": 0
+        },
+        "potential": {
+          "current": 16
+        },
+        "incapacitated": false
+      },
+      "finesse": {
+        "dice": {
+          "d4": 0,
+          "d6": 0,
+          "d8": 1,
+          "d10": 1,
+          "d12": 0,
+          "d20": 0
+        },
+        "potential": {
+          "current": 18
+        },
+        "incapacitated": false
+      },
+      "wit": {
+        "dice": {
+          "d4": 0,
+          "d6": 0,
+          "d8": 2,
+          "d10": 0,
+          "d12": 0,
+          "d20": 0
+        },
+        "potential": {
+          "current": 16
+        },
+        "incapacitated": false
+      },
+      "presence": {
+        "dice": {
+          "d4": 0,
+          "d6": 1,
+          "d8": 1,
+          "d10": 0,
+          "d12": 0,
+          "d20": 0
+        },
+        "potential": {
+          "current": 14
+        },
+        "incapacitated": false
+      }
+    },
+    "skills": {
+      "prowess": {
+        "training": 2
+      }
+    },
+    "resistance": {
+      "physical": 0,
+      "mental": 0
+    },
+    "notes": "<p><em>A hunter who lives by the bow and knows the woods better than the town</em></p><p><strong>Habits</strong> Individualism Individual: I look out for myself first; I can't help anyone if I'm the one who falls. Levity Grave: Silence sits easier with me than small talk.</p><p>Shoots from cover and moves before it is found. The Hunter melts away when the fight turns.</p>"
+  },
+  "folder": "oestcF1oEEFrxKyA",
+  "sort": 9100000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "effects": [],
+  "prototypeToken": {
+    "name": "Hunter",
+    "actorLink": false,
+    "disposition": -1
+  },
+  "items": [
+    {
+      "_id": "VI3ZrFI412gyHCrq",
+      "name": "Longbow",
+      "type": "instrument",
+      "img": "icons/svg/sword.svg",
+      "system": {
+        "category": "ranged",
+        "weight": "medium",
+        "primaryAttribute": "might",
+        "range": "Range 20",
+        "maxRange": "long",
+        "types": [
+          "pointed",
+          "drawn"
+        ],
+        "typesDisplay": "",
+        "price": 75,
+        "rider": "Reload Quick Action.",
+        "kit": [
+          {
+            "name": "Full Draw",
+            "skill": "prowess",
+            "effect": "Deals Stress to Might or Finesse."
+          },
+          {
+            "name": "Pin Down",
+            "skill": "discipline",
+            "effect": "Applies Prone."
+          },
+          {
+            "name": "Warning Shot",
+            "skill": "assertiveness",
+            "effect": "Deals Stress to Presence or Wit."
+          }
+        ],
+        "innate": false,
+        "bonus": 0,
+        "size": "medium",
+        "materials": "Wood + Textile",
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!AlQ6D1UncTr11QL6.VI3ZrFI412gyHCrq"
+    },
+    {
+      "_id": "VYcyH8bOBUj7QcyZ",
+      "name": "Aim",
+      "type": "technique",
+      "img": "icons/svg/aura.svg",
+      "system": {
+        "requires": [
+          "thrown",
+          "drawn",
+          "fired"
+        ],
+        "innate": false,
+        "skill": "",
+        "family": "Ranged",
+        "subgroup": "Piercing & Precision",
+        "effects": [
+          {
+            "key": "stress",
+            "magnitude": 1,
+            "pattern": "single",
+            "bands": 0,
+            "placement": 0,
+            "selectiveR": 0
+          },
+          {
+            "key": "roll-bonus",
+            "magnitude": 2,
+            "pattern": "single",
+            "bands": 0,
+            "placement": 0,
+            "selectiveR": 0
+          }
+        ],
+        "floor": false,
+        "ancestryGrant": "",
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!AlQ6D1UncTr11QL6.VYcyH8bOBUj7QcyZ"
+    },
+    {
+      "_id": "CRZ4GGLUiFUGnXQe",
+      "name": "Hinder",
+      "type": "technique",
+      "img": "icons/svg/aura.svg",
+      "system": {
+        "requires": [
+          "edged",
+          "pointed",
+          "blunt",
+          "grappling",
+          "parry",
+          "thrown",
+          "drawn",
+          "fired"
+        ],
+        "innate": false,
+        "skill": "",
+        "family": "Melee",
+        "subgroup": "Control",
+        "effects": [
+          {
+            "key": "slowed",
+            "magnitude": 1,
+            "pattern": "single",
+            "bands": 0,
+            "placement": 0,
+            "selectiveR": 0
+          }
+        ],
+        "floor": false,
+        "ancestryGrant": "",
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 300000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!AlQ6D1UncTr11QL6.CRZ4GGLUiFUGnXQe"
+    }
+  ],
+  "_key": "!actors!AlQ6D1UncTr11QL6"
+}

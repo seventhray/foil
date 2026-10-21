@@ -1,0 +1,257 @@
+{
+  "_id": "efszXvEs2TDL7gDD",
+  "name": "Guard",
+  "type": "creature",
+  "img": "icons/svg/mystery-man.svg",
+  "system": {
+    "tier": 3,
+    "threat": -128,
+    "behavior": "Disciplined [its captain]",
+    "attributes": {
+      "might": {
+        "dice": {
+          "d4": 0,
+          "d6": 0,
+          "d8": 1,
+          "d10": 1,
+          "d12": 0,
+          "d20": 0
+        },
+        "potential": {
+          "current": 18
+        },
+        "incapacitated": false
+      },
+      "finesse": {
+        "dice": {
+          "d4": 0,
+          "d6": 0,
+          "d8": 2,
+          "d10": 0,
+          "d12": 0,
+          "d20": 0
+        },
+        "potential": {
+          "current": 16
+        },
+        "incapacitated": false
+      },
+      "wit": {
+        "dice": {
+          "d4": 0,
+          "d6": 1,
+          "d8": 1,
+          "d10": 0,
+          "d12": 0,
+          "d20": 0
+        },
+        "potential": {
+          "current": 14
+        },
+        "incapacitated": false
+      },
+      "presence": {
+        "dice": {
+          "d4": 0,
+          "d6": 0,
+          "d8": 2,
+          "d10": 0,
+          "d12": 0,
+          "d20": 0
+        },
+        "potential": {
+          "current": 16
+        },
+        "incapacitated": false
+      }
+    },
+    "skills": {
+      "prowess": {
+        "training": 2
+      },
+      "discipline": {
+        "training": 1
+      }
+    },
+    "resistance": {
+      "physical": 1,
+      "mental": 0
+    },
+    "notes": "<p><em>A paid guard in a leather coat, with a spear and a shield and orders to hold the door</em></p><p><strong>Habits</strong> Order Methodical: Rules exist because someone already learned the hard way; I'd rather not relearn it. Individualism Communal: I put myself between danger and whoever's behind me, without being asked.</p><p>Stands between the party and whoever pays it. The Guard falls back once its captain does.</p>"
+  },
+  "folder": "oestcF1oEEFrxKyA",
+  "sort": 8300000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "effects": [],
+  "prototypeToken": {
+    "name": "Guard",
+    "actorLink": false,
+    "disposition": -1
+  },
+  "items": [
+    {
+      "_id": "o8T1SApZAOy8LyJc",
+      "name": "Spear",
+      "type": "instrument",
+      "img": "icons/svg/sword.svg",
+      "system": {
+        "category": "melee",
+        "weight": "medium",
+        "primaryAttribute": "might",
+        "range": "Range 2",
+        "maxRange": "near",
+        "types": [
+          "pointed",
+          "parry"
+        ],
+        "typesDisplay": "",
+        "price": 50,
+        "rider": "",
+        "kit": [
+          {
+            "name": "Lunge",
+            "skill": "prowess",
+            "effect": "Deals Stress to Might or Finesse."
+          },
+          {
+            "name": "Topple",
+            "skill": "discipline",
+            "effect": "Applies Prone."
+          },
+          {
+            "name": "War Cry",
+            "skill": "assertiveness",
+            "effect": "Deals Stress to Presence or Wit."
+          }
+        ],
+        "innate": false,
+        "bonus": 0,
+        "size": "medium",
+        "materials": "Metal + Wood",
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!efszXvEs2TDL7gDD.o8T1SApZAOy8LyJc"
+    },
+    {
+      "_id": "FjozhD5KNQag01vI",
+      "name": "Shield",
+      "type": "instrument",
+      "img": "icons/svg/claw.svg",
+      "system": {
+        "types": [
+          "blocking"
+        ],
+        "range": "Range 1",
+        "weight": "light",
+        "innate": true,
+        "primaryAttribute": "might",
+        "category": "melee",
+        "price": 0,
+        "kit": [
+          {
+            "name": "Steel the Mind",
+            "skill": "discipline",
+            "effect": "Grants Resistance +1 (Mental) to self or an ally for 1 round."
+          },
+          {
+            "name": "Foresee the Blow",
+            "skill": "acuity",
+            "effect": "Grants +1 to an ally's next Oppose roll before your next turn."
+          },
+          {
+            "name": "Calm the Nerves",
+            "skill": "resonance",
+            "effect": "Removes a Frightened, Wary, or Intimidated Condition from an ally within Range 1."
+          }
+        ],
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!efszXvEs2TDL7gDD.FjozhD5KNQag01vI"
+    },
+    {
+      "_id": "CACQKGg9Tdu5skqR",
+      "name": "Hinder",
+      "type": "technique",
+      "img": "icons/svg/aura.svg",
+      "system": {
+        "requires": [
+          "edged",
+          "pointed",
+          "blunt",
+          "grappling",
+          "parry",
+          "thrown",
+          "drawn",
+          "fired"
+        ],
+        "innate": false,
+        "skill": "",
+        "family": "Melee",
+        "subgroup": "Control",
+        "effects": [
+          {
+            "key": "slowed",
+            "magnitude": 1,
+            "pattern": "single",
+            "bands": 0,
+            "placement": 0,
+            "selectiveR": 0
+          }
+        ],
+        "floor": false,
+        "ancestryGrant": "",
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 300000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!efszXvEs2TDL7gDD.CACQKGg9Tdu5skqR"
+    },
+    {
+      "_id": "vtOpix0GjQT70GHy",
+      "name": "Bodyguard",
+      "type": "feat",
+      "img": "icons/svg/upgrade.svg",
+      "system": {
+        "featType": "learned",
+        "xpCost": 8,
+        "requirements": "12 Might",
+        "effect": "While you Guard an ally, once per round when a Technique lands on their Might or Finesse, redirect its Stress onto your Might, reduced by your Physical Resistance.",
+        "ancestry": "",
+        "grantsTechnique": "",
+        "modifiers": [],
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 400000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!efszXvEs2TDL7gDD.vtOpix0GjQT70GHy"
+    }
+  ],
+  "_key": "!actors!efszXvEs2TDL7gDD"
+}

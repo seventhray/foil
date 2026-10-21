@@ -1,0 +1,362 @@
+{
+  "_id": "MjZ75RPzK3lQNjmP",
+  "name": "Ship Captain",
+  "type": "creature",
+  "img": "icons/svg/mystery-man.svg",
+  "system": {
+    "tier": 4,
+    "threat": 0,
+    "behavior": "Territorial [its ship], Venal",
+    "attributes": {
+      "might": {
+        "dice": {
+          "d4": 0,
+          "d6": 0,
+          "d8": 1,
+          "d10": 1,
+          "d12": 0,
+          "d20": 0
+        },
+        "potential": {
+          "current": 18
+        },
+        "incapacitated": false
+      },
+      "finesse": {
+        "dice": {
+          "d4": 0,
+          "d6": 0,
+          "d8": 0,
+          "d10": 0,
+          "d12": 0,
+          "d20": 1
+        },
+        "potential": {
+          "current": 20
+        },
+        "incapacitated": false
+      },
+      "wit": {
+        "dice": {
+          "d4": 0,
+          "d6": 0,
+          "d8": 0,
+          "d10": 0,
+          "d12": 0,
+          "d20": 1
+        },
+        "potential": {
+          "current": 20
+        },
+        "incapacitated": false
+      },
+      "presence": {
+        "dice": {
+          "d4": 0,
+          "d6": 0,
+          "d8": 0,
+          "d10": 1,
+          "d12": 1,
+          "d20": 0
+        },
+        "potential": {
+          "current": 22
+        },
+        "incapacitated": false
+      }
+    },
+    "skills": {
+      "assertiveness": {
+        "training": 2
+      },
+      "prowess": {
+        "training": 2
+      }
+    },
+    "resistance": {
+      "physical": 1,
+      "mental": 0
+    },
+    "notes": "<p><em>A captain who has kept a crew alive through storms and explains itself to no one</em></p><p><strong>Habits</strong> Order Intuitive: I've never met a plan that survived contact with anything. Individualism Communal: I put myself between danger and whoever's behind me, without being asked.</p><p>Fights to the last on its own deck. Ashore, the Ship Captain bargains for the crew.</p>"
+  },
+  "folder": "lbAiucKhjwD2rzG9",
+  "sort": 12600000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "effects": [],
+  "prototypeToken": {
+    "name": "Ship Captain",
+    "actorLink": false,
+    "disposition": -1
+  },
+  "items": [
+    {
+      "_id": "bLaXwk3JUCQR3DLh",
+      "name": "Sabre",
+      "type": "instrument",
+      "img": "icons/svg/sword.svg",
+      "system": {
+        "category": "melee",
+        "weight": "medium",
+        "primaryAttribute": "finesse",
+        "range": "Range 1",
+        "maxRange": "close",
+        "types": [
+          "edged",
+          "parry"
+        ],
+        "typesDisplay": "",
+        "price": 35,
+        "rider": "",
+        "kit": [
+          {
+            "name": "Slash",
+            "skill": "prowess",
+            "effect": "Deals Stress to Might or Finesse."
+          },
+          {
+            "name": "Flourish",
+            "skill": "acuity",
+            "effect": "Applies Reeling."
+          },
+          {
+            "name": "Taunting Cut",
+            "skill": "guile",
+            "effect": "Applies Baited."
+          }
+        ],
+        "innate": false,
+        "bonus": 0,
+        "size": "medium",
+        "materials": "Metal + Leather",
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!MjZ75RPzK3lQNjmP.bLaXwk3JUCQR3DLh"
+    },
+    {
+      "_id": "zwOtmUObLEDeSCqH",
+      "name": "Voice",
+      "type": "instrument",
+      "img": "icons/svg/sound.svg",
+      "system": {
+        "category": "innate",
+        "weight": "light",
+        "primaryAttribute": "presence",
+        "range": "Range 8",
+        "types": [
+          "quick",
+          "sonic"
+        ],
+        "typesDisplay": "",
+        "price": 0,
+        "rider": "Innate: every character has it, free (PHB 2.5.3).",
+        "kit": [
+          {
+            "name": "Intimidate",
+            "skill": "assertiveness",
+            "effect": "Applies Intimidated."
+          },
+          {
+            "name": "Mislead",
+            "skill": "guile",
+            "effect": "Applies Misled."
+          },
+          {
+            "name": "Sway",
+            "skill": "resonance",
+            "effect": "Applies Swayed."
+          }
+        ],
+        "innate": true,
+        "bonus": 0,
+        "size": "medium",
+        "materials": "",
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!MjZ75RPzK3lQNjmP.zwOtmUObLEDeSCqH"
+    },
+    {
+      "_id": "zxjoFwTyA64ASlUz",
+      "name": "Riposte",
+      "type": "technique",
+      "img": "icons/svg/aura.svg",
+      "system": {
+        "requires": [
+          "parry"
+        ],
+        "innate": false,
+        "skill": "",
+        "family": "Guard",
+        "subgroup": "",
+        "effects": [
+          {
+            "key": "quick",
+            "magnitude": 1,
+            "pattern": "single",
+            "bands": 0,
+            "placement": 0,
+            "selectiveR": 0
+          }
+        ],
+        "floor": true,
+        "ancestryGrant": "",
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 300000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!MjZ75RPzK3lQNjmP.zxjoFwTyA64ASlUz"
+    },
+    {
+      "_id": "UD2BeAeoth4mEF5A",
+      "name": "Rally",
+      "type": "technique",
+      "img": "icons/svg/aura.svg",
+      "system": {
+        "requires": [
+          "sonic"
+        ],
+        "innate": false,
+        "skill": "",
+        "family": "Sonic",
+        "subgroup": "Restorative",
+        "effects": [
+          {
+            "key": "skill-mod",
+            "magnitude": 1,
+            "pattern": "single",
+            "bands": 0,
+            "placement": 0,
+            "selectiveR": 0
+          },
+          {
+            "key": "quick",
+            "magnitude": 1,
+            "pattern": "single",
+            "bands": 0,
+            "placement": 0,
+            "selectiveR": 0,
+            "untriggered": true
+          }
+        ],
+        "floor": false,
+        "ancestryGrant": "",
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 400000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!MjZ75RPzK3lQNjmP.UD2BeAeoth4mEF5A"
+    },
+    {
+      "_id": "3wNBHR5vOr5hDMeW",
+      "name": "Bark an Order",
+      "type": "technique",
+      "img": "icons/svg/aura.svg",
+      "system": {
+        "requires": [
+          "sonic"
+        ],
+        "innate": false,
+        "skill": "",
+        "family": "",
+        "subgroup": "",
+        "effects": [
+          {
+            "key": "stress",
+            "magnitude": 1,
+            "pattern": "single",
+            "bands": 0,
+            "placement": 0,
+            "selectiveR": 0
+          },
+          {
+            "key": "weaken",
+            "magnitude": 1,
+            "pattern": "single",
+            "bands": 0,
+            "placement": 0,
+            "selectiveR": 0
+          }
+        ],
+        "floor": false,
+        "ancestryGrant": "",
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 500000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!MjZ75RPzK3lQNjmP.3wNBHR5vOr5hDMeW"
+    },
+    {
+      "_id": "kpdvCw07wWaHmzgq",
+      "name": "Fluster",
+      "type": "technique",
+      "img": "icons/svg/aura.svg",
+      "system": {
+        "requires": [
+          "sonic",
+          "edged",
+          "pointed",
+          "blunt",
+          "grappling",
+          "parry"
+        ],
+        "innate": false,
+        "skill": "",
+        "family": "Sonic",
+        "subgroup": "Control & Deception",
+        "effects": [
+          {
+            "key": "reeling",
+            "magnitude": 1,
+            "pattern": "single",
+            "bands": 0,
+            "placement": 0,
+            "selectiveR": 0
+          }
+        ],
+        "floor": false,
+        "ancestryGrant": "",
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 600000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!MjZ75RPzK3lQNjmP.kpdvCw07wWaHmzgq"
+    }
+  ],
+  "_key": "!actors!MjZ75RPzK3lQNjmP"
+}

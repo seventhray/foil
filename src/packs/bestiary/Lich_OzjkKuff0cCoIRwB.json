@@ -77,10 +77,10 @@
       "physical": 5,
       "mental": 0
     },
-    "notes": "<p><em>Set-piece controller, control and denial on a light frame</em></p><p><font color=\"#7f7f7f\">Describe the creature's behaviour, including its habits in daily life, how it interacts with its environment, and the tactics it uses when in combat.</font></p>"
+    "notes": "<p><em>Set-piece controller, control and denial on a light frame</em></p>"
   },
   "folder": "YGrrf4NUQjIr3ADS",
-  "sort": 8200000,
+  "sort": 9500000,
   "ownership": {
     "default": 0
   },

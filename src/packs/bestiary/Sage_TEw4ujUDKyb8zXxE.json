@@ -1,0 +1,323 @@
+{
+  "_id": "TEw4ujUDKyb8zXxE",
+  "name": "Sage",
+  "type": "creature",
+  "img": "icons/svg/mystery-man.svg",
+  "system": {
+    "tier": 5,
+    "threat": 128,
+    "behavior": "Craven",
+    "attributes": {
+      "might": {
+        "dice": {
+          "d4": 0,
+          "d6": 0,
+          "d8": 0,
+          "d10": 1,
+          "d12": 1,
+          "d20": 0
+        },
+        "potential": {
+          "current": 22
+        },
+        "incapacitated": false
+      },
+      "finesse": {
+        "dice": {
+          "d4": 0,
+          "d6": 0,
+          "d8": 0,
+          "d10": 1,
+          "d12": 1,
+          "d20": 0
+        },
+        "potential": {
+          "current": 22
+        },
+        "incapacitated": false
+      },
+      "wit": {
+        "dice": {
+          "d4": 0,
+          "d6": 0,
+          "d8": 1,
+          "d10": 0,
+          "d12": 0,
+          "d20": 1
+        },
+        "potential": {
+          "current": 28
+        },
+        "incapacitated": false
+      },
+      "presence": {
+        "dice": {
+          "d4": 0,
+          "d6": 0,
+          "d8": 0,
+          "d10": 0,
+          "d12": 2,
+          "d20": 0
+        },
+        "potential": {
+          "current": 24
+        },
+        "incapacitated": false
+      }
+    },
+    "skills": {
+      "acuity": {
+        "training": 3
+      },
+      "discipline": {
+        "training": 2
+      }
+    },
+    "resistance": {
+      "physical": 0,
+      "mental": 2
+    },
+    "notes": "<p><em>A master of old learning and older workings, consulted by princes</em></p><p><strong>Habits</strong> Faith Mistrusting: I trust what I can verify, not what I'm told. Order Methodical: I think a plan beats improvising, nine times out of ten.</p><p>Counters the party's casters first. The Sage leaves as soon as its own body is hurt.</p>"
+  },
+  "folder": "Ei2eOqOL5AhHRvrj",
+  "sort": 11700000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "effects": [],
+  "prototypeToken": {
+    "name": "Sage",
+    "actorLink": false,
+    "disposition": -1
+  },
+  "items": [
+    {
+      "_id": "hAQwiJBH3G9kV1AN",
+      "name": "Magic Staff",
+      "type": "instrument",
+      "img": "icons/svg/sword.svg",
+      "system": {
+        "category": "arcane",
+        "weight": "medium",
+        "primaryAttribute": "wit",
+        "range": "Range 8",
+        "maxRange": "mid",
+        "types": [
+          "kinetic",
+          "incorporeal"
+        ],
+        "typesDisplay": "",
+        "price": 40,
+        "rider": "",
+        "kit": [
+          {
+            "name": "Force Strike",
+            "skill": "discipline",
+            "effect": "Deals Stress to Might or Finesse."
+          },
+          {
+            "name": "Mind-Piercing Bolt",
+            "skill": "acuity",
+            "effect": "Deals Stress to Wit or Presence."
+          },
+          {
+            "name": "Unraveling Pulse",
+            "skill": "resonance",
+            "effect": "Applies Weakened [Presence]."
+          }
+        ],
+        "innate": false,
+        "bonus": 0,
+        "size": "medium",
+        "materials": "Wood",
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!TEw4ujUDKyb8zXxE.hAQwiJBH3G9kV1AN"
+    },
+    {
+      "_id": "3vBg12wojESa1WjS",
+      "name": "Guided Bolt",
+      "type": "technique",
+      "img": "icons/svg/aura.svg",
+      "system": {
+        "requires": [
+          "kinetic"
+        ],
+        "innate": false,
+        "skill": "",
+        "family": "Kinetic",
+        "subgroup": "Piercing",
+        "effects": [
+          {
+            "key": "stress",
+            "magnitude": 1,
+            "pattern": "single",
+            "bands": 0,
+            "placement": 0,
+            "selectiveR": 0
+          },
+          {
+            "key": "roll-bonus",
+            "magnitude": 2,
+            "pattern": "single",
+            "bands": 0,
+            "placement": 0,
+            "selectiveR": 0
+          }
+        ],
+        "floor": false,
+        "ancestryGrant": "",
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!TEw4ujUDKyb8zXxE.3vBg12wojESa1WjS"
+    },
+    {
+      "_id": "nyA6DzQKAf7eKI17",
+      "name": "Counterspell",
+      "type": "technique",
+      "img": "icons/svg/aura.svg",
+      "system": {
+        "requires": [
+          "incorporeal"
+        ],
+        "innate": false,
+        "skill": "",
+        "family": "Incorporeal",
+        "subgroup": "Evasive & Reactive",
+        "effects": [
+          {
+            "key": "counter",
+            "magnitude": 1,
+            "pattern": "single",
+            "bands": 0,
+            "placement": 0,
+            "selectiveR": 0
+          }
+        ],
+        "floor": false,
+        "ancestryGrant": "",
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 300000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!TEw4ujUDKyb8zXxE.nyA6DzQKAf7eKI17"
+    },
+    {
+      "_id": "r7TA73mmt1VqCGng",
+      "name": "Seed of Doubt",
+      "type": "technique",
+      "img": "icons/svg/aura.svg",
+      "system": {
+        "requires": [
+          "incorporeal"
+        ],
+        "innate": false,
+        "skill": "",
+        "family": "Incorporeal",
+        "subgroup": "Debilitating",
+        "effects": [
+          {
+            "key": "stress",
+            "magnitude": 1,
+            "pattern": "single",
+            "bands": 0,
+            "placement": 0,
+            "selectiveR": 0
+          },
+          {
+            "key": "weaken",
+            "magnitude": 1,
+            "pattern": "single",
+            "bands": 0,
+            "placement": 0,
+            "selectiveR": 0
+          }
+        ],
+        "floor": false,
+        "ancestryGrant": "",
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 400000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!TEw4ujUDKyb8zXxE.r7TA73mmt1VqCGng"
+    },
+    {
+      "_id": "XYCCaCNvihTB9g5Z",
+      "name": "Phantasmal Terror",
+      "type": "technique",
+      "img": "icons/svg/aura.svg",
+      "system": {
+        "requires": [
+          "incorporeal"
+        ],
+        "innate": false,
+        "skill": "",
+        "family": "Incorporeal",
+        "subgroup": "Control",
+        "effects": [
+          {
+            "key": "stress",
+            "magnitude": 1,
+            "pattern": "single",
+            "bands": 0,
+            "placement": 0,
+            "selectiveR": 0
+          },
+          {
+            "key": "weaken",
+            "magnitude": 1,
+            "pattern": "single",
+            "bands": 0,
+            "placement": 0,
+            "selectiveR": 0
+          },
+          {
+            "key": "move",
+            "magnitude": 1,
+            "pattern": "single",
+            "bands": 0,
+            "placement": 0,
+            "selectiveR": 0
+          }
+        ],
+        "floor": false,
+        "ancestryGrant": "",
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 500000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!TEw4ujUDKyb8zXxE.XYCCaCNvihTB9g5Z"
+    }
+  ],
+  "_key": "!actors!TEw4ujUDKyb8zXxE"
+}

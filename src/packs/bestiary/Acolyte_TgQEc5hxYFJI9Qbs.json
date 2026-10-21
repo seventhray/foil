@@ -1,0 +1,234 @@
+{
+  "_id": "TgQEc5hxYFJI9Qbs",
+  "name": "Acolyte",
+  "type": "creature",
+  "img": "icons/svg/mystery-man.svg",
+  "system": {
+    "tier": 2,
+    "threat": -256,
+    "behavior": "Craven",
+    "attributes": {
+      "might": {
+        "dice": {
+          "d4": 0,
+          "d6": 0,
+          "d8": 0,
+          "d10": 1,
+          "d12": 0,
+          "d20": 0
+        },
+        "potential": {
+          "current": 10
+        },
+        "incapacitated": false
+      },
+      "finesse": {
+        "dice": {
+          "d4": 0,
+          "d6": 0,
+          "d8": 0,
+          "d10": 0,
+          "d12": 1,
+          "d20": 0
+        },
+        "potential": {
+          "current": 12
+        },
+        "incapacitated": false
+      },
+      "wit": {
+        "dice": {
+          "d4": 0,
+          "d6": 0,
+          "d8": 0,
+          "d10": 0,
+          "d12": 1,
+          "d20": 0
+        },
+        "potential": {
+          "current": 12
+        },
+        "incapacitated": false
+      },
+      "presence": {
+        "dice": {
+          "d4": 0,
+          "d6": 1,
+          "d8": 1,
+          "d10": 0,
+          "d12": 0,
+          "d20": 0
+        },
+        "potential": {
+          "current": 14
+        },
+        "incapacitated": false
+      }
+    },
+    "skills": {
+      "resonance": {
+        "training": 1
+      }
+    },
+    "resistance": {
+      "physical": 0,
+      "mental": 0
+    },
+    "notes": "<p><em>A junior servant of a temple, sweeping floors and learning the prayers</em></p><p><strong>Habits</strong> Faith Trusting: I offer strangers the benefit of the doubt before they've earned it. Individualism Communal: I'll go hungry before the group does.</p><p>Talks before it fights. The Acolyte runs for the temple once hurt.</p>"
+  },
+  "folder": "waHrVCvmZV9sEJ2n",
+  "sort": 100000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "effects": [],
+  "prototypeToken": {
+    "name": "Acolyte",
+    "actorLink": false,
+    "disposition": -1
+  },
+  "items": [
+    {
+      "_id": "IFCjm4pMzrx3lBWA",
+      "name": "Quarterstaff",
+      "type": "instrument",
+      "img": "icons/svg/sword.svg",
+      "system": {
+        "category": "melee",
+        "weight": "medium",
+        "primaryAttribute": "finesse",
+        "range": "Range 2",
+        "maxRange": "near",
+        "types": [
+          "blunt",
+          "blocking"
+        ],
+        "typesDisplay": "",
+        "price": 45,
+        "rider": "",
+        "kit": [
+          {
+            "name": "Bash",
+            "skill": "prowess",
+            "effect": "Deals Stress to Might or Finesse."
+          },
+          {
+            "name": "Sweep",
+            "skill": "acuity",
+            "effect": "Applies Prone."
+          },
+          {
+            "name": "Feint Jab",
+            "skill": "guile",
+            "effect": "Applies Reeling."
+          }
+        ],
+        "innate": false,
+        "bonus": 0,
+        "size": "medium",
+        "materials": "Wood",
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!TgQEc5hxYFJI9Qbs.IFCjm4pMzrx3lBWA"
+    },
+    {
+      "_id": "Mh49K1OBi091KxCy",
+      "name": "Voice",
+      "type": "instrument",
+      "img": "icons/svg/sound.svg",
+      "system": {
+        "category": "innate",
+        "weight": "light",
+        "primaryAttribute": "presence",
+        "range": "Range 8",
+        "types": [
+          "quick",
+          "sonic"
+        ],
+        "typesDisplay": "",
+        "price": 0,
+        "rider": "Innate: every character has it, free (PHB 2.5.3).",
+        "kit": [
+          {
+            "name": "Intimidate",
+            "skill": "assertiveness",
+            "effect": "Applies Intimidated."
+          },
+          {
+            "name": "Mislead",
+            "skill": "guile",
+            "effect": "Applies Misled."
+          },
+          {
+            "name": "Sway",
+            "skill": "resonance",
+            "effect": "Applies Swayed."
+          }
+        ],
+        "innate": true,
+        "bonus": 0,
+        "size": "medium",
+        "materials": "",
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!TgQEc5hxYFJI9Qbs.Mh49K1OBi091KxCy"
+    },
+    {
+      "_id": "Ze8vjnlkCeQRF5Uz",
+      "name": "Fluster",
+      "type": "technique",
+      "img": "icons/svg/aura.svg",
+      "system": {
+        "requires": [
+          "sonic",
+          "edged",
+          "pointed",
+          "blunt",
+          "grappling",
+          "parry"
+        ],
+        "innate": false,
+        "skill": "",
+        "family": "Sonic",
+        "subgroup": "Control & Deception",
+        "effects": [
+          {
+            "key": "reeling",
+            "magnitude": 1,
+            "pattern": "single",
+            "bands": 0,
+            "placement": 0,
+            "selectiveR": 0
+          }
+        ],
+        "floor": false,
+        "ancestryGrant": "",
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 300000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!TgQEc5hxYFJI9Qbs.Ze8vjnlkCeQRF5Uz"
+    }
+  ],
+  "_key": "!actors!TgQEc5hxYFJI9Qbs"
+}

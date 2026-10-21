@@ -1,0 +1,572 @@
+{
+  "_id": "vcbx5tMsJjecsTGf",
+  "name": "Enchanter",
+  "type": "creature",
+  "img": "icons/svg/mystery-man.svg",
+  "system": {
+    "tier": 5,
+    "threat": 128,
+    "behavior": "Venal",
+    "attributes": {
+      "might": {
+        "dice": {
+          "d4": 0,
+          "d6": 0,
+          "d8": 0,
+          "d10": 1,
+          "d12": 1,
+          "d20": 0
+        },
+        "potential": {
+          "current": 22
+        },
+        "incapacitated": false
+      },
+      "finesse": {
+        "dice": {
+          "d4": 0,
+          "d6": 1,
+          "d8": 0,
+          "d10": 0,
+          "d12": 0,
+          "d20": 1
+        },
+        "potential": {
+          "current": 26
+        },
+        "incapacitated": false
+      },
+      "wit": {
+        "dice": {
+          "d4": 0,
+          "d6": 1,
+          "d8": 0,
+          "d10": 0,
+          "d12": 0,
+          "d20": 1
+        },
+        "potential": {
+          "current": 26
+        },
+        "incapacitated": false
+      },
+      "presence": {
+        "dice": {
+          "d4": 0,
+          "d6": 0,
+          "d8": 0,
+          "d10": 1,
+          "d12": 1,
+          "d20": 0
+        },
+        "potential": {
+          "current": 22
+        },
+        "incapacitated": false
+      }
+    },
+    "skills": {
+      "acuity": {
+        "training": 2
+      },
+      "discipline": {
+        "training": 2
+      }
+    },
+    "resistance": {
+      "physical": 1,
+      "mental": 1
+    },
+    "notes": "<p><em>A maker of enchanted things, who works with a lens, a wand, and a ledger of debts</em></p><p><strong>Habits</strong> Faith Mistrusting: I keep something back in every deal, just in case. Individualism Individual: I take what I've earned and don't feel guilty about it.</p><p>Wards its allies and fires from behind them. The Enchanter offers a made thing to end a losing fight.</p>"
+  },
+  "folder": "Ei2eOqOL5AhHRvrj",
+  "sort": 5900000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "effects": [],
+  "prototypeToken": {
+    "name": "Enchanter",
+    "actorLink": false,
+    "disposition": -1
+  },
+  "items": [
+    {
+      "_id": "B8WQVTRPcvGRvbXd",
+      "name": "Wand",
+      "type": "instrument",
+      "img": "icons/svg/claw.svg",
+      "system": {
+        "types": [
+          "fortifying"
+        ],
+        "range": "Range 1",
+        "weight": "light",
+        "innate": true,
+        "primaryAttribute": "wit",
+        "category": "arcane",
+        "price": 0,
+        "kit": [
+          {
+            "name": "Steel the Mind",
+            "skill": "discipline",
+            "effect": "Grants Resistance +1 (Mental) to self or an ally for 1 round."
+          },
+          {
+            "name": "Foresee the Blow",
+            "skill": "acuity",
+            "effect": "Grants +1 to an ally's next Oppose roll before your next turn."
+          },
+          {
+            "name": "Calm the Nerves",
+            "skill": "resonance",
+            "effect": "Removes a Frightened, Wary, or Intimidated Condition from an ally within Range 1."
+          }
+        ],
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!vcbx5tMsJjecsTGf.B8WQVTRPcvGRvbXd"
+    },
+    {
+      "_id": "KPA91I0n9hwnXFwm",
+      "name": "Wand",
+      "type": "instrument",
+      "img": "icons/svg/claw.svg",
+      "system": {
+        "types": [
+          "incorporeal"
+        ],
+        "range": "Range 1",
+        "weight": "light",
+        "innate": true,
+        "primaryAttribute": "wit",
+        "category": "arcane",
+        "price": 0,
+        "kit": [
+          {
+            "name": "Force Strike",
+            "skill": "discipline",
+            "effect": "Deals Stress to Might or Finesse."
+          },
+          {
+            "name": "Mind-Piercing Bolt",
+            "skill": "acuity",
+            "effect": "Deals Stress to Wit or Presence."
+          },
+          {
+            "name": "Unraveling Pulse",
+            "skill": "resonance",
+            "effect": "Applies Weakened [Presence]."
+          }
+        ],
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!vcbx5tMsJjecsTGf.KPA91I0n9hwnXFwm"
+    },
+    {
+      "_id": "KvOLQ8XoIFiSOFtw",
+      "name": "Tool attack",
+      "type": "instrument",
+      "img": "icons/svg/claw.svg",
+      "system": {
+        "types": [
+          "tool"
+        ],
+        "range": "Range 1",
+        "weight": "light",
+        "innate": true,
+        "primaryAttribute": "might",
+        "category": "melee",
+        "price": 0,
+        "kit": [
+          {
+            "name": "Rousing Chord",
+            "skill": "assertiveness",
+            "effect": "Applies Intimidated."
+          },
+          {
+            "name": "Cutting Verse",
+            "skill": "guile",
+            "effect": "Applies Baited."
+          },
+          {
+            "name": "Discordant Note",
+            "skill": "resonance",
+            "effect": "Deals Stress to Wit or Presence."
+          }
+        ],
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 300000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!vcbx5tMsJjecsTGf.KvOLQ8XoIFiSOFtw"
+    },
+    {
+      "_id": "X3tEEbfTNjXOxFCh",
+      "name": "Wand",
+      "type": "instrument",
+      "img": "icons/svg/sword.svg",
+      "system": {
+        "category": "arcane",
+        "weight": "light",
+        "primaryAttribute": "wit",
+        "range": "Range 4",
+        "maxRange": "short",
+        "types": [
+          "quick",
+          "kinetic"
+        ],
+        "typesDisplay": "",
+        "price": 20,
+        "rider": "A Wand built Fortifying uses the Mending Focus kit instead.",
+        "kit": [
+          {
+            "name": "Force Bolt",
+            "skill": "discipline",
+            "effect": "Deals Stress to Might or Finesse."
+          },
+          {
+            "name": "Mind-Piercing Ray",
+            "skill": "acuity",
+            "effect": "Deals Stress to Wit or Presence."
+          },
+          {
+            "name": "Unsettling Pulse",
+            "skill": "resonance",
+            "effect": "Applies Frightened."
+          }
+        ],
+        "innate": false,
+        "bonus": 0,
+        "size": "small",
+        "materials": "Wood",
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 400000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!vcbx5tMsJjecsTGf.X3tEEbfTNjXOxFCh"
+    },
+    {
+      "_id": "DQzVAZQZmfqnllAr",
+      "name": "Jeweler's Tools",
+      "type": "instrument",
+      "img": "icons/svg/pick.svg",
+      "system": {
+        "category": "tool",
+        "weight": "light",
+        "primaryAttribute": "finesse",
+        "range": "Range 0",
+        "types": [
+          "craft-gemstone"
+        ],
+        "typesDisplay": "Craft [Gemstone]",
+        "price": 22,
+        "rider": "",
+        "kit": [],
+        "innate": false,
+        "bonus": 0,
+        "size": "medium",
+        "materials": "Gemstone",
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 500000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!vcbx5tMsJjecsTGf.DQzVAZQZmfqnllAr"
+    },
+    {
+      "_id": "lF0yUr1ae3h6KHLx",
+      "name": "Guided Bolt",
+      "type": "technique",
+      "img": "icons/svg/aura.svg",
+      "system": {
+        "requires": [
+          "kinetic"
+        ],
+        "innate": false,
+        "skill": "",
+        "family": "Kinetic",
+        "subgroup": "Piercing",
+        "effects": [
+          {
+            "key": "stress",
+            "magnitude": 1,
+            "pattern": "single",
+            "bands": 0,
+            "placement": 0,
+            "selectiveR": 0
+          },
+          {
+            "key": "roll-bonus",
+            "magnitude": 2,
+            "pattern": "single",
+            "bands": 0,
+            "placement": 0,
+            "selectiveR": 0
+          }
+        ],
+        "floor": false,
+        "ancestryGrant": "",
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 600000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!vcbx5tMsJjecsTGf.lF0yUr1ae3h6KHLx"
+    },
+    {
+      "_id": "pa1nGFxzmMI7JGb7",
+      "name": "Hexing Bolt",
+      "type": "technique",
+      "img": "icons/svg/aura.svg",
+      "system": {
+        "requires": [
+          "incorporeal"
+        ],
+        "innate": false,
+        "skill": "",
+        "family": "Incorporeal",
+        "subgroup": "Debilitating",
+        "effects": [
+          {
+            "key": "stress",
+            "magnitude": 1,
+            "pattern": "single",
+            "bands": 0,
+            "placement": 0,
+            "selectiveR": 0
+          },
+          {
+            "key": "roll-bonus",
+            "magnitude": 2,
+            "pattern": "single",
+            "bands": 0,
+            "placement": 0,
+            "selectiveR": 0
+          }
+        ],
+        "floor": false,
+        "ancestryGrant": "",
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 700000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!vcbx5tMsJjecsTGf.pa1nGFxzmMI7JGb7"
+    },
+    {
+      "_id": "r1Bih6yiasGrN7Rh",
+      "name": "Blink",
+      "type": "technique",
+      "img": "icons/svg/aura.svg",
+      "system": {
+        "requires": [
+          "kinetic"
+        ],
+        "innate": false,
+        "skill": "",
+        "family": "Kinetic",
+        "subgroup": "Mobility",
+        "effects": [
+          {
+            "key": "evade",
+            "magnitude": 1,
+            "pattern": "single",
+            "bands": 0,
+            "placement": 0,
+            "selectiveR": 0
+          }
+        ],
+        "floor": false,
+        "ancestryGrant": "",
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 800000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!vcbx5tMsJjecsTGf.r1Bih6yiasGrN7Rh"
+    },
+    {
+      "_id": "9fy2NXcUYjtOLxrR",
+      "name": "Force Ward",
+      "type": "technique",
+      "img": "icons/svg/aura.svg",
+      "system": {
+        "requires": [
+          "fortifying"
+        ],
+        "innate": false,
+        "skill": "",
+        "family": "Fortifying",
+        "subgroup": "Single-Target Support",
+        "effects": [
+          {
+            "key": "resistance",
+            "magnitude": 1,
+            "pattern": "single",
+            "bands": 0,
+            "placement": 0,
+            "selectiveR": 0
+          }
+        ],
+        "floor": true,
+        "ancestryGrant": "",
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 900000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!vcbx5tMsJjecsTGf.9fy2NXcUYjtOLxrR"
+    },
+    {
+      "_id": "9QUVUIcgT0FWJjWI",
+      "name": "Aegis of Force",
+      "type": "technique",
+      "img": "icons/svg/aura.svg",
+      "system": {
+        "requires": [
+          "fortifying"
+        ],
+        "innate": false,
+        "skill": "",
+        "family": "Fortifying",
+        "subgroup": "Group Support (Selective)",
+        "effects": [
+          {
+            "key": "selective",
+            "magnitude": 1,
+            "pattern": "single",
+            "bands": 0,
+            "placement": 0,
+            "selectiveR": 2
+          },
+          {
+            "key": "resistance",
+            "magnitude": 1,
+            "pattern": "single",
+            "bands": 0,
+            "placement": 0,
+            "selectiveR": 0
+          }
+        ],
+        "floor": true,
+        "ancestryGrant": "",
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 1000000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!vcbx5tMsJjecsTGf.9QUVUIcgT0FWJjWI"
+    },
+    {
+      "_id": "Kkc3WW17VTfJ26yn",
+      "name": "Careful Work",
+      "type": "technique",
+      "img": "icons/svg/aura.svg",
+      "system": {
+        "requires": [
+          "tool"
+        ],
+        "innate": false,
+        "skill": "",
+        "family": "Tool",
+        "subgroup": "",
+        "effects": [
+          {
+            "key": "skill-mod-minute",
+            "magnitude": 1,
+            "pattern": "single",
+            "bands": 0,
+            "placement": 0,
+            "selectiveR": 0
+          }
+        ],
+        "floor": false,
+        "ancestryGrant": "",
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 1100000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!vcbx5tMsJjecsTGf.Kkc3WW17VTfJ26yn"
+    },
+    {
+      "_id": "YENqgqgFasF5u6TD",
+      "name": "Focused Blast",
+      "type": "feat",
+      "img": "icons/svg/upgrade.svg",
+      "system": {
+        "featType": "learned",
+        "xpCost": 12,
+        "requirements": "12 Might, 12 Presence",
+        "effect": "When using a Kinetic Technique that deals Stress to the Target, deal +1 additional Stress.",
+        "ancestry": "",
+        "grantsTechnique": "",
+        "modifiers": [],
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 1200000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!vcbx5tMsJjecsTGf.YENqgqgFasF5u6TD"
+    }
+  ],
+  "_key": "!actors!vcbx5tMsJjecsTGf"
+}

@@ -1,0 +1,374 @@
+{
+  "_id": "OIQN153Z7hSk6f3v",
+  "name": "Sergeant",
+  "type": "creature",
+  "img": "icons/svg/mystery-man.svg",
+  "system": {
+    "tier": 4,
+    "threat": 0,
+    "behavior": "Emboldening, Disciplined [its captain]",
+    "attributes": {
+      "might": {
+        "dice": {
+          "d4": 0,
+          "d6": 0,
+          "d8": 0,
+          "d10": 1,
+          "d12": 1,
+          "d20": 0
+        },
+        "potential": {
+          "current": 22
+        },
+        "incapacitated": false
+      },
+      "finesse": {
+        "dice": {
+          "d4": 0,
+          "d6": 0,
+          "d8": 0,
+          "d10": 0,
+          "d12": 0,
+          "d20": 1
+        },
+        "potential": {
+          "current": 20
+        },
+        "incapacitated": false
+      },
+      "wit": {
+        "dice": {
+          "d4": 0,
+          "d6": 0,
+          "d8": 1,
+          "d10": 1,
+          "d12": 0,
+          "d20": 0
+        },
+        "potential": {
+          "current": 18
+        },
+        "incapacitated": false
+      },
+      "presence": {
+        "dice": {
+          "d4": 0,
+          "d6": 0,
+          "d8": 0,
+          "d10": 0,
+          "d12": 0,
+          "d20": 1
+        },
+        "potential": {
+          "current": 20
+        },
+        "incapacitated": false
+      }
+    },
+    "skills": {
+      "prowess": {
+        "training": 2
+      },
+      "assertiveness": {
+        "training": 2
+      }
+    },
+    "resistance": {
+      "physical": 2,
+      "mental": 0
+    },
+    "notes": "<p><em>A sergeant who has run a line long enough to know which soldiers will hold</em></p><p><strong>Habits</strong> Order Methodical: I think a plan beats improvising, nine times out of ten. Individualism Communal: I put myself between danger and whoever's behind me, without being asked.</p><p>Holds the line together with its voice. Soldiers near the Sergeant stand while it stands.</p>"
+  },
+  "folder": "lbAiucKhjwD2rzG9",
+  "sort": 12300000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "effects": [],
+  "prototypeToken": {
+    "name": "Sergeant",
+    "actorLink": false,
+    "disposition": -1
+  },
+  "items": [
+    {
+      "_id": "2IE2N5OKvmDFAH3h",
+      "name": "Longsword",
+      "type": "instrument",
+      "img": "icons/svg/sword.svg",
+      "system": {
+        "category": "melee",
+        "weight": "medium",
+        "primaryAttribute": "might",
+        "range": "Range 1",
+        "maxRange": "close",
+        "types": [
+          "edged",
+          "pointed",
+          "parry"
+        ],
+        "typesDisplay": "",
+        "price": 45,
+        "rider": "",
+        "kit": [
+          {
+            "name": "Broad Cut",
+            "skill": "prowess",
+            "effect": "Deals Stress to Might or Finesse."
+          },
+          {
+            "name": "Entangle",
+            "skill": "discipline",
+            "effect": "Applies Grappled."
+          },
+          {
+            "name": "Challenge",
+            "skill": "assertiveness",
+            "effect": "Deals Stress to Presence or Wit."
+          }
+        ],
+        "innate": false,
+        "bonus": 0,
+        "size": "medium",
+        "materials": "Metal + Leather",
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!OIQN153Z7hSk6f3v.2IE2N5OKvmDFAH3h"
+    },
+    {
+      "_id": "JHAELjjtdnWZfPdE",
+      "name": "Shield",
+      "type": "instrument",
+      "img": "icons/svg/claw.svg",
+      "system": {
+        "types": [
+          "blocking"
+        ],
+        "range": "Range 1",
+        "weight": "light",
+        "innate": true,
+        "primaryAttribute": "might",
+        "category": "melee",
+        "price": 0,
+        "kit": [
+          {
+            "name": "Steel the Mind",
+            "skill": "discipline",
+            "effect": "Grants Resistance +1 (Mental) to self or an ally for 1 round."
+          },
+          {
+            "name": "Foresee the Blow",
+            "skill": "acuity",
+            "effect": "Grants +1 to an ally's next Oppose roll before your next turn."
+          },
+          {
+            "name": "Calm the Nerves",
+            "skill": "resonance",
+            "effect": "Removes a Frightened, Wary, or Intimidated Condition from an ally within Range 1."
+          }
+        ],
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!OIQN153Z7hSk6f3v.JHAELjjtdnWZfPdE"
+    },
+    {
+      "_id": "yvb0oDkqhwBovUzK",
+      "name": "Voice",
+      "type": "instrument",
+      "img": "icons/svg/sound.svg",
+      "system": {
+        "category": "innate",
+        "weight": "light",
+        "primaryAttribute": "presence",
+        "range": "Range 8",
+        "types": [
+          "quick",
+          "sonic"
+        ],
+        "typesDisplay": "",
+        "price": 0,
+        "rider": "Innate: every character has it, free (PHB 2.5.3).",
+        "kit": [
+          {
+            "name": "Intimidate",
+            "skill": "assertiveness",
+            "effect": "Applies Intimidated."
+          },
+          {
+            "name": "Mislead",
+            "skill": "guile",
+            "effect": "Applies Misled."
+          },
+          {
+            "name": "Sway",
+            "skill": "resonance",
+            "effect": "Applies Swayed."
+          }
+        ],
+        "innate": true,
+        "bonus": 0,
+        "size": "medium",
+        "materials": "",
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 300000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!OIQN153Z7hSk6f3v.yvb0oDkqhwBovUzK"
+    },
+    {
+      "_id": "QcpHbLl6oXYS7ryK",
+      "name": "Sunder",
+      "type": "technique",
+      "img": "icons/svg/aura.svg",
+      "system": {
+        "requires": [
+          "edged",
+          "pointed"
+        ],
+        "innate": false,
+        "skill": "",
+        "family": "Melee",
+        "subgroup": "Piercing",
+        "effects": [
+          {
+            "key": "stress",
+            "magnitude": 1,
+            "pattern": "single",
+            "bands": 0,
+            "placement": 0,
+            "selectiveR": 0
+          },
+          {
+            "key": "pierce",
+            "magnitude": 1,
+            "pattern": "single",
+            "bands": 0,
+            "placement": 0,
+            "selectiveR": 0
+          }
+        ],
+        "floor": false,
+        "ancestryGrant": "",
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 400000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!OIQN153Z7hSk6f3v.QcpHbLl6oXYS7ryK"
+    },
+    {
+      "_id": "bRQepXtqTssMbyDd",
+      "name": "Rally",
+      "type": "technique",
+      "img": "icons/svg/aura.svg",
+      "system": {
+        "requires": [
+          "sonic"
+        ],
+        "innate": false,
+        "skill": "",
+        "family": "Sonic",
+        "subgroup": "Restorative",
+        "effects": [
+          {
+            "key": "skill-mod",
+            "magnitude": 1,
+            "pattern": "single",
+            "bands": 0,
+            "placement": 0,
+            "selectiveR": 0
+          },
+          {
+            "key": "quick",
+            "magnitude": 1,
+            "pattern": "single",
+            "bands": 0,
+            "placement": 0,
+            "selectiveR": 0,
+            "untriggered": true
+          }
+        ],
+        "floor": false,
+        "ancestryGrant": "",
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 500000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!OIQN153Z7hSk6f3v.bRQepXtqTssMbyDd"
+    },
+    {
+      "_id": "721vUXmwdHWX75Q3",
+      "name": "Dread Cry",
+      "type": "technique",
+      "img": "icons/svg/aura.svg",
+      "system": {
+        "requires": [
+          "sonic"
+        ],
+        "innate": false,
+        "skill": "",
+        "family": "Sonic",
+        "subgroup": "Debilitating & Reactive",
+        "effects": [
+          {
+            "key": "stress",
+            "magnitude": 1,
+            "pattern": "single",
+            "bands": 0,
+            "placement": 0,
+            "selectiveR": 0
+          },
+          {
+            "key": "frightened",
+            "magnitude": 1,
+            "pattern": "single",
+            "bands": 0,
+            "placement": 0,
+            "selectiveR": 0
+          }
+        ],
+        "floor": false,
+        "ancestryGrant": "",
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 600000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!OIQN153Z7hSk6f3v.721vUXmwdHWX75Q3"
+    }
+  ],
+  "_key": "!actors!OIQN153Z7hSk6f3v"
+}

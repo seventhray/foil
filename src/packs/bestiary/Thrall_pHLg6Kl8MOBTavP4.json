@@ -74,10 +74,10 @@
       "physical": 1,
       "mental": 0
     },
-    "notes": "<p><em>Rank-and-file fighter who holds only while something else is standing</em></p><p><font color=\"#7f7f7f\">Describe the creature’s behaviour, including its habits in daily life, how it interacts with its environment, and the tactics it uses when in combat.</font></p>"
+    "notes": "<p><em>Rank-and-file fighter who holds only while something else is standing</em></p>"
   },
   "folder": "lbAiucKhjwD2rzG9",
-  "sort": 11900000,
+  "sort": 14500000,
   "ownership": {
     "default": 0
   },

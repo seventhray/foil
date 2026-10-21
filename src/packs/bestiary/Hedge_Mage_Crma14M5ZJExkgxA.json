@@ -1,0 +1,303 @@
+{
+  "_id": "Crma14M5ZJExkgxA",
+  "name": "Hedge Mage",
+  "type": "creature",
+  "img": "icons/svg/mystery-man.svg",
+  "system": {
+    "tier": 3,
+    "threat": -128,
+    "behavior": "Craven",
+    "attributes": {
+      "might": {
+        "dice": {
+          "d4": 0,
+          "d6": 1,
+          "d8": 1,
+          "d10": 0,
+          "d12": 0,
+          "d20": 0
+        },
+        "potential": {
+          "current": 14
+        },
+        "incapacitated": false
+      },
+      "finesse": {
+        "dice": {
+          "d4": 0,
+          "d6": 0,
+          "d8": 2,
+          "d10": 0,
+          "d12": 0,
+          "d20": 0
+        },
+        "potential": {
+          "current": 16
+        },
+        "incapacitated": false
+      },
+      "wit": {
+        "dice": {
+          "d4": 0,
+          "d6": 0,
+          "d8": 1,
+          "d10": 1,
+          "d12": 0,
+          "d20": 0
+        },
+        "potential": {
+          "current": 18
+        },
+        "incapacitated": false
+      },
+      "presence": {
+        "dice": {
+          "d4": 0,
+          "d6": 0,
+          "d8": 2,
+          "d10": 0,
+          "d12": 0,
+          "d20": 0
+        },
+        "potential": {
+          "current": 16
+        },
+        "incapacitated": false
+      }
+    },
+    "skills": {
+      "discipline": {
+        "training": 1
+      }
+    },
+    "resistance": {
+      "physical": 0,
+      "mental": 1
+    },
+    "notes": "<p><em>A village caster who learned a few workings from a grandmother or a book</em></p><p><strong>Habits</strong> Faith Mistrusting: I check the exits before I check the menu. Levity Light: I take the work seriously and myself not at all.</p><p>Keeps its distance and heals its friends. The Hedge Mage Blinks away once hurt.</p>"
+  },
+  "folder": "oestcF1oEEFrxKyA",
+  "sort": 8500000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "effects": [],
+  "prototypeToken": {
+    "name": "Hedge Mage",
+    "actorLink": false,
+    "disposition": -1
+  },
+  "items": [
+    {
+      "_id": "4A5Royhyk4DRU0an",
+      "name": "Wand",
+      "type": "instrument",
+      "img": "icons/svg/claw.svg",
+      "system": {
+        "types": [
+          "fortifying"
+        ],
+        "range": "Range 1",
+        "weight": "light",
+        "innate": true,
+        "primaryAttribute": "wit",
+        "category": "arcane",
+        "price": 0,
+        "kit": [
+          {
+            "name": "Steel the Mind",
+            "skill": "discipline",
+            "effect": "Grants Resistance +1 (Mental) to self or an ally for 1 round."
+          },
+          {
+            "name": "Foresee the Blow",
+            "skill": "acuity",
+            "effect": "Grants +1 to an ally's next Oppose roll before your next turn."
+          },
+          {
+            "name": "Calm the Nerves",
+            "skill": "resonance",
+            "effect": "Removes a Frightened, Wary, or Intimidated Condition from an ally within Range 1."
+          }
+        ],
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!Crma14M5ZJExkgxA.4A5Royhyk4DRU0an"
+    },
+    {
+      "_id": "fR0rVbPqOr3ZIzRg",
+      "name": "Wand",
+      "type": "instrument",
+      "img": "icons/svg/sword.svg",
+      "system": {
+        "category": "arcane",
+        "weight": "light",
+        "primaryAttribute": "wit",
+        "range": "Range 4",
+        "maxRange": "short",
+        "types": [
+          "quick",
+          "kinetic"
+        ],
+        "typesDisplay": "",
+        "price": 20,
+        "rider": "A Wand built Fortifying uses the Mending Focus kit instead.",
+        "kit": [
+          {
+            "name": "Force Bolt",
+            "skill": "discipline",
+            "effect": "Deals Stress to Might or Finesse."
+          },
+          {
+            "name": "Mind-Piercing Ray",
+            "skill": "acuity",
+            "effect": "Deals Stress to Wit or Presence."
+          },
+          {
+            "name": "Unsettling Pulse",
+            "skill": "resonance",
+            "effect": "Applies Frightened."
+          }
+        ],
+        "innate": false,
+        "bonus": 0,
+        "size": "small",
+        "materials": "Wood",
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!Crma14M5ZJExkgxA.fR0rVbPqOr3ZIzRg"
+    },
+    {
+      "_id": "Nae1VBAQ5v5evbge",
+      "name": "Guided Bolt",
+      "type": "technique",
+      "img": "icons/svg/aura.svg",
+      "system": {
+        "requires": [
+          "kinetic"
+        ],
+        "innate": false,
+        "skill": "",
+        "family": "Kinetic",
+        "subgroup": "Piercing",
+        "effects": [
+          {
+            "key": "stress",
+            "magnitude": 1,
+            "pattern": "single",
+            "bands": 0,
+            "placement": 0,
+            "selectiveR": 0
+          },
+          {
+            "key": "roll-bonus",
+            "magnitude": 2,
+            "pattern": "single",
+            "bands": 0,
+            "placement": 0,
+            "selectiveR": 0
+          }
+        ],
+        "floor": false,
+        "ancestryGrant": "",
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 300000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!Crma14M5ZJExkgxA.Nae1VBAQ5v5evbge"
+    },
+    {
+      "_id": "PZBGFk6zFRDESJPr",
+      "name": "Blink",
+      "type": "technique",
+      "img": "icons/svg/aura.svg",
+      "system": {
+        "requires": [
+          "kinetic"
+        ],
+        "innate": false,
+        "skill": "",
+        "family": "Kinetic",
+        "subgroup": "Mobility",
+        "effects": [
+          {
+            "key": "evade",
+            "magnitude": 1,
+            "pattern": "single",
+            "bands": 0,
+            "placement": 0,
+            "selectiveR": 0
+          }
+        ],
+        "floor": false,
+        "ancestryGrant": "",
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 400000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!Crma14M5ZJExkgxA.PZBGFk6zFRDESJPr"
+    },
+    {
+      "_id": "V4g81FUZyi5x9sMu",
+      "name": "Healing Word",
+      "type": "technique",
+      "img": "icons/svg/aura.svg",
+      "system": {
+        "requires": [
+          "fortifying"
+        ],
+        "innate": false,
+        "skill": "",
+        "family": "Fortifying",
+        "subgroup": "Single-Target Support",
+        "effects": [
+          {
+            "key": "mend",
+            "magnitude": 1,
+            "pattern": "single",
+            "bands": 0,
+            "placement": 0,
+            "selectiveR": 0
+          }
+        ],
+        "floor": true,
+        "ancestryGrant": "",
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 500000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!Crma14M5ZJExkgxA.V4g81FUZyi5x9sMu"
+    }
+  ],
+  "_key": "!actors!Crma14M5ZJExkgxA"
+}

@@ -1,0 +1,426 @@
+{
+  "_id": "OOrKpEPGhnls4cL2",
+  "name": "Crusader",
+  "type": "creature",
+  "img": "icons/svg/mystery-man.svg",
+  "system": {
+    "tier": 5,
+    "threat": 128,
+    "behavior": "Zealous",
+    "attributes": {
+      "might": {
+        "dice": {
+          "d4": 0,
+          "d6": 1,
+          "d8": 0,
+          "d10": 0,
+          "d12": 0,
+          "d20": 1
+        },
+        "potential": {
+          "current": 26
+        },
+        "incapacitated": false
+      },
+      "finesse": {
+        "dice": {
+          "d4": 0,
+          "d6": 0,
+          "d8": 0,
+          "d10": 0,
+          "d12": 2,
+          "d20": 0
+        },
+        "potential": {
+          "current": 24
+        },
+        "incapacitated": false
+      },
+      "wit": {
+        "dice": {
+          "d4": 0,
+          "d6": 0,
+          "d8": 0,
+          "d10": 1,
+          "d12": 1,
+          "d20": 0
+        },
+        "potential": {
+          "current": 22
+        },
+        "incapacitated": false
+      },
+      "presence": {
+        "dice": {
+          "d4": 0,
+          "d6": 0,
+          "d8": 0,
+          "d10": 0,
+          "d12": 2,
+          "d20": 0
+        },
+        "potential": {
+          "current": 24
+        },
+        "incapacitated": false
+      }
+    },
+    "skills": {
+      "prowess": {
+        "training": 3
+      },
+      "discipline": {
+        "training": 2
+      }
+    },
+    "resistance": {
+      "physical": 1,
+      "mental": 1
+    },
+    "notes": "<p><em>A knight of a fighting order, sworn to burn out wickedness wherever it hides</em></p><p><strong>Habits</strong> Individualism Communal: My word to the group outweighs my own preference every time. Levity Grave: I carry what's happened to me; I don't set it down to make room for a laugh.</p><p>Marches on what its order names as wicked. The Crusader fights until one side is finished.</p>"
+  },
+  "folder": "Ei2eOqOL5AhHRvrj",
+  "sort": 4500000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "effects": [],
+  "prototypeToken": {
+    "name": "Crusader",
+    "actorLink": false,
+    "disposition": -1
+  },
+  "items": [
+    {
+      "_id": "Y4SgZfwDPjULmshU",
+      "name": "Longsword",
+      "type": "instrument",
+      "img": "icons/svg/sword.svg",
+      "system": {
+        "category": "melee",
+        "weight": "medium",
+        "primaryAttribute": "might",
+        "range": "Range 1",
+        "maxRange": "close",
+        "types": [
+          "edged",
+          "pointed",
+          "parry"
+        ],
+        "typesDisplay": "",
+        "price": 45,
+        "rider": "",
+        "kit": [
+          {
+            "name": "Broad Cut",
+            "skill": "prowess",
+            "effect": "Deals Stress to Might or Finesse."
+          },
+          {
+            "name": "Entangle",
+            "skill": "discipline",
+            "effect": "Applies Grappled."
+          },
+          {
+            "name": "Challenge",
+            "skill": "assertiveness",
+            "effect": "Deals Stress to Presence or Wit."
+          }
+        ],
+        "innate": false,
+        "bonus": 0,
+        "size": "medium",
+        "materials": "Metal + Leather",
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!OOrKpEPGhnls4cL2.Y4SgZfwDPjULmshU"
+    },
+    {
+      "_id": "aULcewQOi4N8ERdg",
+      "name": "Shield",
+      "type": "instrument",
+      "img": "icons/svg/claw.svg",
+      "system": {
+        "types": [
+          "blocking"
+        ],
+        "range": "Range 1",
+        "weight": "light",
+        "innate": true,
+        "primaryAttribute": "might",
+        "category": "melee",
+        "price": 0,
+        "kit": [
+          {
+            "name": "Steel the Mind",
+            "skill": "discipline",
+            "effect": "Grants Resistance +1 (Mental) to self or an ally for 1 round."
+          },
+          {
+            "name": "Foresee the Blow",
+            "skill": "acuity",
+            "effect": "Grants +1 to an ally's next Oppose roll before your next turn."
+          },
+          {
+            "name": "Calm the Nerves",
+            "skill": "resonance",
+            "effect": "Removes a Frightened, Wary, or Intimidated Condition from an ally within Range 1."
+          }
+        ],
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!OOrKpEPGhnls4cL2.aULcewQOi4N8ERdg"
+    },
+    {
+      "_id": "uzJxQg60rnMatu5O",
+      "name": "Voice",
+      "type": "instrument",
+      "img": "icons/svg/sound.svg",
+      "system": {
+        "category": "innate",
+        "weight": "light",
+        "primaryAttribute": "presence",
+        "range": "Range 8",
+        "types": [
+          "quick",
+          "sonic"
+        ],
+        "typesDisplay": "",
+        "price": 0,
+        "rider": "Innate: every character has it, free (PHB 2.5.3).",
+        "kit": [
+          {
+            "name": "Intimidate",
+            "skill": "assertiveness",
+            "effect": "Applies Intimidated."
+          },
+          {
+            "name": "Mislead",
+            "skill": "guile",
+            "effect": "Applies Misled."
+          },
+          {
+            "name": "Sway",
+            "skill": "resonance",
+            "effect": "Applies Swayed."
+          }
+        ],
+        "innate": true,
+        "bonus": 0,
+        "size": "medium",
+        "materials": "",
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 300000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!OOrKpEPGhnls4cL2.uzJxQg60rnMatu5O"
+    },
+    {
+      "_id": "42UtURLG9tOA7pgn",
+      "name": "Gutting Blow",
+      "type": "technique",
+      "img": "icons/svg/aura.svg",
+      "system": {
+        "requires": [
+          "edged",
+          "pointed"
+        ],
+        "innate": false,
+        "skill": "",
+        "family": "Melee",
+        "subgroup": "Debilitating",
+        "effects": [
+          {
+            "key": "stress",
+            "magnitude": 1,
+            "pattern": "single",
+            "bands": 0,
+            "placement": 0,
+            "selectiveR": 0
+          },
+          {
+            "key": "pierce",
+            "magnitude": 1,
+            "pattern": "single",
+            "bands": 0,
+            "placement": 0,
+            "selectiveR": 0
+          },
+          {
+            "key": "weaken",
+            "magnitude": 1,
+            "pattern": "single",
+            "bands": 0,
+            "placement": 0,
+            "selectiveR": 0
+          }
+        ],
+        "floor": false,
+        "ancestryGrant": "",
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 400000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!OOrKpEPGhnls4cL2.42UtURLG9tOA7pgn"
+    },
+    {
+      "_id": "VVNeA23PkCBgT9pp",
+      "name": "Dread Cry",
+      "type": "technique",
+      "img": "icons/svg/aura.svg",
+      "system": {
+        "requires": [
+          "sonic"
+        ],
+        "innate": false,
+        "skill": "",
+        "family": "Sonic",
+        "subgroup": "Debilitating & Reactive",
+        "effects": [
+          {
+            "key": "stress",
+            "magnitude": 1,
+            "pattern": "single",
+            "bands": 0,
+            "placement": 0,
+            "selectiveR": 0
+          },
+          {
+            "key": "frightened",
+            "magnitude": 1,
+            "pattern": "single",
+            "bands": 0,
+            "placement": 0,
+            "selectiveR": 0
+          }
+        ],
+        "floor": false,
+        "ancestryGrant": "",
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 500000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!OOrKpEPGhnls4cL2.VVNeA23PkCBgT9pp"
+    },
+    {
+      "_id": "ewsInE2nsvHc4LHe",
+      "name": "Fluster",
+      "type": "technique",
+      "img": "icons/svg/aura.svg",
+      "system": {
+        "requires": [
+          "sonic",
+          "edged",
+          "pointed",
+          "blunt",
+          "grappling",
+          "parry"
+        ],
+        "innate": false,
+        "skill": "",
+        "family": "Sonic",
+        "subgroup": "Control & Deception",
+        "effects": [
+          {
+            "key": "reeling",
+            "magnitude": 1,
+            "pattern": "single",
+            "bands": 0,
+            "placement": 0,
+            "selectiveR": 0
+          }
+        ],
+        "floor": false,
+        "ancestryGrant": "",
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 600000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!OOrKpEPGhnls4cL2.ewsInE2nsvHc4LHe"
+    },
+    {
+      "_id": "3yo4QGrESF0oJxLj",
+      "name": "Bulwark",
+      "type": "feat",
+      "img": "icons/svg/upgrade.svg",
+      "system": {
+        "featType": "learned",
+        "xpCost": 8,
+        "requirements": "16 Might, 16 Wit",
+        "effect": "When you Guard an ally, they gain +2 to their Opposes for 1 round.",
+        "ancestry": "",
+        "grantsTechnique": "",
+        "modifiers": [],
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 700000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!OOrKpEPGhnls4cL2.3yo4QGrESF0oJxLj"
+    },
+    {
+      "_id": "JTIERLVEzKMQqbVh",
+      "name": "Wounded Fury",
+      "type": "feat",
+      "img": "icons/svg/upgrade.svg",
+      "system": {
+        "featType": "trait",
+        "xpCost": 8,
+        "requirements": "",
+        "effect": "the first time one of this creature's Attributes is Incapacitated in a conflict, its Training in its attack Skill increases by +2 for the rest of the conflict.",
+        "ancestry": "",
+        "grantsTechnique": "",
+        "modifiers": [],
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 800000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!OOrKpEPGhnls4cL2.JTIERLVEzKMQqbVh"
+    }
+  ],
+  "_key": "!actors!OOrKpEPGhnls4cL2"
+}

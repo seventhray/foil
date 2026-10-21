@@ -1,0 +1,276 @@
+{
+  "_id": "VBGQEou0Eag54s4A",
+  "name": "Scribe",
+  "type": "creature",
+  "img": "icons/svg/mystery-man.svg",
+  "system": {
+    "tier": 2,
+    "threat": -256,
+    "behavior": "Craven",
+    "attributes": {
+      "might": {
+        "dice": {
+          "d4": 0,
+          "d6": 0,
+          "d8": 0,
+          "d10": 1,
+          "d12": 0,
+          "d20": 0
+        },
+        "potential": {
+          "current": 10
+        },
+        "incapacitated": false
+      },
+      "finesse": {
+        "dice": {
+          "d4": 0,
+          "d6": 0,
+          "d8": 0,
+          "d10": 0,
+          "d12": 1,
+          "d20": 0
+        },
+        "potential": {
+          "current": 12
+        },
+        "incapacitated": false
+      },
+      "wit": {
+        "dice": {
+          "d4": 0,
+          "d6": 1,
+          "d8": 1,
+          "d10": 0,
+          "d12": 0,
+          "d20": 0
+        },
+        "potential": {
+          "current": 14
+        },
+        "incapacitated": false
+      },
+      "presence": {
+        "dice": {
+          "d4": 0,
+          "d6": 0,
+          "d8": 0,
+          "d10": 0,
+          "d12": 1,
+          "d20": 0
+        },
+        "potential": {
+          "current": 12
+        },
+        "incapacitated": false
+      }
+    },
+    "skills": {
+      "acuity": {
+        "training": 1
+      }
+    },
+    "resistance": {
+      "physical": 0,
+      "mental": 0
+    },
+    "notes": "<p><em>A clerk with ink to the knuckle, who writes down everything said in the room</em></p><p><strong>Habits</strong> Order Methodical: I keep my gear in the same place every time, so I can find it in the dark. Levity Grave: Silence sits easier with me than small talk.</p><p>Leaves the room the moment a fight starts, and takes the ledger.</p>"
+  },
+  "folder": "waHrVCvmZV9sEJ2n",
+  "sort": 12100000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "effects": [],
+  "prototypeToken": {
+    "name": "Scribe",
+    "actorLink": false,
+    "disposition": -1
+  },
+  "items": [
+    {
+      "_id": "zXIlVmxL5vq9BkMe",
+      "name": "Penknife",
+      "type": "instrument",
+      "img": "icons/svg/claw.svg",
+      "system": {
+        "types": [
+          "edged"
+        ],
+        "range": "Range 1",
+        "weight": "light",
+        "innate": true,
+        "primaryAttribute": "might",
+        "category": "melee",
+        "price": 0,
+        "kit": [
+          {
+            "name": "Stab",
+            "skill": "prowess",
+            "effect": "Deals Stress to Might or Finesse."
+          },
+          {
+            "name": "Vital Strike",
+            "skill": "acuity",
+            "effect": "Applies Weakened [Finesse]."
+          },
+          {
+            "name": "Backstab",
+            "skill": "guile",
+            "effect": "Applies Reeling."
+          }
+        ],
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!VBGQEou0Eag54s4A.zXIlVmxL5vq9BkMe"
+    },
+    {
+      "_id": "Dz9hZTtEhDt9hCKv",
+      "name": "Voice",
+      "type": "instrument",
+      "img": "icons/svg/sound.svg",
+      "system": {
+        "category": "innate",
+        "weight": "light",
+        "primaryAttribute": "presence",
+        "range": "Range 8",
+        "types": [
+          "quick",
+          "sonic"
+        ],
+        "typesDisplay": "",
+        "price": 0,
+        "rider": "Innate: every character has it, free (PHB 2.5.3).",
+        "kit": [
+          {
+            "name": "Intimidate",
+            "skill": "assertiveness",
+            "effect": "Applies Intimidated."
+          },
+          {
+            "name": "Mislead",
+            "skill": "guile",
+            "effect": "Applies Misled."
+          },
+          {
+            "name": "Sway",
+            "skill": "resonance",
+            "effect": "Applies Swayed."
+          }
+        ],
+        "innate": true,
+        "bonus": 0,
+        "size": "medium",
+        "materials": "",
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!VBGQEou0Eag54s4A.Dz9hZTtEhDt9hCKv"
+    },
+    {
+      "_id": "wAVmD1Ht7U9COqor",
+      "name": "Mind",
+      "type": "instrument",
+      "img": "icons/svg/eye.svg",
+      "system": {
+        "category": "innate",
+        "weight": "light",
+        "primaryAttribute": "wit",
+        "range": "Range 2",
+        "types": [
+          "quick",
+          "incorporeal"
+        ],
+        "typesDisplay": "",
+        "price": 0,
+        "rider": "Innate: every character has it, free (PHB 2.5.3).",
+        "kit": [
+          {
+            "name": "Deduce",
+            "skill": "discipline",
+            "effect": "Works out a problem or recalls a fact."
+          },
+          {
+            "name": "Analyze",
+            "skill": "acuity",
+            "effect": "Learns a creature's Attributes, or notices something specific."
+          },
+          {
+            "name": "Intuit",
+            "skill": "resonance",
+            "effect": "Applies Foil Exposed, or gives insight into a situation."
+          }
+        ],
+        "innate": true,
+        "bonus": 0,
+        "size": "medium",
+        "materials": "",
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 300000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!VBGQEou0Eag54s4A.wAVmD1Ht7U9COqor"
+    },
+    {
+      "_id": "CqAvPr3b6OMVIBgY",
+      "name": "Fluster",
+      "type": "technique",
+      "img": "icons/svg/aura.svg",
+      "system": {
+        "requires": [
+          "sonic",
+          "edged",
+          "pointed",
+          "blunt",
+          "grappling",
+          "parry"
+        ],
+        "innate": false,
+        "skill": "",
+        "family": "Sonic",
+        "subgroup": "Control & Deception",
+        "effects": [
+          {
+            "key": "reeling",
+            "magnitude": 1,
+            "pattern": "single",
+            "bands": 0,
+            "placement": 0,
+            "selectiveR": 0
+          }
+        ],
+        "floor": false,
+        "ancestryGrant": "",
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 400000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!VBGQEou0Eag54s4A.CqAvPr3b6OMVIBgY"
+    }
+  ],
+  "_key": "!actors!VBGQEou0Eag54s4A"
+}

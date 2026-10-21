@@ -1,0 +1,266 @@
+{
+  "_id": "wwsc1pvrr998k0Sp",
+  "name": "Healer",
+  "type": "creature",
+  "img": "icons/svg/mystery-man.svg",
+  "system": {
+    "tier": 3,
+    "threat": -128,
+    "behavior": "Craven",
+    "attributes": {
+      "might": {
+        "dice": {
+          "d4": 0,
+          "d6": 1,
+          "d8": 1,
+          "d10": 0,
+          "d12": 0,
+          "d20": 0
+        },
+        "potential": {
+          "current": 14
+        },
+        "incapacitated": false
+      },
+      "finesse": {
+        "dice": {
+          "d4": 0,
+          "d6": 0,
+          "d8": 2,
+          "d10": 0,
+          "d12": 0,
+          "d20": 0
+        },
+        "potential": {
+          "current": 16
+        },
+        "incapacitated": false
+      },
+      "wit": {
+        "dice": {
+          "d4": 0,
+          "d6": 0,
+          "d8": 1,
+          "d10": 1,
+          "d12": 0,
+          "d20": 0
+        },
+        "potential": {
+          "current": 18
+        },
+        "incapacitated": false
+      },
+      "presence": {
+        "dice": {
+          "d4": 0,
+          "d6": 0,
+          "d8": 2,
+          "d10": 0,
+          "d12": 0,
+          "d20": 0
+        },
+        "potential": {
+          "current": 16
+        },
+        "incapacitated": false
+      }
+    },
+    "skills": {
+      "acuity": {
+        "training": 1
+      }
+    },
+    "resistance": {
+      "physical": 0,
+      "mental": 0
+    },
+    "notes": "<p><em>A healer of the sick and hurt, with clean hands and a bag of salves</em></p><p><strong>Habits</strong> Faith Trusting: I believe most people are doing their best with what they've got. Individualism Communal: I'll go hungry before the group does.</p><p>Keeps its friends standing. The Healer leaves once its side is down.</p>"
+  },
+  "folder": "oestcF1oEEFrxKyA",
+  "sort": 8400000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "effects": [],
+  "prototypeToken": {
+    "name": "Healer",
+    "actorLink": false,
+    "disposition": -1
+  },
+  "items": [
+    {
+      "_id": "8Ygv50O6VnQ2Jgrj",
+      "name": "Dagger",
+      "type": "instrument",
+      "img": "icons/svg/sword.svg",
+      "system": {
+        "category": "melee",
+        "weight": "light",
+        "primaryAttribute": "finesse",
+        "range": "Range 1",
+        "maxRange": "close",
+        "types": [
+          "edged",
+          "pointed",
+          "parry"
+        ],
+        "typesDisplay": "",
+        "price": 30,
+        "rider": "",
+        "kit": [
+          {
+            "name": "Stab",
+            "skill": "prowess",
+            "effect": "Deals Stress to Might or Finesse."
+          },
+          {
+            "name": "Vital Strike",
+            "skill": "acuity",
+            "effect": "Applies Weakened [Finesse]."
+          },
+          {
+            "name": "Backstab",
+            "skill": "guile",
+            "effect": "Applies Reeling."
+          }
+        ],
+        "innate": false,
+        "bonus": 0,
+        "size": "small",
+        "materials": "Metal",
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!wwsc1pvrr998k0Sp.8Ygv50O6VnQ2Jgrj"
+    },
+    {
+      "_id": "Et15Nhspum5VZReW",
+      "name": "Mending Focus",
+      "type": "instrument",
+      "img": "icons/svg/sword.svg",
+      "system": {
+        "category": "arcane",
+        "weight": "light",
+        "primaryAttribute": "presence",
+        "range": "Range 4",
+        "maxRange": "short",
+        "types": [
+          "fortifying"
+        ],
+        "typesDisplay": "",
+        "price": 20,
+        "rider": "",
+        "kit": [
+          {
+            "name": "Steadying Word",
+            "skill": "assertiveness",
+            "effect": "Grants +1 to an ally's next roll."
+          },
+          {
+            "name": "Settle",
+            "skill": "guile",
+            "effect": "Removes a Frightened or Wary Condition from an ally."
+          },
+          {
+            "name": "Soothing Touch",
+            "skill": "resonance",
+            "effect": "Removes 1 Stress from an ally's Attribute."
+          }
+        ],
+        "innate": false,
+        "bonus": 0,
+        "size": "small",
+        "materials": "Metal",
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!wwsc1pvrr998k0Sp.Et15Nhspum5VZReW"
+    },
+    {
+      "_id": "7jx6sFQ9Lai7rsQt",
+      "name": "Healing Word",
+      "type": "technique",
+      "img": "icons/svg/aura.svg",
+      "system": {
+        "requires": [
+          "fortifying"
+        ],
+        "innate": false,
+        "skill": "",
+        "family": "Fortifying",
+        "subgroup": "Single-Target Support",
+        "effects": [
+          {
+            "key": "mend",
+            "magnitude": 1,
+            "pattern": "single",
+            "bands": 0,
+            "placement": 0,
+            "selectiveR": 0
+          }
+        ],
+        "floor": true,
+        "ancestryGrant": "",
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 300000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!wwsc1pvrr998k0Sp.7jx6sFQ9Lai7rsQt"
+    },
+    {
+      "_id": "iciHy7glMKIAqdSX",
+      "name": "Restoring Light",
+      "type": "technique",
+      "img": "icons/svg/aura.svg",
+      "system": {
+        "requires": [
+          "fortifying"
+        ],
+        "innate": false,
+        "skill": "",
+        "family": "Fortifying",
+        "subgroup": "Single-Target Support",
+        "effects": [
+          {
+            "key": "mend",
+            "magnitude": 2,
+            "pattern": "single",
+            "bands": 0,
+            "placement": 0,
+            "selectiveR": 0
+          }
+        ],
+        "floor": true,
+        "ancestryGrant": "",
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 400000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!wwsc1pvrr998k0Sp.iciHy7glMKIAqdSX"
+    }
+  ],
+  "_key": "!actors!wwsc1pvrr998k0Sp"
+}

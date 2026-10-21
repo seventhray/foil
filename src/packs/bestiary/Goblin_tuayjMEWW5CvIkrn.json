@@ -70,10 +70,10 @@
       "physical": 0,
       "mental": 0
     },
-    "notes": "<p><em>Fast, fragile skirmisher</em></p><p><font color=\"#7f7f7f\">Describe the creature’s behaviour, including its habits in daily life, how it interacts with its environment, and the tactics it uses when in combat.</font></p>"
+    "notes": "<p><em>Fast, fragile skirmisher</em></p>"
   },
   "folder": "waHrVCvmZV9sEJ2n",
-  "sort": 7200000,
+  "sort": 7900000,
   "ownership": {
     "default": 0
   },

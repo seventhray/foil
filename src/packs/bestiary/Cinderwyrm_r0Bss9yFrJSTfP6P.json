@@ -77,10 +77,10 @@
       "physical": 4,
       "mental": 0
     },
-    "notes": "<p><em>Set-piece brute, raw dice and durability</em></p><p><font color=\"#7f7f7f\">Describe the creature’s behaviour, including its habits in daily life, how it interacts with its environment, and the tactics it uses when in combat.</font></p>"
+    "notes": "<p><em>Set-piece brute, raw dice and durability</em></p>"
   },
   "folder": "KX1lIH519xqxsrPG",
-  "sort": 3200000,
+  "sort": 3400000,
   "ownership": {
     "default": 0
   },

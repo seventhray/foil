@@ -1,0 +1,174 @@
+{
+  "_id": "ET7H5Bm3z0kxiB30",
+  "name": "Laborer",
+  "type": "creature",
+  "img": "icons/svg/mystery-man.svg",
+  "system": {
+    "tier": 2,
+    "threat": -256,
+    "behavior": "Craven",
+    "attributes": {
+      "might": {
+        "dice": {
+          "d4": 0,
+          "d6": 1,
+          "d8": 1,
+          "d10": 0,
+          "d12": 0,
+          "d20": 0
+        },
+        "potential": {
+          "current": 14
+        },
+        "incapacitated": false
+      },
+      "finesse": {
+        "dice": {
+          "d4": 0,
+          "d6": 0,
+          "d8": 0,
+          "d10": 0,
+          "d12": 1,
+          "d20": 0
+        },
+        "potential": {
+          "current": 12
+        },
+        "incapacitated": false
+      },
+      "wit": {
+        "dice": {
+          "d4": 0,
+          "d6": 0,
+          "d8": 0,
+          "d10": 1,
+          "d12": 0,
+          "d20": 0
+        },
+        "potential": {
+          "current": 10
+        },
+        "incapacitated": false
+      },
+      "presence": {
+        "dice": {
+          "d4": 0,
+          "d6": 0,
+          "d8": 0,
+          "d10": 0,
+          "d12": 1,
+          "d20": 0
+        },
+        "potential": {
+          "current": 12
+        },
+        "incapacitated": false
+      }
+    },
+    "skills": {
+      "prowess": {
+        "training": 1
+      }
+    },
+    "resistance": {
+      "physical": 0,
+      "mental": 0
+    },
+    "notes": "<p><em>A porter, digger, or dockhand who carries what the town runs on</em></p><p><strong>Habits</strong> Faith Trusting: I believe most people are doing their best with what they've got. Levity Light: I make a joke out of whatever's trying to crush me.</p><p>Fights only when cornered or paid. The Laborer runs at the first real hurt.</p>"
+  },
+  "folder": "waHrVCvmZV9sEJ2n",
+  "sort": 9300000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "effects": [],
+  "prototypeToken": {
+    "name": "Laborer",
+    "actorLink": false,
+    "disposition": -1
+  },
+  "items": [
+    {
+      "_id": "CDi5GYK0jRwHL4UN",
+      "name": "Cudgel",
+      "type": "instrument",
+      "img": "icons/svg/claw.svg",
+      "system": {
+        "types": [
+          "blunt"
+        ],
+        "range": "Range 1",
+        "weight": "medium",
+        "innate": false,
+        "primaryAttribute": "might",
+        "category": "melee",
+        "price": 0,
+        "kit": [
+          {
+            "name": "Bash",
+            "skill": "prowess",
+            "effect": "Deals Stress to Might or Finesse."
+          },
+          {
+            "name": "Sweep",
+            "skill": "acuity",
+            "effect": "Applies Prone."
+          },
+          {
+            "name": "Feint Jab",
+            "skill": "guile",
+            "effect": "Applies Reeling."
+          }
+        ],
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!ET7H5Bm3z0kxiB30.CDi5GYK0jRwHL4UN"
+    },
+    {
+      "_id": "Iu0HBeBGNxSDp6z7",
+      "name": "Shove",
+      "type": "technique",
+      "img": "icons/svg/aura.svg",
+      "system": {
+        "requires": [
+          "blunt",
+          "grappling"
+        ],
+        "innate": false,
+        "skill": "",
+        "family": "Grappling",
+        "subgroup": "",
+        "effects": [
+          {
+            "key": "move",
+            "magnitude": 1,
+            "pattern": "single",
+            "bands": 0,
+            "placement": 0,
+            "selectiveR": 0
+          }
+        ],
+        "floor": false,
+        "ancestryGrant": "",
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!ET7H5Bm3z0kxiB30.Iu0HBeBGNxSDp6z7"
+    }
+  ],
+  "_key": "!actors!ET7H5Bm3z0kxiB30"
+}
