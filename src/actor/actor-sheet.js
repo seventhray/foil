@@ -645,10 +645,10 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
     new FP({ type: "image", current: this.actor.img, callback: path => this.actor.update({ img: path }) }).render(true);
   }
 
-  /** One stretch of Toil (PHB 6.11.0): Stress to every Attribute, more past 8 hours and when overloaded (PHB 5.2.6). */
+  /** One stretch of Toil (PHB 6.11.0): Strain on every Attribute, more past 8 hours and when overloaded (PHB 5.2.6). */
   static async _onToil() {
     const penalty = Number(this.actor.system.carry?.penalty ?? 0);
-    const content = `<p>A stretch is about 8 hours of travel, labor, or other Toil. It costs 1 Stress to every Attribute, 2 on a failure, and 1 more for each 2 hours past 8 without a rest${penalty ? `. ${this.actor.name} is overloaded, for ${penalty} more` : ""}.</p>`
+    const content = `<p>A stretch is about 8 hours of travel, labor, or other Toil. It costs 1 Strain on every Attribute, 2 on a failure, and 1 more for each 2 hours past 8 without a rest${penalty ? `. ${this.actor.name} is overloaded, for ${penalty} more` : ""}.</p>`
       + `<div class="form-group"><label>The stretch roll</label><select name="result"><option value="pass">Succeeded</option><option value="fail">Failed</option></select></div>`
       + `<div class="form-group"><label>Hours past 8 without a rest</label><input type="number" name="overtime" value="0" min="0" step="2" /></div>`;
     const answer = await ask(`${this.actor.name} toils a stretch`, content, "Toil");
@@ -656,13 +656,17 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
     const failed = answer.result === "fail";
     const hours = Math.max(0, Number(answer.overtime) || 0);
     const t = toilStretch({ failed, overtimeHours: hours, massPenalty: penalty });
+    // Strain never overflows (PHB 4.2.3): no Toil while it would take an Attribute past its Potential.
+    const short = ATTRIBUTE_KEYS.filter(key => Number(this.actor.system.attributes?.[key]?.potential?.max)
+      && this.actor.potentialOf(key) < t.stress);
+    if (short.length) return ui.notifications?.warn(`${this.actor.name} can't Toil: ${t.stress} Strain would take ${short.map(k => ATTR_LABEL[k]).join(", ")} past its Potential. Rest first.`);
     const lines = [];
     for (const key of ATTRIBUTE_KEYS) {
       if (!Number(this.actor.system.attributes?.[key]?.potential?.max)) continue;
       const { before, after } = await this.actor.takeStress(key, t.stress);
       lines.push(`${ATTR_LABEL[key]} Potential ${before} &rarr; ${after}`);
     }
-    const note = `${t.stress} Stress each: ${t.base} (${failed ? "failed stretch" : "stretch"}) + ${t.overtime} (${hours} h past 8, 1 per 2 h) + ${t.extra} (Mass penalty) = ${t.stress}`;
+    const note = `${t.stress} Strain each: ${t.base} (${failed ? "failed stretch" : "stretch"}) + ${t.overtime} (${hours} h past 8, 1 per 2 h) + ${t.extra} (Mass penalty) = ${t.stress}`;
     logEvent("toil", { actor: who(this.actor), failed, overtimeHours: hours, stress: t.stress, overtime: t.overtime, massExtra: t.extra, summary: lines });
     await ChatMessage.create({ speaker: ChatMessage.getSpeaker({ actor: this.actor }),
       content: `<div class="foil-flavor"><strong>${this.actor.name} toils a stretch</strong><br><em>${note}<br>${lines.join("<br>")}</em></div>` });

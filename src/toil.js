@@ -1,8 +1,8 @@
 /**
  * src/toil.js
  * One stretch of Toil (PHB 6.11.0): about 8 hours of travel, labor, or other sustained effort.
- * 1 Stress to every Attribute, 2 on a failed roll, 1 more per 2 hours past 8 without a rest,
- * plus the Mass penalty (PHB 5.2.6). Pure, so the dialog preview and the update use one plan.
+ * Strain on every Attribute: 1, 2 on a failed roll, 1 more per 2 hours past 8 without a rest,
+ * plus the Mass penalty (PHB 5.2.6). Strain ignores Resistance and never overflows (PHB 4.2.3). Pure, so the dialog preview and the update use one plan.
  */
 
 /**

@@ -102,7 +102,7 @@ const controller = abilitySteps({ str: 11, dex: 16, con: 16, int: 20, wis: 14, c
 check("the GMG controller example moves nothing", Object.values(controller.steps), [0, 0, 0, 0]);
 check("AC converts to physical Resistance by the table", [10, 12, 13, 16, 17, 19, 20, 25].map(acToResistance), [0, 0, 1, 1, 2, 2, 3, 3]);
 
-check("A stretch of Toil costs 1, 2 on a failure, 1 per 2 hours past 8, plus the Mass penalty", [toilStretch({}).stress, toilStretch({ failed: true }).stress, toilStretch({ overtimeHours: 4 }).stress, toilStretch({ overtimeHours: 3 }).stress, toilStretch({ massPenalty: 2 }).stress], [1, 2, 3, 2, 3]);
+check("A stretch of Toil costs 1 Strain, 2 on a failure, 1 per 2 hours past 8, plus the Mass penalty", [toilStretch({}).stress, toilStretch({ failed: true }).stress, toilStretch({ overtimeHours: 4 }).stress, toilStretch({ overtimeHours: 3 }).stress, toilStretch({ massPenalty: 2 }).stress], [1, 2, 3, 2, 3]);
 
 check("The Oppose flow's wording and modifiers come from oppose-text.js", [
   opposeExtras({ conditionParts: [{ label: "Reeling", value: -1 }], block: 1, guard: true, exposedSpent: [{ note: "Faith: Trusting; by Verren" }], other: 2 }).map(e => e.value).join(","),

@@ -330,7 +330,7 @@ export const GLOSSARY = {
   },
   "toil": {
     "name": "Toil",
-    "text": "Effort sustained over 8-hour stretches, such as travel or labor. Toil for N Stress is N Stress on every Attribute"
+    "text": "Effort sustained over 8-hour stretches, such as travel or labor. Toil for N Strain is N Strain on every Attribute"
   },
   "tool": {
     "name": "Tool",
