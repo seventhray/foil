@@ -142,7 +142,7 @@ export function priceTechnique(effects = [], registry = {}, opts = {}) {
 
 const BAND_NAME = ["", "Range 1", "Range 2", "Range 4", "Range 8", "Range 20"];
 /** Effects priced for 1 round, with a 1-minute twin keyed `<key>-minute`. */
-export const DURATIONS = ["1 round", "1 minute", "10 minutes", "1 hour", "1 day"];
+export const DURATIONS = ["1 round", "1 minute", "2 hours", "1 day"];
 /** Condition Effects: priced flat, so their duration is informational. */
 export const CONDITION_EFFECTS = new Set(["angered", "baited", "blinded", "charmed", "controlled", "enthralled", "frightened", "grappled",
   "impressed", "intimidated", "invisible", "prone", "relaxed", "restrained", "slowed", "stunned", "wary", "foil-exposed"]);

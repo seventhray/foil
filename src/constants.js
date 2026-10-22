@@ -189,11 +189,11 @@ export const CONDITIONS = [
 /** How long each Condition lasts when a Technique states nothing else (PHB 6.8.0 to 6.8.23). */
 export const CONDITION_PRESETS = {
   Grappled: "until it breaks free", Weakened: "1 round", Restrained: "until it breaks free", Reeling: "1 round",
-  Prone: "until it stands", Charmed: "10 minutes", Frightened: "10 minutes", Controlled: "its next turn",
-  Intimidated: "until the demand", Baited: "10 minutes", Angered: "10 minutes", Relaxed: "until threatened",
-  Impressed: "until granted", Wary: "10 minutes", Enthralled: "until the source harms it", Swayed: "10 minutes",
-  Misled: "10 minutes", Blinded: "end of its next turn", Slowed: "end of its next turn", Stunned: "end of its next turn",
-  Invisible: "until it uses a Technique", "Foil Exposed": "10 minutes, or until used"
+  Prone: "until it stands", Charmed: "2 hours", Frightened: "2 hours", Controlled: "its next turn",
+  Intimidated: "until the demand", Baited: "2 hours", Angered: "2 hours", Relaxed: "until threatened",
+  Impressed: "until granted", Wary: "2 hours", Enthralled: "until the source harms it", Swayed: "2 hours",
+  Misled: "2 hours", Blinded: "end of its next turn", Slowed: "end of its next turn", Stunned: "end of its next turn",
+  Invisible: "until it uses a Technique", "Foil Exposed": "2 hours, or until used"
 };
 /** Technique Effect keys that apply a Condition with an Oppose (PHB 6.5.0). */
 export const EFFECT_CONDITION = {

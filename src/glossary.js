@@ -98,7 +98,7 @@ export const GLOSSARY = {
   },
   "foil exposed": {
     "name": "Foil Exposed",
-    "text": "Resisted with Wit. The source learns one Habit of the creature, which the Technique names. Once, when the creature Opposes the source, the source may give that Oppose roll -2. It ends when used, or after 10 minutes. A creature has one Foil Exposed for each of its Habits, from each source. > [!EXAMPLE] > Mira uses Intuit on the captain: Resonance 15 against his Discipline 10. Mira learns his Habit, \"Rules are the first thing to go when it actually matters.\" Mira then Intimidates the captain through the Voice, and spends the Foil Exposed to give his Oppose -2."
+    "text": "Resisted with Wit. The source learns one Habit of the creature, which the Technique names. Once, when the creature Opposes the source, the source may give that Oppose roll -2. It ends when used, or after 2 hours. A creature has one Foil Exposed for each of its Habits, from each source. > [!EXAMPLE] > Mira uses Intuit on the captain: Resonance 15 against his Discipline 10. Mira learns his Habit, \"Rules are the first thing to go when it actually matters.\" Mira then Intimidates the captain through the Voice, and spends the Foil Exposed to give his Oppose -2."
   },
   "foil habit": {
     "name": "FOIL Habit",
@@ -198,7 +198,7 @@ export const GLOSSARY = {
   },
   "mend": {
     "name": "Mend",
-    "text": "Remove Xd4 Stress from one of an ally's Attributes in ten minutes, with no Medicine and no roll. A creature can be healed by Medicine, Mend, or any other removal of Stress once every 2 hours. Its user takes Strain as normal."
+    "text": "Remove Xd4 Stress from one of an ally's Attributes, with no Medicine and no roll. A creature can be healed by Medicine, Mend, or any other removal of Stress once every 2 hours. Its user takes Strain as normal."
   },
   "misled": {
     "name": "Misled",

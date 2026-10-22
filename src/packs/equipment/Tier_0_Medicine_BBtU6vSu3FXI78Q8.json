@@ -13,7 +13,7 @@
     "location": "carried",
     "qualities": [],
     "uses": "1",
-    "duration": "10 minutes",
+    "duration": "instant",
     "effect": "Remove 1d4 Stress; Mend roll at Difficulty 8",
     "gemType": "",
     "tier": 1,
