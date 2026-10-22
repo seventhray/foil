@@ -80,12 +80,12 @@ p("FOIL and Foil Tokens", `
 <p>Once per scene a player may <strong>invoke</strong> a Habit their character holds. If the table agrees the Habit drives what the character is doing, they earn a <strong>Foil Token</strong>. A character holds at most four.</p>
 <p>A Foil Token is spent at will: halve the Stress from one source, rounded down, or reroll any one die right after rolling a Skill. The new result stands.</p>`),
 
-p("Ending a conflict, resting, travel", `
+p("Ending a conflict, resting, toil", `
 <p>A conflict ends when one side stops contesting it. <strong>Flee</strong>: Disengage and move away; each chaser rolls Prowess against the fleer every round, and the winner moves up to Range 2. <strong>Yield</strong>: stop fighting and accept terms. <strong>Destroy</strong>: keep going until every Attribute is Incapacitated. <strong>Terms</strong>: press for an end with social Conditions.</p>
 <p><strong>Rest</strong> removes 1d4 Stress every 2 hours from one Attribute of the character's choice. It eats one ration per 8 hours; without one, the time passes but heals nothing.</p>
-<p>A <strong>Travel</strong> leg is one roll for the party: Prowess through very difficult terrain, Acuity to find the way, Discipline otherwise. It costs 1 Stress to every Attribute and one ration per character, and 1 more Stress on a failure.</p>
+<p><strong>Toil</strong> is effort sustained over stretches of about 8 hours, such as travel or labor. Each stretch is one roll for the party: Prowess for heavy work or very difficult terrain, Acuity to find the way or to search, Discipline otherwise. A stretch costs 1 Stress to every Attribute, 2 on a failure. Each 2 hours past 8 without a rest adds 1 more. A stretch of travel is a <strong>leg</strong>.</p>
 <p><strong>Gathering</strong> (PHB 5.3.3) takes 4 hours and a Trade roll through a gathering Tool: food yields 1 ration plus 1 per 4 points of margin, and a Herbalist's Satchel or Craft Tool finds a batch of material at a Tier the region holds, plus 1 per 8 points of margin.</p>
-<p><strong>Mass</strong>: past 4x Might Potential in pounds, every roll takes -1 per extra multiple, and each Travel leg adds that much Stress.</p>`),
+<p><strong>Mass</strong>: past 4x Might Potential in pounds, every roll takes -1 per extra multiple, and each stretch of Toil adds that much Stress.</p>`),
 ]},
 
 {

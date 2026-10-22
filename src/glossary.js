@@ -328,6 +328,10 @@ export const GLOSSARY = {
     "name": "Thrown",
     "text": "None"
   },
+  "toil": {
+    "name": "Toil",
+    "text": "Effort sustained over 8-hour stretches, such as travel or labor. Toil for N Stress is N Stress on every Attribute"
+  },
   "tool": {
     "name": "Tool",
     "text": "Its rolls are Trades."
