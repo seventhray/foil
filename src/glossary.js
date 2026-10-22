@@ -198,7 +198,7 @@ export const GLOSSARY = {
   },
   "mend": {
     "name": "Mend",
-    "text": "Remove Xd4 Stress from one of an ally's Attributes in ten minutes, with no Medicine and no roll. A creature can be healed by Medicine, Mend, or any other removal of Stress once every 4 hours. Its user takes Strain as normal."
+    "text": "Remove Xd4 Stress from one of an ally's Attributes in ten minutes, with no Medicine and no roll. A creature can be healed by Medicine, Mend, or any other removal of Stress once every 2 hours. Its user takes Strain as normal."
   },
   "misled": {
     "name": "Misled",

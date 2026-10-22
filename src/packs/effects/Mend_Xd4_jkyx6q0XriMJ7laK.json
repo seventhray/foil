@@ -18,7 +18,7 @@
     "magnitudeLabel": "Mend Nd4",
     "exemptFromPremium": false,
     "setsFloor": false,
-    "description": "<p>Remove Xd4 Stress from one of an ally's Attributes in ten minutes, with no Medicine and no roll. Medicine or Mend once every 4 hours per creature (PHB 6.10.0).</p>"
+    "description": "<p>Remove Xd4 Stress from one of an ally's Attributes in ten minutes, with no Medicine and no roll. Medicine or Mend once every 2 hours per creature (PHB 6.10.0).</p>"
   },
   "effects": [],
   "folder": null,
