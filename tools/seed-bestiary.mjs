@@ -3,13 +3,15 @@
  * Turns the built creature notes (Campaign/Creatures in the vault) into creature actors.
  * populate-packs.mjs calls bestiaryDocs() with its own item builders, so a creature's
  * Instruments, Techniques, and Feats are the same documents the other packs hold.
- * Scenario NPCs (Campaign/Characters/NPCs) are left out.
+ * A creature's stat block is read from its `## Data` block (creature-block.mjs). Scenario NPCs
+ * (Campaign/Characters/NPCs) are left out.
  */
 
 import fs from "node:fs";
 import path from "node:path";
 import { BOOKS } from "./books.mjs";
 import { NATURAL_WEAPONS } from "../src/creature-data.js";
+import { calloutText } from "./creature-block.mjs";
 
 export const CREATURES_DIR = process.env.FOIL_BESTIARY ?? path.join(BOOKS, "..", "Campaign", "Creatures");
 const lc = s => String(s).toLowerCase();
@@ -54,7 +56,7 @@ export function bestiaryDocs(lib) {
     const front = k => s.match(new RegExp(`^${k}:\\s*(.+)$`, "m"))?.[1].trim() ?? "";
     if (!front("tier") || /not yet built/.test(s)) continue;
     const name = file.slice(0, -3);
-    const block = s.slice(s.indexOf("> [!creature]"), s.indexOf("### Behaviour"));
+    const block = calloutText(s);          // from the note's Data block, else the callout as written
     const line = k => block.match(new RegExp(`\\*\\*${k}\\*\\*\\s*([^·\\n]*)`))?.[1].trim() ?? "";
     const attributes = Object.fromEntries(ATTRS.map(a => [a, diceOf(front(a))]));
     const skills = {};

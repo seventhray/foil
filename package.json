@@ -12,6 +12,7 @@
     "package": "sh tools/package.sh"
   },
   "devDependencies": {
-    "@foundryvtt/foundryvtt-cli": "3.0.4"
+    "@foundryvtt/foundryvtt-cli": "3.0.4",
+    "js-yaml": "^5.4.2"
   }
 }
