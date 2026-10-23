@@ -18,6 +18,17 @@ export function recoveryThreshold(max) {
   return max - Math.floor(max / 2);
 }
 
+/**
+ * Whether an Attribute is Incapacitated after its current Potential changes (PHB 6.8.1): at 0 with dice it
+ * is, and it stays so until Stress is down to half its Potential or less.
+ */
+export function nextIncapacitated(was, current, max) {
+  let now = !!was;
+  if (max > 0 && current <= 0) now = true;
+  else if (was && current >= recoveryThreshold(max)) now = false;
+  return now;
+}
+
 /** Derived fields shared by characters and creatures. */
 export function deriveCore(sys, items = []) {
   const mods = aggregateModifiers(items);

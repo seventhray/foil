@@ -7,7 +7,7 @@
  */
 
 import { ATTRIBUTE_KEYS, ATTR_LABEL, SKILL_LABEL, PRIMARY_SKILLS, CONDITION_OPPOSE, CONDITION_PRESETS, FOIL_AXES } from "./constants.js";
-import { stressFor, alwaysTypes } from "./stress.js";
+import { stressFor, alwaysTypes, landStress } from "./stress.js";
 import { conditionFlags, conditionMods, harmFlags, harmNames, incomingMods, kindOf, signedParts, skillFormula, skillMath, targetFlags } from "./combat.js";
 import { ask, esc } from "./dialogs.js";
 import { resolveActor } from "./chat-actions.js";
@@ -46,26 +46,24 @@ async function offerReroll(actor, roll, title) {
 async function applyStress(actor, aim, amount, halved = false, from = amount) {
   // The math of what lands: the Foil Token halving, then each Attribute it fills or overflows onto.
   const lines = halved ? [`Foil Token: ${from} / 2, rounded down = ${amount}`] : [];
-  let left = amount, attr = aim, destroyed = false;
   const applied = [];
-  while (left > 0) {
-    const take = Math.min(left, actor.potentialOf(attr));
-    if (take > 0) {
-      const { before, after } = await actor.takeStress(attr, take);
-      const max = actor.system.attributes?.[attr]?.potential?.max ?? "";
-      lines.push(`${attr === aim ? "" : "overflow to "}${ATTR_LABEL[attr]} takes ${take}: Potential left ${before} &rarr; ${after} of ${max}`);
-      applied.push({ attr, amount: take });
-      left -= take;
-    }
-    if (left <= 0) break;
-    const room = ATTRIBUTE_KEYS.filter(k => k !== attr && actor.potentialOf(k) > 0);
-    if (!room.length) { destroyed = true; break; }
-    if (room.length === 1) attr = room[0];
-    else {
-      const answer = await ask(`${actor.name}: overflow`, overflowDialog({ attr, left, room, potentialOf: k => actor.potentialOf(k) }), "Place");
-      attr = room.includes(answer?.attr) ? answer.attr : room[0];
+  // The rule is landStress (rules/stress.js); this applies each step to the actor and asks where the overflow goes.
+  const run = landStress({ potentials: Object.fromEntries(ATTRIBUTE_KEYS.map(k => [k, actor.potentialOf(k)])), aim, amount });
+  let step = run.next();
+  while (!step.done) {
+    const ev = step.value;
+    if (ev.type === "take") {
+      const { before, after } = await actor.takeStress(ev.attr, ev.amount);
+      const max = actor.system.attributes?.[ev.attr]?.potential?.max ?? "";
+      lines.push(`${ev.overflow ? "overflow to " : ""}${ATTR_LABEL[ev.attr]} takes ${ev.amount}: Potential left ${before} &rarr; ${after} of ${max}`);
+      applied.push({ attr: ev.attr, amount: ev.amount });
+      step = run.next();
+    } else {
+      const answer = await ask(`${actor.name}: overflow`, overflowDialog({ attr: ev.attr, left: ev.left, room: ev.room, potentialOf: k => actor.potentialOf(k) }), "Place");
+      step = run.next(answer?.attr);
     }
   }
+  let destroyed = step.value.destroyed;
   if (actor.system.destroyed) destroyed = true;
   const notes = [];
   for (const k of ATTRIBUTE_KEYS) if (actor.system.attributes?.[k]?.down) notes.push(`${ATTR_LABEL[k]} is Incapacitated (PHB 6.8.1).`);

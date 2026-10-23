@@ -81,3 +81,46 @@ export function stressFor({ attack, oppose, cap, kind = "physical", resistance =
   parts.push(`${capped} ${sgn(sum)} ${effRes < 0 ? "+" : "-"} ${Math.abs(effRes)} = ${before}${before < 0 ? ", raised to 0" : ""}`);
   return { landed: true, stress, margin, capped, parts };
 }
+
+const ATTRS = ["might", "finesse", "wit", "presence"];
+
+/**
+ * Stress landing on a target (PHB 6.8.1): it fills the aimed Attribute's current Potential, then the rest
+ * overflows onto another Attribute that still has Potential. With one Attribute left to take it, that is the one;
+ * with several, the caller chooses. With none left, the target is Destroyed.
+ *
+ * A generator, so the caller can apply each step as it happens and answer the choice however it likes
+ * (Foundry asks in a dialog, the companion app asks in a reducer). It yields
+ *   { type: "take", attr, amount, before, after, overflow }   Stress taken from one Attribute, apply it now
+ *   { type: "choose", attr, left, room }                      Stress left over; send back one Attribute from `room`
+ * and returns { applied: [{ attr, amount }], destroyed }.
+ *
+ * @param {object} a
+ * @param {Record<string,number>} a.potentials  each Attribute's current Potential
+ * @param {string} a.aim     the Attribute aimed at
+ * @param {number} a.amount  the Stress to land
+ */
+export function* landStress({ potentials, aim, amount }) {
+  const pot = { ...potentials };
+  let left = amount, attr = aim, destroyed = false;
+  const applied = [];
+  while (left > 0) {
+    const take = Math.min(left, pot[attr] ?? 0);
+    if (take > 0) {
+      const before = pot[attr];
+      pot[attr] = before - take;
+      applied.push({ attr, amount: take });
+      left -= take;
+      yield { type: "take", attr, amount: take, before, after: pot[attr], overflow: attr !== aim };
+    }
+    if (left <= 0) break;
+    const room = ATTRS.filter(k => k !== attr && (pot[k] ?? 0) > 0);
+    if (!room.length) { destroyed = true; break; }
+    if (room.length === 1) attr = room[0];
+    else {
+      const answer = yield { type: "choose", attr, left, room };
+      attr = room.includes(answer) ? answer : room[0];
+    }
+  }
+  return { applied, destroyed };
+}

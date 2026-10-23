@@ -7,7 +7,7 @@
  */
 
 import { ATTRIBUTE_KEYS, FOIL_TOKEN_MAX } from "../constants.js";
-import { recoveryThreshold } from "../data/actor-models.js";
+import { nextIncapacitated } from "../../rules/sheet.js";
 import { poolFromCounts } from "../dice.js";
 import { logEvent, who } from "../playtest-log.js";
 
@@ -48,9 +48,7 @@ export class FoilActor extends Actor {
       const cur = Number(getProperty(changed, path));
       const max = Number(this.system.attributes?.[k]?.potential?.max ?? 0);
       const was = !!this._source.system.attributes?.[k]?.incapacitated;
-      let now = was;
-      if (max > 0 && cur <= 0) now = true;
-      else if (was && cur >= recoveryThreshold(max)) now = false;
+      const now = nextIncapacitated(was, cur, max);
       if (now !== was) setProperty(changed, `system.attributes.${k}.incapacitated`, now);
     }
   }
