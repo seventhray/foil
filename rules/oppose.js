@@ -24,7 +24,7 @@
  * fmt: { br, arrow }  how text is written; PLAIN by default.
  */
 
-import { ATTRIBUTE_KEYS, ATTR_LABEL, SKILL_LABEL, PRIMARY_SKILLS, CONDITION_OPPOSE, CONDITION_PRESETS, FOIL_AXES } from "./constants.js";
+import { ATTRIBUTE_KEYS, ATTR_LABEL, SKILL_LABEL, PRIMARY_SKILLS, CONDITION_PRESETS, FOIL_AXES, conditionAttr } from "./constants.js";
 import { stressFor, alwaysTypes, landStress } from "./stress.js";
 import { conditionFlags, conditionMods, harmFlags, harmNames, incomingMods, kindOf, skillFormula, skillMath, targetFlags } from "./combat.js";
 import { scopedResistance } from "./resist.js";
@@ -108,7 +108,7 @@ export function* resolveOpposeSteps({ defender: actor, attacker, flag, fmt = PLA
   const kind = cnd ? "mental" : kindOf(aim);
   const incoming = incomingMods(sys.conditions, { melee: !!flag.melee });
   const attack = Number(flag.attackTotal) + incoming.total;
-  const skills = cnd ? (CONDITION_OPPOSE[cnd.name] ?? PRIMARY_SKILLS.wit) : PRIMARY_SKILLS[aim];
+  const skills = cnd ? (PRIMARY_SKILLS[conditionAttr(cnd)] ?? PRIMARY_SKILLS.wit) : PRIMARY_SKILLS[aim];
   const best = skills.reduce((a, k) => ((sys.skills?.[k]?.rollAvg ?? 0) > (sys.skills?.[a]?.rollAvg ?? 0) ? k : a), skills[0]);
 
   const attackerName = attacker?.name ?? "";

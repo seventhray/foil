@@ -3,9 +3,11 @@
  * The rolling methods of src/actor/actor-sheet.js exactly as they were before they moved to rules/roll.js
  * (copied verbatim, lines 211 to 535 of the sheet at commit 5041093), with fakes for the Foundry pieces
  * they touch. capture-roll-vectors.mjs runs it to record what the old code did; do not edit the methods.
+ * One deliberate rule change is carried into this copy, marked RULE 2026-10-23: Weakened is resisted with the
+ * Attribute it names (PHB 6.8.4), so it carries that Attribute and its target Opposes it (conditionAttr).
  */
 import {
-  ATTRIBUTE_KEYS, ATTR_LABEL, SKILL_ATTRS, SKILL_LABEL, MARGIN_CAP, marginCap, CONDITION_OPPOSE, CONDITION_ATTR, EFFECT_CONDITION
+  ATTRIBUTE_KEYS, ATTR_LABEL, SKILL_ATTRS, SKILL_LABEL, MARGIN_CAP, marginCap, CONDITION_OPPOSE, CONDITION_ATTR, EFFECT_CONDITION, conditionAttr
 } from "../../rules/constants.js";
 import { isAlwaysType } from "../../rules/stress.js";
 import { allowedAims, conditionFlags, skillFormula, skillMath, targetFlags } from "../../rules/combat.js";
@@ -85,8 +87,13 @@ export class RefSheet {
     if (inst.system.doublesMargin) notes.push("Heavy: costs the Action and the Quick Action; the margin doubles (PHB 4.1.1).");
     if (inst.system.reload) notes.push(`Reload: ${inst.system.reload === "quick" ? "Quick Action" : "Action"}.`);
     const stress = /Deals Stress/i.test(kit.effect);
-    const applied = !stress && kit.effect.match(/^Applies (Foil Exposed|\w+)/i)?.[1];
-    if (applied && CONDITION_OPPOSE[applied]) notes.push(`The target resists with any ${ATTR_LABEL[CONDITION_ATTR[applied]]} Skill (PHB 6.8.0).`);
+    // RULE 2026-10-23: Weakened [Attribute] is resisted with that Attribute.
+    const match = !stress ? kit.effect.match(/^Applies (Foil Exposed|\w+)(?: \[(\w+)\])?/i) : null;
+    const applied = match?.[1];
+    const named = ATTRIBUTE_KEYS.find(k => ATTR_LABEL[k].toLowerCase() === String(match?.[2] ?? "").toLowerCase()) ?? "";
+    const kitCond = applied === "Weakened" ? { name: applied, note: named ? ATTR_LABEL[named] : "", attr: named } : applied ? { name: applied, note: "" } : null;
+    const kitResist = kitCond ? conditionAttr(kitCond) : "";
+    if (kitResist) notes.push(`The target resists with any ${ATTR_LABEL[kitResist]} Skill (PHB 6.8.0).`);
     const targeted = stress || /^Applies\b/i.test(kit.effect);
     if (targeted && inst.system.weightDice) notes.push(`${inst.system.weightLabel}: +${inst.system.weightDice}.`);
     notes.push(...this._rangeNotes({ band: inst.system.rangeBand, min: inst.system.minRange }));
@@ -99,7 +106,7 @@ export class RefSheet {
     await this._postRoll(this._skillFormula(kit.skill, kitExtras, kitDice), `${kit.name} (${SKILL_LABEL[kit.skill]})`,
       notes.join("<br>"), roll => ({
         cond: this._condFlag(),
-        ...(applied && CONDITION_OPPOSE[applied] ? this._conditionFlag(kit.name, roll.total, { name: applied, note: "" }, { melee: !!inst.system.isMelee }) : {}),
+        ...(kitResist ? this._conditionFlag(kit.name, roll.total, kitCond, { melee: !!inst.system.isMelee }) : {}),
         ...(stress ? this._stressFlag(inst, kit.name, roll.total, { aim,
           bespoke: [{ label: kit.name, value: bespokeBonus(kit.effect) }, { label: `${inst.name} Enchantment`, value: Number(inst.system.enchantStress ?? 0) }],
           pierce: [{ label: `${inst.name} +${inst.system.bonus}`, value: Number(inst.system.bonusPierce ?? 0) - Number(inst.system.enchantPierce ?? 0) }, { label: `${inst.name} Enchantment`, value: Number(inst.system.enchantPierce ?? 0) }] }) : {})
@@ -257,7 +264,10 @@ export class RefSheet {
 
     const extend = (sys.effects ?? []).filter(e => e.key === "extend-range").reduce((n, e) => n + Number(e.bands || 1), 0);
     notes.push(...this._rangeNotes({ band: inst ? inst.system.rangeBand : sys.range, min: sys.minRange || inst?.system.minRange, extend }));
-    const aim = sys.dealsStress && inst ? await this._aimAtTargets(inst, tech.name, "", sys.requires ?? []) : { targets: [] };
+    // RULE 2026-10-23: a Technique that only weakens is aimed; the Attribute aimed at is weakened and resists.
+    const applied = !sys.dealsStress ? (sys.effects ?? []).find(e => CONDITION_OPPOSE[EFFECT_CONDITION[e.key]] || EFFECT_CONDITION[e.key] === "Weakened") : null;
+    const weakens = EFFECT_CONDITION[applied?.key] === "Weakened";
+    const aim = (sys.dealsStress || weakens) && inst ? await this._aimAtTargets(inst, tech.name, "", sys.requires ?? []) : { targets: [] };
     if (!aim) return;
     notes.push(...(aim.notes ?? []));
 
@@ -276,9 +286,13 @@ export class RefSheet {
     else if (gem && !gemPierce) notes.push(`Focus Gem: ${esc(inst.system.gemSummary)} (adds nothing: this Technique has no Pierce).`);
     const wdice = sys.offensive && inst?.type === "instrument" && inst.system.weightDice ? [{ label: inst.system.weightLabel || "Weight", dice: inst.system.weightDice }] : [];
     notes.unshift(this._math(skill, bonus, wdice));
-    const applied = !sys.dealsStress ? (sys.effects ?? []).find(e => CONDITION_OPPOSE[EFFECT_CONDITION[e.key]]) : null;
-    const condition = applied ? { name: EFFECT_CONDITION[applied.key], note: applied.key.startsWith("reeling") ? `${applied.magnitude ?? 1}` : "", rounds: applied.duration || (applied.key.endsWith("-minute") ? "1 minute" : "") } : null;
-    if (condition) notes.push(`The target resists with any ${ATTR_LABEL[CONDITION_ATTR[condition.name]]} Skill (PHB 6.8.0).`);
+    const rounds = applied ? applied.duration || (applied.key.endsWith("-minute") ? "1 minute" : "") : "";
+    const condition = !applied ? null
+      : weakens ? { name: "Weakened", note: `${aim.aim ? `${ATTR_LABEL[aim.aim]} ` : ""}${applied.magnitude ?? 1}`, rounds, attr: aim.aim ?? "" }
+      : { name: EFFECT_CONDITION[applied.key], note: applied.key.startsWith("reeling") ? `${applied.magnitude ?? 1}` : "", rounds };
+    const resistAttr = condition ? conditionAttr(condition) : "";
+    if (resistAttr) notes.push(`The target resists with any ${ATTR_LABEL[resistAttr]} Skill (PHB 6.8.0).`);
+    else if (condition) notes.push("The target resists with any Skill built on the Attribute aimed at (PHB 6.8.4).");
     await this._postRoll(this._skillFormula(skill, bonus, wdice), `${esc(tech.name)} (${SKILL_LABEL[skill]})`, notes.join("<br>"), roll => ({
       cond: this._condFlag(),
       ...(condition ? this._conditionFlag(tech.name, roll.total, condition, { melee: !!inst?.system.isMelee }) : {}),
