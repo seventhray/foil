@@ -8,38 +8,25 @@
  * it available everywhere with no code change.
  */
 
+import { slugify, registryFromDocs } from "../rules/definitions.js";
+
+export { slugify };
+
 const DEF_TYPES = {
   instrumentType: { pack: "foil.instrument-types", config: "instrumentTypes" },
   quality:        { pack: "foil.qualities",        config: "qualities" },
   effect:         { pack: "foil.effects",          config: "effects" }
 };
 
-/** Slugify a name for use as a fallback key. */
-export function slugify(name) {
-  return String(name ?? "").toLowerCase().trim().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
-}
-
-/** The key a definition is registered under: its explicit `system.key`, else its slugified name. */
-function defKey(doc) {
-  return (doc.system?.key && String(doc.system.key).trim()) || slugify(doc.name);
-}
-
 /** Build one registry map ({ slug: {label, ...system} }) from a pack + world items. */
 async function collect(type) {
-  const map = {};
-  const add = doc => {
-    const key = defKey(doc);
-    if (!key) return;
-    map[key] = { key, label: doc.name, ...doc.system };
-  };
+  const docs = [];
   // Compendium defaults first…
   const pack = game.packs.get(DEF_TYPES[type].pack);
-  if (pack) {
-    for (const doc of await pack.getDocuments()) add(doc);
-  }
+  if (pack) docs.push(...await pack.getDocuments());
   // …world items override / extend.
-  for (const doc of game.items.filter(i => i.type === type)) add(doc);
-  return map;
+  docs.push(...game.items.filter(i => i.type === type));
+  return registryFromDocs(docs);
 }
 
 /** (Re)build the whole registry onto CONFIG.FOIL, then re-prep dependent items. */

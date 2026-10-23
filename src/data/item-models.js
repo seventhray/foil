@@ -9,15 +9,13 @@
 
 import { f, slugField, slugArray, str, int, bool, html } from "./fields.js";
 import {
-  WEIGHT_CLASS, WEIGHT_KEYS, ATTRIBUTE_KEYS, SKILL_KEYS, SKILL_LABEL, PRIMARY_SKILLS, SIZE_KEYS, BONUS_PRICE,
-  MATERIAL_TIER_PRICE, SIZE, TYPE_SURCHARGE, REACH_PRICE_PER_BAND, RANGE_BANDS, RANGE_LABEL, rangeBandOf, rangeMinOf, rangeTextFor, rangeTextOf, usualRange,
+  WEIGHT_KEYS, ATTRIBUTE_KEYS, SKILL_KEYS, SIZE_KEYS, RANGE_BANDS, rangeBandOf, rangeMinOf, rangeTextOf,
   FOCUS_GEMS, EQUIPMENT_CATEGORIES, LEGACY_SKILL_KEY, ITEM_LOCATIONS
 } from "../constants.js";
-import { priceTechnique, strainFor, SELECTIVE_PREMIUM } from "../pricing.js";
 import { LEGACY_TYPE_KEY } from "./definition-models.js";
+import { deriveInstrument, deriveTechnique, deriveEquipment, deriveBackground, deriveOrigin } from "../../rules/items.js";
 
 const INSTRUMENT_CATEGORIES = ["melee", "ranged", "arcane", "sonic", "tool", "innate"];
-const ARCANE_TYPES = ["kinetic", "incorporeal", "fortifying"];
 const GEM_KEYS = ["", ...Object.keys(FOCUS_GEMS)];
 
 const mapTypes = arr => [...new Set((arr ?? []).map(t => LEGACY_TYPE_KEY[t] ?? t))];
@@ -38,12 +36,6 @@ function effectsArraySchema() {
 
 function sizeField(initial = "medium") {
   return new f.StringField({ required: true, initial, choices: SIZE_KEYS });
-}
-
-/** The Instrument Types an item carries, resolved against the registry. */
-function resolveTypes(types) {
-  const reg = globalThis.CONFIG?.FOIL?.instrumentTypes ?? {};
-  return { reg, defs: types.map(k => reg[k]).filter(Boolean), unknown: types.filter(k => !reg[k]) };
 }
 
 export class InstrumentData extends foundry.abstract.TypeDataModel {
@@ -112,109 +104,7 @@ export class InstrumentData extends foundry.abstract.TypeDataModel {
   }
 
   prepareDerivedData() {
-    const types = this.types ?? [];
-    const { defs, unknown } = resolveTypes(types);
-    const w = WEIGHT_CLASS[this.weight] ?? WEIGHT_CLASS.light;
-    this.weightLabel = w.label;
-    // Weight dice on offensive rolls; Heavy takes both hands (PHB 4.1.1).
-    this.twoHanded = this.weight === "heavy";
-    // Heavy: the Action and the Quick Action, margin doubled before the cap (PHB 4.1.1, 6.7.0).
-    this.doublesMargin = !this.innate && this.weight === "heavy";
-    this.marginMultiplier = this.innate ? 1 : (w.mult ?? 1);
-    this.weightDice = this.innate ? "" : (w.dice ?? "");
-    if (this.innate) this.location = "equipped";
-    this.equipped = this.location === "equipped";
-    this.carriedWeight = this.innate ? 0 : w.lbs;
-    this.rangeBand = this.maxRange || rangeBandOf(this.range);
-    this.range = rangeTextFor(this.minRange, this.rangeBand) || this.range;
-    this.primarySkills = PRIMARY_SKILLS[this.primaryAttribute] ?? [];
-    this.typesLabel = this.typesDisplay || types.map(k => defs.find(d => d.key === k)?.label ?? k).join(", ");
-
-    // Price formula (PHB 5.2.2): weight class + Type surcharges + 10p per band past the usual Range.
-    const channels = types.filter(t => ARCANE_TYPES.includes(t));
-    const surcharge = types.reduce((n, t) => n + (TYPE_SURCHARGE[t] ?? 0), 0)
-      - (this.typesDisplay && channels.length > 1 ? (channels.length - 1) * 5 : 0);
-    const usual = usualRange(this.category, this.weight, types);
-    const extra = Math.max(0, RANGE_BANDS.indexOf(this.rangeBand) - RANGE_BANDS.indexOf(usual));
-    const typeTerms = types.filter(t => TYPE_SURCHARGE[t]).map(t => `${defs.find(d => d.key === t)?.label ?? t} ${TYPE_SURCHARGE[t]}`);
-    const shared = this.typesDisplay && channels.length > 1 ? (channels.length - 1) * 5 : 0;
-    this.priceMath = [`${w.label} ${w.price}`, ...typeTerms, ...(shared ? [`pick-one channels -${shared}`] : []),
-      `reach ${REACH_PRICE_PER_BAND * extra} (${extra} step${extra === 1 ? "" : "s"} past the usual ${RANGE_LABEL[usual] ?? usual}, x${REACH_PRICE_PER_BAND})`].join(" + ")
-      .replace(/\+ pick-one channels -/, "- pick-one channels ");
-    // Tools sit on their own cheap penny scale, outside the formula (Fundamental Math).
-    const formulaApplies = !this.innate && this.category !== "tool";
-    this.formulaPrice = formulaApplies ? w.price + surcharge + REACH_PRICE_PER_BAND * extra : this.price;
-    this.priceMismatch = formulaApplies && this.price !== this.formulaPrice;
-    this.bonusPrice = (BONUS_PRICE[this.size] ?? BONUS_PRICE.medium)[this.bonus] ?? 0;
-    // Crafting (PHB 5.3.2): the size's batches at the item's Tier (its bonus).
-    this.craftCost = (SIZE[this.size]?.batches ?? 2) * (MATERIAL_TIER_PRICE[this.bonus] ?? 0);
-    this.bonusMath = `+${this.bonus} on a ${SIZE[this.size]?.label ?? this.size} item = ${this.bonusPrice}p (PHB 7.10.1)`;
-    this.craftMath = `${SIZE[this.size]?.batches ?? 2} batches (${SIZE[this.size]?.label ?? this.size}) x Tier ${this.bonus} Common ${MATERIAL_TIER_PRICE[this.bonus] ?? 0}p = ${this.craftCost}p (PHB 5.3.1, 5.3.2)`;
-
-    // Type effects (PHB 4.1.1).
-    // A Light Instrument's built-ins can use the Quick Action (PHB 4.1.1). The Quick Type
-    // survives only for a creature's natural weapon chosen to work that way (GMG 9.6.0).
-    this.quick = this.weight === "light" || defs.some(d => d.quick);
-    this.reload = defs.find(d => d.reload)?.reload ?? "";
-    this.blockingOnly = defs.some(d => d.blocking) && !defs.some(d => d.family === "melee" || d.family === "ranged");
-    this.stressTypes = defs.filter(d => d.stressPhysical || d.stressMental || d.pierce || d.dealsNoStress || d.doubleResistance)
-      .map(d => ({ key: d.key, family: d.family, label: d.label, physical: d.stressPhysical, mental: d.stressMental,
-                   pierce: d.pierce, doubleResistance: d.doubleResistance, dealsNoStress: d.dealsNoStress }));
-
-    // +N (PHB 5.2.1): +N to rolls, Pierce half of N (rounded down) for Melee or Ranged;
-    // Blocking-only is Oppose-only.
-    const meleeOrRanged = defs.some(d => d.family === "melee" || d.family === "ranged");
-    this.isMelee = defs.some(d => d.family === "melee");
-    this.bonusRoll   = this.blockingOnly ? 0 : this.bonus;
-    this.bonusPierce = !this.blockingOnly && meleeOrRanged ? Math.floor(this.bonus / 2) : 0;
-    this.bonusOppose = this.blockingOnly ? this.bonus : 0;
-
-    // An enchanted bonus (PHB 5.3.4). Broad ones apply on their own; a situational one is named on the card for the table.
-    const eb = this.enchantment?.bonus ?? {};
-    this.enchantSkill = { skill: "", n: 0 };
-    this.enchantStress = 0;
-    this.enchantRoll = 0;
-    this.enchantPierce = 0;
-    if (eb.kind) {
-      // 10p per XP, from the Effects table: a Skill or roll point 6 XP, Pierce 4, Stress 8 (PHB 5.3.4).
-      const perPoint = { skill: 60, roll: 60, aid: 60, pierce: 40, stress: 80 }[eb.kind] ?? 0;
-      const price = Math.ceil(perPoint * eb.n / ((eb.situational || eb.kind === "aid") ? 2 : 1));
-      const what = { skill: `+${eb.n} ${SKILL_LABEL[eb.skill] ?? "Skill"}`, roll: `+${eb.n} to its rolls`, pierce: `Pierce ${eb.n}`,
-                     stress: `+${eb.n} Stress after the margin`, aid: `Aid +${eb.n}` }[eb.kind];
-      this.enchantBonus = { price, label: `${what}${(eb.situational || eb.kind === "aid") ? ` (${eb.circumstance || "situational"})` : ""}`, applies: !eb.situational && eb.kind !== "aid",
-                            difficulty: [8, 12, 16, 20, 24, 32][eb.n] ?? 12, materialTier: eb.n };
-      if (this.enchantBonus.applies) {
-        if (eb.kind === "roll") { this.bonusRoll += eb.n; this.enchantRoll = eb.n; }
-        else if (eb.kind === "pierce") { this.bonusPierce += eb.n; this.enchantPierce = eb.n; }
-        else if (eb.kind === "stress") this.enchantStress = eb.n;
-        else if (eb.kind === "skill") this.enchantSkill = { skill: eb.skill, n: eb.n };
-      }
-    } else this.enchantBonus = null;
-
-    // Focus Gem (PHB 5.2.3).
-    this.isArcane = channels.length > 0;
-    const gem = FOCUS_GEMS[this.gem?.type];
-    this.gemActive = !!gem && this.isArcane;
-    this.gemSummary = gem ? `${gem.label} (Tier ${this.gem.tier}): `
-      + gem.adds.replace(/(\+|-|)1\b/, (m, s) => `${s || ""}${this.gem.tier}`) : "";
-    this.gemWarning = gem && !this.isArcane ? "A Focus Gem only works in an Arcane Instrument." : "";
-    
-    this.typeWarning = types.length === 0 && !this.innate
-      ? "No Instrument Types set: this Instrument can't be used for anything."
-      : unknown.length ? `Unresolved Instrument Type(s): ${unknown.join(", ")}.` : "";
-
-    // Enchanting (PHB 5.3.4): priced like a custom Technique, sold at 10p per XP.
-    const ench = this.enchantment ?? {};
-    const registry = globalThis.CONFIG?.FOIL?.effects ?? null;
-    const priced = registry && ench.enabled ? priceTechnique(ench.effects ?? [], registry) : { xp: 0, breakdown: [] };
-    ench.xpCost = priced.xp;
-    ench.strain = priced.strain ?? strainFor(priced.xp);
-    ench.price  = priced.xp * 10;
-    const x = priced.xp;
-    ench.difficulty = !x ? 0 : x <= 8 ? 16 : x <= 16 ? 20 : x <= 24 ? 24 : 32;
-    ench.materialTier = !x ? 0 : x <= 8 ? 1 : x <= 16 ? 2 : x <= 24 ? 3 : 4;
-    const text = ench.effectText || (priced.breakdown ?? []).map(b => b.label).join(", ");
-    ench.effectSummary = ench.strain ? (text ? `${text}, Strain ${ench.strain}` : `Strain ${ench.strain}`) : text;
+    deriveInstrument(this, globalThis.CONFIG?.FOIL);
   }
 }
 
@@ -250,41 +140,7 @@ export class TechniqueData extends foundry.abstract.TypeDataModel {
   }
 
   prepareDerivedData() {
-    const registry = globalThis.CONFIG?.FOIL?.effects ?? null;
-    const types = this.requires ?? [];
-    const { defs, unknown } = resolveTypes(types);
-    const fortifying = types.includes("fortifying");
-    const priced = registry ? priceTechnique(this.effects ?? [], registry, { floor: this.floor || fortifying })
-                            : { xp: 0, breakdown: [] };
-    this.xpCost = priced.xp;
-    this.perTarget = (this.effects ?? []).some(e => e.key === "selective");
-    this.strain = strainFor(this.xpCost - (this.perTarget ? SELECTIVE_PREMIUM : 0));
-    this.pricingBreakdown = priced.breakdown;
-    this.priceMath = priced.math ?? "";
-
-    const has = key => (this.effects ?? []).filter(e => e.key === key);
-    const sum = key => has(key).reduce((n, e) => n + Number(e.magnitude ?? 0), 0);
-    this.quick      = has("quick").length > 0;
-    this.upkeep     = has("upkeep").length > 0;
-    this.dealsStress = has("stress").length > 0;
-    this.rollBonus  = sum("roll-bonus");
-    this.pierceTotal = sum("pierce");
-    this.stressRider = has("stress-rider").length;
-    // Used against a target (PHB 6.4.0): the weight dice apply only to these.
-    const TARGETED = new Set(["stress", "stress-rider", "weaken", "weaken-minute", "reeling", "reeling-minute", "move", "drain", "lingering", "illusion", "counter",
-      "grappled", "prone", "restrained", "charmed", "frightened", "controlled", "intimidated", "baited",
-      "angered", "relaxed", "impressed", "wary", "enthralled", "blinded", "slowed", "stunned", "disarm", "foil-exposed"]);
-    this.offensive = (this.effects ?? []).some(e => TARGETED.has(e.key) || (e.key.startsWith("skill-mod") && Number(e.magnitude) < 0));
-
-    const sameSet = group => group.length === types.length && group.every(k => types.includes(k));
-    this.requiresLabel = this.innate ? "Innate"
-      : sameSet(["thrown", "drawn", "fired"]) ? "Ranged"
-      : sameSet(["edged", "pointed", "blunt", "grappling", "parry"]) ? "Melee"
-      : types.length ? types.map(k => defs.find(d => d.key === k)?.label ?? k).join(" or ") : "Any";
-    this.typeWarning = unknown.length ? `Unresolved Instrument Type(s) in Requirement: ${unknown.join(", ")}.` : "";
-
-    const base = (priced.breakdown ?? []).map(b => b.label).join(", ");
-    this.effectSummary = this.strain ? (base ? `${base}, Strain ${this.strain}${this.perTarget ? " per target" : ""}` : `Strain ${this.strain}`) : base;
+    deriveTechnique(this, globalThis.CONFIG?.FOIL);
   }
 }
 
@@ -338,19 +194,7 @@ export class EquipmentData extends foundry.abstract.TypeDataModel {
   }
 
   prepareDerivedData() {
-    const wc = WEIGHT_CLASS[this.weightClass];
-    this.equipped = this.location === "equipped";
-    this.carriedWeight = Number(this.weight) || (wc ? wc.lbs : 0);
-    this.weightClassLabel = wc?.label ?? "";
-    const gem = FOCUS_GEMS[this.gemType];
-    if (this.category === "gem" && gem) {
-      this.gemPrice = gem.pricePerTier * this.tier;
-      this.gemSummary = `${gem.adds.replace(/(\+|-|)1\b/, (m, s) => `${s || ""}${this.tier}`)}`;
-    } else {
-      this.gemPrice = 0;
-      this.gemSummary = "";
-    }
-    this.materialPrice = MATERIAL_TIER_PRICE[this.tier] ?? 0;
+    deriveEquipment(this);
   }
 }
 
@@ -403,12 +247,7 @@ export class BackgroundData extends foundry.abstract.TypeDataModel {
   }
 
   prepareDerivedData() {
-    const t = this.training ?? {};
-    const cap = s => s.charAt(0).toUpperCase() + s.slice(1);
-    this.grantsSummary = SKILL_KEYS.filter(k => Number(t[k]) > 0).map(k => `+${t[k]} ${cap(k)}`).join(", ");
-    const counts = {};
-    for (const a of this.knowHow ?? []) counts[a] = (counts[a] ?? 0) + 1;
-    this.knowHowSummary = Object.entries(counts).map(([a, n]) => `${n}d4 ${cap(a)}`).join(", ");
+    deriveBackground(this);
   }
 }
 
@@ -429,8 +268,6 @@ export class OriginData extends foundry.abstract.TypeDataModel {
   }
 
   prepareDerivedData() {
-    const cap = s => s.charAt(0).toUpperCase() + s.slice(1);
-    this.talentSummary = (this.talent ?? []).map(t => `${cap(t.attribute)} to d${t.die}`).join(", ");
-    this.featsSummary = (this.feats?.length ? this.feats : [this.feat].filter(Boolean)).join(", ");
+    deriveOrigin(this);
   }
 }
