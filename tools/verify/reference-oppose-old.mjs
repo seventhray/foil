@@ -17,8 +17,9 @@ export const reset = (answers = [], actors = {}, dice = [3, 7, 5, 2]) => { env.a
 
 const esc = value => String(value ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 const ask = async (title) => { env.asked.push(title); return env.answers.length ? env.answers.shift() : null; };
-// The real logEvent writes { type, ...data }, so a `type` in the data replaces the event's type (as the oppose log's Type label does).
-const logEvent = (type, data) => env.events.push({ type, ...data });
+// The old code logged the declared Type's label as `type`, which replaced the event's own type (the real logEvent writes
+// { type, ...data }). rules/oppose.js now logs it as `declaredType`; this fake applies the same rename to the old call.
+const logEvent = (type, data) => env.events.push({ type, ...Object.fromEntries(Object.entries(data).map(([k, v]) => [k === "type" ? "declaredType" : k, v])) });
 const who = a => (a ? { id: a.id, name: a.name, kind: a.type } : null);
 const game = { actors: { get: id => env.actors[id] } };
 const ui = { notifications: { warn: m => env.warnings.push(m) } };
