@@ -3,9 +3,12 @@
  * A target answering a Technique (PHB 6.5.0, 6.7.0, 3.2.0): the attack total against the target's Conditions, the
  * Oppose roll and its modifiers, a Foil Token reroll, then a Condition applied or Stress worked out and laid on.
  * Pure: it works on plain actors ({ id, name, type, system, items }) and a card payload (`flag`), and asks the
- * table for its choices and effects through `io`, so the Foundry card flow and the companion app run the same code.
+ * table for its choices and effects, so the Foundry card flow and the companion app run the same code.
  *
- * io (each may be async):
+ * The flow is a generator (resolveOpposeSteps) that yields [name, ...args]; rules/flow.js has the drivers. resolveOppose(...)
+ * is the async form and takes an `io` with a method per name.
+ *
+ * io (each may be async when driven with driveAsync):
  *   askOppose(data)                          the Oppose dialog; returns its answers { skill, other, guard, parry, exposed0.. } or null
  *   updateConditions(list)                   replace the target's Conditions
  *   rollOppose({ formula, math, skill, flags })   roll it and show it; returns { total, formula, dice: [{ faces, value }] }
@@ -25,6 +28,7 @@ import { ATTRIBUTE_KEYS, ATTR_LABEL, SKILL_LABEL, PRIMARY_SKILLS, CONDITION_OPPO
 import { stressFor, alwaysTypes, landStress } from "./stress.js";
 import { conditionFlags, conditionMods, harmFlags, harmNames, incomingMods, kindOf, skillFormula, skillMath, targetFlags } from "./combat.js";
 import { scopedResistance } from "./resist.js";
+import { driveAsync } from "./flow.js";
 
 export const PLAIN = { esc: s => String(s ?? ""), br: "\n", arrow: "→" };
 
@@ -45,22 +49,22 @@ export function opposeExtras({ conditionParts = [], block = 0, guard = false, ex
 }
 
 /** A character may spend a Foil Token to reroll one die of its Oppose; the new result stands (PHB 3.2.0). */
-async function offerReroll(actor, roll, title, io) {
+function* offerReroll(actor, roll, title) {
   if (!hasToken(actor)) return roll.total;
   const dice = roll.dice;
   if (!dice.length) return roll.total;
-  const answer = await io.askReroll({ title, total: roll.total, dice, tokens: foilTokens(actor) });
+  const answer = (yield ["askReroll", { title, total: roll.total, dice, tokens: foilTokens(actor) }]);
   if (!answer || answer.die === "" || answer.die === undefined) return roll.total;
   const die = dice[Number(answer.die)];
-  const again = await io.rollDie(die.faces);
-  await io.setFoilTokens(foilTokens(actor) - 1);
+  const again = (yield ["rollDie", die.faces]);
+  (yield ["setFoilTokens", foilTokens(actor) - 1]);
   const total = roll.total - die.value + again;
-  await io.card("reroll", { title, total, die, again });
+  (yield ["card", "reroll", { title, total, die, again }]);
   return total;
 }
 
 /** Lay Stress on an Attribute; what it cannot hold overflows where the defender chooses (PHB 6.7.0). */
-export async function applyStress(actor, aim, amount, halved, from, io, fmt = PLAIN) {
+export function* applyStressSteps(actor, aim, amount, halved, from, fmt = PLAIN) {
   const lines = halved ? [`Foil Token: ${from} / 2, rounded down = ${amount}`] : [];
   const applied = [];
   const run = landStress({ potentials: Object.fromEntries(ATTRIBUTE_KEYS.map(k => [k, potentialOf(actor, k)])), aim, amount });
@@ -68,13 +72,13 @@ export async function applyStress(actor, aim, amount, halved, from, io, fmt = PL
   while (!step.done) {
     const ev = step.value;
     if (ev.type === "take") {
-      const { before, after } = await io.takeStress(ev.attr, ev.amount);
+      const { before, after } = (yield ["takeStress", ev.attr, ev.amount]);
       const max = actor.system.attributes?.[ev.attr]?.potential?.max ?? "";
       lines.push(`${ev.overflow ? "overflow to " : ""}${ATTR_LABEL[ev.attr]} takes ${ev.amount}: Potential left ${before} ${fmt.arrow} ${after} of ${max}`);
       applied.push({ attr: ev.attr, amount: ev.amount });
       step = run.next();
     } else {
-      const answer = await io.askOverflow({ attr: ev.attr, left: ev.left, room: ev.room, potentialOf: k => potentialOf(actor, k) });
+      const answer = (yield ["askOverflow", { attr: ev.attr, left: ev.left, room: ev.room, potentialOf: k => potentialOf(actor, k) }]);
       step = run.next(answer?.attr);
     }
   }
@@ -84,10 +88,10 @@ export async function applyStress(actor, aim, amount, halved, from, io, fmt = PL
   for (const k of ATTRIBUTE_KEYS) if (actor.system.attributes?.[k]?.down) notes.push(`${ATTR_LABEL[k]} is Incapacitated (PHB 6.8.1).`);
   if (destroyed) notes.push(`${actor.name} is Destroyed (PHB 6.8.2).`);
   notes.push(...harmFlags(actor.system.conditions));
-  io.log("stress-applied", { actor, aimed: aim, amount, halvedByToken: halved, applied,
-    incapacitated: ATTRIBUTE_KEYS.filter(k => actor.system.attributes?.[k]?.down), destroyed });
+  (yield ["log", "stress-applied", { actor, aimed: aim, amount, halvedByToken: halved, applied,
+    incapacitated: ATTRIBUTE_KEYS.filter(k => actor.system.attributes?.[k]?.down), destroyed }]);
   const note = notes.length ? `${fmt.br}${notes.join(fmt.br)}` : "";
-  await io.card("stressApplied", { amount, lines, note, halved, applied, ends: harmNames(actor.system.conditions) });
+  (yield ["card", "stressApplied", { amount, lines, note, halved, applied, ends: harmNames(actor.system.conditions) }]);
 }
 
 /**
@@ -97,7 +101,7 @@ export async function applyStress(actor, aim, amount, halved, from, io, fmt = PL
  * @param {object|null} a.attacker  the roller: { id, name, ... }, or null if gone
  * @param {object} a.flag      the card's payload (stressPayload / condition payload in rules/roll.js)
  */
-export async function resolveOppose({ defender: actor, attacker, flag, io, fmt = PLAIN }) {
+export function* resolveOpposeSteps({ defender: actor, attacker, flag, fmt = PLAIN }) {
   const sys = actor.system;
   const cnd = flag.condition ?? null;
   const aim = flag.aim;
@@ -110,7 +114,7 @@ export async function resolveOppose({ defender: actor, attacker, flag, io, fmt =
   const attackerName = attacker?.name ?? "";
   const exposed = (sys.conditions ?? []).map((c, i) => ({ ...c, i })).filter(c => c.name === "Foil Exposed" && attackerName && String(c.note).endsWith(`by ${attackerName}`));
   const flags = [...targetFlags(sys.conditions), ...conditionFlags(sys.conditions, { skill: best })];
-  const answer = await io.askOppose({ actor, flag, attack, incoming, cnd, aim, kind, skills, best, flags, attackerName, exposed });
+  const answer = (yield ["askOppose", { actor, flag, attack, incoming, cnd, aim, kind, skills, best, flags, attackerName, exposed }]);
   if (!answer) return;
 
   const skill = skills.includes(answer.skill) ? answer.skill : best;
@@ -122,14 +126,14 @@ export async function resolveOppose({ defender: actor, attacker, flag, io, fmt =
   const oppFlags = [...targetFlags(sys.conditions), ...conditionFlags(sys.conditions, { skill })];
   if (spent.length) {
     const left = clone(actor.system.conditions ?? []).filter((c, i) => !spent.some(s => s.i === i));
-    await io.updateConditions(left);
+    (yield ["updateConditions", left]);
   }
   // The Conditions are already in extras, so the roll doesn't add them twice.
   const own = extras.filter(p => !cm.parts.includes(p));
   const formula = skillFormula(sys, skill, own, "", { oppose: true });
   const math = skillMath(sys, skill, own, "", { oppose: true });
-  const roll = await io.rollOppose({ formula, math, skill, flags: oppFlags });
-  const oppose = await offerReroll(actor, roll, `Oppose: ${SKILL_LABEL[skill]}`, io);
+  const roll = (yield ["rollOppose", { formula, math, skill, flags: oppFlags }]);
+  const oppose = yield* offerReroll(actor, roll, `Oppose: ${SKILL_LABEL[skill]}`);
   const logBase = {
     attacker, defender: actor, technique: flag.name, instrument: flag.instrument ?? null,
     aim: aim ?? null, condition: cnd?.name ?? null, attackRolled: Number(flag.attackTotal), attack,
@@ -139,27 +143,27 @@ export async function resolveOppose({ defender: actor, attacker, flag, io, fmt =
 
   if (cnd) {
     const versus = `${attack} against ${oppose}`;
-    io.log("oppose", { ...logBase, landed: oppose <= attack });
+    (yield ["log", "oppose", { ...logBase, landed: oppose <= attack }]);
     if (oppose > attack) {
-      return io.card("fail", { flagName: flag.name, defenderName: actor.name, versus });
+      return (yield ["card", "fail", { flagName: flag.name, defenderName: actor.name, versus }]);
     }
-    await io.card("lands", { flagName: flag.name, defenderName: actor.name, conditionName: cnd.name, versus });
+    (yield ["card", "lands", { flagName: flag.name, defenderName: actor.name, conditionName: cnd.name, versus }]);
     const exposedHabits = cnd.name === "Foil Exposed"
       ? FOIL_AXES.filter(a => ["low", "high"].includes(sys.foil?.[a.key]?.lean)).map(a => ({ key: a.key, label: `${a.label}: ${sys.foil[a.key].habit || (sys.foil[a.key].lean === "high" ? a.high : a.low)}` }))
       : [];
     if (cnd.name === "Foil Exposed" && !exposedHabits.length) {
-      return io.card("noHabit", { defenderName: actor.name });
+      return (yield ["card", "noHabit", { defenderName: actor.name }]);
     }
-    const go = await io.askCondition({ conditionName: cnd.name, exposedHabits, rounds: cnd.rounds || CONDITION_PRESETS[cnd.name] || "", note: cnd.note ?? "", defenderName: actor.name });
+    const go = (yield ["askCondition", { conditionName: cnd.name, exposedHabits, rounds: cnd.rounds || CONDITION_PRESETS[cnd.name] || "", note: cnd.note ?? "", defenderName: actor.name }]);
     if (!go) return;
     const list = clone(actor.system.conditions ?? []);
     const byWho = cnd.name === "Foil Exposed" ? `${go.habit}; by ${attackerName}` : "";
     if (byWho && list.some(c => c.name === "Foil Exposed" && c.note === byWho)) {
-      return io.card("alreadyExposed", { defenderName: actor.name, attackerName });
+      return (yield ["card", "alreadyExposed", { defenderName: actor.name, attackerName }]);
     }
     list.push({ name: cnd.name, rounds: go.rounds?.trim() ?? "", note: byWho || (go.note?.trim() ?? "") });
-    await io.updateConditions(list);
-    return io.card("conditionApplied", { defenderName: actor.name, conditionName: cnd.name, go });
+    (yield ["updateConditions", list]);
+    return (yield ["card", "conditionApplied", { defenderName: actor.name, conditionName: cnd.name, go }]);
   }
 
   const scoped = scopedResistance({ narrowResistance: sys.narrowResistance }, { ...(flag.attackInfo ?? {}), kind });
@@ -178,24 +182,28 @@ export async function resolveOppose({ defender: actor, attacker, flag, io, fmt =
     kind, resistance, resistanceParts, type, always: alwaysTypes(flag.types, type), bespoke: Number(flag.bespoke ?? 0), bespokeParts: flag.bespokeParts ?? null,
     other: Number(flag.other ?? 0), pierce: Number(flag.pierce ?? 0), pierceParts: flag.pierceParts ?? null
   });
-  io.log("oppose", { ...logBase, landed: r.landed, margin: r.margin, cappedMargin: r.capped, stress: r.stress,
+  (yield ["log", "oppose", { ...logBase, landed: r.landed, margin: r.margin, cappedMargin: r.capped, stress: r.stress,
     cap: flag.cap, mult: Number(flag.mult ?? 1), resistance, kind, scopedResistance: scoped.parts, declaredType: type?.label ?? null,
-    bespoke: Number(flag.bespoke ?? 0), pierce: Number(flag.pierce ?? 0), other: Number(flag.other ?? 0), breakdown: r.parts });
+    bespoke: Number(flag.bespoke ?? 0), pierce: Number(flag.pierce ?? 0), other: Number(flag.other ?? 0), breakdown: r.parts }]);
   const versus = `${attack} against ${oppose}`;
   if (!r.landed) {
-    return io.card("fail", { flagName: flag.name, defenderName: actor.name, versus });
+    return (yield ["card", "fail", { flagName: flag.name, defenderName: actor.name, versus }]);
   }
-  await io.card("stress", { defenderName: actor.name, aim, r, versus });
+  (yield ["card", "stress", { defenderName: actor.name, aim, r, versus }]);
   if (!r.stress) return;
 
   const cur = potentialOf(actor, aim);
-  const go = await io.askApplyStress({ defenderName: actor.name, aim, amount: r.stress, cur, max: sys.attributes?.[aim]?.potential?.max ?? cur, tokens: hasToken(actor) ? foilTokens(actor) : 0 });
+  const go = (yield ["askApplyStress", { defenderName: actor.name, aim, amount: r.stress, cur, max: sys.attributes?.[aim]?.potential?.max ?? cur, tokens: hasToken(actor) ? foilTokens(actor) : 0 }]);
   let amount = Math.max(0, Math.trunc(Number(go?.amount) || 0));
   const from = amount;
   const halved = !!go?.halve && hasToken(actor);
   if (go?.halve && hasToken(actor)) {
     amount = Math.floor(amount / 2);
-    await io.setFoilTokens(foilTokens(actor) - 1);
+    (yield ["setFoilTokens", foilTokens(actor) - 1]);
   }
-  if (go && amount) await applyStress(actor, aim, amount, halved, from, io, fmt);
+  if (go && amount) yield* applyStressSteps(actor, aim, amount, halved, from, fmt);
 }
+
+// The same flows for a host that can wait: Foundry, with dialogs. A reducer drives the *Steps generators with driveSync.
+export const applyStress = (actor, aim, amount, halved, from, io, fmt) => driveAsync(applyStressSteps(actor, aim, amount, halved, from, fmt), io);
+export const resolveOppose = ({ io, ...a }) => driveAsync(resolveOpposeSteps(a), io);

@@ -29,3 +29,38 @@ export function poolFromCounts(counts) {
   }
   return { min: dieCount, avg, max, dieCount, formula: parts.join(" + "), valid: dieCount > 0 };
 }
+
+/**
+ * Roll a formula as combat.js writes it: terms like `1d10[Might]` (dice) and `2[Training]` (a flat number), joined
+ * by + or -, or the plain `0`. `rollDie(faces)` supplies each die, so a host can use its own random source.
+ * Returns the total and every die, because a Foil Token rerolls one die (PHB 3.2.0).
+ * @returns {{ total:number, dice:{ faces:number, value:number, label:string, sign:number }[], flat:number }}
+ */
+export function rollFormula(formula, rollDie) {
+  const text = String(formula ?? "").trim();
+  const term = /([+-]?)\s*(?:(\d*)d(\d+)|(\d+))(?:\[([^\]]*)\])?/y;
+  const dice = [];
+  let total = 0, flat = 0, pos = 0, first = true;
+  while (pos < text.length) {
+    term.lastIndex = pos;
+    const m = term.exec(text);
+    if (!m || (!first && !m[1])) throw new Error(`cannot read "${text.slice(pos)}" in the formula "${text}"`);
+    const sign = m[1] === "-" ? -1 : 1;
+    if (m[3] !== undefined) {
+      const count = m[2] === "" ? 1 : Number(m[2]), faces = Number(m[3]);
+      if (!(faces >= 2) || count > 100) throw new Error(`bad dice "${m[0].trim()}" in the formula "${text}"`);
+      for (let i = 0; i < count; i++) {
+        const value = rollDie(faces);
+        dice.push({ faces, value, label: m[5] ?? "", sign });
+        total += sign * value;
+      }
+    } else {
+      flat += sign * Number(m[4]);
+      total += sign * Number(m[4]);
+    }
+    pos = term.lastIndex;
+    while (text[pos] === " ") pos++;
+    first = false;
+  }
+  return { total, dice, flat };
+}

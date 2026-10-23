@@ -2,10 +2,13 @@
  * rules/roll.js
  * Preparing a roll (PHB 4.1.0, 4.2.2, 5.3.4, 6.4.0): which Instrument and Skill carry a Technique, the formula
  * and the math behind it, the notes on the card, Strain, and the Stress payload a hit carries. Pure: each flow
- * works on a plain actor ({ id, name, system, items }) and asks the table for its choices through `io`, so the
- * Foundry sheet and the companion app run the same code. Nothing here touches the DOM, a Roll or a ChatMessage.
+ * works on a plain actor ({ id, name, system, items }) and asks the table for its choices, so the Foundry sheet and
+ * the companion app run the same code. Nothing here touches the DOM, a Roll or a ChatMessage.
  *
- * io (each may be async):
+ * Each flow is a generator (rollTechniqueSteps, ...) that yields [name, ...args] for what only the host can do; rules/flow.js
+ * has the drivers. rollTechnique(...) and the others are the async form: they take an `io` with a method per name.
+ *
+ * io (each may be async when driven with driveAsync):
  *   warn(message)                                        a refusal the player should see
  *   pickSkill({ tech, choices })                         one Skill key from `choices`, or null to cancel
  *   pickInstrument({ tech, valid, inst, skill, skillsOf })   { instrumentId, skill } or null
@@ -23,6 +26,7 @@ import {
 } from "./constants.js";
 import { conditionFlags, skillFormula, skillMath } from "./combat.js";
 import { familiesOf } from "./resist.js";
+import { driveAsync } from "./flow.js";
 
 export const PLAIN = { esc: s => String(s ?? ""), br: "\n", arrow: "→" };
 
@@ -104,16 +108,16 @@ const enchantPierceParts = inst => [
 ];
 
 /** Roll a Skill on its own. */
-export async function rollSkill({ actor, skill, io, fmt = PLAIN }) {
+export function* rollSkillSteps({ actor, skill, fmt = PLAIN }) {
   const sys = actor.system;
-  await io.post({
+  (yield ["post", {
     formula: skillFormula(sys, skill, 0, ""), title: `${SKILL_LABEL[skill]}`,
     note: [fmt.esc(skillMath(sys, skill, 0, "")), ...rollNotes(sys, skill)].join(fmt.br), payload: null
-  });
+  }]);
 }
 
 /** Roll one of an Instrument's three built-in Techniques (PHB 7.4.0). */
-export async function rollKit({ actor, inst, index, io, fmt = PLAIN }) {
+export function* rollKitSteps({ actor, inst, index, fmt = PLAIN }) {
   const { esc, br } = fmt;
   const sys = actor.system;
   const kit = inst?.system.kit?.[Number(index)];
@@ -129,14 +133,14 @@ export async function rollKit({ actor, inst, index, io, fmt = PLAIN }) {
   if (applied && CONDITION_OPPOSE[applied]) notes.push(`The target resists with any ${ATTR_LABEL[CONDITION_ATTR[applied]]} Skill (PHB 6.8.0).`);
   const targeted = stress || /^Applies\b/i.test(kit.effect);
   if (targeted && inst.system.weightDice) notes.push(`${inst.system.weightLabel}: +${inst.system.weightDice}.`);
-  notes.push(...await io.rangeNotes({ band: inst.system.rangeBand, min: inst.system.minRange }));
-  const aim = stress ? await io.aim({ inst, name: kit.name, text: kit.effect, requires: [] }) : { targets: [] };
+  notes.push(...(yield ["rangeNotes", { band: inst.system.rangeBand, min: inst.system.minRange }]));
+  const aim = stress ? (yield ["aim", { inst, name: kit.name, text: kit.effect, requires: [] }]) : { targets: [] };
   if (!aim) return;
   notes.push(...(aim.notes ?? []));
   const kitExtras = instrumentExtras(inst, kit.skill);
   const kitDice = targeted && inst.system.weightDice ? [{ label: inst.system.weightLabel || "Weight", dice: inst.system.weightDice }] : [];
   notes.unshift(esc(skillMath(sys, kit.skill, kitExtras, kitDice)));
-  await io.post({
+  (yield ["post", {
     formula: skillFormula(sys, kit.skill, kitExtras, kitDice), title: `${kit.name} (${SKILL_LABEL[kit.skill]})`, note: notes.join(br),
     payload: {
       cond: true,
@@ -145,44 +149,44 @@ export async function rollKit({ actor, inst, index, io, fmt = PLAIN }) {
         bespoke: [{ label: kit.name, value: bespokeBonus(kit.effect) }, { label: `${inst.name} Enchantment`, value: Number(inst.system.enchantStress ?? 0) }],
         pierce: enchantPierceParts(inst) } : null
     }
-  });
+  }]);
 }
 
 /** Roll a Technique: choose its Skill and Instrument, take its Strain, and post the roll. */
-export async function rollTechnique({ actor, tech, io, fmt = PLAIN }) {
+export function* rollTechniqueSteps({ actor, tech, fmt = PLAIN }) {
   const { esc, br, arrow } = fmt;
   const sys = tech.system;
   const asys = actor.system;
 
   let inst = null, skill = sys.skill || "";
   if (!skill && sys.skillChoices?.length) {
-    const pick = await io.pickSkill({ tech, choices: sys.skillChoices });
+    const pick = (yield ["pickSkill", { tech, choices: sys.skillChoices }]);
     if (!pick) return;
     skill = sys.skillChoices.includes(pick) ? pick : sys.skillChoices[0];
   }
   if (!sys.innate) {
     let valid = validInstruments(actor, tech);
     if (!valid.length) {
-      io.warn(`No Instrument carries what ${tech.name} requires (${sys.requiresLabel}).`);
+      (yield ["warn", `No Instrument carries what ${tech.name} requires (${sys.requiresLabel}).`]);
       return;
     }
     if (skill) {
       const fit = valid.filter(i => skillsOf(i).includes(skill));
       if (!fit.length) {
-        io.warn(`${tech.name} rolls ${SKILL_LABEL[skill]}, which ${valid.map(i => i.name).join(", ")} can't (PHB 4.1.0).`);
+        (yield ["warn", `${tech.name} rolls ${SKILL_LABEL[skill]}, which ${valid.map(i => i.name).join(", ")} can't (PHB 4.1.0).`]);
         return;
       }
       valid = fit;
     }
     inst = valid[0];
     if (valid.length > 1 || !skill) {
-      const answer = await io.pickInstrument({ tech, valid, inst, skill, skillsOf });
+      const answer = (yield ["pickInstrument", { tech, valid, inst, skill, skillsOf }]);
       if (!answer) return;
       inst = itemById(actor, answer.instrumentId) ?? inst;
       skill = skill || answer.skill;
       const allowed = skillsOf(inst);
       if (!allowed.includes(skill)) {
-        io.warn(`${inst.name} rolls ${allowed.map(k => SKILL_LABEL[k]).join(", ")}, not ${SKILL_LABEL[skill]} (PHB 4.1.0).`);
+        (yield ["warn", `${inst.name} rolls ${allowed.map(k => SKILL_LABEL[k]).join(", ")}, not ${SKILL_LABEL[skill]} (PHB 4.1.0).`]);
         return;
       }
     }
@@ -197,16 +201,16 @@ export async function rollTechnique({ actor, tech, io, fmt = PLAIN }) {
   if (inst?.system.doublesMargin) notes.push("Heavy: costs the Action and the Quick Action; the margin doubles (PHB 4.1.1).");
 
   const extend = (sys.effects ?? []).filter(e => e.key === "extend-range").reduce((n, e) => n + Number(e.bands || 1), 0);
-  notes.push(...await io.rangeNotes({ band: inst ? inst.system.rangeBand : sys.range, min: sys.minRange || inst?.system.minRange, extend }));
-  const aim = sys.dealsStress && inst ? await io.aim({ inst, name: tech.name, text: "", requires: sys.requires ?? [] }) : { targets: [] };
+  notes.push(...(yield ["rangeNotes", { band: inst ? inst.system.rangeBand : sys.range, min: sys.minRange || inst?.system.minRange, extend }]));
+  const aim = sys.dealsStress && inst ? (yield ["aim", { inst, name: tech.name, text: "", requires: sys.requires ?? [] }]) : { targets: [] };
   if (!aim) return;
   notes.push(...(aim.notes ?? []));
 
   // Strain lands on the Instrument's Primary Attribute, ignoring Resistance (PHB 4.2.3).
   if (sys.strain > 0) {
     const attr = inst?.system.primaryAttribute ?? SKILL_ATTRS[skill][0];
-    const { before, after } = await io.takeStress(attr, sys.strain);
-    io.log("strain", { source: tech.name, attribute: attr, amount: sys.strain, before, after });
+    const { before, after } = (yield ["takeStress", attr, sys.strain]);
+    (yield ["log", "strain", { source: tech.name, attribute: attr, amount: sys.strain, before, after }]);
     const xp = Number(sys.xpCost ?? 0) - (sys.perTarget ? 8 : 0);
     notes.push(`Strain ${sys.strain} on ${ATTR_LABEL[attr]} (${before} ${arrow} ${after}): (${xp} XP${sys.perTarget ? " before the Selective premium" : ""} - 24) / 8, rounded down (PHB 4.2.3).`);
   }
@@ -220,7 +224,7 @@ export async function rollTechnique({ actor, tech, io, fmt = PLAIN }) {
   const applied = !sys.dealsStress ? (sys.effects ?? []).find(e => CONDITION_OPPOSE[EFFECT_CONDITION[e.key]]) : null;
   const condition = applied ? { name: EFFECT_CONDITION[applied.key], note: applied.key.startsWith("reeling") ? `${applied.magnitude ?? 1}` : "", rounds: applied.duration || (applied.key.endsWith("-minute") ? "1 minute" : "") } : null;
   if (condition) notes.push(`The target resists with any ${ATTR_LABEL[CONDITION_ATTR[condition.name]]} Skill (PHB 6.8.0).`);
-  await io.post({
+  (yield ["post", {
     formula: skillFormula(asys, skill, bonus, wdice), title: `${esc(tech.name)} (${SKILL_LABEL[skill]})`, note: notes.join(br),
     payload: {
       cond: true,
@@ -229,24 +233,30 @@ export async function rollTechnique({ actor, tech, io, fmt = PLAIN }) {
         bespoke: [{ label: tech.name, value: Number(sys.stressRider ?? 0) }, { label: `${inst.name} Enchantment`, value: Number(inst.system.enchantStress ?? 0) }],
         pierce: [{ label: tech.name, value: Number(sys.pierceTotal ?? 0) }, ...enchantPierceParts(inst), { label: "Emerald", value: gemPierce }] } : null
     }
-  });
+  }]);
 }
 
 /** Use an Instrument's bound Enchantment (PHB 5.3.4): no Technique known, Strain still applies. */
-export async function rollEnchantment({ actor, inst, io, fmt = PLAIN }) {
+export function* rollEnchantmentSteps({ actor, inst, fmt = PLAIN }) {
   const { esc, br, arrow } = fmt;
   const ench = inst?.system?.enchantment;
   if (!inst || !ench?.enabled) return;
-  const skill = await io.pickEnchantSkill({ inst });
+  const skill = (yield ["pickEnchantSkill", { inst }]);
   if (!skill) return;
   const notes = rollNotes(actor.system, skill, true);
   notes.unshift(`Enchantment: ${esc(ench.effectSummary)}`);
   if (ench.strain > 0) {
-    const { before, after } = await io.takeStress(inst.system.primaryAttribute, ench.strain);
-    io.log("strain", { source: `${inst.name} (Enchantment)`, attribute: inst.system.primaryAttribute, amount: ench.strain, before, after });
+    const { before, after } = (yield ["takeStress", inst.system.primaryAttribute, ench.strain]);
+    (yield ["log", "strain", { source: `${inst.name} (Enchantment)`, attribute: inst.system.primaryAttribute, amount: ench.strain, before, after }]);
     notes.push(`Strain ${ench.strain} on ${ATTR_LABEL[inst.system.primaryAttribute]} (${before} ${arrow} ${after}).`);
   }
   const enchExtras = instrumentExtras(inst, skill);
   notes.unshift(esc(skillMath(actor.system, skill, enchExtras)));
-  await io.post({ formula: skillFormula(actor.system, skill, enchExtras), title: `${esc(inst.name)} (${SKILL_LABEL[skill]})`, note: notes.join(br), payload: { cond: true, condition: null, stress: null } });
+  (yield ["post", { formula: skillFormula(actor.system, skill, enchExtras), title: `${esc(inst.name)} (${SKILL_LABEL[skill]})`, note: notes.join(br), payload: { cond: true, condition: null, stress: null } }]);
 }
+
+// The same flows for a host that can wait: Foundry, with dialogs. A reducer drives the *Steps generators with driveSync.
+export const rollSkill = ({ io, ...a }) => driveAsync(rollSkillSteps(a), io);
+export const rollKit = ({ io, ...a }) => driveAsync(rollKitSteps(a), io);
+export const rollTechnique = ({ io, ...a }) => driveAsync(rollTechniqueSteps(a), io);
+export const rollEnchantment = ({ io, ...a }) => driveAsync(rollEnchantmentSteps(a), io);
