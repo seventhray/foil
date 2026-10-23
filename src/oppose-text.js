@@ -10,15 +10,8 @@ import { esc } from "./dialogs.js";
 const flavor = html => `<div class="foil-flavor">${html}</div>`;
 const habitOf = note => String(note).replace(/;? by .*$/, "");
 
-/** The Oppose roll's extra modifiers, from the dialog's answers (PHB 6.5.0, 3.2.0). */
-export function opposeExtras({ conditionParts = [], block = 0, guard = false, exposedSpent = [], other = 0 }) {
-  const extras = [...conditionParts];
-  if (block) extras.push({ label: "Blocking Instrument", value: block });
-  if (guard) extras.push({ label: "Guard", value: 2 });
-  for (const c of exposedSpent) extras.push({ label: `Foil Exposed (${habitOf(c.note)})`, value: -2 });
-  if (other) extras.push({ label: "Other", value: other });
-  return extras;
-}
+/** The Oppose roll's extra modifiers, from the dialog's answers (PHB 6.5.0, 3.2.0): see rules/oppose.js. */
+export { opposeExtras } from "../rules/oppose.js";
 
 export function opposeDialog({ flagName, attackLine, defenderName, conditionName, aim, skills, flagHtml, opts, attackerName, exposed, kind }) {
   const cnd = conditionName;

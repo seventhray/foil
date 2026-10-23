@@ -38,7 +38,7 @@ console.log(`  ${rules.length} rules modules use no Foundry, browser or nondeter
 let shims = 0;
 for (const f of rules) {
   const name = path.basename(f), shim = path.join(ROOT, "src", name);
-  if (!fs.existsSync(shim)) continue;
+  if (!fs.existsSync(shim) || !/^export \* from "\.\.\/rules\/[\w-]+\.js";\s*$/.test(fs.readFileSync(shim, "utf8"))) continue;   // a src/ file of the same name that is not a one-line re-export is its own module
   shims++;
   const a = Object.keys(await import(pathToFileURL(f))).sort().join(","), b = Object.keys(await import(pathToFileURL(shim))).sort().join(",");
   if (a !== b) fail(`src/${name} re-exports ${b} but rules/${name} exports ${a}`);
