@@ -70,8 +70,8 @@ async function applyStress(actor, aim, amount, halved = false, from = amount) {
     const ev = step.value;
     if (ev.type === "take") {
       const { before, after } = await actor.takeStress(ev.attr, ev.amount);
-      const max = actor.system.attributes?.[ev.attr]?.potential?.max ?? "";
-      lines.push(`${ev.overflow ? "overflow to " : ""}${ATTR_LABEL[ev.attr]} takes ${ev.amount}: Potential left ${before} &rarr; ${after} of ${max}`);
+      const max = Number(actor.system.attributes?.[ev.attr]?.potential?.max ?? 0);
+      lines.push(`${ev.overflow ? "overflow to " : ""}${ATTR_LABEL[ev.attr]} takes ${ev.amount}: Stress ${max - before} &rarr; ${max - after} of ${max}`);
       applied.push({ attr: ev.attr, amount: ev.amount });
       step = run.next();
     } else {

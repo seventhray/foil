@@ -277,7 +277,8 @@ export class RefSheet {
       const { before, after } = await this.actor.takeStress(attr, sys.strain);
       logEvent("strain", { actor: who(this.actor), source: tech.name, attribute: attr, amount: sys.strain, before, after });
       const xp = Number(sys.xpCost ?? 0) - (sys.perTarget ? 8 : 0);
-      notes.push(`Strain ${sys.strain} on ${ATTR_LABEL[attr]} (${before} &rarr; ${after}): (${xp} XP${sys.perTarget ? " before the Selective premium" : ""} - 24) / 8, rounded down (PHB 4.2.3).`);
+      const max = Number(this.actor.system.attributes?.[attr]?.potential?.max ?? 0);
+      notes.push(`Strain ${sys.strain} on ${ATTR_LABEL[attr]} (Stress ${max - before} &rarr; ${max - after} of ${max}): (${xp} XP${sys.perTarget ? " before the Selective premium" : ""} - 24) / 8, rounded down (PHB 4.2.3).`);
     }
 
     const gem = inst?.system.gemActive ? inst.system.gem : null;
@@ -317,7 +318,8 @@ export class RefSheet {
     if (ench.strain > 0) {
       const { before, after } = await this.actor.takeStress(inst.system.primaryAttribute, ench.strain);
       logEvent("strain", { actor: who(this.actor), source: `${inst.name} (Enchantment)`, attribute: inst.system.primaryAttribute, amount: ench.strain, before, after });
-      notes.push(`Strain ${ench.strain} on ${ATTR_LABEL[inst.system.primaryAttribute]} (${before} &rarr; ${after}).`);
+      const max = Number(this.actor.system.attributes?.[inst.system.primaryAttribute]?.potential?.max ?? 0);
+      notes.push(`Strain ${ench.strain} on ${ATTR_LABEL[inst.system.primaryAttribute]} (Stress ${max - before} &rarr; ${max - after} of ${max}).`);
     }
     const enchExtras = this._instrumentExtras(inst, answer.skill);
     notes.unshift(this._math(answer.skill, enchExtras));

@@ -503,7 +503,8 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
     for (const key of ATTRIBUTE_KEYS) {
       if (!Number(this.actor.system.attributes?.[key]?.potential?.max)) continue;
       const { before, after } = await this.actor.takeStress(key, t.stress);
-      lines.push(`${ATTR_LABEL[key]} Potential ${before} &rarr; ${after}`);
+      const max = Number(this.actor.system.attributes[key].potential.max);
+      lines.push(`${ATTR_LABEL[key]} Stress ${max - before} &rarr; ${max - after} of ${max}`);
     }
     const note = `${t.stress} Strain each: ${t.base} (${failed ? "failed stretch" : "stretch"}) + ${t.overtime} (${hours} h past 8, 1 per 2 h) + ${t.extra} (Mass penalty) = ${t.stress}`;
     logEvent("toil", { actor: who(this.actor), failed, overtimeHours: hours, stress: t.stress, overtime: t.overtime, massExtra: t.extra, summary: lines });
@@ -559,7 +560,7 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
       const roll = await new Roll(`${r.fed}d4`).evaluate();
       const { before, after } = await this.actor.heal(r.key, roll.total);
       const faces = roll.dice.flatMap(d => d.results.map(x => x.result)).join(", ");
-      lines.push(`${ATTR_LABEL[r.key]}: ${r.fed} x ${REST_BLOCK_HOURS} h = ${r.fed}d4 [${faces}] = ${roll.total} off, Potential ${before} &rarr; ${after} of ${r.max}`);
+      lines.push(`${ATTR_LABEL[r.key]}: ${r.fed} x ${REST_BLOCK_HOURS} h = ${r.fed}d4 [${faces}] = ${roll.total} off, Stress ${r.max - before} &rarr; ${r.max - after} of ${r.max}`);
     }
     if (!lines.length) lines.push("No ration to eat: the time passes, but heals nothing");
     else if (plan.unfedHours) lines.push(`${plan.unfedHours} hours unfed heal nothing`);

@@ -73,8 +73,8 @@ export function* applyStressSteps(actor, aim, amount, halved, from, fmt = PLAIN)
     const ev = step.value;
     if (ev.type === "take") {
       const { before, after } = (yield ["takeStress", ev.attr, ev.amount]);
-      const max = actor.system.attributes?.[ev.attr]?.potential?.max ?? "";
-      lines.push(`${ev.overflow ? "overflow to " : ""}${ATTR_LABEL[ev.attr]} takes ${ev.amount}: Potential left ${before} ${fmt.arrow} ${after} of ${max}`);
+      const max = Number(actor.system.attributes?.[ev.attr]?.potential?.max ?? 0);
+      lines.push(`${ev.overflow ? "overflow to " : ""}${ATTR_LABEL[ev.attr]} takes ${ev.amount}: Stress ${max - before} ${fmt.arrow} ${max - after} of ${max}`);
       applied.push({ attr: ev.attr, amount: ev.amount });
       step = run.next();
     } else {

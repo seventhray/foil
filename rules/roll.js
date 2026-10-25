@@ -221,7 +221,8 @@ export function* rollTechniqueSteps({ actor, tech, fmt = PLAIN }) {
     const { before, after } = (yield ["takeStress", attr, sys.strain]);
     (yield ["log", "strain", { source: tech.name, attribute: attr, amount: sys.strain, before, after }]);
     const xp = Number(sys.xpCost ?? 0) - (sys.perTarget ? 8 : 0);
-    notes.push(`Strain ${sys.strain} on ${ATTR_LABEL[attr]} (${before} ${arrow} ${after}): (${xp} XP${sys.perTarget ? " before the Selective premium" : ""} - 24) / 8, rounded down (PHB 4.2.3).`);
+    const max = Number(asys.attributes?.[attr]?.potential?.max ?? 0);
+    notes.push(`Strain ${sys.strain} on ${ATTR_LABEL[attr]} (Stress ${max - before} ${arrow} ${max - after} of ${max}): (${xp} XP${sys.perTarget ? " before the Selective premium" : ""} - 24) / 8, rounded down (PHB 4.2.3).`);
   }
 
   const gem = inst?.system.gemActive ? inst.system.gem : null;
@@ -261,7 +262,8 @@ export function* rollEnchantmentSteps({ actor, inst, fmt = PLAIN }) {
   if (ench.strain > 0) {
     const { before, after } = (yield ["takeStress", inst.system.primaryAttribute, ench.strain]);
     (yield ["log", "strain", { source: `${inst.name} (Enchantment)`, attribute: inst.system.primaryAttribute, amount: ench.strain, before, after }]);
-    notes.push(`Strain ${ench.strain} on ${ATTR_LABEL[inst.system.primaryAttribute]} (${before} ${arrow} ${after}).`);
+    const max = Number(actor.system.attributes?.[inst.system.primaryAttribute]?.potential?.max ?? 0);
+    notes.push(`Strain ${ench.strain} on ${ATTR_LABEL[inst.system.primaryAttribute]} (Stress ${max - before} ${arrow} ${max - after} of ${max}).`);
   }
   const enchExtras = instrumentExtras(inst, skill);
   notes.unshift(esc(skillMath(actor.system, skill, enchExtras)));
