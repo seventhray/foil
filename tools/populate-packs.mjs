@@ -253,8 +253,8 @@ function parseEffects(text) {
   return { list, stress, unparsed };
 }
 
-// New capabilities sustained by Upkeep (PHB 7.2.3). No Effect in the table
-// prices the capability itself, so these carry their printed XP only.
+// New capabilities sustained by Upkeep (PHB 7.1.8). No Effect in the table
+// prices the capability itself, so these keep their printed XP and their line as text.
 const MOVEMENT_TRAITS = new Set(["Fly", "Swim", "Burrow", "Climb", "Incorporeal Movement"]);
 // Quick-trigger rows where the 8 XP floor hides whether Stress is implied:
 // composed by hand so Stress is never guessed.
@@ -281,15 +281,16 @@ function techniqueDoc(n) {
 
   // A Technique deals Stress only when its line says so (PHB 4.2.1).
   let effects;
-  if (MOVEMENT_TRAITS.has(n.name)) { effects = []; unparsed.length = 0; }
+  if (MOVEMENT_TRAITS.has(n.name)) { effects = [e("upkeep")]; unparsed.length = 0; }
   else if (HAND_EFFECTS[n.name]) { effects = HAND_EFFECTS[n.name](); unparsed.length = 0; }
   else effects = stress ? [e("stress"), ...list] : list;
 
   // PHB 4.2.5: only an Action Technique can have Upkeep.
   if (/^Upkeep$/im.test(splitTop(n.effect ?? "").join("\n")) && /\bQuick\b/.test(n.effect ?? "")) priceFails.push(`${n.name}: Upkeep needs an Action Technique (PHB 4.2.5)`);
+  const printed = MOVEMENT_TRAITS.has(n.name) ? xp ?? 0 : 0;
   const computed = price(effects);
   if (xp === null) xp = computed;
-  if (effects.length && (computed !== xp || unparsed.length)) {
+  if (!printed && effects.length && (computed !== xp || unparsed.length)) {
     priceFails.push(`${n.name}: printed ${xp}, Effects price ${computed}  [${n.effect}]${unparsed.length ? `  unparsed: ${unparsed.join(" | ")}` : ""}`);
   }
   if (n.strain !== undefined && n.strain !== null && Number(n.strain) !== strainFor(xp - (perTarget ? 8 : 0))) {
@@ -302,9 +303,9 @@ function techniqueDoc(n) {
       requires, innate,
       skill: skillMatch ? lc(skillMatch[1]) : "",
       family: n.family ?? "", subgroup: n.subgroup ?? "",
-      effects, floor, ...(TECH_RANGE[n.name] ?? {}),
+      effects, floor, ...(printed ? { printedXp: printed } : {}), ...(TECH_RANGE[n.name] ?? {}),
       ancestryGrant: n.origin_grant ?? "",
-      description: n.description ? `<p>${n.description}</p>` : ""
+      description: n.description ? `<p>${n.description}</p>` : printed ? `<p>${n.effect}.</p>` : ""
     }
   };
 }

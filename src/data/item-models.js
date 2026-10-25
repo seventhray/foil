@@ -134,6 +134,8 @@ export class TechniqueData extends foundry.abstract.TypeDataModel {
       effects: effectsArraySchema(),
       // A stated defensive floor (PHB 4.2.1) the effects can't show on their own.
       floor: bool(false),
+      // The XP a Technique's table prints when no Effect prices its capability (PHB 7.1.8 Movement); 0 prices it from the Effects.
+      printedXp: int(0),
       ancestryGrant: str(""),
       description: html("")
     };

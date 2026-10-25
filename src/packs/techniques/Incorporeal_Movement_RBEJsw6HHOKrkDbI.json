@@ -11,10 +11,20 @@
     "skill": "",
     "family": "Fortifying",
     "subgroup": "Movement",
-    "effects": [],
+    "effects": [
+      {
+        "key": "upkeep",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveR": 0
+      }
+    ],
     "floor": true,
+    "printedXp": 24,
     "ancestryGrant": "",
-    "description": ""
+    "description": "<p>Move through walls, doors, and other solid barriers as though they weren't there, for the duration of Upkeep.</p>"
   },
   "effects": [],
   "folder": "yqYeIVYy0qHNY9C0",
