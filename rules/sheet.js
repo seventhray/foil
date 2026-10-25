@@ -71,12 +71,14 @@ export function deriveCore(sys, items = []) {
     const extra = Number(mods.attributeResistance?.[key] ?? 0);
     a.resistanceExtra = extra;
     a.resistanceTotal = Number(sys.resistance[`${a.kind}Total`] ?? 0) + extra;
-    a.resistanceFromLabel = (mods.attributeResistanceSources?.[key] ?? []).map(e => `+${e.value} ${e.name}`).join(", ");
+    a.resistanceFromLabel = (mods.attributeResistanceSources?.[key] ?? []).map(e => `${e.value < 0 ? "" : "+"}${e.value} ${e.name}`).join(", ");
   }
 
-  // Mass (PHB 5.2.6): everything equipped or carried, worn Armor included.
+  // Mass (PHB 5.2.6): everything equipped or carried, worn Armor included. An Immobile item keeps its own Mass but stays where it
+  // stands, so it is not carried (user, 2026-10-25).
   const might = attrs.might?.potential?.max ?? 0;
-  const carried = items.reduce((n, it) => n + Number(it.system?.carriedWeight ?? 0), 0)
+  const fixed = items.filter(it => (it.system?.types ?? []).includes("immobile") && Number(it.system?.carriedWeight ?? 0) > 0);
+  const carried = items.reduce((n, it) => n + (fixed.includes(it) ? 0 : Number(it.system?.carriedWeight ?? 0)), 0)
                 + Number(sys.rations ?? 0) * RATION_LBS;
   sys.carry = {
     weight: carried,
@@ -87,7 +89,9 @@ export function deriveCore(sys, items = []) {
       ? Math.ceil(carried / might) - CARRY_FREE_MULTIPLE : 0
   };
   // The Mass math, every term named (PHB 5.2.6).
-  sys.carry.math = `Mass ${carried} lbs (items ${carried - sys.carry.rationMass}, rations ${sys.carry.rationMass}); free up to ${CARRY_FREE_MULTIPLE} x Might Potential ${might} = ${sys.carry.limit}`
+  sys.carry.math = `Mass ${carried} lbs (items ${carried - sys.carry.rationMass}, rations ${sys.carry.rationMass}`
+    + (fixed.length ? `; not carried, fixed in place: ${fixed.map(it => `${it.name} ${it.system.carriedWeight} lbs`).join(", ")}` : "")
+    + `); free up to ${CARRY_FREE_MULTIPLE} x Might Potential ${might} = ${sys.carry.limit}`
     + (sys.carry.penalty ? `; penalty: ${carried} / ${might} rounded up, minus ${CARRY_FREE_MULTIPLE} = -${sys.carry.penalty}` : "; no penalty");
 
   const skills = sys.skills ?? {};
