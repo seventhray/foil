@@ -49,7 +49,7 @@ export function scopedResistance({ narrowResistance = [] } = {}, attack = {}) {
   let net = 0;
   const parts = [];
   for (const v of narrowResistance) {
-    if (scopeApplies(v, attack)) { net += Number(v.n); parts.push(`${scopeLabel(v)} Resistance +${v.n}`); }
+    if (scopeApplies(v, attack)) { net += Number(v.n); parts.push(`${scopeLabel(v)} Resistance ${Number(v.n) < 0 ? "" : "+"}${v.n}`); }
   }
   return { net, parts };
 }

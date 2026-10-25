@@ -62,7 +62,7 @@ export function deriveCore(sys, items = []) {
     sys.resistance[`${kind}Base`]  = base;
     sys.resistance[`${kind}Bonus`] = bonus;
     sys.resistance[`${kind}Total`] = base + bonus;
-    sys.resistance[`${kind}FromLabel`] = from.map(e => `+${e.value} ${e.name}`).join(", ");
+    sys.resistance[`${kind}FromLabel`] = from.map(e => `${e.value < 0 ? "" : "+"}${e.value} ${e.name}`).join(", ");
   }
   // Resistance made for one Attribute (PHB 5.2.4) adds to its kind's total for that Attribute only.
   for (const key of ATTRIBUTE_KEYS) {

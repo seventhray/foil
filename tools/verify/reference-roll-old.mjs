@@ -54,7 +54,7 @@ export class RefSheet {
     if (!inst) return [];
     const out = [];
     const own = Number(inst.system.bonusRoll ?? 0) - Number(inst.system.enchantRoll ?? 0);
-    if (own) out.push({ label: `${inst.name} +${inst.system.bonus}`, value: own });
+    if (own) out.push({ label: inst.name, value: own });
     if (inst.system.enchantRoll) out.push({ label: `${inst.name} Enchantment`, value: Number(inst.system.enchantRoll) });
     if (inst.system.enchantSkill?.skill === skill && inst.system.enchantSkill.n) out.push({ label: `${inst.name} Enchantment`, value: Number(inst.system.enchantSkill.n) });
     return out;
