@@ -6,7 +6,7 @@
   "system": {
     "category": "potion",
     "price": 5,
-    "weight": 0,
+    "weight": 1,
     "weightClass": "",
     "size": "small",
     "materials": "Reagent",

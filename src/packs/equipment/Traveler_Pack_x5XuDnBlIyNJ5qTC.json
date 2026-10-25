@@ -6,7 +6,7 @@
   "system": {
     "category": "gear",
     "price": 5,
-    "weight": 0,
+    "weight": 10,
     "weightClass": "",
     "size": "small",
     "materials": "",

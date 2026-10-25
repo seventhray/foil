@@ -450,7 +450,7 @@ function equipmentDocs() {
     for (const n of [1, 2, 3, 4]) {
       const price = num(r[`+${n}`]);
       if (!price) continue;
-      const base = { size: "small", materials: "Metal", notes: r.Gives };
+      const base = { size: "small", materials: "Metal", notes: r.Gives, weight: num(r.Mass) };
       if (r.Item === "Mental Ward") out.push(equip(`Mental Ward +${n}`, "ward", price, { ...base, qualities: [q("resistance", n, "mental")] }));
       else if (/ Ward$/.test(r.Item)) for (const a of r.Item.replace(/ Ward$/, "").split(/,? or |, /))
         out.push(equip(`${a} Ward +${n}`, "ward", price, { ...base, qualities: [q("resistance", n, lc(a))] }));
@@ -459,14 +459,14 @@ function equipmentDocs() {
     }
   }
   for (const r of tableAfter(PHB, /^### 7\.9\.4 Adventuring Gear/)) {
-    out.push(equip(r.Item, "gear", num(r.Price), { effect: r["Helps with"], size: "small", materials: "" }));
+    out.push(equip(r.Item, "gear", num(r.Price), { effect: r["Helps with"], weight: num(r.Mass), size: "small", materials: "" }));
   }
   // Consumables (PHB 7.9.5): poisons and throwables are Reagent; medicine heals; the rest is gear.
   for (const r of tableAfter(PHB, /^### 7\.9\.5 Consumables/)) {
     const category = /thrown|coats a weapon/.test(r.Effect) ? "potion"
                    : /Stress|poison or sickness/.test(r.Effect) ? "medicine" : "gear";
     out.push(equip(r.Item, category, num(r.Price), {
-      effect: r.Effect, duration: r.Duration, uses: r.Uses, size: "small", materials: category === "potion" ? "Reagent" : ""
+      effect: r.Effect, duration: r.Duration, uses: r.Uses, weight: num(r.Mass), size: "small", materials: category === "potion" ? "Reagent" : ""
     }));
   }
   for (const r of tableAfter(PHB, /^### 7\.10\.4 Focus Gems/)) {

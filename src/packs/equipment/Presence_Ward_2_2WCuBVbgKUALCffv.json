@@ -6,7 +6,7 @@
   "system": {
     "category": "ward",
     "price": 45,
-    "weight": 0,
+    "weight": 1,
     "weightClass": "",
     "size": "small",
     "materials": "Metal",
