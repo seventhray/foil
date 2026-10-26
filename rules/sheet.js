@@ -74,11 +74,16 @@ export function deriveCore(sys, items = []) {
     a.resistanceFromLabel = (mods.attributeResistanceSources?.[key] ?? []).map(e => `${e.value < 0 ? "" : "+"}${e.value} ${e.name}`).join(", ");
   }
 
-  // Mass (PHB 5.2.6): everything equipped or carried, worn Armor included. An Immobile item keeps its own Mass but stays where it
-  // stands, so it is not carried (user, 2026-10-25).
+  // Mass (PHB 5.2.6): everything equipped or carried, worn Armor included. A stored item keeps its Mass at its place of Storage, and
+  // an Immobile one where it stands, so neither is carried (user, 2026-10-25).
   const might = attrs.might?.potential?.max ?? 0;
-  const fixed = items.filter(it => (it.system?.types ?? []).includes("immobile") && Number(it.system?.carriedWeight ?? 0) > 0);
-  const carried = items.reduce((n, it) => n + (fixed.includes(it) ? 0 : Number(it.system?.carriedWeight ?? 0)), 0)
+  const lbs = it => Number(it.system?.carriedWeight ?? 0);
+  const isStored = it => it.system?.location === "stored";
+  const fixed = items.filter(it => !isStored(it) && (it.system?.types ?? []).includes("immobile") && lbs(it) > 0);
+  const places = new Map();
+  for (const it of items) if (isStored(it) && lbs(it) > 0) places.set(it.system.storedAt ?? "", [...(places.get(it.system.storedAt ?? "") ?? []), it]);
+  const away = new Set([...fixed, ...[...places.values()].flat()]);
+  const carried = items.reduce((n, it) => n + (away.has(it) ? 0 : lbs(it)), 0)
                 + Number(sys.rations ?? 0) * RATION_LBS;
   sys.carry = {
     weight: carried,
@@ -91,6 +96,7 @@ export function deriveCore(sys, items = []) {
   // The Mass math, every term named (PHB 5.2.6).
   sys.carry.math = `Mass ${carried} lbs (items ${carried - sys.carry.rationMass}, rations ${sys.carry.rationMass}`
     + (fixed.length ? `; not carried, fixed in place: ${fixed.map(it => `${it.name} ${it.system.carriedWeight} lbs`).join(", ")}` : "")
+    + [...places].map(([at, list]) => `; not carried, stored${at ? ` at ${at}` : ""}: ${list.map(it => `${it.name} ${lbs(it)} lbs`).join(", ")}`).join("")
     + `); free up to ${CARRY_FREE_MULTIPLE} x Might Potential ${might} = ${sys.carry.limit}`
     + (sys.carry.penalty ? `; penalty: ${carried} / ${might} rounded up, minus ${CARRY_FREE_MULTIPLE} = -${sys.carry.penalty}` : "; no penalty");
 

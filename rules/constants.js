@@ -276,6 +276,7 @@ export const BEHAVIOR_HELP = {
 export const cap = s => s ? String(s).charAt(0).toUpperCase() + String(s).slice(1) : "";
 
 // Where an item is (PHB 4.1.0, 5.2.6): equipped (worn, or in hand and ready), carried
-// (on the character, not ready).
-export const ITEM_LOCATIONS = ["equipped", "carried"];
-export const LOCATION_LABEL = { equipped: "Equipped", carried: "Carried" };
+// (on the character, not ready), or stored at a place apart from the character, its storedAt
+// (a mount, a house, a vehicle), keeping its Mass there (user, 2026-10-25).
+export const ITEM_LOCATIONS = ["equipped", "carried", "stored"];
+export const LOCATION_LABEL = { equipped: "Equipped", carried: "Carried", stored: "Stored" };

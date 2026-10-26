@@ -68,10 +68,13 @@ export function attackInfo(inst) {
 /** The Skills an Instrument (or a shield) rolls: the ones its Primary Attribute reaches (PHB 4.1.0). */
 export const skillsOf = i => i.type === "instrument" ? i.system.primarySkills : ["prowess", "discipline", "assertiveness"];
 
-/** Instruments able to deliver a Technique: any one of its required Types; equipped ones first. */
+/** A stored Instrument works where it is stored (user, 2026-10-25). */
+const storedNote = (inst, esc) => `${esc(inst.name)} is stored${inst.system.storedAt ? ` at ${esc(inst.system.storedAt)}` : ""}: using it means being there.`;
+
+/** Instruments able to deliver a Technique: any one of its required Types; equipped ones first, stored ones last. */
 export function validInstruments(actor, tech) {
   const req = tech.system.requires ?? [];
-  const ready = i => (i.system.innate || i.system.location === "equipped") ? 0 : 1;
+  const ready = i => (i.system.innate || i.system.location === "equipped") ? 0 : i.system.location === "stored" ? 2 : 1;
   return items(actor).filter(i => {
     if (i.type === "instrument") return req.length === 0 || req.some(k => i.system.types?.includes(k));
     if (i.type === "equipment" && i.system.category === "shield") return req.includes("blocking");
@@ -124,7 +127,8 @@ export function* rollKitSteps({ actor, inst, index, fmt = PLAIN }) {
   if (!inst || !kit) return;
   const notes = rollNotes(sys, kit.skill, true);
   notes.unshift(`${esc(inst.name)}: ${esc(kit.effect)}`);
-  if (!inst.system.innate && inst.system.location !== "equipped") notes.push(`${esc(inst.name)} isn't equipped: switching to it costs the Quick Action (PHB 4.1.0).`);
+  if (inst.system.location === "stored") notes.push(storedNote(inst, esc));
+  else if (!inst.system.innate && inst.system.location !== "equipped") notes.push(`${esc(inst.name)} isn't equipped: switching to it costs the Quick Action (PHB 4.1.0).`);
   if (inst.system.quick) notes.push("Light: after an Action through a Light Instrument, the Quick Action can pay for this (PHB 4.2.2).");
   if (inst.system.doublesMargin) notes.push("Heavy: costs the Action and the Quick Action; the margin doubles (PHB 4.1.1).");
   if (inst.system.reload) notes.push(`Reload: ${inst.system.reload === "quick" ? "Quick Action" : "Action"}.`);
@@ -201,6 +205,7 @@ export function* rollTechniqueSteps({ actor, tech, fmt = PLAIN }) {
   const bonus = [{ label: tech.name, value: Number(sys.rollBonus ?? 0) }, ...instrumentExtras(inst, skill)];
   const notes = rollNotes(asys, skill, true);
   notes.unshift(`${inst ? `Through ${esc(inst.name)}` : "Innate"}. ${esc(sys.effectSummary)}`);
+  if (inst?.system.location === "stored") notes.push(storedNote(inst, esc));
   if (inst?.system.enchantBonus) notes.push(`Enchantment: ${inst.system.enchantBonus.label}${inst.system.enchantBonus.applies ? "" : " (apply at the table)"}.`);
   if (sys.quick) notes.push("Quick: may be paid with the Quick Action.");
   if (inst?.system.doublesMargin) notes.push("Heavy: costs the Action and the Quick Action; the margin doubles (PHB 4.1.1).");

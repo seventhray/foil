@@ -33,7 +33,7 @@ import { reachBand, reachLine, rangeWarning } from "../range.js";
 import { logEvent, who } from "../playtest-log.js";
 import { glossarize, bindTerms, lookup } from "../glossary-ui.js";
 
-const LOCATION_ICON = { equipped: "fa-hand", carried: "fa-suitcase" };
+const LOCATION_ICON = { equipped: "fa-hand", carried: "fa-suitcase", stored: "fa-box-archive" };
 const locationView = loc => ({ key: loc, icon: LOCATION_ICON[loc] ?? "fa-suitcase", label: LOCATION_LABEL[loc] ?? loc });
 
 const { HandlebarsApplicationMixin } = foundry.applications.api;

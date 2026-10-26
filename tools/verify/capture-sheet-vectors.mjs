@@ -35,6 +35,9 @@ add("one Attribute at zero Potential", CharacterData, "character", mut(s => { s.
 add("one Attribute flagged Incapacitated", CharacterData, "character", mut(s => { s.attributes.wit.incapacitated = true; }), (base.items ?? []));
 add("every Attribute Incapacitated (Destroyed)", CharacterData, "character", mut(s => { for (const k of Object.keys(s.attributes)) s.attributes[k].incapacitated = true; }), (base.items ?? []));
 add("rations and a heavy load", CharacterData, "character", mut(s => { s.rations = 40; }), (base.items ?? []).map(i => ({ ...plain(i), system: { ...plain(i).system, carriedWeight: 60 } })));
+add("stored and Immobile items", CharacterData, "character", mut(s => { s.rations = 2; s.storage = ["Hand sled", "House"]; }),
+  (base.items ?? []).map((i, n) => ({ ...plain(i), system: { ...plain(i).system, carriedWeight: 10,
+    ...(n % 3 === 0 ? { location: "stored", storedAt: n % 2 ? "House" : "Hand sled" } : n % 3 === 1 ? { types: [...(plain(i).system.types ?? []), "immobile"] } : {}) } })));
 add("negative base Resistance", CharacterData, "character", mut(s => { s.resistance.physical = -2; s.resistance.mental = 3; }), (base.items ?? []));
 add("Training past the dice cap", CharacterData, "character", mut(s => { s.skills.prowess = { training: 9 }; s.skills.acuity = { training: 5 }; }), (base.items ?? []));
 add("no dice at all", CharacterData, "character", mut(s => { for (const k of Object.keys(s.attributes)) for (const d of Object.keys(s.attributes[k].dice)) s.attributes[k].dice[d] = 0; }), []);

@@ -9,6 +9,11 @@
     {{#unless system.innate}}
     <label>Location <em>(equipped is ready in hand; switching costs the Quick Action)</em></label>
     <select name="system.location">{{#each locationOptions}}<option value="{{this.value}}" {{#if (foil-eq this.value ../system.location)}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>
+    {{#if (foil-eq system.location "stored")}}
+    <label>Stored at <em>(a mount, a house, a vehicle: its Mass stays there)</em></label>
+    <input type="text" name="system.storedAt" value="{{system.storedAt}}" list="storage-{{item.id}}" />
+    <datalist id="storage-{{item.id}}">{{#each storagePlaces}}<option value="{{this}}"></option>{{/each}}</datalist>
+    {{/if}}
     {{/unless}}
     <label>Primary Attribute <em>(sets its three Skills)</em></label>
     <select name="system.primaryAttribute">{{#each attributeOptions}}<option value="{{this.value}}" {{#if (foil-eq this.value ../system.primaryAttribute)}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>

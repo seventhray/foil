@@ -114,6 +114,7 @@ export class FoilItemSheet extends HandlebarsApplicationMixin(ItemSheetV2Base) {
       system: sys,
       weightOptions: WEIGHT_KEYS.map(k => opt(k, WEIGHT_CLASS[k].label)),
       locationOptions: ITEM_LOCATIONS.map(k => opt(k, LOCATION_LABEL[k])),
+      storagePlaces: this.item.parent?.system?.storage ?? [],
       weightClassOptions: [opt("", "None"), ...WEIGHT_KEYS.map(k => opt(k, WEIGHT_CLASS[k].label))],
       sizeOptions: SIZE_KEYS.map(k => opt(k, `${SIZE[k].label} (${SIZE[k].batches} batch${SIZE[k].batches > 1 ? "es" : ""})`)),
       attributeOptions: ATTRIBUTE_KEYS.map(k => opt(k, ATTR_LABEL[k])),

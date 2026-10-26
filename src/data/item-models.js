@@ -48,7 +48,6 @@ export class InstrumentData extends foundry.abstract.TypeDataModel {
     }
     if (source?.types) source.types = mapTypes(source.types);
     if (source && "weight" in source && !WEIGHT_KEYS.includes(source.weight)) source.weight = "light";
-    if (source?.location === "stored") source.location = "carried";
     return super.migrateData(source);
   }
 
@@ -77,6 +76,8 @@ export class InstrumentData extends foundry.abstract.TypeDataModel {
       innate: bool(false),
       // Equipped (ready) or carried (PHB 4.1.0, 5.2.6). Innate Instruments are always equipped.
       location: new f.StringField({ required: true, initial: "equipped", choices: ITEM_LOCATIONS }),
+      // The place of Storage that holds it while stored.
+      storedAt: str(""),
       bonus: new f.NumberField({ required: true, integer: true, initial: 0, min: 0, max: 5 }),
       size: sizeField("medium"),
       materials: str(""),
@@ -148,7 +149,6 @@ export class TechniqueData extends foundry.abstract.TypeDataModel {
 
 export class EquipmentData extends foundry.abstract.TypeDataModel {
   static migrateData(source) {
-    if (source?.location === "stored") source.location = "carried";
     if (source?.category === "ward" && (source.qualities ?? []).some(q => q.key === "bolster" || q.key === "skill-bonus")) {
       source.category = "charm";
     }
@@ -179,6 +179,8 @@ export class EquipmentData extends foundry.abstract.TypeDataModel {
       materials: str(""),
       // Equipped (worn or in hand) or carried (PHB 5.2.6).
       location: new f.StringField({ required: true, initial: "carried", choices: ITEM_LOCATIONS }),
+      // The place of Storage that holds it while stored.
+      storedAt: str(""),
       qualities: new f.ArrayField(new f.SchemaField({
         key: slugField(""),
         value: int(0),
