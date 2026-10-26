@@ -36,7 +36,7 @@
     "innate": false,
     "bonus": 0,
     "size": "medium",
-    "materials": "Wood + Metal",
+    "materials": "1 Wood, 1 Metal",
     "description": ""
   },
   "effects": [],

@@ -167,7 +167,7 @@
         "innate": false,
         "bonus": 0,
         "size": "small",
-        "materials": "Metal",
+        "materials": "1 Metal",
         "description": ""
       },
       "effects": [],

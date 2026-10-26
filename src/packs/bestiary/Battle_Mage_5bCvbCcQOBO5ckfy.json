@@ -130,7 +130,7 @@
         "innate": false,
         "bonus": 0,
         "size": "small",
-        "materials": "Wood",
+        "materials": "1 Wood",
         "description": ""
       },
       "effects": [],

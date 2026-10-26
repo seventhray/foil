@@ -133,7 +133,7 @@
         "innate": false,
         "bonus": 0,
         "size": "medium",
-        "materials": "Wood",
+        "materials": "2 Wood",
         "description": ""
       },
       "effects": [],
@@ -182,7 +182,7 @@
         "innate": false,
         "bonus": 0,
         "size": "medium",
-        "materials": "Wood",
+        "materials": "2 Wood",
         "description": ""
       },
       "effects": [],

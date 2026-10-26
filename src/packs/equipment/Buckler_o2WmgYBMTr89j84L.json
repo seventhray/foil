@@ -9,7 +9,7 @@
     "weight": 0,
     "weightClass": "light",
     "size": "small",
-    "materials": "Metal",
+    "materials": "1 Metal",
     "location": "carried",
     "qualities": [
       {

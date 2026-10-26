@@ -128,7 +128,7 @@
         "innate": false,
         "bonus": 0,
         "size": "small",
-        "materials": "Metal",
+        "materials": "1 Metal",
         "description": ""
       },
       "effects": [],
@@ -178,7 +178,7 @@
         "innate": false,
         "bonus": 0,
         "size": "medium",
-        "materials": "Wood + Textile",
+        "materials": "2 Wood",
         "description": ""
       },
       "effects": [],

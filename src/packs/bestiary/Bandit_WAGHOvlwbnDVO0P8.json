@@ -128,7 +128,7 @@
         "innate": false,
         "bonus": 0,
         "size": "small",
-        "materials": "Metal",
+        "materials": "1 Metal",
         "description": ""
       },
       "effects": [],
@@ -177,7 +177,7 @@
         "innate": false,
         "bonus": 0,
         "size": "small",
-        "materials": "Leather",
+        "materials": "1 Leather",
         "description": ""
       },
       "effects": [],

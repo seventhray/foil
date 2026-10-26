@@ -330,7 +330,7 @@ const sizeOf = {}, materialsOf = {};
 for (const row of SIZE_TABLE) {
   for (const item of row.Items.split(",").map(s => s.trim())) {
     sizeOf[lc(item)] = lc(row.Size);
-    materialsOf[lc(item)] = row.Materials;
+    materialsOf[lc(item)] = row.Batches;
   }
 }
 const WEIGHT_WORDS = { light: "light", medium: "medium", heavy: "heavy" };
