@@ -253,9 +253,9 @@ function parseEffects(text) {
   return { list, stress, unparsed };
 }
 
-// New capabilities sustained by Upkeep (PHB 7.1.8). No Effect in the table
-// prices the capability itself, so these keep their printed XP and their line as text.
-const MOVEMENT_TRAITS = new Set(["Fly", "Swim", "Burrow", "Climb", "Incorporeal Movement"]);
+// Movement a Transformation gives (PHB 7.3.0), sustained by Upkeep. No Effect in the table
+// prices the capability itself, so Upkeep is their one Effect and their line is their text.
+const MOVEMENT_TRAITS = new Set(["Fly", "Swim", "Burrow", "Climb"]);
 // Quick-trigger rows where the 8 XP floor hides whether Stress is implied:
 // composed by hand so Stress is never guessed.
 const HAND_EFFECTS = {
@@ -265,7 +265,8 @@ const HAND_EFFECTS = {
   Cleave: () => [e("stress"), e("quick")],
   "Warning Lash": () => [e("stress"), e("quick")],
   "River Walk": () => [e("evade")],
-  Charge: () => [e("prone"), e("reeling", { magnitude: 2 })]
+  Charge: () => [e("prone"), e("reeling", { magnitude: 2 })],
+  "Quill Bristle": () => [e("stress"), e("quick")]
 };
 const TECH_RANGE = { Charge: { minRange: "short" } };
 const priceFails = [];
@@ -287,10 +288,9 @@ function techniqueDoc(n) {
 
   // PHB 4.2.5: only an Action Technique can have Upkeep.
   if (/^Upkeep$/im.test(splitTop(n.effect ?? "").join("\n")) && /\bQuick\b/.test(n.effect ?? "")) priceFails.push(`${n.name}: Upkeep needs an Action Technique (PHB 4.2.5)`);
-  const printed = MOVEMENT_TRAITS.has(n.name) ? xp ?? 0 : 0;
   const computed = price(effects);
   if (xp === null) xp = computed;
-  if (!printed && effects.length && (computed !== xp || unparsed.length)) {
+  if (effects.length && (computed !== xp || unparsed.length)) {
     priceFails.push(`${n.name}: printed ${xp}, Effects price ${computed}  [${n.effect}]${unparsed.length ? `  unparsed: ${unparsed.join(" | ")}` : ""}`);
   }
   if (n.strain !== undefined && n.strain !== null && Number(n.strain) !== strainFor(xp - (perTarget ? 8 : 0))) {
@@ -303,9 +303,9 @@ function techniqueDoc(n) {
       requires, innate,
       skill: skillMatch ? lc(skillMatch[1]) : "",
       family: n.family ?? "", subgroup: n.subgroup ?? "",
-      effects, floor, ...(printed ? { printedXp: printed } : {}), ...(TECH_RANGE[n.name] ?? {}),
+      effects, floor, ...(TECH_RANGE[n.name] ?? {}),
       ancestryGrant: n.origin_grant ?? "",
-      description: n.description ? `<p>${n.description}</p>` : printed ? `<p>${n.effect}.</p>` : ""
+      description: n.description ? `<p>${n.description}</p>` : ""
     }
   };
 }
@@ -671,7 +671,13 @@ const grantedTechniques = CAT.feats.flatMap(f => {
   const [effect, ...rest] = m[4].split(/\.\s+/);
   return [{ name, requires: m[2] ?? m[3], effect, description: rest.join(". ").replace(/\.$/, "") + (rest.length ? "." : ""), origin_grant: f.origin, xp: null }];
 });
-const techniques = [...[...CAT.techniques].sort(byOrder), ...grantedTechniques].map(techniqueDoc);
+// A Technique only a Transformation gives is defined by its row (PHB 7.3.0) and has no Catalog note; its line is its text.
+const transformationTechniques = tableAfter(PHB, /^## 7\.3\.0 Transformations/).flatMap(r => {
+  const m = String(r.Gives ?? "").match(/^The (.+?) Technique \(Innate\)\.\s*(.*)$/);
+  if (!m || CAT.techniques.some(t => t.name === m[1])) return [];
+  return [{ name: m[1], requires: "Innate", effect: m[2].replace(/\.$/, ""), description: m[2].replace(/\.?$/, "."), xp: null }];
+});
+const techniques = [...[...CAT.techniques].sort(byOrder), ...grantedTechniques, ...transformationTechniques].map(techniqueDoc);
 const instruments = [
   ...INNATE_INSTRUMENTS.map(innateDoc),
   ...[...CAT.instruments].sort(byOrder).map(instrumentDoc),
@@ -696,7 +702,7 @@ for (const bg of backgrounds) {
 const featNames = new Set(feats.map(f => f.name));
 for (const a of ancestries) for (const f of a.system.feats) if (!featNames.has(f)) warnings.push(`${a.name}: Feat "${f}" not in the Catalog`);
 
-const expect = { techniques: 120, feats: 57, instruments: 34, tools: 17 };
+const expect = { techniques: 115, feats: 57, instruments: 34, tools: 17 };
 for (const [k, n] of Object.entries(expect)) {
   if (CAT[k].length !== n) warnings.push(`Catalog/${k}: ${CAT[k].length} notes, expected ${n}`);
 }

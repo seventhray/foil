@@ -1,0 +1,42 @@
+{
+  "_id": "wHNsRfDoJTsXqg1o",
+  "name": "Quill Bristle",
+  "type": "technique",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "requires": [],
+    "innate": true,
+    "skill": "",
+    "family": "",
+    "subgroup": "",
+    "effects": [
+      {
+        "key": "stress",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveR": 0
+      },
+      {
+        "key": "quick",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveR": 0
+      }
+    ],
+    "floor": true,
+    "ancestryGrant": "",
+    "description": "<p>Quick (trigger: you win an Oppose against a Melee Technique at Range 0): deal Stress to that attacker, as if you were the attacker.</p>"
+  },
+  "effects": [],
+  "folder": "Rh0DnkQdSreto5kG",
+  "sort": 12400000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!wHNsRfDoJTsXqg1o"
+}

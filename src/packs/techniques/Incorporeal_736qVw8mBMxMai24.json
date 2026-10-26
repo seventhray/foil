@@ -3,7 +3,7 @@
   "name": "Incorporeal",
   "type": "Item",
   "folder": null,
-  "sort": 700000,
+  "sort": 600000,
   "color": null,
   "description": "",
   "flags": {},

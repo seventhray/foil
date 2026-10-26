@@ -589,7 +589,7 @@ export const TRAITS = [
  {
   "name": "Fly",
   "xp": 8,
-  "effect": "Move through open air, ignoring ground-based terrain and any Grappling or Move Effect that requires solid footing beneath the target, for the duration of Upkeep"
+  "effect": "Moves through open air, ignoring ground-based terrain and any Grappling or Move Effect that requires solid footing beneath the target."
  },
  {
   "name": "Swim",
@@ -604,17 +604,17 @@ export const TRAITS = [
  {
   "name": "Burrow",
   "xp": 8,
-  "effect": "Move through loose earth as though it were open ground, for the duration of Upkeep"
+  "effect": "Moves through loose earth as though it were open ground."
  },
  {
   "name": "Climb",
   "xp": 8,
-  "effect": "Move along vertical surfaces at full speed without a roll, for the duration of Upkeep"
+  "effect": "Moves along vertical surfaces at full speed without a roll."
  },
  {
   "name": "Incorporeal Movement",
   "xp": 8,
-  "effect": "Move through walls, doors, and other solid barriers as though they weren't there, for the duration of Upkeep"
+  "effect": "Moves through walls, doors, and other solid barriers as though they weren't there."
  },
  {
   "name": "Darkvision",

@@ -4,13 +4,11 @@
   "type": "technique",
   "img": "icons/svg/aura.svg",
   "system": {
-    "requires": [
-      "fortifying"
-    ],
-    "innate": false,
+    "requires": [],
+    "innate": true,
     "skill": "",
-    "family": "Fortifying",
-    "subgroup": "Movement",
+    "family": "",
+    "subgroup": "",
     "effects": [
       {
         "key": "upkeep",
@@ -21,14 +19,13 @@
         "selectiveR": 0
       }
     ],
-    "floor": true,
-    "printedXp": 16,
+    "floor": false,
     "ancestryGrant": "",
     "description": "<p>Move through water at full speed and breathe within it, for the duration of Upkeep.</p>"
   },
   "effects": [],
-  "folder": "yqYeIVYy0qHNY9C0",
-  "sort": 500000,
+  "folder": "Rh0DnkQdSreto5kG",
+  "sort": 12700000,
   "ownership": {
     "default": 0
   },

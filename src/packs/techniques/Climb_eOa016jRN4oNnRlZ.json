@@ -4,13 +4,11 @@
   "type": "technique",
   "img": "icons/svg/aura.svg",
   "system": {
-    "requires": [
-      "fortifying"
-    ],
-    "innate": false,
+    "requires": [],
+    "innate": true,
     "skill": "",
-    "family": "Fortifying",
-    "subgroup": "Movement",
+    "family": "",
+    "subgroup": "",
     "effects": [
       {
         "key": "upkeep",
@@ -21,14 +19,13 @@
         "selectiveR": 0
       }
     ],
-    "floor": true,
-    "printedXp": 16,
+    "floor": false,
     "ancestryGrant": "",
     "description": "<p>Move along vertical surfaces at full speed without a roll, for the duration of Upkeep.</p>"
   },
   "effects": [],
-  "folder": "yqYeIVYy0qHNY9C0",
-  "sort": 1000000,
+  "folder": "Rh0DnkQdSreto5kG",
+  "sort": 12600000,
   "ownership": {
     "default": 0
   },

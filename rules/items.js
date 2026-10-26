@@ -11,7 +11,7 @@ import {
   WEIGHT_CLASS, SKILL_KEYS, SKILL_LABEL, PRIMARY_SKILLS, BONUS_PRICE, MATERIAL_TIER_PRICE, SIZE, TYPE_SURCHARGE,
   REACH_PRICE_PER_BAND, RANGE_BANDS, RANGE_LABEL, rangeBandOf, usualRange, rangeTextFor, FOCUS_GEMS
 } from "./constants.js";
-import { priceTechnique, strainFor, SELECTIVE_PREMIUM, STRAIN_FREE_XP, STRAIN_DIVISOR } from "./pricing.js";
+import { priceTechnique, strainFor, SELECTIVE_PREMIUM } from "./pricing.js";
 
 const ARCANE_TYPES = ["kinetic", "incorporeal", "fortifying"];
 
@@ -133,12 +133,8 @@ export function deriveTechnique(sys, registry = {}) {
   const types = sys.requires ?? [];
   const { defs, unknown } = resolveTypes(types, registry.instrumentTypes);
   const fortifying = types.includes("fortifying");
-  // A capability no Effect prices keeps the XP its table prints (the Movement Techniques, PHB 7.1.8).
-  const printed = Number(sys.printedXp ?? 0);
-  const priced = printed ? { xp: printed, breakdown: [{ key: "printed", label: "Printed price", cost: printed }],
-      math: `Printed price ${printed}. Strain: (${printed} - ${STRAIN_FREE_XP}) / ${STRAIN_DIVISOR}, rounded down, at least 0 = ${strainFor(printed)}.` }
-    : effects ? priceTechnique(sys.effects ?? [], effects, { floor: sys.floor || fortifying })
-    : { xp: 0, breakdown: [] };
+  const priced = effects ? priceTechnique(sys.effects ?? [], effects, { floor: sys.floor || fortifying })
+                          : { xp: 0, breakdown: [] };
   sys.xpCost = priced.xp;
   sys.perTarget = (sys.effects ?? []).some(e => e.key === "selective");
   sys.strain = strainFor(sys.xpCost - (sys.perTarget ? SELECTIVE_PREMIUM : 0));
@@ -166,8 +162,7 @@ export function deriveTechnique(sys, registry = {}) {
     : types.length ? types.map(k => defs.find(d => d.key === k)?.label ?? k).join(" or ") : "Any";
   sys.typeWarning = unknown.length ? `Unresolved Instrument Type(s) in Requirement: ${unknown.join(", ")}.` : "";
 
-  const base = printed ? (sys.effects ?? []).map(e => effects?.[e.key]?.label ?? e.key).join(", ")
-    : (priced.breakdown ?? []).map(b => b.label).join(", ");
+  const base = (priced.breakdown ?? []).map(b => b.label).join(", ");
   sys.effectSummary = sys.strain ? (base ? `${base}, Strain ${sys.strain}${sys.perTarget ? " per target" : ""}` : `Strain ${sys.strain}`) : base;
 }
 

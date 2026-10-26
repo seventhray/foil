@@ -55,8 +55,10 @@ export function buildCreatureData() {
 
   // Traits (the table before 9.5.1).
   const top = sectionText(GMG, /^## 9\.5\.0 Feats and Traits/).split("\n");
-  // Each Trait's text: the PHB Traits table for senses and the like, the Catalog Technique of the same name for movement.
+  // Each Trait's text: the PHB Traits table for senses and the like, a GMG sentence or the Transformation that gives the same
+  // movement (PHB 7.3.0) for movement. A creature's movement needs no Upkeep, so its line drops it.
   const phbTraits = sectionText(readPHB(), /^### 7\.2\.3 Traits/).split("\n").filter(l => l.trim().startsWith("|")).slice(2).map(cells);
+  const gifts = sectionText(readPHB(), /^## 7\.3\.0 Transformations/).split("\n").filter(l => l.trim().startsWith("|")).slice(2).map(cells);
   const catalog = readCatalog().techniques;
   const AMPHIBIOUS = "Moves through water at full speed, as Swim does, and breathes water.";
   const describe = name => {
@@ -67,6 +69,10 @@ export function buildCreatureData() {
     if (own) return own[1];
     const row = phbTraits.find(c => clean(c[0]).split(/,\s*(?:or\s+)?|\s+or\s+/).includes(name) || clean(c[0]) === name);
     if (row) return clean(row[4]);
+    const moves = top.join(" ").match(new RegExp(`${name} moves the creature ([^.]+\\.)`));
+    if (moves) return `Moves ${moves[1]}`;
+    const gift = gifts.map(c => clean(c[3]).match(new RegExp(`^The ${name} Technique \\(Innate\\)\\.\\s*(.+)$`))).find(Boolean);
+    if (gift) return gift[1].replace(/^Move /, "Moves ").replace(/,? for the duration of Upkeep\.?$/, ".");
     const tech = catalog.find(t => t.name === name);
     return tech ? clean(tech.effect) : "";
   };

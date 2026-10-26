@@ -3,7 +3,7 @@
   "name": "Guard",
   "type": "Item",
   "folder": null,
-  "sort": 600000,
+  "sort": 500000,
   "color": null,
   "description": "",
   "flags": {},
