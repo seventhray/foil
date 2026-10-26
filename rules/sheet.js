@@ -29,8 +29,11 @@ export function nextIncapacitated(was, current, max) {
   return now;
 }
 
-/** Derived fields shared by characters and creatures. */
-export function deriveCore(sys, items = []) {
+/**
+ * Derived fields shared by characters and creatures. `loads` are what the character carries besides its own items, each
+ * { name, lbs }: the companion app's party stash and counted property. Foundry passes none.
+ */
+export function deriveCore(sys, items = [], loads = []) {
   const mods = aggregateModifiers(items);
 
   const attrs = sys.attributes ?? {};
@@ -83,8 +86,9 @@ export function deriveCore(sys, items = []) {
   const places = new Map();
   for (const it of items) if (isStored(it) && lbs(it) > 0) places.set(it.system.storedAt ?? "", [...(places.get(it.system.storedAt ?? "") ?? []), it]);
   const away = new Set([...fixed, ...[...places.values()].flat()]);
-  const carried = items.reduce((n, it) => n + (away.has(it) ? 0 : lbs(it)), 0)
-                + Number(sys.rations ?? 0) * RATION_LBS;
+  const itemLbs = items.reduce((n, it) => n + (away.has(it) ? 0 : lbs(it)), 0);
+  const loadLbs = loads.reduce((n, l) => n + Number(l.lbs ?? 0), 0);
+  const carried = itemLbs + loadLbs + Number(sys.rations ?? 0) * RATION_LBS;
   sys.carry = {
     weight: carried,
     rationMass: Number(sys.rations ?? 0) * RATION_LBS,
@@ -94,7 +98,8 @@ export function deriveCore(sys, items = []) {
       ? Math.ceil(carried / might) - CARRY_FREE_MULTIPLE : 0
   };
   // The Mass math, every term named (PHB 5.2.6).
-  sys.carry.math = `Mass ${carried} lbs (items ${carried - sys.carry.rationMass}, rations ${sys.carry.rationMass}`
+  sys.carry.math = `Mass ${carried} lbs (items ${itemLbs}, rations ${sys.carry.rationMass}`
+    + (loads.length ? `, also carried: ${loads.map(l => `${l.name} ${l.lbs} lbs`).join(", ")}` : "")
     + (fixed.length ? `; not carried, fixed in place: ${fixed.map(it => `${it.name} ${it.system.carriedWeight} lbs`).join(", ")}` : "")
     + [...places].map(([at, list]) => `; not carried, stored${at ? ` at ${at}` : ""}: ${list.map(it => `${it.name} ${lbs(it)} lbs`).join(", ")}`).join("")
     + `); free up to ${CARRY_FREE_MULTIPLE} x Might Potential ${might} = ${sys.carry.limit}`
@@ -140,8 +145,8 @@ export function deriveCore(sys, items = []) {
 }
 
 /** A character's derived fields: the shared ones, and the XP still to spend. */
-export function deriveCharacter(sys, items = []) {
-  deriveCore(sys, items);
+export function deriveCharacter(sys, items = [], loads = []) {
+  deriveCore(sys, items, loads);
   sys.xp.available = Number(sys.xp.total ?? 0) - Number(sys.xp.spent ?? 0);
 }
 
