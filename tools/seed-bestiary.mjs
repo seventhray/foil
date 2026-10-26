@@ -83,8 +83,9 @@ export function bestiaryDocs(lib) {
         continue;
       }
       if (/^: /.test(rest) && (through || /Evade/.test(rest))) {
+        // A Catalog Technique as the Catalog has it; an Origin's or a Transformation's Innate gift of the same name stays the creature's own.
         const known = tech.get(lc(base));
-        if (known) { items.push(clone(known)); continue; }
+        if (known && !known.system.innate) { items.push(clone(known)); continue; }
         const effect = rest.replace(/^: /, "").replace(/ through an? .*$/, "").replace(/, \d+ XP.*$/, "").trim() + (strain ? `, Strain ${strain[1]}` : "");
         // The stat blocks and GMG 9.7.1 spell some Effects differently from the Catalog; read them the same way.
         const norm = effect.replace(/Pattern /g, "")
