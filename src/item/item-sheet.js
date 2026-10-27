@@ -169,6 +169,7 @@ export class FoilItemSheet extends HandlebarsApplicationMixin(ItemSheetV2Base) {
       ctx.kitRows = (sys.kit ?? []).map((k, idx) => ({ idx, ...k }));
     }
     if (this.item.type === "equipment") {
+      ctx.enchantEffectRows = effectRows(sys.enchantment?.effects);
       ctx.qualityRows = (sys.qualities ?? []).map((q, idx) => {
         const scope = qm[q.key]?.scope ?? (q.key === "resistance" ? "resistanceKind" : q.key === "skill-bonus" ? "skill" : "free");
         const choices = scope === "resistanceKind"

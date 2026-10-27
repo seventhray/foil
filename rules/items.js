@@ -169,7 +169,7 @@ export function deriveTechnique(sys, registry = {}) {
 }
 
 /** A piece of Equipment's derived fields. */
-export function deriveEquipment(sys) {
+export function deriveEquipment(sys, registry = {}) {
   const wc = WEIGHT_CLASS[sys.weightClass];
   sys.equipped = sys.location === "equipped";
   sys.carriedWeight = Number(sys.weight) || (wc ? wc.lbs : 0);
@@ -184,6 +184,18 @@ export function deriveEquipment(sys) {
       : `+${eb.n} ${SKILL_LABEL[eb.param] ?? "Skill"}`;
     sys.enchantBonus = { price, label: what, ...enchantWork(price, eb.n), materialTier: eb.n };
   } else sys.enchantBonus = null;
+  // A Technique bound to it (PHB 5.3.4): one that takes no roll, since Equipment has no Instrument Types. Its Strain goes to every Attribute.
+  const ench = sys.enchantment ?? {};
+  if (ench.enabled && registry.effects) {
+    const priced = priceTechnique(ench.effects ?? [], registry.effects);
+    ench.xpCost = priced.xp;
+    ench.strain = priced.strain ?? strainFor(priced.xp);
+    ench.price = priced.xp * 10;
+    ench.materialTier = !priced.xp ? 0 : priced.xp <= 8 ? 1 : priced.xp <= 16 ? 2 : priced.xp <= 24 ? 3 : 4;
+    Object.assign(ench, priced.xp ? enchantWork(ench.price, ench.materialTier) : { difficulty: 0, hours: 0, workStrain: 0 });
+    const text = ench.effectText || (priced.breakdown ?? []).map(b => b.label).join(", ");
+    ench.effectSummary = ench.strain ? `${text}, Strain ${ench.strain} on every Attribute` : text;
+  }
 }
 
 /** A Background's derived fields. */

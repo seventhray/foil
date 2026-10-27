@@ -187,8 +187,11 @@ export class EquipmentData extends foundry.abstract.TypeDataModel {
       duration: str(""),
       effect: str(""),
       tier: new f.NumberField({ required: true, integer: true, initial: 1, min: 1, max: 5 }),
-      // An enchanted bonus (PHB 5.3.4): Resistance +N or +N to a Skill.
+      // An Enchantment (PHB 5.3.4): Resistance +N or +N to a Skill, or a Technique that takes no roll (user, 2026-10-26).
       enchantment: new f.SchemaField({
+        enabled: bool(false),
+        effects: effectsArraySchema(),
+        effectText: str(""),
         bonus: new f.SchemaField({
           kind: new f.StringField({ required: true, blank: true, initial: "", choices: ["", "resistance", "skill"] }),
           param: str(""),
@@ -201,7 +204,7 @@ export class EquipmentData extends foundry.abstract.TypeDataModel {
   }
 
   prepareDerivedData() {
-    deriveEquipment(this);
+    deriveEquipment(this, globalThis.CONFIG?.FOIL);
   }
 }
 

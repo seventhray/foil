@@ -58,6 +58,13 @@
         <input type="number" name="system.enchantment.bonus.n" value="{{system.enchantment.bonus.n}}" min="1" max="5" />
       {{/if}}
     </div>
+    <label><input type="checkbox" name="system.enchantment.enabled" {{#if system.enchantment.enabled}}checked{{/if}} /> Or a Technique that takes no roll</label>
+    {{#if system.enchantment.enabled}}
+      <div class="effect-row-list">{{> systems/foil/templates/item/partials/effect-rows.hbs rows=enchantEffectRows path="system.enchantment.effects"}}</div>
+      <label class="block-label">Effect as printed</label>
+      <input type="text" name="system.enchantment.effectText" value="{{system.enchantment.effectText}}" />
+      <div class="derived-line"><strong>{{system.enchantment.xpCost}} XP</strong> &middot; {{system.enchantment.effectSummary}} &middot; {{system.enchantment.price}}p &middot; Tier {{system.enchantment.materialTier}} materials &middot; Craft against {{system.enchantment.difficulty}} &middot; {{system.enchantment.hours}} h, {{system.enchantment.workStrain}} Strain to each of the enchanter's Attributes</div>
+    {{/if}}
     {{#if system.enchantBonus}}<div class="derived-line"><strong>{{system.enchantBonus.label}}</strong> &middot; {{system.enchantBonus.price}}p &middot; Tier {{system.enchantBonus.materialTier}} materials &middot; Craft against {{system.enchantBonus.difficulty}} &middot; {{system.enchantBonus.hours}} h, {{system.enchantBonus.workStrain}} Strain to each of the enchanter's Attributes</div>{{/if}}
   </fieldset>
   <label class="block-label">Effect</label>
