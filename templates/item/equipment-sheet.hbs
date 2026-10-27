@@ -7,10 +7,8 @@
     <input type="number" name="system.price" value="{{system.price}}" />
     <label>Mass (lbs) <em>(PHB 5.2.6)</em></label>
     <input type="number" name="system.weight" value="{{system.weight}}" min="0" step="0.5" />
-    {{#if (foil-eq system.category "shield")}}
-      <label>Weight class</label>
-      <select name="system.weightClass">{{#each weightClassOptions}}<option value="{{this.value}}" {{#if (foil-eq this.value ../system.weightClass)}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>
-    {{/if}}
+    <label>Weight class <em>(a Shield's)</em></label>
+    <select name="system.weightClass">{{#each weightClassOptions}}<option value="{{this.value}}" {{#if (foil-eq this.value ../system.weightClass)}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>
     <label>Size</label>
     <select name="system.size">{{#each sizeOptions}}<option value="{{this.value}}" {{#if (foil-eq this.value ../system.size)}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>
     <label>Materials</label>
@@ -22,10 +20,8 @@
     <input type="text" name="system.storedAt" value="{{system.storedAt}}" list="storage-{{item.id}}" />
     <datalist id="storage-{{item.id}}">{{#each storagePlaces}}<option value="{{this}}"></option>{{/each}}</datalist>
     {{/if}}
-    <label>Uses</label>
-    <input type="text" name="system.uses" value="{{system.uses}}" />
-    <label>Duration</label>
-    <input type="text" name="system.duration" value="{{system.duration}}" />
+    <label>Tier</label>
+    <input type="number" name="system.tier" value="{{system.tier}}" min="1" max="5" />
   </div>
   <fieldset>
     <legend>Properties <em>(PHB 7.9.1)</em></legend>

@@ -1,0 +1,27 @@
+{
+  "_id": "6KHFn3qDRW4vPG3Q",
+  "name": "Draught of Weakness",
+  "type": "consumable",
+  "img": "icons/svg/pill.svg",
+  "system": {
+    "effect": "-2 [Attribute], thrown",
+    "duration": "2 hours",
+    "uses": "1",
+    "price": 10,
+    "weight": 1,
+    "tier": 0,
+    "materials": "Reagent",
+    "location": "carried",
+    "storedAt": "",
+    "notes": "",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 1100000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!6KHFn3qDRW4vPG3Q"
+}

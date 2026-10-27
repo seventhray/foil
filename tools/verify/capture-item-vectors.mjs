@@ -32,6 +32,7 @@ const instruments = docs("instruments"), techniques = docs("techniques");
 for (const d of instruments) add(d.name, M.InstrumentData, "instrument", d.system);
 for (const d of techniques) add(d.name, M.TechniqueData, "technique", d.system);
 for (const d of docs("equipment")) add(d.name, M.EquipmentData, "equipment", d.system);
+for (const d of docs("consumables")) add(d.name, M.ConsumableData, "consumable", d.system);
 for (const d of docs("backgrounds")) add(d.name, M.BackgroundData, "background", d.system);
 for (const d of docs("ancestries")) add(d.name, M.OriginData, "origin", d.system);
 

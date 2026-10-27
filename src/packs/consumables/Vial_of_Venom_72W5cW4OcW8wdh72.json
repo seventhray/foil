@@ -1,0 +1,27 @@
+{
+  "_id": "72W5cW4OcW8wdh72",
+  "name": "Vial of Venom",
+  "type": "consumable",
+  "img": "icons/svg/pill.svg",
+  "system": {
+    "effect": "Lingering 1, coats a weapon",
+    "duration": "instant",
+    "uses": "1",
+    "price": 10,
+    "weight": 1,
+    "tier": 0,
+    "materials": "Reagent",
+    "location": "carried",
+    "storedAt": "",
+    "notes": "",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 1000000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!72W5cW4OcW8wdh72"
+}

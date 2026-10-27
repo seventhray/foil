@@ -414,14 +414,13 @@ function innateDoc(i) {
 const q = (key, value = 0, param = "") => ({ key, value, param });
 const SKILLS = ["prowess", "discipline", "assertiveness", "acuity", "guile", "resonance"];
 const EQUIP_IMG = { armor: "icons/svg/shield.svg", shield: "icons/svg/shield.svg", ward: "icons/svg/holy-shield.svg",
-  charm: "icons/svg/holy-shield.svg", gear: "icons/svg/item-bag.svg", medicine: "icons/svg/heal.svg",
-  potion: "icons/svg/pill.svg", gem: "icons/svg/ice-aura.svg" };
+  charm: "icons/svg/holy-shield.svg", gear: "icons/svg/item-bag.svg" };
 const equip = (name, category, price, o = {}) => ({
   name, type: "equipment", img: EQUIP_IMG[category] ?? "icons/svg/item-bag.svg",
   system: {
     category, price, weight: o.weight ?? 0, weightClass: o.weightClass ?? "", size: o.size ?? sizeOf[lc(name)] ?? "small",
     materials: o.materials ?? materialsOf[lc(name)] ?? "", location: "carried", qualities: o.qualities ?? [],
-    uses: o.uses ?? "", duration: o.duration ?? "", effect: o.effect ?? "",
+    effect: o.effect ?? "",
     tier: o.tier ?? 1, notes: o.notes ?? "", description: ""
   }
 });
@@ -461,15 +460,21 @@ function equipmentDocs() {
   for (const r of tableAfter(PHB, /^### 7\.9\.4 Adventuring Gear/)) {
     out.push(equip(r.Item, "gear", num(r.Price), { effect: r["Helps with"], weight: num(r.Mass), size: "small", materials: "" }));
   }
-  // Consumables (PHB 7.9.5): poisons and throwables are Reagent; medicine heals; the rest is gear.
-  for (const r of tableAfter(PHB, /^### 7\.9\.5 Consumables/)) {
-    const category = /thrown|coats a weapon/.test(r.Effect) ? "potion"
-                   : /Stress|poison or sickness/.test(r.Effect) ? "medicine" : "gear";
-    out.push(equip(r.Item, category, num(r.Price), {
-      effect: r.Effect, duration: r.Duration, uses: r.Uses, weight: num(r.Mass), size: "small", materials: category === "potion" ? "Reagent" : ""
-    }));
-  }
   return out;
+}
+
+// ─── Consumables (PHB 7.9.5) ────────────────────────────────────────────────
+// Their own item type (user, 2026-10-27). Poisons and throwables are Reagent; Medicine's Tier is in its name.
+function consumableDocs() {
+  return tableAfter(PHB, /^### 7\.9\.5 Consumables/).map(r => {
+    const thrown = /thrown|coats a weapon/.test(r.Effect), heals = /Stress|poison or sickness/.test(r.Effect);
+    const tier = Number(r.Item.match(/^Tier (\d) /)?.[1] ?? 0);
+    return {
+      name: r.Item, type: "consumable", img: thrown ? "icons/svg/pill.svg" : heals ? "icons/svg/heal.svg" : "icons/svg/item-bag.svg",
+      system: { effect: r.Effect, duration: r.Duration, uses: r.Uses, price: num(r.Price), weight: num(r.Mass), tier,
+        materials: thrown ? "Reagent" : "", location: "carried", storedAt: "", notes: "", description: "" }
+    };
+  });
 }
 
 // ─── Feats (Catalog notes, PHB 7.2.x, 7.5.x) ───────────────────────────────
@@ -681,10 +686,11 @@ const feats = [...CAT.feats].sort((a, b) =>
   String(a.feat_type).localeCompare(String(b.feat_type)) || String(a.ancestry ?? "").localeCompare(String(b.ancestry ?? ""))
   || (a.order ?? 0) - (b.order ?? 0)).map(featDoc);
 const equipment = equipmentDocs();
+const consumables = consumableDocs();
 const backgrounds = backgroundDocs();
 
 // Every Background kit item should resolve to something in the packs.
-const known = new Set([...instruments, ...equipment].map(d => lc(d.name)));
+const known = new Set([...instruments, ...equipment, ...consumables].map(d => lc(d.name)));
 for (const bg of backgrounds) {
   for (const raw of bg.system.equipmentKit.replace(/\.$/, "").split(",").map(s => s.trim())) {
     const name = lc(raw);
@@ -709,7 +715,7 @@ if (!process.argv.includes("--dry-run")) fs.writeFileSync(path.join(SYSTEM_ROOT,
 if (process.argv.includes("--habits-only")) { console.log("  wrote src/habits.js"); process.exit(0); }
 if (process.argv.includes("--dry-run")) {
   console.log(`  dry run: ${INSTRUMENT_TYPES.length} types, ${QUALITIES.length} qualities, ${EFFECTS.length} effects, `
-    + `${instruments.length} instruments, ${techniques.length} techniques, ${feats.length} feats, ${equipment.length} equipment, `
+    + `${instruments.length} instruments, ${techniques.length} techniques, ${feats.length} feats, ${equipment.length} equipment, ${consumables.length} consumables, `
     + `${backgrounds.length} backgrounds, ${ancestries.length} origins, ${bestiary.actors.length} creatures, ${GUIDE.length} guide journals`);
 } else {
   writePack("instrument-types", INSTRUMENT_TYPES.map(instrumentTypeDoc));
@@ -719,6 +725,7 @@ if (process.argv.includes("--dry-run")) {
   writePack("techniques", techniques, FOLDERS.techniques);
   writePack("feats", feats, FOLDERS.feats);
   writePack("equipment", equipment, FOLDERS.equipment);
+  writePack("consumables", consumables);
   writePack("backgrounds", backgrounds);
   writePack("ancestries", ancestries);
   writeGuidePack("guide", GUIDE);

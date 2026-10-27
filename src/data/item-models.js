@@ -10,10 +10,10 @@
 import { f, slugField, slugArray, str, int, bool, html } from "./fields.js";
 import {
   WEIGHT_KEYS, ATTRIBUTE_KEYS, SKILL_KEYS, SIZE_KEYS, RANGE_BANDS, rangeBandOf, rangeMinOf, rangeTextOf,
-  EQUIPMENT_CATEGORIES, LEGACY_SKILL_KEY, ITEM_LOCATIONS
+  EQUIPMENT_CATEGORIES, LEGACY_CONSUMABLE_CATEGORIES, LEGACY_SKILL_KEY, ITEM_LOCATIONS
 } from "../constants.js";
 import { LEGACY_TYPE_KEY } from "./definition-models.js";
-import { deriveInstrument, deriveTechnique, deriveEquipment, deriveBackground, deriveOrigin } from "../../rules/items.js";
+import { deriveInstrument, deriveTechnique, deriveEquipment, deriveConsumable, deriveBackground, deriveOrigin } from "../../rules/items.js";
 
 const INSTRUMENT_CATEGORIES = ["melee", "ranged", "arcane", "sonic", "tool", "innate"];
 
@@ -166,7 +166,8 @@ export class EquipmentData extends foundry.abstract.TypeDataModel {
 
   static defineSchema() {
     return {
-      category: new f.StringField({ required: true, initial: "gear", choices: EQUIPMENT_CATEGORIES }),
+      // A legacy consumable category loads until the world migration moves the item to a Consumable (system.js).
+      category: new f.StringField({ required: true, initial: "gear", choices: [...EQUIPMENT_CATEGORIES, ...LEGACY_CONSUMABLE_CATEGORIES] }),
       price: int(0),
       // Carried weight in pounds (PHB 5.2.4, 5.2.6).
       weight: new f.NumberField({ required: true, initial: 0, min: 0 }),
@@ -183,8 +184,7 @@ export class EquipmentData extends foundry.abstract.TypeDataModel {
         value: int(0),
         param: str("")
       })),
-      uses: str(""),
-      duration: str(""),
+      // What it does or helps with: a Shield's Blocking, a Rope's climbing and hauling.
       effect: str(""),
       tier: new f.NumberField({ required: true, integer: true, initial: 1, min: 1, max: 5 }),
       // An Enchantment (PHB 5.3.4): Resistance +N or +N to a Skill, or a Technique that takes no roll (user, 2026-10-26).
@@ -205,6 +205,31 @@ export class EquipmentData extends foundry.abstract.TypeDataModel {
 
   prepareDerivedData() {
     deriveEquipment(this, globalThis.CONFIG?.FOIL);
+  }
+}
+
+/** A Consumable (PHB 7.9.5): used up in Uses, with an Effect that lasts its Duration. Medicine, poisons, throwables, a Torch. */
+export class ConsumableData extends foundry.abstract.TypeDataModel {
+  static defineSchema() {
+    return {
+      effect: str(""),
+      duration: str(""),
+      uses: str("1"),
+      price: int(0),
+      // Mass in pounds (PHB 5.2.6).
+      weight: new f.NumberField({ required: true, initial: 0, min: 0 }),
+      // Its Tier (PHB 6.10.0): Medicine runs from Tier 0 to Tier 5.
+      tier: new f.NumberField({ required: true, integer: true, initial: 0, min: 0, max: 5 }),
+      materials: str(""),
+      location: new f.StringField({ required: true, initial: "carried", choices: ["carried", "stored"] }),  // used from the pack, never worn
+      storedAt: str(""),
+      notes: str(""),
+      description: html("")
+    };
+  }
+
+  prepareDerivedData() {
+    deriveConsumable(this);
   }
 }
 

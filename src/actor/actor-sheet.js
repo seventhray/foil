@@ -20,7 +20,7 @@ import {
   FOIL_TOKEN_MAX, CONDITIONS, EQUIPMENT_CATEGORY_LABEL, LOCATION_LABEL,
   REST_BLOCK_HOURS, REST_RATION_HOURS
 } from "../constants.js";
-import { equipmentSummary } from "../registry.js";
+import { consumableSummary, equipmentSummary } from "../registry.js";
 import { stressFor, alwaysTypes, isAlwaysType } from "../stress.js";
 import { ask, dialogApi, addButton, esc } from "../dialogs.js";
 import "../chat-actions.js";
@@ -143,7 +143,7 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
   }
 
   _itemGroups() {
-    const groups = { origin: [], background: [], instrument: [], technique: [], feat: [], equipment: [], builtin: [] };
+    const groups = { origin: [], background: [], instrument: [], technique: [], feat: [], equipment: [], consumable: [], builtin: [] };
     for (const item of this.actor.items) {
       if (!(item.type in groups)) continue;
       const s = item.system;
@@ -168,6 +168,9 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
       } else if (item.type === "equipment") {
         view.categoryLabel = EQUIPMENT_CATEGORY_LABEL[s.category] ?? "";
         view.effectSummary = glossarize(equipmentSummary(s));
+        view.place = locationView(s.location);
+      } else if (item.type === "consumable") {
+        view.effectSummary = glossarize(consumableSummary(s));
         view.place = locationView(s.location);
       }
       groups[item.type].push(view);

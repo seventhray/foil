@@ -1,0 +1,27 @@
+{
+  "_id": "yWfBabDSGkgjKMwx",
+  "name": "Tier 0 Medicine",
+  "type": "consumable",
+  "img": "icons/svg/heal.svg",
+  "system": {
+    "effect": "Remove 1d4 Stress; Mend roll at Difficulty 8",
+    "duration": "instant",
+    "uses": "1",
+    "price": 3,
+    "weight": 1,
+    "tier": 0,
+    "materials": "",
+    "location": "carried",
+    "storedAt": "",
+    "notes": "",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 200000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!yWfBabDSGkgjKMwx"
+}

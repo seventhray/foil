@@ -10,8 +10,8 @@ import { SYSTEM_ROOT } from "../books.mjs";
 const M = await import(`${SYSTEM_ROOT}/src/data/item-models.js`);
 const R = await import(`${SYSTEM_ROOT}/rules/items.js`);
 const { registry, cases } = JSON.parse(fs.readFileSync(path.join(SYSTEM_ROOT, "tools", "verify", "vectors", "items.json"), "utf8"));
-const models = { instrument: M.InstrumentData, technique: M.TechniqueData, equipment: M.EquipmentData, background: M.BackgroundData, origin: M.OriginData };
-const pure = { instrument: R.deriveInstrument, technique: R.deriveTechnique, equipment: R.deriveEquipment, background: R.deriveBackground, origin: R.deriveOrigin };
+const models = { instrument: M.InstrumentData, technique: M.TechniqueData, equipment: M.EquipmentData, consumable: M.ConsumableData, background: M.BackgroundData, origin: M.OriginData };
+const pure = { instrument: R.deriveInstrument, technique: R.deriveTechnique, equipment: R.deriveEquipment, consumable: R.deriveConsumable, background: R.deriveBackground, origin: R.deriveOrigin };
 const plain = o => JSON.parse(JSON.stringify(o));
 const diff = (a, b, p = "") => {
   if (typeof a !== "object" || a === null || typeof b !== "object" || b === null) return a === b ? null : `${p}: ${JSON.stringify(a)} vs ${JSON.stringify(b)}`;

@@ -11,8 +11,9 @@ import { FoilCharacterSheet, FoilCreatureSheet } from "./actor/actor-sheet.js";
 import { FoilItemSheet } from "./item/item-sheet.js";
 import { CharacterData, CreatureData } from "./data/actor-models.js";
 import {
-  InstrumentData, TechniqueData, EquipmentData, FeatData, BackgroundData, OriginData
+  InstrumentData, TechniqueData, EquipmentData, ConsumableData, FeatData, BackgroundData, OriginData
 } from "./data/item-models.js";
+import { migrateConsumables } from "./migrate-consumables.js";
 import { InstrumentTypeData, QualityData, EffectData } from "./data/definition-models.js";
 import { buildRegistry, registerRegistryHooks } from "./registry.js";
 import { registerPlaytestLog, registerLogHooks } from "./playtest-log.js";
@@ -46,6 +47,7 @@ Hooks.once("init", function() {
   CONFIG.Item.dataModels.instrument     = InstrumentData;
   CONFIG.Item.dataModels.technique      = TechniqueData;
   CONFIG.Item.dataModels.equipment      = EquipmentData;
+  CONFIG.Item.dataModels.consumable     = ConsumableData;
   CONFIG.Item.dataModels.feat           = FeatData;
   CONFIG.Item.dataModels.background      = BackgroundData;
   CONFIG.Item.dataModels.origin         = OriginData;
@@ -121,6 +123,8 @@ Hooks.once("ready", async function() {
       try { await grantStartingKit(actor); await actor.setFlag("foil", "innateMind", true); }
       catch (err) { console.error("FOIL | Failed to grant innate Techniques", err); }
     }
+    try { await migrateConsumables(); }
+    catch (err) { console.error("FOIL | Failed to move items to Consumables", err); }
   }
   console.log("FOIL | Ready — vocabulary registry built", CONFIG.FOIL);
   for (const app of Object.values(ui.windows)) app.render();

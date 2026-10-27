@@ -152,10 +152,12 @@ export const RESISTANCE_KINDS = ["physical", "mental"];
 export const RESISTANCE_LABEL = { physical: "Physical", mental: "Mental" };
 
 export const EQUIPMENT_CATEGORY_LABEL = {
-  armor: "Armor", shield: "Shield", ward: "Ward", charm: "Charm", gear: "Gear",
-  medicine: "Medicine", potion: "Poison or Throwable"
+  armor: "Armor", shield: "Shield", ward: "Ward", charm: "Charm", gear: "Gear"
 };
 export const EQUIPMENT_CATEGORIES = Object.keys(EQUIPMENT_CATEGORY_LABEL);
+// Medicine, poisons and throwables were Equipment categories before Consumables became their own item type (PHB 7.9.5,
+// user 2026-10-27). An Equipment item still holding one of them is a Consumable waiting to be moved over.
+export const LEGACY_CONSUMABLE_CATEGORIES = ["medicine", "potion"];
 
 // FOIL axes and their poles (PHB 3.1.0). A Habit leans High or Low; none is Neutral (PHB 3.4.0).
 export const FOIL_AXES = [

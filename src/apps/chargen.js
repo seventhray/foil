@@ -16,7 +16,7 @@
 
 import { ATTRIBUTE_KEYS, ATTR_LABEL, SKILL_KEYS, SKILL_LABEL, FOIL_AXES } from "../constants.js";
 import { poolFromCounts } from "../dice.js";
-import { equipmentSummary } from "../registry.js";
+import { consumableSummary, equipmentSummary } from "../registry.js";
 import { HABIT_TABLES } from "../habits.js";
 import { STARTING_TIERS, INNATE_INSTRUMENTS, NEXT_SIZE, TALENT_PASSES, TALENT_ROLLS, parseKit, findKitItem, talentDice, nextTalentRoll, startingPools } from "../../rules/chargen.js";
 export { STARTING_TIERS, parseKit };
@@ -38,10 +38,15 @@ async function packDocsByName(packName) {
   return map;
 }
 
+/** Equipment and Consumables together, by lower-cased name: a kit names either. */
+async function gearDocsByName() {
+  return new Map([...await packDocsByName("foil.equipment"), ...await packDocsByName("foil.consumables")]);
+}
+
 /** Resolve kit names to compendium documents. */
 export async function matchKitItems(kitNames) {
   const instruments = await packDocsByName("foil.instruments");
-  const equipment = await packDocsByName("foil.equipment");
+  const equipment = await gearDocsByName();
   const found = [], missing = [];
   for (const name of kitNames) {
     const doc = findKitItem(name, instruments, equipment);
@@ -71,7 +76,7 @@ function kitLine(doc) {
     const bits = [s.weightLabel, `${ATTR_LABEL[s.primaryAttribute]} Primary`, s.typesLabel, s.range].filter(Boolean);
     return bits.join(", ");
   }
-  return equipmentSummary(s);
+  return doc.type === "consumable" ? consumableSummary(s) : equipmentSummary(s);
 }
 
 const { HandlebarsApplicationMixin, ApplicationV2 } = foundry.applications.api;
@@ -107,8 +112,9 @@ export class FoilChargen extends HandlebarsApplicationMixin(ApplicationV2) {
   get title() { return `Create: ${this.actor?.name ?? ""}`; }
 
   async _prepareContext() {
-    const [ancestryPack, backgrounds, feats, techniques, instruments, equipment] = await Promise.all(
-      ["foil.ancestries", "foil.backgrounds", "foil.feats", "foil.techniques", "foil.instruments", "foil.equipment"].map(packDocsByName));
+    const [ancestryPack, backgrounds, feats, techniques, instruments] = await Promise.all(
+      ["foil.ancestries", "foil.backgrounds", "foil.feats", "foil.techniques", "foil.instruments"].map(packDocsByName));
+    const equipment = await gearDocsByName();
     const st = this.choices;
     const ancestry = ancestryPack.get(st.ancestry.toLowerCase()) ?? null;
     const background = backgrounds.get(st.background.toLowerCase()) ?? null;

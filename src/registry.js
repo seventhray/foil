@@ -110,8 +110,11 @@ export function equipmentSummary(sys) {
     parts.push(`${name}${val}${param}`);
   }
   if (sys.effect) parts.push(sys.effect);
-  if (sys.duration) parts.push(sys.duration);
-  if (sys.uses) parts.push(`Uses: ${sys.uses}`);
   if (sys.carriedWeight) parts.push(`${sys.carriedWeight} lbs`);
   return parts.join(" · ");
+}
+
+/** A Consumable's Effect, Duration, Uses and Mass as one line (PHB 7.9.5). */
+export function consumableSummary(sys) {
+  return [sys.effect, sys.duration, sys.uses ? `Uses: ${sys.uses}` : "", sys.carriedWeight ? `${sys.carriedWeight} lbs` : ""].filter(Boolean).join(" · ");
 }

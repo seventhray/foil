@@ -43,6 +43,7 @@
       "technique": {},
       "feat": {},
       "equipment": {},
+      "consumable": {},
       "background": {},
       "origin": {},
       "instrumentType": {},
@@ -88,6 +89,17 @@
       "name": "equipment",
       "label": "FOIL Equipment",
       "path": "packs/equipment",
+      "type": "Item",
+      "system": "foil",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      }
+    },
+    {
+      "name": "consumables",
+      "label": "FOIL Consumables",
+      "path": "packs/consumables",
       "type": "Item",
       "system": "foil",
       "ownership": {
@@ -189,6 +201,7 @@
         "techniques",
         "feats",
         "equipment",
+        "consumables",
         "backgrounds",
         "ancestries",
         "bestiary"

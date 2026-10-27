@@ -1,0 +1,27 @@
+{
+  "_id": "vOtZq7vZ4OYHZNZV",
+  "name": "Alchemist's Fire",
+  "type": "consumable",
+  "img": "icons/svg/pill.svg",
+  "system": {
+    "effect": "Stress, thrown",
+    "duration": "instant",
+    "uses": "1",
+    "price": 5,
+    "weight": 1,
+    "tier": 0,
+    "materials": "Reagent",
+    "location": "carried",
+    "storedAt": "",
+    "notes": "",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 900000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!vOtZq7vZ4OYHZNZV"
+}

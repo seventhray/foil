@@ -29,7 +29,10 @@ export function parseKit(kit) {
   return String(kit ?? "").replace(/\.\s*$/, "").split(",").map(s => s.trim()).filter(Boolean);
 }
 
-/** A kit item by name, from maps of lower-cased name to item ("Leather armor" is Leather, "50ft of rope" is Rope (50ft)). */
+/**
+ * A kit item by name, from maps of lower-cased name to item ("Leather armor" is Leather, "50ft of rope" is Rope (50ft)). `equipment`
+ * holds Equipment and Consumables both, since a kit names either.
+ */
 export function findKitItem(name, instruments, equipment) {
   const key = name.toLowerCase().replace(/^50ft of rope$/, "rope (50ft)");
   const bare = key.replace(/\s+(armor|armour)$/, "").trim();
