@@ -123,6 +123,8 @@ export class CharacterData extends foundry.abstract.TypeDataModel {
       rations: int(0, { min: 0 }),
       // Places of Storage by name: a mount, a house, a vehicle (user, 2026-10-25).
       storage: new f.ArrayField(new f.StringField({ required: true, blank: false }), { required: true, initial: [] }),
+      // A place's capacity in pounds, set by the GM; a place left out takes the table's (rules/constants.js storageCapacity).
+      storageCapacity: new f.ObjectField({ required: true, initial: {} }),
       xp: new f.SchemaField({ total: int(0), spent: int(0) }),
       prompts: new f.SchemaField({
         whoTheyAre: str(""), wants: str(""), fightFor: str(""), fears: str("")

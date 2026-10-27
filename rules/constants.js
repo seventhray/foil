@@ -271,4 +271,16 @@ export const cap = s => s ? String(s).charAt(0).toUpperCase() + String(s).slice(
 // (on the character, not ready), or stored at a place apart from the character, its storedAt
 // (a mount, a house, a vehicle), keeping its Mass there (user, 2026-10-25).
 export const ITEM_LOCATIONS = ["equipped", "carried", "stored"];
+
+// A vehicle's or pack animal's capacity in pounds (PHB 5.2.6, user 2026-10-27). What it carries doesn't count toward the Mass of
+// whoever pulls or leads it. A place of Storage named for one of these takes its capacity unless the GM sets another.
+export const STORAGE_CAPACITY = { handcart: 200, cart: 1000, wagon: 2000, pony: 150, "riding horse": 250 };
+/** A place's capacity in pounds: the one set for it, else the table's for the longest name it contains, else none (null). */
+export function storageCapacity(name, set = {}) {
+  const own = set?.[name];
+  if (Number.isFinite(own) && own >= 0) return own;
+  const key = String(name ?? "").toLowerCase();
+  const hit = Object.keys(STORAGE_CAPACITY).sort((a, b) => b.length - a.length).find(k => key.includes(k));
+  return hit ? STORAGE_CAPACITY[hit] : null;
+}
 export const LOCATION_LABEL = { equipped: "Equipped", carried: "Carried", stored: "Stored" };
