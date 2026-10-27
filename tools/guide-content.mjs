@@ -167,7 +167,6 @@ p("Pricing an Instrument", `
 <tr><td>+3</td><td>68p</td><td>135p</td><td>270p</td></tr>
 <tr><td>+4</td><td>200p</td><td>400p</td><td>800p</td></tr>
 <tr><td>+5</td><td>600p</td><td>1200p</td><td>2400p</td></tr>
-</tbody></table>
-<p>An Arcane Instrument holds one <strong>Focus Gem</strong>, which adds its Tier to one Effect they already carry (PHB 5.2.3).</p>`),
+</tbody></table>`),
 ]}
 ];

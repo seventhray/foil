@@ -258,7 +258,7 @@ export class RefSheet {
     const bonus = [{ label: tech.name, value: Number(sys.rollBonus ?? 0) }, ...this._instrumentExtras(inst, skill)];
     const notes = this._rollNotes(skill, true);
     notes.unshift(`${inst ? `Through ${esc(inst.name)}` : "Innate"}. ${esc(sys.effectSummary)}`);
-    if (inst?.system.enchantBonus) notes.push(`Enchantment: ${inst.system.enchantBonus.label}${inst.system.enchantBonus.applies ? "" : " (apply at the table)"}.`);
+    if (inst?.system.enchantBonus) notes.push(`Enchantment: ${inst.system.enchantBonus.label}.`);
     if (sys.quick) notes.push("Quick: may be paid with the Quick Action.");
     if (inst?.system.doublesMargin) notes.push("Heavy: costs the Action and the Quick Action; the margin doubles (PHB 4.1.1).");
 
@@ -281,10 +281,6 @@ export class RefSheet {
       notes.push(`Strain ${sys.strain} on ${ATTR_LABEL[attr]} (Stress ${max - before} &rarr; ${max - after} of ${max}): (${xp} XP${sys.perTarget ? " before the Selective premium" : ""} - 24) / 8, rounded down (PHB 4.2.3).`);
     }
 
-    const gem = inst?.system.gemActive ? inst.system.gem : null;
-    const gemPierce = gem?.type === "emerald" && sys.pierceTotal ? Number(gem.tier) : 0;
-    if (gem && gem.type !== "emerald") notes.push(`Focus Gem: ${esc(inst.system.gemSummary)} (1 per Tier x Tier ${gem.tier}; apply at the table, PHB 5.2.3).`);
-    else if (gem && !gemPierce) notes.push(`Focus Gem: ${esc(inst.system.gemSummary)} (adds nothing: this Technique has no Pierce).`);
     const wdice = sys.offensive && inst?.type === "instrument" && inst.system.weightDice ? [{ label: inst.system.weightLabel || "Weight", dice: inst.system.weightDice }] : [];
     notes.unshift(this._math(skill, bonus, wdice));
     const rounds = applied ? applied.duration || (applied.key.endsWith("-minute") ? "1 minute" : "") : "";
@@ -299,7 +295,7 @@ export class RefSheet {
       ...(condition ? this._conditionFlag(tech.name, roll.total, condition, { melee: !!inst?.system.isMelee }) : {}),
       ...(sys.dealsStress && inst ? this._stressFlag(inst, tech.name, roll.total, {
         bespoke: [{ label: tech.name, value: Number(sys.stressRider ?? 0) }, { label: `${inst.name} Enchantment`, value: Number(inst.system.enchantStress ?? 0) }],
-        pierce: [{ label: tech.name, value: Number(sys.pierceTotal ?? 0) }, { label: `${inst.name} +${inst.system.bonus}`, value: Number(inst.system.bonusPierce ?? 0) - Number(inst.system.enchantPierce ?? 0) }, { label: `${inst.name} Enchantment`, value: Number(inst.system.enchantPierce ?? 0) }, { label: "Emerald", value: gemPierce }], aim
+        pierce: [{ label: tech.name, value: Number(sys.pierceTotal ?? 0) }, { label: `${inst.name} +${inst.system.bonus}`, value: Number(inst.system.bonusPierce ?? 0) - Number(inst.system.enchantPierce ?? 0) }, { label: `${inst.name} Enchantment`, value: Number(inst.system.enchantPierce ?? 0) }], aim
       }) : {})
     }));
   }

@@ -27,18 +27,6 @@
     <label>Duration</label>
     <input type="text" name="system.duration" value="{{system.duration}}" />
   </div>
-  {{#if (foil-eq system.category "gem")}}
-  <fieldset>
-    <legend>Focus Gem <em>(PHB 5.2.3)</em></legend>
-    <div class="field-grid">
-      <label>Gem</label>
-      <select name="system.gemType">{{#each gemOptions}}<option value="{{this.value}}" {{#if (foil-eq this.value ../system.gemType)}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>
-      <label>Tier</label>
-      <input type="number" name="system.tier" value="{{system.tier}}" min="1" max="5" />
-    </div>
-    {{#if system.gemSummary}}<div class="derived-line">{{system.gemSummary}} &middot; <strong>{{system.gemPrice}}p</strong></div>{{/if}}
-  </fieldset>
-  {{/if}}
   <fieldset>
     <legend>Properties <em>(PHB 7.9.1)</em></legend>
     {{#each qualityRows}}

@@ -79,7 +79,7 @@ function instrumentTypeDoc([name, key, family, o, desc]) {
     } };
 }
 
-// ─── Vocabulary: Qualities (PHB 7.9.1, Fundamental Math Passive Properties) ─
+// ─── Vocabulary: Qualities (PHB 7.9.1, GMG 10.0.0 for Aid, Fundamental Math Passive Properties) ─
 const QUALITIES = [
   ["Resistance", "resistance", "resistance", "resistanceKind", "+N physical or mental", "Reduce the Stress of every Technique of that kind by N."],
   ["Skill Bonus", "skill-bonus", "skill", "skill", "+N to a Skill", "Add N to the named Skill's rolls."],
@@ -422,7 +422,7 @@ const equip = (name, category, price, o = {}) => ({
     category, price, weight: o.weight ?? 0, weightClass: o.weightClass ?? "", size: o.size ?? sizeOf[lc(name)] ?? "small",
     materials: o.materials ?? materialsOf[lc(name)] ?? "", location: "carried", qualities: o.qualities ?? [],
     uses: o.uses ?? "", duration: o.duration ?? "", effect: o.effect ?? "",
-    gemType: o.gemType ?? "", tier: o.tier ?? 1, notes: o.notes ?? "", description: ""
+    tier: o.tier ?? 1, notes: o.notes ?? "", description: ""
   }
 });
 
@@ -467,12 +467,6 @@ function equipmentDocs() {
                    : /Stress|poison or sickness/.test(r.Effect) ? "medicine" : "gear";
     out.push(equip(r.Item, category, num(r.Price), {
       effect: r.Effect, duration: r.Duration, uses: r.Uses, weight: num(r.Mass), size: "small", materials: category === "potion" ? "Reagent" : ""
-    }));
-  }
-  for (const r of tableAfter(PHB, /^### 7\.10\.4 Focus Gems/)) {
-    out.push(equip(`${r.Gem} (Tier 1)`, "gem", num(r["Price per Tier"]), {
-      gemType: lc(r.Gem), tier: 1, size: "small", materials: "Gemstone",
-      effect: `${r["Damage Type"] === "None" ? "" : r["Damage Type"] + "; "}${r["Adds, per Tier"]} per Tier`
     }));
   }
   return out;

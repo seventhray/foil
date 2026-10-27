@@ -102,7 +102,6 @@ export function equipmentSummary(sys) {
   const m = qualityMap();
   const cap = s => s ? s.charAt(0).toUpperCase() + s.slice(1) : "";
   const parts = [];
-  if (sys.category === "gem" && sys.gemSummary) parts.push(sys.gemSummary);
   for (const q of sys.qualities ?? []) {
     const def = m[q.key];
     const name = def?.label ?? cap(q.key);

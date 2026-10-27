@@ -10,13 +10,12 @@
 import { f, slugField, slugArray, str, int, bool, html } from "./fields.js";
 import {
   WEIGHT_KEYS, ATTRIBUTE_KEYS, SKILL_KEYS, SIZE_KEYS, RANGE_BANDS, rangeBandOf, rangeMinOf, rangeTextOf,
-  FOCUS_GEMS, EQUIPMENT_CATEGORIES, LEGACY_SKILL_KEY, ITEM_LOCATIONS
+  EQUIPMENT_CATEGORIES, LEGACY_SKILL_KEY, ITEM_LOCATIONS
 } from "../constants.js";
 import { LEGACY_TYPE_KEY } from "./definition-models.js";
 import { deriveInstrument, deriveTechnique, deriveEquipment, deriveBackground, deriveOrigin } from "../../rules/items.js";
 
 const INSTRUMENT_CATEGORIES = ["melee", "ranged", "arcane", "sonic", "tool", "innate"];
-const GEM_KEYS = ["", ...Object.keys(FOCUS_GEMS)];
 
 const mapTypes = arr => [...new Set((arr ?? []).map(t => LEGACY_TYPE_KEY[t] ?? t))];
 
@@ -48,6 +47,9 @@ export class InstrumentData extends foundry.abstract.TypeDataModel {
     }
     if (source?.types) source.types = mapTypes(source.types);
     if (source && "weight" in source && !WEIGHT_KEYS.includes(source.weight)) source.weight = "light";
+    // Aid and situational Enchantments are the GM's, not an Instrument's (PHB 5.3.4); Focus Gems are gone.
+    if (source?.enchantment?.bonus?.kind === "aid") source.enchantment.bonus.kind = "";
+    if (source) delete source.gem;
     return super.migrateData(source);
   }
 
@@ -81,11 +83,6 @@ export class InstrumentData extends foundry.abstract.TypeDataModel {
       bonus: new f.NumberField({ required: true, integer: true, initial: 0, min: 0, max: 5 }),
       size: sizeField("medium"),
       materials: str(""),
-      // One Focus Gem slot on an Arcane Instrument (PHB 5.2.3).
-      gem: new f.SchemaField({
-        type: new f.StringField({ required: true, blank: true, initial: "", choices: GEM_KEYS }),
-        tier: new f.NumberField({ required: true, integer: true, initial: 1, min: 1, max: 5 })
-      }),
       // A Technique effect bound to the item (PHB 5.3.4).
       enchantment: new f.SchemaField({
         enabled: bool(false),
@@ -93,11 +90,9 @@ export class InstrumentData extends foundry.abstract.TypeDataModel {
         effectText: str(""),
         // Or a numerical bonus instead of a Technique (PHB 5.3.4): one Enchantment per item.
         bonus: new f.SchemaField({
-          kind: new f.StringField({ required: true, blank: true, initial: "", choices: ["", "skill", "roll", "pierce", "stress", "aid"] }),
+          kind: new f.StringField({ required: true, blank: true, initial: "", choices: ["", "skill", "roll", "pierce", "stress"] }),
           skill: new f.StringField({ required: true, blank: true, initial: "", choices: ["", ...SKILL_KEYS] }),
-          n: new f.NumberField({ required: true, integer: true, initial: 1, min: 1, max: 5 }),
-          situational: bool(false),
-          circumstance: str("")
+          n: new f.NumberField({ required: true, integer: true, initial: 1, min: 1, max: 5 })
         })
       }),
       description: html("")
@@ -147,6 +142,8 @@ export class TechniqueData extends foundry.abstract.TypeDataModel {
 
 export class EquipmentData extends foundry.abstract.TypeDataModel {
   static migrateData(source) {
+    if (source?.category === "gem") source.category = "gear";
+    if (source) delete source.gemType;
     if (source?.category === "ward" && (source.qualities ?? []).some(q => q.key === "bolster" || q.key === "skill-bonus")) {
       source.category = "charm";
     }
@@ -187,8 +184,6 @@ export class EquipmentData extends foundry.abstract.TypeDataModel {
       uses: str(""),
       duration: str(""),
       effect: str(""),
-      // A Focus Gem's Type and Tier (PHB 5.2.3).
-      gemType: new f.StringField({ required: true, blank: true, initial: "", choices: GEM_KEYS }),
       tier: new f.NumberField({ required: true, integer: true, initial: 1, min: 1, max: 5 }),
       notes: str(""),
       description: html("")

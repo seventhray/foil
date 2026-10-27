@@ -9,7 +9,7 @@ import { annotateVars } from "../var-tips.js";
 import { typeOptions, effectOptions, qualityOptions, effectMap, qualityMap } from "../registry.js";
 import {
   WEIGHT_KEYS, WEIGHT_CLASS, ATTRIBUTE_KEYS, ATTR_LABEL, SKILL_KEYS, SKILL_LABEL, SIZE, SIZE_KEYS,
-  FOCUS_GEMS, EQUIPMENT_CATEGORY_LABEL, RESISTANCE_KINDS, RESISTANCE_LABEL, cap, ITEM_LOCATIONS, LOCATION_LABEL,
+  EQUIPMENT_CATEGORY_LABEL, RESISTANCE_KINDS, RESISTANCE_LABEL, cap, ITEM_LOCATIONS, LOCATION_LABEL,
   TECHNIQUE_FAMILIES, ORIGIN_NAMES, RANGE_CHOICES, RANGE_BANDS, RANGE_LABEL, CONDITION_PRESETS, EFFECT_CONDITION
 } from "../constants.js";
 import { QualityData, EffectData, InstrumentTypeData } from "../data/definition-models.js";
@@ -122,7 +122,6 @@ export class FoilItemSheet extends HandlebarsApplicationMixin(ItemSheetV2Base) {
       skillOrNoneOptions: [opt("", "Chosen when rolled"), ...SKILL_KEYS.map(k => opt(k, SKILL_LABEL[k]))],
       categoryOptions: ["melee", "ranged", "arcane", "sonic", "tool", "innate"].map(k => opt(k, cap(k))),
       equipmentCategoryOptions: Object.entries(EQUIPMENT_CATEGORY_LABEL).map(([k, l]) => opt(k, l)),
-      gemOptions: [opt("", "None"), ...Object.entries(FOCUS_GEMS).map(([k, g]) => opt(k, g.label))],
       featTypeOptions: [opt("learned", "Learned (bought with XP)"), opt("trait", "Trait (from a Transformation or a creature)"), opt("ancestry", "Origin (granted, free)")],
       dieOptions: [6, 8, 10, 12, 20].map(n => opt(n, `d${n}`)),
       patternShapes: PATTERN_SHAPES.map(s => opt(s, cap(s))),

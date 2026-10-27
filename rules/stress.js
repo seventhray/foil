@@ -26,7 +26,7 @@
  * @param {object[]} a.always    Types whose bonus is never chosen and always adds (Drawn, Fired)
  * @param {number} a.bespoke      the Technique's own bonus
  * @param {number} a.other        any other bonus (a Feat such as Heavy Hand)
- * @param {number} a.pierce       Pierce from the Technique, the Instrument's +N, a Focus Gem
+ * @param {number} a.pierce       Pierce from the Technique, the Instrument's +N, an Enchantment
  * @returns {{ landed:boolean, stress:number, margin:number, capped:number, parts:string[] }}
  */
 /** Drawn and Fired are not chosen: their bonus adds to every Technique through the Instrument (PHB 4.1.1). */

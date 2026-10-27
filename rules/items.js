@@ -1,7 +1,7 @@
 /**
  * rules/items.js
  * What an item derives from its stored data: an Instrument's weight, Range, Skills, price and Type effects,
- * Enchantment and Focus Gem; a Technique's XP cost, Strain, requirements and summary; Equipment's carried
+ * Enchantment; a Technique's XP cost, Strain, requirements and summary; Equipment's carried
  * weight; Background and Origin summaries. Pure: each function works on a plain object and sets derived fields
  * on it in place. The registry ({ instrumentTypes, effects }, slug-keyed definitions) is passed in, so Foundry
  * and the companion app run the same code against the same definitions.
@@ -9,7 +9,7 @@
 
 import {
   WEIGHT_CLASS, SKILL_KEYS, SKILL_LABEL, PRIMARY_SKILLS, BONUS_PRICE, MATERIAL_TIER_PRICE, SIZE, TYPE_SURCHARGE,
-  REACH_PRICE_PER_BAND, RANGE_BANDS, RANGE_LABEL, rangeBandOf, usualRange, rangeTextFor, FOCUS_GEMS
+  REACH_PRICE_PER_BAND, RANGE_BANDS, RANGE_LABEL, rangeBandOf, usualRange, rangeTextFor
 } from "./constants.js";
 import { priceTechnique, strainFor, SELECTIVE_PREMIUM } from "./pricing.js";
 
@@ -79,7 +79,7 @@ export function deriveInstrument(sys, registry = {}) {
   sys.bonusPierce = !sys.blockingOnly && meleeOrRanged ? Math.floor(sys.bonus / 2) : 0;
   sys.bonusOppose = sys.blockingOnly ? sys.bonus : 0;
 
-  // An enchanted bonus (PHB 5.3.4). Broad ones apply on their own; a situational one is named on the card for the table.
+  // An enchanted bonus (PHB 5.3.4).
   const eb = sys.enchantment?.bonus ?? {};
   sys.enchantSkill = { skill: "", n: 0 };
   sys.enchantStress = 0;
@@ -87,28 +87,19 @@ export function deriveInstrument(sys, registry = {}) {
   sys.enchantPierce = 0;
   if (eb.kind) {
     // 10p per XP, from the Effects table: a Skill or roll point 6 XP, Pierce 4, Stress 8 (PHB 5.3.4).
-    const perPoint = { skill: 60, roll: 60, aid: 60, pierce: 40, stress: 80 }[eb.kind] ?? 0;
-    const price = Math.ceil(perPoint * eb.n / ((eb.situational || eb.kind === "aid") ? 2 : 1));
+    const perPoint = { skill: 60, roll: 60, pierce: 40, stress: 80 }[eb.kind] ?? 0;
+    const price = perPoint * eb.n;
     const what = { skill: `+${eb.n} ${SKILL_LABEL[eb.skill] ?? "Skill"}`, roll: `+${eb.n} to its rolls`, pierce: `Pierce ${eb.n}`,
-                   stress: `+${eb.n} Stress after the margin`, aid: `Aid +${eb.n}` }[eb.kind];
-    sys.enchantBonus = { price, label: `${what}${(eb.situational || eb.kind === "aid") ? ` (${eb.circumstance || "situational"})` : ""}`, applies: !eb.situational && eb.kind !== "aid",
-                          difficulty: [8, 12, 16, 20, 24, 32][eb.n] ?? 12, materialTier: eb.n };
-    if (sys.enchantBonus.applies) {
-      if (eb.kind === "roll") { sys.bonusRoll += eb.n; sys.enchantRoll = eb.n; }
-      else if (eb.kind === "pierce") { sys.bonusPierce += eb.n; sys.enchantPierce = eb.n; }
-      else if (eb.kind === "stress") sys.enchantStress = eb.n;
-      else if (eb.kind === "skill") sys.enchantSkill = { skill: eb.skill, n: eb.n };
-    }
+                   stress: `+${eb.n} Stress after the margin` }[eb.kind];
+    sys.enchantBonus = { price, label: what, ...enchantWork(price, eb.n), materialTier: eb.n };
+    if (eb.kind === "roll") { sys.bonusRoll += eb.n; sys.enchantRoll = eb.n; }
+    else if (eb.kind === "pierce") { sys.bonusPierce += eb.n; sys.enchantPierce = eb.n; }
+    else if (eb.kind === "stress") sys.enchantStress = eb.n;
+    else if (eb.kind === "skill") sys.enchantSkill = { skill: eb.skill, n: eb.n };
   } else sys.enchantBonus = null;
 
-  // Focus Gem (PHB 5.2.3).
   sys.isArcane = channels.length > 0;
-  const gem = FOCUS_GEMS[sys.gem?.type];
-  sys.gemActive = !!gem && sys.isArcane;
-  sys.gemSummary = gem ? `${gem.label} (Tier ${sys.gem.tier}): `
-    + gem.adds.replace(/(\+|-|)1\b/, (m, s) => `${s || ""}${sys.gem.tier}`) : "";
-  sys.gemWarning = gem && !sys.isArcane ? "A Focus Gem only works in an Arcane Instrument." : "";
-  
+
   sys.typeWarning = types.length === 0 && !sys.innate
     ? "No Instrument Types set: this Instrument can't be used for anything."
     : unknown.length ? `Unresolved Instrument Type(s): ${unknown.join(", ")}.` : "";
@@ -121,10 +112,19 @@ export function deriveInstrument(sys, registry = {}) {
   ench.strain = priced.strain ?? strainFor(priced.xp);
   ench.price  = priced.xp * 10;
   const x = priced.xp;
-  ench.difficulty = !x ? 0 : x <= 8 ? 16 : x <= 16 ? 20 : x <= 24 ? 24 : 32;
   ench.materialTier = !x ? 0 : x <= 8 ? 1 : x <= 16 ? 2 : x <= 24 ? 3 : 4;
+  Object.assign(ench, x ? enchantWork(ench.price, ench.materialTier) : { difficulty: 0, hours: 0, workStrain: 0 });
   const text = ench.effectText || (priced.breakdown ?? []).map(b => b.label).join(", ");
   ench.effectSummary = ench.strain ? (text ? `${text}, Strain ${ench.strain}` : `Strain ${ench.strain}`) : text;
+}
+
+/**
+ * Enchanting's work (PHB 5.3.4): Crafting's time, 2 hours per 10p rounded up to a whole 2 hours; the Difficulty two
+ * rungs above the Tier's; 1 Strain to each of the enchanter's Attributes per 2 hours.
+ */
+export function enchantWork(price, tier) {
+  const hours = 2 * Math.ceil(price / 10);
+  return { difficulty: [20, 24, 32, 48, 64][tier - 1] ?? 0, hours, workStrain: hours / 2 };
 }
 
 /** A Technique's derived fields. */
@@ -172,14 +172,6 @@ export function deriveEquipment(sys) {
   sys.equipped = sys.location === "equipped";
   sys.carriedWeight = Number(sys.weight) || (wc ? wc.lbs : 0);
   sys.weightClassLabel = wc?.label ?? "";
-  const gem = FOCUS_GEMS[sys.gemType];
-  if (sys.category === "gem" && gem) {
-    sys.gemPrice = gem.pricePerTier * sys.tier;
-    sys.gemSummary = `${gem.adds.replace(/(\+|-|)1\b/, (m, s) => `${s || ""}${sys.tier}`)}`;
-  } else {
-    sys.gemPrice = 0;
-    sys.gemSummary = "";
-  }
   sys.materialPrice = MATERIAL_TIER_PRICE[sys.tier] ?? 0;
 }
 

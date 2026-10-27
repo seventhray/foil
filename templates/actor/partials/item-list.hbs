@@ -29,7 +29,7 @@
         <tr class="item-row" data-item-id="{{this.id}}">
           {{#if (foil-eq ../type "instrument")}}
             <td class="equip-cell">{{#if this.place}}<input type="checkbox" data-action="toggleEquipped" title="Equipped" {{#if (foil-eq this.place.key "equipped")}}checked{{/if}} />{{/if}}</td>
-            <td class="item-name" data-action="editItem">{{this.name}}{{#if this.system.bonus}} +{{this.system.bonus}}{{/if}}{{#if this.system.typeWarning}} <i class="fas fa-triangle-exclamation item-warning" title="{{this.system.typeWarning}}"></i>{{/if}}{{#if this.system.gemSummary}} <i class="fas fa-gem" title="{{this.system.gemSummary}}"></i>{{/if}}</td>
+            <td class="item-name" data-action="editItem">{{this.name}}{{#if this.system.bonus}} +{{this.system.bonus}}{{/if}}{{#if this.system.typeWarning}} <i class="fas fa-triangle-exclamation item-warning" title="{{this.system.typeWarning}}"></i>{{/if}}</td>
             <td class="quality-cell">{{{this.typesHtml}}}</td>
             <td>{{this.primaryLabel}}</td>
             <td>{{this.system.range}}</td>

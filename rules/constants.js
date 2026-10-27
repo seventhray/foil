@@ -151,21 +151,9 @@ export const MATERIAL_SCARCITY_MULT = { common: 1, uncommon: 1.5, rare: 2, exoti
 export const RESISTANCE_KINDS = ["physical", "mental"];
 export const RESISTANCE_LABEL = { physical: "Physical", mental: "Mental" };
 
-// Focus Gems (PHB 5.2.3): Arcane Instruments only; each adds its Tier to one Effect.
-export const FOCUS_GEMS = {
-  ruby:      { label: "Ruby",      adds: "Lingering +1",                                 pricePerTier: 80 },
-  carnelian: { label: "Carnelian", adds: "Move goes one step up the Range ladder",                        pricePerTier: 40 },
-  emerald:   { label: "Emerald",   adds: "Pierce +1",                                    pricePerTier: 40 },
-  sapphire:  { label: "Sapphire",  adds: "Illusion: -1 to the Oppose to see through it", pricePerTier: 60 },
-  amethyst:  { label: "Amethyst",  adds: "Condition: -1 to the Oppose against it",       pricePerTier: 60 },
-  tanzanite: { label: "Tanzanite", adds: "Drain heals 1 more",                           pricePerTier: 60 },
-  citrine:   { label: "Citrine",   adds: "Mend removes 1 more Stress",                   pricePerTier: 60 },
-  diamond:   { label: "Diamond",   adds: "Resistance it grants +1",                      pricePerTier: 40 }
-};
-
 export const EQUIPMENT_CATEGORY_LABEL = {
   armor: "Armor", shield: "Shield", ward: "Ward", charm: "Charm", gear: "Gear",
-  medicine: "Medicine", potion: "Poison or Throwable", gem: "Focus Gem"
+  medicine: "Medicine", potion: "Poison or Throwable"
 };
 export const EQUIPMENT_CATEGORIES = Object.keys(EQUIPMENT_CATEGORY_LABEL);
 

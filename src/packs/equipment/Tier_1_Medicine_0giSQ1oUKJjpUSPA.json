@@ -15,7 +15,6 @@
     "uses": "1",
     "duration": "instant",
     "effect": "Remove 1d6 Stress; Mend roll at Difficulty 12",
-    "gemType": "",
     "tier": 1,
     "notes": "",
     "description": ""

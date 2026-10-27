@@ -65,17 +65,6 @@
     <input type="text" name="system.rider" value="{{system.rider}}" />
   </fieldset>
   <fieldset>
-    <legend>Focus Gem <em>(Arcane Instruments only, PHB 5.2.3)</em></legend>
-    <div class="field-grid">
-      <label>Gem</label>
-      <select name="system.gem.type">{{#each gemOptions}}<option value="{{this.value}}" {{#if (foil-eq this.value ../system.gem.type)}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>
-      <label>Tier</label>
-      <input type="number" name="system.gem.tier" value="{{system.gem.tier}}" min="1" max="5" />
-    </div>
-    {{#if system.gemSummary}}<div class="derived-line">{{system.gemSummary}}</div>{{/if}}
-    {{#if system.gemWarning}}<p class="type-warning-banner">{{system.gemWarning}}</p>{{/if}}
-  </fieldset>
-  <fieldset>
     <legend>Enchantment <em>(PHB 5.3.4)</em></legend>
     <label><input type="checkbox" name="system.enchantment.enabled" {{#if system.enchantment.enabled}}checked{{/if}} /> Enchanted</label>
     <div class="field-grid">
@@ -86,19 +75,15 @@
         <select name="system.enchantment.bonus.skill"><option value="">None</option>{{#each skillOptions}}<option value="{{this.value}}" {{#if (foil-eq this.value ../system.enchantment.bonus.skill)}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>
         <label>N <em>(+1 to +5)</em></label>
         <input type="number" name="system.enchantment.bonus.n" value="{{system.enchantment.bonus.n}}" min="1" max="5" />
-        <label>Situational <em>(half price; applied at the table)</em></label>
-        <input type="checkbox" name="system.enchantment.bonus.situational" {{#if system.enchantment.bonus.situational}}checked{{/if}} />
-        <label>Circumstance <em>(for a situational bonus)</em></label>
-        <input type="text" name="system.enchantment.bonus.circumstance" value="{{system.enchantment.bonus.circumstance}}" />
       {{/if}}
     </div>
-    {{#if system.enchantBonus}}<div class="derived-line"><strong>{{system.enchantBonus.label}}</strong> &middot; {{system.enchantBonus.price}}p &middot; crafted at Difficulty {{system.enchantBonus.difficulty}} from Tier {{system.enchantBonus.materialTier}} Gemstone</div>
+    {{#if system.enchantBonus}}<div class="derived-line"><strong>{{system.enchantBonus.label}}</strong> &middot; {{system.enchantBonus.price}}p &middot; Tier {{system.enchantBonus.materialTier}} materials &middot; Craft against {{system.enchantBonus.difficulty}} &middot; {{system.enchantBonus.hours}} h, {{system.enchantBonus.workStrain}} Strain to each of the enchanter's Attributes</div>
       {{#if system.enchantment.enabled}}<p class="type-warning-banner">An item holds one Enchantment: a Technique or a bonus, not both (PHB 5.3.4).</p>{{/if}}{{/if}}
     {{#if system.enchantment.enabled}}
       <div class="effect-row-list">{{> systems/foil/templates/item/partials/effect-rows.hbs rows=enchantEffectRows path="system.enchantment.effects"}}</div>
       <label class="block-label">Effect as printed</label>
       <input type="text" name="system.enchantment.effectText" value="{{system.enchantment.effectText}}" />
-      <div class="derived-line"><strong>{{system.enchantment.xpCost}} XP</strong> &middot; Strain {{system.enchantment.strain}} &middot; {{system.enchantment.price}}p &middot; crafted at Difficulty {{system.enchantment.difficulty}} from Tier {{system.enchantment.materialTier}} Gemstone</div>
+      <div class="derived-line"><strong>{{system.enchantment.xpCost}} XP</strong> &middot; Strain {{system.enchantment.strain}} &middot; {{system.enchantment.price}}p &middot; Tier {{system.enchantment.materialTier}} materials &middot; Craft against {{system.enchantment.difficulty}} &middot; {{system.enchantment.hours}} h, {{system.enchantment.workStrain}} Strain to each of the enchanter's Attributes</div>
     {{/if}}
   </fieldset>
   {{> systems/foil/templates/item/partials/item-description.hbs rows=3}}

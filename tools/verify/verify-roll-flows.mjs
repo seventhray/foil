@@ -43,13 +43,12 @@ const ITEM = { instrument: M.InstrumentData, technique: M.TechniqueData, equipme
 
 const techEffects = docs("techniques").find(d => (d.system.effects ?? []).length > 1)?.system.effects ?? [];
 const KINDS = ["roll", "pierce", "stress", "skill"];
-/** Dress an Instrument's data with a bonus, an enchanted bonus, a bound Enchantment and a Focus Gem. */
+/** Dress an Instrument's data with a bonus, an enchanted bonus and a bound Enchantment. */
 function dress(system, n) {
   const s = plain(system);
   if (s.innate) return s;
   s.bonus = 1 + (n % 3);
-  s.gem = { type: n % 2 ? "emerald" : "ruby", tier: 2 };
-  s.enchantment = { ...(s.enchantment ?? {}), enabled: true, effects: techEffects, bonus: { kind: KINDS[n % 4], n: 2, skill: "prowess", situational: n % 5 === 0, circumstance: "at dusk" } };
+  s.enchantment = { ...(s.enchantment ?? {}), enabled: true, effects: techEffects, bonus: { kind: KINDS[n % 4], n: 2, skill: "prowess" } };
   return s;
 }
 function buildActor(doc, conditions = [], gear = false) {
@@ -158,7 +157,7 @@ async function runSheet(actor, kind, arg, answers, targets) {
 const bestiary = docs("bestiary");
 const picked = bestiary.filter((_, i) => i % 6 === 0);
 const mist = [{ name: "Invisible", rounds: "", note: "" }, { name: "Weakened", rounds: "", note: "might" }, { name: "Restrained", rounds: "", note: "" }];
-let emeraldSeen = 0, n = 0, bad = 0, withStress = 0, withStrain = 0, withCond = 0, withEnch = 0, withGem = 0;
+let pierceSeen = 0, n = 0, bad = 0, withStress = 0, withStrain = 0, withCond = 0, withEnch = 0;
 for (const doc of picked) {
   for (const [conditions, gear] of [[[], false], [mist, false], [[], true], [mist, true]]) {
     const actor = buildActor(doc, conditions, gear);
@@ -188,7 +187,6 @@ for (const doc of picked) {
           if (o.events?.some(e => e.type === "strain")) withStrain++;
           if (o.posted?.some(p => p.flags?.foil?.cond?.targets?.length)) withCond++;
           if (kind === "enchantment" && o.posted?.length) withEnch++;
-          if (o.posted?.some(p => /Focus Gem/.test(p.flavor))) withGem++;
           if (JSON.stringify(o) !== JSON.stringify(w)) {
             bad++;
             if (bad <= 4) {
@@ -202,25 +200,24 @@ for (const doc of picked) {
   }
 }
 
-// An arcane Instrument with an Emerald, and a Technique with Pierce, which no shipped creature has.
+// An arcane Instrument at +1 and +3, and a Technique with Pierce, which no shipped creature has.
 {
   const inst = docs("instruments").find(d => (d.system.types ?? []).includes("kinetic") && !d.system.innate);
   const base = docs("techniques").find(d => (d.system.effects ?? []).some(e => e.key === "stress") && (d.system.requires ?? []).includes("kinetic"));
-  if (!inst || !base) { console.log("  FAIL  no kinetic Instrument or Technique to build the Emerald case"); process.exit(1); }
+  if (!inst || !base) { console.log("  FAIL  no kinetic Instrument or Technique to build the Pierce case"); process.exit(1); }
   const tech = plain(base); tech.system.effects = [...tech.system.effects, { key: "pierce", magnitude: 2, pattern: "single", bands: 0, placement: 0 }];
-  for (const gem of ["emerald", "ruby"]) for (const tier of [1, 3]) {
-    const i2 = plain(inst); i2.system.gem = { type: gem, tier }; i2.system.bonus = 2;
+  for (const tier of [1, 3]) {
+    const i2 = plain(inst); i2.system.bonus = tier;
     const actor = buildActor({ ...bestiary[0], items: [{ ...i2, _id: "inst1" }, { ...tech, _id: "tech1" }] });
     for (const targets of [[], [token("Orc")]]) for (const answers of [[{ aim: "might", type: "", other: 0 }], [{ instrumentId: "inst1", skill: "resonance" }, { aim: "wit", type: "0", other: 1 }], [{ instrumentId: "inst1", skill: "guile" }, { aim: "might", type: "", other: 0 }]]) {
       n++;
       const o = await safe(runOld)(actor, "technique", "tech1", answers, targets), w = await safe(runNew)(actor, "technique", "tech1", answers, targets), sh = await safe(runSheet)(actor, "technique", "tech1", answers, targets);
-      if (JSON.stringify(o) !== JSON.stringify(sh)) { bad++; console.log(`  FAIL (sheet)  Emerald case ${gem} ${tier}`); }
-      if (o.posted?.some(p => /Focus Gem/.test(p.flavor))) withGem++;
-      if (JSON.stringify(o) !== JSON.stringify(w)) { bad++; console.log(`  FAIL  Emerald case ${gem} ${tier}`); }
-      else if (o.posted?.[0]?.flags?.foil?.stress?.pierceParts?.some(p => p.label === "Emerald")) emeraldSeen++;
+      if (JSON.stringify(o) !== JSON.stringify(sh)) { bad++; console.log(`  FAIL (sheet)  Pierce case +${tier}`); }
+      if (JSON.stringify(o) !== JSON.stringify(w)) { bad++; console.log(`  FAIL  Pierce case +${tier}`); }
+      else if (o.posted?.[0]?.flags?.foil?.stress?.pierceParts?.some(p => p.label === tech.name && p.value)) pierceSeen++;
     }
   }
 }
-if (!emeraldSeen) { bad++; console.log("  FAIL  no scenario reached the Emerald Pierce part"); }
-console.log(`  ${n - bad} of ${n} roll flows match the old sheet code (${withStress} post a Stress payload, ${withStrain} take Strain, ${withCond} carry targeted flags, ${withEnch} Enchantment rolls, ${withGem} Focus Gem notes, ${emeraldSeen} with Emerald Pierce)`);
+if (!pierceSeen) { bad++; console.log("  FAIL  no scenario reached a Technique's Pierce part"); }
+console.log(`  ${n - bad} of ${n} roll flows match the old sheet code (${withStress} post a Stress payload, ${withStrain} take Strain, ${withCond} carry targeted flags, ${withEnch} Enchantment rolls, ${pierceSeen} with a Technique's Pierce)`);
 process.exit(bad ? 1 : 0);

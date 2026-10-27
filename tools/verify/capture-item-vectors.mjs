@@ -48,11 +48,10 @@ add("price mismatch", M.InstrumentData, "instrument", mut(longsword, s => { s.pr
 add("innate in a bag", M.InstrumentData, "instrument", mut(voice, s => { s.location = "carried"; }));
 add("no types", M.InstrumentData, "instrument", mut(longsword, s => { s.types = []; }));
 add("unknown type", M.InstrumentData, "instrument", mut(longsword, s => { s.types = ["not-a-type"]; }));
-for (const kind of ["skill", "roll", "pierce", "stress", "aid"]) for (const sit of [false, true])
-  add(`enchanted bonus ${kind}${sit ? " situational" : ""}`, M.InstrumentData, "instrument",
-    mut(longsword, s => { s.enchantment = { ...(s.enchantment ?? {}), bonus: { kind, n: 2, skill: "prowess", situational: sit, circumstance: "at dusk" } }; }));
-for (const gem of ["", "ruby", "sapphire", "emerald"]) add(`gem ${gem || "none"} in an arcane Instrument`, M.InstrumentData, "instrument", mut(arcane, s => { s.gem = { type: gem, tier: 2 }; }));
-add("gem in a non-arcane Instrument", M.InstrumentData, "instrument", mut(longsword, s => { s.gem = { type: "ruby", tier: 1 }; }));
+for (const kind of ["skill", "roll", "pierce", "stress"]) for (const n of [1, 3])
+  add(`enchanted bonus ${kind} +${n}`, M.InstrumentData, "instrument",
+    mut(longsword, s => { s.enchantment = { ...(s.enchantment ?? {}), bonus: { kind, n, skill: "prowess" } }; }));
+add("arcane Instrument", M.InstrumentData, "instrument", mut(arcane, s => { s.bonus = 2; }));
 add("bound Enchantment", M.InstrumentData, "instrument", mut(longsword, s => { s.enchantment = { ...(s.enchantment ?? {}), enabled: true, effects: effectsOf }; }));
 add("bound Enchantment, empty", M.InstrumentData, "instrument", mut(longsword, s => { s.enchantment = { ...(s.enchantment ?? {}), enabled: true, effects: [] }; }));
 const tech = techniques.find(d => (d.system.effects ?? []).length > 1) ?? techniques[0];
