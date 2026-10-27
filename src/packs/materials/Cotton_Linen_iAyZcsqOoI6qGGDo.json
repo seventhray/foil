@@ -1,0 +1,25 @@
+{
+  "_id": "iAyZcsqOoI6qGGDo",
+  "name": "Cotton/Linen",
+  "type": "material",
+  "img": "icons/commodities/cloth/cloth-bolt-tan.webp",
+  "system": {
+    "category": "textile",
+    "tier": 0,
+    "scarcity": "common",
+    "batches": 1,
+    "weight": 0,
+    "location": "carried",
+    "storedAt": "",
+    "notes": "",
+    "description": ""
+  },
+  "effects": [],
+  "folder": "hGCS2bBCLLC1yoZO",
+  "sort": 1900000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!iAyZcsqOoI6qGGDo"
+}

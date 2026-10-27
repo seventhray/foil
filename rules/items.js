@@ -2,14 +2,15 @@
  * rules/items.js
  * What an item derives from its stored data: an Instrument's weight, Range, Skills, price and Type effects,
  * Enchantment; a Technique's XP cost, Strain, requirements and summary; Equipment's carried
- * weight; Background and Origin summaries. Pure: each function works on a plain object and sets derived fields
+ * weight; a Material's price and Mass a batch; Background and Origin summaries. Pure: each function works on a plain object and sets derived fields
  * on it in place. The registry ({ instrumentTypes, effects }, slug-keyed definitions) is passed in, so Foundry
  * and the companion app run the same code against the same definitions.
  */
 
 import {
   WEIGHT_CLASS, SKILL_KEYS, SKILL_LABEL, PRIMARY_SKILLS, BONUS_PRICE, MATERIAL_TIER_PRICE, SIZE, TYPE_SURCHARGE,
-  REACH_PRICE_PER_BAND, RANGE_BANDS, RANGE_LABEL, rangeBandOf, usualRange, rangeTextFor, RESISTANCE_LABEL, ATTR_LABEL
+  REACH_PRICE_PER_BAND, RANGE_BANDS, RANGE_LABEL, rangeBandOf, usualRange, rangeTextFor, RESISTANCE_LABEL, ATTR_LABEL,
+  MATERIAL_CATEGORY_LABEL, MATERIAL_SCARCITY_LABEL, MATERIAL_SCARCITY_MULT, MATERIAL_BATCH_LBS
 } from "./constants.js";
 import { priceTechnique, strainFor, SELECTIVE_PREMIUM } from "./pricing.js";
 
@@ -203,6 +204,19 @@ export function deriveConsumable(sys) {
   sys.carriedWeight = Number(sys.weight) || 0;
   const n = String(sys.uses ?? "").trim();
   sys.usesLeft = /^\d+$/.test(n) ? Number(n) : null;
+}
+
+/** A batch's price: its Tier's price times its Scarcity, to the nearest penny (PHB 5.3.1). */
+export const materialBatchPrice = (tier, scarcity) => Math.round((MATERIAL_TIER_PRICE[tier] ?? 0) * (MATERIAL_SCARCITY_MULT[scarcity] ?? 1));
+
+/** A Material's derived fields (PHB 5.3.1, 5.2.6): its price and Mass a batch, and the Mass of all its batches. A Mass set on the
+ *  item replaces its category's. */
+export function deriveMaterial(sys) {
+  sys.categoryLabel = MATERIAL_CATEGORY_LABEL[sys.category] ?? "";
+  sys.scarcityLabel = MATERIAL_SCARCITY_LABEL[sys.scarcity] ?? "";
+  sys.price = materialBatchPrice(Number(sys.tier ?? 0), sys.scarcity);
+  sys.lbsEach = Number(sys.weight) || (MATERIAL_BATCH_LBS[sys.category] ?? 0);
+  sys.carriedWeight = Math.round(Number(sys.batches ?? 0) * sys.lbsEach * 100) / 100;
 }
 
 /** A Background's derived fields. */

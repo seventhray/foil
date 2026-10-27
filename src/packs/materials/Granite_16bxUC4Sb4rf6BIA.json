@@ -1,0 +1,25 @@
+{
+  "_id": "16bxUC4Sb4rf6BIA",
+  "name": "Granite",
+  "type": "material",
+  "img": "icons/commodities/stone/masonry-block-cube-grey-teal.webp",
+  "system": {
+    "category": "stone",
+    "tier": 2,
+    "scarcity": "common",
+    "batches": 1,
+    "weight": 0,
+    "location": "carried",
+    "storedAt": "",
+    "notes": "",
+    "description": ""
+  },
+  "effects": [],
+  "folder": "fi9k5pAzvHRCBxSF",
+  "sort": 3900000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!16bxUC4Sb4rf6BIA"
+}

@@ -1,0 +1,25 @@
+{
+  "_id": "iH8v5J1TGen6jp68",
+  "name": "Moonpetal",
+  "type": "material",
+  "img": "icons/commodities/flowers/buds-red-green.webp",
+  "system": {
+    "category": "reagent",
+    "tier": 2,
+    "scarcity": "common",
+    "batches": 1,
+    "weight": 0,
+    "location": "carried",
+    "storedAt": "",
+    "notes": "",
+    "description": ""
+  },
+  "effects": [],
+  "folder": "AvOYyQ7vC4Emm0gc",
+  "sort": 3300000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!iH8v5J1TGen6jp68"
+}

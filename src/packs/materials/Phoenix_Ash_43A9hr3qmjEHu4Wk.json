@@ -1,0 +1,25 @@
+{
+  "_id": "43A9hr3qmjEHu4Wk",
+  "name": "Phoenix Ash",
+  "type": "material",
+  "img": "icons/commodities/flowers/buds-red-green.webp",
+  "system": {
+    "category": "reagent",
+    "tier": 4,
+    "scarcity": "common",
+    "batches": 1,
+    "weight": 0,
+    "location": "carried",
+    "storedAt": "",
+    "notes": "",
+    "description": ""
+  },
+  "effects": [],
+  "folder": "AvOYyQ7vC4Emm0gc",
+  "sort": 3500000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!43A9hr3qmjEHu4Wk"
+}

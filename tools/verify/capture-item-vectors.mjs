@@ -33,10 +33,14 @@ for (const d of instruments) add(d.name, M.InstrumentData, "instrument", d.syste
 for (const d of techniques) add(d.name, M.TechniqueData, "technique", d.system);
 for (const d of docs("equipment")) add(d.name, M.EquipmentData, "equipment", d.system);
 for (const d of docs("consumables")) add(d.name, M.ConsumableData, "consumable", d.system);
+for (const d of docs("materials")) add(d.name, M.MaterialData, "material", d.system);
 for (const d of docs("backgrounds")) add(d.name, M.BackgroundData, "background", d.system);
 for (const d of docs("ancestries")) add(d.name, M.OriginData, "origin", d.system);
 
 // Variants that reach branches the shipped content does not.
+{ const steel = docs("materials").find(d => d.name === "Steel");
+  add("material, 2.75 batches, Rare, stored", M.MaterialData, "material", { ...steel.system, batches: 2.75, scarcity: "rare", location: "stored", storedAt: "Old mill" });
+  add("material, Mass set on the item", M.MaterialData, "material", { ...steel.system, batches: 3, weight: 10, scarcity: "uncommon" }); }
 const longsword = instruments.find(d => d.system.weight === "medium" && !d.system.innate) ?? instruments[0];
 const voice = instruments.find(d => d.system.innate) ?? instruments[0];
 const arcane = instruments.find(d => (d.system.types ?? []).some(t => ["kinetic", "incorporeal", "fortifying"].includes(t))) ?? instruments[0];

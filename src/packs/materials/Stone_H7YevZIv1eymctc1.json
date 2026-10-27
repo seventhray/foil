@@ -1,0 +1,25 @@
+{
+  "_id": "H7YevZIv1eymctc1",
+  "name": "Stone",
+  "type": "material",
+  "img": "icons/commodities/gems/gem-faceted-asscher-blue.webp",
+  "system": {
+    "category": "gemstone",
+    "tier": 2,
+    "scarcity": "common",
+    "batches": 1,
+    "weight": 0,
+    "location": "carried",
+    "storedAt": "",
+    "notes": "",
+    "description": ""
+  },
+  "effects": [],
+  "folder": "Zij6kQiWZOGCUq1J",
+  "sort": 900000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!H7YevZIv1eymctc1"
+}

@@ -6,6 +6,7 @@
   "TYPES.Item.feat": "Feat",
   "TYPES.Item.equipment": "Equipment",
   "TYPES.Item.consumable": "Consumable",
+  "TYPES.Item.material": "Material",
   "TYPES.Item.background": "Background",
   "TYPES.Item.origin": "Origin",
   "TYPES.Item.instrumentType": "Instrument Type",

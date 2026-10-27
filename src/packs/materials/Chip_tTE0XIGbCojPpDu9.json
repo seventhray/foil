@@ -1,0 +1,25 @@
+{
+  "_id": "tTE0XIGbCojPpDu9",
+  "name": "Chip",
+  "type": "material",
+  "img": "icons/commodities/gems/gem-faceted-asscher-blue.webp",
+  "system": {
+    "category": "gemstone",
+    "tier": 0,
+    "scarcity": "common",
+    "batches": 1,
+    "weight": 0,
+    "location": "carried",
+    "storedAt": "",
+    "notes": "",
+    "description": ""
+  },
+  "effects": [],
+  "folder": "Zij6kQiWZOGCUq1J",
+  "sort": 700000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!tTE0XIGbCojPpDu9"
+}

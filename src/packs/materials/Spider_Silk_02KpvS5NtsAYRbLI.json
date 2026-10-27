@@ -1,0 +1,25 @@
+{
+  "_id": "02KpvS5NtsAYRbLI",
+  "name": "Spider Silk",
+  "type": "material",
+  "img": "icons/commodities/cloth/cloth-bolt-tan.webp",
+  "system": {
+    "category": "textile",
+    "tier": 2,
+    "scarcity": "common",
+    "batches": 1,
+    "weight": 0,
+    "location": "carried",
+    "storedAt": "",
+    "notes": "",
+    "description": ""
+  },
+  "effects": [],
+  "folder": "hGCS2bBCLLC1yoZO",
+  "sort": 2100000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!02KpvS5NtsAYRbLI"
+}

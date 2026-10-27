@@ -11,7 +11,7 @@ import { FoilCharacterSheet, FoilCreatureSheet } from "./actor/actor-sheet.js";
 import { FoilItemSheet } from "./item/item-sheet.js";
 import { CharacterData, CreatureData } from "./data/actor-models.js";
 import {
-  InstrumentData, TechniqueData, EquipmentData, ConsumableData, FeatData, BackgroundData, OriginData
+  InstrumentData, TechniqueData, EquipmentData, ConsumableData, MaterialData, FeatData, BackgroundData, OriginData
 } from "./data/item-models.js";
 import { migrateConsumables } from "./migrate-consumables.js";
 import { InstrumentTypeData, QualityData, EffectData } from "./data/definition-models.js";
@@ -48,6 +48,7 @@ Hooks.once("init", function() {
   CONFIG.Item.dataModels.technique      = TechniqueData;
   CONFIG.Item.dataModels.equipment      = EquipmentData;
   CONFIG.Item.dataModels.consumable     = ConsumableData;
+  CONFIG.Item.dataModels.material       = MaterialData;
   CONFIG.Item.dataModels.feat           = FeatData;
   CONFIG.Item.dataModels.background      = BackgroundData;
   CONFIG.Item.dataModels.origin         = OriginData;

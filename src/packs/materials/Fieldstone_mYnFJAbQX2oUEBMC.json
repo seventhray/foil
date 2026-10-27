@@ -1,0 +1,25 @@
+{
+  "_id": "mYnFJAbQX2oUEBMC",
+  "name": "Fieldstone",
+  "type": "material",
+  "img": "icons/commodities/stone/masonry-block-cube-grey-teal.webp",
+  "system": {
+    "category": "stone",
+    "tier": 0,
+    "scarcity": "common",
+    "batches": 1,
+    "weight": 0,
+    "location": "carried",
+    "storedAt": "",
+    "notes": "",
+    "description": ""
+  },
+  "effects": [],
+  "folder": "fi9k5pAzvHRCBxSF",
+  "sort": 3700000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!mYnFJAbQX2oUEBMC"
+}

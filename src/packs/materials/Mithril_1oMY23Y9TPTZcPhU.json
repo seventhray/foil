@@ -1,0 +1,25 @@
+{
+  "_id": "1oMY23Y9TPTZcPhU",
+  "name": "Mithril",
+  "type": "material",
+  "img": "icons/commodities/metal/ingot-engraved-silver.webp",
+  "system": {
+    "category": "metal",
+    "tier": 3,
+    "scarcity": "common",
+    "batches": 1,
+    "weight": 0,
+    "location": "carried",
+    "storedAt": "",
+    "notes": "",
+    "description": ""
+  },
+  "effects": [],
+  "folder": "oNks5nxW0FL8Rzt8",
+  "sort": 400000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!1oMY23Y9TPTZcPhU"
+}

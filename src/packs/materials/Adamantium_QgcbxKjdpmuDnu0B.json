@@ -1,0 +1,25 @@
+{
+  "_id": "QgcbxKjdpmuDnu0B",
+  "name": "Adamantium",
+  "type": "material",
+  "img": "icons/commodities/metal/ingot-engraved-silver.webp",
+  "system": {
+    "category": "metal",
+    "tier": 4,
+    "scarcity": "common",
+    "batches": 1,
+    "weight": 0,
+    "location": "carried",
+    "storedAt": "",
+    "notes": "",
+    "description": ""
+  },
+  "effects": [],
+  "folder": "oNks5nxW0FL8Rzt8",
+  "sort": 500000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!QgcbxKjdpmuDnu0B"
+}

@@ -1,0 +1,25 @@
+{
+  "_id": "lBcdvsjYjUiTlT6b",
+  "name": "Ash",
+  "type": "material",
+  "img": "icons/commodities/wood/log-cut-ash-brown.webp",
+  "system": {
+    "category": "wood",
+    "tier": 0,
+    "scarcity": "common",
+    "batches": 1,
+    "weight": 0,
+    "location": "carried",
+    "storedAt": "",
+    "notes": "",
+    "description": ""
+  },
+  "effects": [],
+  "folder": "GxU0XzpnkTHlFoIZ",
+  "sort": 1300000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!lBcdvsjYjUiTlT6b"
+}

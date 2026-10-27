@@ -1,0 +1,25 @@
+{
+  "_id": "uFDuhO5DxQ5EkfB5",
+  "name": "Ebony",
+  "type": "material",
+  "img": "icons/commodities/wood/log-cut-ash-brown.webp",
+  "system": {
+    "category": "wood",
+    "tier": 3,
+    "scarcity": "common",
+    "batches": 1,
+    "weight": 0,
+    "location": "carried",
+    "storedAt": "",
+    "notes": "",
+    "description": ""
+  },
+  "effects": [],
+  "folder": "GxU0XzpnkTHlFoIZ",
+  "sort": 1600000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!uFDuhO5DxQ5EkfB5"
+}

@@ -10,7 +10,8 @@ import { typeOptions, effectOptions, qualityOptions, effectMap, qualityMap } fro
 import {
   WEIGHT_KEYS, WEIGHT_CLASS, ATTRIBUTE_KEYS, ATTR_LABEL, SKILL_KEYS, SKILL_LABEL, SIZE, SIZE_KEYS,
   EQUIPMENT_CATEGORY_LABEL, RESISTANCE_KINDS, RESISTANCE_LABEL, cap, ITEM_LOCATIONS, LOCATION_LABEL,
-  TECHNIQUE_FAMILIES, ORIGIN_NAMES, RANGE_CHOICES, RANGE_BANDS, RANGE_LABEL, CONDITION_PRESETS, EFFECT_CONDITION
+  TECHNIQUE_FAMILIES, ORIGIN_NAMES, RANGE_CHOICES, RANGE_BANDS, RANGE_LABEL, CONDITION_PRESETS, EFFECT_CONDITION,
+  MATERIAL_CATEGORIES, MATERIAL_CATEGORY_LABEL, MATERIAL_SCARCITY_KEYS, MATERIAL_SCARCITY_LABEL, MATERIAL_BATCH_LBS
 } from "../constants.js";
 import { QualityData, EffectData, InstrumentTypeData } from "../data/definition-models.js";
 import { entryLabel, DURATION_BASES, DURATIONS, CONDITION_EFFECTS, withDuration } from "../pricing.js";
@@ -26,6 +27,7 @@ const TEMPLATE_MAP = {
   feat:           "systems/foil/templates/item/feat-sheet.hbs",
   equipment:      "systems/foil/templates/item/equipment-sheet.hbs",
   consumable:     "systems/foil/templates/item/consumable-sheet.hbs",
+  material:       "systems/foil/templates/item/material-sheet.hbs",
   background:     "systems/foil/templates/item/background-sheet.hbs",
   origin:         "systems/foil/templates/item/origin-sheet.hbs",
   instrumentType: "systems/foil/templates/item/instrument-type-sheet.hbs",
@@ -116,6 +118,8 @@ export class FoilItemSheet extends HandlebarsApplicationMixin(ItemSheetV2Base) {
       weightOptions: WEIGHT_KEYS.map(k => opt(k, WEIGHT_CLASS[k].label)),
       locationOptions: ITEM_LOCATIONS.map(k => opt(k, LOCATION_LABEL[k])),
       consumableLocationOptions: ["carried", "stored"].map(k => opt(k, LOCATION_LABEL[k])),
+      materialCategoryOptions: MATERIAL_CATEGORIES.map(k => opt(k, `${MATERIAL_CATEGORY_LABEL[k]} (${MATERIAL_BATCH_LBS[k]} lb${MATERIAL_BATCH_LBS[k] === 1 ? "" : "s"} a batch)`)),
+      scarcityOptions: MATERIAL_SCARCITY_KEYS.map(k => opt(k, MATERIAL_SCARCITY_LABEL[k])),
       storagePlaces: this.item.parent?.system?.storage ?? [],
       weightClassOptions: [opt("", "None"), ...WEIGHT_KEYS.map(k => opt(k, WEIGHT_CLASS[k].label))],
       sizeOptions: SIZE_KEYS.map(k => opt(k, `${SIZE[k].label} (${SIZE[k].batches} batch${SIZE[k].batches > 1 ? "es" : ""})`)),

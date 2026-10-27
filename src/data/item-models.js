@@ -10,10 +10,10 @@
 import { f, slugField, slugArray, str, int, bool, html } from "./fields.js";
 import {
   WEIGHT_KEYS, ATTRIBUTE_KEYS, SKILL_KEYS, SIZE_KEYS, RANGE_BANDS, rangeBandOf, rangeMinOf, rangeTextOf,
-  EQUIPMENT_CATEGORIES, LEGACY_CONSUMABLE_CATEGORIES, LEGACY_SKILL_KEY, ITEM_LOCATIONS
+  EQUIPMENT_CATEGORIES, LEGACY_CONSUMABLE_CATEGORIES, LEGACY_SKILL_KEY, ITEM_LOCATIONS, MATERIAL_CATEGORIES, MATERIAL_SCARCITY_KEYS
 } from "../constants.js";
 import { LEGACY_TYPE_KEY } from "./definition-models.js";
-import { deriveInstrument, deriveTechnique, deriveEquipment, deriveConsumable, deriveBackground, deriveOrigin } from "../../rules/items.js";
+import { deriveInstrument, deriveTechnique, deriveEquipment, deriveConsumable, deriveMaterial, deriveBackground, deriveOrigin } from "../../rules/items.js";
 
 const INSTRUMENT_CATEGORIES = ["melee", "ranged", "arcane", "sonic", "tool", "innate"];
 
@@ -230,6 +230,29 @@ export class ConsumableData extends foundry.abstract.TypeDataModel {
 
   prepareDerivedData() {
     deriveConsumable(this);
+  }
+}
+
+/** A Material (PHB 5.3.1): batches of one category at a Tier and Scarcity, for crafting. Price and Mass are a batch's. */
+export class MaterialData extends foundry.abstract.TypeDataModel {
+  static defineSchema() {
+    return {
+      category: new f.StringField({ required: true, initial: "metal", choices: MATERIAL_CATEGORIES }),
+      tier: new f.NumberField({ required: true, integer: true, initial: 0, min: 0, max: 5 }),
+      scarcity: new f.StringField({ required: true, initial: "common", choices: MATERIAL_SCARCITY_KEYS }),
+      // Batches held: a part batch counts (2.75).
+      batches: new f.NumberField({ required: true, initial: 1, min: 0 }),
+      // Mass a batch in pounds; 0 takes its category's (PHB 5.2.6).
+      weight: new f.NumberField({ required: true, initial: 0, min: 0 }),
+      location: new f.StringField({ required: true, initial: "carried", choices: ["carried", "stored"] }),
+      storedAt: str(""),
+      notes: str(""),
+      description: html("")
+    };
+  }
+
+  prepareDerivedData() {
+    deriveMaterial(this);
   }
 }
 

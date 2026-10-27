@@ -1,0 +1,25 @@
+{
+  "_id": "hxOKqtEZsk86ODBW",
+  "name": "Basilisk Scale",
+  "type": "material",
+  "img": "icons/commodities/leather/leather-bolt-brown.webp",
+  "system": {
+    "category": "leather",
+    "tier": 4,
+    "scarcity": "common",
+    "batches": 1,
+    "weight": 0,
+    "location": "carried",
+    "storedAt": "",
+    "notes": "",
+    "description": ""
+  },
+  "effects": [],
+  "folder": "eZ0XsBo9yof3P3Fz",
+  "sort": 2900000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!hxOKqtEZsk86ODBW"
+}

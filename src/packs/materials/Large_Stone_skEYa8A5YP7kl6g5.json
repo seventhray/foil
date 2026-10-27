@@ -1,0 +1,25 @@
+{
+  "_id": "skEYa8A5YP7kl6g5",
+  "name": "Large Stone",
+  "type": "material",
+  "img": "icons/commodities/gems/gem-faceted-asscher-blue.webp",
+  "system": {
+    "category": "gemstone",
+    "tier": 3,
+    "scarcity": "common",
+    "batches": 1,
+    "weight": 0,
+    "location": "carried",
+    "storedAt": "",
+    "notes": "",
+    "description": ""
+  },
+  "effects": [],
+  "folder": "Zij6kQiWZOGCUq1J",
+  "sort": 1000000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!skEYa8A5YP7kl6g5"
+}

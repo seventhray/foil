@@ -146,6 +146,8 @@ export const MATERIAL_TIER_PRICE = [2, 8, 23, 68, 200, 600];
 export const MATERIAL_SCARCITY_KEYS = ["common", "uncommon", "rare", "exotic"];
 export const MATERIAL_SCARCITY_LABEL = { common: "Common", uncommon: "Uncommon", rare: "Rare", exotic: "Exotic" };
 export const MATERIAL_SCARCITY_MULT = { common: 1, uncommon: 1.5, rare: 2, exotic: 3 };
+// A batch's Mass by category (PHB 5.2.6, user 2026-10-27).
+export const MATERIAL_BATCH_LBS = { stone: 8, metal: 6, wood: 4, leather: 3, textile: 2, gemstone: 1, reagent: 1 };
 
 // Resistance is physical (Might + Finesse) or mental (Wit + Presence) (PHB 6.6.0).
 export const RESISTANCE_KINDS = ["physical", "mental"];

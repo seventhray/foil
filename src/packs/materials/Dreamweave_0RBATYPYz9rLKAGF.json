@@ -1,0 +1,25 @@
+{
+  "_id": "0RBATYPYz9rLKAGF",
+  "name": "Dreamweave",
+  "type": "material",
+  "img": "icons/commodities/cloth/cloth-bolt-tan.webp",
+  "system": {
+    "category": "textile",
+    "tier": 4,
+    "scarcity": "common",
+    "batches": 1,
+    "weight": 0,
+    "location": "carried",
+    "storedAt": "",
+    "notes": "",
+    "description": ""
+  },
+  "effects": [],
+  "folder": "hGCS2bBCLLC1yoZO",
+  "sort": 2300000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!0RBATYPYz9rLKAGF"
+}

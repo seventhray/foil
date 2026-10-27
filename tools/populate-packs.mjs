@@ -31,7 +31,7 @@ import { buildPacks } from "./build-packs.mjs";
 import { buildGlossary } from "./build-glossary.mjs";
 import { buildCreatureData } from "./build-creature-data.mjs";
 import { bestiaryDocs } from "./seed-bestiary.mjs";
-import { EQUIPMENT_CATEGORY_LABEL } from "../src/constants.js";
+import { EQUIPMENT_CATEGORY_LABEL, MATERIAL_CATEGORIES, MATERIAL_CATEGORY_LABEL } from "../src/constants.js";
 
 
 
@@ -477,6 +477,22 @@ function consumableDocs() {
   });
 }
 
+// ─── Materials (PHB 7.10.2) ─────────────────────────────────────────────────
+// Their own item type (user, 2026-10-27): each example in the table is one Common batch of its category at its Tier.
+const MATERIAL_IMG = {
+  metal: "icons/commodities/metal/ingot-engraved-silver.webp", gemstone: "icons/commodities/gems/gem-faceted-asscher-blue.webp",
+  stone: "icons/commodities/stone/masonry-block-cube-grey-teal.webp", wood: "icons/commodities/wood/log-cut-ash-brown.webp",
+  textile: "icons/commodities/cloth/cloth-bolt-tan.webp", leather: "icons/commodities/leather/leather-bolt-brown.webp",
+  reagent: "icons/commodities/flowers/buds-red-green.webp"
+};
+function materialDocs() {
+  const rows = tableAfter(PHB, /^### 7\.10\.2 Example Materials/);
+  return MATERIAL_CATEGORIES.flatMap(category => rows.map(r => ({
+    name: r[MATERIAL_CATEGORY_LABEL[category]], type: "material", img: MATERIAL_IMG[category],
+    system: { category, tier: Number(r.Tier), scarcity: "common", batches: 1, weight: 0, location: "carried", storedAt: "", notes: "", description: "" }
+  })).filter(d => d.name));
+}
+
 // ─── Feats (Catalog notes, PHB 7.2.x, 7.5.x) ───────────────────────────────
 // Flat, always-on grants become sheet modifiers; conditional Feats stay prose.
 function featModifiers(effect) {
@@ -653,7 +669,8 @@ const FOLDERS = {
   techniques: d => [d.system.family || (d.system.innate ? "Innate" : "Other"), d.system.subgroup],
   feats: d => d.system.featType === "ancestry" ? ["Origin", d.system.ancestry] : [capital(d.system.featType)],
   instruments: d => [d.system.innate ? "Innate" : d.system.category === "tool" ? "Tools" : capital(d.system.category)],
-  equipment: d => [EQUIPMENT_CATEGORY_LABEL[d.system.category] ?? capital(d.system.category)]
+  equipment: d => [EQUIPMENT_CATEGORY_LABEL[d.system.category] ?? capital(d.system.category)],
+  materials: d => [MATERIAL_CATEGORY_LABEL[d.system.category]]
 };
 
 // ─── Build and check ────────────────────────────────────────────────────────
@@ -687,6 +704,7 @@ const feats = [...CAT.feats].sort((a, b) =>
   || (a.order ?? 0) - (b.order ?? 0)).map(featDoc);
 const equipment = equipmentDocs();
 const consumables = consumableDocs();
+const materials = materialDocs();
 const backgrounds = backgroundDocs();
 
 // Every Background kit item should resolve to something in the packs.
@@ -715,7 +733,7 @@ if (!process.argv.includes("--dry-run")) fs.writeFileSync(path.join(SYSTEM_ROOT,
 if (process.argv.includes("--habits-only")) { console.log("  wrote src/habits.js"); process.exit(0); }
 if (process.argv.includes("--dry-run")) {
   console.log(`  dry run: ${INSTRUMENT_TYPES.length} types, ${QUALITIES.length} qualities, ${EFFECTS.length} effects, `
-    + `${instruments.length} instruments, ${techniques.length} techniques, ${feats.length} feats, ${equipment.length} equipment, ${consumables.length} consumables, `
+    + `${instruments.length} instruments, ${techniques.length} techniques, ${feats.length} feats, ${equipment.length} equipment, ${consumables.length} consumables, ${materials.length} materials, `
     + `${backgrounds.length} backgrounds, ${ancestries.length} origins, ${bestiary.actors.length} creatures, ${GUIDE.length} guide journals`);
 } else {
   writePack("instrument-types", INSTRUMENT_TYPES.map(instrumentTypeDoc));
@@ -726,6 +744,7 @@ if (process.argv.includes("--dry-run")) {
   writePack("feats", feats, FOLDERS.feats);
   writePack("equipment", equipment, FOLDERS.equipment);
   writePack("consumables", consumables);
+  writePack("materials", materials, FOLDERS.materials);
   writePack("backgrounds", backgrounds);
   writePack("ancestries", ancestries);
   writeGuidePack("guide", GUIDE);

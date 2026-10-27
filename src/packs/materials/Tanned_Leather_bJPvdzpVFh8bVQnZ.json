@@ -1,0 +1,25 @@
+{
+  "_id": "bJPvdzpVFh8bVQnZ",
+  "name": "Tanned Leather",
+  "type": "material",
+  "img": "icons/commodities/leather/leather-bolt-brown.webp",
+  "system": {
+    "category": "leather",
+    "tier": 1,
+    "scarcity": "common",
+    "batches": 1,
+    "weight": 0,
+    "location": "carried",
+    "storedAt": "",
+    "notes": "",
+    "description": ""
+  },
+  "effects": [],
+  "folder": "eZ0XsBo9yof3P3Fz",
+  "sort": 2600000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!bJPvdzpVFh8bVQnZ"
+}

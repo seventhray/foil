@@ -1,0 +1,25 @@
+{
+  "_id": "4hpcB57WFuH0y2a1",
+  "name": "Hardened Leather",
+  "type": "material",
+  "img": "icons/commodities/leather/leather-bolt-brown.webp",
+  "system": {
+    "category": "leather",
+    "tier": 2,
+    "scarcity": "common",
+    "batches": 1,
+    "weight": 0,
+    "location": "carried",
+    "storedAt": "",
+    "notes": "",
+    "description": ""
+  },
+  "effects": [],
+  "folder": "eZ0XsBo9yof3P3Fz",
+  "sort": 2700000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!4hpcB57WFuH0y2a1"
+}

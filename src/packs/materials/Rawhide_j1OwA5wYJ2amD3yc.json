@@ -1,0 +1,25 @@
+{
+  "_id": "j1OwA5wYJ2amD3yc",
+  "name": "Rawhide",
+  "type": "material",
+  "img": "icons/commodities/leather/leather-bolt-brown.webp",
+  "system": {
+    "category": "leather",
+    "tier": 0,
+    "scarcity": "common",
+    "batches": 1,
+    "weight": 0,
+    "location": "carried",
+    "storedAt": "",
+    "notes": "",
+    "description": ""
+  },
+  "effects": [],
+  "folder": "eZ0XsBo9yof3P3Fz",
+  "sort": 2500000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!j1OwA5wYJ2amD3yc"
+}

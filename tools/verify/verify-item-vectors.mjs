@@ -10,8 +10,8 @@ import { SYSTEM_ROOT } from "../books.mjs";
 const M = await import(`${SYSTEM_ROOT}/src/data/item-models.js`);
 const R = await import(`${SYSTEM_ROOT}/rules/items.js`);
 const { registry, cases } = JSON.parse(fs.readFileSync(path.join(SYSTEM_ROOT, "tools", "verify", "vectors", "items.json"), "utf8"));
-const models = { instrument: M.InstrumentData, technique: M.TechniqueData, equipment: M.EquipmentData, consumable: M.ConsumableData, background: M.BackgroundData, origin: M.OriginData };
-const pure = { instrument: R.deriveInstrument, technique: R.deriveTechnique, equipment: R.deriveEquipment, consumable: R.deriveConsumable, background: R.deriveBackground, origin: R.deriveOrigin };
+const models = { instrument: M.InstrumentData, technique: M.TechniqueData, equipment: M.EquipmentData, consumable: M.ConsumableData, material: M.MaterialData, background: M.BackgroundData, origin: M.OriginData };
+const pure = { instrument: R.deriveInstrument, technique: R.deriveTechnique, equipment: R.deriveEquipment, consumable: R.deriveConsumable, material: R.deriveMaterial, background: R.deriveBackground, origin: R.deriveOrigin };
 const plain = o => JSON.parse(JSON.stringify(o));
 const diff = (a, b, p = "") => {
   if (typeof a !== "object" || a === null || typeof b !== "object" || b === null) return a === b ? null : `${p}: ${JSON.stringify(a)} vs ${JSON.stringify(b)}`;
@@ -42,4 +42,13 @@ const got = registryFromDocs([
 const want = { edged: { key: "edged", label: "Edged", family: "world override" }, "foil-exposed": { key: "foil-exposed", label: "Foil Exposed!" } };
 const regOk = JSON.stringify(got) === JSON.stringify(want) && slugify("  A  b--C ") === "a-b-c";
 console.log(`  ${regOk ? "the registry builder reads keys, slugs, overrides and blanks as before" : "FAIL  the registry builder differs: " + JSON.stringify(got)}`);
-process.exit(bad || !regOk ? 1 : 0);
+// A batch's price by Tier and Scarcity, every cell of the PHB 5.3.1 table.
+const { readPHB, tableAfter } = await import("../books.mjs");
+const SCARCE = ["Common", "Uncommon", "Rare", "Exotic"];
+// The Tier table follows the Scarcity table in 5.3.1, so it is read from that table's last row.
+const priceRows = tableAfter(readPHB(), /^\| Exotic\s+\| x3/).filter(r => /^\d/.test(r.Tier ?? ""));
+const priceBad = priceRows.flatMap(r => SCARCE.filter(k => R.materialBatchPrice(Number(r.Tier[0]), k.toLowerCase()) !== Number(String(r[k]).replace("p", "")))
+  .map(k => `Tier ${r.Tier[0]} ${k}`));
+const priceOk = priceRows.length === 6 && !priceBad.length;
+console.log(`  ${priceOk ? "a material batch's price matches all 24 cells of PHB 5.3.1" : "FAIL  material prices differ: " + (priceBad.join(", ") || `${priceRows.length} rows read`)}`);
+process.exit(bad || !regOk || !priceOk ? 1 : 0);

@@ -1,0 +1,25 @@
+{
+  "_id": "zKxHwQDYL771DFFp",
+  "name": "Wyrmsap",
+  "type": "material",
+  "img": "icons/commodities/flowers/buds-red-green.webp",
+  "system": {
+    "category": "reagent",
+    "tier": 3,
+    "scarcity": "common",
+    "batches": 1,
+    "weight": 0,
+    "location": "carried",
+    "storedAt": "",
+    "notes": "",
+    "description": ""
+  },
+  "effects": [],
+  "folder": "AvOYyQ7vC4Emm0gc",
+  "sort": 3400000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!zKxHwQDYL771DFFp"
+}

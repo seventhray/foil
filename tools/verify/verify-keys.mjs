@@ -17,6 +17,7 @@ const MODELS = {
   creature:  inst(A.CreatureData,  { attributes:{might:{dice:{d8:1}},finesse:{dice:{d8:1}},wit:{dice:{d8:1}},presence:{dice:{d8:1}}} }),
   instrument: inst(I.InstrumentData, { weight:"medium", types:["edged"] }),
   technique: inst(I.TechniqueData), feat: inst(I.FeatData), equipment: inst(I.EquipmentData),
+  consumable: inst(I.ConsumableData), material: inst(I.MaterialData),
   instrumentType: inst(D.InstrumentTypeData), quality: inst(D.QualityData), effect: inst(D.EffectData),
   background: inst(I.BackgroundData), origin: inst(I.OriginData),
 };

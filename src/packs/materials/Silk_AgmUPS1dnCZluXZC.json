@@ -1,0 +1,25 @@
+{
+  "_id": "AgmUPS1dnCZluXZC",
+  "name": "Silk",
+  "type": "material",
+  "img": "icons/commodities/cloth/cloth-bolt-tan.webp",
+  "system": {
+    "category": "textile",
+    "tier": 1,
+    "scarcity": "common",
+    "batches": 1,
+    "weight": 0,
+    "location": "carried",
+    "storedAt": "",
+    "notes": "",
+    "description": ""
+  },
+  "effects": [],
+  "folder": "hGCS2bBCLLC1yoZO",
+  "sort": 2000000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!AgmUPS1dnCZluXZC"
+}

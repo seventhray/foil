@@ -114,6 +114,11 @@ export function equipmentSummary(sys) {
   return parts.join(" · ");
 }
 
+/** A Material's Tier, category, Scarcity, and price and Mass a batch, as one line (PHB 5.3.1, 5.2.6). */
+export function materialSummary(sys) {
+  return [`Tier ${sys.tier ?? 0} ${sys.categoryLabel ?? ""}`.trim(), sys.scarcityLabel, `${sys.price ?? 0}p a batch`, `${sys.lbsEach ?? 0} lbs a batch`].filter(Boolean).join(" · ");
+}
+
 /** A Consumable's Effect, Duration, Uses and Mass as one line (PHB 7.9.5). */
 export function consumableSummary(sys) {
   return [sys.effect, sys.duration, sys.uses ? `Uses: ${sys.uses}` : "", sys.carriedWeight ? `${sys.carriedWeight} lbs` : ""].filter(Boolean).join(" · ");

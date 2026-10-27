@@ -1,0 +1,25 @@
+{
+  "_id": "cSwn6J7XLaSgIEy3",
+  "name": "Yarrow",
+  "type": "material",
+  "img": "icons/commodities/flowers/buds-red-green.webp",
+  "system": {
+    "category": "reagent",
+    "tier": 0,
+    "scarcity": "common",
+    "batches": 1,
+    "weight": 0,
+    "location": "carried",
+    "storedAt": "",
+    "notes": "",
+    "description": ""
+  },
+  "effects": [],
+  "folder": "AvOYyQ7vC4Emm0gc",
+  "sort": 3100000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!cSwn6J7XLaSgIEy3"
+}

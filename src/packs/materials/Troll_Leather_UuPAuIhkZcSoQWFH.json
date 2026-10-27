@@ -1,0 +1,25 @@
+{
+  "_id": "UuPAuIhkZcSoQWFH",
+  "name": "Troll Leather",
+  "type": "material",
+  "img": "icons/commodities/leather/leather-bolt-brown.webp",
+  "system": {
+    "category": "leather",
+    "tier": 3,
+    "scarcity": "common",
+    "batches": 1,
+    "weight": 0,
+    "location": "carried",
+    "storedAt": "",
+    "notes": "",
+    "description": ""
+  },
+  "effects": [],
+  "folder": "eZ0XsBo9yof3P3Fz",
+  "sort": 2800000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!UuPAuIhkZcSoQWFH"
+}

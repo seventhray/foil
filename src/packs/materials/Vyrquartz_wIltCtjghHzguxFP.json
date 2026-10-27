@@ -1,0 +1,25 @@
+{
+  "_id": "wIltCtjghHzguxFP",
+  "name": "Vyrquartz",
+  "type": "material",
+  "img": "icons/commodities/gems/gem-faceted-asscher-blue.webp",
+  "system": {
+    "category": "gemstone",
+    "tier": 5,
+    "scarcity": "common",
+    "batches": 1,
+    "weight": 0,
+    "location": "carried",
+    "storedAt": "",
+    "notes": "",
+    "description": ""
+  },
+  "effects": [],
+  "folder": "Zij6kQiWZOGCUq1J",
+  "sort": 1200000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!wIltCtjghHzguxFP"
+}
