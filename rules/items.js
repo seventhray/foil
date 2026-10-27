@@ -9,7 +9,7 @@
 
 import {
   WEIGHT_CLASS, SKILL_KEYS, SKILL_LABEL, PRIMARY_SKILLS, BONUS_PRICE, MATERIAL_TIER_PRICE, SIZE, TYPE_SURCHARGE,
-  REACH_PRICE_PER_BAND, RANGE_BANDS, RANGE_LABEL, rangeBandOf, usualRange, rangeTextFor
+  REACH_PRICE_PER_BAND, RANGE_BANDS, RANGE_LABEL, rangeBandOf, usualRange, rangeTextFor, RESISTANCE_LABEL, ATTR_LABEL
 } from "./constants.js";
 import { priceTechnique, strainFor, SELECTIVE_PREMIUM } from "./pricing.js";
 
@@ -56,6 +56,8 @@ export function deriveInstrument(sys, registry = {}) {
   sys.formulaPrice = formulaApplies ? w.price + surcharge + REACH_PRICE_PER_BAND * extra : sys.price;
   sys.priceMismatch = formulaApplies && sys.price !== sys.formulaPrice;
   sys.bonusPrice = (BONUS_PRICE[sys.size] ?? BONUS_PRICE.medium)[sys.bonus] ?? 0;
+  // Its materials' Tier: what it was built at, or more (PHB 5.3.1). An Enchantment needs at least its own Tier (PHB 5.3.4).
+  sys.materialTier = Math.max(Number(sys.tier ?? 0), Number(sys.bonus ?? 0));
   // Crafting (PHB 5.3.2): the size's batches at the item's Tier (its bonus).
   sys.craftCost = (SIZE[sys.size]?.batches ?? 2) * (MATERIAL_TIER_PRICE[sys.bonus] ?? 0);
   sys.bonusMath = `+${sys.bonus} on a ${SIZE[sys.size]?.label ?? sys.size} item = ${sys.bonusPrice}p (PHB 7.10.1)`;
@@ -173,6 +175,15 @@ export function deriveEquipment(sys) {
   sys.carriedWeight = Number(sys.weight) || (wc ? wc.lbs : 0);
   sys.weightClassLabel = wc?.label ?? "";
   sys.materialPrice = MATERIAL_TIER_PRICE[sys.tier] ?? 0;
+  sys.materialTier = Number(sys.tier ?? 0);
+  // An enchanted bonus (PHB 5.3.4): Resistance +N or +N to a Skill, at the +N price for the item's size.
+  const eb = sys.enchantment?.bonus ?? {};
+  if (eb.kind) {
+    const price = (BONUS_PRICE[sys.size] ?? BONUS_PRICE.small)[eb.n] ?? 0;
+    const what = eb.kind === "resistance" ? `Resistance +${eb.n}${eb.param ? ` (${RESISTANCE_LABEL[eb.param] ?? ATTR_LABEL[eb.param] ?? eb.param})` : ""}`
+      : `+${eb.n} ${SKILL_LABEL[eb.param] ?? "Skill"}`;
+    sys.enchantBonus = { price, label: what, ...enchantWork(price, eb.n), materialTier: eb.n };
+  } else sys.enchantBonus = null;
 }
 
 /** A Background's derived fields. */

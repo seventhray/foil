@@ -81,6 +81,8 @@ export class InstrumentData extends foundry.abstract.TypeDataModel {
       // The place of Storage that holds it while stored.
       storedAt: str(""),
       bonus: new f.NumberField({ required: true, integer: true, initial: 0, min: 0, max: 5 }),
+      // The Tier of its materials, when above its +N: an iron Longsword is Tier 1 at +0 (PHB 5.3.1, 5.3.4).
+      tier: new f.NumberField({ required: true, integer: true, initial: 0, min: 0, max: 5 }),
       size: sizeField("medium"),
       materials: str(""),
       // A Technique effect bound to the item (PHB 5.3.4).
@@ -185,6 +187,14 @@ export class EquipmentData extends foundry.abstract.TypeDataModel {
       duration: str(""),
       effect: str(""),
       tier: new f.NumberField({ required: true, integer: true, initial: 1, min: 1, max: 5 }),
+      // An enchanted bonus (PHB 5.3.4): Resistance +N or +N to a Skill.
+      enchantment: new f.SchemaField({
+        bonus: new f.SchemaField({
+          kind: new f.StringField({ required: true, blank: true, initial: "", choices: ["", "resistance", "skill"] }),
+          param: str(""),
+          n: new f.NumberField({ required: true, integer: true, initial: 1, min: 1, max: 5 })
+        })
+      }),
       notes: str(""),
       description: html("")
     };

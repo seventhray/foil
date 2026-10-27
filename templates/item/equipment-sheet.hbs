@@ -46,6 +46,20 @@
     {{/each}}
     <a class="inline-add" data-action="addRow" data-path="system.qualities"><i class="fas fa-plus"></i> Add</a>
   </fieldset>
+  <fieldset>
+    <legend>Enchantment <em>(PHB 5.3.4)</em></legend>
+    <div class="field-grid">
+      <label>Bonus</label>
+      <select name="system.enchantment.bonus.kind">{{#each equipEnchantOptions}}<option value="{{this.value}}" {{#if (foil-eq this.value ../system.enchantment.bonus.kind)}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>
+      {{#if system.enchantment.bonus.kind}}
+        <label>Of</label>
+        <select name="system.enchantment.bonus.param">{{#each equipEnchantParams}}<option value="{{this.value}}" {{#if (foil-eq this.value ../system.enchantment.bonus.param)}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>
+        <label>N <em>(+1 to +5)</em></label>
+        <input type="number" name="system.enchantment.bonus.n" value="{{system.enchantment.bonus.n}}" min="1" max="5" />
+      {{/if}}
+    </div>
+    {{#if system.enchantBonus}}<div class="derived-line"><strong>{{system.enchantBonus.label}}</strong> &middot; {{system.enchantBonus.price}}p &middot; Tier {{system.enchantBonus.materialTier}} materials &middot; Craft against {{system.enchantBonus.difficulty}} &middot; {{system.enchantBonus.hours}} h, {{system.enchantBonus.workStrain}} Strain to each of the enchanter's Attributes</div>{{/if}}
+  </fieldset>
   <label class="block-label">Effect</label>
   <input type="text" name="system.effect" value="{{system.effect}}" />
   <label class="block-label">Notes</label>

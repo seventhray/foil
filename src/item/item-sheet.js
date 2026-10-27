@@ -119,6 +119,9 @@ export class FoilItemSheet extends HandlebarsApplicationMixin(ItemSheetV2Base) {
       sizeOptions: SIZE_KEYS.map(k => opt(k, `${SIZE[k].label} (${SIZE[k].batches} batch${SIZE[k].batches > 1 ? "es" : ""})`)),
       attributeOptions: ATTRIBUTE_KEYS.map(k => opt(k, ATTR_LABEL[k])),
       skillOptions: SKILL_KEYS.map(k => opt(k, SKILL_LABEL[k])),
+      equipEnchantOptions: [opt("", "None"), opt("resistance", "Resistance +N"), opt("skill", "+N to a Skill")],
+      equipEnchantParams: this.item.system?.enchantment?.bonus?.kind === "skill" ? SKILL_KEYS.map(k => opt(k, SKILL_LABEL[k]))
+        : [opt("physical", "Physical"), opt("mental", "Mental"), ...ATTRIBUTE_KEYS.map(k => opt(k, `${ATTR_LABEL[k]} only`))],
       skillOrNoneOptions: [opt("", "Chosen when rolled"), ...SKILL_KEYS.map(k => opt(k, SKILL_LABEL[k]))],
       categoryOptions: ["melee", "ranged", "arcane", "sonic", "tool", "innate"].map(k => opt(k, cap(k))),
       equipmentCategoryOptions: Object.entries(EQUIPMENT_CATEGORY_LABEL).map(([k, l]) => opt(k, l)),
@@ -136,7 +139,7 @@ export class FoilItemSheet extends HandlebarsApplicationMixin(ItemSheetV2Base) {
       modifierTypeOptions: [opt("training", "Training in a Skill"), opt("resistance", "Resistance"), opt("initiative", "Initiative rolls"), opt("stealth", "Stealth rolls")],
       modifierValueOptions: [1, 2, 3, 4, 5, 6].map(n => opt(n, `+${n}`)),
       rangeOptions: withCurrent(RANGE_CHOICES, sys.range),
-      enchantKindOptions: [opt("", "None"), opt("skill", "+N to a Skill"), opt("roll", "+N to its rolls"), opt("pierce", "Pierce N"), opt("stress", "+N Stress after the margin"), opt("aid", "Aid +N to a task")],
+      enchantKindOptions: [opt("", "None"), opt("skill", "+N to a Skill"), opt("roll", "+N to its rolls"), opt("pierce", "Pierce N"), opt("stress", "+N Stress after the margin")],
       bandOptions: [opt("", "None"), ...RANGE_BANDS.map(b => opt(b, RANGE_LABEL[b]))],
       maxBandOptions: RANGE_BANDS.map(b => opt(b, RANGE_LABEL[b])),
       originOptions: [opt("", "None"), ...withCurrent([...ORIGIN_NAMES, ...worldNames("origin")].sort(), sys.ancestryGrant || sys.ancestry)],

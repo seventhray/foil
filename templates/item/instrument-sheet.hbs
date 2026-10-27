@@ -29,6 +29,8 @@
     <select name="system.size">{{#each sizeOptions}}<option value="{{this.value}}" {{#if (foil-eq this.value ../system.size)}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>
     <label>Materials</label>
     <input type="text" name="system.materials" value="{{system.materials}}" placeholder="Metal + Leather" />
+    <label>Material Tier <em>(when above its +N; an Enchantment needs its own Tier, PHB 5.3.4)</em></label>
+    <input type="number" name="system.tier" value="{{system.tier}}" min="0" max="5" />
     <label>Innate <em>(Body, Voice)</em></label>
     <input type="checkbox" name="system.innate" {{#if system.innate}}checked{{/if}} />
   </div>

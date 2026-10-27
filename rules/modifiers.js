@@ -14,7 +14,8 @@ import { RESISTANCE_SCOPES } from "./resist.js";
 const WORN = new Set(["armor", "shield", "ward", "charm"]);
 // Slots that count one item at a time (PHB 6.6.0): the equipped one with the most Resistance.
 const ONE_AT_A_TIME = ["armor", "ward"];
-const resistanceOf = it => (it.system?.qualities ?? []).reduce((n, q) => n + (q.key === "resistance" ? Number(q.value ?? 0) : 0), 0);
+const resistanceOf = it => (it.system?.qualities ?? []).reduce((n, q) => n + (q.key === "resistance" ? Number(q.value ?? 0) : 0), 0)
+  + (it.system?.enchantment?.bonus?.kind === "resistance" ? Number(it.system.enchantment.bonus.n ?? 0) : 0);
 
 const skillKey = k => LEGACY_SKILL_KEY[k] ?? k;
 
@@ -71,6 +72,9 @@ export function aggregateModifiers(items = []) {
           if (q.key === "resistance") addResistance(q.param, q.value, it.name);
           else if (q.key === "skill-bonus" && skillKey(q.param) in skillBonus) skillBonus[skillKey(q.param)] += Number(q.value ?? 0);
         }
+        // Its Enchantment (PHB 5.3.4) applies the same way while it is worn.
+        if (s.enchantment?.bonus?.kind === "resistance") addResistance(s.enchantment.bonus.param || "physical", s.enchantment.bonus.n, `${it.name} Enchantment`);
+        else if (s.enchantment?.bonus?.kind === "skill" && skillKey(s.enchantment.bonus.param) in skillBonus) skillBonus[skillKey(s.enchantment.bonus.param)] += Number(s.enchantment.bonus.n ?? 0);
         break;
       case "feat":
         for (const m of s.modifiers ?? []) {

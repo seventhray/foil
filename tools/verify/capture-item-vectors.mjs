@@ -52,6 +52,9 @@ for (const kind of ["skill", "roll", "pierce", "stress"]) for (const n of [1, 3]
   add(`enchanted bonus ${kind} +${n}`, M.InstrumentData, "instrument",
     mut(longsword, s => { s.enchantment = { ...(s.enchantment ?? {}), bonus: { kind, n, skill: "prowess" } }; }));
 add("arcane Instrument", M.InstrumentData, "instrument", mut(arcane, s => { s.bonus = 2; }));
+add("iron Instrument at +0, material Tier 1", M.InstrumentData, "instrument", mut(longsword, s => { s.tier = 1; }));
+{ const ward = docs("equipment").find(d => d.system.category === "ward") ?? docs("equipment")[0];
+  for (const [kind, param] of [["resistance", "mental"], ["skill", "discipline"]]) add(`equipment enchanted ${kind}`, M.EquipmentData, "equipment", mut(ward, s => { s.enchantment = { bonus: { kind, param, n: 3 } }; })); }
 add("bound Enchantment", M.InstrumentData, "instrument", mut(longsword, s => { s.enchantment = { ...(s.enchantment ?? {}), enabled: true, effects: effectsOf }; }));
 add("bound Enchantment, empty", M.InstrumentData, "instrument", mut(longsword, s => { s.enchantment = { ...(s.enchantment ?? {}), enabled: true, effects: [] }; }));
 const tech = techniques.find(d => (d.system.effects ?? []).length > 1) ?? techniques[0];
