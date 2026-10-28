@@ -34,7 +34,7 @@ check("the math line names every source, its cap, and the dropped Attribute", sk
   attributes: { might: { diceFormula: "1d8+1d6" }, finesse: { down: true } },
   skills: { prowess: { trainingBase: 2, trainingBonus: 1, trainingTotal: 3, trainingCap: 3, skillBonus: 0 } },
   carry: { penalty: 0 }, conditions: [c("Prone")] }, "prowess", [{ label: "Longsword +1", value: 1 }], [{ label: "Heavy", dice: "1d4" }]),
-  "Math: Might 1d8+1d6, Finesse +0 (Incapacitated, no dice), Training +2 (cap 3), Training from Feats +1, Prone -1, Longsword +1 +1, Heavy 1d4.");
+  "Math: Might 1d8+1d6, Finesse +0 (Incapacitated, no dice), Training +2 (cap 3), Training from a Background or Feat +1, Prone -1, Longsword +1 +1, Heavy 1d4.");
 check("Might and Finesse are physical, Wit and Presence mental", ["might", "finesse", "wit", "presence"].map(kindOf), ["physical", "physical", "mental", "mental"]);
 
 check("Frightened and Restrained are flagged, not applied", [conditionFlags([c("Frightened"), c("Restrained")], { skill: "prowess" }).length, conditionMods([c("Frightened"), c("Restrained")], { skill: "prowess" }).total], [2, 0]);
