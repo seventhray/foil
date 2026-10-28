@@ -107,6 +107,13 @@ export function deriveInstrument(sys, registry = {}) {
     ? "No Instrument Types set: this Instrument can't be used for anything."
     : unknown.length ? `Unresolved Instrument Type(s): ${unknown.join(", ")}.` : "";
 
+  // Its three built-in Techniques (PHB 7.4.0), each with what it means, as a Technique's fullText says it.
+  for (const k of sys.kit ?? []) {
+    k.explain = explainKit(k);
+    const printed = String(k.effect ?? "").trim();
+    k.fullText = [printed && !/[.!?]$/.test(printed) ? `${printed}.` : printed, k.explain].filter(Boolean).join(" ");
+  }
+
   // Enchanting (PHB 5.3.4): priced like a custom Technique, sold at 10p per XP.
   const ench = sys.enchantment ?? {};
   const effects = registry.effects ?? null;
@@ -194,6 +201,20 @@ export function explainTechnique(sys, effectDefs = null) {
   }
   if (!out.length && !sys.offensive && list.length) out.push("It takes no roll.");
   return out.join(" ");
+}
+
+/**
+ * Who opposes one of an Instrument's built-in Techniques, as explainTechnique says it for a Technique (PHB 6.5.0, 6.8.0). Its printed
+ * line already names what it does. Stress goes to the Attribute its user names; a Condition is opposed through the Attribute it names,
+ * and Weakened through the one in its brackets. A move that targets no hostile adds nothing.
+ */
+export function explainKit(kit) {
+  const effect = String(kit?.effect ?? "").trim();
+  if (/^Deals Stress\b/i.test(effect)) return "The target opposes with a Skill built on the Attribute you name.";
+  const m = effect.match(/^Applies (Foil Exposed|\w+)(?: \[(\w+)\])?/i);
+  if (!m) return "";
+  const attr = m[1] === "Weakened" ? Object.keys(ATTR_LABEL).find(k => ATTR_LABEL[k].toLowerCase() === String(m[2] ?? "").toLowerCase()) : CONDITION_ATTR[m[1]];
+  return attr ? `The target opposes with a ${ATTR_LABEL[attr]} Skill.` : "";
 }
 
 /** A piece of Equipment's derived fields. */
