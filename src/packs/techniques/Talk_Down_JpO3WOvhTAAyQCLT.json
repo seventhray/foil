@@ -23,6 +23,7 @@
     ],
     "floor": false,
     "ancestryGrant": "",
+    "effectText": "Mend 2d4",
     "description": ""
   },
   "effects": [],

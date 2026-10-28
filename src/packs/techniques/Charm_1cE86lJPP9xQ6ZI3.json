@@ -23,6 +23,7 @@
     ],
     "floor": false,
     "ancestryGrant": "",
+    "effectText": "Charmed",
     "description": ""
   },
   "effects": [],

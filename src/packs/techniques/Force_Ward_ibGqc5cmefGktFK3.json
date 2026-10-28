@@ -23,6 +23,7 @@
     ],
     "floor": true,
     "ancestryGrant": "",
+    "effectText": "Resistance +1, Physical or Mental, self or ally",
     "description": ""
   },
   "effects": [],

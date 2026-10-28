@@ -254,6 +254,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Grappled, Move the target up to Range 2",
         "description": ""
       },
       "effects": [],
@@ -298,6 +299,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Stress, Restrained",
         "description": ""
       },
       "effects": [],
@@ -351,6 +353,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Stress, Pierce 2, -1 [target Attribute]",
         "description": ""
       },
       "effects": [],

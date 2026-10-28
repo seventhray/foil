@@ -35,6 +35,7 @@
     ],
     "floor": false,
     "ancestryGrant": "Open Plains",
+    "effectText": "Stress, Pierce 4.",
     "description": ""
   },
   "effects": [],

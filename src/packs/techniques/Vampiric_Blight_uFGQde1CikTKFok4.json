@@ -39,6 +39,7 @@
     ],
     "floor": false,
     "ancestryGrant": "",
+    "effectText": "Stress, Drain, Lingering 1",
     "description": ""
   },
   "effects": [],

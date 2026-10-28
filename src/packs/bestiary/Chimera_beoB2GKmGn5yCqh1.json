@@ -211,6 +211,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Stress, Cone (Range 2)",
         "description": ""
       },
       "effects": [],
@@ -298,6 +299,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Stress, Prone",
         "description": ""
       },
       "effects": [],
@@ -343,6 +345,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Stress, Pierce 2",
         "description": ""
       },
       "effects": [],

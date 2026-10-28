@@ -175,6 +175,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Stress, +2",
         "description": ""
       },
       "effects": [],
@@ -211,6 +212,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Counter",
         "description": ""
       },
       "effects": [],
@@ -255,6 +257,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Stress, -1 [target Attribute]",
         "description": ""
       },
       "effects": [],
@@ -307,6 +310,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Stress, -1 [target Attribute], Move the target up to Range 2",
         "description": ""
       },
       "effects": [],

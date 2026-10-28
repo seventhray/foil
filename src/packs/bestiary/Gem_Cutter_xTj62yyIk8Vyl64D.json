@@ -289,6 +289,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "+1 [Skill] (1 minute)",
         "description": ""
       },
       "effects": [],
@@ -334,6 +335,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Quick: -1 Oppose",
         "description": ""
       },
       "effects": [],

@@ -31,6 +31,7 @@
     ],
     "floor": true,
     "ancestryGrant": "",
+    "effectText": "+1 [Skill] to chosen allies within Range 2 (Selective)",
     "description": ""
   },
   "effects": [],

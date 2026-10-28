@@ -21,6 +21,7 @@
     ],
     "floor": false,
     "ancestryGrant": "",
+    "effectText": "Move through loose earth as though it were open ground, for the duration of Upkeep",
     "description": "<p>Move through loose earth as though it were open ground, for the duration of Upkeep.</p>"
   },
   "effects": [],

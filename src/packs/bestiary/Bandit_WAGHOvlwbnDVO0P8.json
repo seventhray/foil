@@ -223,6 +223,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Stress, Pierce 1",
         "description": ""
       },
       "effects": [],
@@ -257,6 +258,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Evade",
         "description": ""
       },
       "effects": [],

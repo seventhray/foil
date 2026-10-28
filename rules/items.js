@@ -10,7 +10,7 @@
 import {
   WEIGHT_CLASS, SKILL_KEYS, SKILL_LABEL, PRIMARY_SKILLS, BONUS_PRICE, MATERIAL_TIER_PRICE, SIZE, TYPE_SURCHARGE,
   REACH_PRICE_PER_BAND, RANGE_BANDS, RANGE_LABEL, rangeBandOf, usualRange, rangeTextFor, RESISTANCE_LABEL, ATTR_LABEL,
-  MATERIAL_CATEGORY_LABEL, MATERIAL_SCARCITY_LABEL, MATERIAL_SCARCITY_MULT, MATERIAL_BATCH_LBS
+  MATERIAL_CATEGORY_LABEL, MATERIAL_SCARCITY_LABEL, MATERIAL_SCARCITY_MULT, MATERIAL_BATCH_LBS, CONDITION_ATTR
 } from "./constants.js";
 import { priceTechnique, strainFor, SELECTIVE_PREMIUM } from "./pricing.js";
 
@@ -167,6 +167,30 @@ export function deriveTechnique(sys, registry = {}) {
 
   const base = (priced.breakdown ?? []).map(b => b.label).join(", ");
   sys.effectSummary = sys.strain ? (base ? `${base}, Strain ${sys.strain}${sys.perTarget ? " per target" : ""}` : `Strain ${sys.strain}`) : base;
+  sys.explain = explainTechnique(sys, effects);
+}
+
+/**
+ * What a Technique does and who opposes it, in a sentence or two (PHB 6.4.0, 6.5.0; user 2026-10-27: a Technique's one line should say
+ * at least what it applies and what opposes it). Stress goes to the Attribute its user names, and the target opposes with a Skill built
+ * on it. A Condition alone is opposed through the Attribute it names. A Technique laid on its user or an ally takes no roll.
+ */
+export function explainTechnique(sys, effectDefs = null) {
+  const list = sys.effects ?? [];
+  const label = e => effectDefs?.[e.key]?.label ?? e.key;
+  const conds = list.map(label).filter(l => l in CONDITION_ATTR && l !== "Reeling");
+  const weaken = list.find(e => String(e.key).startsWith("weaken"));
+  const reeling = list.find(e => String(e.key).startsWith("reeling"));
+  const out = [];
+  if (sys.dealsStress) out.push("Deals Stress to an Attribute you name; the target opposes with a Skill built on it.");
+  if (weaken) out.push(`${sys.dealsStress ? "Also gives" : "Gives"} -${weaken.magnitude ?? 1} to an Attribute you name${weaken.key.endsWith("minute") ? " for 1 minute" : " for 1 round"}${sys.dealsStress ? "." : "; the target opposes with a Skill built on it."}`);
+  if (reeling) out.push(`${sys.dealsStress || weaken ? "Also applies" : "Applies"} Reeling (-${reeling.magnitude ?? 1} to its Opposes)${sys.dealsStress || weaken ? "." : "; the target opposes with a Finesse Skill."}`);
+  for (const c of conds) {
+    const attr = ATTR_LABEL[CONDITION_ATTR[c]] ?? CONDITION_ATTR[c];
+    out.push(sys.dealsStress || weaken || reeling ? `Also applies ${c}.` : `Applies ${c}; the target opposes with a ${attr} Skill.`);
+  }
+  if (!out.length && !sys.offensive && list.length) out.push("Laid on you or an ally, with no roll.");
+  return out.join(" ");
 }
 
 /** A piece of Equipment's derived fields. */

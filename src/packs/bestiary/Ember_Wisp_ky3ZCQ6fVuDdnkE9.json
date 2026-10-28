@@ -151,6 +151,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Evade",
         "description": ""
       },
       "effects": [],

@@ -25,6 +25,7 @@
     ],
     "floor": false,
     "ancestryGrant": "Fenland",
+    "effectText": "-1 Oppose (1 minute).",
     "description": ""
   },
   "effects": [],

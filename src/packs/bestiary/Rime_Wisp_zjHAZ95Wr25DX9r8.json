@@ -161,6 +161,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Stress, Slowed",
         "description": ""
       },
       "effects": [],

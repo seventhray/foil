@@ -254,6 +254,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Stress, Radius (Range 2), Strain 2",
         "description": ""
       },
       "effects": [],
@@ -298,6 +299,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Stress, Lingering 1",
         "description": ""
       },
       "effects": [],

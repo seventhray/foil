@@ -39,6 +39,7 @@
     ],
     "floor": false,
     "ancestryGrant": "",
+    "effectText": "Stress, Restrained, Extend Range",
     "description": ""
   },
   "effects": [],

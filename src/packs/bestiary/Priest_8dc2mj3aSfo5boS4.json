@@ -265,6 +265,7 @@
         ],
         "floor": true,
         "ancestryGrant": "",
+        "effectText": "Mend 1d4",
         "description": ""
       },
       "effects": [],
@@ -309,6 +310,7 @@
         ],
         "floor": true,
         "ancestryGrant": "",
+        "effectText": "+1 [Skill] to chosen allies within Range 2 (Selective)",
         "description": ""
       },
       "effects": [],
@@ -345,6 +347,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Mend 1d4",
         "description": ""
       },
       "effects": [],

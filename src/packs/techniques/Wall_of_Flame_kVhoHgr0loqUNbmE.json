@@ -39,6 +39,7 @@
     ],
     "floor": false,
     "ancestryGrant": "",
+    "effectText": "Stress, Wall (Range 2), Upkeep",
     "description": ""
   },
   "effects": [],

@@ -215,6 +215,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Stress, +2",
         "description": ""
       },
       "effects": [],
@@ -259,6 +260,7 @@
         ],
         "floor": true,
         "ancestryGrant": "",
+        "effectText": "Quick (trigger: a hostile's Melee Technique targets you): Evade before it rolls.",
         "description": ""
       },
       "effects": [],
@@ -295,6 +297,7 @@
         ],
         "floor": true,
         "ancestryGrant": "",
+        "effectText": "Mend 1d4",
         "description": ""
       },
       "effects": [],

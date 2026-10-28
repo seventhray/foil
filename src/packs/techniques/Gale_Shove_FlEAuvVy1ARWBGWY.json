@@ -32,6 +32,7 @@
     ],
     "floor": false,
     "ancestryGrant": "",
+    "effectText": "Quick: Move the target up to Range 2",
     "description": ""
   },
   "effects": [],

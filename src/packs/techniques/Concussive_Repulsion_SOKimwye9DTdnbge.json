@@ -39,6 +39,7 @@
     ],
     "floor": false,
     "ancestryGrant": "",
+    "effectText": "Stress, Radius (Range 2), Move each target up to Range 2, Strain 3",
     "description": ""
   },
   "effects": [],

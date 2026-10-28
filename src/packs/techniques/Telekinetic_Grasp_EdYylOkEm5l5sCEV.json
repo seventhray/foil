@@ -39,6 +39,7 @@
     ],
     "floor": false,
     "ancestryGrant": "",
+    "effectText": "Stress, Grappled, Extend Range",
     "description": ""
   },
   "effects": [],

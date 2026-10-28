@@ -31,6 +31,7 @@
     ],
     "floor": true,
     "ancestryGrant": "",
+    "effectText": "Quick (trigger: a creature ends its move within Range 2 of you): deal Stress to that creature.",
     "description": ""
   },
   "effects": [],

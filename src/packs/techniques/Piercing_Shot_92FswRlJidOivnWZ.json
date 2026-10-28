@@ -33,6 +33,7 @@
     ],
     "floor": false,
     "ancestryGrant": "",
+    "effectText": "Stress, Pierce 1",
     "description": ""
   },
   "effects": [],

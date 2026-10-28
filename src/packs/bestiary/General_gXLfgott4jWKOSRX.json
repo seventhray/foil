@@ -228,6 +228,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Stress, -1 Oppose (1 minute)",
         "description": ""
       },
       "effects": [],
@@ -281,6 +282,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Stress, Pierce 1, -1 [target Attribute]",
         "description": ""
       },
       "effects": [],
@@ -326,6 +328,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Quick: +1 [Skill] to self or an ally",
         "description": ""
       },
       "effects": [],

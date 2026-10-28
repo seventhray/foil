@@ -39,6 +39,7 @@
     ],
     "floor": false,
     "ancestryGrant": "",
+    "effectText": "Stress, -1 [target Attribute], Cone (Range 2)",
     "description": ""
   },
   "effects": [],

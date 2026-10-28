@@ -31,6 +31,7 @@
     ],
     "floor": true,
     "ancestryGrant": "",
+    "effectText": "Mend 1d4 to chosen allies within Range 2 (Selective)",
     "description": ""
   },
   "effects": [],

@@ -211,6 +211,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Stress, Radius (Range 2), Strain 2",
         "description": ""
       },
       "effects": [],
@@ -255,6 +256,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Stress, Pierce 2",
         "description": ""
       },
       "effects": [],
@@ -299,6 +301,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Stress, Frightened",
         "description": ""
       },
       "effects": [],

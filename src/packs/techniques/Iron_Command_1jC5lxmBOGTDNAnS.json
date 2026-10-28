@@ -39,6 +39,7 @@
     ],
     "floor": false,
     "ancestryGrant": "",
+    "effectText": "Stress, -1 Oppose (1 minute), Extend Range",
     "description": ""
   },
   "effects": [],

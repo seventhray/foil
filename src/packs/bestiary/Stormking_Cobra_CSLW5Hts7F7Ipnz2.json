@@ -254,6 +254,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Stress, Beam (Range 2)",
         "description": ""
       },
       "effects": [],
@@ -298,6 +299,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Stress, Lingering 1",
         "description": ""
       },
       "effects": [],
@@ -343,6 +345,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Stress, Pierce 2",
         "description": ""
       },
       "effects": [],

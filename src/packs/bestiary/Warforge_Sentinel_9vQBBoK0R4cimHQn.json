@@ -218,6 +218,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Stress, Radius (Range 2), Strain 2",
         "description": ""
       },
       "effects": [],
@@ -262,6 +263,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Stress, Pierce 2",
         "description": ""
       },
       "effects": [],
@@ -315,6 +317,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Stress, Pierce 2, -1 [target Attribute]",
         "description": ""
       },
       "effects": [],

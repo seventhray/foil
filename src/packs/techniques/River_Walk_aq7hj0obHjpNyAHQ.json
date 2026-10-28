@@ -21,6 +21,7 @@
     ],
     "floor": false,
     "ancestryGrant": "Riverlands",
+    "effectText": "Evade: move up to Range 4 without spending the Disengage Quick Action or provoking an Attack of Opportunity.",
     "description": ""
   },
   "effects": [],

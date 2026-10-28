@@ -23,6 +23,7 @@
     ],
     "floor": true,
     "ancestryGrant": "",
+    "effectText": "+1 to Prowess and Discipline Opposes for 1 round",
     "description": ""
   },
   "effects": [],

@@ -305,6 +305,8 @@ function techniqueDoc(n) {
       family: n.family ?? "", subgroup: n.subgroup ?? "",
       effects, floor, ...(TECH_RANGE[n.name] ?? {}),
       ancestryGrant: n.origin_grant ?? "",
+      // The line as the PHB prints it, kept for the sheet (user, 2026-10-27).
+      effectText: n.effect ?? "",
       description: n.description ? `<p>${n.description}</p>` : ""
     }
   };

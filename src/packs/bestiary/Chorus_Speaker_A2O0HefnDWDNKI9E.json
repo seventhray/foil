@@ -217,6 +217,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Stress, Lingering 1",
         "description": ""
       },
       "effects": [],
@@ -261,6 +262,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Stress, Frightened",
         "description": ""
       },
       "effects": [],
@@ -305,6 +307,7 @@
         ],
         "floor": false,
         "ancestryGrant": "Jungle Canopy",
+        "effectText": "+1 to one Skill of choice, chosen allies within Range 2 (Selective).",
         "description": ""
       },
       "effects": [],
@@ -341,6 +344,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "-1 Oppose (1 minute)",
         "description": ""
       },
       "effects": [],
@@ -386,6 +390,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Quick: +1 [Skill] to self or an ally",
         "description": ""
       },
       "effects": [],

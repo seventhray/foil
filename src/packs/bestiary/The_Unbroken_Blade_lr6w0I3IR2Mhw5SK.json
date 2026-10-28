@@ -188,6 +188,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Stress, Pierce 2, -1 [target Attribute]",
         "description": ""
       },
       "effects": [],
@@ -232,6 +233,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Stress, -1 [target Attribute] (1 minute), Strain 1",
         "description": ""
       },
       "effects": [],
@@ -280,6 +282,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Stress, Prone",
         "description": ""
       },
       "effects": [],
@@ -316,6 +319,7 @@
         ],
         "floor": true,
         "ancestryGrant": "",
+        "effectText": "Quick (trigger: a Melee Technique fails against you): use a Melee Technique against that attacker through this Instrument.",
         "description": ""
       },
       "effects": [],
@@ -352,6 +356,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Counter",
         "description": ""
       },
       "effects": [],

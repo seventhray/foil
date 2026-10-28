@@ -181,6 +181,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Stress, Pierce 2, -1 [target Attribute]",
         "description": ""
       },
       "effects": [],
@@ -229,6 +230,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Stress, Prone",
         "description": ""
       },
       "effects": [],

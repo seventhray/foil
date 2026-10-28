@@ -23,6 +23,7 @@
     ],
     "floor": true,
     "ancestryGrant": "",
+    "effectText": "Hasten (Action) to an ally",
     "description": ""
   },
   "effects": [],

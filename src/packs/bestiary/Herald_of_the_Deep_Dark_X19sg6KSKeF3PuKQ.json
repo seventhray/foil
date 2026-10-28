@@ -262,6 +262,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Stress, -1 [target Attribute], Radius (Range 2), Strain 3",
         "description": ""
       },
       "effects": [],
@@ -314,6 +315,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Stress, Drain, Radius (Range 2), Strain 4",
         "description": ""
       },
       "effects": [],
@@ -366,6 +368,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Stress, Frightened, Radius (Range 2), Strain 4",
         "description": ""
       },
       "effects": [],

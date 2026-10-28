@@ -191,6 +191,7 @@
         "effects": [],
         "floor": true,
         "ancestryGrant": "",
+        "effectText": "-1 Presence for 1 round",
         "description": ""
       },
       "effects": [],
@@ -227,6 +228,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Controlled",
         "description": ""
       },
       "effects": [],
@@ -295,6 +297,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Stress, Frightened",
         "description": ""
       },
       "effects": [],
@@ -339,6 +342,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Stress, Drain",
         "description": ""
       },
       "effects": [],

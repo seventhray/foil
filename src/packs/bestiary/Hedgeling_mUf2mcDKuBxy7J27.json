@@ -204,6 +204,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Disarm",
         "description": ""
       },
       "effects": [],
@@ -238,6 +239,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Evade",
         "description": ""
       },
       "effects": [],

@@ -39,6 +39,7 @@
     ],
     "floor": false,
     "ancestryGrant": "Island Shores",
+    "effectText": "Stress, Prone, -1 Oppose.",
     "description": ""
   },
   "effects": [],

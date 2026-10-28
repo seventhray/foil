@@ -41,6 +41,7 @@
     ],
     "floor": false,
     "ancestryGrant": "",
+    "effectText": "Stress, Pierce 1, +2",
     "description": ""
   },
   "effects": [],

@@ -23,6 +23,7 @@
     ],
     "floor": false,
     "ancestryGrant": "",
+    "effectText": "Counter",
     "description": ""
   },
   "effects": [],

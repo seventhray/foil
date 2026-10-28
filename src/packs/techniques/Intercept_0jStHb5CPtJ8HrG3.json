@@ -31,6 +31,7 @@
     ],
     "floor": true,
     "ancestryGrant": "",
+    "effectText": "Quick (trigger: an ally within this Instrument's Range takes Might or Finesse Stress from a physical Technique your block covers): Redirect that Stress onto your Might, reduced by your physical Resistance.",
     "description": ""
   },
   "effects": [],

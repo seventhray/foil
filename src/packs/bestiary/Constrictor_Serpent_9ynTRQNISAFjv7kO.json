@@ -204,6 +204,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Stress, Grappled",
         "description": ""
       },
       "effects": [],

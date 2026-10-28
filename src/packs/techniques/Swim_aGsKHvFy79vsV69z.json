@@ -21,6 +21,7 @@
     ],
     "floor": false,
     "ancestryGrant": "",
+    "effectText": "Move through water at full speed and breathe within it, for the duration of Upkeep",
     "description": "<p>Move through water at full speed and breathe within it, for the duration of Upkeep.</p>"
   },
   "effects": [],

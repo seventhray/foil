@@ -208,6 +208,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Stress, Prone",
         "description": ""
       },
       "effects": [],
@@ -252,6 +253,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Stress, -1 [target Attribute]",
         "description": ""
       },
       "effects": [],
@@ -334,6 +336,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Evade",
         "description": ""
       },
       "effects": [],

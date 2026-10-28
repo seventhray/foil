@@ -156,7 +156,7 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
         // An Instrument's built-in Techniques join the Techniques tab, with their source (PHB 7.4.0).
         for (const k of view.kit) groups.builtin.push({ ...k, id: item.id, source: item.name, ready: s.innate || s.location === "equipped" });
       } else if (item.type === "technique") {
-        view.effectDisplay = glossarize(s.effectSummary);
+        view.effectDisplay = glossarize([s.effectText || s.effectSummary, s.explain].filter(Boolean).join(" "));
         view.skillLabel = s.skill ? SKILL_LABEL[s.skill] : "Any Skill";
         const valid = validInstruments(this.actor, item);
         view.usableWith = s.innate ? "Innate (no Instrument)"

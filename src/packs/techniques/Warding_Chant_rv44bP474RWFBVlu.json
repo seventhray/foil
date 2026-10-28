@@ -31,6 +31,7 @@
     ],
     "floor": false,
     "ancestryGrant": "Jungle Canopy",
+    "effectText": "+1 to one Skill of choice, chosen allies within Range 2 (Selective).",
     "description": ""
   },
   "effects": [],

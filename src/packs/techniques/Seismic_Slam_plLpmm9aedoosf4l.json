@@ -39,6 +39,7 @@
     ],
     "floor": false,
     "ancestryGrant": "",
+    "effectText": "Stress, Prone, Radius (Range 2), Strain 4",
     "description": ""
   },
   "effects": [],

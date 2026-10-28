@@ -23,6 +23,7 @@
     ],
     "floor": false,
     "ancestryGrant": "",
+    "effectText": "-1 [target Attribute]",
     "description": ""
   },
   "effects": [],

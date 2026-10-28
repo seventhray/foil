@@ -241,6 +241,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Stress, -1 [target Attribute], Frightened, Cone (Range 2), Strain 1",
         "description": ""
       },
       "effects": [],
@@ -285,6 +286,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Stress, -1 Oppose (1 minute)",
         "description": ""
       },
       "effects": [],
@@ -338,6 +340,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Stress, Pierce 2, -1 [target Attribute]",
         "description": ""
       },
       "effects": [],
@@ -383,6 +386,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Quick: +1 [Skill] to self or an ally",
         "description": ""
       },
       "effects": [],

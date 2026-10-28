@@ -23,6 +23,7 @@
     ],
     "floor": true,
     "ancestryGrant": "",
+    "effectText": "Invisible, self or ally",
     "description": ""
   },
   "effects": [],

@@ -254,6 +254,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Stress, Radius (Range 2), Strain 2",
         "description": ""
       },
       "effects": [],
@@ -306,6 +307,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Stress, Radius (Range 2), Pierce 1, Strain 3",
         "description": ""
       },
       "effects": [],
@@ -350,6 +352,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Stress, Lingering 1",
         "description": ""
       },
       "effects": [],
@@ -394,6 +397,7 @@
         ],
         "floor": true,
         "ancestryGrant": "",
+        "effectText": "Quick (trigger: a Melee Technique lands on this creature from Range 0 or 1): Stress",
         "description": ""
       },
       "effects": [],

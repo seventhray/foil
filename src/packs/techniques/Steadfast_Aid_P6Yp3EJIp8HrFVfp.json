@@ -39,6 +39,7 @@
     ],
     "floor": true,
     "ancestryGrant": "",
+    "effectText": "+1 [Skill] (1 minute), Resistance +2, Mend 1d4, self or ally, Strain 1",
     "description": ""
   },
   "effects": [],

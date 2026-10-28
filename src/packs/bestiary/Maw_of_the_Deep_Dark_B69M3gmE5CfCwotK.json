@@ -251,6 +251,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Stress, Drain",
         "description": ""
       },
       "effects": [],
@@ -303,6 +304,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Stress, Drain, Lingering 1",
         "description": ""
       },
       "effects": [],
@@ -347,6 +349,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Stress, Restrained",
         "description": ""
       },
       "effects": [],
@@ -400,6 +403,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Stress, Pierce 2, -1 [target Attribute]",
         "description": ""
       },
       "effects": [],

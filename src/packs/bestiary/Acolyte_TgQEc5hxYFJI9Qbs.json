@@ -218,6 +218,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "-1 Oppose",
         "description": ""
       },
       "effects": [],

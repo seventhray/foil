@@ -266,6 +266,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Charmed",
         "description": ""
       },
       "effects": [],
@@ -311,6 +312,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Quick: -1 Oppose",
         "description": ""
       },
       "effects": [],
@@ -347,6 +349,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "-1 [target Attribute]",
         "description": ""
       },
       "effects": [],

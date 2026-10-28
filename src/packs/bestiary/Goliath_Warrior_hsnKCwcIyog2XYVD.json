@@ -171,6 +171,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Stress, -1 [target Attribute]",
         "description": ""
       },
       "effects": [],
@@ -219,6 +220,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Stress, Prone",
         "description": ""
       },
       "effects": [],
@@ -261,6 +263,7 @@
         ],
         "floor": true,
         "ancestryGrant": "",
+        "effectText": "Quick (trigger: a hostile's Melee Technique targets you): Evade before it rolls.",
         "description": ""
       },
       "effects": [],

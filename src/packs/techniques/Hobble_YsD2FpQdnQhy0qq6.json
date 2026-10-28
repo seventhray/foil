@@ -31,6 +31,7 @@
     ],
     "floor": false,
     "ancestryGrant": "",
+    "effectText": "Stress, -1 [target Attribute]",
     "description": ""
   },
   "effects": [],

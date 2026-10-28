@@ -251,6 +251,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Stress, Cone (Range 2)",
         "description": ""
       },
       "effects": [],
@@ -295,6 +296,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Stress, Restrained",
         "description": ""
       },
       "effects": [],
@@ -339,6 +341,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Stress, Lingering 1",
         "description": ""
       },
       "effects": [],

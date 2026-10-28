@@ -32,6 +32,7 @@
     ],
     "floor": false,
     "ancestryGrant": "",
+    "effectText": "Stress, Lingering 1",
     "description": ""
   },
   "effects": [],

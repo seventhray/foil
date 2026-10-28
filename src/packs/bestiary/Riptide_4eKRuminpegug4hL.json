@@ -259,6 +259,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Stress, Prone, -1 [target Attribute] (1 minute), Strain 2",
         "description": ""
       },
       "effects": [],
@@ -303,6 +304,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Stress, Restrained",
         "description": ""
       },
       "effects": [],
@@ -355,6 +357,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Stress, Cone (Range 2), Move each target up to Range 2",
         "description": ""
       },
       "effects": [],

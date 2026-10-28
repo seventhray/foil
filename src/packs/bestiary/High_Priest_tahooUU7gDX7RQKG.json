@@ -284,6 +284,7 @@
         ],
         "floor": true,
         "ancestryGrant": "",
+        "effectText": "Mend 2d4, Resistance +1 to chosen allies within Range 2 (Selective), Strain 1",
         "description": ""
       },
       "effects": [],
@@ -328,6 +329,7 @@
         ],
         "floor": true,
         "ancestryGrant": "",
+        "effectText": "+1 [Skill] to chosen allies within Range 2 (Selective)",
         "description": ""
       },
       "effects": [],
@@ -364,6 +366,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Mend 2d4",
         "description": ""
       },
       "effects": [],

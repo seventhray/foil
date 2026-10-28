@@ -244,6 +244,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Stress, -1 [target Attribute]",
         "description": ""
       },
       "effects": [],
@@ -280,6 +281,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "+1 [Skill] (1 minute)",
         "description": ""
       },
       "effects": [],

@@ -33,6 +33,7 @@
     ],
     "floor": false,
     "ancestryGrant": "",
+    "effectText": "Stress, +2",
     "description": ""
   },
   "effects": [],

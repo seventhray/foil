@@ -266,6 +266,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Illusion",
         "description": ""
       },
       "effects": [],
@@ -318,6 +319,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Stress, Illusion, -1 [target Attribute]",
         "description": ""
       },
       "effects": [],
@@ -354,6 +356,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Illusion",
         "description": ""
       },
       "effects": [],
@@ -390,6 +393,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Invisible",
         "description": ""
       },
       "effects": [],
@@ -434,6 +438,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Stress, Blinded",
         "description": ""
       },
       "effects": [],
@@ -470,6 +475,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Charmed",
         "description": ""
       },
       "effects": [],
@@ -514,6 +520,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Stress, -1 [target Attribute]",
         "description": ""
       },
       "effects": [],
@@ -548,6 +555,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Evade",
         "description": ""
       },
       "effects": [],

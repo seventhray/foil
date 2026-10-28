@@ -211,6 +211,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Stress, -1 [target Attribute] (1 minute), Strain 1",
         "description": ""
       },
       "effects": [],
@@ -263,6 +264,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Stress, Prone, Radius (Range 2), Strain 4",
         "description": ""
       },
       "effects": [],
@@ -307,6 +309,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Stress, Restrained",
         "description": ""
       },
       "effects": [],

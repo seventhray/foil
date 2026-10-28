@@ -269,6 +269,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Stress, Pierce 1",
         "description": ""
       },
       "effects": [],
@@ -314,6 +315,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Quick: +1 [Skill] to self or an ally",
         "description": ""
       },
       "effects": [],
@@ -358,6 +360,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Stress, Frightened",
         "description": ""
       },
       "effects": [],

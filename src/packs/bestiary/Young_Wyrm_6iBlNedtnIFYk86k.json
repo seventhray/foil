@@ -343,6 +343,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Stress, Cone (Range 2)",
         "description": ""
       },
       "effects": [],
@@ -388,6 +389,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Stress, Pierce 2",
         "description": ""
       },
       "effects": [],
@@ -432,6 +434,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Stress, Cone (Range 1)",
         "description": ""
       },
       "effects": [],
@@ -476,6 +479,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Stress, -1 Oppose (1 minute)",
         "description": ""
       },
       "effects": [],

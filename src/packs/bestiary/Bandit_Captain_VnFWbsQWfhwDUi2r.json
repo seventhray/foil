@@ -225,6 +225,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Stress, Frightened",
         "description": ""
       },
       "effects": [],
@@ -269,6 +270,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Stress, -1 Oppose (1 minute)",
         "description": ""
       },
       "effects": [],
@@ -314,6 +316,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Quick: -1 Oppose",
         "description": ""
       },
       "effects": [],

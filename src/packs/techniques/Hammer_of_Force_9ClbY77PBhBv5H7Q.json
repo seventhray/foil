@@ -39,6 +39,7 @@
     ],
     "floor": false,
     "ancestryGrant": "",
+    "effectText": "Stress, Pierce 1, Move the target up to Range 2",
     "description": ""
   },
   "effects": [],

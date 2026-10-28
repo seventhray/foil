@@ -133,6 +133,8 @@ export class TechniqueData extends foundry.abstract.TypeDataModel {
       // A stated defensive floor (PHB 4.2.1) the effects can't show on their own.
       floor: bool(false),
       ancestryGrant: str(""),
+      // The effect line as the PHB prints it (user, 2026-10-27).
+      effectText: str(""),
       description: html("")
     };
   }

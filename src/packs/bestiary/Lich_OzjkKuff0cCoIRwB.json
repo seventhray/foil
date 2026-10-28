@@ -251,6 +251,7 @@
         "effects": [],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "through an Incorporeal Instrument",
         "description": ""
       },
       "effects": [],
@@ -295,6 +296,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Stress, -1 Oppose (1 minute)",
         "description": ""
       },
       "effects": [],
@@ -339,6 +341,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Stress, Pierce 2",
         "description": ""
       },
       "effects": [],
@@ -383,6 +386,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Controlled, Upkeep, Strain 1",
         "description": ""
       },
       "effects": [],

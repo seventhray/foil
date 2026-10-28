@@ -153,6 +153,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Slowed",
         "description": ""
       },
       "effects": [],

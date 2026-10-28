@@ -39,6 +39,7 @@
     ],
     "floor": false,
     "ancestryGrant": "",
+    "effectText": "Stress, Illusion, -1 [target Attribute]",
     "description": ""
   },
   "effects": [],

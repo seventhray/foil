@@ -21,6 +21,7 @@
     ],
     "floor": false,
     "ancestryGrant": "",
+    "effectText": "Move through open air, ignoring ground-based terrain and any Grappling or Move Effect that requires solid footing beneath the target, for the duration of Upkeep",
     "description": "<p>Move through open air, ignoring ground-based terrain and any Grappling or Move Effect that requires solid footing beneath the target, for the duration of Upkeep.</p>"
   },
   "effects": [],

@@ -125,6 +125,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Controlled, Upkeep, Strain 1",
         "description": ""
       },
       "effects": [],
@@ -220,6 +221,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Stress, -1 [target Attribute], Move the target up to Range 2",
         "description": ""
       },
       "effects": [],

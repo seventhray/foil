@@ -225,6 +225,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Stress, Radius (Range 2), Strain 2",
         "description": ""
       },
       "effects": [],
@@ -269,6 +270,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Stress, Pierce 2",
         "description": ""
       },
       "effects": [],
@@ -321,6 +323,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Stress, Restrained, Extend Range",
         "description": ""
       },
       "effects": [],
@@ -365,6 +368,7 @@
         ],
         "floor": true,
         "ancestryGrant": "",
+        "effectText": "Quick (trigger: a hostile's Melee Technique targets you): Evade before it rolls.",
         "description": ""
       },
       "effects": [],
@@ -409,6 +413,7 @@
         ],
         "floor": false,
         "ancestryGrant": "",
+        "effectText": "Stress, +2",
         "description": ""
       },
       "effects": [],

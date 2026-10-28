@@ -23,6 +23,7 @@
     ],
     "floor": false,
     "ancestryGrant": "",
+    "effectText": "+2 Guile (1 minute)",
     "description": ""
   },
   "effects": [],

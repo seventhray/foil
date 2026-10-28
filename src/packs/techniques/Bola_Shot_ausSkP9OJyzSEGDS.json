@@ -33,6 +33,7 @@
     ],
     "floor": false,
     "ancestryGrant": "",
+    "effectText": "Stress, Prone",
     "description": ""
   },
   "effects": [],

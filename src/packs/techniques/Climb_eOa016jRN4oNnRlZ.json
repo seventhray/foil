@@ -21,6 +21,7 @@
     ],
     "floor": false,
     "ancestryGrant": "",
+    "effectText": "Move along vertical surfaces at full speed without a roll, for the duration of Upkeep",
     "description": "<p>Move along vertical surfaces at full speed without a roll, for the duration of Upkeep.</p>"
   },
   "effects": [],

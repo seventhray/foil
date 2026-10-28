@@ -33,6 +33,7 @@
     ],
     "floor": false,
     "ancestryGrant": "",
+    "effectText": "Stress, Cone (Range 2)",
     "description": ""
   },
   "effects": [],

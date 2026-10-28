@@ -39,6 +39,7 @@
     ],
     "floor": false,
     "ancestryGrant": "",
+    "effectText": "Stress, Prone, -1 [target Attribute] (1 minute), Strain 2",
     "description": ""
   },
   "effects": [],

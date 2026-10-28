@@ -23,6 +23,7 @@
     ],
     "floor": false,
     "ancestryGrant": "Frozen North",
+    "effectText": "Intimidated.",
     "description": ""
   },
   "effects": [],
