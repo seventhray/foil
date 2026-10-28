@@ -226,9 +226,10 @@ export function deriveEquipment(sys, registry = {}) {
   }
 }
 
-/** A Consumable's derived fields (PHB 7.9.5): its Mass carried, and its uses as a number when they are one. */
+/** A Consumable's derived fields (PHB 7.9.5): the stack's Mass, each one's times its quantity, and its uses as a number. */
 export function deriveConsumable(sys) {
-  sys.carriedWeight = Number(sys.weight) || 0;
+  sys.quantity = Math.max(0, Math.trunc(Number(sys.quantity ?? 1)));
+  sys.carriedWeight = (Number(sys.weight) || 0) * sys.quantity;
   const n = String(sys.uses ?? "").trim();
   sys.usesLeft = /^\d+$/.test(n) ? Number(n) : null;
 }

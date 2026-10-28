@@ -217,8 +217,10 @@ export class ConsumableData extends foundry.abstract.TypeDataModel {
       effect: str(""),
       duration: str(""),
       uses: str("1"),
+      // How many are in the stack (user, 2026-10-27: every Consumable is a stackable quantity). Using one takes one off.
+      quantity: int(1, { min: 0 }),
       price: int(0),
-      // Mass in pounds (PHB 5.2.6).
+      // Mass in pounds, each (PHB 5.2.6).
       weight: new f.NumberField({ required: true, initial: 0, min: 0 }),
       // Its Tier (PHB 6.10.0): Medicine runs from Tier 0 to Tier 5.
       tier: new f.NumberField({ required: true, integer: true, initial: 0, min: 0, max: 5 }),

@@ -7,6 +7,7 @@
     "effect": "Lingering 1, coats a weapon",
     "duration": "instant",
     "uses": "1",
+    "quantity": 1,
     "price": 10,
     "weight": 1,
     "tier": 0,

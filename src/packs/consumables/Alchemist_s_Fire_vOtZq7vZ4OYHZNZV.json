@@ -7,6 +7,7 @@
     "effect": "Stress, thrown",
     "duration": "instant",
     "uses": "1",
+    "quantity": 1,
     "price": 5,
     "weight": 1,
     "tier": 0,

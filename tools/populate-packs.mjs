@@ -473,7 +473,7 @@ function consumableDocs() {
     const tier = Number(r.Item.match(/^Tier (\d) /)?.[1] ?? 0);
     return {
       name: r.Item, type: "consumable", img: thrown ? "icons/svg/pill.svg" : heals ? "icons/svg/heal.svg" : "icons/svg/item-bag.svg",
-      system: { effect: r.Effect, duration: r.Duration, uses: r.Uses, price: num(r.Price), weight: num(r.Mass), tier,
+      system: { effect: r.Effect, duration: r.Duration, uses: r.Uses, quantity: 1, price: num(r.Price), weight: num(r.Mass), tier,
         materials: thrown ? "Reagent" : "", location: "carried", storedAt: "", notes: "", description: "" }
     };
   });
