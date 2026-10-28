@@ -168,12 +168,15 @@ export function deriveTechnique(sys, registry = {}) {
   const base = (priced.breakdown ?? []).map(b => b.label).join(", ");
   sys.effectSummary = sys.strain ? (base ? `${base}, Strain ${sys.strain}${sys.perTarget ? " per target" : ""}` : `Strain ${sys.strain}`) : base;
   sys.explain = explainTechnique(sys, effects);
+  // The printed line and what it means, as one text for a sheet.
+  const printed = String(sys.effectText || sys.effectSummary || "").trim();
+  sys.fullText = [printed && !/[.!?]$/.test(printed) ? `${printed}.` : printed, sys.explain].filter(Boolean).join(" ");
 }
 
 /**
  * What a Technique does and who opposes it, in a sentence or two (PHB 6.4.0, 6.5.0; user 2026-10-27: a Technique's one line should say
  * at least what it applies and what opposes it). Stress goes to the Attribute its user names, and the target opposes with a Skill built
- * on it. A Condition alone is opposed through the Attribute it names. A Technique laid on its user or an ally takes no roll.
+ * on it. A Condition alone is opposed through the Attribute it names. A Technique that targets no hostile takes no roll.
  */
 export function explainTechnique(sys, effectDefs = null) {
   const list = sys.effects ?? [];
@@ -189,7 +192,7 @@ export function explainTechnique(sys, effectDefs = null) {
     const attr = ATTR_LABEL[CONDITION_ATTR[c]] ?? CONDITION_ATTR[c];
     out.push(sys.dealsStress || weaken || reeling ? `Also applies ${c}.` : `Applies ${c}; the target opposes with a ${attr} Skill.`);
   }
-  if (!out.length && !sys.offensive && list.length) out.push("Laid on you or an ally, with no roll.");
+  if (!out.length && !sys.offensive && list.length) out.push("It takes no roll.");
   return out.join(" ");
 }
 
