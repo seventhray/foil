@@ -303,9 +303,17 @@
             "bands": 0,
             "placement": 0,
             "selectiveR": 0
+          },
+          {
+            "key": "quick",
+            "magnitude": 1,
+            "pattern": "single",
+            "bands": 0,
+            "placement": 0,
+            "selectiveR": 0
           }
         ],
-        "floor": false,
+        "floor": true,
         "ancestryGrant": "",
         "description": ""
       },
