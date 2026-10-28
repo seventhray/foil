@@ -5,7 +5,7 @@
   "img": "icons/svg/upgrade.svg",
   "system": {
     "featType": "learned",
-    "xpCost": 8,
+    "xpCost": 11,
     "requirements": "12 Finesse",
     "effect": "Closing all the way to Range 0 costs nothing extra.",
     "ancestry": "",
