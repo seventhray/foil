@@ -25,7 +25,7 @@ export const NATURAL_WEAPONS = [
    "pointed"
   ],
   "pick": false,
-  "range": "Range 0"
+  "range": "Range 1"
  },
  {
   "name": "Tusks",
@@ -34,7 +34,7 @@ export const NATURAL_WEAPONS = [
    "pointed"
   ],
   "pick": false,
-  "range": "Range 0"
+  "range": "Range 1"
  },
  {
   "name": "Beak",
@@ -43,7 +43,7 @@ export const NATURAL_WEAPONS = [
    "pointed"
   ],
   "pick": false,
-  "range": "Range 0"
+  "range": "Range 1"
  },
  {
   "name": "Stinger",
@@ -52,7 +52,7 @@ export const NATURAL_WEAPONS = [
    "pointed"
   ],
   "pick": false,
-  "range": "Range 0"
+  "range": "Range 1"
  },
  {
   "name": "Proboscis",
@@ -61,7 +61,7 @@ export const NATURAL_WEAPONS = [
    "pointed"
   ],
   "pick": false,
-  "range": "Range 0"
+  "range": "Range 1"
  },
  {
   "name": "Mandibles",
@@ -70,7 +70,7 @@ export const NATURAL_WEAPONS = [
    "pointed"
   ],
   "pick": false,
-  "range": "Range 0"
+  "range": "Range 1"
  },
  {
   "name": "Pharyngeal Jaw",
@@ -79,7 +79,7 @@ export const NATURAL_WEAPONS = [
    "pointed"
   ],
   "pick": false,
-  "range": "Range 0"
+  "range": "Range 1"
  },
  {
   "name": "Horns",
