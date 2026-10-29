@@ -16,13 +16,13 @@ const amountOf = (note, fallback = 1) => {
 /**
  * The flat modifier a roll takes from its own Conditions.
  * Weakened -N to rolls on the Attribute its note names (all rolls if it names none),
- * Reeling -N to Oppose rolls, Blinded -2, Prone -1.
+ * Reeling -N to Oppose rolls, Blinded -2, Prone -1, Frightened -1.
  * @returns {{ total:number, parts:{label:string,value:number}[] }}
  */
 export function conditionMods(conditions = [], { skill, oppose = false } = {}) {
   const parts = [];
   const attrs = SKILL_ATTRS[skill] ?? [];
-  let reeling = 0, blinded = false, prone = false;   // a repeat of these keeps one instance, the larger N (PHB 6.8.0)
+  let reeling = 0, blinded = false, prone = false, frightened = false;   // a repeat of these keeps one instance, the larger N (PHB 6.8.0)
   for (const c of conditions) {
     const note = String(c.note ?? "").toLowerCase();
     switch (c.name) {
@@ -35,11 +35,13 @@ export function conditionMods(conditions = [], { skill, oppose = false } = {}) {
       case "Reeling": reeling = Math.max(reeling, amountOf(c.note)); break;
       case "Blinded": blinded = true; break;
       case "Prone":   prone = true; break;
+      case "Frightened": frightened = true; break;
     }
   }
   if (oppose && reeling) parts.push({ label: "Reeling", value: -reeling });
   if (blinded) parts.push({ label: "Blinded", value: -2 });
   if (prone) parts.push({ label: "Prone", value: -1 });
+  if (frightened) parts.push({ label: "Frightened", value: -1 });
   return { total: parts.reduce((n, p) => n + p.value, 0), parts };
 }
 
@@ -60,8 +62,6 @@ const check = (name, rule) => `Check ${name}: ${rule} (not applied).`;
 export function conditionFlags(conditions = [], { skill = "", technique = false } = {}) {
   const has = n => conditions.some(c => c.name === n);
   const out = [];
-  if (has("Frightened")) out.push(check("Frightened", "-1 to rolls while it can perceive the source"));
-  if (has("Restrained") && (!skill || (SKILL_ATTRS[skill] ?? []).includes("finesse"))) out.push(check("Restrained", "Finesse is Incapacitated, adding no dice"));
   if (technique) {
     if (has("Stunned")) out.push(check("Stunned", "spends no Action or Quick Action"));
     if (has("Charmed")) out.push(check("Charmed", "can't use a Technique against the source or its allies"));
@@ -125,6 +125,7 @@ export function skillTerms(sys, skill, extras = [], dice = [], { oppose = false,
       const a = sys.attributes?.[ak];
       if (!a) continue;
       if (a.down) terms.push({ label: ATTR_LABEL[ak], value: 0, note: "Incapacitated, no dice" });
+      else if (conditions && ak === "finesse" && (sys.conditions ?? []).some(c => c.name === "Restrained")) terms.push({ label: ATTR_LABEL[ak], value: 0, note: "Restrained: Incapacitated, no dice" });
       else if (a.diceFormula) terms.push({ label: ATTR_LABEL[ak], dice: a.diceFormula });
     }
   } else if (sk.formula) terms.push({ label: "Skill", dice: sk.formula });

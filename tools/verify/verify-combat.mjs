@@ -42,8 +42,12 @@ check("each Background or Feat that gives Training is its own term, by name", sk
   "Math: Wit 1d6, Training +0 (cap 3), Scholar Training +1, Dark Sight Training +2.");
 check("Might and Finesse are physical, Wit and Presence mental", ["might", "finesse", "wit", "presence"].map(kindOf), ["physical", "physical", "mental", "mental"]);
 
-check("Frightened and Restrained are flagged, not applied", [conditionFlags([c("Frightened"), c("Restrained")], { skill: "prowess" }).length, conditionMods([c("Frightened"), c("Restrained")], { skill: "prowess" }).total], [2, 0]);
-check("Restrained is not flagged for a Skill without Finesse", conditionFlags([c("Restrained")], { skill: "resonance" }), []);
+check("Frightened is applied as -1, and neither it nor Restrained is flagged", [conditionFlags([c("Frightened"), c("Restrained")], { skill: "prowess" }).length, conditionMods([c("Frightened"), c("Restrained")], { skill: "prowess" }).total], [0, -1]);
+{
+  const restrained = { attributes: { might: { diceFormula: "1d8" }, finesse: { diceFormula: "1d10" } }, skills: { prowess: {} }, carry: { penalty: 0 }, conditions: [c("Restrained")] };
+  check("Restrained rolls no Finesse dice", skillMath(restrained, "prowess", [], []), "Math: Might 1d8, Finesse +0 (Restrained: Incapacitated, no dice).");
+  check("and keeps them when Conditions are left out", skillMath(restrained, "prowess", [], [], { conditions: false }), "Math: Might 1d8, Finesse 1d10.");
+}
 check("Technique-use Conditions flag only for Techniques", [conditionFlags([c("Stunned"), c("Charmed")]).length, conditionFlags([c("Stunned"), c("Charmed")], { technique: true }).length], [0, 2]);
 check("Invisible target and harm-ended Conditions are flagged", [targetFlags([c("Invisible")]).length, harmFlags([c("Charmed"), c("Enthralled"), c("Prone")]).length], [1, 2]);
 check("Weakened with no Attribute named says so", conditionMods([c("Weakened", "")], { skill: "guile" }).parts[0].label.includes("no Attribute named"), true);

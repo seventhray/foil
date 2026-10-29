@@ -119,6 +119,13 @@ const enchantPierceParts = inst => [
   { label: `${inst.name} Enchantment`, value: Number(inst.system.enchantPierce ?? 0) }
 ];
 
+/** A Technique on a target that hasn't noticed the roller gains +5, and reveals the roller (PHB 6.2.1). */
+function unseenExtra(unseen, notes) {
+  if (!unseen) return [];
+  notes.push("The target hadn't noticed the roller: +5. The Technique reveals the roller (PHB 6.2.1).");
+  return [{ label: "Unnoticed", value: 5 }];
+}
+
 /** Roll a Skill on its own. */
 export function* rollSkillSteps({ actor, skill, fmt = PLAIN }) {
   const sys = actor.system;
@@ -129,7 +136,7 @@ export function* rollSkillSteps({ actor, skill, fmt = PLAIN }) {
 }
 
 /** Roll one of an Instrument's three built-in Techniques (PHB 7.4.0). */
-export function* rollKitSteps({ actor, inst, index, fmt = PLAIN }) {
+export function* rollKitSteps({ actor, inst, index, unseen = false, fmt = PLAIN }) {
   const { esc, br } = fmt;
   const sys = actor.system;
   const kit = inst?.system.kit?.[Number(index)];
@@ -155,7 +162,7 @@ export function* rollKitSteps({ actor, inst, index, fmt = PLAIN }) {
   const aim = stress ? (yield ["aim", { inst, name: kit.name, text: kit.effect, requires: [] }]) : { targets: [] };
   if (!aim) return;
   notes.push(...(aim.notes ?? []));
-  const kitExtras = instrumentExtras(inst, kit.skill);
+  const kitExtras = [...instrumentExtras(inst, kit.skill), ...unseenExtra(unseen && targeted, notes)];
   const kitDice = targeted && inst.system.weightDice ? [{ label: inst.system.weightLabel || "Weight", dice: inst.system.weightDice }] : [];
   notes.unshift(esc(skillMath(sys, kit.skill, kitExtras, kitDice)));
   (yield ["post", {
@@ -171,7 +178,7 @@ export function* rollKitSteps({ actor, inst, index, fmt = PLAIN }) {
 }
 
 /** Roll a Technique: choose its Skill and Instrument, take its Strain, and post the roll. */
-export function* rollTechniqueSteps({ actor, tech, fmt = PLAIN }) {
+export function* rollTechniqueSteps({ actor, tech, unseen = false, fmt = PLAIN }) {
   const { esc, br, arrow } = fmt;
   const sys = tech.system;
   const asys = actor.system;
@@ -240,6 +247,7 @@ export function* rollTechniqueSteps({ actor, tech, fmt = PLAIN }) {
     notes.push(`Strain ${sys.strain} on ${ATTR_LABEL[attr]} (Stress ${max - before} ${arrow} ${max - after} of ${max}): (${xp} XP${sys.perTarget ? " before the Selective premium" : ""} - 24) / 8, rounded down (PHB 4.2.3).`);
   }
 
+  bonus.push(...unseenExtra(unseen, notes));
   const wdice = sys.offensive && inst?.type === "instrument" && inst.system.weightDice ? [{ label: inst.system.weightLabel || "Weight", dice: inst.system.weightDice }] : [];
   notes.unshift(esc(skillMath(asys, skill, bonus, wdice)));
   const rounds = applied ? applied.duration || (applied.key.endsWith("-minute") ? "1 minute" : "") : "";
