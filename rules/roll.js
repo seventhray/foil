@@ -71,16 +71,25 @@ export const skillsOf = i => i.type === "instrument" ? i.system.primarySkills : 
 /** A stored Instrument works where it is stored (user, 2026-10-25). */
 const storedNote = (inst, esc) => `${esc(inst.name)} is stored${inst.system.storedAt ? ` at ${esc(inst.system.storedAt)}` : ""}: using it means being there.`;
 
-/** Instruments able to deliver a Technique: any one of its required Types; equipped ones first, stored ones last. */
-export function validInstruments(actor, tech) {
+/** Instruments of a Type a Technique requires, or a Shield for Blocking, ready or not: equipped ones first, stored ones last. */
+export function matchingInstruments(actor, tech) {
   const req = tech.system.requires ?? [];
-  const ready = i => (i.system.innate || i.system.location === "equipped") ? 0 : i.system.location === "stored" ? 2 : 1;
+  const rank = i => isReady(i) ? 0 : i.system.location === "stored" ? 2 : 1;
   return items(actor).filter(i => {
     if (i.type === "instrument") return req.length === 0 || req.some(k => i.system.types?.includes(k));
     if (i.type === "equipment" && i.system.category === "shield") return req.includes("blocking");
     return false;
-  }).sort((a, b) => ready(a) - ready(b));
+  }).sort((a, b) => rank(a) - rank(b));
 }
+
+/**
+ * Ready to use (PHB 4.1.0): innate, equipped, or Immobile, which works where it stands (PHB 4.1.1). A Technique goes only
+ * through a ready Instrument (user, 2026-10-29); readying one costs the Quick Action.
+ */
+export const isReady = i => !!i.system.innate || i.system.location === "equipped" || (i.system.types ?? []).includes("immobile");
+
+/** Instruments a Technique can go through now: the ready ones of matchingInstruments. */
+export const validInstruments = (actor, tech) => matchingInstruments(actor, tech).filter(isReady);
 
 /**
  * The payload the Stress button on a card reads. The margin cap follows the Instrument's weight (PHB 6.7.0).
@@ -176,7 +185,8 @@ export function* rollTechniqueSteps({ actor, tech, fmt = PLAIN }) {
   if (!sys.innate) {
     let valid = validInstruments(actor, tech);
     if (!valid.length) {
-      (yield ["warn", `No Instrument carries what ${tech.name} requires (${sys.requiresLabel}).`]);
+      const away = matchingInstruments(actor, tech).map(i => i.name);
+      (yield ["warn", away.length ? `${tech.name} needs ${away.join(" or ")} equipped first (PHB 4.1.0).` : `No Instrument carries what ${tech.name} requires (${sys.requiresLabel}).`]);
       return;
     }
     if (skill) {

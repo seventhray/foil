@@ -25,7 +25,7 @@ import { stressFor, alwaysTypes, isAlwaysType } from "../stress.js";
 import { ask, dialogApi, addButton, esc } from "../dialogs.js";
 import "../chat-actions.js";
 import { allowedAims, targetFlags } from "../combat.js";
-import { rollSkill, rollKit, rollTechnique, rollEnchantment, stressPayload, validInstruments } from "../../rules/roll.js";
+import { rollSkill, rollKit, rollTechnique, rollEnchantment, stressPayload, validInstruments, matchingInstruments } from "../../rules/roll.js";
 import { resolveOppose } from "../oppose.js";
 import { restPlan } from "../rest.js";
 import { toilStretch } from "../toil.js";
@@ -160,9 +160,11 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
       } else if (item.type === "technique") {
         view.effectDisplay = glossarize(s.fullText);
         view.skillLabel = s.skill ? SKILL_LABEL[s.skill] : "Any Skill";
-        const valid = validInstruments(this.actor, item);
+        // Only a ready Instrument takes a Technique (user, 2026-10-29); one that isn't ready is named with where it is.
+        const valid = validInstruments(this.actor, item), away = valid.length ? [] : matchingInstruments(this.actor, item);
         view.usableWith = s.innate ? "Innate (no Instrument)"
-          : valid.length ? valid.map(i => i.system.location === "equipped" || i.system.innate ? i.name : `${i.name} (${LOCATION_LABEL[i.system.location].toLowerCase()})`).join(", ")
+          : valid.length ? valid.map(i => i.name).join(", ")
+          : away.length ? `${away.map(i => `${i.name} (${(LOCATION_LABEL[i.system.location] ?? "not ready").toLowerCase()})`).join(", ")}: equip it first`
           : "no Instrument it has";
         view.unusable = !s.innate && !valid.length;
       } else if (item.type === "feat") {

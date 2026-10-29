@@ -116,4 +116,20 @@ check("The Oppose flow's wording and modifiers come from oppose-text.js", [
   opposeDialog({ flagName: "Bite", attackLine: "9", defenderName: "Kessen", conditionName: null, aim: "might", skills: [], flagHtml: "", opts: "", attackerName: "Wolf", exposed: [], kind: "physical" }).includes('name="parry"')
 ], ["-1,1,2,-2,2", true, true, true]);
 
+// A Technique goes only through a ready Instrument (user, 2026-10-29): innate, equipped, a Shield for Blocking, or an Immobile one where it stands.
+{
+  const { validInstruments, rollTechniqueSteps } = await import("../../rules/roll.js");
+  const inst = (name, types, location, extra = {}) => ({ name, type: "instrument", system: { types, location, ...extra } });
+  const sword = inst("Longsword", ["edged"], "carried"), dagger = inst("Dagger", ["edged"], "equipped"), forge = inst("Forge", ["tool", "immobile"], "stored");
+  const shield = { name: "Buckler", type: "equipment", system: { category: "shield", location: "equipped" } };
+  const tech = requires => ({ name: "Cut", system: { requires, requiresLabel: requires.join(" or ") } });
+  const warn = actor => { const g = rollTechniqueSteps({ actor, tech: tech(["edged"]) }); const step = g.next().value; return step?.[0] === "warn" ? step[1] : null; };
+  check("a Technique goes through ready Instruments only: equipped, an equipped Shield, and an Immobile one", [
+    validInstruments({ items: [sword, dagger] }, tech(["edged"])).map(i => i.name),
+    validInstruments({ items: [forge] }, tech(["tool"])).map(i => i.name),
+    validInstruments({ items: [shield] }, tech(["blocking"])).map(i => i.name)
+  ], [["Dagger"], ["Forge"], ["Buckler"]]);
+  check("with only a carried Instrument, the roll says which one to equip", warn({ items: [sword] }), "Cut needs Longsword equipped first (PHB 4.1.0).");
+}
+
 process.exit(failed ? 1 : 0);
