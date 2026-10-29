@@ -45,11 +45,16 @@ const hasToken = actor => actor.type === "character" && foilTokens(actor) > 0;
 /** The Attributes each kind of block covers (PHB 6.5.1). */
 export const BLOCK_COVERS = { physical: ["might", "finesse"], arcane: ["wit", "presence"] };
 
-/** A character's ready blocks (PHB 6.5.1): its Blocking Instruments and Shields, each physical, or arcane for an arcane Instrument. */
+/**
+ * A character's ready blocks (PHB 6.5.1): its Blocking Instruments, Shields and Wards. A Ward or an arcane Instrument is an arcane block,
+ * so its Guard covers only Wit and Presence, the mental attacks; any other is physical. A Shield or Ward states no Range, so it reaches
+ * Range 1 (user, 2026-10-29).
+ */
 export function blocksOf(actor) {
   return (actor?.items ?? []).filter(i => isReady(i) && ((i.type === "instrument" && (i.system.types ?? []).includes("blocking"))
-    || (i.type === "equipment" && i.system.category === "shield")))
-    .map(i => ({ id: i.id, name: i.name, kind: i.type === "instrument" && i.system.category === "arcane" ? "arcane" : "physical", band: i.system.rangeBand ?? "" }));
+    || (i.type === "equipment" && ["shield", "ward"].includes(i.system.category))))
+    .map(i => ({ id: i.id, name: i.name, kind: (i.type === "instrument" && i.system.category === "arcane") || i.system.category === "ward" ? "arcane" : "physical",
+      band: i.system.rangeBand || "close" }));
 }
 
 /** A Guarded mark's note, which names the block's kind so it reads back: "Round Shield, physical block, by Kessen". */

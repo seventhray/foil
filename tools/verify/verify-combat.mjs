@@ -120,6 +120,18 @@ check("The Oppose flow's wording and modifiers come from oppose-text.js", [
   opposeDialog({ flagName: "Bite", attackLine: "9", defenderName: "Kessen", conditionName: null, aim: "might", skills: [], flagHtml: "", opts: "", attackerName: "Wolf", exposed: [], kind: "physical", canParry: true }).includes('name="parry"')
 ], ["-1,1,2,-2,2", true, true, true]);
 
+// A character's blocks (PHB 6.5.1; user, 2026-10-29): a Shield is physical, a Ward or an arcane Instrument arcane, and a Shield or Ward
+// with no stated Range reaches Range 1.
+{
+  const { blocksOf } = await import("../../rules/oppose.js");
+  const item = (name, type, system) => ({ id: name, name, type, system: { location: "equipped", ...system } });
+  const got = blocksOf({ items: [item("Round Shield", "equipment", { category: "shield" }), item("Mental Ward", "equipment", { category: "ward" }),
+    item("Quarterstaff", "instrument", { category: "melee", types: ["blunt", "blocking"], rangeBand: "near" }), item("Ward Focus", "instrument", { category: "arcane", types: ["blocking"], rangeBand: "close" }),
+    item("Longsword", "instrument", { category: "melee", types: ["edged", "parry"], rangeBand: "close" }), { ...item("Kite Shield", "equipment", { category: "shield" }), system: { category: "shield", location: "carried" } }] });
+  check("Blocks: Shield physical at Range 1, Ward arcane at Range 1, Quarterstaff at its own Range, Ward Focus arcane; a carried Shield and a sword are none",
+    got.map(b => `${b.name}:${b.kind}:${b.band}`), ["Round Shield:physical:close", "Mental Ward:arcane:close", "Quarterstaff:physical:near", "Ward Focus:arcane:close"]);
+}
+
 // Guard and Parry in the Oppose dialog (PHB 6.5.1, 6.5.2; user, 2026-10-29): no Guard box, since a Guarded mark adds by itself, and
 // Parry only for a defender that may Parry.
 {
