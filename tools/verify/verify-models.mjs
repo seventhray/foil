@@ -221,8 +221,8 @@ check("Edged doubling applies only against physical Resistance", () =>
   eq(stressFor({ attack: 16, oppose: 6, cap: 12, kind: "mental", resistance: 2, type: edged }).stress, 8));
 check("Wren round 1: margin 4, Sonic +1, Resistance 1: 4", () =>
   eq(stressFor({ attack: 16, oppose: 12, cap: 6, kind: "mental", resistance: 1, type: sonic }).stress, 4));
-check("every opposed Condition names one Attribute (PHB 6.8.0), so any of its three Skills can Oppose; Weakened, Wary, and Invisible don't", () =>
-  eq(CONDITIONS.filter(c => !CONDITION_OPPOSE[c]), ["Weakened", "Wary", "Invisible"]) && Object.values(CONDITION_OPPOSE).every(v => v.length === 3));
+check("every opposed Condition names one Attribute (PHB 6.8.0), so any of its three Skills can Oppose; Weakened, Wary, Invisible and Guarded (a Guard, PHB 6.5.1) don't", () =>
+  eq(CONDITIONS.filter(c => !CONDITION_OPPOSE[c]), ["Weakened", "Wary", "Invisible", "Guarded"]) && Object.values(CONDITION_OPPOSE).every(v => v.length === 3));
 check("Drawn adds on top of the declared Type (PHB 4.1.1)", () =>
   eq(stressFor({ attack: 14, oppose: 12, cap: 12, resistance: 1, type: pointed, always: [{ key: "drawn", label: "Drawn", physical: 2, mental: 2 }] }).stress, 5));
 check("margin caps at half the Primary Potential", () => eq(stressFor({ attack: 30, oppose: 10, cap: 6 }).stress, 6));

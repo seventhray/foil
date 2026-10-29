@@ -4,7 +4,9 @@
  * to rules/oppose.js (copied verbatim at Foundry system commit 935b9c0), with fakes for the Foundry pieces they touch.
  * verify-oppose-flows.mjs runs it to record what the old code did; do not edit the copied functions.
  */
-import { ATTRIBUTE_KEYS, ATTR_LABEL, SKILL_LABEL, PRIMARY_SKILLS, CONDITION_OPPOSE, CONDITION_PRESETS, FOIL_AXES } from "../../rules/constants.js";
+import { ATTRIBUTE_KEYS, ATTR_LABEL, SKILL_LABEL, PRIMARY_SKILLS, CONDITION_OPPOSE, CONDITION_PRESETS, FOIL_AXES, conditionAttr } from "../../rules/constants.js";
+// Guard and Parry follow PHB 6.5.1 and 6.5.2 here as in rules/oppose.js (user, 2026-10-29), so the parity check compares like with like.
+import { canParry, guardFor } from "../../rules/oppose.js";
 import { stressFor, alwaysTypes, landStress } from "../../rules/stress.js";
 import { conditionFlags, conditionMods, harmFlags, harmNames, incomingMods, kindOf, signedParts, skillFormula, skillMath, targetFlags } from "../../rules/combat.js";
 import { scopedResistance } from "../../rules/resist.js";
@@ -122,8 +124,10 @@ export async function resolveOppose(message, index) {
   const exposed = (sys.conditions ?? []).map((c, i) => ({ ...c, i })).filter(c => c.name === "Foil Exposed" && attackerName && String(c.note).endsWith(`by ${attackerName}`));
   const flags = [...targetFlags(sys.conditions), ...conditionFlags(sys.conditions, { skill: best })];
   const flagHtml = flags.length ? `<p><em>${flags.join("<br>")}</em></p>` : "";
+  const guarded = guardFor(sys.conditions, cnd ? conditionAttr(cnd) : aim);
+  const parryable = !cnd && canParry(actor, flag, kind);
   const answer = await ask(`${actor.name} Opposes ${flag.name}`, opposeDialog({ flagName: flag.name, attackLine, defenderName: actor.name,
-    conditionName: cnd?.name ?? null, aim, skills, flagHtml, opts, attackerName, exposed, kind }), "Roll Oppose");
+    conditionName: cnd?.name ?? null, aim, skills, flagHtml, opts, attackerName, exposed, kind, guarded: guarded ? guarded.note || "physical block" : "", canParry: parryable }), "Roll Oppose");
   if (!answer) return;
 
   const skill = skills.includes(answer.skill) ? answer.skill : best;
@@ -131,7 +135,8 @@ export async function resolveOppose(message, index) {
   const block = actor.items.reduce((n, i) => (i.type === "instrument" && i.system.location === "equipped" ? Math.max(n, Number(i.system.bonusOppose ?? 0)) : n), 0);
   const other = Math.trunc(Number(answer.other) || 0);
   const spent = exposed.filter((c, n) => answer[`exposed${n}`]);
-  const extras = opposeExtras({ conditionParts: cm.parts, block, guard: !!answer.guard, exposedSpent: spent, other });
+  const extras = opposeExtras({ conditionParts: cm.parts, block, guard: !!guarded, exposedSpent: spent, other });
+  const parried = parryable && !!answer.parry;
   const oppFlags = [...targetFlags(sys.conditions), ...conditionFlags(sys.conditions, { skill })];
   if (spent.length) {
     const left = foundry.utils.deepClone(actor.system.conditions ?? []).filter((c, i) => !spent.some(s => s.i === i));
@@ -179,13 +184,13 @@ export async function resolveOppose(message, index) {
   }
 
   const scoped = scopedResistance({ narrowResistance: sys.narrowResistance }, { ...(flag.attackInfo ?? {}), kind });
-  const resistance = Number(sys.attributes?.[aim]?.resistanceTotal ?? sys.resistance?.[`${kind}Total`] ?? 0) + (answer.parry ? 1 : 0) + scoped.net;
+  const resistance = Number(sys.attributes?.[aim]?.resistanceTotal ?? sys.resistance?.[`${kind}Total`] ?? 0) + (parried ? 1 : 0) + scoped.net;
   // Every source of that Resistance, named on the card.
   const kindLabel = kind === "physical" ? "Physical" : "Mental";
   const resistanceParts = [
     `${kindLabel} ${Number(sys.resistance?.[`${kind}Total`] ?? 0)}${sys.resistance?.[`${kind}FromLabel`] ? ` (${sys.resistance[`${kind}FromLabel`]})` : ""}`,
     ...(sys.attributes?.[aim]?.resistanceExtra ? [`${ATTR_LABEL[aim]} only +${sys.attributes[aim].resistanceExtra}${sys.attributes[aim].resistanceFromLabel ? ` (${sys.attributes[aim].resistanceFromLabel})` : ""}`] : []),
-    ...(answer.parry ? ["Parry +1"] : []),
+    ...(parried ? ["Parry +1"] : []),
     ...scoped.parts
   ];
   const type = flag.typeIndex === "" || flag.typeIndex === undefined || flag.typeIndex === null ? null : flag.types?.[Number(flag.typeIndex)] ?? null;

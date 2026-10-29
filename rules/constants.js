@@ -175,11 +175,12 @@ export const FOIL_AXES = [
 export const FOIL_LEANS = ["", "low", "high"];
 export const FOIL_TOKEN_MAX = 4;
 
-// Conditions (PHB 6.8.3-6.8.23), for the active-conditions tracker.
+// Conditions (PHB 6.8.3-6.8.23), for the active-conditions tracker. Foil Exposed (PHB 3.2.0) and Guarded (PHB 6.5.1) are kept
+// there too: a Guarded note names the block, "Round Shield, physical block, by Kessen", and one without "arcane block" is physical.
 export const CONDITIONS = [
   "Grappled", "Weakened", "Restrained", "Reeling", "Prone", "Charmed", "Frightened",
   "Controlled", "Intimidated", "Baited", "Angered", "Relaxed", "Impressed", "Wary",
-  "Enthralled", "Swayed", "Misled", "Blinded", "Slowed", "Stunned", "Invisible", "Foil Exposed"
+  "Enthralled", "Swayed", "Misled", "Blinded", "Slowed", "Stunned", "Invisible", "Foil Exposed", "Guarded"
 ];
 /**
  * How long each Condition lasts when a Technique states nothing else (PHB 6.8.0 to 6.8.23).
@@ -191,7 +192,7 @@ export const CONDITION_PRESETS = {
   Intimidated: "until the demand", Baited: "2 hours", Angered: "2 hours", Relaxed: "until threatened",
   Impressed: "until granted", Wary: "2 hours", Enthralled: "until the source harms it", Swayed: "2 hours",
   Misled: "2 hours", Blinded: "end of its next turn", Slowed: "end of its next turn", Stunned: "end of its next turn",
-  Invisible: "until it uses a Technique", "Foil Exposed": "2 hours, or until used"
+  Invisible: "until it uses a Technique", "Foil Exposed": "2 hours, or until used", Guarded: "1 round"
 };
 /** Technique Effect keys that apply a Condition with an Oppose (PHB 6.5.0). */
 export const EFFECT_CONDITION = {

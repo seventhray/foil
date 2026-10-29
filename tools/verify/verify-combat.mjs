@@ -117,8 +117,18 @@ check("The Oppose flow's wording and modifiers come from oppose-text.js", [
   opposeExtras({ conditionParts: [{ label: "Reeling", value: -1 }], block: 1, guard: true, exposedSpent: [{ note: "Faith: Trusting; by Verren" }], other: 2 }).map(e => e.value).join(","),
   failCard("Bite", "Kessen", "9 against 12").includes("Bite fails against Kessen"),
   stressCard("Kessen", "might", { stress: 4, parts: ["margin 6"] }, "9 against 3").includes("4 Stress"),
-  opposeDialog({ flagName: "Bite", attackLine: "9", defenderName: "Kessen", conditionName: null, aim: "might", skills: [], flagHtml: "", opts: "", attackerName: "Wolf", exposed: [], kind: "physical" }).includes('name="parry"')
+  opposeDialog({ flagName: "Bite", attackLine: "9", defenderName: "Kessen", conditionName: null, aim: "might", skills: [], flagHtml: "", opts: "", attackerName: "Wolf", exposed: [], kind: "physical", canParry: true }).includes('name="parry"')
 ], ["-1,1,2,-2,2", true, true, true]);
+
+// Guard and Parry in the Oppose dialog (PHB 6.5.1, 6.5.2; user, 2026-10-29): no Guard box, since a Guarded mark adds by itself, and
+// Parry only for a defender that may Parry.
+{
+  const dialog = o => opposeDialog({ flagName: "Bite", attackLine: "9", defenderName: "Kessen", conditionName: null, aim: "might", skills: [], flagHtml: "", opts: "", attackerName: "Wolf", exposed: [], kind: "physical", ...o });
+  check("The Oppose dialog asks no Guard, says a Guarded mark, and offers Parry only when it may", [
+    dialog({}).includes('name="guard"'), dialog({}).includes('name="parry"'),
+    dialog({ guarded: "Round Shield, physical block, by Wren" }).includes("Guarded (Round Shield, physical block, by Wren): +2")
+  ], [false, false, true]);
+}
 
 // A Technique goes only through a ready Instrument (user, 2026-10-29): innate, equipped, a Shield for Blocking, or an Immobile one where it stands.
 {

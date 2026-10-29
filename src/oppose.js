@@ -30,13 +30,13 @@ function opposeIO(actor, attacker) {
   const sys = actor.system;
   const speaker = a => ChatMessage.getSpeaker({ actor: a });
   return {
-    askOppose: ({ flag, attack, incoming, cnd, aim, kind, skills, best, flags, attackerName, exposed }) => {
+    askOppose: ({ flag, attack, incoming, cnd, aim, kind, skills, best, flags, attackerName, exposed, guarded, canParry }) => {
       const opts = skills.map(k => `<option value="${k}" ${k === best ? "selected" : ""}>${SKILL_LABEL[k]} (${sys.skills?.[k]?.formula || "no dice"})</option>`).join("");
       const attackLine = incoming.parts.length
         ? `${flag.attackTotal} ${signedParts(incoming.parts)} = <strong>${attack}</strong>` : `<strong>${attack}</strong> (no modifiers from ${esc(actor.name)}'s Conditions)`;
       const flagHtml = flags.length ? `<p><em>${flags.join("<br>")}</em></p>` : "";
       return ask(`${actor.name} Opposes ${flag.name}`, opposeDialog({ flagName: flag.name, attackLine, defenderName: actor.name,
-        conditionName: cnd?.name ?? null, aim, skills, flagHtml, opts, attackerName, exposed, kind }), "Roll Oppose");
+        conditionName: cnd?.name ?? null, aim, skills, flagHtml, opts, attackerName, exposed, kind, guarded, canParry }), "Roll Oppose");
     },
     updateConditions: list => actor.update({ "system.conditions": list }),
     rollOppose: async ({ formula, math, skill, flags }) => {

@@ -13,13 +13,14 @@ const habitOf = note => String(note).replace(/;? by .*$/, "");
 /** The Oppose roll's extra modifiers, from the dialog's answers (PHB 6.5.0, 3.2.0): see rules/oppose.js. */
 export { opposeExtras } from "../rules/oppose.js";
 
-export function opposeDialog({ flagName, attackLine, defenderName, conditionName, aim, skills, flagHtml, opts, attackerName, exposed, kind }) {
+export function opposeDialog({ flagName, attackLine, defenderName, conditionName, aim, skills, flagHtml, opts, attackerName, exposed, kind, guarded = "", canParry = false }) {
   const cnd = conditionName;
   return `<p>${esc(flagName)} rolled ${attackLine} to make ${esc(defenderName)} ${cnd ?? `suffer Stress at ${ATTR_LABEL[aim]}`}. ${cnd ? `${esc(defenderName)} must Oppose with ${skills.map(k => SKILL_LABEL[k]).join(" or ")} (PHB 6.5.0). ` : ""}Conditions and a Blocking Instrument's bonus are added.</p>${flagHtml}`
     + `<div class="form-group"><label>Oppose with</label><select name="skill">${opts}</select></div>`
     + exposed.map((c, n) => `<div class="form-group"><label>${esc(attackerName)} uses Foil Exposed: ${habitOf(c.note)} <em>(-2, used up)</em></label><input type="checkbox" name="exposed${n}" /></div>`).join("")
-    + (cnd ? "" : `<div class="form-group"><label>Guard <em>(+2)</em></label><input type="checkbox" name="guard" /></div>`)
-    + (!cnd && kind === "physical" ? `<div class="form-group"><label>Parry <em>(Physical Resistance +1)</em></label><input type="checkbox" name="parry" /></div>` : "")
+    // Guard is put on beforehand, as a Guarded Condition (PHB 6.5.1), and adds by itself; Parry needs a ready Parry Instrument (PHB 6.5.2).
+    + (guarded ? `<p><em>Guarded (${esc(guarded)}): +2 to this Oppose (PHB 6.5.1).</em></p>` : "")
+    + (canParry ? `<div class="form-group"><label>Parry <em>(Physical Resistance +1)</em></label><input type="checkbox" name="parry" /></div>` : "")
     + `<div class="form-group"><label>Other Oppose modifier</label><input type="number" name="other" value="0" /></div>`;
 }
 

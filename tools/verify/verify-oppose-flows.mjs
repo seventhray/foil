@@ -213,5 +213,24 @@ for (const [flagName, flag] of flagsList) for (const [defName, opts] of defender
     }
   }
 }
+// Guard and Parry (PHB 6.5.1, 6.5.2; user, 2026-10-29): Guard is a Guarded mark that adds +2 by itself when it covers the Attribute under
+// attack; Parry counts only with a ready Parry Instrument, whatever the answer says.
+{
+  const run = async (defName, opts, flag, answers) => safe(runNew)(() => ({ atk: makeActor(atkDoc, { type: "creature" }), def: makeActor(byName(defName) ?? bestiary[1], opts) }), flag, answers, [10, 10, 10, 10, 10, 10]);
+  const guardOf = o => (o.events ?? []).find(e => e.type === "oppose")?.opposeMods?.find(m => m.label === "Guard")?.value ?? 0;
+  const parried = o => (o.messages ?? []).some(m => /Parry \+1/.test(m.content));
+  const mark = kind => ({ type: "creature", conditions: [{ name: "Guarded", rounds: "1 round", note: R.guardNote(kind, "Round Shield", "Kessen") }] });
+  const asks = [{ skill: "prowess", other: 0, parry: true }, { amount: 4 }];
+  const checks = [
+    ["a physical Guard adds +2 against Might, unasked", guardOf(await run("Acolyte", mark("physical"), stressFlag(sword), asks)) === 2],
+    ["but not against Wit, which it does not cover", guardOf(await run("Acolyte", mark("physical"), stressFlag(sword, { aim: "wit" }), asks)) === 0],
+    ["an arcane Guard covers Wit", guardOf(await run("Acolyte", mark("arcane"), stressFlag(sword, { aim: "wit" }), asks)) === 2],
+    ["an answer of guard: true adds nothing without the mark", guardOf(await run("Acolyte", { type: "creature" }, stressFlag(sword), [{ skill: "prowess", guard: true }, { amount: 4 }])) === 0],
+    ["a Parry with no Parry Instrument is refused", !parried(await run("Acolyte", { type: "creature" }, stressFlag(sword, { attackTotal: 60 }), asks))],
+    ["a Parry with a ready Parry Instrument counts", parried(await run("Bandit", { type: "creature" }, stressFlag(sword, { attackTotal: 60 }), asks))],
+    ["and not against a Technique that is neither Melee nor Ranged", !parried(await run("Bandit", { type: "creature" }, stressFlag(sword, { attackTotal: 60, attackInfo: { types: [], families: ["arcane"], materials: "" } }), asks))],
+  ];
+  for (const [name, ok] of checks) { if (!ok) bad++; console.log(`  ${ok ? "PASS" : "FAIL"}  ${name}`); }
+}
 console.log(`  ${n - bad} of ${n} Oppose flows match the old code (${landed} landed, ${applied} laid Stress, ${overflowAsked} overflowed, ${rerolled} Foil Token rerolls, ${conditions} applied a Condition)`);
 process.exit(bad ? 1 : 0);
