@@ -104,7 +104,8 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
       const live = pair.filter(ak => attrs[ak] && !attrs[ak].down && attrs[ak].diceFormula);
       const dice = live.map(ak => `${ATTR_LABEL[ak]} ${attrs[ak].diceFormula} (${attrs[ak].min}-${attrs[ak].max}, avg ${attrs[ak].avg})`);
       const dropped = pair.filter(ak => attrs[ak]?.down).map(ak => `${ATTR_LABEL[ak]} Incapacitated, no dice`);
-      const readoutMath = [...dice, ...dropped, `Training ${s.trainingBase ?? 0}`, ...(s.trainingBonus ? [`Training from Feats ${s.trainingBonus}`] : []),
+      const bonus = s.trainingSources?.length ? s.trainingSources.map(x => `${x.name} Training ${x.value}`) : s.trainingBonus ? [`Training from a Background or Feat ${s.trainingBonus}`] : [];
+      const readoutMath = [...dice, ...dropped, `Training ${s.trainingBase ?? 0}`, ...bonus,
         ...(s.skillBonus ? [`gear ${s.skillBonus}`] : [])].join(" + ")
         + `. Passive: half of ${s.rollMax ?? 0}, rounded down, = ${s.passive ?? 0}. Training cap ${s.trainingCap ?? 0} (dice in both pools). On a roll, Mass and Conditions also apply.`;
       return {
@@ -112,6 +113,7 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
         key, label: SKILL_LABEL[key], abbr: SKILL_ABBR[key],
         pairLabel: `${ATTR_LABEL[pair[0]]} + ${ATTR_LABEL[pair[1]]}`,
         training: s.trainingBase ?? 0, trainingBonus: s.trainingBonus ?? 0, skillBonus: s.skillBonus ?? 0,
+        trainingBonusTitle: (s.trainingSources ?? []).map(x => `${x.name} +${x.value}`).join(", ") || "Training from a Background or Feat",
         trainingCap: s.trainingCap ?? 0, overCap: !!s.overCap,
         rollMin: s.rollMin ?? 0, rollAvg: Number.isInteger(avg) ? avg : avg.toFixed(1), rollMax: s.rollMax ?? 0,
         passive: s.passive ?? 0, usable: s.usable !== false

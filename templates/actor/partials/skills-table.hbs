@@ -10,7 +10,7 @@
         <td class="pair">{{this.pairLabel}}</td>
         <td class="training-cell">
           <input type="number" name="system.skills.{{this.key}}.training" value="{{this.training}}" min="0" title="Cap +{{this.trainingCap}}" />
-          {{#if this.trainingBonus}}<span class="mod" title="Training from a Background or Feat">+{{this.trainingBonus}}</span>{{/if}}
+          {{#if this.trainingBonus}}<span class="mod" title="{{this.trainingBonusTitle}}">+{{this.trainingBonus}}</span>{{/if}}
           {{#if this.skillBonus}}<span class="mod" title="+N to the Skill from worn gear; not Training">(+{{this.skillBonus}})</span>{{/if}}
           {{#if this.overCap}}<i class="fas fa-triangle-exclamation item-warning" title="Over the cap of +{{this.trainingCap}}"></i>{{/if}}
         </td>

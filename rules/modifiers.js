@@ -23,13 +23,16 @@ const skillKey = k => LEGACY_SKILL_KEY[k] ?? k;
  * @param {Array} items  [{ name, type, system }]
  * Training (Backgrounds, Feats) counts toward a Skill's Training cap; a
  * Skill bonus from gear (a charm, a Buckler) adds to rolls but isn't Training.
- * @returns {{ training: Record<string,number>, skillBonus: Record<string,number>, resistance: Record<string,number>,
+ * Training also records what granted it, as Resistance does (each Background or Feat by name).
+ * @returns {{ training: Record<string,number>, trainingSources: Record<string, Array<{name:string, value:number}>>,
+ *             skillBonus: Record<string,number>, resistance: Record<string,number>,
  *             resistanceSources: Record<string, Array<{name:string, value:number}>>,
  *             attributeResistance: Record<string,number>,
  *             attributeResistanceSources: Record<string, Array<{name:string, value:number}>> }}
  */
 export function aggregateModifiers(items = []) {
   const training = Object.fromEntries(SKILL_KEYS.map(k => [k, 0]));
+  const trainingSources = Object.fromEntries(SKILL_KEYS.map(k => [k, []]));
   const skillBonus = Object.fromEntries(SKILL_KEYS.map(k => [k, 0]));
   const resistance = Object.fromEntries(RESISTANCE_KINDS.map(k => [k, 0]));
   const resistanceSources = Object.fromEntries(RESISTANCE_KINDS.map(k => [k, []]));
@@ -46,9 +49,14 @@ export function aggregateModifiers(items = []) {
     if (seen) seen.value += v;
     else sources[key].push({ name: name || "Unnamed", value: v });
   };
-  const addTraining = (key, value) => {
-    const k = skillKey(key);
-    if (k in training) training[k] += Number(value ?? 0);
+  const addTraining = (key, value, name) => {
+    const k = skillKey(key), v = Number(value ?? 0);
+    if (!(k in training)) return;
+    training[k] += v;
+    if (!v) return;
+    const seen = trainingSources[k].find(e => e.name === name);
+    if (seen) seen.value += v;
+    else trainingSources[k].push({ name: name || "Unnamed", value: v });
   };
 
   let initiative = 0, stealth = 0;
@@ -63,7 +71,7 @@ export function aggregateModifiers(items = []) {
     const s = it.system ?? {};
     switch (it.type) {
       case "background":
-        for (const [k, v] of Object.entries(s.training ?? {})) addTraining(k, v);
+        for (const [k, v] of Object.entries(s.training ?? {})) addTraining(k, v, it.name);
         break;
       case "equipment":
         if (!WORN.has(s.category) || s.location !== "equipped") break;
@@ -78,7 +86,7 @@ export function aggregateModifiers(items = []) {
         break;
       case "feat":
         for (const m of s.modifiers ?? []) {
-          if (m.type === "training") addTraining(m.key, m.value);
+          if (m.type === "training") addTraining(m.key, m.value, it.name);
           else if (m.type === "resistance" && RESISTANCE_SCOPES.includes(m.key)) narrowResistance.push({ scope: m.key, material: "", n: Number(m.value ?? 0) });
           else if (m.type === "resistance") addResistance(m.key, m.value, it.name);
           else if (m.type === "initiative") initiative += Number(m.value ?? 0);
@@ -89,5 +97,5 @@ export function aggregateModifiers(items = []) {
   }
   for (const list of [...Object.values(resistanceSources), ...Object.values(attributeResistanceSources)])
     list.sort((a, b) => b.value - a.value);
-  return { training, skillBonus, resistance, resistanceSources, attributeResistance, attributeResistanceSources, initiative, stealth, narrowResistance };
+  return { training, trainingSources, skillBonus, resistance, resistanceSources, attributeResistance, attributeResistanceSources, initiative, stealth, narrowResistance };
 }

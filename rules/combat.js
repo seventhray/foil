@@ -131,7 +131,9 @@ export function skillTerms(sys, skill, extras = [], dice = [], { oppose = false,
   if (sk.trainingTotal !== undefined) {
     const cap = sk.trainingCap !== undefined ? `cap ${sk.trainingCap}${sk.overCap ? ", over it" : ""}` : "";
     terms.push({ label: "Training", value: Number(sk.trainingBase ?? 0), note: cap });
-    if (sk.trainingBonus) terms.push({ label: "Training from a Background or Feat", value: Number(sk.trainingBonus) });
+    // Training a Background or Feat gives, each by its name ("Miner Training +1"); one term when the sources are not known.
+    if (sk.trainingSources?.length) for (const s of sk.trainingSources) terms.push({ label: `${s.name} Training`, value: Number(s.value) });
+    else if (sk.trainingBonus) terms.push({ label: "Training from a Background or Feat", value: Number(sk.trainingBonus) });
     if (sk.skillBonus) terms.push({ label: "Gear", value: Number(sk.skillBonus) });
   }
   if (sys.carry?.penalty) terms.push({ label: "Mass", value: -Number(sys.carry.penalty), note: `${sys.carry.weight} lbs, ${sys.carry.limit} free` });

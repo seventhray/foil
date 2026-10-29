@@ -100,6 +100,11 @@ check("one Ward and one armor count at a time, the strongest", () => {
 check("Background Training counts as Training; a charm's +1 is a Skill bonus", () => {
   const m = aggregateModifiers(gear); return eq([m.training.prowess, m.training.acuity, m.skillBonus.acuity], [1, 0, 1]);
 });
+check("each Background or Feat that gives Training is named with its share", () => {
+  const m = aggregateModifiers([gear.find(i => i.type === "background"),
+    { name: "Dark Sight", type: "feat", system: { modifiers: [{ type: "training", key: "prowess", value: 2 }] } }]);
+  return eq([m.training.prowess, m.trainingSources.prowess, m.trainingSources.guile], [3, [{ name: "Soldier", value: 1 }, { name: "Dark Sight", value: 2 }], []]);
+});
 check("a charm adds to rolls but not toward the Training cap", () => {
   const c = char({ attributes: pools({ d4: 2 }, { d4: 2 }, { d4: 2 }, { d4: 2 }), skills: { acuity: { training: 2 } } }, [gear[3]]);
   const s = c.skills.acuity; return eq([s.trainingTotal, s.skillBonus, s.overCap, s.rollMax], [2, 1, false, 19]);
