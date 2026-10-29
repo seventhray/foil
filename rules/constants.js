@@ -7,6 +7,7 @@
 
 export const ATTRIBUTE_KEYS = ["might", "finesse", "wit", "presence"];
 
+/** @type {Record<string, string>} */
 export const ATTR_LABEL = {
   might: "Might", finesse: "Finesse", wit: "Wit", presence: "Presence"
 };
@@ -26,6 +27,7 @@ export const SKILL_ATTRS = {
 
 export const SKILL_KEYS = Object.keys(SKILL_ATTRS);
 
+/** @type {Record<string, string>} */
 export const SKILL_LABEL = {
   prowess: "Prowess", discipline: "Discipline", assertiveness: "Assertiveness",
   acuity: "Acuity", guile: "Guile", resonance: "Resonance"
@@ -147,6 +149,7 @@ export const MATERIAL_SCARCITY_KEYS = ["common", "uncommon", "rare", "exotic"];
 export const MATERIAL_SCARCITY_LABEL = { common: "Common", uncommon: "Uncommon", rare: "Rare", exotic: "Exotic" };
 export const MATERIAL_SCARCITY_MULT = { common: 1, uncommon: 1.5, rare: 2, exotic: 3 };
 // A batch's Mass by category (PHB 5.2.6, user 2026-10-27).
+/** @type {Record<string, number>} */
 export const MATERIAL_BATCH_LBS = { stone: 8, metal: 6, wood: 4, leather: 3, textile: 2, gemstone: 1, reagent: 1 };
 
 // Resistance is physical (Might + Finesse) or mental (Wit + Presence) (PHB 6.6.0).
@@ -178,7 +181,10 @@ export const CONDITIONS = [
   "Controlled", "Intimidated", "Baited", "Angered", "Relaxed", "Impressed", "Wary",
   "Enthralled", "Swayed", "Misled", "Blinded", "Slowed", "Stunned", "Invisible", "Foil Exposed"
 ];
-/** How long each Condition lasts when a Technique states nothing else (PHB 6.8.0 to 6.8.23). */
+/**
+ * How long each Condition lasts when a Technique states nothing else (PHB 6.8.0 to 6.8.23).
+ * @type {Record<string, string>}
+ */
 export const CONDITION_PRESETS = {
   Grappled: "until it breaks free", Weakened: "1 round", Restrained: "until it breaks free", Reeling: "1 round",
   Prone: "until it stands", Charmed: "2 hours", Frightened: "2 hours", Controlled: "its next turn",

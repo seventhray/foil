@@ -159,10 +159,12 @@ export function termsMath(terms) {
   return terms.map(t => `${t.label} ${t.dice ? t.dice : signed(t.value ?? 0)}${t.note ? ` (${t.note})` : ""}`).join(", ");
 }
 
+/** @param {number | string | { label: string, value?: number, dice?: string }[]} [extra] see skillTerms */
 export function skillFormula(sys, skill, extra = 0, dice = "", opts = {}) {
   return termsFormula(skillTerms(sys, skill, extra, dice, opts));
 }
 
+/** @param {number | string | { label: string, value?: number, dice?: string }[]} [extra] see skillTerms */
 export function skillMath(sys, skill, extra = 0, dice = "", opts = {}) {
   return `Math: ${termsMath(skillTerms(sys, skill, extra, dice, opts))}.`;
 }
