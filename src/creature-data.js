@@ -98,7 +98,7 @@ export const NATURAL_WEAPONS = [
    "blunt"
   ],
   "pick": false,
-  "range": "Range 0"
+  "range": "Range 1"
  },
  {
   "name": "Crushing Jaws",
@@ -107,7 +107,7 @@ export const NATURAL_WEAPONS = [
    "blunt"
   ],
   "pick": false,
-  "range": "Range 0"
+  "range": "Range 1"
  },
  {
   "name": "Slam",
@@ -199,7 +199,7 @@ export const NATURAL_WEAPONS = [
    "grappling"
   ],
   "pick": false,
-  "range": "Range 0"
+  "range": "Range 1"
  },
  {
   "name": "Many Limbs",
@@ -208,7 +208,7 @@ export const NATURAL_WEAPONS = [
    "grappling"
   ],
   "pick": false,
-  "range": "Range 0"
+  "range": "Range 1"
  },
  {
   "name": "Prehensile Tail",
