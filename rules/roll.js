@@ -122,8 +122,8 @@ const enchantPierceParts = inst => [
 /** A Technique on a target that hasn't noticed the roller gains +5, and reveals the roller (PHB 6.2.1). */
 function unseenExtra(unseen, notes) {
   if (!unseen) return [];
-  notes.push("The target hadn't noticed the roller: +5. The Technique reveals the roller (PHB 6.2.1).");
-  return [{ label: "Unnoticed", value: 5 }];
+  notes.push("Target Unaware: +5. The Technique reveals the roller (PHB 6.2.1).");
+  return [{ label: "Target Unaware", value: 5 }];
 }
 
 /** Roll a Skill on its own. */
