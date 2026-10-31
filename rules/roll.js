@@ -99,7 +99,7 @@ export const validInstruments = (actor, tech) => matchingInstruments(actor, tech
  * The payload the Stress button on a card reads. The margin cap follows the Instrument's weight (PHB 6.7.0).
  * The caller adds what only it knows (the roll's total).
  */
-export function stressPayload(actor, inst, name, total, { bespoke = [], pierce = [], aim = { targets: [] } } = {}) {
+export function stressPayload(actor, inst, name, total, { bespoke = [], pierce = [], aim = { targets: [] }, also = null } = {}) {
   const primary = inst.system.primaryAttribute;
   const a = actor.system.attributes?.[primary];
   const potential = Number(a?.potential?.max ?? 0);
@@ -113,7 +113,7 @@ export function stressPayload(actor, inst, name, total, { bespoke = [], pierce =
       types: inst.system.stressTypes ?? [],
       bespoke: bespoke.reduce((n, p) => n + p.value, 0), bespokeParts: bespoke.filter(p => p.value),
       pierce: pierce.reduce((n, p) => n + p.value, 0), pierceParts: pierce.filter(p => p.value), attackInfo: attackInfo(inst),
-      melee: !!inst.system.isMelee, targets: aim.targets, aim: aim.aim, typeIndex: aim.typeIndex, other: aim.other
+      melee: !!inst.system.isMelee, targets: aim.targets, aim: aim.aim, typeIndex: aim.typeIndex, other: aim.other, ...(also ? { also } : {})
     }
   };
 }
@@ -183,8 +183,12 @@ export function* rollKitSteps({ actor, inst, index, unaware = false, feats = fal
   }]);
 }
 
-/** Roll a Technique: choose its Skill and Instrument, take its Strain, and post the roll. */
-export function* rollTechniqueSteps({ actor, tech, unaware = false, feats = false, fmt = PLAIN }) {
+/**
+ * Roll a Technique: choose its Skill and Instrument, take its Strain, and post the roll. `conditions`: a Technique that deals
+ * Stress also carries the Condition it applies, which lands with the Stress on the same Oppose (rules/oppose.js), when the host
+ * applies it (Hilt, user 2026-10-31).
+ */
+export function* rollTechniqueSteps({ actor, tech, unaware = false, feats = false, conditions = false, fmt = PLAIN }) {
   const { esc, br, arrow } = fmt;
   const sys = tech.system;
   const asys = actor.system;
@@ -266,6 +270,10 @@ export function* rollTechniqueSteps({ actor, tech, unaware = false, feats = fals
   const resistAttr = condition ? conditionAttr(condition) : "";
   if (resistAttr) notes.push(`The target resists with any ${ATTR_LABEL[resistAttr]} Skill (PHB 6.8.0).`);
   else if (condition) notes.push("The target resists with any Skill built on the Attribute aimed at (PHB 6.8.4).");
+  const extra = conditions && sys.dealsStress && inst ? (sys.effects ?? []).find(e => CONDITION_OPPOSE[EFFECT_CONDITION[e.key]]) : null;
+  const also = extra ? { name: EFFECT_CONDITION[extra.key], note: extra.key.startsWith("reeling") ? `${extra.magnitude ?? 1}` : "",
+    rounds: extra.duration || (extra.key.endsWith("-minute") ? "1 minute" : "") } : null;
+  if (also) notes.push(`If it lands, the target is also ${also.name}.`);
   (yield ["post", {
     formula: skillFormula(asys, skill, bonus, wdice), title: `${esc(tech.name)} (${SKILL_LABEL[skill]})`, note: notes.join(br),
     payload: {
@@ -273,7 +281,7 @@ export function* rollTechniqueSteps({ actor, tech, unaware = false, feats = fals
       condition: condition ? { name: tech.name, condition, melee: !!inst?.system.isMelee } : null,
       stress: sys.dealsStress && inst ? { inst, name: tech.name, aim,
         bespoke: [{ label: tech.name, value: Number(sys.stressRider ?? 0) }, { label: `${inst.name} Enchantment`, value: Number(inst.system.enchantStress ?? 0) }, ...fb.stress],
-        pierce: [{ label: tech.name, value: Number(sys.pierceTotal ?? 0) }, ...enchantPierceParts(inst)] } : null
+        pierce: [{ label: tech.name, value: Number(sys.pierceTotal ?? 0) }, ...enchantPierceParts(inst)], ...(also ? { also } : {}) } : null
     }
   }]);
 }

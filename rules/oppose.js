@@ -148,7 +148,9 @@ export function* applyStressSteps(actor, aim, amount, halved, from, fmt = PLAIN,
  * @param {object} a
  * @param {object} a.defender  the target: { id, name, type, system, items }
  * @param {object|null} a.attacker  the roller: { id, name, ... }, or null if gone
- * @param {object} a.flag      the card's payload (stressPayload / condition payload in rules/roll.js)
+ * @param {object} a.flag      the card's payload (stressPayload / condition payload in rules/roll.js). A host may add named parts for
+ *                             this target: `attackParts` on the attack and `opposeParts` on the Oppose roll, such as a creature's
+ *                             Pack Tactics or Dread Presence (Hilt); `also`, a Condition that lands with the Stress (rollTechniqueSteps).
  * @param {boolean} [a.secondWind]  the defender's Second Wind is unspent this conflict (applyStressSteps)
  */
 export function* resolveOpposeSteps({ defender: actor, attacker, flag, fmt = PLAIN, secondWind = false }) {
@@ -156,7 +158,8 @@ export function* resolveOpposeSteps({ defender: actor, attacker, flag, fmt = PLA
   const cnd = flag.condition ?? null;
   const aim = flag.aim;
   const kind = cnd ? "mental" : kindOf(aim);
-  const incoming = incomingMods(sys.conditions, { melee: !!flag.melee });
+  const fromConditions = incomingMods(sys.conditions, { melee: !!flag.melee }), host = (flag.attackParts ?? []).filter(p => p.value);
+  const incoming = { total: fromConditions.total + host.reduce((n, p) => n + p.value, 0), parts: [...fromConditions.parts, ...host] };
   const attack = Number(flag.attackTotal) + incoming.total;
   const skills = cnd ? (PRIMARY_SKILLS[conditionAttr(cnd)] ?? PRIMARY_SKILLS.wit) : PRIMARY_SKILLS[aim];
   const best = skills.reduce((a, k) => ((sys.skills?.[k]?.rollAvg ?? 0) > (sys.skills?.[a]?.rollAvg ?? 0) ? k : a), skills[0]);
@@ -177,7 +180,7 @@ export function* resolveOpposeSteps({ defender: actor, attacker, flag, fmt = PLA
   const block = actor.items.reduce((n, i) => (i.type === "instrument" && i.system.location === "equipped" ? Math.max(n, Number(i.system.bonusOppose ?? 0)) : n), 0);
   const other = Math.trunc(Number(answer.other) || 0);
   const spent = exposed.filter((c, n) => answer[`exposed${n}`]);
-  const extras = opposeExtras({ conditionParts: cm.parts, block, guard: !!guarded, exposedSpent: spent, other });
+  const extras = [...opposeExtras({ conditionParts: cm.parts, block, guard: !!guarded, exposedSpent: spent, other }), ...(flag.opposeParts ?? []).filter(p => p.value)];
   const parried = parryable && !!answer.parry;
   const oppFlags = [...targetFlags(sys.conditions), ...conditionFlags(sys.conditions, { skill })];
   if (spent.length) {
@@ -204,22 +207,7 @@ export function* resolveOpposeSteps({ defender: actor, attacker, flag, fmt = PLA
       return (yield ["card", "fail", { flagName: flag.name, defenderName: actor.name, versus }]);
     }
     (yield ["card", "lands", { flagName: flag.name, defenderName: actor.name, conditionName: cnd.name, versus }]);
-    const exposedHabits = cnd.name === "Foil Exposed"
-      ? FOIL_AXES.filter(a => ["low", "high"].includes(sys.foil?.[a.key]?.lean)).map(a => ({ key: a.key, label: `${a.label}: ${sys.foil[a.key].habit || (sys.foil[a.key].lean === "high" ? a.high : a.low)}` }))
-      : [];
-    if (cnd.name === "Foil Exposed" && !exposedHabits.length) {
-      return (yield ["card", "noHabit", { defenderName: actor.name }]);
-    }
-    const go = (yield ["askCondition", { conditionName: cnd.name, exposedHabits, rounds: cnd.rounds || CONDITION_PRESETS[cnd.name] || "", note: cnd.note ?? "", defenderName: actor.name }]);
-    if (!go) return;
-    const list = clone(actor.system.conditions ?? []);
-    const byWho = cnd.name === "Foil Exposed" ? `${go.habit}; by ${attackerName}` : "";
-    if (byWho && list.some(c => c.name === "Foil Exposed" && c.note === byWho)) {
-      return (yield ["card", "alreadyExposed", { defenderName: actor.name, attackerName }]);
-    }
-    list.push({ name: cnd.name, rounds: go.rounds?.trim() ?? "", note: byWho || (go.note?.trim() ?? "") });
-    (yield ["updateConditions", list]);
-    return (yield ["card", "conditionApplied", { defenderName: actor.name, conditionName: cnd.name, go }]);
+    return yield* landConditionSteps(actor, cnd, attackerName);
   }
 
   const scoped = scopedResistance({ narrowResistance: sys.narrowResistance }, { ...(flag.attackInfo ?? {}), kind });
@@ -246,18 +234,41 @@ export function* resolveOpposeSteps({ defender: actor, attacker, flag, fmt = PLA
     return (yield ["card", "fail", { flagName: flag.name, defenderName: actor.name, versus }]);
   }
   (yield ["card", "stress", { defenderName: actor.name, aim, r, versus }]);
-  if (!r.stress) return;
-
-  const cur = potentialOf(actor, aim);
-  const go = (yield ["askApplyStress", { defenderName: actor.name, aim, amount: r.stress, cur, max: sys.attributes?.[aim]?.potential?.max ?? cur, tokens: hasToken(actor) ? foilTokens(actor) : 0 }]);
-  let amount = Math.max(0, Math.trunc(Number(go?.amount) || 0));
-  const from = amount;
-  const halved = !!go?.halve && hasToken(actor);
-  if (go?.halve && hasToken(actor)) {
-    amount = Math.floor(amount / 2);
-    (yield ["setFoilTokens", foilTokens(actor) - 1]);
+  if (r.stress) {
+    const cur = potentialOf(actor, aim);
+    const go = (yield ["askApplyStress", { defenderName: actor.name, aim, amount: r.stress, cur, max: sys.attributes?.[aim]?.potential?.max ?? cur, tokens: hasToken(actor) ? foilTokens(actor) : 0 }]);
+    let amount = Math.max(0, Math.trunc(Number(go?.amount) || 0));
+    const from = amount;
+    const halved = !!go?.halve && hasToken(actor);
+    if (go?.halve && hasToken(actor)) {
+      amount = Math.floor(amount / 2);
+      (yield ["setFoilTokens", foilTokens(actor) - 1]);
+    }
+    if (go && amount) yield* applyStressSteps(actor, aim, amount, halved, from, fmt, { secondWind });
   }
-  if (go && amount) yield* applyStressSteps(actor, aim, amount, halved, from, fmt, { secondWind });
+  // A Stress Technique's Condition lands with it, on the same Oppose (rollTechniqueSteps `conditions`).
+  if (flag.also) yield* landConditionSteps(actor, flag.also, attackerName);
+}
+
+/** A landed Condition: the GM confirms its rounds and note, and it goes on the defender's sheet (PHB 6.8.0). */
+function* landConditionSteps(actor, cnd, attackerName) {
+  const sys = actor.system;
+  const exposedHabits = cnd.name === "Foil Exposed"
+    ? FOIL_AXES.filter(a => ["low", "high"].includes(sys.foil?.[a.key]?.lean)).map(a => ({ key: a.key, label: `${a.label}: ${sys.foil[a.key].habit || (sys.foil[a.key].lean === "high" ? a.high : a.low)}` }))
+    : [];
+  if (cnd.name === "Foil Exposed" && !exposedHabits.length) {
+    return (yield ["card", "noHabit", { defenderName: actor.name }]);
+  }
+  const go = (yield ["askCondition", { conditionName: cnd.name, exposedHabits, rounds: cnd.rounds || CONDITION_PRESETS[cnd.name] || "", note: cnd.note ?? "", defenderName: actor.name }]);
+  if (!go) return;
+  const list = clone(actor.system.conditions ?? []);
+  const byWho = cnd.name === "Foil Exposed" ? `${go.habit}; by ${attackerName}` : "";
+  if (byWho && list.some(c => c.name === "Foil Exposed" && c.note === byWho)) {
+    return (yield ["card", "alreadyExposed", { defenderName: actor.name, attackerName }]);
+  }
+  list.push({ name: cnd.name, rounds: go.rounds?.trim() ?? "", note: byWho || (go.note?.trim() ?? "") });
+  (yield ["updateConditions", list]);
+  return (yield ["card", "conditionApplied", { defenderName: actor.name, conditionName: cnd.name, go }]);
 }
 
 // The same flows for a host that can wait: Foundry, with dialogs. A reducer drives the *Steps generators with driveSync.
