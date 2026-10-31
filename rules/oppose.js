@@ -104,18 +104,24 @@ function* offerReroll(actor, roll, title) {
   return total;
 }
 
-/** Lay Stress on an Attribute; what it cannot hold overflows where the defender chooses (PHB 6.7.0). */
-export function* applyStressSteps(actor, aim, amount, halved, from, fmt = PLAIN) {
+/**
+ * Lay Stress on an Attribute; what it cannot hold overflows where the defender chooses (PHB 6.7.0). With { secondWind: true } the
+ * defender's unspent Second Wind holds the first Attribute this would Incapacitate 1 short (GMG 9.5.1, rules/stress.js landStress);
+ * the log and the card name that Attribute in `secondWind`, so the host can mark it spent.
+ */
+export function* applyStressSteps(actor, aim, amount, halved, from, fmt = PLAIN, { secondWind = false } = {}) {
   const lines = halved ? [`Foil Token: ${from} / 2, rounded down = ${amount}`] : [];
   const applied = [];
-  const run = landStress({ potentials: Object.fromEntries(ATTRIBUTE_KEYS.map(k => [k, potentialOf(actor, k)])), aim, amount });
-  let step = run.next();
+  const run = landStress({ potentials: Object.fromEntries(ATTRIBUTE_KEYS.map(k => [k, potentialOf(actor, k)])), aim, amount, secondWind });
+  const held = attr => `Second Wind: ${ATTR_LABEL[attr]} stops 1 short of its Potential (GMG 9.5.1)`;
+  let step = run.next(), said = false;
   while (!step.done) {
     const ev = step.value;
     if (ev.type === "take") {
       const { before, after } = (yield ["takeStress", ev.attr, ev.amount]);
       const max = Number(actor.system.attributes?.[ev.attr]?.potential?.max ?? 0);
       lines.push(`${ev.overflow ? "overflow to " : ""}${ATTR_LABEL[ev.attr]} takes ${ev.amount}: Stress ${max - before} ${fmt.arrow} ${max - after} of ${max}`);
+      if (ev.secondWind) { lines.push(held(ev.attr)); said = true; }
       applied.push({ attr: ev.attr, amount: ev.amount });
       step = run.next();
     } else {
@@ -123,6 +129,8 @@ export function* applyStressSteps(actor, aim, amount, halved, from, fmt = PLAIN)
       step = run.next(answer?.attr);
     }
   }
+  const windAttr = step.value.secondWind ?? null;
+  if (windAttr && !said) lines.push(held(windAttr));      // it held an Attribute that had room for only 1, so took nothing
   let destroyed = step.value.destroyed;
   if (actor.system.destroyed) destroyed = true;
   const notes = [];
@@ -130,9 +138,9 @@ export function* applyStressSteps(actor, aim, amount, halved, from, fmt = PLAIN)
   if (destroyed) notes.push(`${actor.name} is Destroyed (PHB 6.8.2).`);
   notes.push(...harmFlags(actor.system.conditions));
   (yield ["log", "stress-applied", { actor, aimed: aim, amount, halvedByToken: halved, applied,
-    incapacitated: ATTRIBUTE_KEYS.filter(k => actor.system.attributes?.[k]?.down), destroyed }]);
+    incapacitated: ATTRIBUTE_KEYS.filter(k => actor.system.attributes?.[k]?.down), destroyed, ...(windAttr ? { secondWind: windAttr } : {}) }]);
   const note = notes.length ? `${fmt.br}${notes.join(fmt.br)}` : "";
-  (yield ["card", "stressApplied", { amount, lines, note, halved, applied, ends: harmNames(actor.system.conditions) }]);
+  (yield ["card", "stressApplied", { amount, lines, note, halved, applied, ends: harmNames(actor.system.conditions), ...(windAttr ? { secondWind: windAttr } : {}) }]);
 }
 
 /**
@@ -141,8 +149,9 @@ export function* applyStressSteps(actor, aim, amount, halved, from, fmt = PLAIN)
  * @param {object} a.defender  the target: { id, name, type, system, items }
  * @param {object|null} a.attacker  the roller: { id, name, ... }, or null if gone
  * @param {object} a.flag      the card's payload (stressPayload / condition payload in rules/roll.js)
+ * @param {boolean} [a.secondWind]  the defender's Second Wind is unspent this conflict (applyStressSteps)
  */
-export function* resolveOpposeSteps({ defender: actor, attacker, flag, fmt = PLAIN }) {
+export function* resolveOpposeSteps({ defender: actor, attacker, flag, fmt = PLAIN, secondWind = false }) {
   const sys = actor.system;
   const cnd = flag.condition ?? null;
   const aim = flag.aim;
@@ -248,7 +257,7 @@ export function* resolveOpposeSteps({ defender: actor, attacker, flag, fmt = PLA
     amount = Math.floor(amount / 2);
     (yield ["setFoilTokens", foilTokens(actor) - 1]);
   }
-  if (go && amount) yield* applyStressSteps(actor, aim, amount, halved, from, fmt);
+  if (go && amount) yield* applyStressSteps(actor, aim, amount, halved, from, fmt, { secondWind });
 }
 
 // The same flows for a host that can wait: Foundry, with dialogs. A reducer drives the *Steps generators with driveSync.

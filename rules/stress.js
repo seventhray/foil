@@ -93,34 +93,42 @@ const ATTRS = ["might", "finesse", "wit", "presence"];
  * (Foundry asks in a dialog, the companion app asks in a reducer). It yields
  *   { type: "take", attr, amount, before, after, overflow }   Stress taken from one Attribute, apply it now
  *   { type: "choose", attr, left, room }                      Stress left over; send back one Attribute from `room`
- * and returns { applied: [{ attr, amount }], destroyed }.
+ * and returns { applied: [{ attr, amount }], destroyed, secondWind }.
+ *
+ * With `secondWind` (GMG 9.5.1), the first Attribute this would Incapacitate stops 1 short of its Potential instead, and the rest
+ * overflows onto the others; that Attribute takes no more of this Stress, and what none can take is lost. Its take says
+ * secondWind: true, and the return names it in `secondWind` (null when it was not needed).
  *
  * @param {object} a
  * @param {Record<string,number>} a.potentials  each Attribute's current Potential
  * @param {string} a.aim     the Attribute aimed at
  * @param {number} a.amount  the Stress to land
+ * @param {boolean} [a.secondWind]  the target's Second Wind is unspent
  */
-export function* landStress({ potentials, aim, amount }) {
+export function* landStress({ potentials, aim, amount, secondWind = false }) {
   const pot = { ...potentials };
-  let left = amount, attr = aim, destroyed = false;
+  let left = amount, attr = aim, destroyed = false, held = null;
   const applied = [];
   while (left > 0) {
-    const take = Math.min(left, pot[attr] ?? 0);
+    let take = Math.min(left, pot[attr] ?? 0);
+    const stops = secondWind && !held && take > 0 && take >= pot[attr];
+    if (stops) { take = pot[attr] - 1; held = attr; }
     if (take > 0) {
       const before = pot[attr];
       pot[attr] = before - take;
       applied.push({ attr, amount: take });
       left -= take;
-      yield { type: "take", attr, amount: take, before, after: pot[attr], overflow: attr !== aim };
+      yield { type: "take", attr, amount: take, before, after: pot[attr], overflow: attr !== aim, secondWind: stops };
     }
     if (left <= 0) break;
-    const room = ATTRS.filter(k => k !== attr && (pot[k] ?? 0) > 0);
-    if (!room.length) { destroyed = true; break; }
+    const room = ATTRS.filter(k => k !== attr && k !== held && (pot[k] ?? 0) > 0);
+    // Nowhere left: Destroyed, unless Second Wind holds an Attribute up, and then the rest is lost.
+    if (!room.length) { destroyed = !held; break; }
     if (room.length === 1) attr = room[0];
     else {
       const answer = yield { type: "choose", attr, left, room };
       attr = room.includes(answer) ? answer : room[0];
     }
   }
-  return { applied, destroyed };
+  return { applied, destroyed, secondWind: held };
 }

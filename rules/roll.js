@@ -26,7 +26,11 @@ import {
 } from "./constants.js";
 import { conditionFlags, skillFormula, skillMath } from "./combat.js";
 import { familiesOf } from "./resist.js";
+import { featBonuses } from "./feats.js";
 import { driveAsync } from "./flow.js";
+
+/** No Feat bonuses: a host that leaves them to the table (Foundry) passes no `feats`. */
+const NO_FEATS = { roll: [], stress: [] };
 
 export const PLAIN = { esc: s => String(s ?? ""), br: "\n", arrow: "→" };
 
@@ -136,7 +140,7 @@ export function* rollSkillSteps({ actor, skill, fmt = PLAIN }) {
 }
 
 /** Roll one of an Instrument's three built-in Techniques (PHB 7.4.0). */
-export function* rollKitSteps({ actor, inst, index, unaware = false, fmt = PLAIN }) {
+export function* rollKitSteps({ actor, inst, index, unaware = false, feats = false, fmt = PLAIN }) {
   const { esc, br } = fmt;
   const sys = actor.system;
   const kit = inst?.system.kit?.[Number(index)];
@@ -162,7 +166,9 @@ export function* rollKitSteps({ actor, inst, index, unaware = false, fmt = PLAIN
   const aim = stress ? (yield ["aim", { inst, name: kit.name, text: kit.effect, requires: [] }]) : { targets: [] };
   if (!aim) return;
   notes.push(...(aim.notes ?? []));
-  const kitExtras = [...instrumentExtras(inst, kit.skill), ...unawareExtra(unaware && targeted, notes)];
+  // A Learned Feat's +1s, when the host counts them (rules/feats.js): by the Attribute aimed at, or the one its Condition is resisted with.
+  const fb = feats ? featBonuses(actor, { types: inst.system.types ?? [], target: stress ? aim.aim ?? "" : kitResist, stress }) : NO_FEATS;
+  const kitExtras = [...instrumentExtras(inst, kit.skill), ...fb.roll, ...unawareExtra(unaware && targeted, notes)];
   const kitDice = targeted && inst.system.weightDice ? [{ label: inst.system.weightLabel || "Weight", dice: inst.system.weightDice }] : [];
   notes.unshift(esc(skillMath(sys, kit.skill, kitExtras, kitDice)));
   (yield ["post", {
@@ -171,14 +177,14 @@ export function* rollKitSteps({ actor, inst, index, unaware = false, fmt = PLAIN
       cond: true,
       condition: kitResist ? { name: kit.name, condition: kitCond, melee: !!inst.system.isMelee } : null,
       stress: stress ? { inst, name: kit.name, aim,
-        bespoke: [{ label: kit.name, value: bespokeBonus(kit.effect) }, { label: `${inst.name} Enchantment`, value: Number(inst.system.enchantStress ?? 0) }],
+        bespoke: [{ label: kit.name, value: bespokeBonus(kit.effect) }, { label: `${inst.name} Enchantment`, value: Number(inst.system.enchantStress ?? 0) }, ...fb.stress],
         pierce: enchantPierceParts(inst) } : null
     }
   }]);
 }
 
 /** Roll a Technique: choose its Skill and Instrument, take its Strain, and post the roll. */
-export function* rollTechniqueSteps({ actor, tech, unaware = false, fmt = PLAIN }) {
+export function* rollTechniqueSteps({ actor, tech, unaware = false, feats = false, fmt = PLAIN }) {
   const { esc, br, arrow } = fmt;
   const sys = tech.system;
   const asys = actor.system;
@@ -247,7 +253,10 @@ export function* rollTechniqueSteps({ actor, tech, unaware = false, fmt = PLAIN 
     notes.push(`Strain ${sys.strain} on ${ATTR_LABEL[attr]} (Stress ${max - before} ${arrow} ${max - after} of ${max}): (${xp} XP${sys.perTarget ? " before the Selective premium" : ""} - 24) / 8, rounded down (PHB 4.2.3).`);
   }
 
-  bonus.push(...unawareExtra(unaware, notes));
+  // A Learned Feat's +1s, when the host counts them (rules/feats.js): by the Attribute aimed at, or the one its Condition is resisted with.
+  const featTarget = aim.aim || (applied && !weakens ? conditionAttr({ name: EFFECT_CONDITION[applied.key] }) : "");
+  const fb = feats ? featBonuses(actor, { types: inst?.system.types ?? [], target: featTarget, stress: !!(sys.dealsStress && inst) }) : NO_FEATS;
+  bonus.push(...fb.roll, ...unawareExtra(unaware, notes));
   const wdice = sys.offensive && inst?.type === "instrument" && inst.system.weightDice ? [{ label: inst.system.weightLabel || "Weight", dice: inst.system.weightDice }] : [];
   notes.unshift(esc(skillMath(asys, skill, bonus, wdice)));
   const rounds = applied ? applied.duration || (applied.key.endsWith("-minute") ? "1 minute" : "") : "";
@@ -263,7 +272,7 @@ export function* rollTechniqueSteps({ actor, tech, unaware = false, fmt = PLAIN 
       cond: true,
       condition: condition ? { name: tech.name, condition, melee: !!inst?.system.isMelee } : null,
       stress: sys.dealsStress && inst ? { inst, name: tech.name, aim,
-        bespoke: [{ label: tech.name, value: Number(sys.stressRider ?? 0) }, { label: `${inst.name} Enchantment`, value: Number(inst.system.enchantStress ?? 0) }],
+        bespoke: [{ label: tech.name, value: Number(sys.stressRider ?? 0) }, { label: `${inst.name} Enchantment`, value: Number(inst.system.enchantStress ?? 0) }, ...fb.stress],
         pierce: [{ label: tech.name, value: Number(sys.pierceTotal ?? 0) }, ...enchantPierceParts(inst)] } : null
     }
   }]);
