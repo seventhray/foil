@@ -201,7 +201,7 @@
         "types": [
           "blunt"
         ],
-        "range": "Range 0",
+        "range": "Range 1",
         "weight": "light",
         "innate": true,
         "primaryAttribute": "might",
