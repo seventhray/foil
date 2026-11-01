@@ -111,6 +111,16 @@ export function bestiaryDocs(lib) {
     const held = () => new Set(items.filter(i => i.type === "instrument").flatMap(i => i.system.types ?? []));
     for (const [, type, via] of block.matchAll(/through an? (?:(?:Light|Medium|Heavy) )?(\w+)(?: or \w+)? Instrument(?: \(([^)]*)\))?/g)) {
       const t = lc(type);
+      // A Tool Technique goes through the creature's own Tool, whose Craft Type counts as a Tool.
+      if (t === "tool" && items.some(i => i.type === "instrument" && i.system.category === "tool")) continue;
+      // A Parry Technique with no Parry Instrument parries with the melee weapon its line names.
+      if (t === "parry" && !held().has("parry")) {
+        const melee = items.filter(i => i.type === "instrument" && (i.system.types ?? []).some(x => ["edged", "pointed", "blunt"].includes(x)));
+        const words = lc(via ?? "").split(/\W+/).filter(w => w.length > 3);
+        const blade = melee.find(i => words.some(w => lc(i.name).includes(w))) ?? melee[0];
+        if (blade) blade.system.types = [...blade.system.types, "parry"];
+        continue;
+      }
       if (held().has(t) || ["parry", "ranged"].includes(t)) continue;
       const innate = t === "sonic" ? "voice" : t === "incorporeal" && /Mind/.test(via ?? "") ? "mind" : null;
       if (innate && inst.get(innate)) { items.unshift(clone(inst.get(innate))); continue; }

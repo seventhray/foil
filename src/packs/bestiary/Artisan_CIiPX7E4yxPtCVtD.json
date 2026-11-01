@@ -90,50 +90,7 @@
   },
   "items": [
     {
-      "_id": "3EMQnG1taBqfnagj",
-      "name": "Tool attack",
-      "type": "instrument",
-      "img": "icons/svg/claw.svg",
-      "system": {
-        "types": [
-          "tool"
-        ],
-        "range": "Range 1",
-        "weight": "light",
-        "innate": true,
-        "primaryAttribute": "might",
-        "category": "melee",
-        "price": 0,
-        "kit": [
-          {
-            "name": "Rousing Chord",
-            "skill": "assertiveness",
-            "effect": "Applies Intimidated."
-          },
-          {
-            "name": "Cutting Verse",
-            "skill": "guile",
-            "effect": "Applies Baited."
-          },
-          {
-            "name": "Discordant Note",
-            "skill": "resonance",
-            "effect": "Deals Stress to Wit or Presence."
-          }
-        ],
-        "description": ""
-      },
-      "effects": [],
-      "folder": null,
-      "sort": 100000,
-      "ownership": {
-        "default": 0
-      },
-      "flags": {},
-      "_key": "!actors.items!CIiPX7E4yxPtCVtD.3EMQnG1taBqfnagj"
-    },
-    {
-      "_id": "92s8gjV886OpgWII",
+      "_id": "jxg6vjUB2M7YNBqw",
       "name": "Hammer",
       "type": "instrument",
       "img": "icons/svg/claw.svg",
@@ -168,15 +125,15 @@
       },
       "effects": [],
       "folder": null,
-      "sort": 200000,
+      "sort": 100000,
       "ownership": {
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!CIiPX7E4yxPtCVtD.92s8gjV886OpgWII"
+      "_key": "!actors.items!CIiPX7E4yxPtCVtD.jxg6vjUB2M7YNBqw"
     },
     {
-      "_id": "fDHT3AYXTmuCd6sQ",
+      "_id": "gA8LbNu2ZRObgK7D",
       "name": "Carpenter's Tools",
       "type": "instrument",
       "img": "icons/svg/pick.svg",
@@ -200,15 +157,15 @@
       },
       "effects": [],
       "folder": null,
-      "sort": 300000,
+      "sort": 200000,
       "ownership": {
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!CIiPX7E4yxPtCVtD.fDHT3AYXTmuCd6sQ"
+      "_key": "!actors.items!CIiPX7E4yxPtCVtD.gA8LbNu2ZRObgK7D"
     },
     {
-      "_id": "5Djaa3EuHkEVG0ii",
+      "_id": "4BFYp1uMmEOYkRiL",
       "name": "Fluster",
       "type": "technique",
       "img": "icons/svg/aura.svg",
@@ -242,12 +199,12 @@
       },
       "effects": [],
       "folder": null,
-      "sort": 400000,
+      "sort": 300000,
       "ownership": {
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!CIiPX7E4yxPtCVtD.5Djaa3EuHkEVG0ii"
+      "_key": "!actors.items!CIiPX7E4yxPtCVtD.4BFYp1uMmEOYkRiL"
     }
   ],
   "_key": "!actors!CIiPX7E4yxPtCVtD"

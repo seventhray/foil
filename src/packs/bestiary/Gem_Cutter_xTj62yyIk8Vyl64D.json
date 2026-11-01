@@ -90,50 +90,7 @@
   },
   "items": [
     {
-      "_id": "ZPKYzaKrgHjegbyb",
-      "name": "Tool attack",
-      "type": "instrument",
-      "img": "icons/svg/claw.svg",
-      "system": {
-        "types": [
-          "tool"
-        ],
-        "range": "Range 1",
-        "weight": "light",
-        "innate": true,
-        "primaryAttribute": "might",
-        "category": "melee",
-        "price": 0,
-        "kit": [
-          {
-            "name": "Rousing Chord",
-            "skill": "assertiveness",
-            "effect": "Applies Intimidated."
-          },
-          {
-            "name": "Cutting Verse",
-            "skill": "guile",
-            "effect": "Applies Baited."
-          },
-          {
-            "name": "Discordant Note",
-            "skill": "resonance",
-            "effect": "Deals Stress to Wit or Presence."
-          }
-        ],
-        "description": ""
-      },
-      "effects": [],
-      "folder": null,
-      "sort": 100000,
-      "ownership": {
-        "default": 0
-      },
-      "flags": {},
-      "_key": "!actors.items!xTj62yyIk8Vyl64D.ZPKYzaKrgHjegbyb"
-    },
-    {
-      "_id": "yWSWAhFOosCNDFzl",
+      "_id": "ZOiSOfuZ4SsdPmoR",
       "name": "Dagger",
       "type": "instrument",
       "img": "icons/svg/sword.svg",
@@ -176,15 +133,15 @@
       },
       "effects": [],
       "folder": null,
-      "sort": 200000,
+      "sort": 100000,
       "ownership": {
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!xTj62yyIk8Vyl64D.yWSWAhFOosCNDFzl"
+      "_key": "!actors.items!xTj62yyIk8Vyl64D.ZOiSOfuZ4SsdPmoR"
     },
     {
-      "_id": "N82YFZ1mGnDAMmAa",
+      "_id": "pu0IksCcFa44PZsO",
       "name": "Jeweler's Tools",
       "type": "instrument",
       "img": "icons/svg/pick.svg",
@@ -208,15 +165,15 @@
       },
       "effects": [],
       "folder": null,
-      "sort": 300000,
+      "sort": 200000,
       "ownership": {
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!xTj62yyIk8Vyl64D.N82YFZ1mGnDAMmAa"
+      "_key": "!actors.items!xTj62yyIk8Vyl64D.pu0IksCcFa44PZsO"
     },
     {
-      "_id": "UW6Rg6wXmAjGe9Si",
+      "_id": "Hg6SFxF2KE7VZ93j",
       "name": "Voice",
       "type": "instrument",
       "img": "icons/svg/sound.svg",
@@ -257,15 +214,15 @@
       },
       "effects": [],
       "folder": null,
-      "sort": 400000,
+      "sort": 300000,
       "ownership": {
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!xTj62yyIk8Vyl64D.UW6Rg6wXmAjGe9Si"
+      "_key": "!actors.items!xTj62yyIk8Vyl64D.Hg6SFxF2KE7VZ93j"
     },
     {
-      "_id": "RiA9Xy6VFQanl50n",
+      "_id": "HCMiLqYNJezPbSIR",
       "name": "Careful Work",
       "type": "technique",
       "img": "icons/svg/aura.svg",
@@ -294,15 +251,15 @@
       },
       "effects": [],
       "folder": null,
-      "sort": 500000,
+      "sort": 400000,
       "ownership": {
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!xTj62yyIk8Vyl64D.RiA9Xy6VFQanl50n"
+      "_key": "!actors.items!xTj62yyIk8Vyl64D.HCMiLqYNJezPbSIR"
     },
     {
-      "_id": "PNBP4awFcwDmmGax",
+      "_id": "JEmukAD38jRufrZy",
       "name": "Distract",
       "type": "technique",
       "img": "icons/svg/aura.svg",
@@ -340,12 +297,12 @@
       },
       "effects": [],
       "folder": null,
-      "sort": 600000,
+      "sort": 500000,
       "ownership": {
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!xTj62yyIk8Vyl64D.PNBP4awFcwDmmGax"
+      "_key": "!actors.items!xTj62yyIk8Vyl64D.JEmukAD38jRufrZy"
     }
   ],
   "_key": "!actors!xTj62yyIk8Vyl64D"

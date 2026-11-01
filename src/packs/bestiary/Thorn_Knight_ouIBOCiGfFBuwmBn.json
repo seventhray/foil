@@ -96,7 +96,8 @@
       "img": "icons/svg/claw.svg",
       "system": {
         "types": [
-          "pointed"
+          "pointed",
+          "parry"
         ],
         "range": "Range 1",
         "weight": "light",

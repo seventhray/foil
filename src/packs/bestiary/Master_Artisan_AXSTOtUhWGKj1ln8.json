@@ -93,50 +93,7 @@
   },
   "items": [
     {
-      "_id": "YFGBw1DjkvkXNpBS",
-      "name": "Tool attack",
-      "type": "instrument",
-      "img": "icons/svg/claw.svg",
-      "system": {
-        "types": [
-          "tool"
-        ],
-        "range": "Range 1",
-        "weight": "light",
-        "innate": true,
-        "primaryAttribute": "might",
-        "category": "melee",
-        "price": 0,
-        "kit": [
-          {
-            "name": "Rousing Chord",
-            "skill": "assertiveness",
-            "effect": "Applies Intimidated."
-          },
-          {
-            "name": "Cutting Verse",
-            "skill": "guile",
-            "effect": "Applies Baited."
-          },
-          {
-            "name": "Discordant Note",
-            "skill": "resonance",
-            "effect": "Deals Stress to Wit or Presence."
-          }
-        ],
-        "description": ""
-      },
-      "effects": [],
-      "folder": null,
-      "sort": 100000,
-      "ownership": {
-        "default": 0
-      },
-      "flags": {},
-      "_key": "!actors.items!AXSTOtUhWGKj1ln8.YFGBw1DjkvkXNpBS"
-    },
-    {
-      "_id": "S67hjKHNm0ZIBWae",
+      "_id": "TLsqwylhNXkcU6wp",
       "name": "Hammer",
       "type": "instrument",
       "img": "icons/svg/claw.svg",
@@ -171,15 +128,15 @@
       },
       "effects": [],
       "folder": null,
-      "sort": 200000,
+      "sort": 100000,
       "ownership": {
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!AXSTOtUhWGKj1ln8.S67hjKHNm0ZIBWae"
+      "_key": "!actors.items!AXSTOtUhWGKj1ln8.TLsqwylhNXkcU6wp"
     },
     {
-      "_id": "B3ZTM1tseDuOcj7s",
+      "_id": "vSLLOj4yaTtnwh6R",
       "name": "Smithing Tools",
       "type": "instrument",
       "img": "icons/svg/pick.svg",
@@ -204,15 +161,15 @@
       },
       "effects": [],
       "folder": null,
-      "sort": 300000,
+      "sort": 200000,
       "ownership": {
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!AXSTOtUhWGKj1ln8.B3ZTM1tseDuOcj7s"
+      "_key": "!actors.items!AXSTOtUhWGKj1ln8.vSLLOj4yaTtnwh6R"
     },
     {
-      "_id": "pj782K39YatrwA4T",
+      "_id": "nyypoEmGjVLGAQze",
       "name": "Concuss",
       "type": "technique",
       "img": "icons/svg/aura.svg",
@@ -249,15 +206,15 @@
       },
       "effects": [],
       "folder": null,
-      "sort": 400000,
+      "sort": 300000,
       "ownership": {
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!AXSTOtUhWGKj1ln8.pj782K39YatrwA4T"
+      "_key": "!actors.items!AXSTOtUhWGKj1ln8.nyypoEmGjVLGAQze"
     },
     {
-      "_id": "YPsY9gEdW04rdJwh",
+      "_id": "JMDoxK9qqel6BAEW",
       "name": "Careful Work",
       "type": "technique",
       "img": "icons/svg/aura.svg",
@@ -286,15 +243,15 @@
       },
       "effects": [],
       "folder": null,
-      "sort": 500000,
+      "sort": 400000,
       "ownership": {
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!AXSTOtUhWGKj1ln8.YPsY9gEdW04rdJwh"
+      "_key": "!actors.items!AXSTOtUhWGKj1ln8.JMDoxK9qqel6BAEW"
     },
     {
-      "_id": "9RrEHS7M7SmuMUGG",
+      "_id": "1Jg3yyZJoThQmr7r",
       "name": "Heavy Hand",
       "type": "feat",
       "img": "icons/svg/upgrade.svg",
@@ -310,12 +267,12 @@
       },
       "effects": [],
       "folder": null,
-      "sort": 600000,
+      "sort": 500000,
       "ownership": {
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!AXSTOtUhWGKj1ln8.9RrEHS7M7SmuMUGG"
+      "_key": "!actors.items!AXSTOtUhWGKj1ln8.1Jg3yyZJoThQmr7r"
     }
   ],
   "_key": "!actors!AXSTOtUhWGKj1ln8"

@@ -228,7 +228,7 @@
           "incorporeal"
         ],
         "innate": false,
-        "skill": "prowess",
+        "skill": "resonance",
         "family": "",
         "subgroup": "",
         "effects": [
@@ -273,7 +273,7 @@
           "incorporeal"
         ],
         "innate": false,
-        "skill": "prowess",
+        "skill": "resonance",
         "family": "Incorporeal",
         "subgroup": "Draining",
         "effects": [
