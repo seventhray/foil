@@ -296,7 +296,7 @@
           "sonic"
         ],
         "innate": false,
-        "skill": "assertiveness",
+        "skill": "resonance",
         "family": "Sonic",
         "subgroup": "Debilitating & Reactive",
         "effects": [
@@ -341,7 +341,7 @@
           "sonic"
         ],
         "innate": false,
-        "skill": "guile",
+        "skill": "resonance",
         "family": "Sonic",
         "subgroup": "Control & Deception",
         "effects": [
@@ -378,7 +378,7 @@
           "sonic"
         ],
         "innate": false,
-        "skill": "assertiveness",
+        "skill": "resonance",
         "family": "Sonic",
         "subgroup": "Restorative",
         "effects": [

@@ -188,7 +188,7 @@
           "incorporeal"
         ],
         "innate": false,
-        "skill": "acuity",
+        "skill": "discipline",
         "family": "Incorporeal",
         "subgroup": "Debilitating",
         "effects": [
@@ -339,7 +339,7 @@
           "grappling"
         ],
         "innate": false,
-        "skill": "prowess",
+        "skill": "discipline",
         "family": "",
         "subgroup": "",
         "effects": [

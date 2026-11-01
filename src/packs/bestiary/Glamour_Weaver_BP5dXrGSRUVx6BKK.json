@@ -251,7 +251,7 @@
           "incorporeal"
         ],
         "innate": false,
-        "skill": "acuity",
+        "skill": "resonance",
         "family": "Incorporeal",
         "subgroup": "Illusion & Deception",
         "effects": [
@@ -288,7 +288,7 @@
           "incorporeal"
         ],
         "innate": false,
-        "skill": "acuity",
+        "skill": "resonance",
         "family": "Incorporeal",
         "subgroup": "Illusion & Deception",
         "effects": [
@@ -341,7 +341,7 @@
           "incorporeal"
         ],
         "innate": false,
-        "skill": "acuity",
+        "skill": "resonance",
         "family": "Incorporeal",
         "subgroup": "Illusion & Deception",
         "effects": [
@@ -378,7 +378,7 @@
           "incorporeal"
         ],
         "innate": false,
-        "skill": "discipline",
+        "skill": "resonance",
         "family": "Incorporeal",
         "subgroup": "Illusion & Deception",
         "effects": [
@@ -415,7 +415,7 @@
           "incorporeal"
         ],
         "innate": false,
-        "skill": "acuity",
+        "skill": "resonance",
         "family": "Incorporeal",
         "subgroup": "Debilitating",
         "effects": [
@@ -497,7 +497,7 @@
           "sonic"
         ],
         "innate": false,
-        "skill": "assertiveness",
+        "skill": "guile",
         "family": "Sonic",
         "subgroup": "Debilitating & Reactive",
         "effects": [

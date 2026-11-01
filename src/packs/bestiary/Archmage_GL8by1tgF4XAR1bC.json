@@ -202,7 +202,7 @@
           "kinetic"
         ],
         "innate": false,
-        "skill": "assertiveness",
+        "skill": "guile",
         "family": "",
         "subgroup": "",
         "effects": [
@@ -247,7 +247,7 @@
           "kinetic"
         ],
         "innate": false,
-        "skill": "assertiveness",
+        "skill": "guile",
         "family": "Kinetic",
         "subgroup": "Piercing",
         "effects": [
@@ -390,7 +390,7 @@
           "kinetic"
         ],
         "innate": false,
-        "skill": "assertiveness",
+        "skill": "guile",
         "family": "Kinetic",
         "subgroup": "Piercing",
         "effects": [

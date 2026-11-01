@@ -254,7 +254,7 @@
           "incorporeal"
         ],
         "innate": false,
-        "skill": "discipline",
+        "skill": "resonance",
         "family": "Incorporeal",
         "subgroup": "Control",
         "effects": [
@@ -344,7 +344,7 @@
           "incorporeal"
         ],
         "innate": false,
-        "skill": "acuity",
+        "skill": "resonance",
         "family": "Incorporeal",
         "subgroup": "Debilitating",
         "effects": [

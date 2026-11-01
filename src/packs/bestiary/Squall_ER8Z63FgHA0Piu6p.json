@@ -188,7 +188,7 @@
           "kinetic"
         ],
         "innate": false,
-        "skill": "discipline",
+        "skill": "acuity",
         "family": "Kinetic",
         "subgroup": "Control",
         "effects": [
@@ -233,7 +233,7 @@
           "kinetic"
         ],
         "innate": false,
-        "skill": "discipline",
+        "skill": "acuity",
         "family": "Kinetic",
         "subgroup": "Area & Lingering",
         "effects": [
@@ -286,7 +286,7 @@
           "kinetic"
         ],
         "innate": false,
-        "skill": "discipline",
+        "skill": "acuity",
         "family": "",
         "subgroup": "",
         "effects": [
@@ -331,7 +331,7 @@
           "kinetic"
         ],
         "innate": false,
-        "skill": "discipline",
+        "skill": "acuity",
         "family": "Kinetic",
         "subgroup": "Piercing",
         "effects": [

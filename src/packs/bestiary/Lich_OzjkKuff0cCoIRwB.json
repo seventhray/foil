@@ -245,7 +245,7 @@
           "incorporeal"
         ],
         "innate": false,
-        "skill": "acuity",
+        "skill": "resonance",
         "family": "",
         "subgroup": "",
         "effects": [],
@@ -273,7 +273,7 @@
           "incorporeal"
         ],
         "innate": false,
-        "skill": "acuity",
+        "skill": "resonance",
         "family": "",
         "subgroup": "",
         "effects": [
@@ -318,7 +318,7 @@
           "kinetic"
         ],
         "innate": false,
-        "skill": "assertiveness",
+        "skill": "guile",
         "family": "Kinetic",
         "subgroup": "Piercing",
         "effects": [
