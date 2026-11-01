@@ -149,6 +149,7 @@ p("Pricing a Technique", `
 <tr><td>-N [target Attribute]</td><td>6 x N, or 24 x N for 1 minute</td></tr>
 <tr><td>Pierce N, Resistance +N</td><td>4 x N</td></tr>
 <tr><td>Mend Xd4</td><td>10 x X</td></tr>
+<tr><td>Remove [Condition]</td><td>the Condition's price</td></tr>
 <tr><td>Lingering N</td><td>7 x N</td></tr>
 <tr><td>Upkeep / Quick</td><td>4 / 7</td></tr>
 <tr><td>Hasten (Action) / (Quick Action)</td><td>14 / 7</td></tr>

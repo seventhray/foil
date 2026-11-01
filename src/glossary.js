@@ -280,6 +280,10 @@ export const GLOSSARY = {
     "name": "Relaxed",
     "text": "Resisted with Wit. The creature answers honestly and holds nothing back, unless that would clearly be a mistake. It ends when the source or an ally threatens or harms it."
   },
+  "remove": {
+    "name": "Remove",
+    "text": "End the named Condition on an ally. Naming several Conditions, it ends one each use and is priced as the costliest"
+  },
   "resistance": {
     "name": "Resistance",
     "text": "A way to reduce incoming Stress on physical or mental Attributes"

@@ -1,0 +1,31 @@
+{
+  "_id": "zg9iphA0jrlQPwWd",
+  "name": "Remove [Condition]",
+  "type": "effect",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "key": "remove-condition",
+    "requires": [
+      "fortifying",
+      "sonic"
+    ],
+    "pricingKind": "perPoint",
+    "pricingParams": {
+      "base": 0,
+      "perPoint": 1,
+      "perBand": 1
+    },
+    "magnitudeLabel": "Remove [Condition]",
+    "exemptFromPremium": false,
+    "setsFloor": false,
+    "description": "<p>End the named Condition on an ally, priced as that Condition.</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 1300000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!zg9iphA0jrlQPwWd"
+}

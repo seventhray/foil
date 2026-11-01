@@ -109,6 +109,7 @@ const EFFECTS = [
   ["Pierce N", "pierce", "perPoint", { perPoint: 4 }, { requires: [...MELEE, ...RANGED, "kinetic"], label: "Pierce N" }, "Ignore N of the target's Resistance."],
   ["Resistance +N", "resistance", "perPoint", { perPoint: 4 }, { requires: ["parry", "blocking", "fortifying"], label: "Resistance +N" }, "Physical or mental Resistance +N."],
   ["Mend Xd4", "mend", "perPoint", { perPoint: 10 }, { requires: ["fortifying", "sonic"], label: "Mend Nd4" }, "Remove Xd4 Stress from one of an ally's Attributes, with no Medicine and no roll. Medicine or Mend once every 2 hours per creature (PHB 6.10.0)."],
+  ["Remove [Condition]", "remove-condition", "perPoint", { perPoint: 1 }, { requires: ["fortifying", "sonic"], label: "Remove [Condition]" }, "End the named Condition on an ally, priced as that Condition."],
   ["Lingering N", "lingering", "perPoint", { perPoint: 7 }, { requires: ["kinetic", "incorporeal", "pointed", "edged"], label: "Lingering N" }, "N more Stress at the start of the target's next turns."],
   ["Redirect", "redirect", "flat", { base: 8 }, { requires: ["blocking"] }, "Take an ally's incoming Stress instead."],
   ["Move", "move", "flat", { base: 4 }, { requires: ["grappling", "blunt", "kinetic", "incorporeal"] }, "Move the target up to Range 2."],
@@ -242,6 +243,7 @@ function parseEffects(text) {
     if (/^Move (the|each) target up to Range 2$/i.test(c)) { list.push(e("move")); continue; }
     if (/^Hasten \(Action\)/i.test(c)) { list.push(e("hasten-action")); if (/\band \+1( \[Skill\])?$/.test(c)) list.push(e("skill-mod")); continue; }
     if (/^Hasten \(Quick Action\)/i.test(c)) { list.push(e("hasten-quick")); continue; }
+    if ((m = c.match(/^Remove (\w+)$/i)) && CONDITION_KEYS.includes(lc(m[1]))) { list.push(e("remove-condition", { magnitude: EFFECTS.find(x => x[1] === lc(m[1]))?.[3]?.base ?? 0 })); continue; }
     if ((m = c.match(/^(Evade|Illusion|Drain|Counter|Redirect|Disarm)\b/i))) { list.push(e(lc(m[1]))); continue; }
     if ((m = c.match(/^(\w+)(?: \(.*\))?$/)) && CONDITION_KEYS.includes(lc(m[1]))) { list.push(e(lc(m[1]))); continue; }
     if (/^Redirect that Stress/i.test(c)) { list.push(e("redirect")); continue; }
