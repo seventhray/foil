@@ -102,7 +102,7 @@
           "incorporeal"
         ],
         "innate": false,
-        "skill": "",
+        "skill": "resonance",
         "family": "",
         "subgroup": "",
         "effects": [
@@ -190,7 +190,7 @@
           "incorporeal"
         ],
         "innate": false,
-        "skill": "",
+        "skill": "resonance",
         "family": "Incorporeal",
         "subgroup": "Control",
         "effects": [

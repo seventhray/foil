@@ -247,7 +247,7 @@
           "fired"
         ],
         "innate": false,
-        "skill": "",
+        "skill": "prowess",
         "family": "Ranged",
         "subgroup": "Piercing & Precision",
         "effects": [
@@ -302,7 +302,7 @@
           "fired"
         ],
         "innate": false,
-        "skill": "",
+        "skill": "prowess",
         "family": "Ranged",
         "subgroup": "Debilitating",
         "effects": [
@@ -348,7 +348,7 @@
           "pointed"
         ],
         "innate": false,
-        "skill": "",
+        "skill": "prowess",
         "family": "Melee",
         "subgroup": "Debilitating",
         "effects": [
@@ -401,7 +401,7 @@
           "blunt"
         ],
         "innate": false,
-        "skill": "",
+        "skill": "prowess",
         "family": "",
         "subgroup": "",
         "effects": [

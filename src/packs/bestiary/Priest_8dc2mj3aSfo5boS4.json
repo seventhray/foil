@@ -250,7 +250,7 @@
           "fortifying"
         ],
         "innate": false,
-        "skill": "",
+        "skill": "resonance",
         "family": "Fortifying",
         "subgroup": "Single-Target Support",
         "effects": [
@@ -287,7 +287,7 @@
           "fortifying"
         ],
         "innate": false,
-        "skill": "",
+        "skill": "resonance",
         "family": "Fortifying",
         "subgroup": "Group Support (Selective)",
         "effects": [
@@ -332,7 +332,7 @@
           "sonic"
         ],
         "innate": false,
-        "skill": "",
+        "skill": "resonance",
         "family": "Sonic",
         "subgroup": "Restorative",
         "effects": [

@@ -145,7 +145,7 @@
           "blunt"
         ],
         "innate": false,
-        "skill": "",
+        "skill": "prowess",
         "family": "Melee",
         "subgroup": "Debilitating",
         "effects": [
@@ -190,7 +190,7 @@
           "blunt"
         ],
         "innate": false,
-        "skill": "",
+        "skill": "prowess",
         "family": "",
         "subgroup": "",
         "effects": [
@@ -235,7 +235,7 @@
           "blunt"
         ],
         "innate": false,
-        "skill": "",
+        "skill": "prowess",
         "family": "",
         "subgroup": "",
         "effects": [

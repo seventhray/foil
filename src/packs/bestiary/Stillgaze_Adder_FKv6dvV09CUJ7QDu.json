@@ -188,7 +188,7 @@
           "incorporeal"
         ],
         "innate": false,
-        "skill": "",
+        "skill": "acuity",
         "family": "",
         "subgroup": "",
         "effects": [
@@ -225,7 +225,7 @@
           "incorporeal"
         ],
         "innate": false,
-        "skill": "",
+        "skill": "resonance",
         "family": "",
         "subgroup": "",
         "effects": [
@@ -270,7 +270,7 @@
           "pointed"
         ],
         "innate": false,
-        "skill": "",
+        "skill": "prowess",
         "family": "",
         "subgroup": "",
         "effects": [

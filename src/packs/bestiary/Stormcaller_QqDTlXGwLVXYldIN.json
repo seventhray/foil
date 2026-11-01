@@ -188,7 +188,7 @@
           "kinetic"
         ],
         "innate": false,
-        "skill": "",
+        "skill": "discipline",
         "family": "",
         "subgroup": "",
         "effects": [
@@ -233,7 +233,7 @@
           "kinetic"
         ],
         "innate": false,
-        "skill": "",
+        "skill": "discipline",
         "family": "",
         "subgroup": "",
         "effects": [
@@ -278,7 +278,7 @@
           "sonic"
         ],
         "innate": false,
-        "skill": "",
+        "skill": "assertiveness",
         "family": "",
         "subgroup": "",
         "effects": [

@@ -152,7 +152,7 @@
           "kinetic"
         ],
         "innate": false,
-        "skill": "",
+        "skill": "discipline",
         "family": "Kinetic",
         "subgroup": "Piercing",
         "effects": [
@@ -197,7 +197,7 @@
           "kinetic"
         ],
         "innate": false,
-        "skill": "",
+        "skill": "discipline",
         "family": "Kinetic",
         "subgroup": "Piercing",
         "effects": [
@@ -250,7 +250,7 @@
           "kinetic"
         ],
         "innate": false,
-        "skill": "",
+        "skill": "discipline",
         "family": "Kinetic",
         "subgroup": "Area & Lingering",
         "effects": [

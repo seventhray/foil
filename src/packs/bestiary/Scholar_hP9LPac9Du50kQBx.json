@@ -250,7 +250,7 @@
           "incorporeal"
         ],
         "innate": false,
-        "skill": "",
+        "skill": "acuity",
         "family": "Incorporeal",
         "subgroup": "Debilitating",
         "effects": [
@@ -295,7 +295,7 @@
           "sonic"
         ],
         "innate": false,
-        "skill": "",
+        "skill": "guile",
         "family": "Sonic",
         "subgroup": "Control & Deception",
         "effects": [
@@ -341,7 +341,7 @@
           "sonic"
         ],
         "innate": false,
-        "skill": "",
+        "skill": "resonance",
         "family": "",
         "subgroup": "",
         "effects": [

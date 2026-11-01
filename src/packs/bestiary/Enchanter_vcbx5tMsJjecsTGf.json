@@ -313,7 +313,7 @@
           "kinetic"
         ],
         "innate": false,
-        "skill": "",
+        "skill": "discipline",
         "family": "Kinetic",
         "subgroup": "Piercing",
         "effects": [
@@ -358,7 +358,7 @@
           "incorporeal"
         ],
         "innate": false,
-        "skill": "",
+        "skill": "acuity",
         "family": "Incorporeal",
         "subgroup": "Debilitating",
         "effects": [
@@ -448,7 +448,7 @@
           "fortifying"
         ],
         "innate": false,
-        "skill": "",
+        "skill": "discipline",
         "family": "Fortifying",
         "subgroup": "Single-Target Support",
         "effects": [
@@ -485,7 +485,7 @@
           "fortifying"
         ],
         "innate": false,
-        "skill": "",
+        "skill": "discipline",
         "family": "Fortifying",
         "subgroup": "Group Support (Selective)",
         "effects": [
@@ -530,7 +530,7 @@
           "tool"
         ],
         "innate": false,
-        "skill": "",
+        "skill": "acuity",
         "family": "Tool",
         "subgroup": "",
         "effects": [

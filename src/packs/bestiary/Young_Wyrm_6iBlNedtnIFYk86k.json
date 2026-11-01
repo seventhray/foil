@@ -320,7 +320,7 @@
           "kinetic"
         ],
         "innate": false,
-        "skill": "",
+        "skill": "discipline",
         "family": "",
         "subgroup": "",
         "effects": [
@@ -366,7 +366,7 @@
           "pointed"
         ],
         "innate": false,
-        "skill": "",
+        "skill": "prowess",
         "family": "Melee",
         "subgroup": "Piercing",
         "effects": [
@@ -411,7 +411,7 @@
           "blunt"
         ],
         "innate": false,
-        "skill": "",
+        "skill": "prowess",
         "family": "",
         "subgroup": "",
         "effects": [
@@ -456,7 +456,7 @@
           "sonic"
         ],
         "innate": false,
-        "skill": "",
+        "skill": "assertiveness",
         "family": "",
         "subgroup": "",
         "effects": [

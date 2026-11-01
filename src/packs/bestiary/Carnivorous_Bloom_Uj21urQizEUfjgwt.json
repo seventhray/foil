@@ -188,7 +188,7 @@
           "grappling"
         ],
         "innate": false,
-        "skill": "",
+        "skill": "discipline",
         "family": "Grappling",
         "subgroup": "",
         "effects": [
@@ -233,7 +233,7 @@
           "grappling"
         ],
         "innate": false,
-        "skill": "",
+        "skill": "prowess",
         "family": "",
         "subgroup": "",
         "effects": [
@@ -278,7 +278,7 @@
           "pointed"
         ],
         "innate": false,
-        "skill": "",
+        "skill": "prowess",
         "family": "",
         "subgroup": "",
         "effects": [
@@ -324,7 +324,7 @@
           "pointed"
         ],
         "innate": false,
-        "skill": "",
+        "skill": "prowess",
         "family": "Melee",
         "subgroup": "Piercing",
         "effects": [

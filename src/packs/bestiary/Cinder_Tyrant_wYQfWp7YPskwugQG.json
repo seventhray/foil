@@ -188,7 +188,7 @@
           "kinetic"
         ],
         "innate": false,
-        "skill": "",
+        "skill": "discipline",
         "family": "",
         "subgroup": "",
         "effects": [
@@ -233,7 +233,7 @@
           "kinetic"
         ],
         "innate": false,
-        "skill": "",
+        "skill": "discipline",
         "family": "",
         "subgroup": "",
         "effects": [
@@ -278,7 +278,7 @@
           "incorporeal"
         ],
         "innate": false,
-        "skill": "",
+        "skill": "acuity",
         "family": "",
         "subgroup": "",
         "effects": [
@@ -323,7 +323,7 @@
           "kinetic"
         ],
         "innate": false,
-        "skill": "",
+        "skill": "discipline",
         "family": "",
         "subgroup": "",
         "effects": [

@@ -146,7 +146,7 @@
           "parry"
         ],
         "innate": false,
-        "skill": "",
+        "skill": "prowess",
         "family": "Melee",
         "subgroup": "Control",
         "effects": [

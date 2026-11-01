@@ -188,7 +188,7 @@
           "grappling"
         ],
         "innate": false,
-        "skill": "",
+        "skill": "discipline",
         "family": "Grappling",
         "subgroup": "",
         "effects": [
@@ -233,7 +233,7 @@
           "pointed"
         ],
         "innate": false,
-        "skill": "",
+        "skill": "prowess",
         "family": "",
         "subgroup": "",
         "effects": [

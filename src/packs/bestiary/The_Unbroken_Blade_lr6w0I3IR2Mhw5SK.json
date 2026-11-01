@@ -157,7 +157,7 @@
           "pointed"
         ],
         "innate": false,
-        "skill": "",
+        "skill": "prowess",
         "family": "Melee",
         "subgroup": "Debilitating",
         "effects": [
@@ -210,7 +210,7 @@
           "edged"
         ],
         "innate": false,
-        "skill": "",
+        "skill": "prowess",
         "family": "Melee",
         "subgroup": "Debilitating",
         "effects": [
@@ -259,7 +259,7 @@
           "parry"
         ],
         "innate": false,
-        "skill": "",
+        "skill": "prowess",
         "family": "Melee",
         "subgroup": "Control",
         "effects": [
@@ -341,7 +341,7 @@
           "parry"
         ],
         "innate": false,
-        "skill": "",
+        "skill": "prowess",
         "family": "Guard",
         "subgroup": "",
         "effects": [

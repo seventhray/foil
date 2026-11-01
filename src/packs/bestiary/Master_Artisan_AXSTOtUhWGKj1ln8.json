@@ -221,7 +221,7 @@
           "blunt"
         ],
         "innate": false,
-        "skill": "",
+        "skill": "prowess",
         "family": "Melee",
         "subgroup": "Debilitating",
         "effects": [
@@ -266,7 +266,7 @@
           "tool"
         ],
         "innate": false,
-        "skill": "",
+        "skill": "discipline",
         "family": "Tool",
         "subgroup": "",
         "effects": [

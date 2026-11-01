@@ -245,7 +245,7 @@
           "parry"
         ],
         "innate": false,
-        "skill": "",
+        "skill": "guile",
         "family": "Sonic",
         "subgroup": "Control & Deception",
         "effects": [

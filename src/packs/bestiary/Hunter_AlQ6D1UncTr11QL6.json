@@ -151,7 +151,7 @@
           "fired"
         ],
         "innate": false,
-        "skill": "",
+        "skill": "prowess",
         "family": "Ranged",
         "subgroup": "Piercing & Precision",
         "effects": [
@@ -203,7 +203,7 @@
           "fired"
         ],
         "innate": false,
-        "skill": "",
+        "skill": "discipline",
         "family": "Melee",
         "subgroup": "Control",
         "effects": [

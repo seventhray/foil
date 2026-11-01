@@ -186,7 +186,7 @@
           "pointed"
         ],
         "innate": false,
-        "skill": "",
+        "skill": "prowess",
         "family": "Melee",
         "subgroup": "Debilitating",
         "effects": [
@@ -243,7 +243,7 @@
           "parry"
         ],
         "innate": false,
-        "skill": "",
+        "skill": "prowess",
         "family": "Melee",
         "subgroup": "Control",
         "effects": [
@@ -288,7 +288,7 @@
           "blunt"
         ],
         "innate": false,
-        "skill": "",
+        "skill": "prowess",
         "family": "Melee",
         "subgroup": "Debilitating",
         "effects": [

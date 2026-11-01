@@ -189,7 +189,7 @@
           "grappling"
         ],
         "innate": false,
-        "skill": "",
+        "skill": "discipline",
         "family": "",
         "subgroup": "",
         "effects": [

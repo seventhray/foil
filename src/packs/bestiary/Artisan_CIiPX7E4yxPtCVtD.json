@@ -222,7 +222,7 @@
           "parry"
         ],
         "innate": false,
-        "skill": "",
+        "skill": "discipline",
         "family": "Sonic",
         "subgroup": "Control & Deception",
         "effects": [

@@ -231,7 +231,7 @@
           "kinetic"
         ],
         "innate": false,
-        "skill": "",
+        "skill": "discipline",
         "family": "",
         "subgroup": "",
         "effects": [
@@ -276,7 +276,7 @@
           "edged"
         ],
         "innate": false,
-        "skill": "",
+        "skill": "prowess",
         "family": "",
         "subgroup": "",
         "effects": [

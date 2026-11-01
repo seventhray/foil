@@ -274,7 +274,7 @@
           "tool"
         ],
         "innate": false,
-        "skill": "",
+        "skill": "acuity",
         "family": "Tool",
         "subgroup": "",
         "effects": [
@@ -311,7 +311,7 @@
           "sonic"
         ],
         "innate": false,
-        "skill": "",
+        "skill": "guile",
         "family": "Sonic",
         "subgroup": "Control & Deception",
         "effects": [

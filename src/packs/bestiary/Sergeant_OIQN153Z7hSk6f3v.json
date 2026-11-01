@@ -246,7 +246,7 @@
           "pointed"
         ],
         "innate": false,
-        "skill": "",
+        "skill": "prowess",
         "family": "Melee",
         "subgroup": "Piercing",
         "effects": [
@@ -291,7 +291,7 @@
           "sonic"
         ],
         "innate": false,
-        "skill": "",
+        "skill": "assertiveness",
         "family": "Sonic",
         "subgroup": "Restorative",
         "effects": [
@@ -337,7 +337,7 @@
           "sonic"
         ],
         "innate": false,
-        "skill": "",
+        "skill": "assertiveness",
         "family": "Sonic",
         "subgroup": "Debilitating & Reactive",
         "effects": [

@@ -202,7 +202,7 @@
           "kinetic"
         ],
         "innate": false,
-        "skill": "",
+        "skill": "assertiveness",
         "family": "",
         "subgroup": "",
         "effects": [
@@ -247,7 +247,7 @@
           "kinetic"
         ],
         "innate": false,
-        "skill": "",
+        "skill": "assertiveness",
         "family": "Kinetic",
         "subgroup": "Piercing",
         "effects": [
@@ -292,7 +292,7 @@
           "kinetic"
         ],
         "innate": false,
-        "skill": "",
+        "skill": "resonance",
         "family": "Kinetic",
         "subgroup": "Control",
         "effects": [
@@ -390,7 +390,7 @@
           "kinetic"
         ],
         "innate": false,
-        "skill": "",
+        "skill": "assertiveness",
         "family": "Kinetic",
         "subgroup": "Piercing",
         "effects": [

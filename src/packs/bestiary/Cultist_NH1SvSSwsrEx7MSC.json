@@ -199,7 +199,7 @@
           "sonic"
         ],
         "innate": false,
-        "skill": "",
+        "skill": "assertiveness",
         "family": "Sonic",
         "subgroup": "Debilitating & Reactive",
         "effects": [
@@ -244,7 +244,7 @@
           "sonic"
         ],
         "innate": false,
-        "skill": "",
+        "skill": "assertiveness",
         "family": "Sonic",
         "subgroup": "Restorative",
         "effects": [

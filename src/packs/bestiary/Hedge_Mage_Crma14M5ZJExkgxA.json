@@ -192,7 +192,7 @@
           "kinetic"
         ],
         "innate": false,
-        "skill": "",
+        "skill": "discipline",
         "family": "Kinetic",
         "subgroup": "Piercing",
         "effects": [
@@ -282,7 +282,7 @@
           "fortifying"
         ],
         "innate": false,
-        "skill": "",
+        "skill": "resonance",
         "family": "Fortifying",
         "subgroup": "Single-Target Support",
         "effects": [

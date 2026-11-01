@@ -156,7 +156,7 @@
           "fired"
         ],
         "innate": false,
-        "skill": "",
+        "skill": "discipline",
         "family": "Melee",
         "subgroup": "Control",
         "effects": [
