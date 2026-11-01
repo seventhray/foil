@@ -24,7 +24,7 @@ import { consumableSummary, equipmentSummary, materialSummary } from "../registr
 import { stressFor, alwaysTypes, isAlwaysType } from "../stress.js";
 import { ask, dialogApi, addButton, esc } from "../dialogs.js";
 import "../chat-actions.js";
-import { allowedAims, targetFlags } from "../combat.js";
+import { allowedAims, declarableTypes, targetFlags } from "../combat.js";
 import { rollSkill, rollKit, rollTechnique, rollEnchantment, stressPayload, validInstruments, matchingInstruments } from "../../rules/roll.js";
 import { resolveOppose } from "../oppose.js";
 import { restPlan } from "../rest.js";
@@ -322,19 +322,27 @@ class FoilActorSheet extends HandlebarsApplicationMixin(ActorSheetV2Base) {
     const types = inst.system.stressTypes ?? [];
     const allowed = allowedAims({ text, stressTypes: inst.system.stressTypes ?? [], requires });
     const attrs = (allowed.length ? allowed : ATTRIBUTE_KEYS).map(k => `<option value="${k}">${ATTR_LABEL[k]}</option>`).join("");
-    const typeOpts = [...types.map((t, i) => isAlwaysType(t) ? "" : `<option value="${i}">${esc(t.label)}</option>`), `<option value="">None</option>`].join("");
     const answer = await ask(`${name}: aim`,
       `<p>Target${tokens.length > 1 ? "s" : ""}: ${tokens.map(t => esc(t.name)).join(", ")}</p>${notes.length ? `<p><em>${notes.join("<br>")}</em></p>` : ""}`
       + `<div class="form-group"><label>Attribute aimed at</label><select name="aim">${attrs}</select></div>`
-      + (types.some(t => !isAlwaysType(t)) ? `<div class="form-group"><label>Type used <em>(one for this Technique; Drawn and Fired always add)</em></label><select name="type">${typeOpts}</select></div>` : "")
       + `<div class="form-group"><label>Other Stress bonus <em>(a Feat such as Heavy Hand)</em></label><input type="number" name="other" value="0" /></div>`,
       "Roll");
     if (!answer) return null;
+    const aim = (allowed.length ? allowed : ATTRIBUTE_KEYS).includes(answer.aim) ? answer.aim : (allowed[0] ?? "might");
+    // The Type is declared by itself when one fits the Technique and the aim; with several, the attacker picks (PHB 4.1.1).
+    const fits = declarableTypes(types, { requires, aim });
+    let typeIndex = fits.length === 1 ? String(fits[0].index) : "";
+    if (fits.length > 1) {
+      const opts = fits.map(f => `<option value="${f.index}">${esc(f.type.label)}</option>`).join("");
+      const pick = await ask(`${name}: Type`,
+        `<div class="form-group"><label>Declare which Type? <em>(Drawn and Fired always add)</em></label><select name="type">${opts}</select></div>`, "Roll");
+      if (!pick) return null;
+      typeIndex = String(pick.type ?? fits[0].index);
+    }
     return {
       notes,
       targets: tokens.map(t => ({ uuid: t.document.uuid, actorId: t.actor?.id ?? "", name: t.name })),
-      aim: (allowed.length ? allowed : ATTRIBUTE_KEYS).includes(answer.aim) ? answer.aim : (allowed[0] ?? "might"),
-      typeIndex: types.some(t => !isAlwaysType(t)) ? (answer.type ?? "") : "",
+      aim, typeIndex,
       other: Math.trunc(Number(answer.other) || 0)
     };
   }

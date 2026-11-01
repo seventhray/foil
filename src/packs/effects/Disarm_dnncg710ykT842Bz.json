@@ -22,7 +22,7 @@
     "magnitudeLabel": "",
     "exemptFromPremium": false,
     "setsFloor": false,
-    "description": "<p>The target drops the Instrument it used last. Innate Instruments can't be dropped.</p>"
+    "description": "<p>The target Opposes with a Skill built on Might. If it fails, it drops the Instrument it used last. Innate Instruments can't be dropped.</p>"
   },
   "effects": [],
   "folder": null,

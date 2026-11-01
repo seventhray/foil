@@ -66,7 +66,7 @@ export const GLOSSARY = {
   },
   "disarm": {
     "name": "Disarm",
-    "text": "The target drops the Instrument it used last; picking it up costs its Quick Action, the same as switching. Innate Instruments can't be dropped"
+    "text": "The target Opposes with a Skill built on Might. If it fails, it drops the Instrument it used last; picking it up costs its Quick Action, the same as switching. Innate Instruments can't be dropped"
   },
   "drain": {
     "name": "Drain",

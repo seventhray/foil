@@ -113,7 +113,7 @@ const EFFECTS = [
   ["Lingering N", "lingering", "perPoint", { perPoint: 7 }, { requires: ["kinetic", "incorporeal", "pointed", "edged"], label: "Lingering N" }, "N more Stress at the start of the target's next turns."],
   ["Redirect", "redirect", "flat", { base: 8 }, { requires: ["blocking"] }, "Take an ally's incoming Stress instead."],
   ["Move", "move", "flat", { base: 4 }, { requires: ["grappling", "blunt", "kinetic", "incorporeal"] }, "Move the target up to Range 2."],
-  ["Disarm", "disarm", "flat", { base: 8 }, { requires: [...MELEE, "kinetic"] }, "The target drops the Instrument it used last. Innate Instruments can't be dropped."],
+  ["Disarm", "disarm", "flat", { base: 8 }, { requires: [...MELEE, "kinetic"] }, "The target Opposes with a Skill built on Might. If it fails, it drops the Instrument it used last. Innate Instruments can't be dropped."],
   ["Evade", "evade", "flat", { base: 4 }, { requires: ["kinetic", "incorporeal"] }, "Move without provoking."],
   ["Illusion", "illusion", "flat", { base: 8 }, { requires: ["incorporeal", "sonic"] }, "A false sight or sound."],
   ["Drain", "drain", "flat", { base: 8 }, { requires: ["incorporeal"] }, "Heal what the Technique deals."],
