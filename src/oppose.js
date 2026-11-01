@@ -14,7 +14,7 @@ import { ask, esc } from "./dialogs.js";
 import { resolveActor } from "./chat-actions.js";
 import { logEvent, who } from "./playtest-log.js";
 import { opposeDialog, failCard, landsCard, noHabitCard, alreadyExposedCard, conditionAppliedCard, stressCard, stressAppliedCard,
-         rerollCard, conditionDialog, applyStressDialog, rerollDialog, overflowDialog } from "./oppose-text.js";
+         rerollCard, conditionDialog, applyStressDialog, rerollDialog, overflowDialog, disarmedCard, noDropCard, disarmDialog } from "./oppose-text.js";
 
 const targetActor = resolveActor;
 const FOUNDRY_TEXT = { br: "<br>", arrow: "&rarr;" };
@@ -36,7 +36,7 @@ function opposeIO(actor, attacker) {
         ? `${flag.attackTotal} ${signedParts(incoming.parts)} = <strong>${attack}</strong>` : `<strong>${attack}</strong> (no modifiers from ${esc(actor.name)}'s Conditions)`;
       const flagHtml = flags.length ? `<p><em>${flags.join("<br>")}</em></p>` : "";
       return ask(`${actor.name} Opposes ${flag.name}`, opposeDialog({ flagName: flag.name, attackLine, defenderName: actor.name,
-        conditionName: cnd?.name ?? null, aim, skills, flagHtml, opts, attackerName, exposed, kind, guarded, canParry }), "Roll Oppose");
+        conditionName: cnd?.name ?? null, aim, skills, flagHtml, opts, attackerName, exposed, kind, guarded, canParry, disarm: !!cnd?.disarm }), "Roll Oppose");
     },
     updateConditions: list => actor.update({ "system.conditions": list }),
     rollOppose: async ({ formula, math, skill, flags }) => {
@@ -53,6 +53,8 @@ function opposeIO(actor, attacker) {
       const cards = {
         fail: () => ({ speaker: speaker(attacker), content: failCard(d.flagName, d.defenderName, d.versus) }),
         lands: () => ({ speaker: speaker(attacker), content: landsCard(d.flagName, d.defenderName, d.conditionName, d.versus) }),
+        disarmed: () => ({ speaker: speaker(attacker), content: disarmedCard(d.flagName, d.defenderName, d.itemName, d.versus) }),
+        noDrop: () => ({ speaker: speaker(attacker), content: noDropCard(d.flagName, d.defenderName, d.versus) }),
         noHabit: () => ({ speaker: speaker(attacker), content: noHabitCard(d.defenderName) }),
         alreadyExposed: () => ({ speaker: speaker(attacker), content: alreadyExposedCard(d.defenderName, d.attackerName) }),
         conditionApplied: () => ({ speaker: speaker(actor), content: conditionAppliedCard(d.defenderName, d.conditionName, d.go) }),
@@ -70,6 +72,8 @@ function opposeIO(actor, attacker) {
     askApplyStress: ({ defenderName, aim, amount, cur, max, tokens }) =>
       ask(`Apply Stress to ${defenderName}`, applyStressDialog({ defenderName, aim, amount, cur, max, tokens }), "Apply"),
     askOverflow: ({ attr, left, room, potentialOf }) => ask(`${actor.name}: overflow`, overflowDialog({ attr, left, room, potentialOf }), "Place"),
+    askDisarm: ({ defenderName, instruments }) => ask(`${defenderName} is disarmed`, disarmDialog(instruments), "Drop it"),
+    dropInstrument: itemId => actor.items.get(itemId)?.update({ "system.location": "carried" }),
     takeStress: (key, amount) => actor.takeStress(key, amount),
     log: (type, data) => {
       const d = { ...data };

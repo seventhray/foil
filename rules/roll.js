@@ -22,7 +22,7 @@
  */
 
 import {
-  ATTRIBUTE_KEYS, ATTR_LABEL, SKILL_ATTRS, SKILL_LABEL, MARGIN_CAP, marginCap, CONDITION_OPPOSE, EFFECT_CONDITION, conditionAttr
+  ATTRIBUTE_KEYS, ATTR_LABEL, SKILL_ATTRS, SKILL_LABEL, MARGIN_CAP, marginCap, CONDITION_OPPOSE, EFFECT_CONDITION, conditionAttr, DISARM
 } from "./constants.js";
 import { conditionFlags, skillFormula, skillMath } from "./combat.js";
 import { familiesOf } from "./resist.js";
@@ -156,14 +156,16 @@ export function* rollKitSteps({ actor, inst, index, unaware = false, feats = fal
   if (inst.system.doublesMargin) notes.push("Heavy: costs the Action and the Quick Action; the margin doubles (PHB 4.1.1).");
   if (inst.system.reload) notes.push(`Reload: ${inst.system.reload === "quick" ? "Quick Action" : "Action"}.`);
   const stress = /Deals Stress/i.test(kit.effect);
+  // "Disarms." is Opposed with Might (PHB 4.2.1).
+  const disarms = !stress && /^Disarms\b/i.test(kit.effect);
   // "Applies Reeling.", or "Applies Weakened [Finesse]." naming the Attribute it weakens and is resisted with (PHB 6.8.4).
-  const match = !stress ? kit.effect.match(/^Applies (Foil Exposed|\w+)(?: \[(\w+)\])?/i) : null;
+  const match = !stress && !disarms ? kit.effect.match(/^Applies (Foil Exposed|\w+)(?: \[(\w+)\])?/i) : null;
   const applied = match?.[1];
   const named = ATTRIBUTE_KEYS.find(k => ATTR_LABEL[k].toLowerCase() === String(match?.[2] ?? "").toLowerCase()) ?? "";
-  const kitCond = applied === "Weakened" ? { name: applied, note: named ? ATTR_LABEL[named] : "", attr: named } : applied ? { name: applied, note: "" } : null;
+  const kitCond = disarms ? { ...DISARM } : applied === "Weakened" ? { name: applied, note: named ? ATTR_LABEL[named] : "", attr: named } : applied ? { name: applied, note: "" } : null;
   const kitResist = kitCond ? conditionAttr(kitCond) : "";
-  if (kitResist) notes.push(`The target resists with any ${ATTR_LABEL[kitResist]} Skill (PHB 6.8.0).`);
-  const targeted = stress || /^Applies\b/i.test(kit.effect);
+  if (kitResist) notes.push(`The target resists with any ${ATTR_LABEL[kitResist]} Skill (PHB ${disarms ? "4.2.1" : "6.8.0"}).`);
+  const targeted = stress || disarms || /^Applies\b/i.test(kit.effect);
   if (targeted && inst.system.weightDice) notes.push(`${inst.system.weightLabel}: +${inst.system.weightDice}.`);
   notes.push(...(yield ["rangeNotes", { band: inst.system.rangeBand, min: inst.system.minRange }]));
   const aim = stress ? (yield ["aim", { inst, name: kit.name, text: kit.effect, requires: [] }]) : { targets: [] };
@@ -244,7 +246,8 @@ export function* rollTechniqueSteps({ actor, tech, unaware = false, feats = fals
   notes.push(...(yield ["rangeNotes", { band: inst ? inst.system.rangeBand : sys.range, min: sys.minRange || inst?.system.minRange, extend }]));
   // The Condition it applies, if it deals no Stress. Weakened -N [target Attribute] is aimed like Stress: the Attribute
   // aimed at is the one weakened, and the one the target resists with (PHB 6.8.4).
-  const applied = !sys.dealsStress ? (sys.effects ?? []).find(e => CONDITION_OPPOSE[EFFECT_CONDITION[e.key]] || EFFECT_CONDITION[e.key] === "Weakened") : null;
+  const applied = !sys.dealsStress ? (sys.effects ?? []).find(e => CONDITION_OPPOSE[EFFECT_CONDITION[e.key]] || EFFECT_CONDITION[e.key] === "Weakened" || e.key === "disarm") : null;
+  const disarms = applied?.key === "disarm";
   const weakens = EFFECT_CONDITION[applied?.key] === "Weakened";
   const aim = (sys.dealsStress || weakens) && inst ? (yield ["aim", { inst, name: tech.name, text: "", requires: sys.requires ?? [] }]) : { targets: [] };
   if (!aim) return;
@@ -261,17 +264,18 @@ export function* rollTechniqueSteps({ actor, tech, unaware = false, feats = fals
   }
 
   // A Learned Feat's +1s, when the host counts them (rules/feats.js): by the Attribute aimed at, or the one its Condition is resisted with.
-  const featTarget = aim.aim || (applied && !weakens ? conditionAttr({ name: EFFECT_CONDITION[applied.key] }) : "");
+  const featTarget = aim.aim || (applied && !weakens ? conditionAttr(disarms ? DISARM : { name: EFFECT_CONDITION[applied.key] }) : "");
   const fb = feats ? featBonuses(actor, { types: inst?.system.types ?? [], target: featTarget, stress: !!(sys.dealsStress && inst) }) : NO_FEATS;
   bonus.push(...fb.roll, ...unawareExtra(unaware, notes));
   const wdice = sys.offensive && inst?.type === "instrument" && inst.system.weightDice ? [{ label: inst.system.weightLabel || "Weight", dice: inst.system.weightDice }] : [];
   notes.unshift(esc(skillMath(asys, skill, bonus, wdice)));
   const rounds = applied ? applied.duration || (applied.key.endsWith("-minute") ? "1 minute" : "") : "";
   const condition = !applied ? null
+    : disarms ? { ...DISARM }
     : weakens ? { name: "Weakened", note: `${aim.aim ? `${ATTR_LABEL[aim.aim]} ` : ""}${applied.magnitude ?? 1}`, rounds, attr: aim.aim ?? "" }
     : { name: EFFECT_CONDITION[applied.key], note: applied.key.startsWith("reeling") ? `${applied.magnitude ?? 1}` : "", rounds };
   const resistAttr = condition ? conditionAttr(condition) : "";
-  if (resistAttr) notes.push(`The target resists with any ${ATTR_LABEL[resistAttr]} Skill (PHB 6.8.0).`);
+  if (resistAttr) notes.push(`The target resists with any ${ATTR_LABEL[resistAttr]} Skill (PHB ${disarms ? "4.2.1" : "6.8.0"}).`);
   else if (condition) notes.push("The target resists with any Skill built on the Attribute aimed at (PHB 6.8.4).");
   const extra = conditions && sys.dealsStress && inst ? (sys.effects ?? []).find(e => CONDITION_OPPOSE[EFFECT_CONDITION[e.key]]) : null;
   const also = extra ? { name: EFFECT_CONDITION[extra.key], note: extra.key.startsWith("reeling") ? `${extra.magnitude ?? 1}` : "",

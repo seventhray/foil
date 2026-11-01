@@ -20,6 +20,8 @@
  *   askCondition(data)                       the Condition dialog; returns its answers or null
  *   askApplyStress(data)                     the Apply Stress dialog; returns { amount, halve } or null
  *   askOverflow({ attr, left, room, potentialOf })   { attr } or null
+ *   askDisarm({ defenderName, instruments })  { itemId }: which Instrument a Disarmed defender used last, when several could drop
+ *   dropInstrument(itemId)                   a Disarm drops it: it becomes carried, and readying it costs the Quick Action (PHB 4.2.1)
  *   takeStress(attr, amount)                 lower a Potential; returns { before, after }
  *   log(type, data)                          the playtest log; data.attacker and data.defender are actors
  * fmt: { br, arrow }  how text is written; PLAIN by default.
@@ -164,8 +166,9 @@ export function* applyStressSteps(actor, aim, amount, halved, from, fmt = PLAIN,
  *                             Pack Tactics or Dread Presence (Hilt); `also`, a Condition that lands with the Stress (rollTechniqueSteps).
  * @param {boolean} [a.secondWind]  the defender's Second Wind is unspent this conflict (applyStressSteps)
  * @param {boolean} [a.spread]  place a creature defender's overflow by GMG 9.8.2 (applyStressSteps)
+ * @param {string} [a.lastInstrument]  the id of the Instrument the defender used last, when the host knows it (a Disarm drops it)
  */
-export function* resolveOpposeSteps({ defender: actor, attacker, flag, fmt = PLAIN, secondWind = false, spread = false }) {
+export function* resolveOpposeSteps({ defender: actor, attacker, flag, fmt = PLAIN, secondWind = false, spread = false, lastInstrument = "" }) {
   const sys = actor.system;
   const cnd = flag.condition ?? null;
   const aim = flag.aim;
@@ -218,6 +221,7 @@ export function* resolveOpposeSteps({ defender: actor, attacker, flag, fmt = PLA
     if (oppose > attack) {
       return (yield ["card", "fail", { flagName: flag.name, defenderName: actor.name, versus }]);
     }
+    if (cnd.disarm) return yield* disarmSteps(actor, flag, versus, lastInstrument);
     (yield ["card", "lands", { flagName: flag.name, defenderName: actor.name, conditionName: cnd.name, versus }]);
     return yield* landConditionSteps(actor, cnd, attackerName);
   }
@@ -260,6 +264,26 @@ export function* resolveOpposeSteps({ defender: actor, attacker, flag, fmt = PLA
   }
   // A Stress Technique's Condition lands with it, on the same Oppose (rollTechniqueSteps `conditions`).
   if (flag.also) yield* landConditionSteps(actor, flag.also, attackerName);
+}
+
+/** The Instruments a Disarm can make the defender drop (PHB 4.2.1): ready ones it holds, so not innate or Immobile. */
+export const droppable = actor => [...(actor.items ?? [])].filter(i => i.type === "instrument" && isReady(i) && !i.system.innate
+  && !(i.system.types ?? []).includes("immobile"));
+
+/**
+ * A landed Disarm (PHB 4.2.1): the defender drops the Instrument it used last, and readying it again costs the Quick Action. With one
+ * it could drop, that one; else the one the host knows it used last; else the defender says which.
+ */
+function* disarmSteps(actor, flag, versus, lastInstrument) {
+  const can = droppable(actor);
+  if (!can.length) return (yield ["card", "noDrop", { flagName: flag.name, defenderName: actor.name, versus }]);
+  let inst = can.length === 1 ? can[0] : can.find(i => i.id === lastInstrument) ?? null;
+  if (!inst) {
+    const answer = (yield ["askDisarm", { defenderName: actor.name, instruments: can.map(i => ({ id: i.id, name: i.name })) }]);
+    inst = can.find(i => i.id === answer?.itemId) ?? can[0];
+  }
+  (yield ["dropInstrument", inst.id]);
+  return (yield ["card", "disarmed", { flagName: flag.name, defenderName: actor.name, itemName: inst.name, versus }]);
 }
 
 /** A landed Condition: the GM confirms its rounds and note, and it goes on the defender's sheet (PHB 6.8.0). */

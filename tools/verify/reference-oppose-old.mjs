@@ -6,12 +6,12 @@
  */
 import { ATTRIBUTE_KEYS, ATTR_LABEL, SKILL_LABEL, PRIMARY_SKILLS, CONDITION_OPPOSE, CONDITION_PRESETS, FOIL_AXES, conditionAttr } from "../../rules/constants.js";
 // Guard and Parry follow PHB 6.5.1 and 6.5.2 here as in rules/oppose.js (user, 2026-10-29), so the parity check compares like with like.
-import { canParry, guardFor } from "../../rules/oppose.js";
+import { canParry, guardFor, droppable } from "../../rules/oppose.js";
 import { stressFor, alwaysTypes, landStress } from "../../rules/stress.js";
 import { conditionFlags, conditionMods, harmFlags, harmNames, incomingMods, kindOf, signedParts, skillFormula, skillMath, targetFlags } from "../../rules/combat.js";
 import { scopedResistance } from "../../rules/resist.js";
 import { opposeExtras, opposeDialog, failCard, landsCard, noHabitCard, alreadyExposedCard, conditionAppliedCard, stressCard, stressAppliedCard,
-         rerollCard, conditionDialog, applyStressDialog, rerollDialog, overflowDialog } from "../../src/oppose-text.js";
+         rerollCard, conditionDialog, applyStressDialog, rerollDialog, overflowDialog, disarmedCard, noDropCard, disarmDialog } from "../../src/oppose-text.js";
 
 /** What the fakes record and what the next dialogs answer. Reset it between cases. */
 export const env = { answers: [], dice: [], messages: [], rolls: [], events: [], warnings: [], actors: {}, asked: [] };
@@ -114,7 +114,8 @@ export async function resolveOppose(message, index) {
   const kind = cnd ? "mental" : kindOf(aim);
   const incoming = incomingMods(sys.conditions, { melee: !!flag.melee });
   const attack = Number(flag.attackTotal) + incoming.total;
-  const skills = cnd ? (CONDITION_OPPOSE[cnd.name] ?? PRIMARY_SKILLS.wit) : PRIMARY_SKILLS[aim];
+  // RULE 2026-11-01: a Disarm is Opposed with a Skill built on Might (PHB 4.2.1).
+  const skills = cnd?.disarm ? PRIMARY_SKILLS.might : cnd ? (CONDITION_OPPOSE[cnd.name] ?? PRIMARY_SKILLS.wit) : PRIMARY_SKILLS[aim];
   const best = skills.reduce((a, k) => ((sys.skills?.[k]?.rollAvg ?? 0) > (sys.skills?.[a]?.rollAvg ?? 0) ? k : a), skills[0]);
   const opts = skills.map(k => `<option value="${k}" ${k === best ? "selected" : ""}>${SKILL_LABEL[k]} (${sys.skills?.[k]?.formula || "no dice"})</option>`).join("");
   const attackLine = incoming.parts.length
@@ -127,7 +128,7 @@ export async function resolveOppose(message, index) {
   const guarded = guardFor(sys.conditions, cnd ? conditionAttr(cnd) : aim);
   const parryable = !cnd && canParry(actor, flag, kind);
   const answer = await ask(`${actor.name} Opposes ${flag.name}`, opposeDialog({ flagName: flag.name, attackLine, defenderName: actor.name,
-    conditionName: cnd?.name ?? null, aim, skills, flagHtml, opts, attackerName, exposed, kind, guarded: guarded ? guarded.note || "physical block" : "", canParry: parryable }), "Roll Oppose");
+    conditionName: cnd?.name ?? null, aim, skills, flagHtml, opts, attackerName, exposed, kind, guarded: guarded ? guarded.note || "physical block" : "", canParry: parryable, disarm: !!cnd?.disarm }), "Roll Oppose");
   if (!answer) return;
 
   const skill = skills.includes(answer.skill) ? answer.skill : best;
@@ -162,6 +163,15 @@ export async function resolveOppose(message, index) {
     logEvent("oppose", { ...logBase, landed: oppose <= attack });
     if (oppose > attack) {
       return ChatMessage.create({ speaker, content: failCard(flag.name, actor.name, versus) });
+    }
+    // RULE 2026-11-01: a landed Disarm drops a held Instrument, which becomes carried (PHB 4.2.1); no Condition goes on.
+    if (cnd.disarm) {
+      const can = droppable(actor);
+      if (!can.length) return ChatMessage.create({ speaker, content: noDropCard(flag.name, actor.name, versus) });
+      let inst = can.length === 1 ? can[0] : null;
+      if (!inst) { const pick = await ask(`${actor.name} is disarmed`, disarmDialog(can.map(i => ({ id: i.id, name: i.name }))), "Drop it"); inst = can.find(i => i.id === pick?.itemId) ?? can[0]; }
+      await inst.update?.({ "system.location": "carried" });
+      return ChatMessage.create({ speaker, content: disarmedCard(flag.name, actor.name, inst.name, versus) });
     }
     await ChatMessage.create({ speaker, content: landsCard(flag.name, actor.name, cnd.name, versus) });
     const exposedHabits = cnd.name === "Foil Exposed"

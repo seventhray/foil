@@ -226,8 +226,13 @@ export const CONDITION_ATTR = {
 };
 /** The Skills that can Oppose each Condition: every Skill built on its Attribute. */
 export const CONDITION_OPPOSE = Object.fromEntries(Object.entries(CONDITION_ATTR).map(([c, a]) => [c, PRIMARY_SKILLS[a]]));
-/** The Attribute a Condition is resisted with (PHB 6.8.0). Weakened is resisted with the Attribute it names (PHB 6.8.4). */
-export const conditionAttr = c => (c?.name === "Weakened" ? (c.attr ?? "") : CONDITION_ATTR[c?.name] ?? "");
+/** Disarm is Opposed as a Condition is, with a Skill built on Might, and drops an Instrument instead of applying one (PHB 4.2.1). */
+export const DISARM = { name: "Disarm", disarm: true };
+/**
+ * The Attribute a Condition is resisted with (PHB 6.8.0). Weakened is resisted with the Attribute it names (PHB 6.8.4), and a
+ * Disarm with Might (PHB 4.2.1).
+ */
+export const conditionAttr = c => (c?.name === "Weakened" ? (c.attr ?? "") : c?.disarm ? "might" : CONDITION_ATTR[c?.name] ?? "");
 
 // Mass (PHB 5.2.6): past 4x Might Potential, -1 to rolls per multiple.
 export const CARRY_FREE_MULTIPLE = 4;

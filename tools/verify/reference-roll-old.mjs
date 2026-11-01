@@ -7,7 +7,7 @@
  * Attribute it names (PHB 6.8.4), so it carries that Attribute and its target Opposes it (conditionAttr).
  */
 import {
-  ATTRIBUTE_KEYS, ATTR_LABEL, SKILL_ATTRS, SKILL_LABEL, MARGIN_CAP, marginCap, CONDITION_OPPOSE, CONDITION_ATTR, EFFECT_CONDITION, conditionAttr
+  ATTRIBUTE_KEYS, ATTR_LABEL, SKILL_ATTRS, SKILL_LABEL, MARGIN_CAP, marginCap, CONDITION_OPPOSE, CONDITION_ATTR, EFFECT_CONDITION, conditionAttr, DISARM
 } from "../../rules/constants.js";
 import { isAlwaysType } from "../../rules/stress.js";
 import { allowedAims, conditionFlags, declarableTypes, skillFormula, skillMath, targetFlags } from "../../rules/combat.js";
@@ -87,14 +87,16 @@ export class RefSheet {
     if (inst.system.doublesMargin) notes.push("Heavy: costs the Action and the Quick Action; the margin doubles (PHB 4.1.1).");
     if (inst.system.reload) notes.push(`Reload: ${inst.system.reload === "quick" ? "Quick Action" : "Action"}.`);
     const stress = /Deals Stress/i.test(kit.effect);
+    // RULE 2026-11-01: "Disarms." is Opposed with Might (PHB 4.2.1).
+    const disarms = !stress && /^Disarms\b/i.test(kit.effect);
     // RULE 2026-10-23: Weakened [Attribute] is resisted with that Attribute.
-    const match = !stress ? kit.effect.match(/^Applies (Foil Exposed|\w+)(?: \[(\w+)\])?/i) : null;
+    const match = !stress && !disarms ? kit.effect.match(/^Applies (Foil Exposed|\w+)(?: \[(\w+)\])?/i) : null;
     const applied = match?.[1];
     const named = ATTRIBUTE_KEYS.find(k => ATTR_LABEL[k].toLowerCase() === String(match?.[2] ?? "").toLowerCase()) ?? "";
-    const kitCond = applied === "Weakened" ? { name: applied, note: named ? ATTR_LABEL[named] : "", attr: named } : applied ? { name: applied, note: "" } : null;
+    const kitCond = disarms ? { ...DISARM } : applied === "Weakened" ? { name: applied, note: named ? ATTR_LABEL[named] : "", attr: named } : applied ? { name: applied, note: "" } : null;
     const kitResist = kitCond ? conditionAttr(kitCond) : "";
-    if (kitResist) notes.push(`The target resists with any ${ATTR_LABEL[kitResist]} Skill (PHB 6.8.0).`);
-    const targeted = stress || /^Applies\b/i.test(kit.effect);
+    if (kitResist) notes.push(`The target resists with any ${ATTR_LABEL[kitResist]} Skill (PHB ${disarms ? "4.2.1" : "6.8.0"}).`);
+    const targeted = stress || disarms || /^Applies\b/i.test(kit.effect);
     if (targeted && inst.system.weightDice) notes.push(`${inst.system.weightLabel}: +${inst.system.weightDice}.`);
     notes.push(...this._rangeNotes({ band: inst.system.rangeBand, min: inst.system.minRange }));
     const aim = stress ? await this._aimAtTargets(inst, kit.name, kit.effect) : { targets: [] };
@@ -272,7 +274,9 @@ export class RefSheet {
     const extend = (sys.effects ?? []).filter(e => e.key === "extend-range").reduce((n, e) => n + Number(e.bands || 1), 0);
     notes.push(...this._rangeNotes({ band: inst ? inst.system.rangeBand : sys.range, min: sys.minRange || inst?.system.minRange, extend }));
     // RULE 2026-10-23: a Technique that only weakens is aimed; the Attribute aimed at is weakened and resists.
-    const applied = !sys.dealsStress ? (sys.effects ?? []).find(e => CONDITION_OPPOSE[EFFECT_CONDITION[e.key]] || EFFECT_CONDITION[e.key] === "Weakened") : null;
+    // RULE 2026-11-01: a Disarm Effect is Opposed with Might (PHB 4.2.1).
+    const applied = !sys.dealsStress ? (sys.effects ?? []).find(e => CONDITION_OPPOSE[EFFECT_CONDITION[e.key]] || EFFECT_CONDITION[e.key] === "Weakened" || e.key === "disarm") : null;
+    const disarms = applied?.key === "disarm";
     const weakens = EFFECT_CONDITION[applied?.key] === "Weakened";
     const aim = (sys.dealsStress || weakens) && inst ? await this._aimAtTargets(inst, tech.name, "", sys.requires ?? []) : { targets: [] };
     if (!aim) return;
@@ -292,10 +296,11 @@ export class RefSheet {
     notes.unshift(this._math(skill, bonus, wdice));
     const rounds = applied ? applied.duration || (applied.key.endsWith("-minute") ? "1 minute" : "") : "";
     const condition = !applied ? null
+      : disarms ? { ...DISARM }
       : weakens ? { name: "Weakened", note: `${aim.aim ? `${ATTR_LABEL[aim.aim]} ` : ""}${applied.magnitude ?? 1}`, rounds, attr: aim.aim ?? "" }
       : { name: EFFECT_CONDITION[applied.key], note: applied.key.startsWith("reeling") ? `${applied.magnitude ?? 1}` : "", rounds };
     const resistAttr = condition ? conditionAttr(condition) : "";
-    if (resistAttr) notes.push(`The target resists with any ${ATTR_LABEL[resistAttr]} Skill (PHB 6.8.0).`);
+    if (resistAttr) notes.push(`The target resists with any ${ATTR_LABEL[resistAttr]} Skill (PHB ${disarms ? "4.2.1" : "6.8.0"}).`);
     else if (condition) notes.push("The target resists with any Skill built on the Attribute aimed at (PHB 6.8.4).");
     await this._postRoll(this._skillFormula(skill, bonus, wdice), `${esc(tech.name)} (${SKILL_LABEL[skill]})`, notes.join("<br>"), roll => ({
       cond: this._condFlag(),

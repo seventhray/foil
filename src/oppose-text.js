@@ -13,9 +13,10 @@ const habitOf = note => String(note).replace(/;? by .*$/, "");
 /** The Oppose roll's extra modifiers, from the dialog's answers (PHB 6.5.0, 3.2.0): see rules/oppose.js. */
 export { opposeExtras } from "../rules/oppose.js";
 
-export function opposeDialog({ flagName, attackLine, defenderName, conditionName, aim, skills, flagHtml, opts, attackerName, exposed, kind, guarded = "", canParry = false }) {
+export function opposeDialog({ flagName, attackLine, defenderName, conditionName, aim, skills, flagHtml, opts, attackerName, exposed, kind, guarded = "", canParry = false, disarm = false }) {
   const cnd = conditionName;
-  return `<p>${esc(flagName)} rolled ${attackLine} to make ${esc(defenderName)} ${cnd ?? `suffer Stress at ${ATTR_LABEL[aim]}`}. ${cnd ? `${esc(defenderName)} must Oppose with ${skills.map(k => SKILL_LABEL[k]).join(" or ")} (PHB 6.5.0). ` : ""}Conditions and a Blocking Instrument's bonus are added.</p>${flagHtml}`
+  const goal = disarm ? `disarm ${esc(defenderName)}` : `make ${esc(defenderName)} ${cnd ?? `suffer Stress at ${ATTR_LABEL[aim]}`}`;
+  return `<p>${esc(flagName)} rolled ${attackLine} to ${goal}. ${cnd ? `${esc(defenderName)} must Oppose with ${skills.map(k => SKILL_LABEL[k]).join(" or ")} (PHB ${disarm ? "4.2.1" : "6.5.0"}). ` : ""}Conditions and a Blocking Instrument's bonus are added.</p>${flagHtml}`
     + `<div class="form-group"><label>Oppose with</label><select name="skill">${opts}</select></div>`
     + exposed.map((c, n) => `<div class="form-group"><label>${esc(attackerName)} uses Foil Exposed: ${habitOf(c.note)} <em>(-2, used up)</em></label><input type="checkbox" name="exposed${n}" /></div>`).join("")
     // Guard is put on beforehand, as a Guarded Condition (PHB 6.5.1), and adds by itself; Parry needs a ready Parry Instrument (PHB 6.5.2).
@@ -28,6 +29,12 @@ export const failCard = (flagName, defenderName, versus) =>
   flavor(`<strong>${esc(flagName)} fails against ${esc(defenderName)}</strong><br><em>${versus}; the Oppose beat it (PHB 6.5.0).</em>`);
 export const landsCard = (flagName, defenderName, conditionName, versus) =>
   flavor(`<strong>${esc(flagName)} lands: ${esc(defenderName)} is ${esc(conditionName)}</strong><br><em>${versus}.</em>`);
+export const disarmedCard = (flagName, defenderName, itemName, versus) =>
+  flavor(`<strong>${esc(flagName)} lands: ${esc(defenderName)} drops ${esc(itemName)}</strong><br><em>${versus}. Readying it again costs the Quick Action, the same as switching (PHB 4.2.1).</em>`);
+export const noDropCard = (flagName, defenderName, versus) =>
+  flavor(`<strong>${esc(flagName)} lands, and ${esc(defenderName)} has nothing to drop</strong><br><em>${versus}. Innate Instruments can't be dropped (PHB 4.2.1).</em>`);
+export const disarmDialog = instruments =>
+  `<p>The Disarm drops the Instrument used last (PHB 4.2.1).</p><div class="form-group"><label>Used last</label><select name="itemId">${instruments.map(i => `<option value="${esc(i.id)}">${esc(i.name)}</option>`).join("")}</select></div>`;
 export const noHabitCard = defenderName =>
   flavor(`<strong>${esc(defenderName)} has no Habit to expose</strong><br><em>Every axis is Neutral.</em>`);
 export const alreadyExposedCard = (defenderName, attackerName) =>

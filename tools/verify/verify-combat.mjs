@@ -202,6 +202,34 @@ check("The Oppose flow's wording and modifiers come from oppose-text.js", [
   check("a character's overflow is still asked", (() => { try { lines(actor("character")); return "placed"; } catch (e) { return e.message; } })(), "asked");
 }
 
+// PHB 4.2.1: a Disarm is Opposed with a Skill built on Might, and drops a held Instrument, which becomes carried.
+{
+  const { rollKitSteps } = await import("../../rules/roll.js");
+  const { resolveOpposeSteps, PLAIN } = await import("../../rules/oppose.js");
+  const { driveSync } = await import("../../rules/flow.js");
+  const longsword = { id: "ls", name: "Longsword", type: "instrument", system: { location: "equipped", primaryAttribute: "might", kit: [{ name: "Wrest", skill: "discipline", effect: "Disarms." }], types: ["edged"] } };
+  let post = null;
+  driveSync(rollKitSteps({ actor: { system: {}, items: [longsword] }, inst: longsword, index: 0 }), { rangeNotes: () => [], post: p => { post = p; } });
+  check("Wrest posts a Disarm for its target to Oppose with Might", [post?.payload?.condition?.condition, /resists with any Might Skill \(PHB 4\.2\.1\)/.test(post?.note ?? "")], [{ name: "Disarm", disarm: true }, true]);
+  const held = (id, name, extra = {}) => ({ id, name, type: "instrument", system: { location: "equipped", types: [], ...extra } });
+  const run = (items, { last = "", pick = null } = {}) => {
+    const out = { asked: [], dropped: [], cards: [], skills: null, conditions: 0 };
+    const defender = { id: "d", name: "Goblin", type: "creature", items, system: { skills: {}, conditions: [], attributes: {} } };
+    driveSync(resolveOpposeSteps({ defender, attacker: null, flag: { name: "Wrest", attackTotal: 20, condition: { name: "Disarm", disarm: true } }, fmt: PLAIN, lastInstrument: last }), {
+      askOppose: d => { out.skills = d.skills; return { skill: d.skills[0], other: 0 }; }, rollOppose: () => ({ total: 5, formula: "5", dice: [] }),
+      log: () => {}, card: (kind, d) => out.cards.push(kind === "disarmed" ? `disarmed ${d.itemName}` : kind),
+      askDisarm: d => { out.asked.push(d.instruments.map(i => i.name).join(",")); return { itemId: pick }; },
+      dropInstrument: id => out.dropped.push(id), updateConditions: () => { out.conditions++; }, askCondition: () => { out.conditions++; return null; }
+    });
+    return out;
+  };
+  const sword = held("sw", "Sword"), dagger = held("dg", "Dagger"), body = held("bd", "Body", { innate: true }), ram = held("rm", "Ram", { types: ["immobile"] });
+  check("it is Opposed with Prowess, Discipline or Assertiveness, and one held Instrument drops by itself", run([sword, body]), { asked: [], dropped: ["sw"], cards: ["disarmed Sword"], skills: ["prowess", "discipline", "assertiveness"], conditions: 0 });
+  check("with several, the one the host knows was used last drops", run([sword, dagger, body], { last: "dg" }).dropped, ["dg"]);
+  check("else the defender says which it used last", (r => [r.asked, r.dropped])(run([sword, dagger], { pick: "dg" })), [["Sword,Dagger"], ["dg"]]);
+  check("innate, Immobile and carried Instruments can't be dropped", run([body, ram, held("cb", "Crossbow", { location: "carried" })]).cards, ["noDrop"]);
+}
+
 // PHB 4.1.1: one Type is declared for each Technique; Drawn and Fired always add.
 {
   const { declarableTypes } = await import("../../rules/combat.js");
