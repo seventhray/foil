@@ -10,7 +10,8 @@
     "range": "Range 4",
     "maxRange": "short",
     "types": [
-      "grappling"
+      "grappling",
+      "thrown"
     ],
     "typesDisplay": "",
     "price": 15,

@@ -22,14 +22,14 @@
         "effect": "Deals Stress to Might or Finesse."
       },
       {
-        "name": "Bonebreaker",
+        "name": "Knock Down",
         "skill": "discipline",
         "effect": "Applies Prone."
       },
       {
         "name": "Dread Blow",
         "skill": "assertiveness",
-        "effect": "Deals Stress to Presence or Wit."
+        "effect": "Applies Stunned."
       }
     ],
     "innate": false,

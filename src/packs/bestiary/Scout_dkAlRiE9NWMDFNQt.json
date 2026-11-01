@@ -172,7 +172,7 @@
           {
             "name": "Warning Shot",
             "skill": "assertiveness",
-            "effect": "Deals Stress to Presence or Wit."
+            "effect": "Applies Reeling."
           }
         ],
         "innate": false,

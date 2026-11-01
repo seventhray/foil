@@ -7,7 +7,15 @@
     "key": "frightened",
     "requires": [
       "incorporeal",
-      "sonic"
+      "sonic",
+      "edged",
+      "pointed",
+      "blunt",
+      "grappling",
+      "parry",
+      "thrown",
+      "drawn",
+      "fired"
     ],
     "pricingKind": "flat",
     "pricingParams": {

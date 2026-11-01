@@ -118,14 +118,14 @@
             "effect": "Deals Stress to Might or Finesse."
           },
           {
-            "name": "Entangle",
+            "name": "Wrest",
             "skill": "discipline",
-            "effect": "Applies Grappled."
+            "effect": "Disarms."
           },
           {
             "name": "Challenge",
             "skill": "assertiveness",
-            "effect": "Deals Stress to Presence or Wit."
+            "effect": "Applies Baited."
           }
         ],
         "innate": false,

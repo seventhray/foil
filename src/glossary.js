@@ -98,7 +98,7 @@ export const GLOSSARY = {
   },
   "foil exposed": {
     "name": "Foil Exposed",
-    "text": "Resisted with Wit. The source learns one Habit of the creature, which the Technique names. Once, when the creature Opposes the source, the source may give that Oppose roll -2. It ends when used, or after 2 hours. A creature has one Foil Exposed for each of its Habits, from each source. > [!EXAMPLE] > Mira uses Intuit on the captain: Resonance 15 against his Discipline 10. Mira learns his Habit, \"Rules are the first thing to go when it actually matters.\" Mira then Intimidates the captain through the Voice, and spends the Foil Exposed to give his Oppose -2."
+    "text": "Resisted with Wit. The source learns one Habit of the creature, which the Technique names. Once, when the creature Opposes the source, the source may give that Oppose roll -2. It ends when used, or after 2 hours. A creature has one Foil Exposed for each of its Habits, from each source. > [!EXAMPLE] > Mira uses Intuit on the captain: Resonance 15 against his Discipline 10. Mira learns his Habit, \"Rules are the first thing to go when it actually matters.\" Mira then uses Rousing Chord through the Lute to Intimidate the captain, and spends the Foil Exposed to give his Oppose -2."
   },
   "foil habit": {
     "name": "FOIL Habit",
@@ -154,7 +154,7 @@ export const GLOSSARY = {
   },
   "incorporeal": {
     "name": "Incorporeal",
-    "text": "+1 Stress against a mental Attribute. -1 against a physical one."
+    "text": "+1 Stress."
   },
   "instrument": {
     "name": "Instrument",
@@ -174,7 +174,7 @@ export const GLOSSARY = {
   },
   "kinetic": {
     "name": "Kinetic",
-    "text": "+1 Stress against a physical Attribute. -1 against a mental one."
+    "text": "+1 Stress."
   },
   "light": {
     "name": "Light",
@@ -302,7 +302,7 @@ export const GLOSSARY = {
   },
   "sonic": {
     "name": "Sonic",
-    "text": "+1 Stress against a mental Attribute. -1 against a physical one."
+    "text": "+1 Stress."
   },
   "strain": {
     "name": "Strain",

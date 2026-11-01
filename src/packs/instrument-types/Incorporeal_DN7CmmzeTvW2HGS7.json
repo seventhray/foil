@@ -6,7 +6,7 @@
   "system": {
     "key": "incorporeal",
     "family": "arcane",
-    "stressPhysical": -1,
+    "stressPhysical": 0,
     "stressMental": 1,
     "pierce": 0,
     "doubleResistance": false,
@@ -15,7 +15,7 @@
     "blocking": false,
     "reload": "",
     "isTool": false,
-    "description": "<p>+1 Stress against a mental Attribute. -1 against a physical Attribute.</p>"
+    "description": "<p>+1 Stress.</p>"
   },
   "effects": [],
   "folder": null,

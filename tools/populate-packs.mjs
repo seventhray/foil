@@ -55,9 +55,9 @@ const INSTRUMENT_TYPES = [
   ["Thrown", "thrown", "ranged", {}, "No type effect. No reload."],
   ["Drawn", "drawn", "ranged", { stressPhysical: 2, stressMental: 2, reload: "quick" }, "+2 Stress. Reload: Quick Action."],
   ["Fired", "fired", "ranged", { stressPhysical: 4, stressMental: 4, reload: "action" }, "+4 Stress. Reload: Action."],
-  ["Kinetic", "kinetic", "arcane", { stressPhysical: 1, stressMental: -1 }, "+1 Stress against a physical Attribute. -1 against a mental Attribute."],
-  ["Incorporeal", "incorporeal", "arcane", { stressPhysical: -1, stressMental: 1 }, "+1 Stress against a mental Attribute. -1 against a physical Attribute."],
-  ["Sonic", "sonic", "sonic", { stressPhysical: -1, stressMental: 1 }, "+1 Stress against a mental Attribute. -1 against a physical Attribute."],
+  ["Kinetic", "kinetic", "arcane", { stressPhysical: 1, stressMental: 0 }, "+1 Stress."],
+  ["Incorporeal", "incorporeal", "arcane", { stressPhysical: 0, stressMental: 1 }, "+1 Stress."],
+  ["Sonic", "sonic", "sonic", { stressPhysical: 0, stressMental: 1 }, "+1 Stress."],
   ["Fortifying", "fortifying", "arcane", {}, "Support, aimed at an ally or the caster."],
   ["Grappling", "grappling", "melee", { dealsNoStress: true }, "Adds no Stress."],
   ["Parry", "parry", "melee", {}, "Spend the Quick Action reactively for Physical Resistance +1 against a Melee or Ranged Technique (PHB 6.5.2)."],
@@ -129,7 +129,7 @@ const EFFECTS = [
   ["Prone", "prone", "flat", { base: 11 }, { requires: [...MELEE, ...RANGED, "kinetic"] }, "PHB 6.8.7."],
   ["Restrained", "restrained", "flat", { base: 16 }, { requires: ["grappling", "kinetic"] }, "PHB 6.8.5."],
   ["Charmed", "charmed", "flat", { base: 8 }, { requires: ["incorporeal", "sonic"] }, "PHB 6.8.8."],
-  ["Frightened", "frightened", "flat", { base: 8 }, { requires: ["incorporeal", "sonic"] }, "PHB 6.8.9."],
+  ["Frightened", "frightened", "flat", { base: 8 }, { requires: ["incorporeal", "sonic", ...MELEE, ...RANGED] }, "PHB 6.8.9."],
   ["Controlled", "controlled", "flat", { base: 25 }, { requires: ["incorporeal"] }, "PHB 6.8.10."],
   ["Intimidated", "intimidated", "flat", { base: 10 }, { requires: ["incorporeal", "sonic", ...MELEE] }, "PHB 6.8.11."],
   ["Baited", "baited", "flat", { base: 8 }, { requires: ["incorporeal", "sonic", ...MELEE, ...RANGED] }, "PHB 6.8.12."],
@@ -386,11 +386,11 @@ const INNATE_INSTRUMENTS = [
     kit: [
       { name: "Strike", skill: "prowess", effect: "Deals Stress to Might or Finesse." },
       { name: "Grapple", skill: "discipline", effect: "Applies Grappled." },
-      { name: "Menace", skill: "assertiveness", effect: "Deals Stress to Presence or Wit." }
+      { name: "Intimidate", skill: "assertiveness", effect: "Applies Intimidated." }
     ] },
   { name: "Voice", primaryAttribute: "presence", types: ["quick", "sonic"], range: "Range 8",
     kit: [
-      { name: "Intimidate", skill: "assertiveness", effect: "Applies Intimidated." },
+      { name: "Browbeat", skill: "assertiveness", effect: "Deals Stress to Presence or Wit." },
       { name: "Mislead", skill: "guile", effect: "Applies Misled." },
       { name: "Sway", skill: "resonance", effect: "Applies Swayed." }
     ] },

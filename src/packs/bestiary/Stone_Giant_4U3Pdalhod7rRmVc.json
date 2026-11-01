@@ -109,19 +109,19 @@
         "price": 0,
         "kit": [
           {
-            "name": "Hurl",
+            "name": "Snare",
             "skill": "prowess",
-            "effect": "Deals Stress to Might or Finesse."
+            "effect": "Applies Grappled."
           },
           {
-            "name": "Mark",
+            "name": "Tumble",
             "skill": "acuity",
-            "effect": "Applies Weakened [Finesse]."
+            "effect": "Applies Prone."
           },
           {
-            "name": "Menacing Flourish",
+            "name": "Tangle",
             "skill": "guile",
-            "effect": "Applies Baited."
+            "effect": "Applies Restrained."
           }
         ],
         "description": ""

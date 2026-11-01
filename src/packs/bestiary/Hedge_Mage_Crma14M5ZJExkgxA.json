@@ -148,8 +148,8 @@
           "kinetic"
         ],
         "typesDisplay": "",
-        "price": 20,
-        "rider": "A Wand built Fortifying uses the Mending Focus kit instead.",
+        "price": 25,
+        "rider": "",
         "kit": [
           {
             "name": "Force Bolt",

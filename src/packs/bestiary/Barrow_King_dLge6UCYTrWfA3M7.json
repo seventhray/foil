@@ -117,14 +117,14 @@
             "effect": "Deals Stress to Might or Finesse."
           },
           {
-            "name": "Skewer",
+            "name": "Bowl Over",
             "skill": "discipline",
             "effect": "Applies Prone."
           },
           {
             "name": "Crushing Display",
             "skill": "assertiveness",
-            "effect": "Deals Stress to Presence or Wit."
+            "effect": "Applies Intimidated."
           }
         ],
         "innate": false,
@@ -161,9 +161,9 @@
         "rider": "Innate: every character has it, free (PHB 2.5.3).",
         "kit": [
           {
-            "name": "Intimidate",
+            "name": "Browbeat",
             "skill": "assertiveness",
-            "effect": "Applies Intimidated."
+            "effect": "Deals Stress to Presence or Wit."
           },
           {
             "name": "Mislead",

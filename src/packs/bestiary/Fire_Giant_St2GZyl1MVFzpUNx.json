@@ -114,14 +114,14 @@
             "effect": "Deals Stress to Might or Finesse."
           },
           {
-            "name": "Skewer",
+            "name": "Bowl Over",
             "skill": "discipline",
             "effect": "Applies Prone."
           },
           {
             "name": "Crushing Display",
             "skill": "assertiveness",
-            "effect": "Deals Stress to Presence or Wit."
+            "effect": "Applies Intimidated."
           }
         ],
         "innate": false,

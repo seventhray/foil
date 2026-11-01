@@ -24,7 +24,7 @@
       {
         "name": "Disorienting Blast",
         "skill": "guile",
-        "effect": "Deals Stress to Wit or Presence."
+        "effect": "Applies Reeling."
       },
       {
         "name": "Overwhelming Force",

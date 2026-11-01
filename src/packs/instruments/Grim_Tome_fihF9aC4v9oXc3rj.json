@@ -19,7 +19,7 @@
       {
         "name": "Withering Curse",
         "skill": "discipline",
-        "effect": "Deals Stress to Might or Finesse."
+        "effect": "Applies Weakened [Might]."
       },
       {
         "name": "Maddening Whisper",

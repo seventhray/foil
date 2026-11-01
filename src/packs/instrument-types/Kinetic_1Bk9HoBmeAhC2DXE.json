@@ -7,7 +7,7 @@
     "key": "kinetic",
     "family": "arcane",
     "stressPhysical": 1,
-    "stressMental": -1,
+    "stressMental": 0,
     "pierce": 0,
     "doubleResistance": false,
     "dealsNoStress": false,
@@ -15,7 +15,7 @@
     "blocking": false,
     "reload": "",
     "isTool": false,
-    "description": "<p>+1 Stress against a physical Attribute. -1 against a mental Attribute.</p>"
+    "description": "<p>+1 Stress.</p>"
   },
   "effects": [],
   "folder": null,

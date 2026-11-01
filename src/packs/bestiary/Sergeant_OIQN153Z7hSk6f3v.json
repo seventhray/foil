@@ -118,14 +118,14 @@
             "effect": "Deals Stress to Might or Finesse."
           },
           {
-            "name": "Entangle",
+            "name": "Wrest",
             "skill": "discipline",
-            "effect": "Applies Grappled."
+            "effect": "Disarms."
           },
           {
             "name": "Challenge",
             "skill": "assertiveness",
-            "effect": "Deals Stress to Presence or Wit."
+            "effect": "Applies Baited."
           }
         ],
         "innate": false,
@@ -205,9 +205,9 @@
         "rider": "Innate: every character has it, free (PHB 2.5.3).",
         "kit": [
           {
-            "name": "Intimidate",
+            "name": "Browbeat",
             "skill": "assertiveness",
-            "effect": "Applies Intimidated."
+            "effect": "Deals Stress to Presence or Wit."
           },
           {
             "name": "Mislead",

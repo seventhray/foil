@@ -28,9 +28,9 @@
         "effect": "Applies Grappled."
       },
       {
-        "name": "Menace",
+        "name": "Intimidate",
         "skill": "assertiveness",
-        "effect": "Deals Stress to Presence or Wit."
+        "effect": "Applies Intimidated."
       }
     ],
     "innate": true,

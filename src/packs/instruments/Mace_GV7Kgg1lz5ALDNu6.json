@@ -29,7 +29,7 @@
       {
         "name": "Intimidating Blow",
         "skill": "assertiveness",
-        "effect": "Deals Stress to Presence or Wit."
+        "effect": "Applies Intimidated."
       }
     ],
     "innate": false,

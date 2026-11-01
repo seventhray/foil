@@ -25,7 +25,7 @@
       {
         "name": "Sighted Bolt",
         "skill": "acuity",
-        "effect": "Deals Stress to Wit or Presence."
+        "effect": "Applies Weakened [Finesse]."
       },
       {
         "name": "Unnerving Shot",

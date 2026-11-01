@@ -23,9 +23,9 @@
         "effect": "Deals Stress to Might or Finesse."
       },
       {
-        "name": "Piercing Aim",
+        "name": "Leg Shot",
         "skill": "acuity",
-        "effect": "Deals Stress to Wit or Presence."
+        "effect": "Applies Weakened [Finesse]."
       },
       {
         "name": "Dread Shot",

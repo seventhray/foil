@@ -31,7 +31,7 @@
       {
         "name": "Restorative Surge",
         "skill": "resonance",
-        "effect": "Removes 3 Stress from an ally's Attribute."
+        "effect": "Removes 3d4 Stress from an ally's Attribute."
       }
     ],
     "innate": false,

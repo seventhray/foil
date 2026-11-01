@@ -163,7 +163,7 @@
           {
             "name": "Hearten",
             "skill": "assertiveness",
-            "effect": "Grants +1 to an ally's next roll."
+            "effect": "Grants an ally +1 [Skill] for 1 round."
           },
           {
             "name": "Reassure",
@@ -173,7 +173,7 @@
           {
             "name": "Mending Light",
             "skill": "resonance",
-            "effect": "Removes 2 Stress from an ally's Attribute."
+            "effect": "Removes 2d4 Stress from an ally's Attribute."
           }
         ],
         "innate": false,
@@ -210,9 +210,9 @@
         "rider": "Innate: every character has it, free (PHB 2.5.3).",
         "kit": [
           {
-            "name": "Intimidate",
+            "name": "Browbeat",
             "skill": "assertiveness",
-            "effect": "Applies Intimidated."
+            "effect": "Deals Stress to Presence or Wit."
           },
           {
             "name": "Mislead",

@@ -155,7 +155,7 @@
             "effect": "Applies Weakened [Finesse]."
           },
           {
-            "name": "Backstab",
+            "name": "Low Feint",
             "skill": "guile",
             "effect": "Applies Reeling."
           }
