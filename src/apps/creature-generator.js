@@ -17,7 +17,7 @@ const cap = t => t.replace(/^./, c => c.toUpperCase());
 const plain = doc => { const o = doc.toObject(); delete o._id; return o; };
 const sameTypes = (a, b) => a.length === b.length && a.every(t => b.includes(t));
 
-/** Every creature has the three innate Instruments of a character, and the GM turns each on or off free (GMG 9.6.0). */
+/** A creature can have the three innate Instruments of a character; each one it lists is free and always active (GMG 9.6.0). */
 const INNATE_NAMES = ["Body", "Voice", "Mind"];
 
 /** Every creature can buy Training up to +4 from its Allowance; a tier whose own Training is higher keeps it (GMG 9.4.0). */

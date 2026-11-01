@@ -139,49 +139,6 @@
       "_id": "KPA91I0n9hwnXFwm",
       "name": "Wand",
       "type": "instrument",
-      "img": "icons/svg/claw.svg",
-      "system": {
-        "types": [
-          "incorporeal"
-        ],
-        "range": "Range 1",
-        "weight": "light",
-        "innate": true,
-        "primaryAttribute": "wit",
-        "category": "arcane",
-        "price": 0,
-        "kit": [
-          {
-            "name": "Force Strike",
-            "skill": "discipline",
-            "effect": "Deals Stress to Might or Finesse."
-          },
-          {
-            "name": "Mind-Piercing Bolt",
-            "skill": "acuity",
-            "effect": "Deals Stress to Wit or Presence."
-          },
-          {
-            "name": "Unraveling Pulse",
-            "skill": "resonance",
-            "effect": "Applies Weakened [Presence]."
-          }
-        ],
-        "description": ""
-      },
-      "effects": [],
-      "folder": null,
-      "sort": 200000,
-      "ownership": {
-        "default": 0
-      },
-      "flags": {},
-      "_key": "!actors.items!vcbx5tMsJjecsTGf.KPA91I0n9hwnXFwm"
-    },
-    {
-      "_id": "HuOnUQH5O6Nes0oX",
-      "name": "Wand",
-      "type": "instrument",
       "img": "icons/svg/sword.svg",
       "system": {
         "category": "arcane",
@@ -190,8 +147,8 @@
         "range": "Range 4",
         "maxRange": "short",
         "types": [
-          "quick",
-          "kinetic"
+          "kinetic",
+          "incorporeal"
         ],
         "typesDisplay": "",
         "price": 25,
@@ -221,15 +178,15 @@
       },
       "effects": [],
       "folder": null,
-      "sort": 300000,
+      "sort": 200000,
       "ownership": {
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!vcbx5tMsJjecsTGf.HuOnUQH5O6Nes0oX"
+      "_key": "!actors.items!vcbx5tMsJjecsTGf.KPA91I0n9hwnXFwm"
     },
     {
-      "_id": "lHLI6Av482paqZLZ",
+      "_id": "0XfOudhXxRlmT5ss",
       "name": "Jeweler's Tools",
       "type": "instrument",
       "img": "icons/svg/pick.svg",
@@ -253,15 +210,15 @@
       },
       "effects": [],
       "folder": null,
-      "sort": 400000,
+      "sort": 300000,
       "ownership": {
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!vcbx5tMsJjecsTGf.lHLI6Av482paqZLZ"
+      "_key": "!actors.items!vcbx5tMsJjecsTGf.0XfOudhXxRlmT5ss"
     },
     {
-      "_id": "VaQFplnmiukUL2su",
+      "_id": "gHncHnKxqugu8jLb",
       "name": "Guided Bolt",
       "type": "technique",
       "img": "icons/svg/aura.svg",
@@ -298,15 +255,15 @@
       },
       "effects": [],
       "folder": null,
-      "sort": 500000,
+      "sort": 400000,
       "ownership": {
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!vcbx5tMsJjecsTGf.VaQFplnmiukUL2su"
+      "_key": "!actors.items!vcbx5tMsJjecsTGf.gHncHnKxqugu8jLb"
     },
     {
-      "_id": "9hDlqEG1lrhMsw6A",
+      "_id": "J5aH7AupCLlMsYmn",
       "name": "Hexing Bolt",
       "type": "technique",
       "img": "icons/svg/aura.svg",
@@ -343,15 +300,15 @@
       },
       "effects": [],
       "folder": null,
-      "sort": 600000,
+      "sort": 500000,
       "ownership": {
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!vcbx5tMsJjecsTGf.9hDlqEG1lrhMsw6A"
+      "_key": "!actors.items!vcbx5tMsJjecsTGf.J5aH7AupCLlMsYmn"
     },
     {
-      "_id": "9VL2cds0XkgD7KYt",
+      "_id": "qX4SbRMAj3vnfEcr",
       "name": "Blink",
       "type": "technique",
       "img": "icons/svg/aura.svg",
@@ -388,15 +345,15 @@
       },
       "effects": [],
       "folder": null,
-      "sort": 700000,
+      "sort": 600000,
       "ownership": {
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!vcbx5tMsJjecsTGf.9VL2cds0XkgD7KYt"
+      "_key": "!actors.items!vcbx5tMsJjecsTGf.qX4SbRMAj3vnfEcr"
     },
     {
-      "_id": "vguHxjlGA6AhOyEa",
+      "_id": "H5xYqbc46a3KS5Oh",
       "name": "Force Ward",
       "type": "technique",
       "img": "icons/svg/aura.svg",
@@ -425,15 +382,15 @@
       },
       "effects": [],
       "folder": null,
-      "sort": 800000,
+      "sort": 700000,
       "ownership": {
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!vcbx5tMsJjecsTGf.vguHxjlGA6AhOyEa"
+      "_key": "!actors.items!vcbx5tMsJjecsTGf.H5xYqbc46a3KS5Oh"
     },
     {
-      "_id": "IHIERFpLxehZWjtk",
+      "_id": "3rw0LQwBV1A8tCw5",
       "name": "Aegis of Force",
       "type": "technique",
       "img": "icons/svg/aura.svg",
@@ -470,15 +427,15 @@
       },
       "effects": [],
       "folder": null,
-      "sort": 900000,
+      "sort": 800000,
       "ownership": {
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!vcbx5tMsJjecsTGf.IHIERFpLxehZWjtk"
+      "_key": "!actors.items!vcbx5tMsJjecsTGf.3rw0LQwBV1A8tCw5"
     },
     {
-      "_id": "G2SgUax69uYzvBBl",
+      "_id": "mdlYKf8B7Wr0cGpm",
       "name": "Careful Work",
       "type": "technique",
       "img": "icons/svg/aura.svg",
@@ -507,15 +464,15 @@
       },
       "effects": [],
       "folder": null,
-      "sort": 1000000,
+      "sort": 900000,
       "ownership": {
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!vcbx5tMsJjecsTGf.G2SgUax69uYzvBBl"
+      "_key": "!actors.items!vcbx5tMsJjecsTGf.mdlYKf8B7Wr0cGpm"
     },
     {
-      "_id": "bXKV6YiVumcegAQf",
+      "_id": "8jQoqpCVFvDVpReJ",
       "name": "Focused Blast",
       "type": "feat",
       "img": "icons/svg/upgrade.svg",
@@ -531,12 +488,12 @@
       },
       "effects": [],
       "folder": null,
-      "sort": 1100000,
+      "sort": 1000000,
       "ownership": {
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!vcbx5tMsJjecsTGf.bXKV6YiVumcegAQf"
+      "_key": "!actors.items!vcbx5tMsJjecsTGf.8jQoqpCVFvDVpReJ"
     }
   ],
   "_key": "!actors!vcbx5tMsJjecsTGf"

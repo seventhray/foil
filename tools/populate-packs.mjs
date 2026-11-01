@@ -348,8 +348,6 @@ function instrumentDoc(n) {
   const words = (n.types ?? []).map(String);
   const weight = words.map(lc).find(w => WEIGHT_WORDS[w]) ?? "light";
   let types = words.filter(w => !WEIGHT_WORDS[lc(w)]).map(typeSlug);
-  // A Wand holds one channel, picked when made; the seeded one is Kinetic.
-  if (n.name === "Wand") types = ["quick", "kinetic"];
   for (const t of types) if (!TYPE_KEYS.has(t)) warnings.push(`${n.name}: unknown Instrument Type "${t}"`);
   const kit = [1, 2, 3].map(i => ({
     name: n[`kit_${i}_name`] ?? "", skill: lc(n[`kit_${i}_skill`] ?? "prowess"), effect: n[`kit_${i}_effect`] ?? ""

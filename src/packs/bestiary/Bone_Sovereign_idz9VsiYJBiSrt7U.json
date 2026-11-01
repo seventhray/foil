@@ -160,19 +160,19 @@
         "price": 0,
         "kit": [
           {
-            "name": "Force Strike",
+            "name": "Force Bolt",
             "skill": "discipline",
             "effect": "Deals Stress to Might or Finesse."
           },
           {
-            "name": "Mind-Piercing Bolt",
+            "name": "Mind-Piercing Ray",
             "skill": "acuity",
             "effect": "Deals Stress to Wit or Presence."
           },
           {
-            "name": "Unraveling Pulse",
+            "name": "Unsettling Pulse",
             "skill": "resonance",
-            "effect": "Applies Weakened [Presence]."
+            "effect": "Applies Frightened."
           }
         ],
         "description": ""

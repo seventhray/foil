@@ -104,8 +104,8 @@
         "range": "Range 4",
         "maxRange": "short",
         "types": [
-          "quick",
-          "kinetic"
+          "kinetic",
+          "incorporeal"
         ],
         "typesDisplay": "",
         "price": 25,
