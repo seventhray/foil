@@ -5,6 +5,7 @@
  */
 
 import { SKILL_ATTRS, ATTR_LABEL, ATTRIBUTE_KEYS } from "./constants.js";
+import { isAlwaysType } from "./stress.js";
 
 export const kindOf = attr => (attr === "might" || attr === "finesse" ? "physical" : "mental");
 
@@ -97,10 +98,25 @@ export function allowedAims({ text = "", stressTypes = [], requires = [] } = {})
   if (named.length) return ATTRIBUTE_KEYS.filter(k => named.includes(ATTR_LABEL[k]));
   const types = stressTypes.filter(t => !requires.length || requires.includes(t.key));
   const pool = types.length ? types : stressTypes;
-  const MENTAL_ONLY = ["incorporeal", "sonic"];
   const mental = pool.some(t => MENTAL_ONLY.includes(t.key));
   const physical = !pool.length || pool.some(t => !MENTAL_ONLY.includes(t.key));
   return ATTRIBUTE_KEYS.filter(k => (kindOf(k) === "mental" ? mental : physical));
+}
+
+const MENTAL_ONLY = ["incorporeal", "sonic"];
+
+/**
+ * The Types a Technique may declare through an Instrument (PHB 4.1.1), each with its index in `stressTypes` (a card's typeIndex):
+ * not Drawn or Fired, which always add, nor a Type that deals no Stress. Where any match, only the Types the Technique requires,
+ * then only those that reach the aimed Attribute (PHB 4.2.1).
+ * @returns {{ index:number, type:object }[]}
+ */
+export function declarableTypes(stressTypes = [], { requires = [], aim = "" } = {}) {
+  let out = stressTypes.map((type, index) => ({ index, type })).filter(({ type }) => !isAlwaysType(type) && !type.dealsNoStress);
+  const narrow = keep => { const fit = out.filter(keep); if (fit.length) out = fit; };
+  if (requires.length) narrow(({ type }) => requires.includes(type.key));
+  if (aim) narrow(({ type }) => MENTAL_ONLY.includes(type.key) === (kindOf(aim) === "mental"));
+  return out;
 }
 
 export const signedParts = parts => parts.map(p => `${p.label} ${p.value > 0 ? "+" : ""}${p.value}`).join(", ");

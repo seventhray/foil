@@ -85,9 +85,26 @@ export function stressFor({ attack, oppose, cap, kind = "physical", resistance =
 const ATTRS = ["might", "finesse", "wit", "presence"];
 
 /**
+ * Where a creature's overflow goes (GMG 9.8.2): spread over the Attributes with room, each stopped 1 short of Incapacitation
+ * while the others can still take Stress, the ones in `last` (the Primary Attributes of the Instruments it still fights with)
+ * filled last. `room` is the Stress each Attribute can still take. Returns [{ attr, amount }] in the order they fill.
+ */
+export function spreadOverflow(room, left, last = []) {
+  const has = k => (room[k] ?? 0) > 0;
+  const order = [...ATTRS.filter(k => has(k) && !last.includes(k)), ...ATTRS.filter(k => has(k) && last.includes(k))];
+  const put = Object.fromEntries(order.map(k => [k, 0]));
+  for (const short of [1, 0]) for (const k of order) {
+    const n = Math.min(left, room[k] - short - put[k]);
+    if (n > 0) { put[k] += n; left -= n; }
+  }
+  return order.filter(k => put[k]).map(k => ({ attr: k, amount: put[k] }));
+}
+
+/**
  * Stress landing on a target (PHB 6.8.1): it fills the aimed Attribute's current Potential, then the rest
  * overflows onto another Attribute that still has Potential. With one Attribute left to take it, that is the one;
- * with several, the caller chooses. With none left, the target is Destroyed.
+ * with several, the caller chooses. With none left, the target is Destroyed. With `spread`, a creature's overflow
+ * goes where spreadOverflow puts it, `spread` being its Attributes to fill last, and nothing is asked (GMG 9.8.2).
  *
  * A generator, so the caller can apply each step as it happens and answer the choice however it likes
  * (Foundry asks in a dialog, the companion app asks in a reducer). It yields
@@ -104,13 +121,14 @@ const ATTRS = ["might", "finesse", "wit", "presence"];
  * @param {string} a.aim     the Attribute aimed at
  * @param {number} a.amount  the Stress to land
  * @param {boolean} [a.secondWind]  the target's Second Wind is unspent
+ * @param {string[]|null} [a.spread]  a creature's Attributes to fill last, to place its overflow by GMG 9.8.2
  */
-export function* landStress({ potentials, aim, amount, secondWind = false }) {
+export function* landStress({ potentials, aim, amount, secondWind = false, spread = null }) {
   const pot = { ...potentials };
-  let left = amount, attr = aim, destroyed = false, held = null;
+  let left = amount, attr = aim, limit = Infinity, destroyed = false, held = null;
   const applied = [];
   while (left > 0) {
-    let take = Math.min(left, pot[attr] ?? 0);
+    let take = Math.min(left, pot[attr] ?? 0, limit);
     const stops = secondWind && !held && take > 0 && take >= pot[attr];
     if (stops) { take = pot[attr] - 1; held = attr; }
     if (take > 0) {
@@ -121,10 +139,12 @@ export function* landStress({ potentials, aim, amount, secondWind = false }) {
       yield { type: "take", attr, amount: take, before, after: pot[attr], overflow: attr !== aim, secondWind: stops };
     }
     if (left <= 0) break;
-    const room = ATTRS.filter(k => k !== attr && k !== held && (pot[k] ?? 0) > 0);
+    // A spread may leave an Attribute short of Incapacitation and come back to it, so it stays in the room.
+    const room = ATTRS.filter(k => (spread || k !== attr) && k !== held && (pot[k] ?? 0) > 0);
     // Nowhere left: Destroyed, unless Second Wind holds an Attribute up, and then the rest is lost.
     if (!room.length) { destroyed = !held; break; }
-    if (room.length === 1) attr = room[0];
+    if (spread) [{ attr, amount: limit }] = spreadOverflow(Object.fromEntries(room.map(k => [k, pot[k]])), left, spread);
+    else if (room.length === 1) attr = room[0];
     else {
       const answer = yield { type: "choose", attr, left, room };
       attr = room.includes(answer) ? answer : room[0];

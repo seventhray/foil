@@ -159,4 +159,57 @@ check("The Oppose flow's wording and modifiers come from oppose-text.js", [
   check("with only a carried Instrument, the roll says which one to equip", warn({ items: [sword] }), "Cut needs Longsword equipped first (PHB 4.1.0).");
 }
 
+// GMG 9.8.2: a creature's overflow spreads short of Incapacitation, the Primaries of what it still fights with last.
+{
+  const { spreadOverflow, landStress } = await import("../../rules/stress.js");
+  const { applyStressSteps, PLAIN } = await import("../../rules/oppose.js");
+  const { driveSync } = await import("../../rules/flow.js");
+  const land = (potentials, aim, amount, opts) => {
+    const g = landStress({ potentials, aim, amount, ...opts }), takes = [];
+    let s = g.next();
+    while (!s.done) { if (s.value.type !== "take") return "asked"; takes.push(`${s.value.attr} ${s.value.amount}`); s = g.next(); }
+    return { takes, ...s.value };
+  };
+  const captain = { might: 6, finesse: 0, wit: 7, presence: 18 };
+  check("the GMG 9.8.2 pirate captain: 16 on Presence and 6 on Wit, Might clear", spreadOverflow({ might: 6, wit: 7, presence: 18 }, 22, ["might"]),
+    [{ attr: "wit", amount: 6 }, { attr: "presence", amount: 16 }]);
+  check("landStress places it by itself once the aimed Attribute fills", land({ ...captain, finesse: 4 }, "finesse", 26, { spread: ["might"] }).takes,
+    ["finesse 4", "wit 6", "presence 16"]);
+  check("past every Attribute's last point, the others fall before the one it fights with", land(captain, "finesse", 30, { spread: ["might"] }).takes,
+    ["wit 7", "presence 18", "might 5"]);
+  check("with more than all of it, the creature is Destroyed", land(captain, "finesse", 40, { spread: ["might"] }).destroyed, true);
+  check("Second Wind holds the first Attribute the spread would Incapacitate 1 short", land({ might: 3, finesse: 0, wit: 2, presence: 2 }, "finesse", 6, { spread: [], secondWind: true }),
+    { takes: ["might 2", "wit 2", "presence 2"], applied: [{ attr: "might", amount: 2 }, { attr: "wit", amount: 2 }, { attr: "presence", amount: 2 }], destroyed: false, secondWind: "might" });
+  check("without spread, the defender still chooses", land(captain, "finesse", 22, {}), "asked");
+
+  const inst = (name, primaryAttribute, extra = {}) => ({ name, type: "instrument", system: { primaryAttribute, location: "equipped", ...extra } });
+  const at = (k, current, down = false) => [k, { potential: { current, max: 20 }, down }];
+  const actor = type => ({ name: "Captain", type, items: [inst("Sword", "might"), inst("Kit", "wit", { category: "tool" }), inst("Spear", "finesse")],
+    system: { attributes: Object.fromEntries([at("might", 6), at("finesse", 0, true), at("wit", 7), at("presence", 18)]) } });
+  const lines = a => {
+    let out = null;
+    driveSync(applyStressSteps(a, "presence", 30, false, 30, PLAIN, { spread: true }), {
+      takeStress: (k, n) => { const p = a.system.attributes[k].potential, before = p.current; p.current -= n; return { before, after: p.current }; },
+      askOverflow: () => { throw new Error("asked"); }, log: () => {}, card: (kind, d) => { if (kind === "stressApplied") out = d.lines; }
+    });
+    return out;
+  };
+  check("a creature's Stress names the rule and what it still fights with; a tool and an Incapacitated Primary don't count", lines(actor("creature")),
+    ["Presence takes 18: Stress 2 → 20 of 20", "GMG 9.8.2: the overflow spreads short of Incapacitation, with Might (Sword) last",
+     "overflow to Wit takes 7: Stress 13 → 20 of 20", "overflow to Might takes 5: Stress 14 → 19 of 20"]);
+  check("a character's overflow is still asked", (() => { try { lines(actor("character")); return "placed"; } catch (e) { return e.message; } })(), "asked");
+}
+
+// PHB 4.1.1: one Type is declared for each Technique; Drawn and Fired always add.
+{
+  const { declarableTypes } = await import("../../rules/combat.js");
+  const T = (key, extra = {}) => ({ key, label: key, ...extra });
+  const keys = (types, opts) => declarableTypes(types, opts).map(d => `${d.index} ${d.type.key}`);
+  check("a Longbow declares Pointed by itself", keys([T("pointed"), T("fired")], { aim: "might" }), ["0 pointed"]);
+  check("a Longsword may declare Edged or Pointed", keys([T("edged"), T("pointed")], { aim: "might" }), ["0 edged", "1 pointed"]);
+  check("a Technique that requires Pointed declares Pointed", keys([T("edged"), T("pointed")], { requires: ["pointed"], aim: "finesse" }), ["1 pointed"]);
+  check("at Wit, only a Type that reaches the mind", keys([T("kinetic"), T("sonic")], { aim: "wit" }), ["1 sonic"]);
+  check("a Type that deals no Stress is never declared", keys([T("grappling", { dealsNoStress: true })], { aim: "might" }), []);
+}
+
 process.exit(failed ? 1 : 0);
