@@ -230,6 +230,20 @@ check("The Oppose flow's wording and modifiers come from oppose-text.js", [
   check("innate, Immobile and carried Instruments can't be dropped", run([body, ram, held("cb", "Crossbow", { location: "carried" })]).cards, ["noDrop"]);
 }
 
+// PHB 6.8.4: Weakened -N [target Attribute] on a Stress Technique rides the Stress onto the Attribute aimed at (Rob's Break, 2026-11-01).
+{
+  const { rollTechniqueSteps } = await import("../../rules/roll.js");
+  const { driveSync } = await import("../../rules/flow.js");
+  const maul = { id: "m", name: "Maul", type: "instrument", system: { location: "equipped", primaryAttribute: "might", primarySkills: ["prowess", "discipline", "assertiveness"], types: ["blunt"] } };
+  const brk = { id: "b", name: "Break", type: "technique", system: { requires: ["blunt"], dealsStress: true, skill: "discipline",
+    effects: [{ key: "stress", magnitude: 1 }, { key: "weaken-minute", magnitude: 1 }] } };
+  let post = null;
+  driveSync(rollTechniqueSteps({ actor: { system: {}, items: [maul, brk] }, tech: brk, conditions: true }), {
+    pickInstrument: ({ valid }) => ({ instrumentId: valid[0].id, skill: "discipline" }), rangeNotes: () => [],
+    aim: () => ({ targets: [{ actorId: "t", name: "Captain" }], notes: [], aim: "finesse", typeIndex: "", other: 0 }), post: p => { post = p; } });
+  check("Break's Weakened rides its Stress onto the Attribute aimed at", post?.payload?.stress?.also, { name: "Weakened", note: "Finesse 1", rounds: "1 minute", attr: "finesse" });
+}
+
 // PHB 4.1.1: one Type is declared for each Technique; Drawn and Fired always add.
 {
   const { declarableTypes } = await import("../../rules/combat.js");

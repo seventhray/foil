@@ -277,10 +277,13 @@ export function* rollTechniqueSteps({ actor, tech, unaware = false, feats = fals
   const resistAttr = condition ? conditionAttr(condition) : "";
   if (resistAttr) notes.push(`The target resists with any ${ATTR_LABEL[resistAttr]} Skill (PHB ${disarms ? "4.2.1" : "6.8.0"}).`);
   else if (condition) notes.push("The target resists with any Skill built on the Attribute aimed at (PHB 6.8.4).");
-  const extra = conditions && sys.dealsStress && inst ? (sys.effects ?? []).find(e => CONDITION_OPPOSE[EFFECT_CONDITION[e.key]]) : null;
-  const also = extra ? { name: EFFECT_CONDITION[extra.key], note: extra.key.startsWith("reeling") ? `${extra.magnitude ?? 1}` : "",
-    rounds: extra.duration || (extra.key.endsWith("-minute") ? "1 minute" : "") } : null;
-  if (also) notes.push(`If it lands, the target is also ${also.name}.`);
+  // Weakened -N [target Attribute] rides the Stress onto the Attribute it was aimed at (PHB 6.8.4).
+  const extra = conditions && sys.dealsStress && inst ? (sys.effects ?? []).find(e => CONDITION_OPPOSE[EFFECT_CONDITION[e.key]] || EFFECT_CONDITION[e.key] === "Weakened") : null;
+  const weakensToo = EFFECT_CONDITION[extra?.key] === "Weakened";
+  const also = extra ? { name: EFFECT_CONDITION[extra.key],
+    note: weakensToo ? `${aim.aim ? `${ATTR_LABEL[aim.aim]} ` : ""}${extra.magnitude ?? 1}` : extra.key.startsWith("reeling") ? `${extra.magnitude ?? 1}` : "",
+    rounds: extra.duration || (extra.key.endsWith("-minute") ? "1 minute" : ""), ...(weakensToo ? { attr: aim.aim ?? "" } : {}) } : null;
+  if (also) notes.push(`If it lands, the target is also ${also.name}${weakensToo && aim.aim ? ` on ${ATTR_LABEL[aim.aim]}` : ""}.`);
   (yield ["post", {
     formula: skillFormula(asys, skill, bonus, wdice), title: `${esc(tech.name)} (${SKILL_LABEL[skill]})`, note: notes.join(br),
     payload: {
