@@ -56,7 +56,8 @@ const T = (key, family) => ({ key, family });
 check("a stated Deals Stress line decides the Attributes", allowedAims({ text: "Deals Stress to Presence or Wit.", stressTypes: [T("edged", "melee")] }), ["wit", "presence"]);
 check("Edged reaches physical Attributes only", allowedAims({ stressTypes: [T("edged", "melee")] }), ["might", "finesse"]);
 check("Incorporeal reaches mental Attributes only", allowedAims({ stressTypes: [T("incorporeal", "arcane")] }), ["wit", "presence"]);
-check("Kinetic reaches both", allowedAims({ stressTypes: [T("kinetic", "arcane")] }), ["might", "finesse", "wit", "presence"]);
+check("Kinetic reaches physical Attributes only", allowedAims({ stressTypes: [T("kinetic", "arcane")] }), ["might", "finesse"]);
+check("Kinetic and Incorporeal together reach all four", allowedAims({ stressTypes: [T("kinetic", "arcane"), T("incorporeal", "arcane")] }), ["might", "finesse", "wit", "presence"]);
 check("the Technique's required Type narrows a multi-Type Instrument", allowedAims({ stressTypes: [T("kinetic", "arcane"), T("incorporeal", "arcane")], requires: ["incorporeal"] }), ["wit", "presence"]);
 
 const hurt = [{ key: "might", cur: 4, max: 10 }, { key: "wit", cur: 9, max: 10 }];

@@ -90,7 +90,7 @@ export const harmFlags = conditions => harmNames(conditions).map(n => `Check ${n
 
 /**
  * The Attributes a Stress Technique may aim at (PHB 6.4.0). A stated "Deals Stress to X or Y" decides;
- * otherwise Incorporeal and Sonic reach mental Attributes only, Kinetic both, and Melee and Ranged Types physical ones.
+ * otherwise Incorporeal and Sonic reach mental Attributes only, and Melee, Ranged and Kinetic Types physical ones (PHB 4.2.1).
  */
 export function allowedAims({ text = "", stressTypes = [], requires = [] } = {}) {
   const named = [...String(text).matchAll(/Stress to ([^.;]*)/gi)].flatMap(m => m[1].match(/Might|Finesse|Wit|Presence/g) ?? []);
@@ -98,7 +98,7 @@ export function allowedAims({ text = "", stressTypes = [], requires = [] } = {})
   const types = stressTypes.filter(t => !requires.length || requires.includes(t.key));
   const pool = types.length ? types : stressTypes;
   const MENTAL_ONLY = ["incorporeal", "sonic"];
-  const mental = pool.some(t => t.family === "arcane" || t.family === "sonic");
+  const mental = pool.some(t => MENTAL_ONLY.includes(t.key));
   const physical = !pool.length || pool.some(t => !MENTAL_ONLY.includes(t.key));
   return ATTRIBUTE_KEYS.filter(k => (kindOf(k) === "mental" ? mental : physical));
 }
