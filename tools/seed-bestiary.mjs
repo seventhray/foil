@@ -68,8 +68,13 @@ export function bestiaryDocs(lib) {
     const habits = line("Habits");
 
     const items = [];
-    for (const [, head, rest] of block.matchAll(/^>\s*-\s*\*\*([^*]+)\*\*(.*)$/gm)) {
+    for (const [, head, line] of block.matchAll(/^>\s*-\s*\*\*([^*]+)\*\*(.*)$/gm)) {
       const base = head.replace(/\s*\(.*\)$/, "").trim();
+      // A creature Technique names the Skill it rolls (GMG 9.7.0): "**Bark an Order** (Assertiveness): ...".
+      const named = line.match(/^ \((Prowess|Discipline|Assertiveness|Acuity|Guile|Resonance)\)(?=:)/);
+      const skill = named ? lc(named[1]) : "";
+      const rest = named ? line.slice(named[0].length) : line;
+      const withSkill = d => { if (skill) d.system.skill = skill; return d; };
       const xp = Number(rest.match(/(\d+)\s*XP/)?.[1] ?? 0);
       const weightWord = rest.match(/through an? (Medium|Heavy) /)?.[1];
       const through = rest.match(/through an? (?:(?:Light|Medium|Heavy) )?(\w+)(?: or \w+)? Instrument(?: \(([^)]*)\))?/);
@@ -85,13 +90,13 @@ export function bestiaryDocs(lib) {
       if (/^: /.test(rest) && (through || /Evade/.test(rest))) {
         // A Catalog Technique as the Catalog has it; an Origin's or a Transformation's Innate gift of the same name stays the creature's own.
         const known = tech.get(lc(base));
-        if (known && !known.system.innate) { items.push(clone(known)); continue; }
+        if (known && !known.system.innate) { items.push(withSkill(clone(known))); continue; }
         const effect = rest.replace(/^: /, "").replace(/ through an? .*$/, "").replace(/, \d+ XP.*$/, "").trim() + (strain ? `, Strain ${strain[1]}` : "");
         // The stat blocks and GMG 9.7.1 spell some Effects differently from the Catalog; read them the same way.
         const norm = effect.replace(/Pattern /g, "")
           .replace(/Condition:? \(?(\w+)\)?/g, "$1").replace(/Stress to that attacker[^,]*(, as if [^,]*)?/, "Stress").replace(/,\s*,/g, ",").replace(/,\s*$/, "");
         const doc = lib.techniqueDoc({ name: base, requires: through ? through[1] : "None", effect: norm, xp: xp || null, strain: strain ? Number(strain[1]) : undefined });
-        items.push(doc);
+        items.push(withSkill(doc));
         continue;
       }
       // Everything else is a Feat or Trait line: "(N XP, GMG 9.5.1): text", "(Trait, N XP, 9.5.0): text", Specialized Resistance.

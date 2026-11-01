@@ -28,7 +28,7 @@ function renderLine(d) {
     case "trait": return `**${d.name}** (Trait, ${d.xp} XP, 9.5.0): ${d.text}`;
     case "technique": {
       const art = "AEIOU".includes(d.type[0]) ? "an" : "a";
-      return `**${d.name}**: ${d.effect} through ${art} ${d.type} Instrument${d.via ? ` (${d.via})` : ""}, ${d.xp} XP${d.strain ? `, Strain ${d.strain}` : ""}.${d.note ? ` ${d.note}` : ""}`;
+      return `**${d.name}**${d.skill ? ` (${d.skill})` : ""}: ${d.effect} through ${art} ${d.type} Instrument${d.via ? ` (${d.via})` : ""}, ${d.xp} XP${d.strain ? `, Strain ${d.strain}` : ""}.${d.note ? ` ${d.note}` : ""}`;
     }
     case "specialized_resistance": return `**Specialized Resistance** (${d.scope} +${d.points}, 9.5.1): ${d.xp} XP, ${d.why}.`;
     case "feat": return `**${d.name}** (${d.xp} XP, ${d.source}): ${d.text}`;
