@@ -157,6 +157,8 @@ check("The Oppose flow's wording and modifiers come from oppose-text.js", [
     validInstruments({ items: [shield] }, tech(["blocking"])).map(i => i.name)
   ], [["Dagger"], ["Forge"], ["Buckler"]]);
   check("with only a carried Instrument, the roll says which one to equip", warn({ items: [sword] }), "Cut needs Longsword equipped first (PHB 4.1.0).");
+  const jeweler = inst("Jeweler's Tools", ["craft-gemstone"], "equipped", { category: "tool" });
+  check("any Tool meets a Tool requirement, a Craft one too", validInstruments({ items: [jeweler, dagger] }, tech(["tool"])).map(i => i.name), ["Jeweler's Tools"]);
 }
 
 // GMG 9.8.2: a creature's overflow spreads short of Incapacitation, the Primaries of what it still fights with last.

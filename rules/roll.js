@@ -75,12 +75,15 @@ export const skillsOf = i => i.type === "instrument" ? i.system.primarySkills : 
 /** A stored Instrument works where it is stored (user, 2026-10-25). */
 const storedNote = (inst, esc) => `${esc(inst.name)} is stored${inst.system.storedAt ? ` at ${esc(inst.system.storedAt)}` : ""}: using it means being there.`;
 
-/** Instruments of a Type a Technique requires, or a Shield for Blocking, ready or not: equipped ones first, stored ones last. */
+/**
+ * Instruments of a Type a Technique requires, or a Shield for Blocking, ready or not: equipped ones first, stored ones last.
+ * Any Tool meets a Tool requirement, a Craft one too (Jeweler's Tools is Craft [Gemstone]).
+ */
 export function matchingInstruments(actor, tech) {
   const req = tech.system.requires ?? [];
   const rank = i => isReady(i) ? 0 : i.system.location === "stored" ? 2 : 1;
   return items(actor).filter(i => {
-    if (i.type === "instrument") return req.length === 0 || req.some(k => i.system.types?.includes(k));
+    if (i.type === "instrument") return req.length === 0 || req.some(k => i.system.types?.includes(k) || (k === "tool" && i.system.category === "tool"));
     if (i.type === "equipment" && i.system.category === "shield") return req.includes("blocking");
     return false;
   }).sort((a, b) => rank(a) - rank(b));

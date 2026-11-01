@@ -121,7 +121,8 @@ export function* applyStressSteps(actor, aim, amount, halved, from, fmt = PLAIN,
   const last = fighting ? [...new Set(fighting.map(i => i.system.primaryAttribute))] : null;
   const run = landStress({ potentials: Object.fromEntries(ATTRIBUTE_KEYS.map(k => [k, potentialOf(actor, k)])), aim, amount, secondWind, spread: last });
   const held = attr => `Second Wind: ${ATTR_LABEL[attr]} stops 1 short of its Potential (GMG 9.5.1)`;
-  const lastLine = () => `GMG 9.8.2: the overflow spreads short of Incapacitation${last.length ? `, with ${last.map(k =>
+  // Named once the aimed Attribute has taken its share: an Instrument on an Attribute this Incapacitated no longer fights.
+  const lastLine = (kept = last.filter(k => potentialOf(actor, k) > 0)) => `GMG 9.8.2: the overflow spreads short of Incapacitation${kept.length ? `, with ${kept.map(k =>
     `${ATTR_LABEL[k]} (${fighting.filter(i => i.system.primaryAttribute === k).map(i => i.name).join(", ")})`).join(" and ")} last` : ""}`;
   let step = run.next(), said = false, spreadSaid = false;
   while (!step.done) {
