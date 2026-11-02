@@ -93,49 +93,6 @@
       "_id": "4A5Royhyk4DRU0an",
       "name": "Wand",
       "type": "instrument",
-      "img": "icons/svg/claw.svg",
-      "system": {
-        "types": [
-          "fortifying"
-        ],
-        "range": "Range 1",
-        "weight": "light",
-        "innate": true,
-        "primaryAttribute": "wit",
-        "category": "arcane",
-        "price": 0,
-        "kit": [
-          {
-            "name": "Steel the Mind",
-            "skill": "discipline",
-            "effect": "Grants Resistance +1 (Mental) to self or an ally for 1 round."
-          },
-          {
-            "name": "Foresee the Blow",
-            "skill": "acuity",
-            "effect": "Grants +1 to an ally's next Oppose roll before your next turn."
-          },
-          {
-            "name": "Calm the Nerves",
-            "skill": "resonance",
-            "effect": "Removes a Frightened, Wary, or Intimidated Condition from an ally within Range 1."
-          }
-        ],
-        "description": ""
-      },
-      "effects": [],
-      "folder": null,
-      "sort": 100000,
-      "ownership": {
-        "default": 0
-      },
-      "flags": {},
-      "_key": "!actors.items!Crma14M5ZJExkgxA.4A5Royhyk4DRU0an"
-    },
-    {
-      "_id": "fR0rVbPqOr3ZIzRg",
-      "name": "Wand",
-      "type": "instrument",
       "img": "icons/svg/sword.svg",
       "system": {
         "category": "arcane",
@@ -175,12 +132,62 @@
       },
       "effects": [],
       "folder": null,
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!Crma14M5ZJExkgxA.4A5Royhyk4DRU0an"
+    },
+    {
+      "_id": "p6sFTYs7YUJThemy",
+      "name": "Ward Focus",
+      "type": "instrument",
+      "img": "icons/svg/sword.svg",
+      "system": {
+        "category": "arcane",
+        "weight": "light",
+        "primaryAttribute": "wit",
+        "range": "Range 1",
+        "maxRange": "close",
+        "types": [
+          "blocking",
+          "fortifying"
+        ],
+        "typesDisplay": "",
+        "price": 20,
+        "rider": "",
+        "kit": [
+          {
+            "name": "Steel the Mind",
+            "skill": "discipline",
+            "effect": "Grants Resistance +1 (Mental) to self or an ally for 1 round."
+          },
+          {
+            "name": "Foresee the Blow",
+            "skill": "acuity",
+            "effect": "Grants +1 to an ally's next Oppose roll before your next turn."
+          },
+          {
+            "name": "Calm the Nerves",
+            "skill": "resonance",
+            "effect": "Removes a Frightened, Wary, or Intimidated Condition from an ally within Range 1."
+          }
+        ],
+        "innate": false,
+        "bonus": 0,
+        "size": "small",
+        "materials": "1 Metal",
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
       "sort": 200000,
       "ownership": {
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!Crma14M5ZJExkgxA.fR0rVbPqOr3ZIzRg"
+      "_key": "!actors.items!Crma14M5ZJExkgxA.p6sFTYs7YUJThemy"
     },
     {
       "_id": "Nae1VBAQ5v5evbge",
