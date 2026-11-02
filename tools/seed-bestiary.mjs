@@ -11,6 +11,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { BOOKS } from "./books.mjs";
 import { NATURAL_WEAPONS } from "../src/creature-data.js";
+import { SKILL_ATTRS } from "../rules/constants.js";
 import { calloutText } from "./creature-block.mjs";
 
 export const CREATURES_DIR = process.env.FOIL_BESTIARY ?? path.join(BOOKS, "..", "Campaign", "Creatures");
@@ -35,22 +36,32 @@ export function bestiaryDocs(lib) {
   const byName = list => new Map(list.map(d => [lc(d.name), d]));
   const inst = byName(lib.instruments), tech = byName(lib.techniques), feat = byName(lib.feats);
   const clone = d => JSON.parse(JSON.stringify(d));
-  const kitFor = types => {
-    // An Incorporeal or Sonic weapon deals Stress to Wit or Presence only (PHB 4.2.1), so its kit has no Might or Finesse move.
-    const mentalOnly = types.every(t => ["incorporeal", "sonic"].includes(t));
-    const fits = i => !mentalOnly || !(i.system.kit ?? []).some(k => /Stress to Might or Finesse/.test(k.effect));
+  const kitFor = (types, primary) => {
+    // An Incorporeal or Sonic weapon deals Stress to Wit or Presence only, and any other weapon to Might or Finesse (PHB 4.2.1).
+    const mind = types.some(t => ["incorporeal", "sonic"].includes(t)), body = types.some(t => !["incorporeal", "sonic"].includes(t));
+    const fits = i => (i.system.kit ?? []).every(k => !(/Stress to Might or Finesse/.test(k.effect) && !body) && !(/Stress to Wit or Presence/.test(k.effect) && !mind));
     const real = lib.instruments.filter(i => !i.system.innate && i.system.category !== "tool" && fits(i));
     const has = (i, t) => (i.system.types ?? []).includes(t);
     const m = real.find(i => types.every(t => has(i, t)) && i.system.weight === "light") ?? real.find(i => types.every(t => has(i, t))) ?? real.find(i => has(i, types[0]));
-    return m ? clone(m.system.kit) : [];
+    if (!m) return [];
+    const kit = clone(m.system.kit);
+    // An Arcane natural weapon is a Wit Instrument (GMG 9.6.1), so each move rolls a Skill Wit reaches (GMG 9.7.0): Assertiveness becomes Discipline, Guile Acuity.
+    if (primary === "wit") for (const k of kit) {
+      const pair = SKILL_ATTRS[k.skill];
+      if (!pair || pair.includes("wit")) continue;
+      const other = pair.find(a => a !== m.system.primaryAttribute);
+      k.skill = Object.keys(SKILL_ATTRS).find(s => SKILL_ATTRS[s].includes(other) && SKILL_ATTRS[s].includes("wit")) ?? k.skill;
+    }
+    return kit;
   };
   const natural = (name, type, note) => {
     const w = NATURAL_WEAPONS.find(x => x.name === name);
     const types = [lc(type)];
     const group = w?.group ?? (["kinetic", "incorporeal", "fortifying"].includes(types[0]) ? "arcane" : types[0] === "sonic" ? "sonic" : "melee");
+    const primary = PRIMARY_BY_GROUP[group] ?? "might";
     return { name, type: "instrument", img: "icons/svg/claw.svg",
-      system: { types, range: w?.range ?? "Range 1", weight: "light", innate: true, primaryAttribute: PRIMARY_BY_GROUP[group] ?? "might",
-        category: group === "sonic" ? "sonic" : group === "arcane" ? "arcane" : "melee", price: 0, kit: kitFor(types),
+      system: { types, range: w?.range ?? "Range 1", weight: "light", innate: true, primaryAttribute: primary,
+        category: group === "sonic" ? "sonic" : group === "arcane" ? "arcane" : "melee", price: 0, kit: kitFor(types, primary),
         description: note ? `<p>${note}.</p>` : "" } };
   };
 

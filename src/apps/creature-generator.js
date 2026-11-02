@@ -5,7 +5,7 @@
  * Resistance budget. Creates the creature Actor with its dice, Training, and Resistance set.
  */
 
-import { ATTRIBUTE_KEYS, ATTR_LABEL, SKILL_KEYS, SKILL_LABEL, BEHAVIOR_TRAITS, BEHAVIOR_HELP, trainingCost } from "../constants.js";
+import { ATTRIBUTE_KEYS, ATTR_LABEL, SKILL_KEYS, SKILL_LABEL, SKILL_ATTRS, BEHAVIOR_TRAITS, BEHAVIOR_HELP, trainingCost } from "../constants.js";
 import { NATURAL_WEAPONS, MONSTER_FEATS, TRAITS } from "../creature-data.js";
 import { TIER_THREAT, CR_CHOICES, creatureNumbers, crToThreat, assignAttributes, diceFor, abilitySteps, acToResistance } from "../creature-math.js";
 import { lookup, termsIn } from "../glossary-ui.js";
@@ -39,12 +39,21 @@ async function loadPacks() {
 }
 
 /** The three built-in Techniques a Natural Weapon builds to match its Type in the PHB Catalog (GMG 9.6.0). */
-function kitFor(types, instruments) {
+function kitFor(types, instruments, primary) {
   const real = instruments.filter(i => !i.system.innate && i.system.category !== "tool");
   const match = real.find(i => sameTypes(i.system.types ?? [], types) && i.system.weight === "light")
     ?? real.find(i => sameTypes(i.system.types ?? [], types))
     ?? real.find(i => (i.system.types ?? []).includes(types[0]));
-  return match ? foundry.utils.deepClone(match.system.kit) : [];
+  if (!match) return [];
+  const kit = foundry.utils.deepClone(match.system.kit);
+  // An Arcane natural weapon is a Wit Instrument (GMG 9.6.1), so each move rolls a Skill Wit reaches (GMG 9.7.0): Assertiveness becomes Discipline, Guile Acuity.
+  if (primary === "wit") for (const k of kit) {
+    const pair = SKILL_ATTRS[k.skill];
+    if (!pair || pair.includes("wit")) continue;
+    const other = pair.find(a => a !== match.system.primaryAttribute);
+    k.skill = Object.keys(SKILL_ATTRS).find(s => SKILL_ATTRS[s].includes(other) && SKILL_ATTRS[s].includes("wit")) ?? k.skill;
+  }
+  return kit;
 }
 
 export class FoilCreatureGenerator extends HandlebarsApplicationMixin(ApplicationV2) {
@@ -270,10 +279,11 @@ export class FoilCreatureGenerator extends HandlebarsApplicationMixin(Applicatio
       const w = NATURAL_WEAPONS.find(x => x.name === slot.pick.slice(3));
       if (!w) continue;
       const types = w.pick ? [slot.type || w.types[0]] : w.types;
+      const primary = slot.primary || PRIMARY_BY_GROUP[w.group];
       items.push({
         name: w.name, type: "instrument", img: "icons/svg/claw.svg",
-        system: { types, range: w.range, weight: "light", innate: true, primaryAttribute: slot.primary || PRIMARY_BY_GROUP[w.group],
-          category: w.group === "sonic" ? "sonic" : w.group === "arcane" ? "arcane" : "melee", price: 0, kit: kitFor(types, packs.instruments),
+        system: { types, range: w.range, weight: "light", innate: true, primaryAttribute: primary,
+          category: w.group === "sonic" ? "sonic" : w.group === "arcane" ? "arcane" : "melee", price: 0, kit: kitFor(types, packs.instruments, primary),
           description: "" }
       });
     }

@@ -159,19 +159,19 @@
         "price": 0,
         "kit": [
           {
-            "name": "Force Bolt",
+            "name": "Devastating Bolt",
             "skill": "discipline",
             "effect": "Deals Stress to Might or Finesse."
           },
           {
-            "name": "Mind-Piercing Ray",
+            "name": "Disorienting Blast",
             "skill": "acuity",
-            "effect": "Deals Stress to Wit or Presence."
+            "effect": "Applies Reeling."
           },
           {
-            "name": "Unsettling Pulse",
+            "name": "Overwhelming Force",
             "skill": "resonance",
-            "effect": "Applies Frightened."
+            "effect": "Applies Prone."
           }
         ],
         "description": "<p>a built-in fire-thrower.</p>"
