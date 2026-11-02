@@ -5,7 +5,7 @@
   "img": "icons/svg/pill.svg",
   "system": {
     "effect": "-2 [Attribute], thrown",
-    "duration": "2 hours",
+    "duration": "until the scene ends",
     "uses": "1",
     "quantity": 1,
     "price": 900,

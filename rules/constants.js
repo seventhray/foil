@@ -188,11 +188,11 @@ export const CONDITIONS = [
  */
 export const CONDITION_PRESETS = {
   Grappled: "until it breaks free", Weakened: "1 round", Restrained: "until it breaks free", Reeling: "1 round",
-  Prone: "until it stands", Charmed: "2 hours", Frightened: "2 hours", Controlled: "its next turn",
-  Intimidated: "until the demand", Baited: "2 hours", Angered: "2 hours", Relaxed: "until threatened",
-  Impressed: "until granted", Wary: "2 hours", Enthralled: "until the source harms it", Swayed: "2 hours",
-  Misled: "2 hours", Blinded: "end of its next turn", Slowed: "end of its next turn", Stunned: "end of its next turn",
-  Invisible: "until it uses a Technique", "Foil Exposed": "2 hours, or until used", Guarded: "1 round"
+  Prone: "until it stands", Charmed: "1 round", Frightened: "1 round", Controlled: "its next turn",
+  Intimidated: "until the demand", Baited: "until the scene ends", Angered: "until the scene ends", Relaxed: "until threatened",
+  Impressed: "until granted", Wary: "until the scene ends", Enthralled: "until the source harms it", Swayed: "until the scene ends",
+  Misled: "until the scene ends", Blinded: "end of its next turn", Slowed: "end of its next turn", Stunned: "end of its next turn",
+  Invisible: "until it uses a Technique", "Foil Exposed": "until the scene ends, or until used", Guarded: "1 round"
 };
 /** Technique Effect keys that apply a Condition with an Oppose (PHB 6.5.0). */
 export const EFFECT_CONDITION = {
