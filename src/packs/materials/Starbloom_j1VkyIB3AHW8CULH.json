@@ -1,10 +1,10 @@
 {
-  "_id": "wIltCtjghHzguxFP",
-  "name": "Vyrquartz",
+  "_id": "j1VkyIB3AHW8CULH",
+  "name": "Starbloom",
   "type": "material",
-  "img": "icons/commodities/gems/gem-faceted-asscher-blue.webp",
+  "img": "icons/commodities/flowers/buds-red-green.webp",
   "system": {
-    "category": "gemstone",
+    "category": "reagent",
     "tier": 5,
     "scarcity": "common",
     "batches": 1,
@@ -15,11 +15,11 @@
     "description": ""
   },
   "effects": [],
-  "folder": "Zij6kQiWZOGCUq1J",
-  "sort": 1200000,
+  "folder": "AvOYyQ7vC4Emm0gc",
+  "sort": 3600000,
   "ownership": {
     "default": 0
   },
   "flags": {},
-  "_key": "!items!wIltCtjghHzguxFP"
+  "_key": "!items!j1VkyIB3AHW8CULH"
 }

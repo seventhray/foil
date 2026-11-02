@@ -1,10 +1,10 @@
 {
-  "_id": "5P88U4AGftV9KX2F",
-  "name": "Onyra's Bloom",
+  "_id": "Ce4bso8IRUOqSeEe",
+  "name": "Elderwood",
   "type": "material",
-  "img": "icons/commodities/flowers/buds-red-green.webp",
+  "img": "icons/commodities/wood/log-cut-ash-brown.webp",
   "system": {
-    "category": "reagent",
+    "category": "wood",
     "tier": 5,
     "scarcity": "common",
     "batches": 1,
@@ -15,11 +15,11 @@
     "description": ""
   },
   "effects": [],
-  "folder": "AvOYyQ7vC4Emm0gc",
-  "sort": 3600000,
+  "folder": "GxU0XzpnkTHlFoIZ",
+  "sort": 1800000,
   "ownership": {
     "default": 0
   },
   "flags": {},
-  "_key": "!items!5P88U4AGftV9KX2F"
+  "_key": "!items!Ce4bso8IRUOqSeEe"
 }

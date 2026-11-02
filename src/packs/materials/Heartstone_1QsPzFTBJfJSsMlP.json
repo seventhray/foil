@@ -1,10 +1,10 @@
 {
-  "_id": "E6IdLH6ayVokCgwv",
-  "name": "Verawood",
+  "_id": "1QsPzFTBJfJSsMlP",
+  "name": "Heartstone",
   "type": "material",
-  "img": "icons/commodities/wood/log-cut-ash-brown.webp",
+  "img": "icons/commodities/gems/gem-faceted-asscher-blue.webp",
   "system": {
-    "category": "wood",
+    "category": "gemstone",
     "tier": 5,
     "scarcity": "common",
     "batches": 1,
@@ -15,11 +15,11 @@
     "description": ""
   },
   "effects": [],
-  "folder": "GxU0XzpnkTHlFoIZ",
-  "sort": 1800000,
+  "folder": "Zij6kQiWZOGCUq1J",
+  "sort": 1200000,
   "ownership": {
     "default": 0
   },
   "flags": {},
-  "_key": "!items!E6IdLH6ayVokCgwv"
+  "_key": "!items!1QsPzFTBJfJSsMlP"
 }

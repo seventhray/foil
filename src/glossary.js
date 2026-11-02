@@ -346,7 +346,7 @@ export const GLOSSARY = {
   },
   "upkeep": {
     "name": "Upkeep",
-    "text": "Re-applies its effects each of your turns for the same Action or Quick Action it originally cost, plus Strain. An area kept this way is a Zone."
+    "text": "You may reapply the effects on your turn with a Quick Action and paying the Strain. Affected creatures may Oppose again each Upkeep. An area kept this way is a Zone."
   },
   "wall": {
     "name": "Wall",
