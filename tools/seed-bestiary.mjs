@@ -36,7 +36,10 @@ export function bestiaryDocs(lib) {
   const inst = byName(lib.instruments), tech = byName(lib.techniques), feat = byName(lib.feats);
   const clone = d => JSON.parse(JSON.stringify(d));
   const kitFor = types => {
-    const real = lib.instruments.filter(i => !i.system.innate && i.system.category !== "tool");
+    // An Incorporeal or Sonic weapon deals Stress to Wit or Presence only (PHB 4.2.1), so its kit has no Might or Finesse move.
+    const mentalOnly = types.every(t => ["incorporeal", "sonic"].includes(t));
+    const fits = i => !mentalOnly || !(i.system.kit ?? []).some(k => /Stress to Might or Finesse/.test(k.effect));
+    const real = lib.instruments.filter(i => !i.system.innate && i.system.category !== "tool" && fits(i));
     const has = (i, t) => (i.system.types ?? []).includes(t);
     const m = real.find(i => types.every(t => has(i, t)) && i.system.weight === "light") ?? real.find(i => types.every(t => has(i, t))) ?? real.find(i => has(i, types[0]));
     return m ? clone(m.system.kit) : [];

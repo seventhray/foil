@@ -192,17 +192,17 @@
         "price": 0,
         "kit": [
           {
-            "name": "Force Bolt",
+            "name": "Withering Curse",
             "skill": "discipline",
-            "effect": "Deals Stress to Might or Finesse."
+            "effect": "Applies Weakened [Might]."
           },
           {
-            "name": "Mind-Piercing Ray",
+            "name": "Maddening Whisper",
             "skill": "acuity",
             "effect": "Deals Stress to Wit or Presence."
           },
           {
-            "name": "Unsettling Pulse",
+            "name": "Despairing Word",
             "skill": "resonance",
             "effect": "Applies Frightened."
           }
