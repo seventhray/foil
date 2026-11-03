@@ -31,6 +31,9 @@
       }
     ],
     "floor": false,
+    "formerNames": [
+      "Distract"
+    ],
     "ancestryGrant": "",
     "effectText": "Quick: -1 Oppose",
     "description": ""

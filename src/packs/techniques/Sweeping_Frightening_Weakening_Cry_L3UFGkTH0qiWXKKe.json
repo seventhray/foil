@@ -46,6 +46,9 @@
       }
     ],
     "floor": false,
+    "formerNames": [
+      "Keening Wail"
+    ],
     "ancestryGrant": "",
     "effectText": "Stress, -1 [target Attribute], Frightened, Cone (Range 2), Strain 1",
     "description": ""

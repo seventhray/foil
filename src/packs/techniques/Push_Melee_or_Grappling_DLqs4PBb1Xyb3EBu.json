@@ -23,6 +23,9 @@
       }
     ],
     "floor": false,
+    "formerNames": [
+      "Shove"
+    ],
     "ancestryGrant": "",
     "effectText": "Move the target up to Range 2",
     "description": ""

@@ -30,6 +30,9 @@
       }
     ],
     "floor": false,
+    "formerNames": [
+      "Roaring Fireball"
+    ],
     "ancestryGrant": "",
     "effectText": "Stress, Radius (Range 2), Strain 2",
     "description": ""

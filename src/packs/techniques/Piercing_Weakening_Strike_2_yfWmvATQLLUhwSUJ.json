@@ -38,6 +38,9 @@
       }
     ],
     "floor": false,
+    "formerNames": [
+      "Maiming Strike"
+    ],
     "ancestryGrant": "",
     "effectText": "Stress, Pierce 2, -1 [target Attribute]",
     "description": ""

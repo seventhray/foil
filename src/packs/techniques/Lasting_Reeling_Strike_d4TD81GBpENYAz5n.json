@@ -30,6 +30,9 @@
       }
     ],
     "floor": false,
+    "formerNames": [
+      "Pommel Strike"
+    ],
     "ancestryGrant": "",
     "effectText": "Stress, -1 Oppose (1 minute)",
     "description": ""

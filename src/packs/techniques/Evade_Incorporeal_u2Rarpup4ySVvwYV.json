@@ -30,6 +30,9 @@
       }
     ],
     "floor": true,
+    "formerNames": [
+      "Phantom Step"
+    ],
     "ancestryGrant": "",
     "effectText": "Quick (trigger: a hostile's Melee Technique targets you): Evade before it rolls.",
     "description": ""

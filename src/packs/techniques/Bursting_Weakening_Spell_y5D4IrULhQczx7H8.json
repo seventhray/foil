@@ -38,6 +38,9 @@
       }
     ],
     "floor": false,
+    "formerNames": [
+      "Fog of Madness"
+    ],
     "ancestryGrant": "",
     "effectText": "Stress, -1 [target Attribute], Radius (Range 2), Strain 3",
     "description": ""

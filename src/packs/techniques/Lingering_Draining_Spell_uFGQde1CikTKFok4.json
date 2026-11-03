@@ -38,6 +38,9 @@
       }
     ],
     "floor": false,
+    "formerNames": [
+      "Vampiric Blight"
+    ],
     "ancestryGrant": "",
     "effectText": "Stress, Drain, Lingering 1",
     "description": ""

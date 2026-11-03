@@ -38,6 +38,9 @@
       }
     ],
     "floor": false,
+    "formerNames": [
+      "Wall of Flame"
+    ],
     "ancestryGrant": "",
     "effectText": "Stress, Wall (Range 2), Upkeep",
     "description": ""

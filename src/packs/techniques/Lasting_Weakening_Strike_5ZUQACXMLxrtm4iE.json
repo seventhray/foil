@@ -30,6 +30,10 @@
       }
     ],
     "floor": false,
+    "formerNames": [
+      "Break",
+      "Sinew Cut"
+    ],
     "ancestryGrant": "",
     "effectText": "Stress, -1 [target Attribute] (1 minute), Strain 1",
     "description": ""

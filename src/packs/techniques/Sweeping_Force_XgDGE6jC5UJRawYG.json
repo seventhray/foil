@@ -30,6 +30,9 @@
       }
     ],
     "floor": false,
+    "formerNames": [
+      "Sweeping Blast"
+    ],
     "ancestryGrant": "",
     "effectText": "Stress, Cone (Range 2)",
     "description": ""

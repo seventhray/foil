@@ -31,6 +31,9 @@
       }
     ],
     "floor": true,
+    "formerNames": [
+      "Rally"
+    ],
     "ancestryGrant": "",
     "effectText": "Quick: +1 [Skill] to self or an ally",
     "description": ""

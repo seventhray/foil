@@ -38,6 +38,9 @@
       }
     ],
     "floor": false,
+    "formerNames": [
+      "Waking Nightmare"
+    ],
     "ancestryGrant": "",
     "effectText": "Stress, -1 [target Attribute] (1 minute), Move the target up to Range 2, Strain 2",
     "description": ""

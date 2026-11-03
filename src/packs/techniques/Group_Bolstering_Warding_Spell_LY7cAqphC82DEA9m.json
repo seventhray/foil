@@ -38,6 +38,9 @@
       }
     ],
     "floor": true,
+    "formerNames": [
+      "Vanguard's Blessing"
+    ],
     "ancestryGrant": "",
     "effectText": "+1 [Skill] and Resistance +1 to chosen allies within Range 2 (Selective)",
     "description": ""

@@ -30,6 +30,9 @@
       }
     ],
     "floor": false,
+    "formerNames": [
+      "Aim"
+    ],
     "ancestryGrant": "",
     "effectText": "Stress, +2",
     "description": ""

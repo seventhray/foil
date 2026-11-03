@@ -30,6 +30,9 @@
       }
     ],
     "floor": false,
+    "formerNames": [
+      "Trip"
+    ],
     "ancestryGrant": "",
     "effectText": "Stress, Prone",
     "description": ""

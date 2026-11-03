@@ -22,6 +22,9 @@
       }
     ],
     "floor": false,
+    "formerNames": [
+      "Healing Word"
+    ],
     "ancestryGrant": "",
     "effectText": "Mend 1d4",
     "description": ""

@@ -38,6 +38,9 @@
       }
     ],
     "floor": false,
+    "formerNames": [
+      "Soul Harvest"
+    ],
     "ancestryGrant": "",
     "effectText": "Stress, Drain, Radius (Range 2), Strain 4",
     "description": ""

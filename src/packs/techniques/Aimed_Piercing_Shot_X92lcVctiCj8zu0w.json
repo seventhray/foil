@@ -38,6 +38,9 @@
       }
     ],
     "floor": false,
+    "formerNames": [
+      "Called Shot"
+    ],
     "ancestryGrant": "",
     "effectText": "Stress, Pierce 1, +2",
     "description": ""

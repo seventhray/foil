@@ -30,6 +30,9 @@
       }
     ],
     "floor": true,
+    "formerNames": [
+      "Intercept"
+    ],
     "ancestryGrant": "",
     "effectText": "Quick (trigger: an ally within this Instrument's Range takes Might or Finesse Stress from a physical Technique this Instrument covers): Redirect that Stress onto your Might, reduced by your physical Resistance.",
     "description": ""

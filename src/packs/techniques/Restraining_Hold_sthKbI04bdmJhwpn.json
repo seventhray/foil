@@ -30,6 +30,9 @@
       }
     ],
     "floor": false,
+    "formerNames": [
+      "Pin"
+    ],
     "ancestryGrant": "",
     "effectText": "Stress, Restrained",
     "description": ""

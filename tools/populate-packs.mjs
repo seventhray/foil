@@ -246,6 +246,10 @@ function parseEffects(text) {
 const MOVEMENT_TRAITS = new Set(["Fly", "Swim", "Burrow", "Climb"]);
 // Quick-trigger rows where the 8 XP floor hides whether Stress is implied:
 // composed by hand so Stress is never guessed.
+// Each retired Technique note's name, under the note it merged into (merged_into), so the survivor lists it among its former names.
+const MERGED_INTO = {};
+for (const n of CAT.techniques) if (n.retired && n.merged_into) (MERGED_INTO[n.merged_into] ??= []).push(n.former_name ?? n.name);
+
 // Keyed by the name the row had before the generic names (2026-11-02); a renamed note is found by its former_name.
 const HAND_EFFECTS = {
   Riposte: () => [e("quick")],
@@ -295,6 +299,9 @@ function techniqueDoc(n) {
       skill: skillMatch ? lc(skillMatch[1]) : "",
       family: n.family ?? "", subgroup: n.subgroup ?? "",
       effects, floor, ...(TECH_RANGE[n.name] ?? {}),
+      // The names it had before the generic names, and the retired notes merged into it (2026-11-02): a stored sheet's Technique
+      // finds its new self by these, and both halves of a split name the one they came from.
+      formerNames: [...new Set([n.former_name, ...(MERGED_INTO[n.name] ?? [])].filter(x => x && x !== n.name))],
       ancestryGrant: n.origin_grant ?? "",
       // The line as the PHB prints it, kept for the sheet (user, 2026-10-27).
       effectText: n.effect ?? "",

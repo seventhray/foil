@@ -30,6 +30,9 @@
       }
     ],
     "floor": false,
+    "formerNames": [
+      "Crippling Shot"
+    ],
     "ancestryGrant": "",
     "effectText": "Stress, -1 [target Attribute]",
     "description": ""

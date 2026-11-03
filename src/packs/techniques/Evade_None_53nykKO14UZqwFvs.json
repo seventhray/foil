@@ -28,6 +28,9 @@
       }
     ],
     "floor": true,
+    "formerNames": [
+      "Sidestep"
+    ],
     "ancestryGrant": "",
     "effectText": "Quick (trigger: a hostile's Melee Technique targets you): Evade before it rolls.",
     "description": ""

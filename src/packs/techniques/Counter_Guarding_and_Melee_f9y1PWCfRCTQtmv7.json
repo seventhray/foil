@@ -22,6 +22,9 @@
       }
     ],
     "floor": false,
+    "formerNames": [
+      "Deflect"
+    ],
     "ancestryGrant": "",
     "effectText": "Counter",
     "description": ""

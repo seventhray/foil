@@ -30,6 +30,9 @@
       }
     ],
     "floor": false,
+    "formerNames": [
+      "Dominate"
+    ],
     "ancestryGrant": "",
     "effectText": "Controlled, Upkeep, Strain 1",
     "description": ""

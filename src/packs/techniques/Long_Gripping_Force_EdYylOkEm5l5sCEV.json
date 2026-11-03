@@ -38,6 +38,9 @@
       }
     ],
     "floor": false,
+    "formerNames": [
+      "Telekinetic Grasp"
+    ],
     "ancestryGrant": "",
     "effectText": "Stress, Grappled, Extend Range",
     "description": ""

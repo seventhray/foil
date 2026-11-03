@@ -38,6 +38,9 @@
       }
     ],
     "floor": false,
+    "formerNames": [
+      "Harrow"
+    ],
     "ancestryGrant": "",
     "effectText": "Stress, -1 [target Attribute], Cone (Range 2)",
     "description": ""

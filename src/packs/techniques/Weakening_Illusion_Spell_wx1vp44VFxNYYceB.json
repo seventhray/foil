@@ -38,6 +38,9 @@
       }
     ],
     "floor": false,
+    "formerNames": [
+      "Phantasmal Killer"
+    ],
     "ancestryGrant": "",
     "effectText": "Stress, Illusion, -1 [target Attribute]",
     "description": ""

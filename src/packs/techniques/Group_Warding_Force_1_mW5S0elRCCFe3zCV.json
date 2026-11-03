@@ -30,6 +30,9 @@
       }
     ],
     "floor": true,
+    "formerNames": [
+      "Aegis of Force"
+    ],
     "ancestryGrant": "",
     "effectText": "Resistance +1 to chosen allies within Range 2 (Selective)",
     "description": ""

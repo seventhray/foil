@@ -22,6 +22,9 @@
       }
     ],
     "floor": false,
+    "formerNames": [
+      "Counterspell"
+    ],
     "ancestryGrant": "",
     "effectText": "Counter",
     "description": ""

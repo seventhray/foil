@@ -22,6 +22,10 @@
       }
     ],
     "floor": false,
+    "formerNames": [
+      "Veil",
+      "Vanish"
+    ],
     "ancestryGrant": "",
     "effectText": "Invisible",
     "description": ""

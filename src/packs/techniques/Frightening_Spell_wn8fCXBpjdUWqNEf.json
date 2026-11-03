@@ -30,6 +30,9 @@
       }
     ],
     "floor": false,
+    "formerNames": [
+      "Cause Fear"
+    ],
     "ancestryGrant": "",
     "effectText": "Stress, Frightened",
     "description": ""

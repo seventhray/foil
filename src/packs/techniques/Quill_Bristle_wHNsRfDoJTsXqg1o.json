@@ -28,6 +28,7 @@
       }
     ],
     "floor": true,
+    "formerNames": [],
     "ancestryGrant": "",
     "effectText": "Quick (trigger: you win an Oppose against a Melee Technique at Range 0): deal Stress to that attacker, as if you were the attacker",
     "description": "<p>Quick (trigger: you win an Oppose against a Melee Technique at Range 0): deal Stress to that attacker, as if you were the attacker.</p>"

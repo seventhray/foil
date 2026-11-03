@@ -31,6 +31,9 @@
       }
     ],
     "floor": true,
+    "formerNames": [
+      "Feint"
+    ],
     "ancestryGrant": "",
     "effectText": "Quick: +1 [Skill] (self, 1 round)",
     "description": ""

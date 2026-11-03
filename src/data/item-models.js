@@ -150,6 +150,8 @@ export class TechniqueData extends foundry.abstract.TypeDataModel {
       effects: effectsArraySchema(),
       // A stated defensive floor (PHB 4.2.1) the effects can't show on their own.
       floor: bool(false),
+      // The Catalog names it had before (2026-11-02), and those of retired Techniques merged into it.
+      formerNames: new f.ArrayField(new f.StringField({ required: true, blank: false }), { required: true, initial: [] }),
       ancestryGrant: str(""),
       // The effect line as the PHB prints it (user, 2026-10-27).
       effectText: str(""),

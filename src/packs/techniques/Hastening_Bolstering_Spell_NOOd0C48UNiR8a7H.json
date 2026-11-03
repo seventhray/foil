@@ -30,6 +30,9 @@
       }
     ],
     "floor": true,
+    "formerNames": [
+      "Rousing Haste"
+    ],
     "ancestryGrant": "",
     "effectText": "Hasten (Action) to an ally and +1 [Skill]",
     "description": ""

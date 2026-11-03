@@ -30,6 +30,9 @@
       }
     ],
     "floor": false,
+    "formerNames": [
+      "Focused Beam"
+    ],
     "ancestryGrant": "",
     "effectText": "Stress, Beam (Range 2)",
     "description": ""

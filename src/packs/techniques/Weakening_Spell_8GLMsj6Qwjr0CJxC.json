@@ -30,6 +30,9 @@
       }
     ],
     "floor": false,
+    "formerNames": [
+      "Seed of Doubt"
+    ],
     "ancestryGrant": "",
     "effectText": "Stress, -1 [target Attribute]",
     "description": ""

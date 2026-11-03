@@ -22,6 +22,9 @@
       }
     ],
     "floor": true,
+    "formerNames": [
+      "Quickening"
+    ],
     "ancestryGrant": "",
     "effectText": "Hasten (Action) to an ally",
     "description": ""

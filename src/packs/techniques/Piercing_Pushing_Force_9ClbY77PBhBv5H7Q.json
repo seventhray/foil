@@ -38,6 +38,9 @@
       }
     ],
     "floor": false,
+    "formerNames": [
+      "Hammer of Force"
+    ],
     "ancestryGrant": "",
     "effectText": "Stress, Pierce 1, Move the target up to Range 2",
     "description": ""

@@ -31,6 +31,9 @@
       }
     ],
     "floor": false,
+    "formerNames": [
+      "Gale Shove"
+    ],
     "ancestryGrant": "",
     "effectText": "Quick: Move the target up to Range 2",
     "description": ""

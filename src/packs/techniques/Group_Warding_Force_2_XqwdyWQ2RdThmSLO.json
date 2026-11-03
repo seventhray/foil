@@ -30,6 +30,9 @@
       }
     ],
     "floor": true,
+    "formerNames": [
+      "Bulwark of Iron"
+    ],
     "ancestryGrant": "",
     "effectText": "Resistance +2 to chosen allies within Range 2 (Selective)",
     "description": ""

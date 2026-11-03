@@ -30,6 +30,9 @@
       }
     ],
     "floor": true,
+    "formerNames": [
+      "Cleave"
+    ],
     "ancestryGrant": "",
     "effectText": "Quick (trigger: your Technique Incapacitates an Attribute): deal Stress to a different creature within Range 1.",
     "description": ""

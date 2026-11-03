@@ -38,6 +38,9 @@
       }
     ],
     "floor": false,
+    "formerNames": [
+      "Iron Command"
+    ],
     "ancestryGrant": "",
     "effectText": "Stress, -1 Oppose (1 minute), Extend Range",
     "description": ""

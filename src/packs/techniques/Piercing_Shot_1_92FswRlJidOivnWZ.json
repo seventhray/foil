@@ -30,6 +30,9 @@
       }
     ],
     "floor": false,
+    "formerNames": [
+      "Piercing Shot"
+    ],
     "ancestryGrant": "",
     "effectText": "Stress, Pierce 1",
     "description": ""

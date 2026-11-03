@@ -30,6 +30,9 @@
       }
     ],
     "floor": false,
+    "formerNames": [
+      "Thunderclap"
+    ],
     "ancestryGrant": "",
     "effectText": "Stress, Move the target up to Range 2",
     "description": ""

@@ -30,6 +30,10 @@
       }
     ],
     "floor": false,
+    "formerNames": [
+      "Concuss",
+      "Hamstring"
+    ],
     "ancestryGrant": "",
     "effectText": "Stress, -1 [target Attribute]",
     "description": ""

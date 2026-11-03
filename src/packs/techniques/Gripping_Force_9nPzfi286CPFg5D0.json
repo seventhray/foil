@@ -30,6 +30,9 @@
       }
     ],
     "floor": false,
+    "formerNames": [
+      "Crushing Grip"
+    ],
     "ancestryGrant": "",
     "effectText": "Stress, Grappled",
     "description": ""

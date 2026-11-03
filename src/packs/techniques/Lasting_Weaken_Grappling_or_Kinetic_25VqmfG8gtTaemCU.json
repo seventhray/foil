@@ -23,6 +23,9 @@
       }
     ],
     "floor": false,
+    "formerNames": [
+      "Bind"
+    ],
     "ancestryGrant": "",
     "effectText": "-1 [target Attribute] (1 minute)",
     "description": ""

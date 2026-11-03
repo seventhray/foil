@@ -38,6 +38,9 @@
       }
     ],
     "floor": false,
+    "formerNames": [
+      "Gutting Blow"
+    ],
     "ancestryGrant": "",
     "effectText": "Stress, Pierce 1, -1 [target Attribute]",
     "description": ""
