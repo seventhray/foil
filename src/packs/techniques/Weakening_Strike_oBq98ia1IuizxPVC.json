@@ -1,0 +1,45 @@
+{
+  "_id": "oBq98ia1IuizxPVC",
+  "name": "Weakening Strike",
+  "type": "technique",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "requires": [
+      "melee"
+    ],
+    "innate": false,
+    "skill": "",
+    "family": "Melee",
+    "subgroup": "Debilitating",
+    "effects": [
+      {
+        "key": "stress",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveR": 0
+      },
+      {
+        "key": "weaken",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveR": 0
+      }
+    ],
+    "floor": false,
+    "ancestryGrant": "",
+    "effectText": "Stress, -1 [target Attribute]",
+    "description": ""
+  },
+  "effects": [],
+  "folder": "JVVEZL5EHFE7oCoI",
+  "sort": 7500000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!oBq98ia1IuizxPVC"
+}

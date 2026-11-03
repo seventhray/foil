@@ -11,7 +11,7 @@
     "types": [
       "craft-metal"
     ],
-    "typesDisplay": "Craft [Metal]",
+    "typesDisplay": "Tools [Metal]",
     "price": 14,
     "rider": "",
     "kit": [],
@@ -23,7 +23,7 @@
   },
   "effects": [],
   "folder": "XcZvDfYXONGTYnAP",
-  "sort": 5000000,
+  "sort": 6100000,
   "ownership": {
     "default": 0
   },

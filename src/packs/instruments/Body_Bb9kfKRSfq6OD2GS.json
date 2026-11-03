@@ -8,29 +8,28 @@
     "weight": "light",
     "primaryAttribute": "might",
     "range": "Range 1",
+    "maxRange": "close",
     "types": [
-      "quick",
-      "blunt",
+      "melee",
       "grappling"
     ],
     "typesDisplay": "",
     "price": 0,
     "rider": "Innate: every character has it, free (PHB 2.5.3).",
+    "family": "",
+    "backs": "Threaten",
     "kit": [
       {
         "name": "Strike",
         "skill": "prowess",
-        "effect": "Deals Stress to Might or Finesse."
+        "effect": "Deals Stress to Might or Finesse.",
+        "signature": false
       },
       {
         "name": "Grapple",
         "skill": "discipline",
-        "effect": "Applies Grappled."
-      },
-      {
-        "name": "Intimidate",
-        "skill": "assertiveness",
-        "effect": "Applies Intimidated."
+        "effect": "Applies Grappled.",
+        "signature": false
       }
     ],
     "innate": true,

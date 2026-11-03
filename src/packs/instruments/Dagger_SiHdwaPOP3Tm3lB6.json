@@ -10,28 +10,27 @@
     "range": "Range 1",
     "maxRange": "close",
     "types": [
-      "edged",
-      "pointed",
-      "parry"
+      "melee",
+      "guarding",
+      "thrown"
     ],
     "typesDisplay": "",
-    "price": 30,
+    "price": 35,
     "rider": "",
+    "family": "Knives",
+    "backs": "Deceive",
     "kit": [
       {
-        "name": "Stab",
+        "name": "Strike",
         "skill": "prowess",
-        "effect": "Deals Stress to Might or Finesse."
+        "effect": "Deals Stress to Might or Finesse.",
+        "signature": false
       },
       {
-        "name": "Vital Strike",
+        "name": "Bleed",
         "skill": "acuity",
-        "effect": "Applies Weakened [Finesse]."
-      },
-      {
-        "name": "Low Feint",
-        "skill": "guile",
-        "effect": "Applies Reeling."
+        "effect": "Lingering 1.",
+        "signature": true
       }
     ],
     "innate": false,
@@ -42,7 +41,7 @@
   },
   "effects": [],
   "folder": "vKD7tkrcXtwm5qDA",
-  "sort": 1200000,
+  "sort": 3100000,
   "ownership": {
     "default": 0
   },

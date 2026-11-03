@@ -1,0 +1,50 @@
+{
+  "_id": "sfJxmAPxK3XDCLOL",
+  "name": "Javelin",
+  "type": "instrument",
+  "img": "icons/svg/sword.svg",
+  "system": {
+    "category": "melee",
+    "weight": "light",
+    "primaryAttribute": "finesse",
+    "range": "Range 1",
+    "maxRange": "close",
+    "types": [
+      "melee",
+      "guarding",
+      "thrown"
+    ],
+    "typesDisplay": "",
+    "price": 35,
+    "rider": "",
+    "family": "Spears",
+    "backs": "Deceive",
+    "kit": [
+      {
+        "name": "Strike",
+        "skill": "prowess",
+        "effect": "Deals Stress to Might or Finesse.",
+        "signature": false
+      },
+      {
+        "name": "Push",
+        "skill": "acuity",
+        "effect": "Moves the target up to Range 2.",
+        "signature": true
+      }
+    ],
+    "innate": false,
+    "bonus": 0,
+    "size": "medium",
+    "materials": "",
+    "description": ""
+  },
+  "effects": [],
+  "folder": "vKD7tkrcXtwm5qDA",
+  "sort": 3600000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!sfJxmAPxK3XDCLOL"
+}

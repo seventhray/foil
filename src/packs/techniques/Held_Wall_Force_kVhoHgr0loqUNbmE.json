@@ -1,0 +1,53 @@
+{
+  "_id": "kVhoHgr0loqUNbmE",
+  "name": "Held Wall Force",
+  "type": "technique",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "requires": [
+      "kinetic"
+    ],
+    "innate": false,
+    "skill": "",
+    "family": "Kinetic",
+    "subgroup": "Area & Lingering",
+    "effects": [
+      {
+        "key": "stress",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveR": 0
+      },
+      {
+        "key": "pattern",
+        "magnitude": 1,
+        "pattern": "wall",
+        "bands": 2,
+        "placement": 0,
+        "selectiveR": 0
+      },
+      {
+        "key": "upkeep",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveR": 0
+      }
+    ],
+    "floor": false,
+    "ancestryGrant": "",
+    "effectText": "Stress, Wall (Range 2), Upkeep",
+    "description": ""
+  },
+  "effects": [],
+  "folder": "mYseHIx2CsvaKyl1",
+  "sort": 7000000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!kVhoHgr0loqUNbmE"
+}

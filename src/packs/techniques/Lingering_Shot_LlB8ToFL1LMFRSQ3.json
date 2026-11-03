@@ -1,0 +1,45 @@
+{
+  "_id": "LlB8ToFL1LMFRSQ3",
+  "name": "Lingering Shot",
+  "type": "technique",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "requires": [
+      "ranged"
+    ],
+    "innate": false,
+    "skill": "",
+    "family": "Ranged",
+    "subgroup": "Debilitating",
+    "effects": [
+      {
+        "key": "stress",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveR": 0
+      },
+      {
+        "key": "lingering",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveR": 0
+      }
+    ],
+    "floor": false,
+    "ancestryGrant": "",
+    "effectText": "Stress, Lingering 1",
+    "description": ""
+  },
+  "effects": [],
+  "folder": "1zoGfYdBAgsE9THg",
+  "sort": 9300000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!LlB8ToFL1LMFRSQ3"
+}

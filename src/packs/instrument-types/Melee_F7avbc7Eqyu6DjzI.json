@@ -1,0 +1,24 @@
+{
+  "_id": "F7avbc7Eqyu6DjzI",
+  "name": "Melee",
+  "type": "instrumentType",
+  "img": "icons/svg/upgrade.svg",
+  "system": {
+    "key": "melee",
+    "kind": "type",
+    "family": "melee",
+    "harms": "physical",
+    "quick": false,
+    "reload": "",
+    "isTool": false,
+    "description": "<p>Harms Might or Finesse: swords, axes, hammers, spears, shields, fists, and claws.</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 100000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!F7avbc7Eqyu6DjzI"
+}

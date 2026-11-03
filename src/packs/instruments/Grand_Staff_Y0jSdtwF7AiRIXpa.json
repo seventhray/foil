@@ -10,30 +10,16 @@
     "range": "Range 20",
     "maxRange": "long",
     "types": [
+      "arcane",
       "kinetic",
-      "incorporeal",
-      "fortifying"
+      "incorporeal"
     ],
     "typesDisplay": "",
-    "price": 70,
+    "price": 75,
     "rider": "",
-    "kit": [
-      {
-        "name": "Grand Strike",
-        "skill": "assertiveness",
-        "effect": "Deals Stress to Might or Finesse."
-      },
-      {
-        "name": "Mind Break",
-        "skill": "guile",
-        "effect": "Deals Stress to Wit or Presence."
-      },
-      {
-        "name": "Restorative Surge",
-        "skill": "resonance",
-        "effect": "Removes 3d4 Stress from an ally's Attribute."
-      }
-    ],
+    "family": "",
+    "backs": "",
+    "kit": [],
     "innate": false,
     "bonus": 0,
     "size": "medium",

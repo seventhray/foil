@@ -44,39 +44,30 @@ const PHB = readPHB();
 const CAT = readCatalog();
 const warnings = [];
 
-// ─── Vocabulary: Instrument Types (PHB 4.1.1) ───────────────────────────────
-// [name, key, family, {stressPhysical, stressMental, pierce, flags...}, description]
+// ─── Vocabulary: Instrument Types and Properties (PHB 4.1.1) ─────────────────
+// [name, key, kind, family, {harms, quick, reload, isTool}, description]. No Type or Property adds Stress (PHB 4.1.1).
 const CRAFT_MATERIALS = ["Metal", "Wood", "Leather", "Gemstone", "Textile", "Reagent", "Stone"];
 const INSTRUMENT_TYPES = [
-  ["Quick", "quick", "other", { quick: true }, "Creatures only (GMG 9.6.0): this natural weapon's built-in Techniques may be used as a Quick Action. A Light Instrument already can (PHB 4.1.1)."],
-  ["Edged", "edged", "melee", { stressPhysical: 3, doubleResistance: true }, "+3 Stress against a physical Attribute. Physical Resistance, after Pierce, counts double against it."],
-  ["Pointed", "pointed", "melee", { stressPhysical: 1, pierce: 1 }, "Pierce 1 against Physical Resistance. +1 Stress against a physical Attribute."],
-  ["Blunt", "blunt", "melee", { pierce: 3 }, "Pierce 3 against Physical Resistance."],
-  ["Thrown", "thrown", "ranged", {}, "No type effect. No reload."],
-  ["Drawn", "drawn", "ranged", { stressPhysical: 2, stressMental: 2, reload: "quick" }, "+2 Stress. Reload: Quick Action."],
-  ["Fired", "fired", "ranged", { stressPhysical: 4, stressMental: 4, reload: "action" }, "+4 Stress. Reload: Action."],
-  ["Kinetic", "kinetic", "arcane", { stressPhysical: 1, stressMental: 0 }, "+1 Stress."],
-  ["Incorporeal", "incorporeal", "arcane", { stressPhysical: 0, stressMental: 1 }, "+1 Stress."],
-  ["Sonic", "sonic", "sonic", { stressPhysical: 0, stressMental: 1 }, "+1 Stress."],
-  ["Fortifying", "fortifying", "arcane", {}, "Support, aimed at an ally or the caster."],
-  ["Grappling", "grappling", "melee", { dealsNoStress: true }, "Adds no Stress."],
-  ["Parry", "parry", "melee", {}, "Spend the Quick Action reactively for Physical Resistance +1 against a Melee or Ranged Technique (PHB 6.5.2)."],
-  ["Blocking", "blocking", "other", { blocking: true }, "+N applies to Oppose rolls. Guard with the Quick Action (PHB 6.5.1)."],
-  ["Immobile", "immobile", "other", { stressPhysical: 2, stressMental: 2 }, "+2 Stress. Fixed at a location; using it means being there."],
-  ["Tool", "tool", "other", { isTool: true }, "A Trade roll against a Difficulty (PHB 4.2.6)."],
-  ["Craft", "craft", "other", { isTool: true }, "A Trade roll for general work in no single Material."],
-  ...CRAFT_MATERIALS.map(m => [`Craft [${m}]`, `craft-${slug(m)}`, "other", { isTool: true }, `A Craft Trade roll working ${m}.`])
+  ["Melee", "melee", "type", "melee", { harms: "physical" }, "Harms Might or Finesse: swords, axes, hammers, spears, shields, fists, and claws."],
+  ["Ranged", "ranged", "type", "ranged", { harms: "physical" }, "Harms Might or Finesse: bows, crossbows, slings, and nets."],
+  ["Arcane", "arcane", "type", "arcane", {}, "Harms Might or Finesse through Kinetic, Wit or Presence through Incorporeal: wands, staffs, and tomes."],
+  ["Sonic", "sonic", "type", "sonic", { harms: "mental" }, "Harms Wit or Presence: voices, horns, drums, and strings. Its Conditions reach each creature its user chooses that can hear it within its Range, and its Stress lands only on its target."],
+  ["Grappling", "grappling", "property", "other", {}, "It can hold a creature (PHB 6.8.3)."],
+  ["Guarding", "guarding", "property", "other", {}, "It guards its user or an ally within its Range, covering the Attributes it harms (PHB 6.5.1, 6.5.2)."],
+  ["Kinetic", "kinetic", "property", "arcane", { harms: "physical" }, "An Arcane Instrument with it harms Might or Finesse, with fire, cold, lightning, acid, or force."],
+  ["Incorporeal", "incorporeal", "property", "arcane", { harms: "mental" }, "An Arcane Instrument with it harms Wit or Presence, with fear, curses, or drained life. It also carries life magic, such as Mend."],
+  ["Thrown", "thrown", "property", "other", {}, "It can be thrown. A Melee Instrument with it is thrown at any target past its reach, out to Range 4, and counts as Ranged for that Technique."],
+  ["Drawn", "drawn", "property", "other", { reload: "quick" }, "It is reloaded with the Quick Action."],
+  ["Fired", "fired", "property", "other", { reload: "action" }, "It is reloaded with the Action."],
+  ["Immobile", "immobile", "property", "other", {}, "It is fixed in place: using it means being there."],
+  ["Tools", "tool", "property", "other", { isTool: true }, "Its rolls are Trades (PHB 4.2.6)."],
+  ...CRAFT_MATERIALS.map(m => [`Tools [${m}]`, `craft-${slug(m)}`, "property", "other", { isTool: true }, `Its rolls are Trades, and it works ${m}.`]),
+  ["Quick", "quick", "property", "other", { quick: true }, "Creatures only (GMG 9.6.0): this natural weapon's built-in Techniques may be used as a Quick Action. A Light Instrument already can (PHB 4.2.2)."]
 ];
 const TYPE_KEYS = new Set(INSTRUMENT_TYPES.map(t => t[1]));
-function instrumentTypeDoc([name, key, family, o, desc]) {
+function instrumentTypeDoc([name, key, kind, family, o, desc]) {
   return { name, type: "instrumentType", img: "icons/svg/upgrade.svg",
-    system: {
-      key, family,
-      stressPhysical: o.stressPhysical ?? 0, stressMental: o.stressMental ?? 0, pierce: o.pierce ?? 0,
-      doubleResistance: !!o.doubleResistance, dealsNoStress: !!o.dealsNoStress,
-      quick: !!o.quick, blocking: !!o.blocking, reload: o.reload ?? "", isTool: !!o.isTool,
-      description: `<p>${desc}</p>`
-    } };
+    system: { key, kind, family, harms: o.harms ?? "", quick: !!o.quick, reload: o.reload ?? "", isTool: !!o.isTool, description: `<p>${desc}</p>` } };
 }
 
 // ─── Vocabulary: Qualities (PHB 7.9.1, GMG 10.0.0 for Aid, Fundamental Math Passive Properties) ─
@@ -92,59 +83,58 @@ function qualityDoc([name, key, kind, scope, valueLabel, desc]) {
 }
 
 // ─── Vocabulary: Effects (Fundamental Math, Technique Effects) ─────────────
-const MELEE = ["edged", "pointed", "blunt", "grappling", "parry"];
-const RANGED = ["thrown", "drawn", "fired"];
-const ARCANE = ["kinetic", "incorporeal", "fortifying"];
+const ATTACK = ["melee", "ranged", "arcane", "sonic"];
+const SOCIAL = ["incorporeal", "sonic"];
 // [name, key, pricingKind, {base, perPoint, perBand}, {requires, label, exempt, floor}, description]
 const EFFECTS = [
   ["Stress", "stress", "flat", { base: 4 }, {}, "Deal the margin to an Attribute of the Target."],
   ["+1 Stress (hit-count rider)", "stress-rider", "flat", { base: 8 }, {}, "+1 Stress on a landed hit."],
-  ["+N [Skill or Oppose]", "skill-mod", "perPoint", { perPoint: 3 }, { label: "+N", floor: true }, "+N to a named Skill's rolls for 1 round."],
-  ["+N [Skill or Oppose] (1 minute)", "skill-mod-minute", "perPoint", { perPoint: 6 }, { label: "+N", floor: true }, "+N to a named Skill's rolls for 1 minute."],
+  ["+N [Skill or Oppose]", "skill-mod", "perPoint", { perPoint: 3 }, { requires: ["sonic", "arcane", "guarding", "tool"], label: "+N", floor: true }, "+N to a named Skill's rolls for 1 round."],
+  ["+N [Skill or Oppose] (1 minute)", "skill-mod-minute", "perPoint", { perPoint: 6 }, { requires: ["sonic", "arcane", "guarding", "tool"], label: "+N", floor: true }, "+N to a named Skill's rolls for 1 minute."],
   ["-N [Oppose]", "reeling", "perPoint", { perPoint: 4 }, { label: "-N Oppose" }, "Reeling: the target's Oppose rolls take -N for 1 round (PHB 6.8.6)."],
   ["-N [Oppose] (1 minute)", "reeling-minute", "perPoint", { perPoint: 16 }, { label: "-N Oppose" }, "Reeling: the target's Oppose rolls take -N for 1 minute (PHB 6.8.6)."],
-  ["-N [target Attribute]", "weaken", "perPoint", { perPoint: 6 }, { requires: ["incorporeal", "sonic", "kinetic", ...MELEE, ...RANGED], label: "-N [target Attribute]" }, "Weakened: the named Attribute's rolls take -N for 1 round (PHB 6.8.4)."],
-  ["-N [target Attribute] (1 minute)", "weaken-minute", "perPoint", { perPoint: 24 }, { requires: ["incorporeal", "sonic", "kinetic", ...MELEE, ...RANGED], label: "-N [target Attribute]" }, "Weakened: the named Attribute's rolls take -N for 1 minute (PHB 6.8.4)."],
+  ["-N [target Attribute]", "weaken", "perPoint", { perPoint: 6 }, { label: "-N [target Attribute]" }, "Weakened: the named Attribute's rolls take -N for 1 round (PHB 6.8.4)."],
+  ["-N [target Attribute] (1 minute)", "weaken-minute", "perPoint", { perPoint: 24 }, { label: "-N [target Attribute]" }, "Weakened: the named Attribute's rolls take -N for 1 minute (PHB 6.8.4)."],
   ["+N (this roll)", "roll-bonus", "perPoint", { perPoint: 2 }, { label: "+N" }, "+N to this Technique's own roll."],
-  ["Pierce N", "pierce", "perPoint", { perPoint: 4 }, { requires: [...MELEE, ...RANGED, "kinetic"], label: "Pierce N" }, "Ignore N of the target's Resistance."],
-  ["Resistance +N", "resistance", "perPoint", { perPoint: 4 }, { requires: ["parry", "blocking", "fortifying"], label: "Resistance +N" }, "Physical or mental Resistance +N."],
-  ["Mend Xd4", "mend", "perPoint", { perPoint: 10 }, { requires: ["fortifying", "sonic"], label: "Mend Nd4" }, "Remove Xd4 Stress from one of an ally's Attributes, with no Medicine and no roll. Medicine or Mend once every 2 hours per creature (PHB 6.10.0)."],
-  ["Remove [Condition]", "remove-condition", "perPoint", { perPoint: 1 }, { requires: ["fortifying", "sonic"], label: "Remove [Condition]" }, "End the named Condition on an ally, priced as that Condition."],
-  ["Lingering N", "lingering", "perPoint", { perPoint: 7 }, { requires: ["kinetic", "incorporeal", "pointed", "edged"], label: "Lingering N" }, "N more Stress at the start of the target's next turns."],
-  ["Redirect", "redirect", "flat", { base: 8 }, { requires: ["blocking"] }, "Take an ally's incoming Stress instead."],
-  ["Move", "move", "flat", { base: 4 }, { requires: ["grappling", "blunt", "kinetic", "incorporeal"] }, "Move the target up to Range 2."],
-  ["Disarm", "disarm", "flat", { base: 8 }, { requires: [...MELEE, "kinetic"] }, "The target Opposes with a Skill built on Might. If it fails, it drops the Instrument it used last. Innate Instruments can't be dropped."],
+  ["Pierce N", "pierce", "perPoint", { perPoint: 4 }, { requires: ["melee", "ranged", "kinetic"], label: "Pierce N" }, "Ignore N of the target's Resistance."],
+  ["Resistance +N", "resistance", "perPoint", { perPoint: 4 }, { requires: ["guarding", "kinetic", "incorporeal"], label: "Resistance +N" }, "Physical or mental Resistance +N."],
+  ["Mend Xd4", "mend", "perPoint", { perPoint: 10 }, { requires: SOCIAL, label: "Mend Nd4" }, "Remove Xd4 Stress from one of an ally's Attributes, with no Medicine and no roll. Medicine or Mend once every 2 hours per creature (PHB 6.10.0)."],
+  ["Remove [Condition]", "remove-condition", "perPoint", { perPoint: 1 }, { requires: SOCIAL, label: "Remove [Condition]" }, "End the named Condition on an ally, priced as that Condition."],
+  ["Lingering N", "lingering", "perPoint", { perPoint: 7 }, { requires: ["melee", "ranged", "kinetic", "incorporeal"], label: "Lingering N" }, "N more Stress at the start of the target's next turns."],
+  ["Redirect", "redirect", "flat", { base: 8 }, { requires: ["guarding"] }, "Take an ally's incoming Stress instead."],
+  ["Move", "move", "flat", { base: 4 }, { requires: ["grappling", "melee", "kinetic", "incorporeal"] }, "Move the target up to Range 2."],
+  ["Disarm", "disarm", "flat", { base: 8 }, { requires: ["grappling", "kinetic", "melee"] }, "The target Opposes with a Skill built on Might. If it fails, it drops the Instrument it used last. Innate Instruments can't be dropped."],
   ["Evade", "evade", "flat", { base: 4 }, { requires: ["kinetic", "incorporeal"] }, "Move without provoking."],
   ["Illusion", "illusion", "flat", { base: 8 }, { requires: ["incorporeal", "sonic"] }, "A false sight or sound."],
   ["Drain", "drain", "flat", { base: 8 }, { requires: ["incorporeal"] }, "Heal what the Technique deals."],
   ["Counter", "counter", "flat", { base: 12 }, {}, "Contest another Technique as it lands, minus its Strain. A countered upkeep ends the Technique."],
-  ["Hasten (Action)", "hasten-action", "flat", { base: 14 }, { requires: ["fortifying"] }, "Grant an ally an extra Action."],
-  ["Hasten (Quick Action)", "hasten-quick", "flat", { base: 11 }, { requires: ["fortifying"] }, "Grant an ally an extra Quick Action."],
+  ["Hasten (Action)", "hasten-action", "flat", { base: 14 }, { requires: ["incorporeal"] }, "Grant an ally an extra Action."],
+  ["Hasten (Quick Action)", "hasten-quick", "flat", { base: 11 }, { requires: ["incorporeal"] }, "Grant an ally an extra Quick Action."],
   ["Extend Range", "extend-range", "extendRange", { perBand: 1 }, { requires: ["kinetic", "incorporeal"] }, "1 XP per band of extra reach."],
-  ["Pattern", "pattern", "pattern", {}, { requires: [...MELEE, ...RANGED, "sonic", ...ARCANE] }, "Beam or Wall: 1 + 2 + ... per band. Cone 3x, Radius 12x the Beam cost. A Melee Pattern reaches no farther than its Instrument's Range."],
-  ["Selective", "selective", "selective", {}, { requires: [...RANGED, "sonic", ...ARCANE] }, "Creatures within R bands: range at 1 XP per band, plus an 8 XP premium; Strain is paid per target."],
-  ["Upkeep", "upkeep", "upkeep", { base: 8 }, { requires: ARCANE, exempt: true }, "Keep an Action Technique active by paying a Quick Action and its Strain at the start of each later turn."],
+  ["Pattern", "pattern", "pattern", {}, { requires: ATTACK }, "Beam or Wall: 1 + 2 + ... per band. Cone 3x, Radius 12x the Beam cost. A Melee Pattern reaches no farther than its Instrument's Range."],
+  ["Selective", "selective", "selective", {}, { requires: ["ranged", "sonic", "arcane"] }, "Creatures within R bands: range at 1 XP per band, plus an 8 XP premium; Strain is paid per target."],
+  ["Upkeep", "upkeep", "upkeep", { base: 8 }, { requires: ["arcane"], exempt: true }, "Keep an Action Technique active by paying a Quick Action and its Strain at the start of each later turn."],
   ["Quick", "quick", "quick", { base: 3 }, { exempt: true, floor: true }, "3 XP, outside the combination premium. A stated trigger sets the 8 XP floor."],
   // Conditions (PHB 6.8.x), priced flat.
   ["Grappled", "grappled", "flat", { base: 4 }, { requires: ["grappling", "kinetic"] }, "PHB 6.8.3."],
-  ["Prone", "prone", "flat", { base: 11 }, { requires: [...MELEE, ...RANGED, "kinetic"] }, "PHB 6.8.7."],
+  ["Prone", "prone", "flat", { base: 11 }, { requires: ["melee", "ranged", "kinetic"] }, "PHB 6.8.7."],
   ["Restrained", "restrained", "flat", { base: 16 }, { requires: ["grappling", "kinetic"] }, "PHB 6.8.5."],
   ["Charmed", "charmed", "flat", { base: 8 }, { requires: ["incorporeal", "sonic"] }, "PHB 6.8.8."],
-  ["Frightened", "frightened", "flat", { base: 8 }, { requires: ["incorporeal", "sonic", ...MELEE, ...RANGED] }, "PHB 6.8.9."],
+  ["Frightened", "frightened", "flat", { base: 8 }, { requires: SOCIAL }, "PHB 6.8.9."],
   ["Controlled", "controlled", "flat", { base: 25 }, { requires: ["incorporeal"] }, "PHB 6.8.10."],
-  ["Intimidated", "intimidated", "flat", { base: 10 }, { requires: ["incorporeal", "sonic", ...MELEE] }, "PHB 6.8.11."],
-  ["Baited", "baited", "flat", { base: 8 }, { requires: ["incorporeal", "sonic", ...MELEE, ...RANGED] }, "PHB 6.8.12."],
+  ["Intimidated", "intimidated", "flat", { base: 10 }, { requires: SOCIAL }, "PHB 6.8.11."],
+  ["Baited", "baited", "flat", { base: 8 }, { requires: SOCIAL }, "PHB 6.8.12."],
   ["Angered", "angered", "flat", { base: 8 }, { requires: ["incorporeal", "sonic"] }, "PHB 6.8.13."],
   ["Relaxed", "relaxed", "flat", { base: 8 }, { requires: ["incorporeal", "sonic"] }, "PHB 6.8.14."],
   ["Impressed", "impressed", "flat", { base: 10 }, { requires: ["incorporeal", "sonic"] }, "PHB 6.8.15."],
   ["Swayed", "swayed", "flat", { base: 8 }, { requires: ["incorporeal", "sonic"] }, "PHB 6.8.18."],
   ["Misled", "misled", "flat", { base: 10 }, { requires: ["incorporeal", "sonic"] }, "PHB 6.8.19."],
-  ["Wary", "wary", "flat", { base: 8 }, { requires: ["sonic", "fortifying"] }, "PHB 6.8.16."],
+  ["Wary", "wary", "flat", { base: 8 }, { requires: SOCIAL }, "PHB 6.8.16."],
   ["Enthralled", "enthralled", "flat", { base: 20 }, { requires: ["incorporeal", "sonic"] }, "PHB 6.8.17."],
-  ["Blinded", "blinded", "flat", { base: 16 }, { requires: [...MELEE, ...RANGED, "kinetic", "incorporeal"] }, "PHB 6.8.20."],
-  ["Slowed", "slowed", "flat", { base: 4 }, { requires: [...MELEE, ...RANGED, "kinetic", "incorporeal"] }, "PHB 6.8.21."],
-  ["Stunned", "stunned", "flat", { base: 24 }, { requires: ["blunt", "kinetic", "incorporeal", "sonic"] }, "PHB 6.8.22."],
-  ["Invisible", "invisible", "flat", { base: 8 }, { requires: ["incorporeal", "fortifying"] }, "PHB 6.8.23."],
+  ["Blinded", "blinded", "flat", { base: 16 }, { requires: ["melee", "ranged", "kinetic", "incorporeal"] }, "PHB 6.8.20."],
+  ["Slowed", "slowed", "flat", { base: 4 }, { requires: ["melee", "ranged", "kinetic", "incorporeal"] }, "PHB 6.8.21."],
+  ["Stunned", "stunned", "flat", { base: 24 }, { requires: ATTACK }, "PHB 6.8.22."],
+  ["Invisible", "invisible", "flat", { base: 8 }, { requires: ["incorporeal"] }, "PHB 6.8.23."],
   ["Foil Exposed", "foil-exposed", "flat", { base: 8 }, { requires: ["incorporeal", "sonic"] }, "PHB 6.8.24."]
 ];
 const effectSystem = ([, key, pricingKind, p, o, desc]) => ({
@@ -158,23 +148,19 @@ function effectDoc(row) {
 }
 const EFFECT_REG = Object.fromEntries(EFFECTS.map(r => [r[1], { label: r[0], ...effectSystem(r) }]));
 
-// ─── Requirement text → Instrument Type slugs ─────────────────────────────────
-const FAMILY_TYPES = {
-  melee: MELEE, ranged: RANGED, arcane: ARCANE, "any arcane": ARCANE,
-  sonic: ["sonic"], kinetic: ["kinetic"], incorporeal: ["incorporeal"], fortifying: ["fortifying"],
-  edged: ["edged"], pointed: ["pointed"], blunt: ["blunt"], grappling: ["grappling"],
-  parry: ["parry"], blocking: ["blocking"], thrown: ["thrown"], drawn: ["drawn"], fired: ["fired"], tool: ["tool"], none: []
-};
+// ─── Requirement text → Instrument Type and Property slugs (PHB 4.2.0) ───────
+// "Melee", "Kinetic or Incorporeal", "Guarding and Melee" (both, stored "guarding+melee"). "None" or "Innate": no Instrument.
+// "Kinetic for physical, Incorporeal for mental" reads as either.
+const REQUIRE_KEYS = { melee: "melee", ranged: "ranged", arcane: "arcane", "any arcane": "arcane", sonic: "sonic", kinetic: "kinetic",
+  incorporeal: "incorporeal", grappling: "grappling", guarding: "guarding", thrown: "thrown", drawn: "drawn", fired: "fired", tools: "tool", tool: "tool" };
 function parseRequires(text) {
-  const t = lc(text);
-  if (/\binnate\b/.test(t)) return { requires: [], innate: true };
-  // "Blocking AND any Arcane": the first term is the Instrument the Technique rolls through.
-  const first = t.split(/\s+and\s+/)[0];
+  const t = lc(text).replace(/\bkinetic for physical, incorporeal for mental\b/, "kinetic or incorporeal");
+  if (/\binnate\b/.test(t) || t === "none") return { requires: [], innate: true };
   const out = new Set();
-  for (const part of first.split(/\s*(?:,|\bor\b)\s*/).filter(Boolean)) {
-    const types = FAMILY_TYPES[part.trim()];
-    if (types) types.forEach(k => out.add(k));
-    else warnings.push(`Requirement term not recognized: "${part}" in "${text}"`);
+  for (const alt of t.split(/\s*(?:,|\bor\b)\s*/).filter(Boolean)) {
+    const parts = alt.split(/\s+and\s+/).map(x => REQUIRE_KEYS[x.trim()]);
+    if (parts.every(Boolean)) out.add(parts.join("+"));
+    else warnings.push(`Requirement term not recognized: "${alt}" in "${text}"`);
   }
   return { requires: [...out], innate: false };
 }
@@ -260,6 +246,7 @@ function parseEffects(text) {
 const MOVEMENT_TRAITS = new Set(["Fly", "Swim", "Burrow", "Climb"]);
 // Quick-trigger rows where the 8 XP floor hides whether Stress is implied:
 // composed by hand so Stress is never guessed.
+// Keyed by the name the row had before the generic names (2026-11-02); a renamed note is found by its former_name.
 const HAND_EFFECTS = {
   Riposte: () => [e("quick")],
   Intercept: () => [e("redirect"), e("quick")],
@@ -277,15 +264,15 @@ function techniqueDoc(n) {
   const { requires, innate } = parseRequires(n.requires);
   const { list, stress, unparsed } = parseEffects(n.effect);
   let xp = n.xp == null ? null : Number(n.xp) || 0;
-  // PHB 4.2.1's floor: Fortifying, a ward or bonus for 1 round or longer, or a stated trigger.
-  const floor = requires.includes("fortifying") || /for 1 round|\(self, 1 round\)|Quick \(trigger/i.test(n.effect ?? "");
+  // PHB 4.2.1's floor: aimed only at allies or its user, a ward or bonus for 1 round or longer, or a stated trigger.
+  const floor = /\b(ally|allies|self)\b|for 1 round|\(self, 1 round\)|Quick \(trigger/i.test(n.effect ?? "");
   const price = effects => priceTechnique(effects, EFFECT_REG, { floor }).xp;
   const perTarget = list.some(x => x.key === "selective");
 
   // A Technique deals Stress only when its line says so (PHB 4.2.1).
   let effects;
   if (MOVEMENT_TRAITS.has(n.name)) { effects = [e("upkeep")]; unparsed.length = 0; }
-  else if (HAND_EFFECTS[n.name]) { effects = HAND_EFFECTS[n.name](); unparsed.length = 0; }
+  else if (HAND_EFFECTS[n.name] ?? HAND_EFFECTS[n.former_name]) { effects = (HAND_EFFECTS[n.name] ?? HAND_EFFECTS[n.former_name])(); unparsed.length = 0; }
   else effects = stress ? [e("stress"), ...list] : list;
 
   // PHB 4.2.5: only an Action Technique can have Upkeep.
@@ -301,6 +288,8 @@ function techniqueDoc(n) {
   const skillMatch = String(n.requires ?? "").match(/\b(Prowess|Discipline|Assertiveness|Acuity|Guile|Resonance)\b/);
   return {
     name: n.name, type: "technique", img: "icons/svg/aura.svg",
+    // A renamed Catalog note keeps the ID its former name hashed to, so links to it survive the rename (writePack).
+    ...(n.former_name ? { idName: n.former_name } : {}),
     system: {
       requires, innate,
       skill: skillMatch ? lc(skillMatch[1]) : "",
@@ -339,36 +328,71 @@ for (const row of SIZE_TABLE) {
 }
 const WEIGHT_WORDS = { light: "light", medium: "medium", heavy: "heavy" };
 function typeSlug(t) {
-  const craft = t.match(/^Craft \[(\w+)\]$/i);
+  const craft = t.match(/^(?:Craft|Tools) \[(\w+)\]$/i);
   if (craft) return `craft-${slug(craft[1])}`;
+  if (/^tools?$/i.test(t)) return "tool";
   return slug(t);
 }
 
+/** "**Strike** (Prowess): Deals Stress to Might or Finesse." segments, as built-in Techniques. */
+function builtinsFrom(text) {
+  return [...String(text).matchAll(/\*\*(.+?)\*\* \((\w+)\): (.+?)(?=(?:,? and )?\*\*|<br>|$)/g)]
+    .map(m => {
+      // Its effect is the first sentence; "Signature." marks the family's signature, and any later sentence is about the row as a whole.
+      const first = m[3].replace(/,\s*$/, "").trim().split(/(?<=\.)\s+/)[0];
+      return { name: m[1], skill: lc(m[2]), effect: /[.!?]$/.test(first) ? first : `${first}.`, signature: /\bSignature\./i.test(m[3]) };
+    });
+}
+
 function instrumentDoc(n) {
-  const words = (n.types ?? []).map(String);
-  const weight = words.map(lc).find(w => WEIGHT_WORDS[w]) ?? "light";
-  let types = words.filter(w => !WEIGHT_WORDS[lc(w)]).map(typeSlug);
-  for (const t of types) if (!TYPE_KEYS.has(t)) warnings.push(`${n.name}: unknown Instrument Type "${t}"`);
-  const kit = [1, 2, 3].map(i => ({
-    name: n[`kit_${i}_name`] ?? "", skill: lc(n[`kit_${i}_skill`] ?? "prowess"), effect: n[`kit_${i}_effect`] ?? ""
-  })).filter(k => k.name);
+  const weight = lc(n.weight ?? (n.types ?? []).map(String).find(w => WEIGHT_WORDS[lc(w)]) ?? "light");
+  const type = lc(n.category ?? "melee");
+  const types = [type, ...(n.properties ?? []).map(String).map(typeSlug)];
+  for (const t of types) if (!TYPE_KEYS.has(t)) warnings.push(`${n.name}: unknown Instrument Type or Property "${t}"`);
+  const kit = (n.builtins ?? []).map(b => ({ name: b.name, skill: lc(b.skill), effect: b.effect, signature: b.name === n.signature }));
   const key = lc(n.name);
   return {
     name: n.name, type: "instrument", img: "icons/svg/sword.svg",
     system: {
-      category: lc(n.category ?? "melee"), weight, primaryAttribute: lc(n.primary_attribute),
-      range: n.range ?? "Range 1", maxRange: rangeBandOf(n.range ?? "Range 1"), ...(rangeMinOf(n.range) ? { minRange: rangeMinOf(n.range) } : {}), types, typesDisplay: n.name === "Wand" ? "" : (n.types_display ?? ""),
-      price: Number(n.price) || 0, rider: n.rider ?? "", kit,
+      category: type, weight, primaryAttribute: lc(n.primary_attribute),
+      range: n.range ?? "Range 1", maxRange: rangeBandOf(n.range ?? "Range 1"), ...(rangeMinOf(n.range) ? { minRange: rangeMinOf(n.range) } : {}), types, typesDisplay: "",
+      price: Number(n.price) || 0, rider: n.rider ?? "", family: n.family ?? "", backs: n.backs ?? "", kit,
       innate: false, bonus: 0, size: sizeOf[key] ?? "medium", materials: materialsOf[key] ?? "",
       description: ""
     }
   };
 }
 
+// Shields (PHB 7.9.3): Melee and Guarding Instruments with Might Primary and Range 1. Their built-ins and backing are in the
+// section's opening line; each row gives a weight, a bonus that applies while carried (PHB 5.2.4), and a price.
+function shieldDocs() {
+  const lines = PHB.split("\n");
+  const at = lines.findIndex(l => /^### 7\.9\.3 Shields/.test(l));
+  const intro = lines.slice(at + 1).find(l => /built-ins/i.test(l)) ?? "";
+  const kit = builtinsFrom(intro);
+  const backs = intro.match(/backs (\w+)/i)?.[1] ?? "";
+  return tableAfter(PHB, /^### 7\.9\.3 Shields/).map(r => {
+    const quals = [];
+    const res = r.Bonus.match(/physical Resistance \+(\d)/i);
+    if (res) quals.push(q("resistance", +res[1], "physical"));
+    const sk = r.Bonus.match(/\+(\d) (\w+)/);
+    if (sk && SKILLS.includes(lc(sk[2]))) quals.push(q("skill-bonus", +sk[1], lc(sk[2])));
+    const weight = lc(r.Weight);
+    return {
+      name: r.Shield, type: "instrument", img: "icons/svg/shield.svg",
+      system: {
+        category: "shield", weight, primaryAttribute: "might", range: "Range 1", maxRange: "close", types: ["melee", "guarding"], typesDisplay: "",
+        price: num(r.Price), rider: "", family: "Shields", backs, kit: kit.map(k => ({ ...k })), qualities: quals,
+        innate: false, bonus: 0, size: weight === "medium" ? "large" : "medium", materials: materialsOf[lc(r.Shield)] ?? "", description: ""
+      }
+    };
+  });
+}
+
 function toolDoc(n) {
-  const types = String(n.instrument_type ?? "Tool").split(",").map(s => typeSlug(s.trim()));
+  const types = String(n.instrument_type ?? "Tools").split(",").map(s => typeSlug(s.trim()));
   const key = lc(n.name);
-  const craft = String(n.instrument_type ?? "").match(/Craft \[(\w+)\]/);
+  const craft = String(n.instrument_type ?? "").match(/(?:Craft|Tools) \[(\w+)\]/);
   return {
     name: n.name, type: "instrument", img: "icons/svg/pick.svg",
     system: {
@@ -380,36 +404,30 @@ function toolDoc(n) {
   };
 }
 
-// Body, Voice, and Mind (PHB 2.5.3), the three innate Instruments every character starts with.
-const INNATE_INSTRUMENTS = [
-  { name: "Body", primaryAttribute: "might", types: ["quick", "blunt", "grappling"], range: "Range 1",
-    kit: [
-      { name: "Strike", skill: "prowess", effect: "Deals Stress to Might or Finesse." },
-      { name: "Grapple", skill: "discipline", effect: "Applies Grappled." },
-      { name: "Intimidate", skill: "assertiveness", effect: "Applies Intimidated." }
-    ] },
-  { name: "Voice", primaryAttribute: "presence", types: ["quick", "sonic"], range: "Range 8",
-    kit: [
-      { name: "Browbeat", skill: "assertiveness", effect: "Deals Stress to Presence or Wit." },
-      { name: "Mislead", skill: "guile", effect: "Applies Misled." },
-      { name: "Sway", skill: "resonance", effect: "Applies Swayed." }
-    ] },
-  { name: "Mind", primaryAttribute: "wit", types: ["quick", "incorporeal"], range: "Range 2",
-    kit: [
-      { name: "Deduce", skill: "discipline", effect: "Works out a problem or recalls a fact." },
-      { name: "Analyze", skill: "acuity", effect: "Learns a creature's Attributes, or notices something specific." },
-      { name: "Intuit", skill: "resonance", effect: "Applies Foil Exposed, or gives insight into a situation." }
-    ] }
-];
-function innateDoc(i) {
-  return {
-    name: i.name, type: "instrument", img: { Body: "icons/svg/combat.svg", Voice: "icons/svg/sound.svg", Mind: "icons/svg/eye.svg" }[i.name],
-    system: {
-      category: "innate", weight: "light", primaryAttribute: i.primaryAttribute, range: i.range,
-      types: i.types, typesDisplay: "", price: 0, rider: "Innate: every character has it, free (PHB 2.5.3).",
-      kit: i.kit, innate: true, bonus: 0, size: "medium", materials: "", description: ""
-    }
-  };
+// Body, Voice, and Mind (PHB 2.5.3), the three innate Instruments every character starts with, read from the section's table. Voice's
+// "Deals Stress to Wit or Presence, or applies Intimidated or Frightened." is three built-ins on one Skill, one for each choice.
+function innateDocs() {
+  return tableAfter(PHB, /^### 2\.5\.3 Innate Instruments/).map(r => {
+    const words = r["Type and Properties"].split(",").map(w => w.trim()).filter(Boolean);
+    const weight = lc(words.find(w => WEIGHT_WORDS[lc(w)]) ?? "light");
+    const types = words.filter(w => !WEIGHT_WORDS[lc(w)]).map(typeSlug);
+    for (const t of types) if (!TYPE_KEYS.has(t)) warnings.push(`${r.Instrument}: unknown Instrument Type or Property "${t}"`);
+    const segs = r["Built-in Techniques"].split("<br>").map(x => x.trim()).filter(Boolean);
+    const backs = segs.map(x => x.match(/^Backs Voice's (\w+)/i)?.[1]).find(Boolean) ?? "";
+    const kit = builtinsFrom(segs.filter(x => x.startsWith("**")).join("<br>")).flatMap(({ name, skill, effect }) => {
+      const m = effect.match(/^Deals Stress to ([^,]+), or applies (.+?) or (.+?)\.$/);
+      return m ? [{ name, skill, effect: `Deals Stress to ${m[1]}.` }, { name, skill, effect: `Applies ${m[2]}.` }, { name, skill, effect: `Applies ${m[3]}.` }]
+        : [{ name, skill, effect }];
+    });
+    return {
+      name: r.Instrument, type: "instrument", img: { Body: "icons/svg/combat.svg", Voice: "icons/svg/sound.svg", Mind: "icons/svg/eye.svg" }[r.Instrument] ?? "icons/svg/combat.svg",
+      system: {
+        category: "innate", weight, primaryAttribute: lc(r.Primary), range: r.Range, maxRange: rangeBandOf(r.Range),
+        types, typesDisplay: "", price: 0, rider: "Innate: every character has it, free (PHB 2.5.3).", family: "", backs,
+        kit: kit.map(k => ({ ...k, signature: false })), innate: true, bonus: 0, size: "medium", materials: "", description: ""
+      }
+    };
+  });
 }
 
 // ─── Equipment (PHB 7.9.x, 7.10.4) ───────────────────────────────────────────
@@ -432,16 +450,6 @@ function equipmentDocs() {
   for (const r of tableAfter(PHB, /^### 7\.9\.2 Armor/)) {
     out.push(equip(r.Armor, "armor", num(r.Price), {
       weight: num(r.Mass ?? r.Weight), size: "large", qualities: [q("resistance", num(r.Resistance), "physical")], notes: r.Notes ?? ""
-    }));
-  }
-  for (const r of tableAfter(PHB, /^### 7\.9\.3 Shields/)) {
-    const quals = [];
-    const res = r.Properties.match(/physical Resistance \+(\d)/i);
-    if (res) quals.push(q("resistance", +res[1], "physical"));
-    const sk = r.Properties.match(/\+(\d) (\w+)/);
-    if (sk && SKILLS.includes(lc(sk[2]))) quals.push(q("skill-bonus", +sk[1], lc(sk[2])));
-    out.push(equip(r.Shield, "shield", num(r.Price), {
-      weightClass: lc(r.Weight), qualities: quals, effect: "Blocking", notes: r.Notes ?? ""
     }));
   }
   // Wards and charms (PHB 5.2.4): one row per kind, a price per bonus. A Mental Ward covers
@@ -657,8 +665,8 @@ function folderDocs(packName, paths, type = "Item") {
 function writePack(packName, docs, folderOf = null) {
   const paths = folderOf ? docs.map(d => folderOf(d).filter(Boolean)) : docs.map(() => []);
   const folders = folderDocs(packName, paths.filter(p => p.length));
-  const out = docs.map((doc, i) => {
-    const _id = stableId(packName, doc.type, doc.name, doc.system?.ancestry ?? "");
+  const out = docs.map(({ idName, ...doc }, i) => {
+    const _id = stableId(packName, doc.type, idName ?? doc.name, doc.system?.ancestry ?? "");
     const folder = paths[i].length ? folders.get(paths[i].join("/"))._id : null;
     return { _id, ...doc, effects: [], folder, sort: (i + 1) * 100000, ownership: { default: 0 }, flags: {}, _key: `!items!${_id}` };
   });
@@ -670,7 +678,7 @@ const capital = str => String(str ?? "").replace(/^./, c => c.toUpperCase());
 const FOLDERS = {
   techniques: d => [d.system.family || (d.system.innate ? "Innate" : "Other"), d.system.subgroup],
   feats: d => d.system.featType === "ancestry" ? ["Origin", d.system.ancestry] : [capital(d.system.featType)],
-  instruments: d => [d.system.innate ? "Innate" : d.system.category === "tool" ? "Tools" : capital(d.system.category)],
+  instruments: d => [d.system.innate ? "Innate" : d.system.category === "tool" ? "Tools" : d.system.category === "shield" ? "Shields" : capital(d.system.category)],
   equipment: d => [EQUIPMENT_CATEGORY_LABEL[d.system.category] ?? capital(d.system.category)],
   materials: d => [MATERIAL_CATEGORY_LABEL[d.system.category]]
 };
@@ -695,10 +703,13 @@ const transformationTechniques = tableAfter(PHB, /^## 7\.3\.0 Transformations/).
   if (!m || CAT.techniques.some(t => t.name === m[1])) return [];
   return [{ name: m[1], requires: "Innate", effect: m[2].replace(/\.$/, ""), description: m[2].replace(/\.?$/, "."), xp: null }];
 });
-const techniques = [...[...CAT.techniques].sort(byOrder), ...grantedTechniques, ...transformationTechniques].map(techniqueDoc);
+// A retired Catalog note (merged into another, or dropped) seeds nothing (Instrument Model, 2026-11-02).
+const live = list => list.filter(n => !n.retired);
+const techniques = [...live([...CAT.techniques]).sort(byOrder), ...grantedTechniques, ...transformationTechniques].map(techniqueDoc);
 const instruments = [
-  ...INNATE_INSTRUMENTS.map(innateDoc),
-  ...[...CAT.instruments].sort(byOrder).map(instrumentDoc),
+  ...innateDocs(),
+  ...live([...CAT.instruments]).sort(byOrder).map(instrumentDoc),
+  ...shieldDocs(),
   ...[...CAT.tools].sort((a, b) => (a.order ?? 0) - (b.order ?? 0)).map(toolDoc)
 ];
 const feats = [...CAT.feats].sort((a, b) =>
@@ -722,12 +733,14 @@ for (const bg of backgrounds) {
 const featNames = new Set(feats.map(f => f.name));
 for (const a of ancestries) for (const f of a.system.feats) if (!featNames.has(f)) warnings.push(`${a.name}: Feat "${f}" not in the Catalog`);
 
-const expect = { techniques: 115, feats: 57, instruments: 34, tools: 17 };
+const expect = { techniques: 118, feats: 57, instruments: 43, tools: 17 };
 for (const [k, n] of Object.entries(expect)) {
   if (CAT[k].length !== n) warnings.push(`Catalog/${k}: ${CAT[k].length} notes, expected ${n}`);
 }
 
-const bestiary = bestiaryDocs({ instruments, techniques, feats, techniqueDoc });
+// --keep-bestiary leaves the bestiary pack and src/creature-data.js as they are, while the creature notes wait for their own pass.
+const keepBestiary = process.argv.includes("--keep-bestiary");
+const bestiary = keepBestiary ? { actors: [], notes: [] } : bestiaryDocs({ instruments, techniques, feats, techniqueDoc });
 for (const n of bestiary.notes) warnings.push(n);
 console.log(`FOIL | Seeding packs from ${path.basename(process.env.FOIL_BOOKS ?? "the vault")} (system ${SYSTEM_VERSION})…`);
 const habits = habitsModule();
@@ -750,9 +763,9 @@ if (process.argv.includes("--dry-run")) {
   writePack("backgrounds", backgrounds);
   writePack("ancestries", ancestries);
   writeGuidePack("guide", GUIDE);
-  writeActorPack("bestiary", bestiary.actors);
+  if (!keepBestiary) writeActorPack("bestiary", bestiary.actors);
   console.log(`  glossary: ${buildGlossary()} terms.`);
-  console.log("  creature data:", JSON.stringify(buildCreatureData()));
+  if (!keepBestiary) console.log("  creature data:", JSON.stringify(buildCreatureData()));
   if (!process.argv.includes("--no-build")) await buildPacks();
 }
 

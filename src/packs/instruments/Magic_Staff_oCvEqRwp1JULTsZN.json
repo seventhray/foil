@@ -10,29 +10,16 @@
     "range": "Range 8",
     "maxRange": "mid",
     "types": [
+      "arcane",
       "kinetic",
       "incorporeal"
     ],
     "typesDisplay": "",
-    "price": 40,
+    "price": 50,
     "rider": "",
-    "kit": [
-      {
-        "name": "Force Strike",
-        "skill": "discipline",
-        "effect": "Deals Stress to Might or Finesse."
-      },
-      {
-        "name": "Mind-Piercing Bolt",
-        "skill": "acuity",
-        "effect": "Deals Stress to Wit or Presence."
-      },
-      {
-        "name": "Unraveling Pulse",
-        "skill": "resonance",
-        "effect": "Applies Weakened [Presence]."
-      }
-    ],
+    "family": "",
+    "backs": "",
+    "kit": [],
     "innate": false,
     "bonus": 0,
     "size": "medium",

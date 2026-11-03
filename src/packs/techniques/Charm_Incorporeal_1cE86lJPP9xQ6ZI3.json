@@ -1,0 +1,37 @@
+{
+  "_id": "1cE86lJPP9xQ6ZI3",
+  "name": "Charm (Incorporeal)",
+  "type": "technique",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "requires": [
+      "incorporeal"
+    ],
+    "innate": false,
+    "skill": "",
+    "family": "Incorporeal",
+    "subgroup": "Illusion & Deception",
+    "effects": [
+      {
+        "key": "charmed",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveR": 0
+      }
+    ],
+    "floor": false,
+    "ancestryGrant": "",
+    "effectText": "Charmed",
+    "description": ""
+  },
+  "effects": [],
+  "folder": "7wgQQzhhuxu4ff2I",
+  "sort": 3200000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!1cE86lJPP9xQ6ZI3"
+}

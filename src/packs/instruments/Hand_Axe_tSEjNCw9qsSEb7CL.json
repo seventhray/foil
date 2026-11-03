@@ -10,26 +10,26 @@
     "range": "Range 1",
     "maxRange": "close",
     "types": [
-      "edged"
+      "melee",
+      "thrown"
     ],
     "typesDisplay": "",
-    "price": 20,
+    "price": 25,
     "rider": "",
+    "family": "Axes",
+    "backs": "Deceive",
     "kit": [
       {
-        "name": "Chop",
+        "name": "Strike",
         "skill": "prowess",
-        "effect": "Deals Stress to Might or Finesse."
+        "effect": "Deals Stress to Might or Finesse.",
+        "signature": false
       },
       {
-        "name": "Hook",
+        "name": "Topple",
         "skill": "acuity",
-        "effect": "Applies Prone."
-      },
-      {
-        "name": "Feint Swing",
-        "skill": "guile",
-        "effect": "Applies Reeling."
+        "effect": "Applies Prone.",
+        "signature": true
       }
     ],
     "innate": false,
@@ -40,7 +40,7 @@
   },
   "effects": [],
   "folder": "vKD7tkrcXtwm5qDA",
-  "sort": 1300000,
+  "sort": 1200000,
   "ownership": {
     "default": 0
   },

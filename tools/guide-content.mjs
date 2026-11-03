@@ -18,10 +18,10 @@ export const GUIDE = [
 p("Resolving a Technique", `
 <p>Every contest runs the same way, whether it is a duel, an argument, or a crisis of belief (PHB 1.4.0, 6.4.0).</p>
 <ol>
-<li>Declare the <strong>Instrument</strong> and the <strong>Technique</strong>: one of the Instrument's three built-in Techniques, or one the character has learned.</li>
+<li>Declare the <strong>Instrument</strong> and the <strong>Technique</strong>: one of the Instrument's built-in Techniques, or one the character has learned.</li>
 <li>Name the Attribute it harms. Describe the action; the GM judges whether it fits.</li>
 <li>Pick any of the three Skills the Instrument's Primary Attribute allows.</li>
-<li>Pay the <strong>Action</strong>, or the <strong>Quick Action</strong> for a Quick-tagged Technique or a Light built-in after a Light Action. A Heavy Instrument takes both.</li>
+<li>Pay the <strong>Action</strong>, or the <strong>Quick Action</strong> for a Quick-tagged Technique or a Light built-in after a Light Action. A Stress Technique through a Heavy Instrument takes both. A signature takes the Action.</li>
 <li>Roll the Skill. The target Opposes with any Skill built on the Attribute under attack, or, against a Technique that deals no Stress, with any Skill built on the Attribute its Condition names. A kit roll that only applies a Condition says which.</li>
 <li>If the Oppose beats the roll, the Technique fails. Otherwise it lands, a tie landing at a margin of 0.</li>
 </ol>
@@ -42,37 +42,42 @@ p("Attributes, Potential, and Skills", `
 <p><strong>Training</strong> costs 8 XP, plus 2 for each point the Skill already has. It can't pass the number of dice in the Skill's two pools.</p>
 <p>A creature that isn't pushing back has a <strong>Passive Skill</strong> for each Skill: half the Skill's Potential, rounded down. It stands in as the Difficulty.</p>`),
 
-p("Instruments and Types", `
-<p>An <strong>Instrument</strong> has one Range, one <strong>Primary Attribute</strong>, and one or more <strong>Instrument Types</strong>. The Primary Attribute sets which three Skills can roll it. Every Instrument carries three built-in Techniques, one per Skill, free.</p>
-<p>Every character has three innate Instruments, always ready. <strong>Body</strong> is Might Primary, Light, Blunt, Grappling, Close: Strike, Grapple, Intimidate. <strong>Voice</strong> is Presence Primary, Light, Sonic, Mid Range: Browbeat, Mislead, Sway. <strong>Mind</strong> is Wit Primary, Light, Incorporeal, Near: Deduce, Analyze, Intuit.</p>
-<table><thead><tr><th>Type</th><th>Type effect</th></tr></thead><tbody>
-<tr><td>Edged</td><td>+3 Stress against a physical Attribute. Physical Resistance counts double against Edged, after Pierce</td></tr>
-<tr><td>Pointed</td><td>Pierce 1 against Physical Resistance, +1 Stress against a physical Attribute</td></tr>
-<tr><td>Blunt</td><td>Pierce 3 against Physical Resistance</td></tr>
-<tr><td>Drawn / Fired</td><td>+2 / +4 Stress; reload with the Quick Action / the Action</td></tr>
-<tr><td>Kinetic, Incorporeal, Sonic</td><td>+1 Stress</td></tr>
-<tr><td>Quick</td><td>Built-in Techniques may use the Quick Action</td></tr>
-<tr><td>Grappling</td><td>Adds no Stress</td></tr>
-<tr><td>Blocking</td><td>Its +N applies to Oppose rolls; Guard with it</td></tr>
-<tr><td>Immobile</td><td>+2 Stress; fixed in place</td></tr>
+p("Instruments, Types, and Properties", `
+<p>An <strong>Instrument</strong> has one Range, one <strong>Primary Attribute</strong>, and a weight class. One that can harm has one <strong>Instrument Type</strong>, and many have <strong>Properties</strong> (PHB 4.1.1). The Primary Attribute sets which three Skills can roll it. No Type or Property adds Stress.</p>
+<table><thead><tr><th>Type</th><th>Harms</th></tr></thead><tbody>
+<tr><td>Melee</td><td>Might or Finesse</td></tr>
+<tr><td>Ranged</td><td>Might or Finesse</td></tr>
+<tr><td>Arcane</td><td>Might or Finesse through Kinetic, Wit or Presence through Incorporeal</td></tr>
+<tr><td>Sonic</td><td>Wit or Presence. Its Conditions reach each hearer its user chooses within its Range. Its Stress lands on one target.</td></tr>
 </tbody></table>
-<p>Light, Medium, and Heavy are weight classes, not Types. They set an Instrument's base price (15p, 30p, 45p) and its carried weight (2, 4, 8 lbs). A Heavy Instrument takes both hands, costs the Action and the Quick Action, and doubles the margin before the cap. After an Action through a Light Instrument, the Quick Action can use a Light Instrument's built-in Technique.</p>`),
+<table><thead><tr><th>Property</th><th>Effect</th></tr></thead><tbody>
+<tr><td>Grappling</td><td>It can hold a creature</td></tr>
+<tr><td>Guarding</td><td>It guards its user or an ally within its Range</td></tr>
+<tr><td>Kinetic, Incorporeal</td><td>What an Arcane Instrument harms. With both, the user picks one for each Technique.</td></tr>
+<tr><td>Thrown</td><td>A Melee Instrument with it is thrown out to Range 4</td></tr>
+<tr><td>Drawn / Fired</td><td>Reload with the Quick Action / the Action</td></tr>
+<tr><td>Immobile</td><td>Fixed in place</td></tr>
+<tr><td>Tools</td><td>Its rolls are Trades</td></tr>
+</tbody></table>
+<p>A Melee, Ranged, or Sonic Instrument has two <strong>built-in Techniques</strong> (PHB 4.1.3). Most pair a Stress Technique with its family's <strong>signature</strong>. A signature costs the Action at any weight. A signature priced over 11 XP costs 1 Strain for each full 8 XP over. The third Skill <strong>backs</strong> Voice: while the Instrument is ready, Voice's Technique on that Skill gets +2 against a target within its Range. An Arcane Instrument has no built-ins.</p>
+<p>Every character has three innate Instruments, always ready. <strong>Body</strong> is Might Primary, Light, Melee, Grappling, Range 1: Strike and Grapple, and it backs Threaten. <strong>Voice</strong> is Presence Primary, Light, Sonic, Range 8: Threaten, Deceive, and Persuade, each dealing Stress or applying one of two Conditions. <strong>Mind</strong> is Wit Primary, Light, Range 2: Deduce, Analyze, Intuit.</p>
+<p>Light, Medium, and Heavy are weight classes. They set an Instrument's base price (15p, 30p, 45p) and its carried weight (2, 4, 8 lbs). A Heavy Instrument takes both hands. A Stress Technique through it costs the Action and the Quick Action, and its margin doubles before the cap. After an Action through a Light Instrument, the Quick Action can use a Light Instrument's built-in Technique other than a signature.</p>`),
 
 p("Stress, Resistance, and Incapacitation", `
 <p>When a Stress Technique lands (PHB 6.7.0):</p>
 <ol>
 <li>Take the margin, capped at a share of the Instrument's Primary Potential by its weight: <strong>half</strong> for Light, <strong>all</strong> for Medium, and <strong>all</strong> for Heavy after doubling. Only the margin is capped.</li>
-<li>Add one Type's Stress effect, the attacker's choice.</li>
-<li>Add the Technique's own bonus.</li>
+<li>Add the Technique's own Effects, such as +1 Stress.</li>
 <li>Subtract the target's Resistance, less any Pierce, to a minimum of 0.</li>
 </ol>
-<p><strong>Resistance</strong> comes in two kinds. Physical covers Might and Finesse; mental covers Wit and Presence.</p>
+<p><strong>Resistance</strong> comes in two kinds. Physical covers Might and Finesse. Mental covers Wit and Presence.</p>
+<p><strong>Guard</strong> (PHB 6.5.1) costs the Quick Action, through a ready Guarding Instrument. It works on your turn, or when a Technique targets you or an ally within its Range, before the Oppose. For 1 round, the guarded character gets +2 to Oppose, and the Instrument's +N on top. It covers the Attributes the Instrument harms.</p>
 <p>An Attribute is <strong>Incapacitated</strong> when its Stress reaches its Potential. It contributes no dice. Incapacitation lifts once healing brings its Stress down to half its Potential or less, rounded down. Stress past a full bar <strong>overflows</strong> onto another Attribute, the defender's choice, and the receiving Attribute's Resistance doesn't reduce it.</p>
 <p><strong>Destroyed</strong> is all four Attributes Incapacitated at once. It is permanent, and a choice a side makes.</p>`),
 
 p("Actions and Strain", `
 <p>Each round a character gets one <strong>Action</strong> and one <strong>Quick Action</strong>. The Quick Action is spent on your turn or held to use reactively, one use either way. Moving up to 20 feet is free; another 20 costs the Quick Action. Initiative is an Acuity roll.</p>
-<p>A learned Technique carries <strong>Strain</strong>: floor((XP - 24) / 8) Stress to its own user, on the Instrument's Primary Attribute, whether it lands or not, ignoring Resistance. A Technique under 32 XP and every built-in Technique carry none.</p>`),
+<p>A learned Technique carries <strong>Strain</strong>: floor((XP - 24) / 8) Stress to its own user, on the Instrument's Primary Attribute, whether it lands or not, ignoring Resistance. A Technique under 32 XP carries none. A built-in Technique carries only the Strain it states.</p>`),
 
 p("FOIL and Foil Tokens", `
 <p>Four axes describe how a character responds in the moment: <strong>Faith</strong> (Trusting or Mistrusting), <strong>Order</strong> (Methodical or Intuitive), <strong>Individualism</strong> (Individual or Communal), and <strong>Levity</strong> (Light or Grave). Each leans toward one end or stays Neutral (PHB 3.1.0).</p>
@@ -97,11 +102,11 @@ p("Character sheet", `
 <tr><td><strong>Advance</strong></td><td>Spends XP: a die one size 8, 12, 16, or 20 XP by its size, d12 to d20 100 XP as a Transformation (PHB 2.3.1), a new 1d4 12 XP plus 4 per die already in the pool, +1 Training 8 XP plus 2 per point held, or a Technique or Feat at its listed XP.</td></tr>
 <tr><td><strong>Attribute Dice</strong></td><td>How many of each die size sit in the pool. The system builds the formula and Potential.</td></tr>
 <tr><td><strong>Stress, Potential</strong></td><td>The Stress on the Attribute, beside its Potential. When Stress reaches Potential the Attribute is Incapacitated; it recovers once Stress falls to the amount shown.</td></tr>
-<tr><td><strong>Resistance</strong></td><td>Derived from equipped armor, shields, wards, and Feats, with what granted it.</td></tr>
+<tr><td><strong>Resistance</strong></td><td>Derived from equipped armor and wards, a carried Shield, and Feats, with what granted it.</td></tr>
 <tr><td><strong>Skills</strong></td><td>Formula, Training (with its cap), Passive Skill, and roll range. Click to roll.</td></tr>
 <tr><td><strong>Foil Tokens</strong></td><td>Earn one on an invoke; <em>Halve Stress</em> spends one.</td></tr>
 <tr><td><strong>Rations, Carried</strong></td><td>Rations weigh 2 lbs each. Carried turns red with its roll penalty once over 4x Might Potential.</td></tr>
-<tr><td><strong>Location</strong></td><td>Each Instrument and piece of Equipment is equipped, carried, or stored; click its icon to change it. Only equipped gear grants its Resistance or bonus, stored gear weighs nothing, and a Heavy Instrument warns when something else is also in hand. Switching to a carried Instrument costs the Quick Action.</td></tr>
+<tr><td><strong>Location</strong></td><td>Each Instrument and piece of Equipment is equipped, carried, or stored; click its icon to change it. Only equipped gear grants its Resistance or bonus, though a carried Shield does too. Stored gear weighs nothing, and a Heavy Instrument warns when something else is also in hand. Switching to a carried Instrument costs the Quick Action.</td></tr>
 <tr><td><strong>Techniques</strong></td><td>Lists every built-in Technique of the character's Instruments, with the Instrument it comes from, above the learned ones. Each learned Technique lists the Instruments it can be used with, equipped ones first; stored ones never count.</td></tr>
 <tr><td><strong>FOIL</strong></td><td>A lean and a Habit per axis.</td></tr>
 <tr><td><strong>Conditions</strong></td><td>Active Conditions, with rounds and a note.</td></tr>
@@ -114,8 +119,8 @@ p("Creature sheet", `
 p("What the system does for you", `
 <p>Foilbound on Foundry stays close to pen and paper. It derives values and rolls dice. Three things are automated:</p>
 <ul>
-<li><strong>Strain</strong> lands on the Instrument's Primary Attribute when a learned Technique is rolled.</li>
-<li>A Stress Technique's chat card has a <strong>Stress</strong> button. Enter the target's Oppose and Resistance, pick the Type effect, and it reports the Stress. Applying it to the target stays manual.</li>
+<li><strong>Strain</strong> lands on the Instrument's Primary Attribute when a learned Technique or a signature with Strain is rolled.</li>
+<li>A Stress Technique's chat card has a <strong>Stress</strong> button. Enter the target's Oppose and Resistance, and it reports the Stress. Applying it to the target stays manual.</li>
 <li><strong>Foil Token</strong> spends: halve one source's Stress from the sheet, or reroll one die from any roll's chat card.</li>
 </ul>
 <p>It does not roll Opposes, apply Stress to a target, adjudicate Conditions, or move Habits.</p>`),
@@ -127,7 +132,7 @@ p("What the system does for you", `
 p("The vocabulary", `
 <p>Instrument Types, Properties, and Effects are ordinary Items in the <em>FOIL Vocabulary</em> compendiums. Content refers to them by slug, so creating a new one in a world makes it available on every sheet at once.</p>
 <ul>
-<li><strong>Instrument Type</strong>: family, Stress against physical and mental Attributes, Pierce, and flags for Quick, Blocking, Reload, Tool, and Edged's no-bonus-against-Resistance.</li>
+<li><strong>Instrument Type or Property</strong>: whether it is a Type or a Property, its family, what it harms, and flags for Quick, Reload, and Tools.</li>
 <li><strong>Property</strong>: a passive Equipment Property, Resistance +N, +N to a Skill, or Aid +N.</li>
 <li><strong>Effect</strong>: how it prices, which Types can deliver it, and whether it counts toward the combination premium.</li>
 </ul>`),
@@ -138,7 +143,7 @@ p("Pricing a Technique", `
 <li>Sum the Effects. Stress is an Effect at 4 XP.</li>
 <li>A Pattern, Selective, or Extend Range is priced by Range and counts as an Effect.</li>
 <li>Add 4 XP for every Effect beyond the first. Quick and Upkeep don't count; Upkeep costs a flat 4 XP and Quick 3.</li>
-<li>A Fortifying Technique, a ward or bonus lasting 1 round or longer, or a Quick trigger costs at least 8 XP.</li>
+<li>A Technique that aims only at allies or its user, a ward or bonus lasting 1 round or longer, or a Quick trigger costs at least 8 XP.</li>
 <li>Strain is floor((XP - 24) / 8), never below 0.</li>
 </ol>
 <table><thead><tr><th>Effect</th><th>XP</th></tr></thead><tbody>
@@ -159,8 +164,8 @@ p("Pricing a Technique", `
 <p>Beam or Wall costs 1 + 2 + ... per rung of the Range ladder (Range 1, 2, 4, 8, 20); a Cone 3x that, a Radius 12x. Selective costs N + (R x N).</p>`),
 
 p("Pricing an Instrument", `
-<p>Base price by weight class: Light 15p, Medium 30p, Heavy 45p. Each Type adds: Edged, Blunt, Kinetic, Incorporeal, or Fortifying 5p; Pointed 10p; Drawn 25p; Fired 50p. Reach past the usual Range adds 10p a band (PHB 5.2.2).</p>
-<p>A +N bonus adds by the item's size, and grants +N to rolls, plus Pierce equal to half the bonus, rounded down, on a Melee or Ranged Instrument. A Blocking-only Instrument's +N applies to Oppose rolls.</p>
+<p>Base price by weight class: Light 15p, Medium 30p, Heavy 45p. Each Property other than Tools and Immobile adds 10p. Reach past the usual Range adds 10p a band (PHB 5.2.2).</p>
+<p>A +N bonus adds by the item's size, and grants +N to rolls. A Melee or Ranged Instrument also gets Pierce equal to half the bonus, rounded down. A Guarding Instrument's +N also adds to the Oppose it guards.</p>
 <table><thead><tr><th>Bonus</th><th>Small</th><th>Medium</th><th>Large</th></tr></thead><tbody>
 <tr><td>+1</td><td>8p</td><td>15p</td><td>30p</td></tr>
 <tr><td>+2</td><td>23p</td><td>45p</td><td>90p</td></tr>

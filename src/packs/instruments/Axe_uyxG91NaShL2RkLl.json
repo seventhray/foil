@@ -1,0 +1,48 @@
+{
+  "_id": "uyxG91NaShL2RkLl",
+  "name": "Axe",
+  "type": "instrument",
+  "img": "icons/svg/sword.svg",
+  "system": {
+    "category": "melee",
+    "weight": "medium",
+    "primaryAttribute": "might",
+    "range": "Range 1",
+    "maxRange": "close",
+    "types": [
+      "melee"
+    ],
+    "typesDisplay": "",
+    "price": 30,
+    "rider": "",
+    "family": "Axes",
+    "backs": "Threaten",
+    "kit": [
+      {
+        "name": "Strike",
+        "skill": "prowess",
+        "effect": "Deals Stress to Might or Finesse.",
+        "signature": false
+      },
+      {
+        "name": "Topple",
+        "skill": "discipline",
+        "effect": "Applies Prone.",
+        "signature": true
+      }
+    ],
+    "innate": false,
+    "bonus": 0,
+    "size": "medium",
+    "materials": "",
+    "description": ""
+  },
+  "effects": [],
+  "folder": "vKD7tkrcXtwm5qDA",
+  "sort": 1300000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!uyxG91NaShL2RkLl"
+}

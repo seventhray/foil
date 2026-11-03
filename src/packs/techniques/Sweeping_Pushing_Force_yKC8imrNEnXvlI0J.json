@@ -1,0 +1,53 @@
+{
+  "_id": "yKC8imrNEnXvlI0J",
+  "name": "Sweeping Pushing Force",
+  "type": "technique",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "requires": [
+      "kinetic"
+    ],
+    "innate": false,
+    "skill": "",
+    "family": "Kinetic",
+    "subgroup": "Area & Lingering",
+    "effects": [
+      {
+        "key": "stress",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveR": 0
+      },
+      {
+        "key": "pattern",
+        "magnitude": 1,
+        "pattern": "cone",
+        "bands": 2,
+        "placement": 0,
+        "selectiveR": 0
+      },
+      {
+        "key": "move",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveR": 0
+      }
+    ],
+    "floor": false,
+    "ancestryGrant": "",
+    "effectText": "Stress, Cone (Range 2), Move each target up to Range 2",
+    "description": ""
+  },
+  "effects": [],
+  "folder": "mYseHIx2CsvaKyl1",
+  "sort": 5500000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!yKC8imrNEnXvlI0J"
+}

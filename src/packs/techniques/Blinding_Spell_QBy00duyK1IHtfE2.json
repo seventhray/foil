@@ -1,0 +1,45 @@
+{
+  "_id": "QBy00duyK1IHtfE2",
+  "name": "Blinding Spell",
+  "type": "technique",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "requires": [
+      "incorporeal"
+    ],
+    "innate": false,
+    "skill": "",
+    "family": "Incorporeal",
+    "subgroup": "Debilitating",
+    "effects": [
+      {
+        "key": "stress",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveR": 0
+      },
+      {
+        "key": "blinded",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveR": 0
+      }
+    ],
+    "floor": false,
+    "ancestryGrant": "",
+    "effectText": "Stress, Blinded",
+    "description": ""
+  },
+  "effects": [],
+  "folder": "7TZjmQ3DFG4ujBS3",
+  "sort": 4700000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!QBy00duyK1IHtfE2"
+}

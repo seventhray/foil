@@ -8,6 +8,7 @@ const { InstrumentData, TechniqueData, EquipmentData } = await import(`${R}/data
 const { aggregateModifiers } = await import(`${R}/modifiers.js`);
 const { priceTechnique, strainFor, patternCost, selectiveCost } = await import(`${R}/pricing.js`);
 const { stressFor } = await import(`${R}/stress.js`);
+const { kitPierce } = await import(`${R}/../rules/items.js`);
 const { XP_COST, trainingCost, knowHowCost, marginCap, CONDITION_OPPOSE, CONDITIONS } = await import(`${R}/constants.js`);
 
 let fails = 0;
@@ -39,7 +40,18 @@ check("per-Attribute Resistance collapses to physical and mental", () => {
   return eq(out.resistance, { physical: 4, mental: 1 });
 });
 check("Origin becomes Ancestry", () => eq(CharacterData.migrateData({ origin: "Keshwick" }).ancestry, "Keshwick"));
-check("Instrument Type bonusStress becomes stressPhysical", () => eq(InstrumentTypeData.migrateData({ bonusStress: 2 }).stressPhysical, 2));
+check("an Instrument Type or Property records its kind and what it harms, and adds no Stress (PHB 4.1.1)", () => {
+  const k = new InstrumentTypeData({ key: "kinetic", kind: "property", family: "arcane", harms: "physical" });
+  return eq([k.kind, k.harms, "stressPhysical" in k], ["property", "physical", false]);
+});
+check("stored Types read as the Type and Properties they are now (2026-11-02)", () =>
+  eq([["edged", "pointed", "parry"], ["blunt", "blocking"], ["pointed", "drawn"], ["kinetic", "incorporeal"], ["quick", "blunt", "grappling"], ["fortifying"]]
+    .map(types => new InstrumentData({ types }).types),
+    [["melee", "guarding"], ["melee", "guarding"], ["ranged", "drawn"], ["arcane", "kinetic", "incorporeal"], ["melee", "grappling", "quick"], ["arcane", "incorporeal"]]));
+check("a stored Requirement reads the same way; Fortifying keeps its 8 XP floor", () => {
+  const t = TechniqueData.migrateData({ requires: ["fortifying"] }), c = TechniqueData.migrateData({ requires: ["edged", "pointed", "blunt", "grappling", "parry"] });
+  return eq([t.requires, t.floor, c.requires], [["incorporeal"], true, ["melee", "grappling", "guarding"]]);
+});
 check("Effect pricingKind linear/condition/reaction map to perPoint/flat/quick", () =>
   eq(["linear", "condition", "reaction"].map(k => EffectData.migrateData({ pricingKind: k }).pricingKind), ["perPoint", "flat", "quick"]));
 check("legacy Sonic Instrument Types map to sonic", () => eq(new InstrumentData({ types: ["command", "guile", "resonance"] }).types, ["sonic"]));
@@ -119,20 +131,26 @@ check("past 4x Might Potential, -1 per extra multiple", () => {
 
 console.log("\nInstrument pricing (PHB 5.2.2):");
 globalThis.CONFIG.FOIL.instrumentTypes = Object.fromEntries([
-  ["quick", "other"], ["edged", "melee"], ["pointed", "melee"], ["blunt", "melee"], ["parry", "melee"], ["grappling", "melee"],
-  ["thrown", "ranged"], ["drawn", "ranged"], ["fired", "ranged"], ["kinetic", "arcane"], ["incorporeal", "arcane"],
-  ["fortifying", "arcane"], ["sonic", "sonic"], ["blocking", "other"], ["tool", "other"]
-].map(([k, fam]) => [k, { key: k, label: k, family: fam, blocking: k === "blocking" }]));
+  ["melee", "type"], ["ranged", "type"], ["arcane", "type"], ["sonic", "type"], ["grappling", "property"], ["guarding", "property"], ["kinetic", "property"],
+  ["incorporeal", "property"], ["thrown", "property"], ["drawn", "property"], ["fired", "property"], ["immobile", "property"], ["tool", "property"], ["quick", "property"]
+].map(([k, kind]) => [k, { key: k, kind, label: k === "tool" ? "Tools" : k.replace(/^./, c => c.toUpperCase()) }]));
+// The weight's base, 10p a Property other than Tools and Immobile, 10p a step past the usual Range (PHB 5.2.2, 7.4.x).
 for (const [name, cat, weight, types, range, price] of [
-  ["Longsword", "melee", "medium", ["edged", "pointed", "parry"], "Close", 45],
-  ["Quarterstaff", "melee", "medium", ["blunt", "blocking"], "Near", 45],
-  ["Greatsword", "melee", "heavy", ["edged", "pointed"], "Close", 60],
-  ["Halberd", "melee", "heavy", ["edged", "pointed"], "Range 2-4", 80],
-  ["Longbow", "ranged", "medium", ["pointed", "drawn"], "Long Range", 75],
-  ["Arbalest", "ranged", "heavy", ["pointed", "fired"], "Long Range", 105],
-  ["Sling", "ranged", "light", ["thrown"], "Mid Range", 25],
-  ["Grand Staff", "arcane", "heavy", ["kinetic", "incorporeal", "fortifying"], "Long Range", 70],
-  ["Siege Horn", "sonic", "heavy", ["sonic"], "Long Range", 55]
+  ["Longsword", "melee", "medium", ["melee", "guarding"], "Range 1", 40],
+  ["Longsword (stored Types)", "melee", "medium", ["edged", "pointed", "parry"], "Range 1", 40],
+  ["Dagger", "melee", "light", ["melee", "guarding", "thrown"], "Range 1", 35],
+  ["Quarterstaff", "melee", "medium", ["melee", "guarding"], "Range 2", 50],
+  ["Greatsword", "melee", "heavy", ["melee", "guarding"], "Range 1", 55],
+  ["Halberd", "melee", "heavy", ["melee", "guarding"], "Range 2-4", 75],
+  ["Longbow", "ranged", "medium", ["ranged", "drawn"], "Range 20", 50],
+  ["Arbalest", "ranged", "heavy", ["ranged", "fired"], "Range 20", 55],
+  ["Sling", "ranged", "light", ["ranged", "thrown"], "Range 8", 35],
+  ["Net", "ranged", "light", ["ranged", "grappling", "thrown"], "Range 4", 35],
+  ["Wand", "arcane", "light", ["arcane", "kinetic", "incorporeal"], "Range 4", 35],
+  ["Ward Focus", "arcane", "light", ["arcane", "incorporeal", "guarding"], "Range 1", 35],
+  ["Grand Staff", "arcane", "heavy", ["arcane", "kinetic", "incorporeal"], "Range 20", 75],
+  ["Lute", "sonic", "light", ["sonic", "tool"], "Range 8", 15],
+  ["Siege Horn", "sonic", "heavy", ["sonic"], "Range 20", 55]
 ]) check(`${name} prices at ${price}p`, () => {
   const i = new InstrumentData({ category: cat, weight, types, range, price }); i.prepareDerivedData();
   return eq(i.formulaPrice, price);
@@ -143,8 +161,8 @@ check("Min and Max Range set the Range text and the reach (PHB 4.1.2)", () => {
   return eq([h.minRange, h.maxRange, h.rangeBand, h.range, s.range], ["near", "short", "short", "Range 2-4", "Range 2"]);
 });
 check("the price math names every term (PHB 5.2.2)", () => {
-  const h = new InstrumentData({ category: "melee", weight: "heavy", types: ["edged", "pointed"], range: "Range 2-4" }); h.prepareDerivedData();
-  return eq(h.priceMath, "Heavy 45 + edged 5 + pointed 10 + reach 20 (2 steps past the usual Range 1, x10)");
+  const h = new InstrumentData({ category: "melee", weight: "heavy", types: ["melee", "guarding"], range: "Range 2-4" }); h.prepareDerivedData();
+  return eq(h.priceMath, "Heavy 45 + Guarding 10 + reach 20 (2 steps past the usual Range 1, x10)");
 });
 check("+2 Medium Instrument adds 45p, +2 to rolls, Pierce +1, crafts from 46p", () => {
   const i = new InstrumentData({ category: "melee", weight: "medium", types: ["edged", "pointed"], bonus: 2, size: "medium" }); i.prepareDerivedData();
@@ -158,9 +176,21 @@ check("a Light Instrument works on the Quick Action; a Medium or Heavy one doesn
   const q = weight => { const i = new InstrumentData({ category: "melee", weight, types: ["edged"] }); i.prepareDerivedData(); return i.quick; };
   return eq([q("light"), q("medium"), q("heavy")], [true, false, false]);
 });
-check("a Blocking-only +N applies to Oppose only", () => {
-  const i = new InstrumentData({ category: "arcane", weight: "light", types: ["blocking", "fortifying"], bonus: 1 }); i.prepareDerivedData();
-  return eq([i.bonusRoll, i.bonusPierce, i.bonusOppose], [0, 0, 1]);
+check("a +N Guarding Instrument adds +N to its rolls and to the Oppose it guards; Pierce is for Melee or Ranged (PHB 5.2.1)", () => {
+  const w = new InstrumentData({ category: "arcane", weight: "light", types: ["arcane", "incorporeal", "guarding"], bonus: 1 }); w.prepareDerivedData();
+  const s = new InstrumentData({ category: "melee", weight: "medium", types: ["melee", "guarding"], bonus: 2 }); s.prepareDerivedData();
+  const m = new InstrumentData({ category: "melee", weight: "medium", types: ["melee"], bonus: 2 }); m.prepareDerivedData();
+  return eq([[w.bonusRoll, w.bonusPierce, w.bonusOppose], [s.bonusRoll, s.bonusPierce, s.bonusOppose], [m.bonusOppose], w.guardCovers, s.guardCovers],
+    [[1, 0, 1], [2, 1, 2], [0], ["mental"], ["physical"]]);
+});
+check("a Wand harms through Kinetic or Incorporeal, one declared per Technique (PHB 4.1.1)", () => {
+  const i = new InstrumentData({ category: "arcane", weight: "light", types: ["kinetic", "incorporeal"] }); i.prepareDerivedData();
+  return eq([i.instrumentType, i.stressTypes.map(c => `${c.key}:${c.kind}`)], ["arcane", ["kinetic:physical", "incorporeal:mental"]]);
+});
+check("a signature's stated Strain and a Stress built-in's Pierce are read from its line (PHB 4.1.3)", () => {
+  const i = new InstrumentData({ category: "melee", weight: "heavy", types: ["melee"], kit: [{ name: "Strike", skill: "prowess", effect: "Deals Stress to Might or Finesse, with Pierce 2." },
+    { name: "Stun", skill: "discipline", effect: "Applies Stunned. Strain 1.", signature: true }] }); i.prepareDerivedData();
+  return eq([i.kit.map(k => k.strain), kitPierce(i.kit[0]), kitPierce(i.kit[1])], [[0, 1], 2, 0]);
 });
 
 console.log("\nTechnique pricing (PHB 4.2.1):");
@@ -204,40 +234,36 @@ check("Fortifying in its Requirement sets the 8 XP floor on its own", () => {
 });
 
 console.log("\nStress (PHB 6.7.0):");
-const edged = { label: "Edged", physical: 3, mental: 0, pierce: 0, doubleResistance: true };
-const pointed = { label: "Pointed", physical: 1, mental: 0, pierce: 1 };
-const sonic = { label: "Sonic", physical: -1, mental: 1, pierce: 0 };
 check("the Stress math shows every step, zero terms and the cap included (PHB 6.7.0)", () =>
   eq(stressFor({ attack: 17, oppose: 12, cap: 16, capLabel: "all Might Potential", mult: 1, multLabel: "Medium", resistance: 2,
-    resistanceParts: ["Physical 2 (+2 Mail)"], type: edged, pierceParts: [{ label: "Relentless Blow", value: 4 }], name: "Relentless Blow" }).parts,
-    ["margin 17 - 12 = 5", "x1 (Medium) = 5", "cap 16 (all Might Potential): 5", "Edged (declared Type) +3", "Relentless Blow +0", "other +0",
-     "Resistance 2 (Physical 2 (+2 Mail))", "Pierce 4 (Relentless Blow 4), leaves 0", "5 +3 - 0 = 8"]));
-check("PHB 6.7.0 Hand Axe: margin 10, +3 Edged, Mail 2 counts double: 9; unarmored: 13", () =>
-  eq([stressFor({ attack: 16, oppose: 6, cap: 12, resistance: 2, type: edged }).stress,
-      stressFor({ attack: 16, oppose: 6, cap: 12, resistance: 0, type: edged }).stress], [9, 13]));
-check("Edged after Pierce: Resistance 2, Pierce 1 leaves 1, doubled to 2", () =>
-  eq(stressFor({ attack: 16, oppose: 6, cap: 12, resistance: 2, type: edged, pierce: 1 }).stress, 11));
-check("Edged doubling applies only against physical Resistance", () =>
-  eq(stressFor({ attack: 16, oppose: 6, cap: 12, kind: "mental", resistance: 2, type: edged }).stress, 8));
-check("Wren round 1: margin 4, Sonic +1, Resistance 1: 4", () =>
-  eq(stressFor({ attack: 16, oppose: 12, cap: 6, kind: "mental", resistance: 1, type: sonic }).stress, 4));
+    resistanceParts: ["Physical 2 (+2 Mail)"], pierceParts: [{ label: "Relentless Blow", value: 4 }], name: "Relentless Blow" }).parts,
+    ["margin 17 - 12 = 5", "x1 (Medium) = 5", "cap 16 (all Might Potential): 5", "Relentless Blow +0", "other +0",
+     "Resistance 2 (Physical 2 (+2 Mail))", "Pierce 4 (Relentless Blow 4), leaves 0", "5 +0 - 0 = 5"]));
+check("PHB 6.7.0: Tamsin's Sling, margin 20 at a Light cap of 17 against Mail 2: 15; Kessen's Longsword by 10 at a Medium cap of 32: 8", () =>
+  eq([stressFor({ attack: 26, oppose: 6, cap: 17, resistance: 2 }).stress, stressFor({ attack: 20, oppose: 10, cap: 32, resistance: 2 }).stress], [15, 8]));
+check("PHB 6.6.0: Relentless Blow by 7, Pierce 4 clears Mail 2: 7", () =>
+  eq(stressFor({ attack: 17, oppose: 10, cap: 32, resistance: 2, pierce: 4 }).stress, 7));
+check("PHB 6.5.2: the captain's 17 against Kessen's Guarded 13 + 2, Leather 1: 1", () =>
+  eq(stressFor({ attack: 17, oppose: 13 + 2, cap: 30, resistance: 1 }).stress, 1));
+check("PHB 6.7.0: the archer's 16 against Wren's 12, Fitted Leathers 1: 3; then by 10: 9", () =>
+  eq([stressFor({ attack: 16, oppose: 12, cap: 30, resistance: 1 }).stress, stressFor({ attack: 22, oppose: 12, cap: 30, resistance: 1 }).stress], [3, 9]));
 check("every opposed Condition names one Attribute (PHB 6.8.0), so any of its three Skills can Oppose; Weakened, Wary, Invisible and Guarded (a Guard, PHB 6.5.1) don't", () =>
   eq(CONDITIONS.filter(c => !CONDITION_OPPOSE[c]), ["Weakened", "Wary", "Invisible", "Guarded"]) && Object.values(CONDITION_OPPOSE).every(v => v.length === 3));
-check("Drawn adds on top of the declared Type (PHB 4.1.1)", () =>
-  eq(stressFor({ attack: 14, oppose: 12, cap: 12, resistance: 1, type: pointed, always: [{ key: "drawn", label: "Drawn", physical: 2, mental: 2 }] }).stress, 5));
+check("no Instrument Type adds Stress: an older card's Type and Drawn are ignored (PHB 4.1.1)", () =>
+  eq(stressFor({ attack: 14, oppose: 12, cap: 12, resistance: 1, type: { label: "Pointed", physical: 1, pierce: 1 }, always: [{ key: "drawn", label: "Drawn", physical: 2, mental: 2 }] }).stress, 1));
 check("margin caps at half the Primary Potential", () => eq(stressFor({ attack: 30, oppose: 10, cap: 6 }).stress, 6));
 check("margin cap by weight: half Light, all Medium, all Heavy (PHB 6.7.0)", () =>
   eq(["light", "medium", "heavy"].map(k => marginCap(24, k)), [12, 24, 24]));
 check("a tie lands at margin 0; a lost roll doesn't land", () =>
   eq([stressFor({ attack: 10, oppose: 10, cap: 6 }).landed, stressFor({ attack: 9, oppose: 10, cap: 6 }).landed], [true, false]));
-check("Pointed's Pierce 1 plus a Technique's Pierce 1 against Mail 2: margin 5 lands 6", () =>
-  eq(stressFor({ attack: 15, oppose: 10, cap: 10, resistance: 2, type: pointed, pierce: 1 }).stress, 6));
+check("a Technique's Pierce 1 and a +2 weapon's Pierce 1 add up against Mail 2: margin 5 lands 5", () =>
+  eq(stressFor({ attack: 15, oppose: 10, cap: 10, resistance: 2, pierceParts: [{ label: "Piercing Strike", value: 1 }, { label: "Longsword +2", value: 1 }] }).stress, 5));
 check("weight classes: no dice; margin x1 / x1 / x2; Heavy two hands and the whole turn", () => {
   const d = ["light", "medium", "heavy"].map(w => { const i = new InstrumentData({ category: "melee", weight: w, types: ["edged"] }); i.prepareDerivedData(); return [i.weightDice, i.twoHanded, i.doublesMargin, i.marginMultiplier]; });
   return eq(d, [["", false, false, 1], ["", false, false, 1], ["", true, true, 2]]);
 });
-check("only the margin is capped: margin 10 at a cap of 8, +3 Edged against no Resistance, lands 11", () =>
-  eq(stressFor({ attack: 20, oppose: 10, cap: 8, type: { label: "Edged", physical: 3, mental: 0, pierce: 0, doubleResistance: true } }).stress, 11));
+check("only the margin is capped: margin 10 at a cap of 8, +1 Stress from the Technique, lands 9", () =>
+  eq(stressFor({ attack: 20, oppose: 10, cap: 8, bespoke: 1 }).stress, 9));
 check("a Heavy margin doubles before the cap: margin 5 through a cap of 24 is 10", () =>
   eq([stressFor({ attack: 15, oppose: 10, cap: 24, double: true }).stress, stressFor({ attack: 30, oppose: 10, cap: 24, double: true }).stress], [10, 24]));
 check("weight dice apply to targeted Techniques only", () => {

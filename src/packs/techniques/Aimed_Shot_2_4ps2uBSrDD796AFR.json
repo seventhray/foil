@@ -1,0 +1,45 @@
+{
+  "_id": "4ps2uBSrDD796AFR",
+  "name": "Aimed Shot 2",
+  "type": "technique",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "requires": [
+      "ranged"
+    ],
+    "innate": false,
+    "skill": "",
+    "family": "Ranged",
+    "subgroup": "Piercing & Precision",
+    "effects": [
+      {
+        "key": "stress",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveR": 0
+      },
+      {
+        "key": "roll-bonus",
+        "magnitude": 2,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveR": 0
+      }
+    ],
+    "floor": false,
+    "ancestryGrant": "",
+    "effectText": "Stress, +2",
+    "description": ""
+  },
+  "effects": [],
+  "folder": "0PJpui0sE8S1lhdu",
+  "sort": 8900000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!4ps2uBSrDD796AFR"
+}

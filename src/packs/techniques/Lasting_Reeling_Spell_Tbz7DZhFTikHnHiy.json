@@ -1,0 +1,45 @@
+{
+  "_id": "Tbz7DZhFTikHnHiy",
+  "name": "Lasting Reeling Spell",
+  "type": "technique",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "requires": [
+      "incorporeal"
+    ],
+    "innate": false,
+    "skill": "",
+    "family": "Incorporeal",
+    "subgroup": "Debilitating",
+    "effects": [
+      {
+        "key": "stress",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveR": 0
+      },
+      {
+        "key": "reeling-minute",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveR": 0
+      }
+    ],
+    "floor": false,
+    "ancestryGrant": "",
+    "effectText": "Stress, -1 Oppose (1 minute)",
+    "description": ""
+  },
+  "effects": [],
+  "folder": "7TZjmQ3DFG4ujBS3",
+  "sort": 5000000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!Tbz7DZhFTikHnHiy"
+}

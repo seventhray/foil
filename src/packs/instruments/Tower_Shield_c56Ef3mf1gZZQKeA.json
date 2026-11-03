@@ -1,0 +1,56 @@
+{
+  "_id": "c56Ef3mf1gZZQKeA",
+  "name": "Tower Shield",
+  "type": "instrument",
+  "img": "icons/svg/shield.svg",
+  "system": {
+    "category": "shield",
+    "weight": "medium",
+    "primaryAttribute": "might",
+    "range": "Range 1",
+    "maxRange": "close",
+    "types": [
+      "melee",
+      "guarding"
+    ],
+    "typesDisplay": "",
+    "price": 130,
+    "rider": "",
+    "family": "Shields",
+    "backs": "Threaten",
+    "kit": [
+      {
+        "name": "Strike",
+        "skill": "prowess",
+        "effect": "Deals Stress to Might or Finesse.",
+        "signature": false
+      },
+      {
+        "name": "Push",
+        "skill": "discipline",
+        "effect": "Moves the target up to Range 2.",
+        "signature": true
+      }
+    ],
+    "qualities": [
+      {
+        "key": "resistance",
+        "value": 2,
+        "param": "physical"
+      }
+    ],
+    "innate": false,
+    "bonus": 0,
+    "size": "large",
+    "materials": "1 Wood, 1 Metal",
+    "description": ""
+  },
+  "effects": [],
+  "folder": "YuUwPmWDh9LNVDB4",
+  "sort": 4800000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!c56Ef3mf1gZZQKeA"
+}

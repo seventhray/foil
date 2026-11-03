@@ -1,0 +1,37 @@
+{
+  "_id": "Z9Xx5Uojd4vtdEKE",
+  "name": "Oppose Bolstering Guard",
+  "type": "technique",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "requires": [
+      "guarding+arcane"
+    ],
+    "innate": false,
+    "skill": "",
+    "family": "Guard",
+    "subgroup": "",
+    "effects": [
+      {
+        "key": "skill-mod",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveR": 0
+      }
+    ],
+    "floor": true,
+    "ancestryGrant": "",
+    "effectText": "Gain +1 to your Opposes for 1 round",
+    "description": ""
+  },
+  "effects": [],
+  "folder": "XLqQxkpQvA8jn8IH",
+  "sort": 2400000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!Z9Xx5Uojd4vtdEKE"
+}

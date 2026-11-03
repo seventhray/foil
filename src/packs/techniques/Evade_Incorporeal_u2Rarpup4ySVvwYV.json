@@ -1,0 +1,45 @@
+{
+  "_id": "u2Rarpup4ySVvwYV",
+  "name": "Evade (Incorporeal)",
+  "type": "technique",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "requires": [
+      "incorporeal"
+    ],
+    "innate": false,
+    "skill": "",
+    "family": "Incorporeal",
+    "subgroup": "Evasive & Reactive",
+    "effects": [
+      {
+        "key": "evade",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveR": 0
+      },
+      {
+        "key": "quick",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveR": 0
+      }
+    ],
+    "floor": true,
+    "ancestryGrant": "",
+    "effectText": "Quick (trigger: a hostile's Melee Technique targets you): Evade before it rolls.",
+    "description": ""
+  },
+  "effects": [],
+  "folder": "IbG2asAYE4KhmefL",
+  "sort": 2800000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!u2Rarpup4ySVvwYV"
+}

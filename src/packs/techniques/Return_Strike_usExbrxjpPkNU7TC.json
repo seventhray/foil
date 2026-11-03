@@ -1,0 +1,37 @@
+{
+  "_id": "usExbrxjpPkNU7TC",
+  "name": "Return Strike",
+  "type": "technique",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "requires": [
+      "guarding+melee"
+    ],
+    "innate": false,
+    "skill": "",
+    "family": "Guard",
+    "subgroup": "",
+    "effects": [
+      {
+        "key": "quick",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveR": 0
+      }
+    ],
+    "floor": true,
+    "ancestryGrant": "",
+    "effectText": "Quick (trigger: a Melee Technique fails against you): use a Melee Technique against that attacker through this Instrument.",
+    "description": ""
+  },
+  "effects": [],
+  "folder": "XLqQxkpQvA8jn8IH",
+  "sort": 2100000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!usExbrxjpPkNU7TC"
+}

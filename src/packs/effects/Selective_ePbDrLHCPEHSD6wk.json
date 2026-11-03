@@ -6,13 +6,9 @@
   "system": {
     "key": "selective",
     "requires": [
-      "thrown",
-      "drawn",
-      "fired",
+      "ranged",
       "sonic",
-      "kinetic",
-      "incorporeal",
-      "fortifying"
+      "arcane"
     ],
     "pricingKind": "selective",
     "pricingParams": {

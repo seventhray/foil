@@ -6,9 +6,7 @@
   "system": {
     "key": "upkeep",
     "requires": [
-      "kinetic",
-      "incorporeal",
-      "fortifying"
+      "arcane"
     ],
     "pricingKind": "upkeep",
     "pricingParams": {

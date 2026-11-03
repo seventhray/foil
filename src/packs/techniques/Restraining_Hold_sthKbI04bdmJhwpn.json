@@ -1,0 +1,45 @@
+{
+  "_id": "sthKbI04bdmJhwpn",
+  "name": "Restraining Hold",
+  "type": "technique",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "requires": [
+      "grappling"
+    ],
+    "innate": false,
+    "skill": "",
+    "family": "Grappling",
+    "subgroup": "",
+    "effects": [
+      {
+        "key": "stress",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveR": 0
+      },
+      {
+        "key": "restrained",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveR": 0
+      }
+    ],
+    "floor": false,
+    "ancestryGrant": "",
+    "effectText": "Stress, Restrained",
+    "description": ""
+  },
+  "effects": [],
+  "folder": "U6AWbnUDIrqKqFUn",
+  "sort": 1700000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!sthKbI04bdmJhwpn"
+}

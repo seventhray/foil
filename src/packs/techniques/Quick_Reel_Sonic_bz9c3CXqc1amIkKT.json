@@ -1,0 +1,46 @@
+{
+  "_id": "bz9c3CXqc1amIkKT",
+  "name": "Quick Reel (Sonic)",
+  "type": "technique",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "requires": [
+      "sonic"
+    ],
+    "innate": false,
+    "skill": "",
+    "family": "Sonic",
+    "subgroup": "Control & Deception",
+    "effects": [
+      {
+        "key": "reeling",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveR": 0
+      },
+      {
+        "key": "quick",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveR": 0,
+        "untriggered": true
+      }
+    ],
+    "floor": false,
+    "ancestryGrant": "",
+    "effectText": "Quick: -1 Oppose",
+    "description": ""
+  },
+  "effects": [],
+  "folder": "pB2CzrOfw2IrBT6I",
+  "sort": 10800000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!bz9c3CXqc1amIkKT"
+}

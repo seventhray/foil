@@ -15,21 +15,20 @@
     "typesDisplay": "",
     "price": 25,
     "rider": "",
+    "family": "Horns",
+    "backs": "Threaten",
     "kit": [
       {
-        "name": "Commanding Blast",
-        "skill": "assertiveness",
-        "effect": "Applies Intimidated."
-      },
-      {
-        "name": "False Order",
-        "skill": "guile",
-        "effect": "Applies Misled."
-      },
-      {
-        "name": "Deafening Blare",
+        "name": "Cry",
         "skill": "resonance",
-        "effect": "Deals Stress to Wit or Presence."
+        "effect": "Deals Stress to Wit or Presence.",
+        "signature": false
+      },
+      {
+        "name": "Reel",
+        "skill": "guile",
+        "effect": "Applies Reeling.",
+        "signature": true
       }
     ],
     "innate": false,
@@ -40,7 +39,7 @@
   },
   "effects": [],
   "folder": "T1KFz77GLbAaMKYf",
-  "sort": 3400000,
+  "sort": 2800000,
   "ownership": {
     "default": 0
   },

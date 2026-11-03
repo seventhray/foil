@@ -15,21 +15,20 @@
     "typesDisplay": "",
     "price": 55,
     "rider": "",
+    "family": "Horns",
+    "backs": "Threaten",
     "kit": [
       {
-        "name": "Earth-Shaking Blast",
+        "name": "Cry",
         "skill": "prowess",
-        "effect": "Deals Stress to Wit or Presence."
+        "effect": "Deals Stress to Wit or Presence.",
+        "signature": false
       },
       {
-        "name": "Relentless Din",
+        "name": "Reel",
         "skill": "discipline",
-        "effect": "Applies Reeling."
-      },
-      {
-        "name": "Siege Cry",
-        "skill": "assertiveness",
-        "effect": "Applies Intimidated."
+        "effect": "Applies Reeling.",
+        "signature": true
       }
     ],
     "innate": false,
@@ -40,7 +39,7 @@
   },
   "effects": [],
   "folder": "T1KFz77GLbAaMKYf",
-  "sort": 3700000,
+  "sort": 3000000,
   "ownership": {
     "default": 0
   },

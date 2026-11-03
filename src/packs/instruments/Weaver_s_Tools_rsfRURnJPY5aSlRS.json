@@ -11,7 +11,7 @@
     "types": [
       "craft-textile"
     ],
-    "typesDisplay": "Craft [Textile]",
+    "typesDisplay": "Tools [Textile]",
     "price": 14,
     "rider": "",
     "kit": [],
@@ -23,7 +23,7 @@
   },
   "effects": [],
   "folder": "XcZvDfYXONGTYnAP",
-  "sort": 4700000,
+  "sort": 5800000,
   "ownership": {
     "default": 0
   },

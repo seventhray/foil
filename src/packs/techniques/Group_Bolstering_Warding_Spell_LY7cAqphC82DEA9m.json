@@ -1,0 +1,53 @@
+{
+  "_id": "LY7cAqphC82DEA9m",
+  "name": "Group Bolstering Warding Spell",
+  "type": "technique",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "requires": [
+      "incorporeal"
+    ],
+    "innate": false,
+    "skill": "",
+    "family": "Fortifying",
+    "subgroup": "Group Support (Selective)",
+    "effects": [
+      {
+        "key": "skill-mod",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveR": 0
+      },
+      {
+        "key": "selective",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveR": 2
+      },
+      {
+        "key": "resistance",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveR": 0
+      }
+    ],
+    "floor": true,
+    "ancestryGrant": "",
+    "effectText": "+1 [Skill] and Resistance +1 to chosen allies within Range 2 (Selective)",
+    "description": ""
+  },
+  "effects": [],
+  "folder": "XQdXpbzeLH0Vf3Lp",
+  "sort": 1100000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!LY7cAqphC82DEA9m"
+}

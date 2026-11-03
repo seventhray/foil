@@ -10,26 +10,25 @@
     "range": "Range 1",
     "maxRange": "close",
     "types": [
-      "edged"
+      "melee"
     ],
     "typesDisplay": "",
-    "price": 50,
+    "price": 45,
     "rider": "",
+    "family": "Axes",
+    "backs": "Threaten",
     "kit": [
       {
-        "name": "Hew",
+        "name": "Strike",
         "skill": "prowess",
-        "effect": "Deals Stress to Might or Finesse."
+        "effect": "Deals Stress to Might or Finesse.",
+        "signature": false
       },
       {
-        "name": "Upend",
+        "name": "Topple",
         "skill": "discipline",
-        "effect": "Applies Prone."
-      },
-      {
-        "name": "War Cry",
-        "skill": "assertiveness",
-        "effect": "Applies Intimidated."
+        "effect": "Applies Prone.",
+        "signature": true
       }
     ],
     "innate": false,
@@ -40,7 +39,7 @@
   },
   "effects": [],
   "folder": "vKD7tkrcXtwm5qDA",
-  "sort": 2000000,
+  "sort": 1400000,
   "ownership": {
     "default": 0
   },

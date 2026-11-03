@@ -11,7 +11,7 @@
     "types": [
       "tool"
     ],
-    "typesDisplay": "Tool",
+    "typesDisplay": "Tools",
     "price": 10,
     "rider": "",
     "kit": [],
@@ -23,7 +23,7 @@
   },
   "effects": [],
   "folder": "XcZvDfYXONGTYnAP",
-  "sort": 5100000,
+  "sort": 6200000,
   "ownership": {
     "default": 0
   },

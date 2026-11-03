@@ -5,19 +5,7 @@
   "img": "icons/svg/aura.svg",
   "system": {
     "key": "weaken-minute",
-    "requires": [
-      "incorporeal",
-      "sonic",
-      "kinetic",
-      "edged",
-      "pointed",
-      "blunt",
-      "grappling",
-      "parry",
-      "thrown",
-      "drawn",
-      "fired"
-    ],
+    "requires": [],
     "pricingKind": "perPoint",
     "pricingParams": {
       "base": 0,

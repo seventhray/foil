@@ -45,13 +45,18 @@ ok("Training cap is the dice in the two pools", /Training can't exceed the total
 ok("+N Pierce is half the bonus", /Pierce equal to half its bonus, rounded down/.test(phb) && /Pierce equal to half the bonus, rounded down/.test(all));
 ok("Strain is floor((XP - 24) / 8)", /\*\*Strain = floor\(\(XP - 24\) \/ 8\)\*\*/.test(fm) && /floor\(\(XP - 24\) \/ 8\)/.test(all));
 ok("Strain lands on the Primary Attribute", /Strain applies to the Instrument's Primary Attribute/.test(phb) && /on the Instrument's Primary Attribute/.test(all));
-ok("margin cap by weight: half Light, all Medium, all Heavy after doubling", /A Heavy Instrument doubles it\. Then cap the margin at the Potential of the Instrument's Primary Attribute: half of it, rounded down, for a Light Instrument, and all of it for Medium or Heavy\. Add the Effects of the declared Instrument Type and Technique/.test(phb) && /<strong>all<\/strong> for Medium/.test(all));
-ok("Edged +3, physical Resistance counts double", /\| Edged \| \+3 Stress against a physical Attribute\. Physical Resistance, after Pierce, counts double against it/.test(phb) && /Physical Resistance counts double against Edged/.test(all));
-ok("Blunt Pierce 3", /\| Blunt \| Pierce 3/.test(phb) && /Pierce 3 against physical Resistance/i.test(all));
-ok("Drawn +2, Fired +4", /\| Drawn \| \+2 Stress/.test(phb) && /\| Fired \| \+4 Stress/.test(phb) && /\+2 \/ \+4 Stress/.test(all));
+ok("margin cap by weight: half Light, all Medium, all Heavy after doubling", /A Heavy Instrument doubles it\. Then cap the margin at the Potential of the Instrument's Primary Attribute: half of it, rounded down, for a Light Instrument, and all of it for Medium or Heavy\. Add the Technique's Effects/.test(phb) && /<strong>all<\/strong> for Medium/.test(all));
+ok("four Instrument Types, each with what it harms, and none adds Stress", /\| Melee \| Might or Finesse \|/.test(phb) && /\| Sonic \| Wit or Presence \|/.test(phb)
+  && /No Type or Property adds Stress/.test(all) && /<td>Melee<\/td><td>Might or Finesse<\/td>/.test(all) && /<td>Sonic<\/td><td>Wit or Presence\./.test(all));
+ok("Drawn reloads with the Quick Action, Fired with the Action", /\| Drawn \| It is reloaded with the Quick Action\. \|/.test(phb) && /\| Fired \| It is reloaded with the Action\. \|/.test(phb)
+  && /Reload with the Quick Action \/ the Action/.test(all));
+ok("Guard: the Quick Action, +2 to Oppose for 1 round", /Spend your Quick Action to \*\*Guard\*\* with a Guarding Instrument/.test(phb) && /For 1 round, the guarded character gets \+2 to Oppose/.test(phb)
+  && /For 1 round, the guarded character gets \+2 to Oppose/.test(all));
+ok("a signature costs the Action, with Strain past 11 XP", /A signature costs the Action, whatever the Instrument's weight\. A signature priced over 11 XP costs Strain/.test(phb)
+  && /A signature costs the Action at any weight\. A signature priced over 11 XP costs 1 Strain for each full 8 XP over\./.test(all));
 ok("weight classes 15/30/45p, 2/4/8 lbs, Medium full cap, Heavy whole turn with the margin doubled", /Light 15p, Medium 30p, Heavy 45p/.test(phb) && /A Heavy Instrument \| 8 lbs/.test(phb) && /\(15p, 30p, 45p\)/.test(all) && /\(2, 4, 8 lbs\)/.test(all)
-  && /\*\*Medium\*\*: its margin caps at the full Primary Potential/.test(phb) && /\*\*Heavy\*\*: any Technique through it, a Quick one included, costs the Action and the Quick Action\. Its margin is doubled, then capped at the full Primary Potential\. It takes both hands/.test(phb)
-  && /doubles the margin before the cap/.test(all));
+  && /\*\*Medium\*\*: its margin caps at the full Primary Potential/.test(phb) && /\*\*Heavy\*\*: any Technique through it that deals Stress, a Quick one included, costs the Action and the Quick Action\. Its margin is doubled, then capped at the full Primary Potential\. It takes both hands/.test(phb)
+  && /its margin doubles before the cap/.test(all));
 ok("Incapacitation lifts at half Potential, rounded down", /down to half its Potential, rounded down/.test(phb) && /half its Potential or less, rounded down/.test(all));
 ok("Foil Tokens: max four, halve one source, reroll one die", /at most \*\*four\*\* Foil Tokens/.test(phb) && /halves the Stress from one source/.test(phb) && /reroll any one die/.test(phb)
   && /at most four/.test(all) && /halve the Stress from one source, rounded down/.test(all));
@@ -62,7 +67,7 @@ ok("Effect prices match PHB 4.2.1", /\*\*Stress\*\*\s*\|\s*4\s*\|/.test(phb) && 
   && /\*\*Mend Xd4\*\*\s*\|\s*10 x X/.test(phb) && /\*\*Counter\*\*\s*\|\s*12/.test(phb) && /<td>6 x N, or 24 x N for 1 minute<\/td>/.test(all) && /<td>10 x X<\/td>/.test(all)
   && /\*\*Lingering N\*\*\s*\|\s*7 x N/.test(phb) && /\*\*Hasten \(Action\)\*\*\s*\|\s*14/.test(phb) && /\*\*Hasten \(Quick Action\)\*\*\s*\|\s*11/.test(phb) && /\*\*Quick\*\*\s*\|\s*3\s/.test(phb) && /<td>7 x N<\/td>/.test(all));
 ok("bonus price ladder", /\| \+4\s*\| \+200p\s*\| \+400p\s*\| \+800p/.test(phb) && /<td>\+4<\/td><td>200p<\/td><td>400p<\/td><td>800p<\/td>/.test(all));
-ok("Body and Voice kits", /\*\*Strike\*\* \(Prowess\)/.test(phb) && /\*\*Sway\*\* \(Resonance\)/.test(phb) && /Strike, Grapple, Intimidate/.test(all) && /Browbeat, Mislead, Sway/.test(all));
+ok("Body and Voice kits", /\*\*Strike\*\* \(Prowess\)/.test(phb) && /\*\*Persuade\*\* \(Resonance\)/.test(phb) && /Strike and Grapple, and it backs Threaten/.test(all) && /Threaten, Deceive, and Persuade/.test(all));
 ok("Mind kit", /\*\*Deduce\*\* \(Discipline\)/.test(phb) && /\*\*Intuit\*\* \(Resonance\)/.test(phb) && /Deduce, Analyze, Intuit/.test(all));
 ok("Training price matches the code", all.includes(`+1 Training ${XP_COST.training} XP plus ${XP_COST.trainingStep} per point held`));
 

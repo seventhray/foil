@@ -1,0 +1,43 @@
+{
+  "_id": "53nykKO14UZqwFvs",
+  "name": "Evade (None)",
+  "type": "technique",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "requires": [],
+    "innate": true,
+    "skill": "",
+    "family": "Guard",
+    "subgroup": "",
+    "effects": [
+      {
+        "key": "evade",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveR": 0
+      },
+      {
+        "key": "quick",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveR": 0
+      }
+    ],
+    "floor": true,
+    "ancestryGrant": "",
+    "effectText": "Quick (trigger: a hostile's Melee Technique targets you): Evade before it rolls.",
+    "description": ""
+  },
+  "effects": [],
+  "folder": "XLqQxkpQvA8jn8IH",
+  "sort": 2600000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!53nykKO14UZqwFvs"
+}

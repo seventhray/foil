@@ -7,15 +7,7 @@
     "key": "baited",
     "requires": [
       "incorporeal",
-      "sonic",
-      "edged",
-      "pointed",
-      "blunt",
-      "grappling",
-      "parry",
-      "thrown",
-      "drawn",
-      "fired"
+      "sonic"
     ],
     "pricingKind": "flat",
     "pricingParams": {

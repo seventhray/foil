@@ -1,0 +1,24 @@
+{
+  "_id": "zvTlEo5358bAecx5",
+  "name": "Tools [Gemstone]",
+  "type": "instrumentType",
+  "img": "icons/svg/upgrade.svg",
+  "system": {
+    "key": "craft-gemstone",
+    "kind": "property",
+    "family": "other",
+    "harms": "",
+    "quick": false,
+    "reload": "",
+    "isTool": true,
+    "description": "<p>Its rolls are Trades, and it works Gemstone.</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 1700000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!zvTlEo5358bAecx5"
+}

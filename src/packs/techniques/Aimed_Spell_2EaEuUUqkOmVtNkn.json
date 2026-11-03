@@ -1,0 +1,45 @@
+{
+  "_id": "2EaEuUUqkOmVtNkn",
+  "name": "Aimed Spell",
+  "type": "technique",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "requires": [
+      "incorporeal"
+    ],
+    "innate": false,
+    "skill": "",
+    "family": "Incorporeal",
+    "subgroup": "Debilitating",
+    "effects": [
+      {
+        "key": "stress",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveR": 0
+      },
+      {
+        "key": "roll-bonus",
+        "magnitude": 2,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveR": 0
+      }
+    ],
+    "floor": false,
+    "ancestryGrant": "",
+    "effectText": "Stress, +2",
+    "description": ""
+  },
+  "effects": [],
+  "folder": "7TZjmQ3DFG4ujBS3",
+  "sort": 3100000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!2EaEuUUqkOmVtNkn"
+}

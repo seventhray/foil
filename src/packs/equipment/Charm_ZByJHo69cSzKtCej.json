@@ -3,7 +3,7 @@
   "name": "Charm",
   "type": "Item",
   "folder": null,
-  "sort": 400000,
+  "sort": 300000,
   "color": null,
   "description": "",
   "flags": {},

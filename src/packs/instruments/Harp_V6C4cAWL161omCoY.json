@@ -1,0 +1,49 @@
+{
+  "_id": "V6C4cAWL161omCoY",
+  "name": "Harp",
+  "type": "instrument",
+  "img": "icons/svg/sword.svg",
+  "system": {
+    "category": "sonic",
+    "weight": "heavy",
+    "primaryAttribute": "presence",
+    "range": "Range 8",
+    "maxRange": "mid",
+    "types": [
+      "sonic",
+      "tool"
+    ],
+    "typesDisplay": "",
+    "price": 45,
+    "rider": "",
+    "family": "Strings",
+    "backs": "Persuade",
+    "kit": [
+      {
+        "name": "Cry",
+        "skill": "assertiveness",
+        "effect": "Deals Stress to Wit or Presence.",
+        "signature": false
+      },
+      {
+        "name": "Impress",
+        "skill": "guile",
+        "effect": "Applies Impressed.",
+        "signature": true
+      }
+    ],
+    "innate": false,
+    "bonus": 0,
+    "size": "medium",
+    "materials": "",
+    "description": ""
+  },
+  "effects": [],
+  "folder": "T1KFz77GLbAaMKYf",
+  "sort": 4000000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!V6C4cAWL161omCoY"
+}

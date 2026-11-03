@@ -10,27 +10,27 @@
     "range": "Range 4",
     "maxRange": "short",
     "types": [
+      "ranged",
       "grappling",
       "thrown"
     ],
     "typesDisplay": "",
-    "price": 15,
+    "price": 35,
     "rider": "",
+    "family": "Nets",
+    "backs": "Deceive",
     "kit": [
       {
-        "name": "Snare",
+        "name": "Restrain",
         "skill": "prowess",
-        "effect": "Applies Grappled."
+        "effect": "Applies Restrained.",
+        "signature": true
       },
       {
-        "name": "Tumble",
+        "name": "Slow",
         "skill": "acuity",
-        "effect": "Applies Prone."
-      },
-      {
-        "name": "Tangle",
-        "skill": "guile",
-        "effect": "Applies Restrained."
+        "effect": "Applies Slowed.",
+        "signature": false
       }
     ],
     "innate": false,
@@ -41,7 +41,7 @@
   },
   "effects": [],
   "folder": "lfAkWVc1ahX5JWFH",
-  "sort": 2400000,
+  "sort": 3200000,
   "ownership": {
     "default": 0
   },

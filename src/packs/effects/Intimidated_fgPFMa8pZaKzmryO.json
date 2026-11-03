@@ -7,12 +7,7 @@
     "key": "intimidated",
     "requires": [
       "incorporeal",
-      "sonic",
-      "edged",
-      "pointed",
-      "blunt",
-      "grappling",
-      "parry"
+      "sonic"
     ],
     "pricingKind": "flat",
     "pricingParams": {

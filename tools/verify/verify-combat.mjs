@@ -4,7 +4,7 @@ import { opposeExtras, failCard, stressCard, opposeDialog } from "../../src/oppo
 import { entryLabel, withDuration } from "../../src/pricing.js";
 import { reachBand, reachLine, rangeWarning, bandOfFeet } from "../../src/range.js";
 import { aggregateModifiers } from "../../src/modifiers.js";
-import { scopedResistance, familiesOf, RESISTANCE_SCOPES } from "../../src/resist.js";
+import { scopedResistance, attackScopes, RESISTANCE_SCOPES } from "../../src/resist.js";
 import { abilitySteps, acToResistance, creatureNumbers, tierFor, crToThreat, diceFor, assignAttributes } from "../../src/creature-math.js";
 import { NATURAL_WEAPONS, MONSTER_FEATS, TRAITS } from "../../src/creature-data.js";
 import { restPlan } from "../../src/rest.js";
@@ -82,14 +82,21 @@ const agg = aggregateModifiers([feat("Cave Reflexes", [{ type: "initiative", key
   feat("Camouflaged Skin", [{ type: "stealth", key: "", value: 2 }]), feat("Dark Sight", [{ type: "training", key: "acuity", value: 2 }])]);
 check("Feat modifiers add to Initiative, Stealth, and Training", [agg.initiative, agg.stealth, agg.training.acuity], [4, 2, 2]);
 
-const atk = { types: ["edged", "pointed"], families: familiesOf(["edged", "pointed"]), kind: "physical" };
-check("An Instrument's Types belong to their Families", [familiesOf(["edged", "pointed"]), familiesOf(["thrown"]), familiesOf(["kinetic", "sonic"])], [["melee"], ["ranged"], ["arcane"]]);
-check("Specialized Resistance counts against a matching Instrument Type, Family, or Broad kind only", [
-  scopedResistance({ narrowResistance: [{ scope: "edged", n: 2 }] }, atk).net,
-  scopedResistance({ narrowResistance: [{ scope: "melee", n: 1 }, { scope: "arcane", n: 3 }] }, atk).net,
+const atk = { types: attackScopes(["melee", "guarding"]), kind: "physical" };
+const wand = ["arcane", "kinetic", "incorporeal"];
+check("A hit counts as its Type, or the Arcane Property declared; older Types read as the new", [attackScopes(["melee", "guarding"]), attackScopes(["ranged", "drawn"]),
+  attackScopes(wand, "incorporeal"), attackScopes(wand), attackScopes(["edged", "pointed"]), attackScopes(["sonic"])], [["melee"], ["ranged"], ["incorporeal"], ["kinetic"], ["melee"], ["sonic"]]);
+check("Specialized Resistance counts against a matching Type, Arcane Property, or Broad kind only (GMG 9.5.1)", [
+  scopedResistance({ narrowResistance: [{ scope: "melee", n: 2 }] }, atk).net,
+  scopedResistance({ narrowResistance: [{ scope: "ranged", n: 1 }, { scope: "kinetic", n: 3 }] }, atk).net,
   scopedResistance({ narrowResistance: [{ scope: "physical", n: 1 }] }, atk).net,
-  scopedResistance({ narrowResistance: [{ scope: "mental", n: 4 }, { scope: "kinetic", n: 2 }] }, atk).net], [2, 1, 1, 0]);
-check("Resistance scopes are Instrument Types and Families", RESISTANCE_SCOPES.includes("kinetic") && RESISTANCE_SCOPES.includes("melee") && !RESISTANCE_SCOPES.includes("fire"), true);
+  scopedResistance({ narrowResistance: [{ scope: "incorporeal", n: 2 }] }, { types: attackScopes(wand, "incorporeal"), kind: "mental" }).net,
+  scopedResistance({ narrowResistance: [{ scope: "mental", n: 4 }, { scope: "kinetic", n: 2 }] }, atk).net], [2, 0, 1, 2, 0]);
+check("an older row's scope reads as the new one: Edged as Melee, Arcane as either Property", [
+  scopedResistance({ narrowResistance: [{ scope: "edged", n: 2 }] }, atk).net,
+  scopedResistance({ narrowResistance: [{ scope: "arcane", n: 3 }] }, { types: attackScopes(wand, "incorporeal"), kind: "mental" }).net,
+  scopedResistance({ narrowResistance: [{ scope: "melee", n: 1 }] }, { types: ["edged", "pointed"], kind: "physical" }).net], [2, 3, 1]);
+check("Resistance scopes are Melee, Ranged, Kinetic, Sonic and Incorporeal", RESISTANCE_SCOPES, ["melee", "ranged", "kinetic", "sonic", "incorporeal"]);
 
 const tierRows = [[1, -384, 8, 32, 0, 4, 16], [4, 0, 20, 80, 16, 76, 40], [5, 128, 24, 96, 16, 117, 48], [7, 384, 32, 128, 24, 171, 64], [9, 1152, 56, 224, 32, 250, 112], [10, 1536, 68, 272, 40, 301, 136]];
 check("creature formulas reproduce the GMG tier table", tierRows.map(([t, th]) => { const n = creatureNumbers(th); return [n.tier, n.potential, n.totalPotential, n.resistanceBudget, n.allowance, n.ceiling]; }),
@@ -115,32 +122,32 @@ check("AC converts to physical Resistance by the table", [10, 12, 13, 16, 17, 19
 check("A stretch of Toil costs 1 Strain, 2 on a failure, 1 per 2 hours past 8, plus the Mass penalty", [toilStretch({}).stress, toilStretch({ failed: true }).stress, toilStretch({ overtimeHours: 4 }).stress, toilStretch({ overtimeHours: 3 }).stress, toilStretch({ massPenalty: 2 }).stress], [1, 2, 3, 2, 3]);
 
 check("The Oppose flow's wording and modifiers come from oppose-text.js", [
-  opposeExtras({ conditionParts: [{ label: "Reeling", value: -1 }], block: 1, guard: true, exposedSpent: [{ note: "Faith: Trusting; by Verren" }], other: 2 }).map(e => e.value).join(","),
+  opposeExtras({ conditionParts: [{ label: "Reeling", value: -1 }], guard: 3, exposedSpent: [{ note: "Faith: Trusting; by Verren" }], other: 2 }).map(e => e.value).join(","),
   failCard("Bite", "Kessen", "9 against 12").includes("Bite fails against Kessen"),
   stressCard("Kessen", "might", { stress: 4, parts: ["margin 6"] }, "9 against 3").includes("4 Stress"),
-  opposeDialog({ flagName: "Bite", attackLine: "9", defenderName: "Kessen", conditionName: null, aim: "might", skills: [], flagHtml: "", opts: "", attackerName: "Wolf", exposed: [], kind: "physical", canParry: true }).includes('name="parry"')
-], ["-1,1,2,-2,2", true, true, true]);
+  opposeDialog({ flagName: "Bite", attackLine: "9", defenderName: "Kessen", conditionName: null, aim: "might", skills: [], flagHtml: "", opts: "", attackerName: "Wolf", exposed: [], kind: "physical", guards: [{ id: "b", name: "Buckler", value: 2 }] }).includes('name="guard"')
+], ["-1,3,-2,2", true, true, true]);
 
-// A character's blocks (PHB 6.5.1; user, 2026-10-29): a Shield is physical, a Ward or an arcane Instrument arcane, and a Shield or Ward
-// with no stated Range reaches Range 1.
+// A character's Guarding Instruments (PHB 6.5.2): each covers what it harms, at its own Range, with its +N. A Shield stored as Equipment
+// still guards Might and Finesse at Range 1. A Ward is worn for Resistance only, and a carried Instrument isn't ready.
 {
-  const { blocksOf } = await import("../../rules/oppose.js");
+  const { guardsOf, guardValue } = await import("../../rules/oppose.js");
   const item = (name, type, system) => ({ id: name, name, type, system: { location: "equipped", ...system } });
-  const got = blocksOf({ items: [item("Round Shield", "equipment", { category: "shield" }), item("Mental Ward", "equipment", { category: "ward" }),
-    item("Quarterstaff", "instrument", { category: "melee", types: ["blunt", "blocking"], rangeBand: "near" }), item("Ward Focus", "instrument", { category: "arcane", types: ["blocking"], rangeBand: "close" }),
-    item("Longsword", "instrument", { category: "melee", types: ["edged", "parry"], rangeBand: "close" }), { ...item("Kite Shield", "equipment", { category: "shield" }), system: { category: "shield", location: "carried" } }] });
-  check("Blocks: Shield physical at Range 1, Ward arcane at Range 1, Quarterstaff at its own Range, Ward Focus arcane; a carried Shield and a sword are none",
-    got.map(b => `${b.name}:${b.kind}:${b.band}`), ["Round Shield:physical:close", "Mental Ward:arcane:close", "Quarterstaff:physical:near", "Ward Focus:arcane:close"]);
+  const got = guardsOf({ items: [item("Round Shield", "equipment", { category: "shield" }), item("Mental Ward", "equipment", { category: "ward" }),
+    item("Quarterstaff", "instrument", { category: "melee", types: ["blunt", "blocking"], rangeBand: "near" }), item("Ward Focus", "instrument", { category: "arcane", types: ["arcane", "incorporeal", "guarding"], rangeBand: "close" }),
+    item("Longsword +2", "instrument", { category: "melee", types: ["melee", "guarding"], rangeBand: "close", bonus: 2 }), item("Mace", "instrument", { category: "melee", types: ["melee"], rangeBand: "close" }),
+    { ...item("Kite Shield", "instrument", { category: "shield", types: ["melee", "guarding"] }), system: { category: "shield", types: ["melee", "guarding"], location: "carried" } }] });
+  check("Guards: an older Shield physical at Range 1, the Quarterstaff at its own Range, the Ward Focus mental, the Longsword +2 at +4; no Ward, Mace or carried Shield",
+    got.map(g => `${g.name}:${g.kinds.join("+")}:${g.band}:+${guardValue(g)}`), ["Round Shield:physical:close:+2", "Quarterstaff:physical:near:+2", "Ward Focus:mental:close:+2", "Longsword +2:physical:close:+4"]);
 }
 
-// Guard and Parry in the Oppose dialog (PHB 6.5.1, 6.5.2; user, 2026-10-29): no Guard box, since a Guarded mark adds by itself, and
-// Parry only for a defender that may Parry.
+// Guard in the Oppose dialog (PHB 6.5.1, 6.5.2): a Guarded mark adds by itself; a defender with a ready Guarding Instrument may Guard now.
 {
   const dialog = o => opposeDialog({ flagName: "Bite", attackLine: "9", defenderName: "Kessen", conditionName: null, aim: "might", skills: [], flagHtml: "", opts: "", attackerName: "Wolf", exposed: [], kind: "physical", ...o });
-  check("The Oppose dialog asks no Guard, says a Guarded mark, and offers Parry only when it may", [
-    dialog({}).includes('name="guard"'), dialog({}).includes('name="parry"'),
-    dialog({ guarded: "Round Shield, physical block, by Wren" }).includes("Guarded (Round Shield, physical block, by Wren): +2")
-  ], [false, false, true]);
+  check("The Oppose dialog offers a Guard only with a Guarding Instrument, never a Parry, and says a Guarded mark", [
+    dialog({}).includes('name="guard"'), dialog({ guards: [{ id: "b", name: "Buckler", value: 2 }] }).includes('name="guard"'), dialog({}).includes('name="parry"'),
+    dialog({ guarded: "Round Shield, physical guard, by Wren" }).includes("Guarded (Round Shield, physical guard, by Wren)")
+  ], [false, true, false, true]);
 }
 
 // A Technique goes only through a ready Instrument (user, 2026-10-29): innate, equipped, a Shield for Blocking, or an Immobile one where it stands.
@@ -254,6 +261,41 @@ check("The Oppose flow's wording and modifiers come from oppose-text.js", [
   check("a Technique that requires Pointed declares Pointed", keys([T("edged"), T("pointed")], { requires: ["pointed"], aim: "finesse" }), ["1 pointed"]);
   check("at Wit, only a Type that reaches the mind", keys([T("kinetic"), T("sonic")], { aim: "wit" }), ["1 sonic"]);
   check("a Type that deals no Stress is never declared", keys([T("grappling", { dealsNoStress: true })], { aim: "might" }), []);
+}
+
+// Built-in Techniques (PHB 4.1.3, 4.1.1): a signature costs the Action and takes its stated Strain, a Stress built-in carries its Pierce,
+// a ready weapon backs Voice's Technique on its Skill, and a Sonic Condition reaches a group.
+{
+  const { rollKitSteps } = await import("../../rules/roll.js");
+  const { deriveInstrument } = await import("../../rules/items.js");
+  const { driveSync } = await import("../../rules/flow.js");
+  const inst = (id, name, system) => { const sys = { location: "equipped", bonus: 0, primaryAttribute: "might", maxRange: "close", ...system }; deriveInstrument(sys); return { id, name, type: "instrument", system: sys }; };
+  const maul = inst("m", "Maul", { weight: "heavy", types: ["melee"], kit: [{ name: "Strike", skill: "prowess", effect: "Deals Stress to Might or Finesse." },
+    { name: "Stun", skill: "discipline", effect: "Applies Stunned. Strain 1.", signature: true }] });
+  const crossbow = inst("c", "Crossbow", { weight: "medium", primaryAttribute: "wit", types: ["ranged", "fired"], maxRange: "long", kit: [{ name: "Shot", skill: "discipline", effect: "Deals Stress to Might or Finesse, with Pierce 2." }] });
+  const voice = inst("v", "Voice", { innate: true, weight: "light", primaryAttribute: "presence", types: ["sonic"], maxRange: "mid", kit: [{ name: "Threaten", skill: "assertiveness", effect: "Deals Stress to Wit or Presence." },
+    { name: "Threaten", skill: "assertiveness", effect: "Applies Frightened." }] });
+  const sword = inst("s", "Longsword", { weight: "medium", types: ["melee", "guarding"], backs: "Threaten", kit: [] });
+  const horn = inst("h", "War Horn", { weight: "medium", primaryAttribute: "presence", types: ["sonic"], maxRange: "long", backs: "Threaten", kit: [] });
+  const attrs = { might: { potential: { max: 20, current: 20 } }, wit: { potential: { max: 20, current: 20 } }, presence: { potential: { max: 20, current: 20 } } };
+  const roll = (items, i, index) => {
+    const seen = { strain: [], post: null };
+    driveSync(rollKitSteps({ actor: { id: "a", name: "Rob", items, system: { attributes: attrs, skills: {}, conditions: [] } }, inst: i, index }), {
+      rangeNotes: () => [], aim: () => ({ targets: [], aim: "might", typeIndex: 0 }), takeStress: (attr, n) => { seen.strain.push(`${attr} ${n}`); return { before: 20, after: 20 - n }; },
+      log: () => {}, post: p => { seen.post = p; }
+    });
+    return seen;
+  };
+  const stun = roll([maul], maul, 1), strike = roll([maul], maul, 0);
+  check("a Maul's Stun is a signature: the Action, 1 Strain on Might, no Heavy note; its Strike is Heavy",
+    [stun.strain, /Signature: costs the Action/.test(stun.post.note), /Heavy:/.test(stun.post.note), /Heavy:/.test(strike.post.note), strike.strain],
+    [["might 1"], true, false, true, []]);
+  check("a Stress built-in's stated Pierce rides its payload", roll([crossbow], crossbow, 0).post.payload.stress.pierce.find(p => p.label === "Shot")?.value, 2);
+  const backed = roll([voice, sword, horn], voice, 0).post.payload.backers;
+  check("Voice's Threaten lists the ready Instruments that back it, each with its Range, and the horn carries it",
+    backed?.map(b => `${b.name}:${b.range}:${b.carries}`), ["Longsword:1:false", "War Horn:20:true"]);
+  check("a stored weapon backs nothing", roll([voice, { ...sword, system: { ...sword.system, location: "carried" } }], voice, 0).post.payload.backers, undefined);
+  check("Voice's Frightened reaches a group; its Stress does not", [roll([voice], voice, 1).post.payload.condition?.group, roll([voice], voice, 0).post.payload.condition], [true, null]);
 }
 
 process.exit(failed ? 1 : 0);

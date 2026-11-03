@@ -6,8 +6,8 @@
   "system": {
     "key": "wary",
     "requires": [
-      "sonic",
-      "fortifying"
+      "incorporeal",
+      "sonic"
     ],
     "pricingKind": "flat",
     "pricingParams": {

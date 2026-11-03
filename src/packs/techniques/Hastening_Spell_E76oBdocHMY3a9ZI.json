@@ -1,0 +1,37 @@
+{
+  "_id": "E76oBdocHMY3a9ZI",
+  "name": "Hastening Spell",
+  "type": "technique",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "requires": [
+      "incorporeal"
+    ],
+    "innate": false,
+    "skill": "",
+    "family": "Fortifying",
+    "subgroup": "Single-Target Support",
+    "effects": [
+      {
+        "key": "hasten-action",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveR": 0
+      }
+    ],
+    "floor": true,
+    "ancestryGrant": "",
+    "effectText": "Hasten (Action) to an ally",
+    "description": ""
+  },
+  "effects": [],
+  "folder": "7iWo1tIjpwUjJOcY",
+  "sort": 1000000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!E76oBdocHMY3a9ZI"
+}

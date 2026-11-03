@@ -1,0 +1,24 @@
+{
+  "_id": "TCK1hcBpNmDZOLvt",
+  "name": "Tools [Textile]",
+  "type": "instrumentType",
+  "img": "icons/svg/upgrade.svg",
+  "system": {
+    "key": "craft-textile",
+    "kind": "property",
+    "family": "other",
+    "harms": "",
+    "quick": false,
+    "reload": "",
+    "isTool": true,
+    "description": "<p>Its rolls are Trades, and it works Textile.</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 1800000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!TCK1hcBpNmDZOLvt"
+}

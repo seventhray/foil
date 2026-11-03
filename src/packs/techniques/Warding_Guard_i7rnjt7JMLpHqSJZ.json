@@ -1,0 +1,37 @@
+{
+  "_id": "i7rnjt7JMLpHqSJZ",
+  "name": "Warding Guard",
+  "type": "technique",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "requires": [
+      "guarding"
+    ],
+    "innate": false,
+    "skill": "",
+    "family": "Guard",
+    "subgroup": "",
+    "effects": [
+      {
+        "key": "resistance",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveR": 0
+      }
+    ],
+    "floor": true,
+    "ancestryGrant": "",
+    "effectText": "Gain Resistance +1 of the kind this Instrument covers for 1 round",
+    "description": ""
+  },
+  "effects": [],
+  "folder": "XLqQxkpQvA8jn8IH",
+  "sort": 2300000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!i7rnjt7JMLpHqSJZ"
+}

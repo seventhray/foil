@@ -1,0 +1,48 @@
+{
+  "_id": "Z9EDN8BNB7BTZkjk",
+  "name": "Hammer",
+  "type": "instrument",
+  "img": "icons/svg/sword.svg",
+  "system": {
+    "category": "melee",
+    "weight": "light",
+    "primaryAttribute": "finesse",
+    "range": "Range 1",
+    "maxRange": "close",
+    "types": [
+      "melee"
+    ],
+    "typesDisplay": "",
+    "price": 15,
+    "rider": "",
+    "family": "Hammers",
+    "backs": "Deceive",
+    "kit": [
+      {
+        "name": "Strike",
+        "skill": "prowess",
+        "effect": "Deals Stress to Might or Finesse.",
+        "signature": false
+      },
+      {
+        "name": "Stun",
+        "skill": "acuity",
+        "effect": "Applies Stunned. Strain 1.",
+        "signature": true
+      }
+    ],
+    "innate": false,
+    "bonus": 0,
+    "size": "medium",
+    "materials": "",
+    "description": ""
+  },
+  "effects": [],
+  "folder": "vKD7tkrcXtwm5qDA",
+  "sort": 2500000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!Z9EDN8BNB7BTZkjk"
+}

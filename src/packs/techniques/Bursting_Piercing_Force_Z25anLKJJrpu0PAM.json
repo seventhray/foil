@@ -1,0 +1,53 @@
+{
+  "_id": "Z25anLKJJrpu0PAM",
+  "name": "Bursting Piercing Force",
+  "type": "technique",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "requires": [
+      "kinetic"
+    ],
+    "innate": false,
+    "skill": "",
+    "family": "Kinetic",
+    "subgroup": "Area & Lingering",
+    "effects": [
+      {
+        "key": "stress",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveR": 0
+      },
+      {
+        "key": "pattern",
+        "magnitude": 1,
+        "pattern": "radius",
+        "bands": 2,
+        "placement": 0,
+        "selectiveR": 0
+      },
+      {
+        "key": "pierce",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveR": 0
+      }
+    ],
+    "floor": false,
+    "ancestryGrant": "",
+    "effectText": "Stress, Radius (Range 2), Pierce 1, Strain 3",
+    "description": ""
+  },
+  "effects": [],
+  "folder": "mYseHIx2CsvaKyl1",
+  "sort": 6300000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!Z25anLKJJrpu0PAM"
+}

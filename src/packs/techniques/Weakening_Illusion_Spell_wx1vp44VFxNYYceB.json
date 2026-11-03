@@ -1,0 +1,53 @@
+{
+  "_id": "wx1vp44VFxNYYceB",
+  "name": "Weakening Illusion Spell",
+  "type": "technique",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "requires": [
+      "incorporeal"
+    ],
+    "innate": false,
+    "skill": "",
+    "family": "Incorporeal",
+    "subgroup": "Illusion & Deception",
+    "effects": [
+      {
+        "key": "stress",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveR": 0
+      },
+      {
+        "key": "illusion",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveR": 0
+      },
+      {
+        "key": "weaken",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveR": 0
+      }
+    ],
+    "floor": false,
+    "ancestryGrant": "",
+    "effectText": "Stress, Illusion, -1 [target Attribute]",
+    "description": ""
+  },
+  "effects": [],
+  "folder": "7wgQQzhhuxu4ff2I",
+  "sort": 4000000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!wx1vp44VFxNYYceB"
+}

@@ -8,6 +8,10 @@ export const GLOSSARY = {
     "name": "Angered",
     "text": "Resisted with Presence. Furious beyond talking down. It won't Flee or Yield, and keeps fighting any conflict that breaks out. It ends when it acts on the anger, or after the duration."
   },
+  "arcane": {
+    "name": "Arcane",
+    "text": "Might or Finesse through Kinetic, Wit or Presence through Incorporeal"
+  },
   "attribute": {
     "name": "Attribute",
     "text": "Might, Finesse, Wit, or Presence, the four fundamental building blocks of a being"
@@ -27,14 +31,6 @@ export const GLOSSARY = {
   "blinded": {
     "name": "Blinded",
     "text": "Resisted with Wit. The creature can't see. Its rolls take -2. Its Techniques that need line of sight work only at Range 0. It ends at the end of its next turn."
-  },
-  "blocking": {
-    "name": "Blocking",
-    "text": "Its +N applies to Oppose rolls. Guards with the Quick Action on your turn."
-  },
-  "blunt": {
-    "name": "Blunt",
-    "text": "Pierce 3 against Physical Resistance."
   },
   "charmed": {
     "name": "Charmed",
@@ -56,10 +52,6 @@ export const GLOSSARY = {
     "name": "Counter",
     "text": "Quick (trigger: a creature within range performs a Technique): contest it with your Skill; on a tie or better, that Technique fails. The Counter roll takes a penalty equal to that Technique's Strain"
   },
-  "craft": {
-    "name": "Craft",
-    "text": "Its rolls are Trades working that Material, such as Craft [Metal] or Craft [Stone]. Plain Craft works any Material."
-  },
   "destroyed": {
     "name": "Destroyed",
     "text": "Destruction is permanent: death, or a mind or self broken past recovering. A creature is Destroyed when all four of its Attributes are Incapacitated at the same time. Destroying an opponent is a choice."
@@ -74,11 +66,7 @@ export const GLOSSARY = {
   },
   "drawn": {
     "name": "Drawn",
-    "text": "+2 Stress"
-  },
-  "edged": {
-    "name": "Edged",
-    "text": "+3 Stress against a physical Attribute. Physical Resistance, after Pierce, counts double against it."
+    "text": "It is reloaded with the Quick Action."
   },
   "enthralled": {
     "name": "Enthralled",
@@ -94,11 +82,11 @@ export const GLOSSARY = {
   },
   "fired": {
     "name": "Fired",
-    "text": "+4 Stress"
+    "text": "It is reloaded with the Action."
   },
   "foil exposed": {
     "name": "Foil Exposed",
-    "text": "Resisted with Wit. The source learns one Habit of the creature, which the Technique names. Once, when the creature Opposes the source, the source may give that Oppose roll -2. It ends when used, or when the scene ends. A creature has one Foil Exposed for each of its Habits, from each source. > [!EXAMPLE] > Mira uses Intuit on the captain: Resonance 15 against his Discipline 10. Mira learns his Habit, \"Rules are the first thing to go when it actually matters.\" Mira then uses Rousing Chord through the Lute to Intimidate the captain, and spends the Foil Exposed to give his Oppose -2."
+    "text": "Resisted with Wit. The source learns one Habit of the creature, which the Technique names. Once, when the creature Opposes the source, the source may give that Oppose roll -2. It ends when used, or when the scene ends. A creature has one Foil Exposed for each of its Habits, from each source. > [!EXAMPLE] > Mira uses Intuit on the captain: Resonance 15 against his Discipline 10. Mira learns his Habit, \"Rules are the first thing to go when it actually matters.\" Mira then threatens the captain through Voice, choosing Intimidated, and spends the Foil Exposed to give his Oppose -2."
   },
   "foil habit": {
     "name": "FOIL Habit",
@@ -108,13 +96,9 @@ export const GLOSSARY = {
     "name": "Foil Token",
     "text": "Earned by invoking a FOIL Habit, spent to halve the Stress from one source or to reroll one die just rolled"
   },
-  "fortifying": {
-    "name": "Fortifying",
-    "text": "Support, aimed at an ally or the caster."
-  },
   "frightened": {
     "name": "Frightened",
-    "text": "Resisted with Presence. While the creature can perceive the source, its rolls take -1. It can't willingly move closer to the source. It ends when the source leaves its perception or the duration ends. > [!EXAMPLE] > In round 3 Wren uses Unsettling Pulse through the Wand on the captain: Resonance 20 against his Assertiveness 13. It lands, so the captain's rolls take -1 and he can't step toward Wren."
+    "text": "Resisted with Presence. While the creature can perceive the source, its rolls take -1. It can't willingly move closer to the source. It ends when the source leaves its perception or the duration ends. > [!EXAMPLE] > In round 3 Mira threatens the captain through Voice and chooses Frightened: Assertiveness 20 against his Assertiveness 13. It lands, so the captain's rolls take -1 and he can't step toward Mira."
   },
   "grappled": {
     "name": "Grappled",
@@ -122,7 +106,11 @@ export const GLOSSARY = {
   },
   "grappling": {
     "name": "Grappling",
-    "text": "Adds no Stress."
+    "text": "It can hold a creature."
+  },
+  "guarding": {
+    "name": "Guarding",
+    "text": "It guards its user or an ally."
   },
   "hasten": {
     "name": "Hasten",
@@ -130,11 +118,11 @@ export const GLOSSARY = {
   },
   "heavy": {
     "name": "Heavy",
-    "text": "any Technique through it, a Quick one included, costs the Action and the Quick Action. Its margin is doubled, then capped at the full Primary Potential. It takes both hands."
+    "text": "any Technique through it that deals Stress, a Quick one included, costs the Action and the Quick Action. Its margin is doubled, then capped at the full Primary Potential. It takes both hands."
   },
   "heavy instrument": {
     "name": "Heavy Instrument",
-    "text": "any Technique through it, a Quick one included, costs the Action and the Quick Action. Its margin is doubled, then capped at the full Primary Potential. It takes both hands."
+    "text": "any Technique through it that deals Stress, a Quick one included, costs the Action and the Quick Action. Its margin is doubled, then capped at the full Primary Potential. It takes both hands."
   },
   "illusion": {
     "name": "Illusion",
@@ -142,7 +130,7 @@ export const GLOSSARY = {
   },
   "immobile": {
     "name": "Immobile",
-    "text": "+2 Stress. Fixed in place: using it means being there."
+    "text": "It is fixed in place: using it means being there."
   },
   "impressed": {
     "name": "Impressed",
@@ -150,11 +138,11 @@ export const GLOSSARY = {
   },
   "incapacitated": {
     "name": "Incapacitated",
-    "text": "An Attribute is Incapacitated when its Stress reaches its Potential. It adds no dice to any roll that draws on it. It can still be targeted, by Techniques and by healing. Incapacitation lifts once healing brings its Stress down to half its Potential, rounded down. Healing short of that lowers its Stress, and new Stress fills it again before overflowing. A character with an Incapacitated Attribute stays in the conflict with a full Action, Quick Action, and movement. It can use any Technique whose Skill still has dice. > [!EXAMPLE] > A creature has taken heavy damage: Might, Wit, and Presence are all Incapacitated, leaving only Finesse standing. Prowess (Might + Finesse), Acuity (Finesse + Wit), and Guile (Finesse + Presence) still roll, each on Finesse's dice alone. Discipline, Assertiveness, and Resonance are dead: neither of their Attributes has dice left, so nothing that rolls them can be attempted. | Attribute | Incapacitated looks like | | --------- | ------------------------ | | Might | The body gives out: strength fails, legs buckle, breath won't come. | | Finesse | Control slips: reactions slow, balance falters, hands shake. | | Wit | The mind stalls: thoughts scatter, memory slips, nothing adds up. | | Presence | Words fail: eloquence goes, feelings spill over, reading the room grows hard. | The player calls it first, and the GM steps in only if asked. Show it once, in a sentence, and play on. > [!EXAMPLE] > In round 2 Kessen uses Relentless Blow through the Longsword on the captain's Might: Prowess 17 against his 12, a margin of 5. Pierce 4 clears the Mail, and Edged adds 3, for 8 Stress. His Might reaches 18 of 16 and is Incapacitated, and the extra 2 overflows onto his Presence. The captain's legs buckle and the Mace sags, but he is still in the fight."
+    "text": "An Attribute is Incapacitated when its Stress reaches its Potential. It adds no dice to any roll that draws on it. It can still be targeted, by Techniques and by healing. Incapacitation lifts once healing brings its Stress down to half its Potential, rounded down. Healing short of that lowers its Stress, and new Stress fills it again before overflowing. A character with an Incapacitated Attribute stays in the conflict with a full Action, Quick Action, and movement. It can use any Technique whose Skill still has dice. > [!EXAMPLE] > A creature has taken heavy damage: Might, Wit, and Presence are all Incapacitated, leaving only Finesse standing. Prowess (Might + Finesse), Acuity (Finesse + Wit), and Guile (Finesse + Presence) still roll, each on Finesse's dice alone. Discipline, Assertiveness, and Resonance are dead: neither of their Attributes has dice left, so nothing that rolls them can be attempted. | Attribute | Incapacitated looks like | | --------- | ------------------------ | | Might | The body gives out: strength fails, legs buckle, breath won't come. | | Finesse | Control slips: reactions slow, balance falters, hands shake. | | Wit | The mind stalls: thoughts scatter, memory slips, nothing adds up. | | Presence | Words fail: eloquence goes, feelings spill over, reading the room grows hard. | The player calls it first, and the GM steps in only if asked. Show it once, in a sentence, and play on. > [!EXAMPLE] > In round 2 Kessen uses Relentless Blow through the Longsword on the captain's Might: Prowess 23 against his 12, a margin of 11. Pierce 4 clears the Mail, for 11 Stress. His Might reaches 18 of 16 and is Incapacitated, and the extra 2 overflows onto his Presence. The captain's legs buckle and the Mace sags, but he is still in the fight."
   },
   "incorporeal": {
     "name": "Incorporeal",
-    "text": "+1 Stress."
+    "text": "An Arcane Instrument with it harms Wit or Presence, with fear, curses, or drained life. It also carries life magic, such as Mend."
   },
   "instrument": {
     "name": "Instrument",
@@ -162,11 +150,11 @@ export const GLOSSARY = {
   },
   "instrument type": {
     "name": "Instrument Type",
-    "text": "A property of an Instrument that describes the form it takes and effects it has"
+    "text": "What an Instrument is: Melee, Ranged, Arcane, or Sonic"
   },
   "intimidated": {
     "name": "Intimidated",
-    "text": "Resisted with Presence. On the source's next turn, it may issue one demand, which the creature obeys. First, the creature may Oppose once at -1 to refuse. Intimidated ends when the demand is obeyed or refused, or at the end of the source's turn without one."
+    "text": "Resisted with Presence. On the source's next turn, it may issue one demand, which the creature obeys. First, the creature may Oppose once at -1 to refuse. A demand to end the conflict follows the Terms. Intimidated ends when the demand is obeyed or refused, or at the end of the source's turn without one."
   },
   "invisible": {
     "name": "Invisible",
@@ -174,7 +162,7 @@ export const GLOSSARY = {
   },
   "kinetic": {
     "name": "Kinetic",
-    "text": "+1 Stress."
+    "text": "An Arcane Instrument with it harms Might or Finesse, with fire, cold, lightning, acid, or force."
   },
   "light": {
     "name": "Light",
@@ -195,6 +183,10 @@ export const GLOSSARY = {
   "medium instrument": {
     "name": "Medium Instrument",
     "text": "its margin caps at the full Primary Potential."
+  },
+  "melee": {
+    "name": "Melee",
+    "text": "Might or Finesse"
   },
   "mend": {
     "name": "Mend",
@@ -220,10 +212,6 @@ export const GLOSSARY = {
     "name": "Overflow",
     "text": "When Stress is applied to an Incapacitated Attribute and gets reassigned to a different Attribute"
   },
-  "parry": {
-    "name": "Parry",
-    "text": "Spends the Quick Action before the Oppose roll against a Melee or Ranged Technique for Physical Resistance +1."
-  },
   "passive skill": {
     "name": "Passive Skill",
     "text": "Half a Skill's Potential, rounded down"
@@ -236,10 +224,6 @@ export const GLOSSARY = {
     "name": "Pierce",
     "text": "Ignore N of the Target's Resistance"
   },
-  "pointed": {
-    "name": "Pointed",
-    "text": "+1 Stress against a physical Attribute. Pierce 1 against Physical Resistance."
-  },
   "potential": {
     "name": "Potential",
     "text": "The maximum total of an AD pool, which represents the amount of Stress an Attribute can take"
@@ -251,6 +235,10 @@ export const GLOSSARY = {
   "prone": {
     "name": "Prone",
     "text": "Resisted with Finesse. The creature is knocked down. Its rolls take -1. Melee Techniques against it gain +1. It stands with its Quick Action."
+  },
+  "property": {
+    "name": "Property",
+    "text": "Effect"
   },
   "quick": {
     "name": "Quick",
@@ -267,6 +255,10 @@ export const GLOSSARY = {
   "range": {
     "name": "Range",
     "text": "A unit of distance equal to 5ft, which measures the distances between points and the distance an Instrument or Technique is effective"
+  },
+  "ranged": {
+    "name": "Ranged",
+    "text": "Might or Finesse"
   },
   "redirect": {
     "name": "Redirect",
@@ -306,7 +298,7 @@ export const GLOSSARY = {
   },
   "sonic": {
     "name": "Sonic",
-    "text": "+1 Stress."
+    "text": "Wit or Presence"
   },
   "strain": {
     "name": "Strain",
@@ -330,15 +322,15 @@ export const GLOSSARY = {
   },
   "thrown": {
     "name": "Thrown",
-    "text": "None"
+    "text": "It can be thrown. A Melee Instrument with it is thrown at any target past its reach, out to Range 4, and counts as Ranged for that Technique."
   },
   "toil": {
     "name": "Toil",
     "text": "Effort sustained over 8-hour stretches, such as travel or labor. Toil for N Strain is N Strain on every Attribute"
   },
-  "tool": {
-    "name": "Tool",
-    "text": "Its rolls are Trades."
+  "tools": {
+    "name": "Tools",
+    "text": "Its rolls are Trades. Tools [Material] works that Material, such as Tools [Metal]."
   },
   "training": {
     "name": "Training",

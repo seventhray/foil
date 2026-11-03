@@ -1,0 +1,53 @@
+{
+  "_id": "d95VeQJ1YJ0kAjI2",
+  "name": "Piercing Weakening Strike 1",
+  "type": "technique",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "requires": [
+      "melee"
+    ],
+    "innate": false,
+    "skill": "",
+    "family": "Melee",
+    "subgroup": "Debilitating",
+    "effects": [
+      {
+        "key": "stress",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveR": 0
+      },
+      {
+        "key": "pierce",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveR": 0
+      },
+      {
+        "key": "weaken",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveR": 0
+      }
+    ],
+    "floor": false,
+    "ancestryGrant": "",
+    "effectText": "Stress, Pierce 1, -1 [target Attribute]",
+    "description": ""
+  },
+  "effects": [],
+  "folder": "JVVEZL5EHFE7oCoI",
+  "sort": 8000000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!d95VeQJ1YJ0kAjI2"
+}

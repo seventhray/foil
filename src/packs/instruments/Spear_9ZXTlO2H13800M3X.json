@@ -10,27 +10,26 @@
     "range": "Range 2",
     "maxRange": "near",
     "types": [
-      "pointed",
-      "parry"
+      "melee",
+      "guarding"
     ],
     "typesDisplay": "",
     "price": 50,
     "rider": "",
+    "family": "Spears",
+    "backs": "Threaten",
     "kit": [
       {
-        "name": "Lunge",
+        "name": "Strike",
         "skill": "prowess",
-        "effect": "Deals Stress to Might or Finesse."
+        "effect": "Deals Stress to Might or Finesse.",
+        "signature": false
       },
       {
-        "name": "Topple",
+        "name": "Push",
         "skill": "discipline",
-        "effect": "Applies Prone."
-      },
-      {
-        "name": "War Cry",
-        "skill": "assertiveness",
-        "effect": "Applies Intimidated."
+        "effect": "Moves the target up to Range 2.",
+        "signature": true
       }
     ],
     "innate": false,
@@ -41,7 +40,7 @@
   },
   "effects": [],
   "folder": "vKD7tkrcXtwm5qDA",
-  "sort": 1800000,
+  "sort": 3700000,
   "ownership": {
     "default": 0
   },

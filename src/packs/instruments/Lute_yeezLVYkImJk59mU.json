@@ -16,21 +16,20 @@
     "typesDisplay": "",
     "price": 15,
     "rider": "",
+    "family": "Strings",
+    "backs": "Persuade",
     "kit": [
       {
-        "name": "Rousing Chord",
+        "name": "Cry",
         "skill": "assertiveness",
-        "effect": "Applies Intimidated."
+        "effect": "Deals Stress to Wit or Presence.",
+        "signature": false
       },
       {
-        "name": "Cutting Verse",
+        "name": "Impress",
         "skill": "guile",
-        "effect": "Applies Baited."
-      },
-      {
-        "name": "Discordant Note",
-        "skill": "resonance",
-        "effect": "Deals Stress to Wit or Presence."
+        "effect": "Applies Impressed.",
+        "signature": true
       }
     ],
     "innate": false,
@@ -41,7 +40,7 @@
   },
   "effects": [],
   "folder": "T1KFz77GLbAaMKYf",
-  "sort": 3100000,
+  "sort": 3900000,
   "ownership": {
     "default": 0
   },

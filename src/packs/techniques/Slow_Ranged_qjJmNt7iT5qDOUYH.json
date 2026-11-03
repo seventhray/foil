@@ -1,0 +1,37 @@
+{
+  "_id": "qjJmNt7iT5qDOUYH",
+  "name": "Slow (Ranged)",
+  "type": "technique",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "requires": [
+      "ranged"
+    ],
+    "innate": false,
+    "skill": "",
+    "family": "Ranged",
+    "subgroup": "Control & Area",
+    "effects": [
+      {
+        "key": "slowed",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveR": 0
+      }
+    ],
+    "floor": false,
+    "ancestryGrant": "",
+    "effectText": "Slowed",
+    "description": ""
+  },
+  "effects": [],
+  "folder": "ORxwwWYQFVwdCk6C",
+  "sort": 9400000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!qjJmNt7iT5qDOUYH"
+}

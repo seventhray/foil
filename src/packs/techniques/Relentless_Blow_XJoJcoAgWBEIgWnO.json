@@ -5,11 +5,7 @@
   "img": "icons/svg/aura.svg",
   "system": {
     "requires": [
-      "edged",
-      "pointed",
-      "blunt",
-      "grappling",
-      "parry"
+      "melee"
     ],
     "innate": false,
     "skill": "",

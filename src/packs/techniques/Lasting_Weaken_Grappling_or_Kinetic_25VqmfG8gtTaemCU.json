@@ -1,0 +1,38 @@
+{
+  "_id": "25VqmfG8gtTaemCU",
+  "name": "Lasting Weaken (Grappling or Kinetic)",
+  "type": "technique",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "requires": [
+      "grappling",
+      "kinetic"
+    ],
+    "innate": false,
+    "skill": "",
+    "family": "Grappling",
+    "subgroup": "",
+    "effects": [
+      {
+        "key": "weaken-minute",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveR": 0
+      }
+    ],
+    "floor": false,
+    "ancestryGrant": "",
+    "effectText": "-1 [target Attribute] (1 minute)",
+    "description": ""
+  },
+  "effects": [],
+  "folder": "U6AWbnUDIrqKqFUn",
+  "sort": 1500000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!25VqmfG8gtTaemCU"
+}

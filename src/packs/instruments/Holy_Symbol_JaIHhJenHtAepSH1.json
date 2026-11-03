@@ -1,0 +1,36 @@
+{
+  "_id": "JaIHhJenHtAepSH1",
+  "name": "Holy Symbol",
+  "type": "instrument",
+  "img": "icons/svg/sword.svg",
+  "system": {
+    "category": "arcane",
+    "weight": "light",
+    "primaryAttribute": "presence",
+    "range": "Range 4",
+    "maxRange": "short",
+    "types": [
+      "arcane",
+      "incorporeal"
+    ],
+    "typesDisplay": "",
+    "price": 25,
+    "rider": "",
+    "family": "",
+    "backs": "",
+    "kit": [],
+    "innate": false,
+    "bonus": 0,
+    "size": "medium",
+    "materials": "",
+    "description": ""
+  },
+  "effects": [],
+  "folder": "XTa9zRYUGh1kdrdP",
+  "sort": 600000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!JaIHhJenHtAepSH1"
+}

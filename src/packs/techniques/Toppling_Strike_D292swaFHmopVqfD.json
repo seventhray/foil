@@ -1,0 +1,45 @@
+{
+  "_id": "D292swaFHmopVqfD",
+  "name": "Toppling Strike",
+  "type": "technique",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "requires": [
+      "melee"
+    ],
+    "innate": false,
+    "skill": "",
+    "family": "Melee",
+    "subgroup": "Control",
+    "effects": [
+      {
+        "key": "stress",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveR": 0
+      },
+      {
+        "key": "prone",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveR": 0
+      }
+    ],
+    "floor": false,
+    "ancestryGrant": "",
+    "effectText": "Stress, Prone",
+    "description": ""
+  },
+  "effects": [],
+  "folder": "ryXbZIw3uzqfYhV2",
+  "sort": 7400000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!D292swaFHmopVqfD"
+}

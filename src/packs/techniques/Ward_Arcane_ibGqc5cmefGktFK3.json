@@ -1,0 +1,38 @@
+{
+  "_id": "ibGqc5cmefGktFK3",
+  "name": "Ward (Arcane)",
+  "type": "technique",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "requires": [
+      "kinetic",
+      "incorporeal"
+    ],
+    "innate": false,
+    "skill": "",
+    "family": "Fortifying",
+    "subgroup": "Single-Target Support",
+    "effects": [
+      {
+        "key": "resistance",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveR": 0
+      }
+    ],
+    "floor": true,
+    "ancestryGrant": "",
+    "effectText": "Resistance +1, Physical or Mental, self or ally",
+    "description": ""
+  },
+  "effects": [],
+  "folder": "7iWo1tIjpwUjJOcY",
+  "sort": 200000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!ibGqc5cmefGktFK3"
+}

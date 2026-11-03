@@ -1,0 +1,45 @@
+{
+  "_id": "FiThG3w18X8IGywF",
+  "name": "Sweeping Shot",
+  "type": "technique",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "requires": [
+      "ranged"
+    ],
+    "innate": false,
+    "skill": "",
+    "family": "Ranged",
+    "subgroup": "Control & Area",
+    "effects": [
+      {
+        "key": "stress",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveR": 0
+      },
+      {
+        "key": "pattern",
+        "magnitude": 1,
+        "pattern": "cone",
+        "bands": 2,
+        "placement": 0,
+        "selectiveR": 0
+      }
+    ],
+    "floor": false,
+    "ancestryGrant": "",
+    "effectText": "Stress, Cone (Range 2)",
+    "description": ""
+  },
+  "effects": [],
+  "folder": "ORxwwWYQFVwdCk6C",
+  "sort": 9100000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!FiThG3w18X8IGywF"
+}

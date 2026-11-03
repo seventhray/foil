@@ -1,0 +1,37 @@
+{
+  "_id": "SCSzTqTJg7bwwuvX",
+  "name": "Weaken (Incorporeal)",
+  "type": "technique",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "requires": [
+      "incorporeal"
+    ],
+    "innate": false,
+    "skill": "",
+    "family": "Incorporeal",
+    "subgroup": "Debilitating",
+    "effects": [
+      {
+        "key": "weaken",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveR": 0
+      }
+    ],
+    "floor": false,
+    "ancestryGrant": "",
+    "effectText": "-1 [target Attribute]",
+    "description": ""
+  },
+  "effects": [],
+  "folder": "7TZjmQ3DFG4ujBS3",
+  "sort": 5100000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!SCSzTqTJg7bwwuvX"
+}

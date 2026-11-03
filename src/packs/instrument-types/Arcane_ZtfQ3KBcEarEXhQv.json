@@ -1,0 +1,24 @@
+{
+  "_id": "ZtfQ3KBcEarEXhQv",
+  "name": "Arcane",
+  "type": "instrumentType",
+  "img": "icons/svg/upgrade.svg",
+  "system": {
+    "key": "arcane",
+    "kind": "type",
+    "family": "arcane",
+    "harms": "",
+    "quick": false,
+    "reload": "",
+    "isTool": false,
+    "description": "<p>Harms Might or Finesse through Kinetic, Wit or Presence through Incorporeal: wands, staffs, and tomes.</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 300000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!ZtfQ3KBcEarEXhQv"
+}

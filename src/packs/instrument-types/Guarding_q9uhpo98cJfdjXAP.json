@@ -1,0 +1,24 @@
+{
+  "_id": "q9uhpo98cJfdjXAP",
+  "name": "Guarding",
+  "type": "instrumentType",
+  "img": "icons/svg/upgrade.svg",
+  "system": {
+    "key": "guarding",
+    "kind": "property",
+    "family": "other",
+    "harms": "",
+    "quick": false,
+    "reload": "",
+    "isTool": false,
+    "description": "<p>It guards its user or an ally within its Range, covering the Attributes it harms (PHB 6.5.1, 6.5.2).</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 600000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!q9uhpo98cJfdjXAP"
+}

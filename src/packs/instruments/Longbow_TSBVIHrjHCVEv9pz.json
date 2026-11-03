@@ -10,27 +10,26 @@
     "range": "Range 20",
     "maxRange": "long",
     "types": [
-      "pointed",
+      "ranged",
       "drawn"
     ],
     "typesDisplay": "",
-    "price": 75,
+    "price": 50,
     "rider": "Reload Quick Action.",
+    "family": "Bows",
+    "backs": "Threaten",
     "kit": [
       {
-        "name": "Full Draw",
+        "name": "Shot",
         "skill": "prowess",
-        "effect": "Deals Stress to Might or Finesse."
+        "effect": "Deals Stress to Might or Finesse.",
+        "signature": false
       },
       {
-        "name": "Pin Down",
+        "name": "Weaken",
         "skill": "discipline",
-        "effect": "Applies Prone."
-      },
-      {
-        "name": "Warning Shot",
-        "skill": "assertiveness",
-        "effect": "Applies Reeling."
+        "effect": "Applies Weakened [Finesse].",
+        "signature": true
       }
     ],
     "innate": false,
@@ -41,7 +40,7 @@
   },
   "effects": [],
   "folder": "lfAkWVc1ahX5JWFH",
-  "sort": 2800000,
+  "sort": 1700000,
   "ownership": {
     "default": 0
   },

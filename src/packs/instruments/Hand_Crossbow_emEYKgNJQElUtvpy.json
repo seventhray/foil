@@ -1,0 +1,49 @@
+{
+  "_id": "emEYKgNJQElUtvpy",
+  "name": "Hand Crossbow",
+  "type": "instrument",
+  "img": "icons/svg/sword.svg",
+  "system": {
+    "category": "ranged",
+    "weight": "light",
+    "primaryAttribute": "wit",
+    "range": "Range 8",
+    "maxRange": "mid",
+    "types": [
+      "ranged",
+      "fired"
+    ],
+    "typesDisplay": "",
+    "price": 25,
+    "rider": "Reload Action.",
+    "family": "Crossbows",
+    "backs": "Persuade",
+    "kit": [
+      {
+        "name": "Shot",
+        "skill": "discipline",
+        "effect": "Deals Stress to Might or Finesse, with Pierce 2.",
+        "signature": false
+      },
+      {
+        "name": "Slow",
+        "skill": "acuity",
+        "effect": "Applies Slowed.",
+        "signature": true
+      }
+    ],
+    "innate": false,
+    "bonus": 0,
+    "size": "medium",
+    "materials": "",
+    "description": ""
+  },
+  "effects": [],
+  "folder": "lfAkWVc1ahX5JWFH",
+  "sort": 1900000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!emEYKgNJQElUtvpy"
+}

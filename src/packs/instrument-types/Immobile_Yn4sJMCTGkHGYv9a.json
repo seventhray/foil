@@ -5,21 +5,17 @@
   "img": "icons/svg/upgrade.svg",
   "system": {
     "key": "immobile",
+    "kind": "property",
     "family": "other",
-    "stressPhysical": 2,
-    "stressMental": 2,
-    "pierce": 0,
-    "doubleResistance": false,
-    "dealsNoStress": false,
+    "harms": "",
     "quick": false,
-    "blocking": false,
     "reload": "",
     "isTool": false,
-    "description": "<p>+2 Stress. Fixed at a location; using it means being there.</p>"
+    "description": "<p>It is fixed in place: using it means being there.</p>"
   },
   "effects": [],
   "folder": null,
-  "sort": 1500000,
+  "sort": 1200000,
   "ownership": {
     "default": 0
   },

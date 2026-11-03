@@ -1,0 +1,53 @@
+{
+  "_id": "plLpmm9aedoosf4l",
+  "name": "Bursting Toppling Force",
+  "type": "technique",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "requires": [
+      "kinetic"
+    ],
+    "innate": false,
+    "skill": "",
+    "family": "Kinetic",
+    "subgroup": "Area & Lingering",
+    "effects": [
+      {
+        "key": "stress",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveR": 0
+      },
+      {
+        "key": "prone",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveR": 0
+      },
+      {
+        "key": "pattern",
+        "magnitude": 1,
+        "pattern": "radius",
+        "bands": 2,
+        "placement": 0,
+        "selectiveR": 0
+      }
+    ],
+    "floor": false,
+    "ancestryGrant": "",
+    "effectText": "Stress, Prone, Radius (Range 2), Strain 4",
+    "description": ""
+  },
+  "effects": [],
+  "folder": "mYseHIx2CsvaKyl1",
+  "sort": 6600000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!plLpmm9aedoosf4l"
+}

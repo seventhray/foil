@@ -16,21 +16,20 @@
     "typesDisplay": "",
     "price": 15,
     "rider": "",
+    "family": "Drums",
+    "backs": "Threaten",
     "kit": [
       {
-        "name": "War Beat",
-        "skill": "assertiveness",
-        "effect": "Applies Intimidated."
-      },
-      {
-        "name": "Confusing Rhythm",
-        "skill": "guile",
-        "effect": "Applies Reeling."
-      },
-      {
-        "name": "Resonant Pulse",
+        "name": "Cry",
         "skill": "resonance",
-        "effect": "Deals Stress to Wit or Presence."
+        "effect": "Deals Stress to Wit or Presence.",
+        "signature": false
+      },
+      {
+        "name": "Reel",
+        "skill": "guile",
+        "effect": "Applies Reeling.",
+        "signature": true
       }
     ],
     "innate": false,
@@ -41,7 +40,7 @@
   },
   "effects": [],
   "folder": "T1KFz77GLbAaMKYf",
-  "sort": 3200000,
+  "sort": 2200000,
   "ownership": {
     "default": 0
   },

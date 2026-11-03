@@ -6,14 +6,8 @@
   "system": {
     "key": "prone",
     "requires": [
-      "edged",
-      "pointed",
-      "blunt",
-      "grappling",
-      "parry",
-      "thrown",
-      "drawn",
-      "fired",
+      "melee",
+      "ranged",
       "kinetic"
     ],
     "pricingKind": "flat",

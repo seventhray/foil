@@ -1,0 +1,45 @@
+{
+  "_id": "MmitJMHh2UxRr9Jt",
+  "name": "Group Bolstering Spell",
+  "type": "technique",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "requires": [
+      "arcane"
+    ],
+    "innate": false,
+    "skill": "",
+    "family": "Fortifying",
+    "subgroup": "Group Support (Selective)",
+    "effects": [
+      {
+        "key": "selective",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveR": 2
+      },
+      {
+        "key": "skill-mod",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveR": 0
+      }
+    ],
+    "floor": true,
+    "ancestryGrant": "",
+    "effectText": "+1 [Skill] to chosen allies within Range 2 (Selective)",
+    "description": ""
+  },
+  "effects": [],
+  "folder": "XQdXpbzeLH0Vf3Lp",
+  "sort": 100000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!MmitJMHh2UxRr9Jt"
+}

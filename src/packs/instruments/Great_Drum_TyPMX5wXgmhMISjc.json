@@ -1,0 +1,49 @@
+{
+  "_id": "TyPMX5wXgmhMISjc",
+  "name": "Great Drum",
+  "type": "instrument",
+  "img": "icons/svg/sword.svg",
+  "system": {
+    "category": "sonic",
+    "weight": "heavy",
+    "primaryAttribute": "might",
+    "range": "Range 20",
+    "maxRange": "long",
+    "types": [
+      "sonic",
+      "tool"
+    ],
+    "typesDisplay": "",
+    "price": 55,
+    "rider": "",
+    "family": "Drums",
+    "backs": "Threaten",
+    "kit": [
+      {
+        "name": "Cry",
+        "skill": "prowess",
+        "effect": "Deals Stress to Wit or Presence.",
+        "signature": false
+      },
+      {
+        "name": "Reel",
+        "skill": "discipline",
+        "effect": "Applies Reeling.",
+        "signature": true
+      }
+    ],
+    "innate": false,
+    "bonus": 0,
+    "size": "medium",
+    "materials": "",
+    "description": ""
+  },
+  "effects": [],
+  "folder": "T1KFz77GLbAaMKYf",
+  "sort": 2400000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!TyPMX5wXgmhMISjc"
+}

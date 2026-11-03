@@ -10,27 +10,26 @@
     "range": "Range 20",
     "maxRange": "long",
     "types": [
-      "pointed",
+      "ranged",
       "fired"
     ],
     "typesDisplay": "",
-    "price": 90,
+    "price": 40,
     "rider": "Reload Action.",
+    "family": "Crossbows",
+    "backs": "Persuade",
     "kit": [
       {
-        "name": "Loose Bolt",
+        "name": "Shot",
         "skill": "discipline",
-        "effect": "Deals Stress to Might or Finesse."
+        "effect": "Deals Stress to Might or Finesse, with Pierce 2.",
+        "signature": false
       },
       {
-        "name": "Sighted Bolt",
+        "name": "Slow",
         "skill": "acuity",
-        "effect": "Applies Weakened [Finesse]."
-      },
-      {
-        "name": "Unnerving Shot",
-        "skill": "resonance",
-        "effect": "Applies Frightened."
+        "effect": "Applies Slowed.",
+        "signature": true
       }
     ],
     "innate": false,
@@ -41,7 +40,7 @@
   },
   "effects": [],
   "folder": "lfAkWVc1ahX5JWFH",
-  "sort": 2900000,
+  "sort": 2000000,
   "ownership": {
     "default": 0
   },

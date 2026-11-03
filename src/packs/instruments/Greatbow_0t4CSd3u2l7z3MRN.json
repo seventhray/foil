@@ -1,0 +1,49 @@
+{
+  "_id": "0t4CSd3u2l7z3MRN",
+  "name": "Greatbow",
+  "type": "instrument",
+  "img": "icons/svg/sword.svg",
+  "system": {
+    "category": "ranged",
+    "weight": "heavy",
+    "primaryAttribute": "might",
+    "range": "Range 20",
+    "maxRange": "long",
+    "types": [
+      "ranged",
+      "drawn"
+    ],
+    "typesDisplay": "",
+    "price": 65,
+    "rider": "Reload Quick Action.",
+    "family": "Bows",
+    "backs": "Threaten",
+    "kit": [
+      {
+        "name": "Shot",
+        "skill": "prowess",
+        "effect": "Deals Stress to Might or Finesse.",
+        "signature": false
+      },
+      {
+        "name": "Weaken",
+        "skill": "discipline",
+        "effect": "Applies Weakened [Finesse].",
+        "signature": true
+      }
+    ],
+    "innate": false,
+    "bonus": 0,
+    "size": "medium",
+    "materials": "",
+    "description": ""
+  },
+  "effects": [],
+  "folder": "lfAkWVc1ahX5JWFH",
+  "sort": 1800000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!0t4CSd3u2l7z3MRN"
+}

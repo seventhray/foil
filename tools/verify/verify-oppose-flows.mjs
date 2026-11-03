@@ -213,22 +213,28 @@ for (const [flagName, flag] of flagsList) for (const [defName, opts] of defender
     }
   }
 }
-// Guard and Parry (PHB 6.5.1, 6.5.2; user, 2026-10-29): Guard is a Guarded mark that adds +2 by itself when it covers the Attribute under
-// attack; Parry counts only with a ready Parry Instrument, whatever the answer says.
+// Guard (PHB 6.5.1, 6.5.2; Instrument Model, 2026-11-02): a Guarded mark adds its Guard by itself when it covers the Attribute under
+// attack; without one, the defender may Guard now through its own ready Guarding Instrument, which marks it Guarded. Parry is gone.
 {
   const run = async (defName, opts, flag, answers) => safe(runNew)(() => ({ atk: makeActor(atkDoc, { type: "creature" }), def: makeActor(byName(defName) ?? bestiary[1], opts) }), flag, answers, [10, 10, 10, 10, 10, 10]);
   const guardOf = o => (o.events ?? []).find(e => e.type === "oppose")?.opposeMods?.find(m => m.label === "Guard")?.value ?? 0;
+  const marked = o => (o.state?.def.conditions ?? []).some(c => c.name === "Guarded");
   const parried = o => (o.messages ?? []).some(m => /Parry \+1/.test(m.content));
-  const mark = kind => ({ type: "creature", conditions: [{ name: "Guarded", rounds: "1 round", note: R.guardNote(kind, "Round Shield", "Kessen") }] });
-  const asks = [{ skill: "prowess", other: 0, parry: true }, { amount: 4 }];
+  const mark = (kind, value = 2) => ({ type: "creature", conditions: [{ name: "Guarded", rounds: "1 round", note: R.guardNote(kind, "Round Shield", "Kessen", value) }] });
+  const asks = [{ skill: "prowess", other: 0 }, { amount: 4 }];
+  const guardNow = [{ skill: "prowess", guard: true }, { amount: 4 }];
+  const bandit = await run("Bandit", { type: "creature" }, stressFlag(sword), guardNow);
   const checks = [
     ["a physical Guard adds +2 against Might, unasked", guardOf(await run("Acolyte", mark("physical"), stressFlag(sword), asks)) === 2],
     ["but not against Wit, which it does not cover", guardOf(await run("Acolyte", mark("physical"), stressFlag(sword, { aim: "wit" }), asks)) === 0],
-    ["an arcane Guard covers Wit", guardOf(await run("Acolyte", mark("arcane"), stressFlag(sword, { aim: "wit" }), asks)) === 2],
-    ["an answer of guard: true adds nothing without the mark", guardOf(await run("Acolyte", { type: "creature" }, stressFlag(sword), [{ skill: "prowess", guard: true }, { amount: 4 }])) === 0],
-    ["a Parry with no Parry Instrument is refused", !parried(await run("Acolyte", { type: "creature" }, stressFlag(sword, { attackTotal: 60 }), asks))],
-    ["a Parry with a ready Parry Instrument counts", parried(await run("Bandit", { type: "creature" }, stressFlag(sword, { attackTotal: 60 }), asks))],
-    ["and not against a Technique that is neither Melee nor Ranged", !parried(await run("Bandit", { type: "creature" }, stressFlag(sword, { attackTotal: 60, attackInfo: { types: [], families: ["arcane"], materials: "" } }), asks))],
+    ["a mental Guard covers Wit", guardOf(await run("Acolyte", mark("mental"), stressFlag(sword, { aim: "wit" }), asks)) === 2],
+    ["an older arcane block's mark covers Wit", guardOf(await run("Acolyte", { type: "creature", conditions: [{ name: "Guarded", rounds: "1 round", note: "Round Shield, arcane block, by Kessen" }] }, stressFlag(sword, { aim: "wit" }), asks)) === 2],
+    ["a mark that states +4 adds +4", guardOf(await run("Acolyte", mark("physical", 4), stressFlag(sword), asks)) === 4],
+    ["an answer of guard: true adds nothing with no ready Guarding Instrument", guardOf(await run("Giant Rat", { type: "creature" }, stressFlag(sword), guardNow)) === 0],
+    ["a Guard now through a ready Guarding Instrument adds +2", guardOf(bandit) === 2],
+    ["and marks the defender Guarded", marked(bandit)],
+    ["but not against Wit, which its Instrument does not cover", guardOf(await run("Bandit", { type: "creature" }, stressFlag(sword, { aim: "wit" }), guardNow)) === 0],
+    ["an answer of parry: true adds nothing", !parried(await run("Bandit", { type: "creature" }, stressFlag(sword, { attackTotal: 60 }), [{ skill: "prowess", parry: true }, { amount: 4 }]))],
   ];
   for (const [name, ok] of checks) { if (!ok) bad++; console.log(`  ${ok ? "PASS" : "FAIL"}  ${name}`); }
 }

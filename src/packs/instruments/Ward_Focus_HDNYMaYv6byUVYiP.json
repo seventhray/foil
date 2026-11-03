@@ -10,29 +10,16 @@
     "range": "Range 1",
     "maxRange": "close",
     "types": [
-      "blocking",
-      "fortifying"
+      "arcane",
+      "incorporeal",
+      "guarding"
     ],
     "typesDisplay": "",
-    "price": 20,
+    "price": 35,
     "rider": "",
-    "kit": [
-      {
-        "name": "Steel the Mind",
-        "skill": "discipline",
-        "effect": "Grants Resistance +1 (Mental) to self or an ally for 1 round."
-      },
-      {
-        "name": "Foresee the Blow",
-        "skill": "acuity",
-        "effect": "Grants +1 to an ally's next Oppose roll before your next turn."
-      },
-      {
-        "name": "Calm the Nerves",
-        "skill": "resonance",
-        "effect": "Removes a Frightened, Wary, or Intimidated Condition from an ally within Range 1."
-      }
-    ],
+    "family": "",
+    "backs": "",
+    "kit": [],
     "innate": false,
     "bonus": 0,
     "size": "small",
@@ -41,7 +28,7 @@
   },
   "effects": [],
   "folder": "XTa9zRYUGh1kdrdP",
-  "sort": 400000,
+  "sort": 500000,
   "ownership": {
     "default": 0
   },

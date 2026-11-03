@@ -10,28 +10,15 @@
     "range": "Range 8",
     "maxRange": "mid",
     "types": [
-      "fortifying"
+      "arcane",
+      "incorporeal"
     ],
     "typesDisplay": "",
-    "price": 35,
+    "price": 40,
     "rider": "",
-    "kit": [
-      {
-        "name": "Hearten",
-        "skill": "assertiveness",
-        "effect": "Grants an ally +1 [Skill] for 1 round."
-      },
-      {
-        "name": "Reassure",
-        "skill": "guile",
-        "effect": "Removes a Frightened, Wary, or Intimidated Condition from an ally within Range 2."
-      },
-      {
-        "name": "Mending Light",
-        "skill": "resonance",
-        "effect": "Removes 2d4 Stress from an ally's Attribute."
-      }
-    ],
+    "family": "",
+    "backs": "",
+    "kit": [],
     "innate": false,
     "bonus": 0,
     "size": "medium",

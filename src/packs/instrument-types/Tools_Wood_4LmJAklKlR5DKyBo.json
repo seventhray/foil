@@ -1,0 +1,24 @@
+{
+  "_id": "4LmJAklKlR5DKyBo",
+  "name": "Tools [Wood]",
+  "type": "instrumentType",
+  "img": "icons/svg/upgrade.svg",
+  "system": {
+    "key": "craft-wood",
+    "kind": "property",
+    "family": "other",
+    "harms": "",
+    "quick": false,
+    "reload": "",
+    "isTool": true,
+    "description": "<p>Its rolls are Trades, and it works Wood.</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 1500000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!4LmJAklKlR5DKyBo"
+}

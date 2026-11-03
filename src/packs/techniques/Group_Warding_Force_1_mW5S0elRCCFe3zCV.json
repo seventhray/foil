@@ -1,0 +1,45 @@
+{
+  "_id": "mW5S0elRCCFe3zCV",
+  "name": "Group Warding Force 1",
+  "type": "technique",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "requires": [
+      "kinetic"
+    ],
+    "innate": false,
+    "skill": "",
+    "family": "Fortifying",
+    "subgroup": "Group Support (Selective)",
+    "effects": [
+      {
+        "key": "selective",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveR": 2
+      },
+      {
+        "key": "resistance",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveR": 0
+      }
+    ],
+    "floor": true,
+    "ancestryGrant": "",
+    "effectText": "Resistance +1 to chosen allies within Range 2 (Selective)",
+    "description": ""
+  },
+  "effects": [],
+  "folder": "XQdXpbzeLH0Vf3Lp",
+  "sort": 300000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!mW5S0elRCCFe3zCV"
+}

@@ -1,0 +1,24 @@
+{
+  "_id": "E6kGY4BrSTkDYaxT",
+  "name": "Tools",
+  "type": "instrumentType",
+  "img": "icons/svg/upgrade.svg",
+  "system": {
+    "key": "tool",
+    "kind": "property",
+    "family": "other",
+    "harms": "",
+    "quick": false,
+    "reload": "",
+    "isTool": true,
+    "description": "<p>Its rolls are Trades (PHB 4.2.6).</p>"
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 1300000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!E6kGY4BrSTkDYaxT"
+}

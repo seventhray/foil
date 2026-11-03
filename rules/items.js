@@ -54,9 +54,13 @@ export function deriveInstrument(sys, registry = {}) {
   const extra = Math.max(0, RANGE_BANDS.indexOf(sys.rangeBand) - RANGE_BANDS.indexOf(usual));
   sys.priceMath = [`${w.label} ${w.price}`, ...pricedProps.map(k => `${labelOf(k, registry.instrumentTypes)} ${PROPERTY_PRICE}`),
     `reach ${REACH_PRICE_PER_BAND * extra} (${extra} step${extra === 1 ? "" : "s"} past the usual ${RANGE_LABEL[usual] ?? usual}, x${REACH_PRICE_PER_BAND})`].join(" + ");
+  // A Shield adds its Resistance or Skill bonus at the bonus price for its size: Medium for a Light Shield, Large for a Medium one (PHB 5.2.4).
+  const bonuses = (sys.qualities ?? []).filter(q => Number(q.value) > 0).map(q => ({ q, price: (BONUS_PRICE[sys.size] ?? BONUS_PRICE.medium)[q.value] ?? 0 }));
+  if (bonuses.length) sys.priceMath = sys.priceMath.replace(/ \+ reach /, ` + ${bonuses.map(({ q, price }) =>
+    `${q.key === "resistance" ? `${RESISTANCE_LABEL[q.param] ?? q.param} Resistance` : SKILL_LABEL[q.param] ?? q.param} +${q.value} ${price}`).join(" + ")} + reach `);
   // Tools sit on their own cheap penny scale, outside the formula (Fundamental Math).
   const formulaApplies = !sys.innate && sys.category !== "tool";
-  sys.formulaPrice = formulaApplies ? w.price + surcharge + REACH_PRICE_PER_BAND * extra : sys.price;
+  sys.formulaPrice = formulaApplies ? w.price + surcharge + bonuses.reduce((n, b) => n + b.price, 0) + REACH_PRICE_PER_BAND * extra : sys.price;
   sys.priceMismatch = formulaApplies && sys.price !== sys.formulaPrice;
   sys.bonusPrice = (BONUS_PRICE[sys.size] ?? BONUS_PRICE.medium)[sys.bonus] ?? 0;
   // Its materials' Tier: what it was built at, or more (PHB 5.3.1). An Enchantment needs at least its own Tier (PHB 5.3.4).

@@ -10,28 +10,26 @@
     "range": "Range 1",
     "maxRange": "close",
     "types": [
-      "edged",
-      "pointed",
-      "parry"
+      "melee",
+      "guarding"
     ],
     "typesDisplay": "",
-    "price": 30,
+    "price": 25,
     "rider": "",
+    "family": "Swords",
+    "backs": "Deceive",
     "kit": [
       {
-        "name": "Thrust",
+        "name": "Strike",
         "skill": "prowess",
-        "effect": "Deals Stress to Might or Finesse."
+        "effect": "Deals Stress to Might or Finesse.",
+        "signature": false
       },
       {
-        "name": "Precise Cut",
+        "name": "Disarm",
         "skill": "acuity",
-        "effect": "Applies Weakened [Finesse]."
-      },
-      {
-        "name": "Feinted Slash",
-        "skill": "guile",
-        "effect": "Applies Reeling."
+        "effect": "Disarms.",
+        "signature": true
       }
     ],
     "innate": false,
@@ -42,7 +40,7 @@
   },
   "effects": [],
   "folder": "vKD7tkrcXtwm5qDA",
-  "sort": 1400000,
+  "sort": 4100000,
   "ownership": {
     "default": 0
   },

@@ -3,7 +3,7 @@
   "name": "Ward",
   "type": "Item",
   "folder": null,
-  "sort": 300000,
+  "sort": 200000,
   "color": null,
   "description": "",
   "flags": {},

@@ -5,21 +5,17 @@
   "img": "icons/svg/upgrade.svg",
   "system": {
     "key": "incorporeal",
+    "kind": "property",
     "family": "arcane",
-    "stressPhysical": 0,
-    "stressMental": 1,
-    "pierce": 0,
-    "doubleResistance": false,
-    "dealsNoStress": false,
+    "harms": "mental",
     "quick": false,
-    "blocking": false,
     "reload": "",
     "isTool": false,
-    "description": "<p>+1 Stress.</p>"
+    "description": "<p>An Arcane Instrument with it harms Wit or Presence, with fear, curses, or drained life. It also carries life magic, such as Mend.</p>"
   },
   "effects": [],
   "folder": null,
-  "sort": 900000,
+  "sort": 800000,
   "ownership": {
     "default": 0
   },

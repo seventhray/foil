@@ -6,7 +6,7 @@
   "system": {
     "key": "mend",
     "requires": [
-      "fortifying",
+      "incorporeal",
       "sonic"
     ],
     "pricingKind": "perPoint",

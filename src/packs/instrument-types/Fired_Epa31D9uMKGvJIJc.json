@@ -5,21 +5,17 @@
   "img": "icons/svg/upgrade.svg",
   "system": {
     "key": "fired",
-    "family": "ranged",
-    "stressPhysical": 4,
-    "stressMental": 4,
-    "pierce": 0,
-    "doubleResistance": false,
-    "dealsNoStress": false,
+    "kind": "property",
+    "family": "other",
+    "harms": "",
     "quick": false,
-    "blocking": false,
     "reload": "action",
     "isTool": false,
-    "description": "<p>+4 Stress. Reload: Action.</p>"
+    "description": "<p>It is reloaded with the Action.</p>"
   },
   "effects": [],
   "folder": null,
-  "sort": 700000,
+  "sort": 1100000,
   "ownership": {
     "default": 0
   },

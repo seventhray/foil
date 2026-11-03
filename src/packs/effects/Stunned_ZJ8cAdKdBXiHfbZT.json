@@ -6,9 +6,9 @@
   "system": {
     "key": "stunned",
     "requires": [
-      "blunt",
-      "kinetic",
-      "incorporeal",
+      "melee",
+      "ranged",
+      "arcane",
       "sonic"
     ],
     "pricingKind": "flat",

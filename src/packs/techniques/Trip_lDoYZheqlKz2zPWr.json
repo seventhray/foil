@@ -1,0 +1,45 @@
+{
+  "_id": "lDoYZheqlKz2zPWr",
+  "name": "Trip",
+  "type": "technique",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "requires": [
+      "melee"
+    ],
+    "innate": false,
+    "skill": "",
+    "family": "",
+    "subgroup": "",
+    "effects": [
+      {
+        "key": "stress",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveR": 0
+      },
+      {
+        "key": "prone",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveR": 0
+      }
+    ],
+    "floor": false,
+    "ancestryGrant": "Highlands",
+    "effectText": "Stress, Prone.",
+    "description": ""
+  },
+  "effects": [],
+  "folder": "kDH9VxtxCBIAc8Zh",
+  "sort": 11700000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!lDoYZheqlKz2zPWr"
+}

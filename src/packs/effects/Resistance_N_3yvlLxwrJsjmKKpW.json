@@ -6,9 +6,9 @@
   "system": {
     "key": "resistance",
     "requires": [
-      "parry",
-      "blocking",
-      "fortifying"
+      "guarding",
+      "kinetic",
+      "incorporeal"
     ],
     "pricingKind": "perPoint",
     "pricingParams": {

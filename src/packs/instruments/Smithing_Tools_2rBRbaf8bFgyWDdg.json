@@ -12,7 +12,7 @@
       "craft-metal",
       "immobile"
     ],
-    "typesDisplay": "Craft [Metal], Immobile",
+    "typesDisplay": "Tools [Metal], Immobile",
     "price": 20,
     "rider": "",
     "kit": [],
@@ -24,7 +24,7 @@
   },
   "effects": [],
   "folder": "XcZvDfYXONGTYnAP",
-  "sort": 4400000,
+  "sort": 5500000,
   "ownership": {
     "default": 0
   },

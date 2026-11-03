@@ -5,9 +5,10 @@
  * verify-oppose-flows.mjs runs it to record what the old code did; do not edit the copied functions.
  */
 import { ATTRIBUTE_KEYS, ATTR_LABEL, SKILL_LABEL, PRIMARY_SKILLS, CONDITION_OPPOSE, CONDITION_PRESETS, FOIL_AXES, conditionAttr } from "../../rules/constants.js";
-// Guard and Parry follow PHB 6.5.1 and 6.5.2 here as in rules/oppose.js (user, 2026-10-29), so the parity check compares like with like.
-import { canParry, guardFor, droppable } from "../../rules/oppose.js";
-import { stressFor, alwaysTypes, landStress } from "../../rules/stress.js";
+// Guard follows PHB 6.5.1 and 6.5.2 here as in rules/oppose.js (RULE 2026-11-02: one Guard, +2 and a Guarding Instrument's +N, own or
+// put on before; Parry is gone, and no Type adds Stress), so the parity check compares like with like.
+import { guardFor, guardsOf, guardValue, guardNote, markValue, GUARD_COVERS, droppable } from "../../rules/oppose.js";
+import { stressFor, landStress } from "../../rules/stress.js";
 import { conditionFlags, conditionMods, harmFlags, harmNames, incomingMods, kindOf, signedParts, skillFormula, skillMath, targetFlags } from "../../rules/combat.js";
 import { scopedResistance } from "../../rules/resist.js";
 import { opposeExtras, opposeDialog, failCard, landsCard, noHabitCard, alreadyExposedCard, conditionAppliedCard, stressCard, stressAppliedCard,
@@ -125,22 +126,25 @@ export async function resolveOppose(message, index) {
   const exposed = (sys.conditions ?? []).map((c, i) => ({ ...c, i })).filter(c => c.name === "Foil Exposed" && attackerName && String(c.note).endsWith(`by ${attackerName}`));
   const flags = [...targetFlags(sys.conditions), ...conditionFlags(sys.conditions, { skill: best })];
   const flagHtml = flags.length ? `<p><em>${flags.join("<br>")}</em></p>` : "";
-  const guarded = guardFor(sys.conditions, cnd ? conditionAttr(cnd) : aim);
-  const parryable = !cnd && canParry(actor, flag, kind);
+  const under = cnd ? conditionAttr(cnd) : aim;
+  const guarded = guardFor(sys.conditions, under);
+  const guards = guarded ? [] : guardsOf(actor).filter(g => g.kinds.some(k => GUARD_COVERS[k].includes(under)));
   const answer = await ask(`${actor.name} Opposes ${flag.name}`, opposeDialog({ flagName: flag.name, attackLine, defenderName: actor.name,
-    conditionName: cnd?.name ?? null, aim, skills, flagHtml, opts, attackerName, exposed, kind, guarded: guarded ? guarded.note || "physical block" : "", canParry: parryable, disarm: !!cnd?.disarm }), "Roll Oppose");
+    conditionName: cnd?.name ?? null, aim, skills, flagHtml, opts, attackerName, exposed, kind, guarded: guarded ? guarded.note || "physical guard" : "",
+    guards: guards.map(g => ({ id: g.id, name: g.name, value: guardValue(g) })), disarm: !!cnd?.disarm }), "Roll Oppose");
   if (!answer) return;
 
   const skill = skills.includes(answer.skill) ? answer.skill : best;
   const cm = conditionMods(sys.conditions, { skill, oppose: true });
-  const block = actor.items.reduce((n, i) => (i.type === "instrument" && i.system.location === "equipped" ? Math.max(n, Number(i.system.bonusOppose ?? 0)) : n), 0);
   const other = Math.trunc(Number(answer.other) || 0);
   const spent = exposed.filter((c, n) => answer[`exposed${n}`]);
-  const extras = opposeExtras({ conditionParts: cm.parts, block, guard: !!guarded, exposedSpent: spent, other });
-  const parried = parryable && !!answer.parry;
+  const guardNow = answer.guard ? guards.find(g => g.id === answer.guard) ?? (answer.guard === true ? guards[0] : null) ?? null : null;
+  const guard = guarded ? markValue(guarded) : guardNow ? guardValue(guardNow) : 0;
+  const extras = opposeExtras({ conditionParts: cm.parts, guard, exposedSpent: spent, other });
   const oppFlags = [...targetFlags(sys.conditions), ...conditionFlags(sys.conditions, { skill })];
-  if (spent.length) {
-    const left = foundry.utils.deepClone(actor.system.conditions ?? []).filter((c, i) => !spent.some(s => s.i === i));
+  if (spent.length || guardNow) {
+    const left = foundry.utils.deepClone(actor.system.conditions ?? []).filter((c, i) => !spent.some(s => s.i === i)).filter(c => !guardNow || c.name !== "Guarded");
+    if (guardNow) left.push({ name: "Guarded", rounds: "1 round", note: guardNote(guardNow.kinds, guardNow.name, actor.name, guardValue(guardNow)) });
     await actor.update({ "system.conditions": left });
   }
   // The Conditions are already in extras, so the roll doesn't add them twice.
@@ -194,19 +198,18 @@ export async function resolveOppose(message, index) {
   }
 
   const scoped = scopedResistance({ narrowResistance: sys.narrowResistance }, { ...(flag.attackInfo ?? {}), kind });
-  const resistance = Number(sys.attributes?.[aim]?.resistanceTotal ?? sys.resistance?.[`${kind}Total`] ?? 0) + (parried ? 1 : 0) + scoped.net;
+  const resistance = Number(sys.attributes?.[aim]?.resistanceTotal ?? sys.resistance?.[`${kind}Total`] ?? 0) + scoped.net;
   // Every source of that Resistance, named on the card.
   const kindLabel = kind === "physical" ? "Physical" : "Mental";
   const resistanceParts = [
     `${kindLabel} ${Number(sys.resistance?.[`${kind}Total`] ?? 0)}${sys.resistance?.[`${kind}FromLabel`] ? ` (${sys.resistance[`${kind}FromLabel`]})` : ""}`,
     ...(sys.attributes?.[aim]?.resistanceExtra ? [`${ATTR_LABEL[aim]} only +${sys.attributes[aim].resistanceExtra}${sys.attributes[aim].resistanceFromLabel ? ` (${sys.attributes[aim].resistanceFromLabel})` : ""}`] : []),
-    ...(parried ? ["Parry +1"] : []),
     ...scoped.parts
   ];
   const type = flag.typeIndex === "" || flag.typeIndex === undefined || flag.typeIndex === null ? null : flag.types?.[Number(flag.typeIndex)] ?? null;
   const r = stressFor({
     attack, oppose, name: flag.name, cap: flag.cap, capLabel: flag.capLabel, mult: Number(flag.mult ?? 1), multLabel: flag.multLabel ?? "",
-    kind, resistance, resistanceParts, type, always: alwaysTypes(flag.types, type), bespoke: Number(flag.bespoke ?? 0), bespokeParts: flag.bespokeParts ?? null,
+    kind, resistance, resistanceParts, bespoke: Number(flag.bespoke ?? 0), bespokeParts: flag.bespokeParts ?? null,
     other: Number(flag.other ?? 0), pierce: Number(flag.pierce ?? 0), pierceParts: flag.pierceParts ?? null
   });
   logEvent("oppose", { ...logBase, landed: r.landed, margin: r.margin, cappedMargin: r.capped, stress: r.stress,

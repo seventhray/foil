@@ -1,0 +1,45 @@
+{
+  "_id": "NOOd0C48UNiR8a7H",
+  "name": "Hastening Bolstering Spell",
+  "type": "technique",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "requires": [
+      "incorporeal"
+    ],
+    "innate": false,
+    "skill": "",
+    "family": "Fortifying",
+    "subgroup": "Single-Target Support",
+    "effects": [
+      {
+        "key": "hasten-action",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveR": 0
+      },
+      {
+        "key": "skill-mod",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveR": 0
+      }
+    ],
+    "floor": true,
+    "ancestryGrant": "",
+    "effectText": "Hasten (Action) to an ally and +1 [Skill]",
+    "description": ""
+  },
+  "effects": [],
+  "folder": "7iWo1tIjpwUjJOcY",
+  "sort": 1200000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!NOOd0C48UNiR8a7H"
+}

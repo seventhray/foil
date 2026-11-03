@@ -10,27 +10,26 @@
     "range": "Range 8",
     "maxRange": "mid",
     "types": [
-      "pointed",
+      "ranged",
       "drawn"
     ],
     "typesDisplay": "",
-    "price": 65,
+    "price": 40,
     "rider": "Reload Quick Action.",
+    "family": "Bows",
+    "backs": "Deceive",
     "kit": [
       {
-        "name": "Loose",
+        "name": "Shot",
         "skill": "prowess",
-        "effect": "Deals Stress to Might or Finesse."
+        "effect": "Deals Stress to Might or Finesse.",
+        "signature": false
       },
       {
-        "name": "Pinpoint",
+        "name": "Weaken",
         "skill": "acuity",
-        "effect": "Applies Weakened [Finesse]."
-      },
-      {
-        "name": "Menacing Nock",
-        "skill": "guile",
-        "effect": "Applies Baited."
+        "effect": "Applies Weakened [Finesse].",
+        "signature": true
       }
     ],
     "innate": false,
@@ -41,7 +40,7 @@
   },
   "effects": [],
   "folder": "lfAkWVc1ahX5JWFH",
-  "sort": 2700000,
+  "sort": 1600000,
   "ownership": {
     "default": 0
   },

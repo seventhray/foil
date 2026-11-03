@@ -7,7 +7,7 @@
     "key": "move",
     "requires": [
       "grappling",
-      "blunt",
+      "melee",
       "kinetic",
       "incorporeal"
     ],

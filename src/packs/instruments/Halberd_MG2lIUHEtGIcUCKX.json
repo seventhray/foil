@@ -11,27 +11,26 @@
     "maxRange": "short",
     "minRange": "near",
     "types": [
-      "edged",
-      "pointed"
+      "melee",
+      "guarding"
     ],
     "typesDisplay": "",
-    "price": 80,
+    "price": 75,
     "rider": "",
+    "family": "Spears",
+    "backs": "Threaten",
     "kit": [
       {
-        "name": "Reap",
+        "name": "Strike",
         "skill": "prowess",
-        "effect": "Deals Stress to Might or Finesse."
+        "effect": "Deals Stress to Might or Finesse.",
+        "signature": false
       },
       {
-        "name": "Hook and Pull",
+        "name": "Push",
         "skill": "discipline",
-        "effect": "Applies Prone."
-      },
-      {
-        "name": "Looming Threat",
-        "skill": "assertiveness",
-        "effect": "Applies Intimidated."
+        "effect": "Moves the target up to Range 2.",
+        "signature": true
       }
     ],
     "innate": false,
@@ -42,7 +41,7 @@
   },
   "effects": [],
   "folder": "vKD7tkrcXtwm5qDA",
-  "sort": 2300000,
+  "sort": 3800000,
   "ownership": {
     "default": 0
   },

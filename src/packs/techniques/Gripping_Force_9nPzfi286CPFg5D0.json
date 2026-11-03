@@ -1,0 +1,45 @@
+{
+  "_id": "9nPzfi286CPFg5D0",
+  "name": "Gripping Force",
+  "type": "technique",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "requires": [
+      "kinetic"
+    ],
+    "innate": false,
+    "skill": "",
+    "family": "Kinetic",
+    "subgroup": "Control",
+    "effects": [
+      {
+        "key": "stress",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveR": 0
+      },
+      {
+        "key": "grappled",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveR": 0
+      }
+    ],
+    "floor": false,
+    "ancestryGrant": "",
+    "effectText": "Stress, Grappled",
+    "description": ""
+  },
+  "effects": [],
+  "folder": "1syC4qbc8dPCVh9O",
+  "sort": 5900000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!9nPzfi286CPFg5D0"
+}

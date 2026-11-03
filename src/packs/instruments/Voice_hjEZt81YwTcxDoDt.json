@@ -8,28 +8,69 @@
     "weight": "light",
     "primaryAttribute": "presence",
     "range": "Range 8",
+    "maxRange": "mid",
     "types": [
-      "quick",
       "sonic"
     ],
     "typesDisplay": "",
     "price": 0,
     "rider": "Innate: every character has it, free (PHB 2.5.3).",
+    "family": "",
+    "backs": "",
     "kit": [
       {
-        "name": "Browbeat",
+        "name": "Threaten",
         "skill": "assertiveness",
-        "effect": "Deals Stress to Presence or Wit."
+        "effect": "Deals Stress to Wit or Presence.",
+        "signature": false
       },
       {
-        "name": "Mislead",
+        "name": "Threaten",
+        "skill": "assertiveness",
+        "effect": "Applies Intimidated.",
+        "signature": false
+      },
+      {
+        "name": "Threaten",
+        "skill": "assertiveness",
+        "effect": "Applies Frightened.",
+        "signature": false
+      },
+      {
+        "name": "Deceive",
         "skill": "guile",
-        "effect": "Applies Misled."
+        "effect": "Deals Stress to Wit or Presence.",
+        "signature": false
       },
       {
-        "name": "Sway",
+        "name": "Deceive",
+        "skill": "guile",
+        "effect": "Applies Misled.",
+        "signature": false
+      },
+      {
+        "name": "Deceive",
+        "skill": "guile",
+        "effect": "Applies Baited.",
+        "signature": false
+      },
+      {
+        "name": "Persuade",
         "skill": "resonance",
-        "effect": "Applies Swayed."
+        "effect": "Deals Stress to Wit or Presence.",
+        "signature": false
+      },
+      {
+        "name": "Persuade",
+        "skill": "resonance",
+        "effect": "Applies Swayed.",
+        "signature": false
+      },
+      {
+        "name": "Persuade",
+        "skill": "resonance",
+        "effect": "Applies Relaxed.",
+        "signature": false
       }
     ],
     "innate": true,

@@ -10,28 +10,26 @@
     "range": "Range 1",
     "maxRange": "close",
     "types": [
-      "edged",
-      "pointed",
-      "parry"
+      "melee",
+      "guarding"
     ],
     "typesDisplay": "",
-    "price": 45,
+    "price": 40,
     "rider": "",
+    "family": "Swords",
+    "backs": "Threaten",
     "kit": [
       {
-        "name": "Broad Cut",
+        "name": "Strike",
         "skill": "prowess",
-        "effect": "Deals Stress to Might or Finesse."
+        "effect": "Deals Stress to Might or Finesse.",
+        "signature": false
       },
       {
-        "name": "Wrest",
+        "name": "Disarm",
         "skill": "discipline",
-        "effect": "Disarms."
-      },
-      {
-        "name": "Challenge",
-        "skill": "assertiveness",
-        "effect": "Applies Baited."
+        "effect": "Disarms.",
+        "signature": true
       }
     ],
     "innate": false,
@@ -42,7 +40,7 @@
   },
   "effects": [],
   "folder": "vKD7tkrcXtwm5qDA",
-  "sort": 1700000,
+  "sort": 4300000,
   "ownership": {
     "default": 0
   },

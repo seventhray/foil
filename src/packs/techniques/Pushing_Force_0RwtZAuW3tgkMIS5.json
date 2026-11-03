@@ -1,0 +1,45 @@
+{
+  "_id": "0RwtZAuW3tgkMIS5",
+  "name": "Pushing Force",
+  "type": "technique",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "requires": [
+      "kinetic"
+    ],
+    "innate": false,
+    "skill": "",
+    "family": "Kinetic",
+    "subgroup": "Control",
+    "effects": [
+      {
+        "key": "stress",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveR": 0
+      },
+      {
+        "key": "move",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveR": 0
+      }
+    ],
+    "floor": false,
+    "ancestryGrant": "",
+    "effectText": "Stress, Move the target up to Range 2",
+    "description": ""
+  },
+  "effects": [],
+  "folder": "1syC4qbc8dPCVh9O",
+  "sort": 6200000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!0RwtZAuW3tgkMIS5"
+}

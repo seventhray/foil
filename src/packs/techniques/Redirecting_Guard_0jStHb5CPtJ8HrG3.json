@@ -1,0 +1,45 @@
+{
+  "_id": "0jStHb5CPtJ8HrG3",
+  "name": "Redirecting Guard",
+  "type": "technique",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "requires": [
+      "guarding"
+    ],
+    "innate": false,
+    "skill": "",
+    "family": "Guard",
+    "subgroup": "",
+    "effects": [
+      {
+        "key": "redirect",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveR": 0
+      },
+      {
+        "key": "quick",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveR": 0
+      }
+    ],
+    "floor": true,
+    "ancestryGrant": "",
+    "effectText": "Quick (trigger: an ally within this Instrument's Range takes Might or Finesse Stress from a physical Technique this Instrument covers): Redirect that Stress onto your Might, reduced by your physical Resistance.",
+    "description": ""
+  },
+  "effects": [],
+  "folder": "XLqQxkpQvA8jn8IH",
+  "sort": 2500000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!0jStHb5CPtJ8HrG3"
+}

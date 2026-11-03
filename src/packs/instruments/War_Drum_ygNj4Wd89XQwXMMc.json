@@ -16,21 +16,20 @@
     "typesDisplay": "",
     "price": 40,
     "rider": "",
+    "family": "Drums",
+    "backs": "Threaten",
     "kit": [
       {
-        "name": "Thunderous Beat",
+        "name": "Cry",
         "skill": "prowess",
-        "effect": "Deals Stress to Wit or Presence."
+        "effect": "Deals Stress to Wit or Presence.",
+        "signature": false
       },
       {
-        "name": "Steady War Rhythm",
+        "name": "Reel",
         "skill": "discipline",
-        "effect": "Applies Reeling."
-      },
-      {
-        "name": "Thunderclap Command",
-        "skill": "assertiveness",
-        "effect": "Applies Intimidated."
+        "effect": "Applies Reeling.",
+        "signature": true
       }
     ],
     "innate": false,
@@ -41,7 +40,7 @@
   },
   "effects": [],
   "folder": "T1KFz77GLbAaMKYf",
-  "sort": 3500000,
+  "sort": 2300000,
   "ownership": {
     "default": 0
   },

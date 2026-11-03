@@ -1,0 +1,37 @@
+{
+  "_id": "Ck6CGL9m3APUAZFc",
+  "name": "Reel (Melee)",
+  "type": "technique",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "requires": [
+      "melee"
+    ],
+    "innate": false,
+    "skill": "",
+    "family": "Melee",
+    "subgroup": "Control",
+    "effects": [
+      {
+        "key": "reeling",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveR": 0
+      }
+    ],
+    "floor": false,
+    "ancestryGrant": "",
+    "effectText": "-1 Oppose",
+    "description": ""
+  },
+  "effects": [],
+  "folder": "ryXbZIw3uzqfYhV2",
+  "sort": 8300000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!Ck6CGL9m3APUAZFc"
+}

@@ -1,0 +1,37 @@
+{
+  "_id": "f9y1PWCfRCTQtmv7",
+  "name": "Counter (Guarding and Melee)",
+  "type": "technique",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "requires": [
+      "guarding+melee"
+    ],
+    "innate": false,
+    "skill": "",
+    "family": "Guard",
+    "subgroup": "",
+    "effects": [
+      {
+        "key": "counter",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveR": 0
+      }
+    ],
+    "floor": false,
+    "ancestryGrant": "",
+    "effectText": "Counter",
+    "description": ""
+  },
+  "effects": [],
+  "folder": "XLqQxkpQvA8jn8IH",
+  "sort": 2200000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!f9y1PWCfRCTQtmv7"
+}

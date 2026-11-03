@@ -11,7 +11,7 @@
     "types": [
       "craft-gemstone"
     ],
-    "typesDisplay": "Craft [Gemstone]",
+    "typesDisplay": "Tools [Gemstone]",
     "price": 22,
     "rider": "",
     "kit": [],
@@ -23,7 +23,7 @@
   },
   "effects": [],
   "folder": "XcZvDfYXONGTYnAP",
-  "sort": 4900000,
+  "sort": 6000000,
   "ownership": {
     "default": 0
   },

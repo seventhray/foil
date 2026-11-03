@@ -6,18 +6,10 @@
   "system": {
     "key": "pattern",
     "requires": [
-      "edged",
-      "pointed",
-      "blunt",
-      "grappling",
-      "parry",
-      "thrown",
-      "drawn",
-      "fired",
-      "sonic",
-      "kinetic",
-      "incorporeal",
-      "fortifying"
+      "melee",
+      "ranged",
+      "arcane",
+      "sonic"
     ],
     "pricingKind": "pattern",
     "pricingParams": {

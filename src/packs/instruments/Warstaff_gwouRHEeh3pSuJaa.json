@@ -10,28 +10,15 @@
     "range": "Range 8",
     "maxRange": "mid",
     "types": [
+      "arcane",
       "kinetic"
     ],
     "typesDisplay": "",
-    "price": 50,
+    "price": 55,
     "rider": "",
-    "kit": [
-      {
-        "name": "Devastating Bolt",
-        "skill": "assertiveness",
-        "effect": "Deals Stress to Might or Finesse."
-      },
-      {
-        "name": "Disorienting Blast",
-        "skill": "guile",
-        "effect": "Applies Reeling."
-      },
-      {
-        "name": "Overwhelming Force",
-        "skill": "resonance",
-        "effect": "Applies Prone."
-      }
-    ],
+    "family": "",
+    "backs": "",
+    "kit": [],
     "innate": false,
     "bonus": 0,
     "size": "medium",
@@ -40,7 +27,7 @@
   },
   "effects": [],
   "folder": "XTa9zRYUGh1kdrdP",
-  "sort": 900000,
+  "sort": 1000000,
   "ownership": {
     "default": 0
   },

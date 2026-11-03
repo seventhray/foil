@@ -5,13 +5,19 @@
  * they touch. capture-roll-vectors.mjs runs it to record what the old code did; do not edit the methods.
  * One deliberate rule change is carried into this copy, marked RULE 2026-10-23: Weakened is resisted with the
  * Attribute it names (PHB 6.8.4), so it carries that Attribute and its target Opposes it (conditionAttr).
+ * The Instrument Model (2026-11-02) is carried in too, marked RULE 2026-11-02: Requirements read through rules/types.js, a hit's
+ * narrow-Resistance scope is its Type or declared Arcane Property, and a built-in's signature, Strain, Pierce, backing and Sonic
+ * group reach.
  */
 import {
   ATTRIBUTE_KEYS, ATTR_LABEL, SKILL_ATTRS, SKILL_LABEL, MARGIN_CAP, marginCap, CONDITION_OPPOSE, CONDITION_ATTR, EFFECT_CONDITION, conditionAttr, DISARM
 } from "../../rules/constants.js";
-import { isAlwaysType } from "../../rules/stress.js";
 import { allowedAims, conditionFlags, declarableTypes, skillFormula, skillMath, targetFlags } from "../../rules/combat.js";
-import { familiesOf } from "../../rules/resist.js";
+import { attackScopes } from "../../rules/resist.js";
+import { currentRequires, meetsRequirement, typeOf } from "../../rules/types.js";
+import { kitStrain, kitPierce } from "../../rules/items.js";
+import { backersOf, BACKING } from "../../rules/roll.js";
+import { RANGE_STEP } from "../../rules/constants.js";
 import { reachBand, reachLine, rangeWarning } from "../../rules/range.js";
 
 /** What the fakes record and what the next dialogs answer. Reset it between cases. */
@@ -83,10 +89,12 @@ export class RefSheet {
     const notes = this._rollNotes(kit.skill, true);
     notes.unshift(`${esc(inst.name)}: ${esc(kit.effect)}`);
     if (!inst.system.innate && inst.system.location !== "equipped") notes.push(`${esc(inst.name)} isn't equipped: switching to it costs the Quick Action (PHB 4.1.0).`);
-    if (inst.system.quick) notes.push("Light: after an Action through a Light Instrument, the Quick Action can pay for this (PHB 4.2.2).");
-    if (inst.system.doublesMargin) notes.push("Heavy: costs the Action and the Quick Action; the margin doubles (PHB 4.1.1).");
-    if (inst.system.reload) notes.push(`Reload: ${inst.system.reload === "quick" ? "Quick Action" : "Action"}.`);
     const stress = /Deals Stress/i.test(kit.effect);
+    // RULE 2026-11-02: a signature costs the Action at any weight; Heavy's both actions are for Stress (PHB 4.1.3, 4.1.1).
+    if (kit.signature) notes.push("Signature: costs the Action, whatever the weight (PHB 4.1.3).");
+    else if (inst.system.quick) notes.push("Light: after an Action through a Light Instrument, the Quick Action can pay for this (PHB 4.2.2).");
+    if (inst.system.doublesMargin && stress) notes.push("Heavy: costs the Action and the Quick Action; the margin doubles (PHB 4.1.1).");
+    if (inst.system.reload) notes.push(`Reload: ${inst.system.reload === "quick" ? "Quick Action" : "Action"}.`);
     // RULE 2026-11-01: "Disarms." is Opposed with Might (PHB 4.2.1).
     const disarms = !stress && /^Disarms\b/i.test(kit.effect);
     // RULE 2026-10-23: Weakened [Attribute] is resisted with that Attribute.
@@ -102,6 +110,17 @@ export class RefSheet {
     const aim = stress ? await this._aimAtTargets(inst, kit.name, kit.effect) : { targets: [] };
     if (!aim) return;
     notes.push(...(aim.notes ?? []));
+    // RULE 2026-11-02: a signature's stated Strain, the Instruments that back Voice, and a Sonic Condition's group reach (PHB 4.1.3, 4.1.1).
+    const strain = kitStrain(kit);
+    if (strain > 0) {
+      const attr = inst.system.primaryAttribute;
+      const { before, after } = await this.actor.takeStress(attr, strain);
+      logEvent("strain", { actor: who(this.actor), source: `${inst.name}: ${kit.name}`, attribute: attr, amount: strain, before, after });
+      const max = Number(this.actor.system.attributes?.[attr]?.potential?.max ?? 0);
+      notes.push(`Strain ${strain} on ${ATTR_LABEL[attr]} (Stress ${max - before} &rarr; ${max - after} of ${max}) (PHB 4.1.3).`);
+    }
+    for (const b of backersOf(this.actor, inst, kit)) notes.push(`${esc(b.name)} backs ${esc(kit.name)}: +${BACKING} against a target within Range ${b.range}${b.carries ? `, and carries it out to Range ${b.range}` : ""}. Only one backing counts (PHB 4.1.3).`);
+    if (!stress && kitResist && typeOf(inst.system.types) === "sonic") notes.push(`Sonic: it reaches each creature ${esc(this.actor.name)} chooses that can hear it within Range ${RANGE_STEP[inst.system.rangeBand] ?? ""}; each Opposes on its own (PHB 4.1.1).`);
     const kitExtras = this._instrumentExtras(inst, kit.skill);
     const kitDice = targeted && inst.system.weightDice ? [{ label: inst.system.weightLabel || "Weight", dice: inst.system.weightDice }] : [];
     notes.unshift(this._math(kit.skill, kitExtras, kitDice));
@@ -111,7 +130,7 @@ export class RefSheet {
         ...(kitResist ? this._conditionFlag(kit.name, roll.total, kitCond, { melee: !!inst.system.isMelee }) : {}),
         ...(stress ? this._stressFlag(inst, kit.name, roll.total, { aim,
           bespoke: [{ label: kit.name, value: bespokeBonus(kit.effect) }, { label: `${inst.name} Enchantment`, value: Number(inst.system.enchantStress ?? 0) }],
-          pierce: [{ label: `${inst.name} +${inst.system.bonus}`, value: Number(inst.system.bonusPierce ?? 0) - Number(inst.system.enchantPierce ?? 0) }, { label: `${inst.name} Enchantment`, value: Number(inst.system.enchantPierce ?? 0) }] }) : {})
+          pierce: [{ label: kit.name, value: kitPierce(kit) }, { label: `${inst.name} +${inst.system.bonus}`, value: Number(inst.system.bonusPierce ?? 0) - Number(inst.system.enchantPierce ?? 0) }, { label: `${inst.name} Enchantment`, value: Number(inst.system.enchantPierce ?? 0) }] }) : {})
       }));
   }
 
@@ -197,8 +216,9 @@ export class RefSheet {
     const req = tech.system.requires ?? [];
     const ready = i => (i.system.innate || i.system.location === "equipped") ? 0 : 1;
     return this.actor.items.filter(i => {
-      if (i.type === "instrument") return req.length === 0 || req.some(k => i.system.types?.includes(k));
-      if (i.type === "equipment" && i.system.category === "shield") return req.includes("blocking");
+      // RULE 2026-11-02: Requirements read through rules/types.js; a Shield stored as Equipment meets Guarding.
+      if (i.type === "instrument") return meetsRequirement(i.system.types ?? [], req, { category: i.system.category });
+      if (i.type === "equipment" && i.system.category === "shield") return currentRequires(req).includes("guarding");
       return false;
     }).sort((a, b) => ready(a) - ready(b));
   }
@@ -339,9 +359,10 @@ export class RefSheet {
    * Instrument's weight (PHB 6.7.0).
    */
   /** What a hit through this Instrument counts as for narrow Resistance (GMG 9.5.1). */
-  _attackInfo(inst) {
-    const types = inst.system.types ?? [];
-    return { types, families: familiesOf(types), materials: inst.system.materials ?? "" };
+  // RULE 2026-11-02: its Type, or the Arcane Property declared at typeIndex.
+  _attackInfo(inst, typeIndex = "") {
+    const channel = typeIndex === "" || typeIndex === undefined || typeIndex === null ? "" : inst.system.stressTypes?.[Number(typeIndex)]?.key ?? "";
+    return { types: attackScopes(inst.system.types ?? [], channel), materials: inst.system.materials ?? "" };
   }
 
   _stressFlag(inst, name, total, { bespoke = [], pierce = [], aim = { targets: [] } } = {}) {
@@ -357,7 +378,7 @@ export class RefSheet {
         mult: Number(inst.system.marginMultiplier ?? 1), multLabel: inst.system.weightLabel || weight,
         types: inst.system.stressTypes ?? [],
         bespoke: bespoke.reduce((n, p) => n + p.value, 0), bespokeParts: bespoke.filter(p => p.value),
-        pierce: pierce.reduce((n, p) => n + p.value, 0), pierceParts: pierce.filter(p => p.value), attackInfo: this._attackInfo(inst),
+        pierce: pierce.reduce((n, p) => n + p.value, 0), pierceParts: pierce.filter(p => p.value), attackInfo: this._attackInfo(inst, aim.typeIndex),
         melee: !!inst.system.isMelee, targets: aim.targets, aim: aim.aim, typeIndex: aim.typeIndex, other: aim.other
       }
     };

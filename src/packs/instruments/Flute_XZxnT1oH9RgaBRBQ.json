@@ -16,21 +16,20 @@
     "typesDisplay": "",
     "price": 15,
     "rider": "",
+    "family": "Pipes",
+    "backs": "Deceive",
     "kit": [
       {
-        "name": "Piercing Note",
+        "name": "Cry",
         "skill": "assertiveness",
-        "effect": "Applies Intimidated."
+        "effect": "Deals Stress to Wit or Presence.",
+        "signature": false
       },
       {
-        "name": "Beguiling Melody",
-        "skill": "guile",
-        "effect": "Applies Charmed."
-      },
-      {
-        "name": "Haunting Refrain",
+        "name": "Charm",
         "skill": "resonance",
-        "effect": "Deals Stress to Wit or Presence."
+        "effect": "Applies Charmed.",
+        "signature": true
       }
     ],
     "innate": false,

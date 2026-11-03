@@ -1,0 +1,37 @@
+{
+  "_id": "Iu5WOHzxlnHWNe2a",
+  "name": "Control (Incorporeal)",
+  "type": "technique",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "requires": [
+      "incorporeal"
+    ],
+    "innate": false,
+    "skill": "",
+    "family": "Incorporeal",
+    "subgroup": "Control",
+    "effects": [
+      {
+        "key": "controlled",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveR": 0
+      }
+    ],
+    "floor": false,
+    "ancestryGrant": "",
+    "effectText": "Controlled",
+    "description": ""
+  },
+  "effects": [],
+  "folder": "NQAVC4B99OI3KspD",
+  "sort": 4900000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!Iu5WOHzxlnHWNe2a"
+}

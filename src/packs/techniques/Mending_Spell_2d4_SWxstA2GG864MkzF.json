@@ -1,0 +1,37 @@
+{
+  "_id": "SWxstA2GG864MkzF",
+  "name": "Mending Spell 2d4",
+  "type": "technique",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "requires": [
+      "incorporeal"
+    ],
+    "innate": false,
+    "skill": "",
+    "family": "Fortifying",
+    "subgroup": "Single-Target Support",
+    "effects": [
+      {
+        "key": "mend",
+        "magnitude": 2,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveR": 0
+      }
+    ],
+    "floor": false,
+    "ancestryGrant": "",
+    "effectText": "Mend 2d4",
+    "description": ""
+  },
+  "effects": [],
+  "folder": "7iWo1tIjpwUjJOcY",
+  "sort": 800000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!SWxstA2GG864MkzF"
+}

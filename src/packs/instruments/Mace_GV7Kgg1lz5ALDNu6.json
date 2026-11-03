@@ -10,26 +10,25 @@
     "range": "Range 1",
     "maxRange": "close",
     "types": [
-      "blunt"
+      "melee"
     ],
     "typesDisplay": "",
-    "price": 35,
+    "price": 30,
     "rider": "",
+    "family": "Hammers",
+    "backs": "Threaten",
     "kit": [
       {
-        "name": "Crush",
+        "name": "Strike",
         "skill": "prowess",
-        "effect": "Deals Stress to Might or Finesse."
+        "effect": "Deals Stress to Might or Finesse.",
+        "signature": false
       },
       {
-        "name": "Stagger",
+        "name": "Stun",
         "skill": "discipline",
-        "effect": "Applies Prone."
-      },
-      {
-        "name": "Intimidating Blow",
-        "skill": "assertiveness",
-        "effect": "Applies Intimidated."
+        "effect": "Applies Stunned. Strain 1.",
+        "signature": true
       }
     ],
     "innate": false,
@@ -40,7 +39,7 @@
   },
   "effects": [],
   "folder": "vKD7tkrcXtwm5qDA",
-  "sort": 1900000,
+  "sort": 2600000,
   "ownership": {
     "default": 0
   },

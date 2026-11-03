@@ -1,0 +1,37 @@
+{
+  "_id": "n7DZcdOd7Xtud6eO",
+  "name": "Counter (Incorporeal)",
+  "type": "technique",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "requires": [
+      "incorporeal"
+    ],
+    "innate": false,
+    "skill": "",
+    "family": "Incorporeal",
+    "subgroup": "Evasive & Reactive",
+    "effects": [
+      {
+        "key": "counter",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveR": 0
+      }
+    ],
+    "floor": false,
+    "ancestryGrant": "",
+    "effectText": "Counter",
+    "description": ""
+  },
+  "effects": [],
+  "folder": "IbG2asAYE4KhmefL",
+  "sort": 3300000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!n7DZcdOd7Xtud6eO"
+}

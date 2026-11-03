@@ -5,21 +5,17 @@
   "img": "icons/svg/upgrade.svg",
   "system": {
     "key": "thrown",
-    "family": "ranged",
-    "stressPhysical": 0,
-    "stressMental": 0,
-    "pierce": 0,
-    "doubleResistance": false,
-    "dealsNoStress": false,
+    "kind": "property",
+    "family": "other",
+    "harms": "",
     "quick": false,
-    "blocking": false,
     "reload": "",
     "isTool": false,
-    "description": "<p>No type effect. No reload.</p>"
+    "description": "<p>It can be thrown. A Melee Instrument with it is thrown at any target past its reach, out to Range 4, and counts as Ranged for that Technique.</p>"
   },
   "effects": [],
   "folder": null,
-  "sort": 500000,
+  "sort": 900000,
   "ownership": {
     "default": 0
   },

@@ -10,26 +10,25 @@
     "range": "Range 1",
     "maxRange": "close",
     "types": [
-      "blunt"
+      "melee"
     ],
     "typesDisplay": "",
-    "price": 50,
+    "price": 45,
     "rider": "",
+    "family": "Hammers",
+    "backs": "Threaten",
     "kit": [
       {
-        "name": "Smash",
+        "name": "Strike",
         "skill": "prowess",
-        "effect": "Deals Stress to Might or Finesse."
+        "effect": "Deals Stress to Might or Finesse.",
+        "signature": false
       },
       {
-        "name": "Knock Down",
+        "name": "Stun",
         "skill": "discipline",
-        "effect": "Applies Prone."
-      },
-      {
-        "name": "Dread Blow",
-        "skill": "assertiveness",
-        "effect": "Applies Stunned."
+        "effect": "Applies Stunned. Strain 1.",
+        "signature": true
       }
     ],
     "innate": false,
@@ -40,7 +39,7 @@
   },
   "effects": [],
   "folder": "vKD7tkrcXtwm5qDA",
-  "sort": 2200000,
+  "sort": 2700000,
   "ownership": {
     "default": 0
   },

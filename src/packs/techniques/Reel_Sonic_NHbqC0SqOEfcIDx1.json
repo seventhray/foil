@@ -1,0 +1,37 @@
+{
+  "_id": "NHbqC0SqOEfcIDx1",
+  "name": "Reel (Sonic)",
+  "type": "technique",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "requires": [
+      "sonic"
+    ],
+    "innate": false,
+    "skill": "",
+    "family": "Sonic",
+    "subgroup": "Control & Deception",
+    "effects": [
+      {
+        "key": "reeling",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveR": 0
+      }
+    ],
+    "floor": false,
+    "ancestryGrant": "",
+    "effectText": "-1 Oppose",
+    "description": ""
+  },
+  "effects": [],
+  "folder": "pB2CzrOfw2IrBT6I",
+  "sort": 11100000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!NHbqC0SqOEfcIDx1"
+}

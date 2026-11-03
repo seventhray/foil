@@ -1,0 +1,61 @@
+{
+  "_id": "lxprHssyG02uYZwH",
+  "name": "Kite Shield",
+  "type": "instrument",
+  "img": "icons/svg/shield.svg",
+  "system": {
+    "category": "shield",
+    "weight": "medium",
+    "primaryAttribute": "might",
+    "range": "Range 1",
+    "maxRange": "close",
+    "types": [
+      "melee",
+      "guarding"
+    ],
+    "typesDisplay": "",
+    "price": 100,
+    "rider": "",
+    "family": "Shields",
+    "backs": "Threaten",
+    "kit": [
+      {
+        "name": "Strike",
+        "skill": "prowess",
+        "effect": "Deals Stress to Might or Finesse.",
+        "signature": false
+      },
+      {
+        "name": "Push",
+        "skill": "discipline",
+        "effect": "Moves the target up to Range 2.",
+        "signature": true
+      }
+    ],
+    "qualities": [
+      {
+        "key": "resistance",
+        "value": 1,
+        "param": "physical"
+      },
+      {
+        "key": "skill-bonus",
+        "value": 1,
+        "param": "prowess"
+      }
+    ],
+    "innate": false,
+    "bonus": 0,
+    "size": "large",
+    "materials": "1 Wood, 1 Metal",
+    "description": ""
+  },
+  "effects": [],
+  "folder": "YuUwPmWDh9LNVDB4",
+  "sort": 4700000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!lxprHssyG02uYZwH"
+}

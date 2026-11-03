@@ -6,7 +6,7 @@
   "system": {
     "key": "remove-condition",
     "requires": [
-      "fortifying",
+      "incorporeal",
       "sonic"
     ],
     "pricingKind": "perPoint",

@@ -6,12 +6,9 @@
   "system": {
     "key": "disarm",
     "requires": [
-      "edged",
-      "pointed",
-      "blunt",
       "grappling",
-      "parry",
-      "kinetic"
+      "kinetic",
+      "melee"
     ],
     "pricingKind": "flat",
     "pricingParams": {

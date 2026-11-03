@@ -6,10 +6,10 @@
   "system": {
     "key": "lingering",
     "requires": [
+      "melee",
+      "ranged",
       "kinetic",
-      "incorporeal",
-      "pointed",
-      "edged"
+      "incorporeal"
     ],
     "pricingKind": "perPoint",
     "pricingParams": {

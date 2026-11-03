@@ -6,7 +6,7 @@
   "system": {
     "key": "hasten-quick",
     "requires": [
-      "fortifying"
+      "incorporeal"
     ],
     "pricingKind": "flat",
     "pricingParams": {

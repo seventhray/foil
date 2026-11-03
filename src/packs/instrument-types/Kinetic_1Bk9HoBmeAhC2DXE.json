@@ -5,21 +5,17 @@
   "img": "icons/svg/upgrade.svg",
   "system": {
     "key": "kinetic",
+    "kind": "property",
     "family": "arcane",
-    "stressPhysical": 1,
-    "stressMental": 0,
-    "pierce": 0,
-    "doubleResistance": false,
-    "dealsNoStress": false,
+    "harms": "physical",
     "quick": false,
-    "blocking": false,
     "reload": "",
     "isTool": false,
-    "description": "<p>+1 Stress.</p>"
+    "description": "<p>An Arcane Instrument with it harms Might or Finesse, with fire, cold, lightning, acid, or force.</p>"
   },
   "effects": [],
   "folder": null,
-  "sort": 800000,
+  "sort": 700000,
   "ownership": {
     "default": 0
   },

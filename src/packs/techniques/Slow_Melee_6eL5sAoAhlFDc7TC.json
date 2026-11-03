@@ -1,0 +1,37 @@
+{
+  "_id": "6eL5sAoAhlFDc7TC",
+  "name": "Slow (Melee)",
+  "type": "technique",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "requires": [
+      "melee"
+    ],
+    "innate": false,
+    "skill": "",
+    "family": "Melee",
+    "subgroup": "Control",
+    "effects": [
+      {
+        "key": "slowed",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveR": 0
+      }
+    ],
+    "floor": false,
+    "ancestryGrant": "",
+    "effectText": "Slowed",
+    "description": ""
+  },
+  "effects": [],
+  "folder": "ryXbZIw3uzqfYhV2",
+  "sort": 8100000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!6eL5sAoAhlFDc7TC"
+}

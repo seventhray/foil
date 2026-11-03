@@ -10,26 +10,26 @@
     "range": "Range 8",
     "maxRange": "mid",
     "types": [
+      "ranged",
       "thrown"
     ],
     "typesDisplay": "",
-    "price": 25,
+    "price": 35,
     "rider": "",
+    "family": "Slings",
+    "backs": "Deceive",
     "kit": [
       {
-        "name": "Sling Shot",
+        "name": "Shot",
         "skill": "prowess",
-        "effect": "Deals Stress to Might or Finesse."
+        "effect": "Deals Stress to Might or Finesse.",
+        "signature": false
       },
       {
-        "name": "Ricochet",
+        "name": "Reel",
         "skill": "acuity",
-        "effect": "Applies Weakened [Finesse]."
-      },
-      {
-        "name": "Rattle",
-        "skill": "guile",
-        "effect": "Applies Frightened."
+        "effect": "Applies Reeling.",
+        "signature": true
       }
     ],
     "innate": false,
@@ -40,7 +40,7 @@
   },
   "effects": [],
   "folder": "lfAkWVc1ahX5JWFH",
-  "sort": 2600000,
+  "sort": 3500000,
   "ownership": {
     "default": 0
   },

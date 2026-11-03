@@ -5,7 +5,12 @@
   "img": "icons/svg/aura.svg",
   "system": {
     "key": "skill-mod",
-    "requires": [],
+    "requires": [
+      "sonic",
+      "arcane",
+      "guarding",
+      "tool"
+    ],
     "pricingKind": "perPoint",
     "pricingParams": {
       "base": 0,

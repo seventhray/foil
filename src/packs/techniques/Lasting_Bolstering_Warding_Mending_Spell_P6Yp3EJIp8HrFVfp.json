@@ -1,0 +1,53 @@
+{
+  "_id": "P6Yp3EJIp8HrFVfp",
+  "name": "Lasting Bolstering Warding Mending Spell",
+  "type": "technique",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "requires": [
+      "incorporeal"
+    ],
+    "innate": false,
+    "skill": "",
+    "family": "Fortifying",
+    "subgroup": "Single-Target Support",
+    "effects": [
+      {
+        "key": "skill-mod-minute",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveR": 0
+      },
+      {
+        "key": "resistance",
+        "magnitude": 2,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveR": 0
+      },
+      {
+        "key": "mend",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveR": 0
+      }
+    ],
+    "floor": true,
+    "ancestryGrant": "",
+    "effectText": "+1 [Skill] (1 minute), Resistance +2, Mend 1d4, self or ally, Strain 1",
+    "description": ""
+  },
+  "effects": [],
+  "folder": "7iWo1tIjpwUjJOcY",
+  "sort": 1300000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!P6Yp3EJIp8HrFVfp"
+}

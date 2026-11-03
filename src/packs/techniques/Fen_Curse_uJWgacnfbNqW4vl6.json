@@ -5,9 +5,7 @@
   "img": "icons/svg/aura.svg",
   "system": {
     "requires": [
-      "thrown",
-      "drawn",
-      "fired"
+      "ranged"
     ],
     "innate": false,
     "skill": "",
@@ -30,7 +28,7 @@
   },
   "effects": [],
   "folder": "kDH9VxtxCBIAc8Zh",
-  "sort": 11600000,
+  "sort": 11500000,
   "ownership": {
     "default": 0
   },

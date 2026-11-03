@@ -5,9 +5,7 @@
   "img": "icons/svg/aura.svg",
   "system": {
     "requires": [
-      "thrown",
-      "drawn",
-      "fired"
+      "ranged"
     ],
     "innate": false,
     "skill": "",

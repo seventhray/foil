@@ -1,0 +1,49 @@
+{
+  "_id": "rvHLZDOfChZ06La3",
+  "name": "Hunting Bow",
+  "type": "instrument",
+  "img": "icons/svg/sword.svg",
+  "system": {
+    "category": "ranged",
+    "weight": "light",
+    "primaryAttribute": "finesse",
+    "range": "Range 8",
+    "maxRange": "mid",
+    "types": [
+      "ranged",
+      "drawn"
+    ],
+    "typesDisplay": "",
+    "price": 25,
+    "rider": "Reload Quick Action.",
+    "family": "Bows",
+    "backs": "Deceive",
+    "kit": [
+      {
+        "name": "Shot",
+        "skill": "prowess",
+        "effect": "Deals Stress to Might or Finesse.",
+        "signature": false
+      },
+      {
+        "name": "Weaken",
+        "skill": "acuity",
+        "effect": "Applies Weakened [Finesse].",
+        "signature": true
+      }
+    ],
+    "innate": false,
+    "bonus": 0,
+    "size": "medium",
+    "materials": "",
+    "description": ""
+  },
+  "effects": [],
+  "folder": "lfAkWVc1ahX5JWFH",
+  "sort": 1500000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!rvHLZDOfChZ06La3"
+}

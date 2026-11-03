@@ -1,0 +1,46 @@
+{
+  "_id": "TbGL7PzRw6u4BXUw",
+  "name": "Quick Bolstering Cry",
+  "type": "technique",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "requires": [
+      "sonic"
+    ],
+    "innate": false,
+    "skill": "",
+    "family": "Sonic",
+    "subgroup": "Restorative",
+    "effects": [
+      {
+        "key": "skill-mod",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveR": 0
+      },
+      {
+        "key": "quick",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveR": 0,
+        "untriggered": true
+      }
+    ],
+    "floor": true,
+    "ancestryGrant": "",
+    "effectText": "Quick: +1 [Skill] to self or an ally",
+    "description": ""
+  },
+  "effects": [],
+  "folder": "DWHCFEP25zT52AMA",
+  "sort": 10200000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!TbGL7PzRw6u4BXUw"
+}

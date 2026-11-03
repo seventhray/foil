@@ -10,27 +10,26 @@
     "range": "Range 1",
     "maxRange": "close",
     "types": [
-      "edged",
-      "pointed"
+      "melee",
+      "guarding"
     ],
     "typesDisplay": "",
-    "price": 60,
+    "price": 55,
     "rider": "",
+    "family": "Swords",
+    "backs": "Threaten",
     "kit": [
       {
-        "name": "Heavy Swing",
+        "name": "Strike",
         "skill": "prowess",
-        "effect": "Deals Stress to Might or Finesse."
+        "effect": "Deals Stress to Might or Finesse.",
+        "signature": false
       },
       {
-        "name": "Bowl Over",
+        "name": "Disarm",
         "skill": "discipline",
-        "effect": "Applies Prone."
-      },
-      {
-        "name": "Crushing Display",
-        "skill": "assertiveness",
-        "effect": "Applies Intimidated."
+        "effect": "Disarms.",
+        "signature": true
       }
     ],
     "innate": false,
@@ -41,7 +40,7 @@
   },
   "effects": [],
   "folder": "vKD7tkrcXtwm5qDA",
-  "sort": 2100000,
+  "sort": 4400000,
   "ownership": {
     "default": 0
   },

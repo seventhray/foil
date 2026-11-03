@@ -5,21 +5,17 @@
   "img": "icons/svg/upgrade.svg",
   "system": {
     "key": "drawn",
-    "family": "ranged",
-    "stressPhysical": 2,
-    "stressMental": 2,
-    "pierce": 0,
-    "doubleResistance": false,
-    "dealsNoStress": false,
+    "kind": "property",
+    "family": "other",
+    "harms": "",
     "quick": false,
-    "blocking": false,
     "reload": "quick",
     "isTool": false,
-    "description": "<p>+2 Stress. Reload: Quick Action.</p>"
+    "description": "<p>It is reloaded with the Quick Action.</p>"
   },
   "effects": [],
   "folder": null,
-  "sort": 600000,
+  "sort": 1000000,
   "ownership": {
     "default": 0
   },

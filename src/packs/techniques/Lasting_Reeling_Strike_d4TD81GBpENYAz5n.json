@@ -1,0 +1,45 @@
+{
+  "_id": "d4TD81GBpENYAz5n",
+  "name": "Lasting Reeling Strike",
+  "type": "technique",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "requires": [
+      "melee"
+    ],
+    "innate": false,
+    "skill": "",
+    "family": "Melee",
+    "subgroup": "Control",
+    "effects": [
+      {
+        "key": "stress",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveR": 0
+      },
+      {
+        "key": "reeling-minute",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveR": 0
+      }
+    ],
+    "floor": false,
+    "ancestryGrant": "",
+    "effectText": "Stress, -1 Oppose (1 minute)",
+    "description": ""
+  },
+  "effects": [],
+  "folder": "ryXbZIw3uzqfYhV2",
+  "sort": 7600000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!d4TD81GBpENYAz5n"
+}

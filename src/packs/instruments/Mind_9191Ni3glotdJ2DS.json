@@ -8,28 +8,31 @@
     "weight": "light",
     "primaryAttribute": "wit",
     "range": "Range 2",
-    "types": [
-      "quick",
-      "incorporeal"
-    ],
+    "maxRange": "near",
+    "types": [],
     "typesDisplay": "",
     "price": 0,
     "rider": "Innate: every character has it, free (PHB 2.5.3).",
+    "family": "",
+    "backs": "",
     "kit": [
       {
         "name": "Deduce",
         "skill": "discipline",
-        "effect": "Works out a problem or recalls a fact."
+        "effect": "Solves a problem or recalls a fact.",
+        "signature": false
       },
       {
         "name": "Analyze",
         "skill": "acuity",
-        "effect": "Learns a creature's Attributes, or notices something specific."
+        "effect": "Learns a creature's Attributes, or notices something specific.",
+        "signature": false
       },
       {
         "name": "Intuit",
         "skill": "resonance",
-        "effect": "Applies Foil Exposed, or gives insight into a situation."
+        "effect": "Applies Foil Exposed, or gives insight into a situation.",
+        "signature": false
       }
     ],
     "innate": true,
