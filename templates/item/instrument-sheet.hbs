@@ -4,7 +4,7 @@
   <div class="field-grid">
     <label>Category</label>
     <select name="system.category">{{#each categoryOptions}}<option value="{{this.value}}" {{#if (foil-eq this.value ../system.category)}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>
-    <label>Weight class <em>(price, weight, margin cap: Light half, Medium full, Heavy doubled then full, whole turn, and two hands)</em></label>
+    <label>Weight class <em>(price, weight, margin cap: Light half, Medium full, Heavy doubled then full, and two hands; Heavy Stress takes the whole turn)</em></label>
     <select name="system.weight">{{#each weightOptions}}<option value="{{this.value}}" {{#if (foil-eq this.value ../system.weight)}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>
     {{#unless system.innate}}
     <label>Location <em>(equipped is ready in hand; switching costs the Quick Action)</em></label>
@@ -31,11 +31,15 @@
     <input type="text" name="system.materials" value="{{system.materials}}" placeholder="Metal + Leather" />
     <label>Material Tier <em>(when above its +N; an Enchantment needs its own Tier, PHB 5.3.4)</em></label>
     <input type="number" name="system.tier" value="{{system.tier}}" min="0" max="5" />
-    <label>Innate <em>(Body, Voice)</em></label>
+    <label>Innate <em>(Body, Voice, Mind)</em></label>
     <input type="checkbox" name="system.innate" {{#if system.innate}}checked{{/if}} />
+    <label>Family <em>(shares one signature, PHB 4.1.3)</em></label>
+    <input type="text" name="system.family" value="{{system.family}}" placeholder="Swords" />
+    <label>Backs <em>(the Voice Technique its third Skill backs: +2 within its Range)</em></label>
+    <input type="text" name="system.backs" value="{{system.backs}}" placeholder="Threaten" />
   </div>
   <fieldset>
-    <legend>Instrument Types <em>(Ctrl/Cmd-click for several)</em></legend>
+    <legend>Instrument Type and Properties <em>(one Type; Ctrl/Cmd-click for Properties)</em></legend>
     <select name="system.types" multiple size="10" class="multi">
       {{#each typeOptions}}<option value="{{this.key}}" {{#if this.help}}title="{{this.help}}"{{/if}} {{#if this.checked}}selected{{/if}}>{{this.label}}</option>{{/each}}
     </select>
@@ -50,15 +54,16 @@
   </div>
   <div class="derived-line math-line"><em>Price: {{system.priceMath}} = {{system.formulaPrice}}p (PHB 5.2.2)<br>Bonus: {{system.bonusMath}}<br>Crafting: {{system.craftMath}}</em></div>
   {{#if system.bonus}}<div class="derived-line">
-    {{#if system.bonusRoll}}+{{system.bonusRoll}} to rolls{{/if}}{{#if system.bonusPierce}} &middot; Pierce +{{system.bonusPierce}}{{/if}}{{#if system.bonusOppose}}+{{system.bonusOppose}} to Oppose rolls only{{/if}}
+    {{#if system.bonusRoll}}+{{system.bonusRoll}} to rolls{{/if}}{{#if system.bonusPierce}} &middot; Pierce +{{system.bonusPierce}}{{/if}}{{#if system.bonusOppose}} &middot; +{{system.bonusOppose}} to the Oppose it guards{{/if}}
   </div>{{/if}}
   <fieldset>
-    <legend>Built-in Techniques <em>(one per Skill its Primary Attribute reaches)</em></legend>
+    <legend>Built-in Techniques <em>(most pair a Stress Technique with the family's signature, PHB 4.1.3)</em></legend>
     {{#each kitRows}}
       <div class="kit-row">
         <input type="text" name="system.kit.{{this.idx}}.name" value="{{this.name}}" placeholder="Name" />
         <select name="system.kit.{{this.idx}}.skill">{{#each ../skillOptions}}<option value="{{this.value}}" {{#if (foil-eq this.value ../skill)}}selected{{/if}}>{{this.label}}</option>{{/each}}</select>
         <input type="text" name="system.kit.{{this.idx}}.effect" value="{{this.effect}}" placeholder="Deals Stress to Might or Finesse." />
+        <label title="A signature costs the Action at any weight"><input type="checkbox" name="system.kit.{{this.idx}}.signature" {{#if this.signature}}checked{{/if}} /> Signature</label>
         <a class="row-del" data-action="removeRow" data-path="system.kit" data-index="{{this.idx}}"><i class="fas fa-trash"></i></a>
       </div>
     {{/each}}
