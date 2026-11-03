@@ -34,6 +34,7 @@
       "Hobble"
     ],
     "ancestryGrant": "",
+    "grantedBy": "",
     "effectText": "Stress, -1 [target Attribute]",
     "description": ""
   },

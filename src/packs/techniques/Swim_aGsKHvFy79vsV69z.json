@@ -22,12 +22,13 @@
     "floor": false,
     "formerNames": [],
     "ancestryGrant": "",
+    "grantedBy": "",
     "effectText": "Move through water at full speed and breathe within it, for the duration of Upkeep",
     "description": "<p>Move through water at full speed and breathe within it, for the duration of Upkeep.</p>"
   },
   "effects": [],
   "folder": "Rh0DnkQdSreto5kG",
-  "sort": 12600000,
+  "sort": 12800000,
   "ownership": {
     "default": 0
   },

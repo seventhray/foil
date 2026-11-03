@@ -26,6 +26,7 @@
       "Healing Word"
     ],
     "ancestryGrant": "",
+    "grantedBy": "",
     "effectText": "Mend 1d4",
     "description": ""
   },

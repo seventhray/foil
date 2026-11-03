@@ -213,7 +213,7 @@ function parseEffects(text) {
     let m;
     if (/^Strain \d+( per target)?$/i.test(c)) continue;
     if (/^(deal Stress to that attacker|\+1 Stress|physical or mental|self or ally|reduced by your physical Resistance)$/i.test(c)) continue;
-    if (/^Stress$/i.test(c)) { stress = true; continue; }
+    if (/^Stress( through it)?$/i.test(c)) { stress = true; continue; }
     if (/^Upkeep$/i.test(c)) { list.push(e("upkeep")); continue; }
     if ((m = c.match(/^Pierce (\d+)$/i))) { list.push(e("pierce", { magnitude: +m[1] })); continue; }
     if ((m = c.match(/^-(\d+) \[target Attribute\]( \(1 minute\))?$/i))) { list.push(e(m[2] ? "weaken-minute" : "weaken", { magnitude: +m[1] })); continue; }
@@ -315,6 +315,8 @@ function techniqueDoc(n) {
       // finds its new self by these, and both halves of a split name the one they came from.
       formerNames: [...new Set([n.former_name, ...(MERGED_INTO[n.name] ?? [])].filter(x => x && x !== n.name))],
       ancestryGrant: n.origin_grant ?? "",
+      // The Transformation that gives it with its innate Instrument (PHB 7.3.0): it is not bought.
+      grantedBy: n.granted_by ?? "",
       // The line as the PHB prints it, kept for the sheet (user, 2026-10-27).
       effectText: n.effect ?? "",
       description: n.description ? `<p>${n.description}</p>` : ""
@@ -720,10 +722,16 @@ const grantedTechniques = CAT.feats.flatMap(f => {
   return [{ name, requires: m[2] ?? m[3], effect, description: rest.join(". ").replace(/\.$/, "") + (rest.length ? "." : ""), origin_grant: f.origin, xp: null }];
 });
 // A Technique only a Transformation gives is defined by its row (PHB 7.3.0) and has no Catalog note; its line is its text.
+// One that comes with the row's new innate Instrument ("..., and the Lash Technique (Innate): Stress through it.") goes through that
+// Instrument: it needs the Arcane Property the row gives it (Mind lash Incorporeal, Breath weapon Kinetic).
 const transformationTechniques = tableAfter(PHB, /^## 7\.3\.0 Transformations/).flatMap(r => {
-  const m = String(r.Gives ?? "").match(/^The (.+?) Technique \(Innate\)\.\s*(.*)$/);
-  if (!m || CAT.techniques.some(t => t.name === m[1])) return [];
-  return [{ name: m[1], requires: "Innate", effect: m[2].replace(/\.$/, ""), description: m[2].replace(/\.?$/, "."), xp: null }];
+  const gives = String(r.Gives ?? "");
+  const m = gives.match(/^The (.+?) Technique \(Innate\)\.\s*(.*)$/);
+  if (m) return CAT.techniques.some(t => t.name === m[1]) ? [] : [{ name: m[1], requires: "Innate", effect: m[2].replace(/\.$/, ""), description: m[2].replace(/\.?$/, "."), xp: null }];
+  const w = gives.match(/the (\w+) Technique \(Innate\): (.+?)\.?$/);
+  if (!w || CAT.techniques.some(t => t.name === w[1])) return [];
+  const through = ["Incorporeal", "Kinetic", "Sonic", "Melee", "Ranged"].find(k => new RegExp(`\\b${k}\\b`).test(gives.slice(0, w.index))) ?? "";
+  return [{ name: w[1], requires: through, effect: w[2], description: `${w[2]}. It comes with the ${r.Transformation} Transformation (PHB 7.3.0).`, xp: null, granted_by: r.Transformation }];
 });
 // A retired Catalog note (merged into another, or dropped) seeds nothing (Instrument Model, 2026-11-02).
 const live = list => list.filter(n => !n.retired);

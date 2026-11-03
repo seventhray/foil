@@ -42,6 +42,7 @@
       "Maiming Strike"
     ],
     "ancestryGrant": "",
+    "grantedBy": "",
     "effectText": "Stress, Pierce 2, -1 [target Attribute]",
     "description": ""
   },

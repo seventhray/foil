@@ -1,0 +1,39 @@
+{
+  "_id": "S3KAY0cO5rlVG6HQ",
+  "name": "Lash",
+  "type": "technique",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "requires": [
+      "incorporeal"
+    ],
+    "innate": false,
+    "skill": "",
+    "family": "",
+    "subgroup": "",
+    "effects": [
+      {
+        "key": "stress",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveR": 0
+      }
+    ],
+    "floor": false,
+    "formerNames": [],
+    "ancestryGrant": "",
+    "grantedBy": "Mind lash",
+    "effectText": "Stress through it",
+    "description": "<p>Stress through it. It comes with the Mind lash Transformation (PHB 7.3.0).</p>"
+  },
+  "effects": [],
+  "folder": "kDH9VxtxCBIAc8Zh",
+  "sort": 12300000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!S3KAY0cO5rlVG6HQ"
+}

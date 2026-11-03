@@ -33,6 +33,7 @@
     "minRange": "short",
     "formerNames": [],
     "ancestryGrant": "Open Plains",
+    "grantedBy": "",
     "effectText": "Prone, -2 Oppose",
     "description": "<p>It costs the Action and the Quick Action, targets a creature at Range 4-8, and first moves in a line toward it.</p>"
   },

@@ -1,0 +1,39 @@
+{
+  "_id": "MbZT7upRHs2FRLuh",
+  "name": "Breath",
+  "type": "technique",
+  "img": "icons/svg/aura.svg",
+  "system": {
+    "requires": [
+      "kinetic"
+    ],
+    "innate": false,
+    "skill": "",
+    "family": "",
+    "subgroup": "",
+    "effects": [
+      {
+        "key": "stress",
+        "magnitude": 1,
+        "pattern": "single",
+        "bands": 0,
+        "placement": 0,
+        "selectiveR": 0
+      }
+    ],
+    "floor": false,
+    "formerNames": [],
+    "ancestryGrant": "",
+    "grantedBy": "Breath weapon",
+    "effectText": "Stress through it",
+    "description": "<p>Stress through it. It comes with the Breath weapon Transformation (PHB 7.3.0).</p>"
+  },
+  "effects": [],
+  "folder": "kDH9VxtxCBIAc8Zh",
+  "sort": 12400000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!MbZT7upRHs2FRLuh"
+}

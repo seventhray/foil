@@ -22,12 +22,13 @@
     "floor": false,
     "formerNames": [],
     "ancestryGrant": "",
+    "grantedBy": "",
     "effectText": "Move through loose earth as though it were open ground, for the duration of Upkeep",
     "description": "<p>Move through loose earth as though it were open ground, for the duration of Upkeep.</p>"
   },
   "effects": [],
   "folder": "Rh0DnkQdSreto5kG",
-  "sort": 12400000,
+  "sort": 12600000,
   "ownership": {
     "default": 0
   },

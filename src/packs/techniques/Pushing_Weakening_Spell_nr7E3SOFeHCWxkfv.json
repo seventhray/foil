@@ -42,6 +42,7 @@
       "Phantasmal Terror"
     ],
     "ancestryGrant": "",
+    "grantedBy": "",
     "effectText": "Stress, -1 [target Attribute], Move the target up to Range 2",
     "description": ""
   },

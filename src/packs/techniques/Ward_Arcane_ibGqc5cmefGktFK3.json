@@ -27,6 +27,7 @@
       "Force Ward"
     ],
     "ancestryGrant": "",
+    "grantedBy": "",
     "effectText": "Resistance +1, Physical or Mental, self or ally",
     "description": ""
   },

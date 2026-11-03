@@ -42,6 +42,7 @@
       "Healing Rain"
     ],
     "ancestryGrant": "",
+    "grantedBy": "",
     "effectText": "Mend 2d4, Resistance +1 to chosen allies within Range 2 (Selective), Strain 1",
     "description": ""
   },
