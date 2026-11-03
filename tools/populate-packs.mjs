@@ -149,13 +149,15 @@ function effectDoc(row) {
 const EFFECT_REG = Object.fromEntries(EFFECTS.map(r => [r[1], { label: r[0], ...effectSystem(r) }]));
 
 // ─── Requirement text → Instrument Type and Property slugs (PHB 4.2.0) ───────
-// "Melee", "Kinetic or Incorporeal", "Guarding and Melee" (both, stored "guarding+melee"). "None" or "Innate": no Instrument.
+// "Melee", "Kinetic or Incorporeal", "Guarding and Melee" (both, stored "guarding+melee"). "Innate": it comes with the character.
 // "Kinetic for physical, Incorporeal for mental" reads as either.
 const REQUIRE_KEYS = { melee: "melee", ranged: "ranged", arcane: "arcane", "any arcane": "arcane", sonic: "sonic", kinetic: "kinetic",
   incorporeal: "incorporeal", grappling: "grappling", guarding: "guarding", thrown: "thrown", drawn: "drawn", fired: "fired", tools: "tool", tool: "tool" };
 function parseRequires(text) {
   const t = lc(text).replace(/\bkinetic for physical, incorporeal for mental\b/, "kinetic or incorporeal");
-  if (/\binnate\b/.test(t) || t === "none") return { requires: [], innate: true };
+  if (/\binnate\b/.test(t)) return { requires: [], innate: true };
+  // "None": learned like any Technique, used with no Instrument (Evade (None)).
+  if (t === "none" || !t) return { requires: [], innate: false };
   const out = new Set();
   for (const alt of t.split(/\s*(?:,|\bor\b)\s*/).filter(Boolean)) {
     const parts = alt.split(/\s+and\s+/).map(x => REQUIRE_KEYS[x.trim()]);

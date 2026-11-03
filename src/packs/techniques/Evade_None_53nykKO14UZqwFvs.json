@@ -5,7 +5,7 @@
   "img": "icons/svg/aura.svg",
   "system": {
     "requires": [],
-    "innate": true,
+    "innate": false,
     "skill": "",
     "family": "Guard",
     "subgroup": "",
