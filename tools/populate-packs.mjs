@@ -363,13 +363,16 @@ function instrumentDoc(n) {
   };
 }
 
-// Shields (PHB 7.9.3): Melee and Guarding Instruments with Might Primary and Range 1. Their built-ins and backing are in the
-// section's opening line; each row gives a weight, a bonus that applies while carried (PHB 5.2.4), and a price.
+// Shields (PHB 7.9.3): Melee and Guarding Instruments with Might Primary and Range 1 (PHB 5.2.4). Their built-ins and backing are in
+// the section's opening line, the signature marked "Signature." after it or named in "Push is its signature."; each row gives a weight,
+// a bonus that applies while carried (PHB 5.2.4), and a price.
 function shieldDocs() {
   const lines = PHB.split("\n");
   const at = lines.findIndex(l => /^### 7\.9\.3 Shields/.test(l));
   const intro = lines.slice(at + 1).find(l => /built-ins/i.test(l)) ?? "";
-  const kit = builtinsFrom(intro);
+  const named = intro.match(/(\w+) is its signature/i)?.[1] ?? "";
+  const kit = builtinsFrom(intro).map(k => ({ ...k, signature: k.signature || k.name === named }));
+  if (!kit.some(k => k.signature)) warnings.push("7.9.3: no Shield signature found in the opening line");
   const backs = intro.match(/backs (\w+)/i)?.[1] ?? "";
   return tableAfter(PHB, /^### 7\.9\.3 Shields/).map(r => {
     const quals = [];
