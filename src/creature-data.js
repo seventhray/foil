@@ -4,375 +4,533 @@ export const NATURAL_WEAPONS = [
   "name": "Claws",
   "group": "melee",
   "types": [
-   "edged"
+   "melee"
   ],
   "pick": false,
-  "range": "Range 1"
+  "range": "Range 1",
+  "builtins": [
+   "Strike",
+   "Bleed"
+  ]
  },
  {
   "name": "Spines",
   "group": "melee",
   "types": [
-   "edged"
+   "melee"
   ],
   "pick": false,
-  "range": "Range 1"
+  "range": "Range 1",
+  "builtins": [
+   "Strike",
+   "Bleed"
+  ]
  },
  {
   "name": "Bite",
   "group": "melee",
   "types": [
-   "pointed"
+   "melee"
   ],
   "pick": false,
-  "range": "Range 1"
+  "range": "Range 1",
+  "builtins": [
+   "Strike",
+   "Weaken"
+  ]
  },
  {
   "name": "Tusks",
   "group": "melee",
   "types": [
-   "pointed"
+   "melee"
   ],
   "pick": false,
-  "range": "Range 1"
+  "range": "Range 1",
+  "builtins": [
+   "Strike",
+   "Weaken"
+  ]
  },
  {
   "name": "Beak",
   "group": "melee",
   "types": [
-   "pointed"
+   "melee"
   ],
   "pick": false,
-  "range": "Range 1"
+  "range": "Range 1",
+  "builtins": [
+   "Strike",
+   "Weaken"
+  ]
  },
  {
   "name": "Stinger",
   "group": "melee",
   "types": [
-   "pointed"
+   "melee"
   ],
   "pick": false,
-  "range": "Range 1"
+  "range": "Range 1",
+  "builtins": [
+   "Strike",
+   "Weaken"
+  ]
  },
  {
   "name": "Proboscis",
   "group": "melee",
   "types": [
-   "pointed"
+   "melee"
   ],
   "pick": false,
-  "range": "Range 1"
+  "range": "Range 1",
+  "builtins": [
+   "Strike",
+   "Weaken"
+  ]
  },
  {
   "name": "Mandibles",
   "group": "melee",
   "types": [
-   "pointed"
+   "melee"
   ],
   "pick": false,
-  "range": "Range 1"
+  "range": "Range 1",
+  "builtins": [
+   "Strike",
+   "Weaken"
+  ]
  },
  {
   "name": "Pharyngeal Jaw",
   "group": "melee",
   "types": [
-   "pointed"
+   "melee"
   ],
   "pick": false,
-  "range": "Range 1"
+  "range": "Range 1",
+  "builtins": [
+   "Strike",
+   "Weaken"
+  ]
  },
  {
   "name": "Horns",
   "group": "melee",
   "types": [
-   "blunt",
-   "pointed"
+   "melee"
   ],
-  "pick": true,
-  "range": "Range 1"
+  "pick": false,
+  "range": "Range 1",
+  "builtins": [
+   "Strike",
+   "Topple"
+  ]
  },
  {
   "name": "Hooves",
   "group": "melee",
   "types": [
-   "blunt"
+   "melee"
   ],
   "pick": false,
-  "range": "Range 1"
+  "range": "Range 1",
+  "builtins": [
+   "Strike",
+   "Stun"
+  ]
  },
  {
   "name": "Crushing Jaws",
   "group": "melee",
   "types": [
-   "blunt"
+   "melee"
   ],
   "pick": false,
-  "range": "Range 1"
+  "range": "Range 1",
+  "builtins": [
+   "Strike",
+   "Stun"
+  ]
  },
  {
   "name": "Slam",
   "group": "melee",
   "types": [
-   "blunt"
+   "melee"
   ],
   "pick": false,
-  "range": "Range 1"
+  "range": "Range 1",
+  "builtins": [
+   "Strike",
+   "Push"
+  ]
  },
  {
   "name": "Tail Strike",
   "group": "melee",
   "types": [
-   "blunt",
-   "edged"
+   "melee"
   ],
-  "pick": true,
-  "range": "Range 1"
+  "pick": false,
+  "range": "Range 1",
+  "builtins": [
+   "Strike",
+   "Topple"
+  ]
  },
  {
   "name": "Pincers",
   "group": "melee",
   "types": [
-   "blunt",
-   "edged"
+   "melee"
   ],
-  "pick": true,
-  "range": "Range 1"
+  "pick": false,
+  "range": "Range 1",
+  "builtins": [
+   "Strike",
+   "Disarm"
+  ]
  },
  {
   "name": "Wing Buffet",
   "group": "melee",
   "types": [
-   "blunt"
+   "melee"
   ],
   "pick": false,
-  "range": "Range 1"
+  "range": "Range 1",
+  "builtins": [
+   "Strike",
+   "Push"
+  ]
  },
  {
   "name": "Barbed Whip",
   "group": "melee",
   "types": [
-   "edged"
+   "melee"
   ],
   "pick": false,
-  "range": "Range 1"
+  "range": "Range 1",
+  "builtins": [
+   "Strike",
+   "Bleed"
+  ]
  },
  {
   "name": "Tentacles",
   "group": "grappling",
   "types": [
+   "melee",
    "grappling"
   ],
   "pick": false,
-  "range": "Range 2"
+  "range": "Range 2",
+  "builtins": [
+   "Strike",
+   "Restrain"
+  ]
  },
  {
   "name": "Tongue-Lash",
   "group": "grappling",
   "types": [
+   "melee",
    "grappling"
   ],
   "pick": false,
-  "range": "Range 2"
+  "range": "Range 2",
+  "builtins": [
+   "Strike",
+   "Restrain"
+  ]
  },
  {
   "name": "Coils",
   "group": "grappling",
   "types": [
+   "melee",
    "grappling"
   ],
   "pick": false,
-  "range": "Range 0"
+  "range": "Range 0",
+  "builtins": [
+   "Strike",
+   "Restrain"
+  ]
  },
  {
   "name": "Maw",
   "group": "grappling",
   "types": [
+   "melee",
    "grappling"
   ],
   "pick": false,
-  "range": "Range 0"
+  "range": "Range 0",
+  "builtins": [
+   "Strike",
+   "Restrain"
+  ]
  },
  {
   "name": "Sticky Secretion",
   "group": "grappling",
   "types": [
+   "melee",
    "grappling"
   ],
   "pick": false,
-  "range": "Range 1"
+  "range": "Range 1",
+  "builtins": [
+   "Strike",
+   "Slow"
+  ]
  },
  {
   "name": "Many Limbs",
   "group": "grappling",
   "types": [
+   "melee",
    "grappling"
   ],
   "pick": false,
-  "range": "Range 1"
+  "range": "Range 1",
+  "builtins": [
+   "Strike",
+   "Slow"
+  ]
  },
  {
   "name": "Prehensile Tail",
   "group": "grappling",
   "types": [
+   "melee",
    "grappling"
   ],
   "pick": false,
-  "range": "Range 1"
+  "range": "Range 1",
+  "builtins": [
+   "Strike",
+   "Grapple"
+  ]
  },
  {
   "name": "Gripping Claw",
   "group": "grappling",
   "types": [
+   "melee",
    "grappling"
   ],
   "pick": false,
-  "range": "Range 1"
+  "range": "Range 1",
+  "builtins": [
+   "Strike",
+   "Grapple"
+  ]
  },
  {
   "name": "Web",
   "group": "grappling",
   "types": [
+   "ranged",
    "grappling",
    "thrown"
   ],
   "pick": false,
-  "range": "Range 4"
+  "range": "Range 4",
+  "builtins": [
+   "Restrain",
+   "Slow"
+  ]
  },
  {
   "name": "Breath Weapon",
   "group": "arcane",
   "types": [
+   "arcane",
    "kinetic"
   ],
   "pick": false,
-  "range": "Range 8"
+  "range": "Range 8",
+  "builtins": [],
+  "grants": "stress"
  },
  {
   "name": "Acid Sac",
   "group": "arcane",
   "types": [
+   "arcane",
    "kinetic"
   ],
   "pick": false,
-  "range": "Range 8"
+  "range": "Range 8",
+  "builtins": [],
+  "grants": "stress"
  },
  {
   "name": "Spore Cloud",
   "group": "arcane",
   "types": [
+   "arcane",
    "kinetic"
   ],
   "pick": false,
-  "range": "Range 1"
+  "range": "Range 1",
+  "builtins": [],
+  "grants": "stress"
  },
  {
   "name": "Static Field",
   "group": "arcane",
   "types": [
+   "arcane",
    "kinetic"
   ],
   "pick": false,
-  "range": "Range 1"
+  "range": "Range 1",
+  "builtins": [],
+  "grants": "stress"
  },
  {
   "name": "Evil Eye",
   "group": "arcane",
   "types": [
+   "arcane",
    "incorporeal"
   ],
   "pick": false,
-  "range": "Range 60"
+  "range": "Range 60",
+  "builtins": [],
+  "grants": "stress"
  },
  {
   "name": "Hypnotic Gaze",
   "group": "arcane",
   "types": [
+   "arcane",
    "incorporeal"
   ],
   "pick": false,
-  "range": "Range 4"
+  "range": "Range 4",
+  "builtins": [],
+  "grants": "stress"
  },
  {
   "name": "Mind Lash",
   "group": "arcane",
   "types": [
+   "arcane",
    "incorporeal"
   ],
   "pick": false,
-  "range": "Range 8"
+  "range": "Range 8",
+  "builtins": [],
+  "grants": "stress"
  },
  {
   "name": "Chilling Presence",
   "group": "arcane",
   "types": [
+   "arcane",
    "incorporeal"
   ],
   "pick": false,
-  "range": "Range 1"
+  "range": "Range 1",
+  "builtins": [],
+  "grants": "stress"
  },
  {
   "name": "Curse Touch",
   "group": "arcane",
   "types": [
+   "arcane",
    "incorporeal"
   ],
   "pick": false,
-  "range": "Range 0"
+  "range": "Range 0",
+  "builtins": [],
+  "grants": "stress"
  },
  {
   "name": "Siphoning Maw",
   "group": "arcane",
   "types": [
+   "arcane",
    "incorporeal"
   ],
   "pick": false,
-  "range": "Range 0"
+  "range": "Range 0",
+  "builtins": [],
+  "grants": "stress"
  },
  {
   "name": "Searing Touch",
   "group": "arcane",
   "types": [
+   "arcane",
    "kinetic"
   ],
   "pick": false,
-  "range": "Range 0"
+  "range": "Range 0",
+  "builtins": [],
+  "grants": "stress"
  },
  {
   "name": "Freezing Touch",
   "group": "arcane",
   "types": [
+   "arcane",
    "kinetic"
   ],
   "pick": false,
-  "range": "Range 0"
+  "range": "Range 0",
+  "builtins": [],
+  "grants": "stress"
  },
  {
   "name": "Life-Fount",
   "group": "arcane",
   "types": [
-   "fortifying"
+   "arcane",
+   "incorporeal"
   ],
   "pick": false,
-  "range": "Range 2"
+  "range": "Range 2",
+  "builtins": [],
+  "grants": "mend"
  },
  {
   "name": "Ward-Hide",
   "group": "arcane",
   "types": [
-   "blocking",
-   "fortifying"
+   "arcane",
+   "guarding",
+   "incorporeal"
   ],
   "pick": false,
-  "range": "Range 0"
+  "range": "Range 0",
+  "builtins": [
+   "none"
+  ]
  },
  {
   "name": "Boulder Throw",
   "group": "ranged",
   "types": [
+   "ranged",
    "thrown"
   ],
   "pick": false,
-  "range": "Range 8"
+  "range": "Range 8",
+  "builtins": [
+   "Shot",
+   "Topple"
+  ]
  },
  {
   "name": "Bone-Trumpet",
@@ -381,7 +539,11 @@ export const NATURAL_WEAPONS = [
    "sonic"
   ],
   "pick": false,
-  "range": "Range 20"
+  "range": "Range 20",
+  "builtins": [
+   "Cry",
+   "Reel"
+  ]
  },
  {
   "name": "Roar",
@@ -390,7 +552,11 @@ export const NATURAL_WEAPONS = [
    "sonic"
   ],
   "pick": false,
-  "range": "Range 8"
+  "range": "Range 8",
+  "builtins": [
+   "Cry",
+   "Reel"
+  ]
  },
  {
   "name": "Shriek",
@@ -399,7 +565,11 @@ export const NATURAL_WEAPONS = [
    "sonic"
   ],
   "pick": false,
-  "range": "Range 8"
+  "range": "Range 8",
+  "builtins": [
+   "Cry",
+   "Reel"
+  ]
  },
  {
   "name": "Wail",
@@ -408,7 +578,11 @@ export const NATURAL_WEAPONS = [
    "sonic"
   ],
   "pick": false,
-  "range": "Range 8"
+  "range": "Range 8",
+  "builtins": [
+   "Cry",
+   "Reel"
+  ]
  },
  {
   "name": "Screech",
@@ -417,7 +591,11 @@ export const NATURAL_WEAPONS = [
    "sonic"
   ],
   "pick": false,
-  "range": "Range 2"
+  "range": "Range 2",
+  "builtins": [
+   "Cry",
+   "Reel"
+  ]
  },
  {
   "name": "Drone",
@@ -426,7 +604,11 @@ export const NATURAL_WEAPONS = [
    "sonic"
   ],
   "pick": false,
-  "range": "Range 2"
+  "range": "Range 2",
+  "builtins": [
+   "Cry",
+   "Reel"
+  ]
  },
  {
   "name": "Buzzing Wings",
@@ -435,7 +617,11 @@ export const NATURAL_WEAPONS = [
    "sonic"
   ],
   "pick": false,
-  "range": "Range 2"
+  "range": "Range 2",
+  "builtins": [
+   "Cry",
+   "Reel"
+  ]
  },
  {
   "name": "Hiss",
@@ -444,7 +630,11 @@ export const NATURAL_WEAPONS = [
    "sonic"
   ],
   "pick": false,
-  "range": "Range 1"
+  "range": "Range 1",
+  "builtins": [
+   "Cry",
+   "Reel"
+  ]
  }
 ];
 export const MONSTER_FEATS = [
@@ -565,7 +755,7 @@ export const MONSTER_FEATS = [
   "xp": 8,
   "per": "",
   "xpText": "8",
-  "requires": "a beak or similar Pointed natural weapon",
+  "requires": "a beak or similar natural weapon",
   "effect": "The first Technique this creature lands through that weapon each conflict gains Pierce 1."
  },
  {
@@ -578,11 +768,11 @@ export const MONSTER_FEATS = [
  },
  {
   "name": "Specialized Resistance",
-  "xp": 4,
+  "xp": 8,
   "per": "point",
-  "xpText": "4 per point (Instrument Type) or 8 per point (Family)",
+  "xpText": "8 per point (Melee or Ranged) or 4 per point (Kinetic, Sonic, or Incorporeal)",
   "requires": "any tier",
-  "effect": "Resistance +N (PHB 6.6.0) to one Instrument Type, or to a Family: Melee, Ranged, or Arcane (PHB 4.1.1), capped at the creature's Resistance cap (9.1.0). Needs a stated reason: a hide that turns one kind of blow, a ward tuned to one kind of dread. Stacks with whatever Broad Resistance the tier's budget (9.3.0) already bought."
+  "effect": "Resistance +N (PHB 6.6.0) against Melee or Ranged Techniques, or against Kinetic, Sonic, or Incorporeal ones (PHB 4.1.1), capped at the creature's Resistance cap (9.1.0). Needs a stated reason: a hide that turns one kind of blow, a ward tuned to one kind of dread. Stacks with whatever Broad Resistance the tier's budget (9.3.0) already bought."
  }
 ];
 export const TRAITS = [

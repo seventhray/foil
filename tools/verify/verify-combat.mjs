@@ -108,7 +108,10 @@ check("Threat 1728 gives Potential 74 and Allowance 310", [creatureNumbers(1728)
 check("dice follow the Target Potential table", [diceFor(20).formula, diceFor(14).formula, diceFor(3).formula, diceFor(50).formula, diceFor(1).formula], ["1d20", "1d6+1d8", "1d4", "2d20+1d10", "none"]);
 check("Assign Attributes moves two Potential a step and flags a bad total", [assignAttributes(20, { might: 2, finesse: 0, wit: -1, presence: -1 }).potentials.might, assignAttributes(20, { might: 2, finesse: 0, wit: -1, presence: -1 }).notes.length, assignAttributes(20, { might: 2, finesse: 2, wit: 0, presence: 0 }).notes.length], [24, 0, 1]);
 
-check("the GMG's Natural Weapons, Monster Feats, and Traits load", [NATURAL_WEAPONS.length, MONSTER_FEATS.length, TRAITS.length, NATURAL_WEAPONS.filter(w => w.pick).length], [49, 17, 16, 3]);
+check("the GMG's Natural Weapons, Monster Feats, and Traits load", [NATURAL_WEAPONS.length, MONSTER_FEATS.length, TRAITS.length], [49, 17, 16]);
+check("each natural weapon has its Type, Properties and built-ins, an Arcane one its Stress Technique instead (GMG 9.6.1)", [
+  NATURAL_WEAPONS.find(w => w.name === "Claws"), NATURAL_WEAPONS.find(w => w.name === "Coils"), NATURAL_WEAPONS.find(w => w.name === "Breath Weapon")
+].map(w => `${w.types.join("+")} ${w.range} ${w.builtins.join("/")}${w.grants ? ` grants ${w.grants}` : ""}`), ["melee Range 1 Strike/Bleed", "melee+grappling Range 0 Strike/Restrain", "arcane+kinetic Range 8  grants stress"]);
 check("Legendary Action prices per use and Specialized Resistance per point", [MONSTER_FEATS.find(f => f.name === "Legendary Action").per, MONSTER_FEATS.find(f => f.name === "Specialized Resistance").per], ["use", "point"]);
 
 const brute = abilitySteps({ str: 25, dex: 9, con: 23, int: 10, wis: 14, cha: 13 });

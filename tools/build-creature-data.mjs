@@ -1,7 +1,7 @@
 /**
  * tools/build-creature-data.mjs
- * Writes src/creature-data.js from the GMG: Natural Weapons (9.6.1), Monster Feats (9.5.1),
- * and Traits (9.5.0). The Creature Generator reads it.
+ * Writes src/creature-data.js from the GMG: Natural Weapons (9.6.1) with their Type, Properties, Range and built-ins by name,
+ * Monster Feats (9.5.1), and Traits (9.5.0). The Creature Generator and the bestiary seeder read it.
  */
 
 import fs from "node:fs";
@@ -35,12 +35,16 @@ export function buildCreatureData() {
     if (!g) return;
     group = lc(g[1]);
     for (const r of rowsAfter(body, i)) {
-      const names = clean(r["Natural Weapon"]).replace(/\s*\([^)]*\)/g, "").split(/,\s*(?:or\s+)?|\s+or\s+/).map(x => x.trim()).filter(Boolean);
-      const typeText = clean(r["Instrument Types"]);
+      const names = clean(r["Natural weapon"] ?? r["Natural Weapon"]).replace(/\s*\([^)]*\)/g, "").split(/,\s*(?:or\s+)?|\s+or\s+/).map(x => x.trim()).filter(Boolean);
+      const typeText = clean(r["Type and Properties"] ?? r["Instrument Types"]);
       const pick = /pick one/i.test(typeText);
       const types = typeText.replace(/\s*\(pick one\)/i, "").split(/,\s*|\s+or\s+/).map(x => lc(x.trim())).filter(Boolean);
       const range = clean(r.Range);
-      for (const name of names) nw.push({ name, group, types, pick, range });
+      // Its built-ins by name ("Strike, Stun (Strain 1)"); an Arcane one has none and gives "one Stress Technique" of the creature's own.
+      const bi = clean(r["Built-in Techniques"] ?? "");
+      const grants = bi.match(/^one (\w+) Technique$/i)?.[1]?.toLowerCase() ?? "";
+      const builtins = grants ? [] : bi.split(/,\s*/).map(x => x.replace(/\s*\([^)]*\)/, "").trim()).filter(Boolean);
+      for (const name of names) nw.push({ name, group, types, pick, range, builtins, ...(grants ? { grants } : {}) });
     }
   });
 

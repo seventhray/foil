@@ -49,6 +49,9 @@ def numbers(xp):
 
 TRAITS = {r[0]: num(r[1]) for r in table_after("## 9.5.0 Feats and Traits", "Trait")}
 FEATS = {r[0]: r[1] for r in table_after("### 9.5.1 Monster Feats", "Feat")}
+# Specialized Resistance's price a point by scope (GMG 9.5.1): "8 per point (Melee or Ranged) or 4 per point (Kinetic, Sonic, or Incorporeal)".
+_sr = re.search(r"(\d+) per point \(([^)]*)\) or (\d+) per point \(([^)]*)\)", FEATS.get("Specialized Resistance", ""))
+SR_PRICE = {k: int(n) for n, ks in ((_sr.group(1), _sr.group(2)), (_sr.group(3), _sr.group(4))) for k in re.findall(r"[A-Z]\w+", ks)} if _sr else {}
 STEP = 2                  # one row of the Target Potential table (GMG 9.2.0)
 GRANT_ACTION = 14         # Legendary Action, per use (GMG 9.5.1)
 
@@ -103,6 +106,14 @@ for path in sorted(p for d in CREATURES.split(os.pathsep) for p in glob.glob(os.
                 bad.append(f"Legendary Action {uses} uses should cost {GRANT_ACTION * uses}, not {xp}")
             if uses > 5 * per_round:
                 bad.append(f"Legendary Action {uses} uses is more than {5 * per_round} a conflict can use")
+        elif base == "Specialized Resistance":
+            sr = re.match(r"\s*\((\w+) \+(\d+), 9\.5\.1\)", rest)
+            if not sr or sr.group(1) not in SR_PRICE:
+                bad.append(f"Specialized Resistance names {sr.group(1) if sr else '?'}, not one of {', '.join(SR_PRICE)} (9.5.1)")
+            elif xp != SR_PRICE[sr.group(1)] * int(sr.group(2)):
+                bad.append(f"Specialized Resistance {sr.group(1)} +{sr.group(2)} costs {SR_PRICE[sr.group(1)] * int(sr.group(2))} (9.5.1), not {xp}")
+            elif int(sr.group(2)) > T["cap"]:
+                bad.append(f"Specialized Resistance {sr.group(1)} +{sr.group(2)} is past its cap +{T['cap']} (9.1.0)")
         elif base in TRAITS and xp != TRAITS[base]:
             bad.append(f"Trait {base} costs {TRAITS[base]} (9.5.0), not {xp}")
         elif base in FEATS and FEATS[base].isdigit() and xp != int(FEATS[base]):

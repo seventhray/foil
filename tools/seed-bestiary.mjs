@@ -11,7 +11,9 @@ import fs from "node:fs";
 import path from "node:path";
 import { BOOKS } from "./books.mjs";
 import { NATURAL_WEAPONS } from "../src/creature-data.js";
-import { SKILL_ATTRS } from "../rules/constants.js";
+import { RANGE_STEP } from "../rules/constants.js";
+import { currentTypes, meetsRequirement } from "../rules/types.js";
+import { RESISTANCE_TYPES } from "../rules/resist.js";
 import { calloutText } from "./creature-block.mjs";
 
 export const CREATURES_DIR = process.env.FOIL_BESTIARY ?? path.join(BOOKS, "..", "Campaign", "Creatures");
@@ -36,33 +38,33 @@ export function bestiaryDocs(lib) {
   const byName = list => new Map(list.map(d => [lc(d.name), d]));
   const inst = byName(lib.instruments), tech = byName(lib.techniques), feat = byName(lib.feats);
   const clone = d => JSON.parse(JSON.stringify(d));
-  const kitFor = (types, primary) => {
-    // An Incorporeal or Sonic weapon deals Stress to Wit or Presence only, and any other weapon to Might or Finesse (PHB 4.2.1).
-    const mind = types.some(t => ["incorporeal", "sonic"].includes(t)), body = types.some(t => !["incorporeal", "sonic"].includes(t));
-    const fits = i => (i.system.kit ?? []).every(k => !(/Stress to Might or Finesse/.test(k.effect) && !body) && !(/Stress to Wit or Presence/.test(k.effect) && !mind));
-    const real = lib.instruments.filter(i => !i.system.innate && i.system.category !== "tool" && fits(i));
-    const has = (i, t) => (i.system.types ?? []).includes(t);
-    const m = real.find(i => types.every(t => has(i, t)) && i.system.weight === "light") ?? real.find(i => types.every(t => has(i, t))) ?? real.find(i => has(i, types[0]));
-    if (!m) return [];
-    const kit = clone(m.system.kit);
-    // An Arcane natural weapon is a Wit Instrument (GMG 9.6.1), so each move rolls a Skill Wit reaches (GMG 9.7.0): Assertiveness becomes Discipline, Guile Acuity.
-    if (primary === "wit") for (const k of kit) {
-      const pair = SKILL_ATTRS[k.skill];
-      if (!pair || pair.includes("wit")) continue;
-      const other = pair.find(a => a !== m.system.primaryAttribute);
-      k.skill = Object.keys(SKILL_ATTRS).find(s => SKILL_ATTRS[s].includes(other) && SKILL_ATTRS[s].includes("wit")) ?? k.skill;
-    }
-    return kit;
-  };
-  const natural = (name, type, note) => {
+  // A natural weapon's built-ins are its GMG 9.6.1 row's, by name, each with the effect a Catalog Instrument's move of that name has.
+  // The first sits on Prowess (Discipline for Wit), the second, its signature, on the Primary's other action Skill, and it backs
+  // the Voice Technique its Primary does (PHB 4.1.3): Might Threaten, Finesse Deceive, Wit Persuade.
+  const moves = lib.instruments.flatMap(i => i.system.kit ?? []);
+  const OTHER = { might: "discipline", finesse: "acuity", wit: "acuity", presence: "guile" };
+  const BACKS = { might: "Threaten", finesse: "Deceive", wit: "Persuade" };
+  const natural = (name, typesText, { range = "", weight = "light", note = "" } = {}) => {
     const w = NATURAL_WEAPONS.find(x => x.name === name);
-    const types = [lc(type)];
-    const group = w?.group ?? (["kinetic", "incorporeal", "fortifying"].includes(types[0]) ? "arcane" : types[0] === "sonic" ? "sonic" : "melee");
+    const types = typesText ? currentTypes(String(typesText).split(/,\s*/).map(lc)) : w?.types ?? ["melee"];
+    const group = w?.group ?? (types.includes("arcane") ? "arcane" : types.includes("sonic") ? "sonic" : types.includes("ranged") ? "ranged" : "melee");
     const primary = PRIMARY_BY_GROUP[group] ?? "might";
+    const kit = (w?.builtins ?? []).map((n, i) => {
+      const effect = moves.find(k => k.name === n)?.effect;
+      if (!effect) notes.push(`${name}: no Catalog move named ${n} for its built-ins (GMG 9.6.1)`);
+      return { name: n, skill: i === 0 ? (primary === "wit" ? "discipline" : "prowess") : OTHER[primary] ?? "discipline", effect: effect ?? "", ...(i > 0 ? { signature: true } : {}) };
+    });
+    const band = range ? Object.keys(RANGE_STEP).find(k => RANGE_STEP[k] === Number(range)) : "";
     return { name, type: "instrument", img: "icons/svg/claw.svg",
-      system: { types, range: w?.range ?? "Range 1", weight: "light", innate: true, primaryAttribute: primary,
-        category: group === "sonic" ? "sonic" : group === "arcane" ? "arcane" : "melee", price: 0, kit: kitFor(types, primary),
+      system: { types, range: range ? `Range ${range}` : w?.range ?? "Range 1", ...(band ? { maxRange: band } : {}), weight: lc(weight), innate: true, primaryAttribute: primary,
+        category: group === "sonic" ? "sonic" : group === "arcane" ? "arcane" : group === "ranged" ? "ranged" : "melee", price: 0, kit,
+        backs: kit.length && ["melee", "ranged", "grappling"].includes(group) ? BACKS[primary] ?? "" : "",
         description: note ? `<p>${note}.</p>` : "" } };
+  };
+  // "Melee", "Melee or Grappling", "Kinetic or Incorporeal", and "Melee Instrument with Guarding" (both) as Requirement keys.
+  const requiresOf = (phrase, withProp) => {
+    const alts = String(phrase).split(/\s+or\s+/).map(x => lc(x.trim()).replace(/^tools$/, "tool"));
+    return withProp ? alts.map(a => `${lc(withProp)}+${a}`) : alts;
   };
 
   for (const file of fs.readdirSync(CREATURES_DIR).filter(f => f.endsWith(".md")).sort()) {
@@ -90,56 +92,57 @@ export function bestiaryDocs(lib) {
       const rest = named ? line.slice(named[0].length) : line;
       const withSkill = d => { if (skill) d.system.skill = skill; return d; };
       const xp = Number(rest.match(/(\d+)\s*XP/)?.[1] ?? 0);
-      const weightWord = rest.match(/through an? (Medium|Heavy) /)?.[1];
-      const through = rest.match(/through an? (?:(?:Light|Medium|Heavy) )?(\w+)(?: or \w+)? Instrument(?: \(([^)]*)\))?/);
       const strain = rest.match(/Strain (\d+)/);
       if (/innate Instrument/.test(rest)) { const d = inst.get(lc(base)); if (d) items.push(clone(d)); continue; }
-      if (/part of its baseline kit|built-in Techniques free|Blocking Instrument/.test(rest)) {
-        const phb = inst.get(lc(base));
-        const type = through?.[1] ?? rest.match(/\): (?:(?:Light|Medium|Heavy) )?(\w+) Instrument/)?.[1] ?? "Blunt";
-        if (phb && !NATURAL_WEAPONS.some(w => w.name === base)) items.push(clone(phb));
-        else { const it = natural(base, type, through?.[2] ?? ""); if (weightWord) { it.system.weight = lc(weightWord); it.system.innate = false; } items.push(it); }
+      // An Instrument: a natural weapon "(GMG 9.6.1): Light Melee, Grappling Instrument, Range 0, ...", or a Catalog one
+      // "(PHB 7.4.1[, as a Mace]): ... Instrument, Range 1 ..." under the creature's own name.
+      const held = rest.match(/^ \((GMG 9\.6\.[01]|PHB [\d.]+)(?:, as an? ([^)]+))?\): (?:an? )?(?:(Light|Medium|Heavy) )?(.+?) Instrument, Range (\d+)(?:, built-in Techniques free)?(?: \(([^)]*)\))?\.$/);
+      if (held) {
+        const [, source, alias, weight, typesText, range, note] = held;
+        const phb = /^PHB/.test(source) ? inst.get(lc(alias ?? head)) : null;
+        if (phb) { const d = clone(phb); d.name = head.trim(); items.push(d); continue; }
+        if (/^PHB/.test(source)) notes.push(`${name}: no Catalog Instrument ${alias ?? head}`);
+        items.push(natural(head.trim(), typesText.replace(/ \[[^\]]*\]/g, ""), { range, weight: weight ?? "light", note: note ?? "" }));
         continue;
       }
+      // Specialized Resistance (GMG 9.5.1): a narrow Resistance the rules apply (rules/resist.js), "(Melee +2, 9.5.1)".
+      const narrow = rest.match(/^ \((\w+) \+(\d+), 9\.5\.1\): (\d+) XP, (.+?)\.?$/);
+      if (base === "Specialized Resistance" && narrow) {
+        const key = lc(narrow[1]);
+        if (!RESISTANCE_TYPES.includes(key)) notes.push(`${name}: Specialized Resistance names ${narrow[1]}, which no attack has`);
+        items.push({ name: `Specialized Resistance (${narrow[1]})`, type: "feat", img: "icons/svg/upgrade.svg",
+          system: { featType: "trait", xpCost: Number(narrow[3]), requirements: "", effect: `${narrow[1]} Resistance +${narrow[2]}: ${narrow[4]}.`, ancestry: "", grantsTechnique: "",
+            modifiers: [{ type: "resistance", key, value: Number(narrow[2]) }], description: "" } });
+        continue;
+      }
+      const through = rest.match(/ through an? ([A-Z][A-Za-z ]*?) Instrument(?: with ([A-Z]\w+))?(?: \(([^)]*)\))?, \d+ XP/);
       if (/^: /.test(rest) && (through || /Evade/.test(rest))) {
         // A Catalog Technique as the Catalog has it; an Origin's or a Transformation's Innate gift of the same name stays the creature's own.
-        const known = tech.get(lc(base));
+        const known = tech.get(lc(head)) ?? tech.get(lc(base));
         if (known && !known.system.innate) { items.push(withSkill(clone(known))); continue; }
         const effect = rest.replace(/^: /, "").replace(/ through an? .*$/, "").replace(/, \d+ XP.*$/, "").trim() + (strain ? `, Strain ${strain[1]}` : "");
         // The stat blocks and GMG 9.7.1 spell some Effects differently from the Catalog; read them the same way.
         const norm = effect.replace(/Pattern /g, "")
           .replace(/Condition:? \(?(\w+)\)?/g, "$1").replace(/Stress to that attacker[^,]*(, as if [^,]*)?/, "Stress").replace(/,\s*,/g, ",").replace(/,\s*$/, "");
-        const doc = lib.techniqueDoc({ name: base, requires: through ? through[1] : "None", effect: norm, xp: xp || null, strain: strain ? Number(strain[1]) : undefined });
+        const req = through ? requiresOf(through[1], through[2]).map(r => r.split("+").map(k => k.replace(/^./, c => c.toUpperCase())).join(" and ")).join(" or ") : "None";
+        const doc = lib.techniqueDoc({ name: head.trim(), requires: req, effect: norm, xp: xp || null, strain: strain ? Number(strain[1]) : undefined });
         items.push(withSkill(doc));
         continue;
       }
-      // Everything else is a Feat or Trait line: "(N XP, GMG 9.5.1): text", "(Trait, N XP, 9.5.0): text", Specialized Resistance.
+      // Everything else is a Feat or Trait line: "(N XP, GMG 9.5.1): text", "(Trait, N XP, 9.5.0): text".
       const known = feat.get(lc(base));
       const text = rest.replace(/^\s*\([^)]*\):\s*/, "").replace(/^:\s*/, "").trim();
       if (known && /PHB 7\.2\.2/.test(rest)) { items.push(clone(known)); continue; }
       items.push({ name: head.trim(), type: "feat", img: "icons/svg/upgrade.svg",
         system: { featType: "trait", xpCost: xp, requirements: "", effect: text, ancestry: "", grantsTechnique: "", modifiers: [], description: "" } });
     }
-    // A Technique needs an Instrument of its Type. Where the stat block names none, the Voice, the Mind,
-    // or a natural weapon of that Type carries it.
-    const held = () => new Set(items.filter(i => i.type === "instrument").flatMap(i => i.system.types ?? []));
-    for (const [, type, via] of block.matchAll(/through an? (?:(?:Light|Medium|Heavy) )?(\w+)(?: or \w+)? Instrument(?: \(([^)]*)\))?/g)) {
-      const t = lc(type);
-      // A Tool Technique goes through the creature's own Tool, whose Craft Type counts as a Tool.
-      if (t === "tool" && items.some(i => i.type === "instrument" && i.system.category === "tool")) continue;
-      // A Parry Technique with no Parry Instrument parries with the melee weapon its line names.
-      if (t === "parry" && !held().has("parry")) {
-        const melee = items.filter(i => i.type === "instrument" && (i.system.types ?? []).some(x => ["edged", "pointed", "blunt"].includes(x)));
-        const words = lc(via ?? "").split(/\W+/).filter(w => w.length > 3);
-        const blade = melee.find(i => words.some(w => lc(i.name).includes(w))) ?? melee[0];
-        if (blade) blade.system.types = [...blade.system.types, "parry"];
-        continue;
-      }
-      if (held().has(t) || ["parry", "ranged"].includes(t)) continue;
-      const innate = t === "sonic" ? "voice" : t === "incorporeal" && /Mind/.test(via ?? "") ? "mind" : null;
-      if (innate && inst.get(innate)) { items.unshift(clone(inst.get(innate))); continue; }
-      const label = (via ?? "").split(",")[0].replace(/^(its|a|an|the) (own )?/i, "").trim();
-      items.unshift(natural(label ? label.charAt(0).toUpperCase() + label.slice(1) : `${type} attack`, type, ""));
+    // Each Technique needs an Instrument that meets its Requirement (PHB 4.2.0). A stat block names its carriers; one that names
+    // none for a Sonic Technique has the Voice, else the note is warned about.
+    const carriers = () => items.filter(i => i.type === "instrument");
+    for (const t of items.filter(i => i.type === "technique" && !i.system.innate && (i.system.requires ?? []).length)) {
+      if (carriers().some(i => meetsRequirement(i.system.types ?? [], t.system.requires, { category: i.system.category }))) continue;
+      if (t.system.requires.includes("sonic") && inst.get("voice")) { items.unshift(clone(inst.get("voice"))); continue; }
+      notes.push(`${name}: ${t.name} needs ${t.system.requires.join(" or ")}, and no Instrument on its stat block has it`);
     }
     if (!items.some(i => i.type === "instrument")) notes.push(`${name}: no Instrument read from its stat block`);
     actors.push({
