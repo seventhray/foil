@@ -219,5 +219,31 @@ for (const doc of picked) {
   }
 }
 if (!pierceSeen) { bad++; console.log("  FAIL  no scenario reached a Technique's Pierce part"); }
+
+// A Dagger alone (Melee, Thrown): a Ranged Technique goes through it thrown, out to Range 4, a Ranged hit (PHB 4.1.1); a Melee one
+// stays Melee. A Sonic Technique's Strain note leaves out its 8 XP reach (PHB 4.2.3).
+{
+  const dagger = docs("instruments").find(d => d.name === "Dagger");
+  const horn = docs("instruments").find(d => d.name === "War Horn");
+  const byName = n => docs("techniques").find(d => d.name === n);
+  const [shot, strike, cry] = ["Toppling Shot", "Toppling Strike", "Lasting Weakening Cry"].map(byName);
+  if (!dagger || !horn || !shot || !strike || !cry) { console.log("  FAIL  no Dagger, War Horn, Toppling Shot, Toppling Strike or Lasting Weakening Cry"); process.exit(1); }
+  const actor = buildActor({ ...bestiary[0], items: [{ ...plain(dagger), _id: "dag1" }, { ...plain(horn), _id: "horn1" }, { ...plain(shot), _id: "shot1" }, { ...plain(strike), _id: "strike1" }, { ...plain(cry), _id: "cry1" }] });
+  actor.items.forEach(i => { if (i.type === "instrument") i.system.location = "equipped"; });
+  const expect = (label, ok) => { n++; if (!ok) { bad++; console.log(`  FAIL  ${label}`); } };
+  for (const [id, answers] of [["shot1", [{ instrumentId: "dag1", skill: "prowess" }, { aim: "finesse", type: "", other: 0 }]],
+    ["strike1", [{ instrumentId: "dag1", skill: "prowess" }, { aim: "might", type: "", other: 0 }]], ["cry1", [{ instrumentId: "horn1", skill: "assertiveness" }, { aim: "wit", type: "", other: 0 }]]]) {
+    for (const targets of [[], [token("Orc")]]) {
+      const o = await safe(runOld)(actor, "technique", id, answers, targets), w = await safe(runNew)(actor, "technique", id, answers, targets), sh = await safe(runSheet)(actor, "technique", id, answers, targets);
+      expect(`${id} matches the old sheet code`, JSON.stringify(o) === JSON.stringify(w));
+      expect(`${id} matches the sheet`, JSON.stringify(o) === JSON.stringify(sh));
+      const st = w.posted?.[0]?.flags?.foil?.stress, text = w.posted?.[0]?.flavor ?? "";
+      if (id === "shot1") expect("Toppling Shot through the Dagger is thrown: Range 4, a Ranged hit, not Melee",
+        /Thrown: Dagger counts as Ranged for Toppling Shot/.test(text) && /Range 4/.test(text) && st?.melee === false && st?.attackInfo?.types?.join() === "ranged");
+      if (id === "strike1") expect("Toppling Strike through the Dagger stays Melee", !/Thrown/.test(text) && st?.melee === true && st?.attackInfo?.types?.join() === "melee");
+      if (id === "cry1") expect("Lasting Weakening Cry's Strain note leaves out the Sonic reach", /\(32 XP before the Sonic reach - 24\) \/ 8/.test(text));
+    }
+  }
+}
 console.log(`  ${n - bad} of ${n} roll flows match the old sheet code (${withStress} post a Stress payload, ${withStrain} take Strain, ${withCond} carry targeted flags, ${withEnch} Enchantment rolls, ${pierceSeen} with a Technique's Pierce)`);
 process.exit(bad ? 1 : 0);

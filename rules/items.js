@@ -157,6 +157,7 @@ export function deriveTechnique(sys, registry = {}) {
                           : { xp: 0, breakdown: [] };
   sys.xpCost = priced.xp;
   sys.perTarget = (sys.effects ?? []).some(e => e.key === "selective");
+  sys.sonicReach = !!priced.reach;
   sys.strain = priced.strain ?? strainFor(sys.xpCost - (sys.perTarget ? SELECTIVE_PREMIUM : 0));
   sys.pricingBreakdown = priced.breakdown;
   sys.priceMath = priced.math ?? "";

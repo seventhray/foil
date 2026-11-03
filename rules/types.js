@@ -78,8 +78,23 @@ export function meetsRequirement(types = [], requires = [], { category = "" } = 
   const req = currentRequires(requires);
   if (!req.length) return true;
   const t = currentTypes(types);
-  const hasKey = k => t.includes(k) || (k === "tool" && (category === "tool" || t.some(x => x.startsWith("craft-"))));
+  return meets(t, req, category, false) || (throwable(t) && meets(t, req, category, true));
+}
+
+function meets(t, req, category, thrown) {
+  const hasKey = k => t.includes(k) || (k === "tool" && (category === "tool" || t.some(x => x.startsWith("craft-")))) || (thrown && k === "ranged");
   return req.some(alt => alt.split("+").every(hasKey));
+}
+
+/** A Melee Instrument with Thrown is thrown at a target past its reach, out to Range 4, and counts as Ranged (PHB 4.1.1). */
+const throwable = t => typeOf(t) === "melee" && t.includes("thrown");
+export const THROWN_BAND = "short";
+
+/** Does this Technique go through the Instrument only by throwing it (PHB 4.1.1)? Then it counts as Ranged, out to Range 4. */
+export function thrownFor(types = [], requires = [], { category = "" } = {}) {
+  const req = currentRequires(requires);
+  const t = currentTypes(types);
+  return req.length > 0 && throwable(t) && !meets(t, req, category, false) && meets(t, req, category, true);
 }
 
 /** "Melee", "Guarding and Melee", "Kinetic or Incorporeal": a Requirement as the books print it. */

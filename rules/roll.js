@@ -28,7 +28,7 @@ import { conditionFlags, skillFormula, skillMath } from "./combat.js";
 import { attackScopes } from "./resist.js";
 import { featBonuses } from "./feats.js";
 import { kitStrain, kitPierce } from "./items.js";
-import { currentRequires, meetsRequirement, typeOf } from "./types.js";
+import { currentRequires, meetsRequirement, thrownFor, THROWN_BAND, typeOf } from "./types.js";
 import { RANGE_STEP } from "./constants.js";
 import { driveAsync } from "./flow.js";
 
@@ -125,7 +125,7 @@ export const validInstruments = (actor, tech) => matchingInstruments(actor, tech
  * The payload the Stress button on a card reads. The margin cap follows the Instrument's weight (PHB 6.7.0).
  * The caller adds what only it knows (the roll's total).
  */
-export function stressPayload(actor, inst, name, total, { bespoke = [], pierce = [], aim = { targets: [] }, also = null } = {}) {
+export function stressPayload(actor, inst, name, total, { bespoke = [], pierce = [], aim = { targets: [] }, also = null, thrown = false } = {}) {
   const primary = inst.system.primaryAttribute;
   const a = actor.system.attributes?.[primary];
   const potential = Number(a?.potential?.max ?? 0);
@@ -138,8 +138,10 @@ export function stressPayload(actor, inst, name, total, { bespoke = [], pierce =
       mult: Number(inst.system.marginMultiplier ?? 1), multLabel: inst.system.weightLabel || weight,
       types: inst.system.stressTypes ?? [],
       bespoke: bespoke.reduce((n, p) => n + p.value, 0), bespokeParts: bespoke.filter(p => p.value),
-      pierce: pierce.reduce((n, p) => n + p.value, 0), pierceParts: pierce.filter(p => p.value), attackInfo: attackInfo(inst, channelOf(inst, aim.typeIndex)),
-      melee: !!inst.system.isMelee, targets: aim.targets, aim: aim.aim, typeIndex: aim.typeIndex, other: aim.other, ...(also ? { also } : {})
+      pierce: pierce.reduce((n, p) => n + p.value, 0), pierceParts: pierce.filter(p => p.value),
+      // A thrown Melee Instrument's hit counts as Ranged (PHB 4.1.1).
+      attackInfo: thrown ? { types: ["ranged"], materials: inst.system.materials ?? "" } : attackInfo(inst, channelOf(inst, aim.typeIndex)),
+      melee: !thrown && !!inst.system.isMelee, targets: aim.targets, aim: aim.aim, typeIndex: aim.typeIndex, other: aim.other, ...(also ? { also } : {})
     }
   };
 }
@@ -277,17 +279,20 @@ export function* rollTechniqueSteps({ actor, tech, unaware = false, feats = fals
     }
   }
   skill ||= "prowess";
+  // A Melee Instrument with Thrown meets a Ranged Requirement by being thrown, and counts as Ranged, out to Range 4 (PHB 4.1.1).
+  const thrown = inst?.type === "instrument" && thrownFor(inst.system.types ?? [], sys.requires ?? [], { category: inst.system.category });
 
   const bonus = [{ label: tech.name, value: Number(sys.rollBonus ?? 0) }, ...instrumentExtras(inst, skill)];
   const notes = rollNotes(asys, skill, true);
   notes.unshift(`${inst ? `Through ${esc(inst.name)}` : "Innate"}. ${esc(sys.effectSummary)}`);
+  if (thrown) notes.push(`Thrown: ${esc(inst.name)} counts as Ranged for ${esc(tech.name)}, out to Range 4 (PHB 4.1.1).`);
   if (inst?.system.location === "stored") notes.push(storedNote(inst, esc));
   if (inst?.system.enchantBonus) notes.push(`Enchantment: ${inst.system.enchantBonus.label}.`);
   if (sys.quick) notes.push("Quick: may be paid with the Quick Action.");
   if (inst?.system.doublesMargin) notes.push("Heavy: costs the Action and the Quick Action; the margin doubles (PHB 4.1.1).");
 
   const extend = (sys.effects ?? []).filter(e => e.key === "extend-range").reduce((n, e) => n + Number(e.bands || 1), 0);
-  notes.push(...(yield ["rangeNotes", { band: inst ? inst.system.rangeBand : sys.range, min: sys.minRange || inst?.system.minRange, extend }]));
+  notes.push(...(yield ["rangeNotes", { band: inst ? (thrown ? THROWN_BAND : inst.system.rangeBand) : sys.range, min: sys.minRange || inst?.system.minRange, extend }]));
   // The Condition it applies, if it deals no Stress. Weakened -N [target Attribute] is aimed like Stress: the Attribute
   // aimed at is the one weakened, and the one the target resists with (PHB 6.8.4).
   const applied = !sys.dealsStress ? (sys.effects ?? []).find(e => CONDITION_OPPOSE[EFFECT_CONDITION[e.key]] || EFFECT_CONDITION[e.key] === "Weakened" || e.key === "disarm") : null;
@@ -302,14 +307,16 @@ export function* rollTechniqueSteps({ actor, tech, unaware = false, feats = fals
     const attr = inst?.system.primaryAttribute ?? SKILL_ATTRS[skill][0];
     const { before, after } = (yield ["takeStress", attr, sys.strain]);
     (yield ["log", "strain", { source: tech.name, attribute: attr, amount: sys.strain, before, after }]);
-    const xp = Number(sys.xpCost ?? 0) - (sys.perTarget ? 8 : 0);
+    // The Selective premium and the Sonic reach don't count toward it.
+    const charges = [sys.perTarget ? "the Selective premium" : "", sys.sonicReach ? "the Sonic reach" : ""].filter(Boolean);
+    const xp = Number(sys.xpCost ?? 0) - 8 * charges.length;
     const max = Number(asys.attributes?.[attr]?.potential?.max ?? 0);
-    notes.push(`Strain ${sys.strain} on ${ATTR_LABEL[attr]} (Stress ${max - before} ${arrow} ${max - after} of ${max}): (${xp} XP${sys.perTarget ? " before the Selective premium" : ""} - 24) / 8, rounded down (PHB 4.2.3).`);
+    notes.push(`Strain ${sys.strain} on ${ATTR_LABEL[attr]} (Stress ${max - before} ${arrow} ${max - after} of ${max}): (${xp} XP${charges.length ? ` before ${charges.join(" and ")}` : ""} - 24) / 8, rounded down (PHB 4.2.3).`);
   }
 
   // A Learned Feat's +1s, when the host counts them (rules/feats.js): by the Attribute aimed at, or the one its Condition is resisted with.
   const featTarget = aim.aim || (applied && !weakens ? conditionAttr(disarms ? DISARM : { name: EFFECT_CONDITION[applied.key] }) : "");
-  const fb = feats ? featBonuses(actor, { types: inst?.system.types ?? [], channel: channelOf(inst, aim.typeIndex), target: featTarget, stress: !!(sys.dealsStress && inst) }) : NO_FEATS;
+  const fb = feats ? featBonuses(actor, { types: thrown ? ["ranged"] : inst?.system.types ?? [], channel: thrown ? "" : channelOf(inst, aim.typeIndex), target: featTarget, stress: !!(sys.dealsStress && inst) }) : NO_FEATS;
   bonus.push(...fb.roll, ...unawareExtra(unaware, notes));
   const wdice = sys.offensive && inst?.type === "instrument" && inst.system.weightDice ? [{ label: inst.system.weightLabel || "Weight", dice: inst.system.weightDice }] : [];
   notes.unshift(esc(skillMath(asys, skill, bonus, wdice)));
@@ -332,10 +339,10 @@ export function* rollTechniqueSteps({ actor, tech, unaware = false, feats = fals
     formula: skillFormula(asys, skill, bonus, wdice), title: `${esc(tech.name)} (${SKILL_LABEL[skill]})`, note: notes.join(br),
     payload: {
       cond: true,
-      condition: condition ? { name: tech.name, condition, melee: !!inst?.system.isMelee, ...(inst && typeOf(inst.system.types) === "sonic" ? { group: true } : {}) } : null,
+      condition: condition ? { name: tech.name, condition, melee: !thrown && !!inst?.system.isMelee, ...(inst && typeOf(inst.system.types) === "sonic" ? { group: true } : {}) } : null,
       stress: sys.dealsStress && inst ? { inst, name: tech.name, aim,
         bespoke: [{ label: tech.name, value: Number(sys.stressRider ?? 0) }, { label: `${inst.name} Enchantment`, value: Number(inst.system.enchantStress ?? 0) }, ...fb.stress],
-        pierce: [{ label: tech.name, value: Number(sys.pierceTotal ?? 0) }, ...enchantPierceParts(inst)], ...(also ? { also } : {}) } : null
+        pierce: [{ label: tech.name, value: Number(sys.pierceTotal ?? 0) }, ...enchantPierceParts(inst)], ...(also ? { also } : {}), ...(thrown ? { thrown: true } : {}) } : null
     }
   }]);
 }

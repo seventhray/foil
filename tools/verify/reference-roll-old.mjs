@@ -8,13 +8,15 @@
  * The Instrument Model (2026-11-02) is carried in too, marked RULE 2026-11-02: Requirements read through rules/types.js, a hit's
  * narrow-Resistance scope is its Type or declared Arcane Property, and a built-in's signature, Strain, Pierce, backing and Sonic
  * group reach.
+ * Two rules of 2026-11-03 are carried in, marked RULE 2026-11-03: a Strain note leaves out the Sonic reach's 8 XP as it does the
+ * Selective premium, and a Melee Instrument with Thrown meets a Ranged Requirement by being thrown (Range 4, a Ranged hit).
  */
 import {
   ATTRIBUTE_KEYS, ATTR_LABEL, SKILL_ATTRS, SKILL_LABEL, MARGIN_CAP, marginCap, CONDITION_OPPOSE, CONDITION_ATTR, EFFECT_CONDITION, conditionAttr, DISARM
 } from "../../rules/constants.js";
 import { allowedAims, conditionFlags, declarableTypes, skillFormula, skillMath, targetFlags } from "../../rules/combat.js";
 import { attackScopes } from "../../rules/resist.js";
-import { currentRequires, meetsRequirement, typeOf } from "../../rules/types.js";
+import { currentRequires, meetsRequirement, thrownFor, THROWN_BAND, typeOf } from "../../rules/types.js";
 import { kitStrain, kitPierce } from "../../rules/items.js";
 import { backersOf, BACKING } from "../../rules/roll.js";
 import { RANGE_STEP } from "../../rules/constants.js";
@@ -283,16 +285,19 @@ export class RefSheet {
       }
     }
     skill ||= "prowess";
+    // RULE 2026-11-03: a Melee Instrument with Thrown meets a Ranged Requirement by being thrown, and counts as Ranged, out to Range 4 (PHB 4.1.1).
+    const thrown = inst?.type === "instrument" && thrownFor(inst.system.types ?? [], sys.requires ?? [], { category: inst.system.category });
 
     const bonus = [{ label: tech.name, value: Number(sys.rollBonus ?? 0) }, ...this._instrumentExtras(inst, skill)];
     const notes = this._rollNotes(skill, true);
     notes.unshift(`${inst ? `Through ${esc(inst.name)}` : "Innate"}. ${esc(sys.effectSummary)}`);
+    if (thrown) notes.push(`Thrown: ${esc(inst.name)} counts as Ranged for ${esc(tech.name)}, out to Range 4 (PHB 4.1.1).`);
     if (inst?.system.enchantBonus) notes.push(`Enchantment: ${inst.system.enchantBonus.label}.`);
     if (sys.quick) notes.push("Quick: may be paid with the Quick Action.");
     if (inst?.system.doublesMargin) notes.push("Heavy: costs the Action and the Quick Action; the margin doubles (PHB 4.1.1).");
 
     const extend = (sys.effects ?? []).filter(e => e.key === "extend-range").reduce((n, e) => n + Number(e.bands || 1), 0);
-    notes.push(...this._rangeNotes({ band: inst ? inst.system.rangeBand : sys.range, min: sys.minRange || inst?.system.minRange, extend }));
+    notes.push(...this._rangeNotes({ band: inst ? (thrown ? THROWN_BAND : inst.system.rangeBand) : sys.range, min: sys.minRange || inst?.system.minRange, extend }));
     // RULE 2026-10-23: a Technique that only weakens is aimed; the Attribute aimed at is weakened and resists.
     // RULE 2026-11-01: a Disarm Effect is Opposed with Might (PHB 4.2.1).
     const applied = !sys.dealsStress ? (sys.effects ?? []).find(e => CONDITION_OPPOSE[EFFECT_CONDITION[e.key]] || EFFECT_CONDITION[e.key] === "Weakened" || e.key === "disarm") : null;
@@ -307,9 +312,11 @@ export class RefSheet {
       const attr = inst?.system.primaryAttribute ?? SKILL_ATTRS[skill][0];
       const { before, after } = await this.actor.takeStress(attr, sys.strain);
       logEvent("strain", { actor: who(this.actor), source: tech.name, attribute: attr, amount: sys.strain, before, after });
-      const xp = Number(sys.xpCost ?? 0) - (sys.perTarget ? 8 : 0);
+      // RULE 2026-11-03: the Sonic reach, like the Selective premium, doesn't count toward Strain (PHB 4.2.3).
+      const charges = [sys.perTarget ? "the Selective premium" : "", sys.sonicReach ? "the Sonic reach" : ""].filter(Boolean);
+      const xp = Number(sys.xpCost ?? 0) - 8 * charges.length;
       const max = Number(this.actor.system.attributes?.[attr]?.potential?.max ?? 0);
-      notes.push(`Strain ${sys.strain} on ${ATTR_LABEL[attr]} (Stress ${max - before} &rarr; ${max - after} of ${max}): (${xp} XP${sys.perTarget ? " before the Selective premium" : ""} - 24) / 8, rounded down (PHB 4.2.3).`);
+      notes.push(`Strain ${sys.strain} on ${ATTR_LABEL[attr]} (Stress ${max - before} &rarr; ${max - after} of ${max}): (${xp} XP${charges.length ? ` before ${charges.join(" and ")}` : ""} - 24) / 8, rounded down (PHB 4.2.3).`);
     }
 
     const wdice = sys.offensive && inst?.type === "instrument" && inst.system.weightDice ? [{ label: inst.system.weightLabel || "Weight", dice: inst.system.weightDice }] : [];
@@ -324,8 +331,8 @@ export class RefSheet {
     else if (condition) notes.push("The target resists with any Skill built on the Attribute aimed at (PHB 6.8.4).");
     await this._postRoll(this._skillFormula(skill, bonus, wdice), `${esc(tech.name)} (${SKILL_LABEL[skill]})`, notes.join("<br>"), roll => ({
       cond: this._condFlag(),
-      ...(condition ? this._conditionFlag(tech.name, roll.total, condition, { melee: !!inst?.system.isMelee }) : {}),
-      ...(sys.dealsStress && inst ? this._stressFlag(inst, tech.name, roll.total, {
+      ...(condition ? this._conditionFlag(tech.name, roll.total, condition, { melee: !thrown && !!inst?.system.isMelee }) : {}),
+      ...(sys.dealsStress && inst ? this._stressFlag(inst, tech.name, roll.total, { thrown,
         bespoke: [{ label: tech.name, value: Number(sys.stressRider ?? 0) }, { label: `${inst.name} Enchantment`, value: Number(inst.system.enchantStress ?? 0) }],
         pierce: [{ label: tech.name, value: Number(sys.pierceTotal ?? 0) }, { label: `${inst.name} +${inst.system.bonus}`, value: Number(inst.system.bonusPierce ?? 0) - Number(inst.system.enchantPierce ?? 0) }, { label: `${inst.name} Enchantment`, value: Number(inst.system.enchantPierce ?? 0) }], aim
       }) : {})
@@ -365,7 +372,7 @@ export class RefSheet {
     return { types: attackScopes(inst.system.types ?? [], channel), materials: inst.system.materials ?? "" };
   }
 
-  _stressFlag(inst, name, total, { bespoke = [], pierce = [], aim = { targets: [] } } = {}) {
+  _stressFlag(inst, name, total, { bespoke = [], pierce = [], aim = { targets: [] }, thrown = false } = {}) {
     const primary = inst.system.primaryAttribute;
     const a = this.actor.system.attributes?.[primary];
     const potential = Number(a?.potential?.max ?? 0);
@@ -378,8 +385,9 @@ export class RefSheet {
         mult: Number(inst.system.marginMultiplier ?? 1), multLabel: inst.system.weightLabel || weight,
         types: inst.system.stressTypes ?? [],
         bespoke: bespoke.reduce((n, p) => n + p.value, 0), bespokeParts: bespoke.filter(p => p.value),
-        pierce: pierce.reduce((n, p) => n + p.value, 0), pierceParts: pierce.filter(p => p.value), attackInfo: this._attackInfo(inst, aim.typeIndex),
-        melee: !!inst.system.isMelee, targets: aim.targets, aim: aim.aim, typeIndex: aim.typeIndex, other: aim.other
+        pierce: pierce.reduce((n, p) => n + p.value, 0), pierceParts: pierce.filter(p => p.value),
+        attackInfo: thrown ? { types: ["ranged"], materials: inst.system.materials ?? "" } : this._attackInfo(inst, aim.typeIndex),
+        melee: !thrown && !!inst.system.isMelee, targets: aim.targets, aim: aim.aim, typeIndex: aim.typeIndex, other: aim.other
       }
     };
   }
