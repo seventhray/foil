@@ -17,6 +17,9 @@ const LEGACY_SCOPE = { edged: ["melee"], pointed: ["melee"], blunt: ["melee"], g
 /** Every scope key a narrow Resistance row accepts. */
 export const RESISTANCE_SCOPES = [...RESISTANCE_TYPES];
 
+/** Whether a Feat's Resistance modifier names a narrow scope, an older one included, rather than physical, mental or an Attribute. */
+export const isResistanceScope = key => RESISTANCE_SCOPES.includes(key) || key in LEGACY_SCOPE;
+
 /** One scope choice per row: Broad, or the way an attack harms. */
 export const SCOPE_GROUPS = [
   { label: "Broad", options: [["physical", "Physical"], ["mental", "Mental"]] },

@@ -8,12 +8,16 @@
  */
 
 import { SKILL_KEYS, RESISTANCE_KINDS, ATTRIBUTE_KEYS, LEGACY_SKILL_KEY } from "./constants.js";
-import { RESISTANCE_SCOPES } from "./resist.js";
+import { isResistanceScope } from "./resist.js";
 
 // Equipment whose Resistance or Skill bonus applies only while worn or carried in hand.
 const WORN = new Set(["armor", "shield", "ward", "charm"]);
 // Slots that count one item at a time (PHB 6.6.0): the equipped one with the most Resistance.
 const ONE_AT_A_TIME = ["armor", "ward"];
+// A Shield is a Guarding Instrument; its Resistance and Skill bonus apply while it is carried, readied or not, one Shield at a time
+// (PHB 5.2.4, 6.6.0). A Shield stored as Equipment before 2026-11-02 counts the same way.
+const isShield = it => it.system?.category === "shield" && (it.type === "instrument" || it.type === "equipment");
+const carried = it => it.system?.location === "equipped" || it.system?.location === "carried";
 const resistanceOf = it => (it.system?.qualities ?? []).reduce((n, q) => n + (q.key === "resistance" ? Number(q.value ?? 0) : 0), 0)
   + (it.system?.enchantment?.bonus?.kind === "resistance" ? Number(it.system.enchantment.bonus.n ?? 0) : 0);
 
@@ -66,6 +70,14 @@ export function aggregateModifiers(items = []) {
     const worn = items.filter(it => it.type === "equipment" && it.system?.category === cat && it.system?.location === "equipped");
     if (worn.length) counted.add(worn.reduce((best, it) => resistanceOf(it) > resistanceOf(best) ? it : best));
   }
+  const shields = items.filter(it => isShield(it) && carried(it));
+  const shield = shields.length ? shields.reduce((best, it) => resistanceOf(it) > resistanceOf(best) ? it : best) : null;
+  const addQualities = it => {
+    for (const q of it.system?.qualities ?? []) {
+      if (q.key === "resistance") addResistance(q.param, q.value, it.name);
+      else if (q.key === "skill-bonus" && skillKey(q.param) in skillBonus) skillBonus[skillKey(q.param)] += Number(q.value ?? 0);
+    }
+  };
 
   for (const it of items) {
     const s = it.system ?? {};
@@ -73,13 +85,13 @@ export function aggregateModifiers(items = []) {
       case "background":
         for (const [k, v] of Object.entries(s.training ?? {})) addTraining(k, v, it.name);
         break;
+      case "instrument":
+        if (it === shield) addQualities(it);
+        break;
       case "equipment":
-        if (!WORN.has(s.category) || s.location !== "equipped") break;
+        if (s.category === "shield" ? it !== shield : !WORN.has(s.category) || s.location !== "equipped") break;
         if (ONE_AT_A_TIME.includes(s.category) && !counted.has(it)) break;
-        for (const q of s.qualities ?? []) {
-          if (q.key === "resistance") addResistance(q.param, q.value, it.name);
-          else if (q.key === "skill-bonus" && skillKey(q.param) in skillBonus) skillBonus[skillKey(q.param)] += Number(q.value ?? 0);
-        }
+        addQualities(it);
         // Its Enchantment (PHB 5.3.4) applies the same way while it is worn.
         if (s.enchantment?.bonus?.kind === "resistance") addResistance(s.enchantment.bonus.param || "physical", s.enchantment.bonus.n, `${it.name} Enchantment`);
         else if (s.enchantment?.bonus?.kind === "skill" && skillKey(s.enchantment.bonus.param) in skillBonus) skillBonus[skillKey(s.enchantment.bonus.param)] += Number(s.enchantment.bonus.n ?? 0);
@@ -87,7 +99,7 @@ export function aggregateModifiers(items = []) {
       case "feat":
         for (const m of s.modifiers ?? []) {
           if (m.type === "training") addTraining(m.key, m.value, it.name);
-          else if (m.type === "resistance" && RESISTANCE_SCOPES.includes(m.key)) narrowResistance.push({ scope: m.key, material: "", n: Number(m.value ?? 0) });
+          else if (m.type === "resistance" && isResistanceScope(m.key)) narrowResistance.push({ scope: m.key, material: "", n: Number(m.value ?? 0) });
           else if (m.type === "resistance") addResistance(m.key, m.value, it.name);
           else if (m.type === "initiative") initiative += Number(m.value ?? 0);
           else if (m.type === "stealth") stealth += Number(m.value ?? 0);

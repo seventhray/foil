@@ -14,10 +14,18 @@ import {
 } from "../constants.js";
 import { LEGACY_TYPE_KEY } from "./definition-models.js";
 import { deriveInstrument, deriveTechnique, deriveEquipment, deriveConsumable, deriveMaterial, deriveBackground, deriveOrigin } from "../../rules/items.js";
+import { currentTypes, currentRequires } from "../../rules/types.js";
 
-const INSTRUMENT_CATEGORIES = ["melee", "ranged", "arcane", "sonic", "tool", "innate"];
+const INSTRUMENT_CATEGORIES = ["melee", "ranged", "arcane", "sonic", "shield", "tool", "innate"];
 
 const mapTypes = arr => [...new Set((arr ?? []).map(t => LEGACY_TYPE_KEY[t] ?? t))];
+
+/** A Resistance or Skill bonus an item gives while worn or carried: armor's, a Shield's (PHB 5.2.4, 7.9.1). */
+const qualitiesSchema = () => new f.ArrayField(new f.SchemaField({
+  key: slugField(""),
+  value: int(0),
+  param: str("")
+}));
 
 /** Composed-effects schema, shared by a Technique and an Instrument's Enchantment. */
 function effectsArraySchema() {
@@ -45,7 +53,8 @@ export class InstrumentData extends foundry.abstract.TypeDataModel {
       if (!source.maxRange) source.maxRange = rangeBandOf(source.range);
       if (!source.minRange) source.minRange = rangeMinOf(source.range);
     }
-    if (source?.types) source.types = mapTypes(source.types);
+    // Types stored before 2026-11-02 read as the Type and Properties they are now (rules/types.js).
+    if (source?.types) source.types = currentTypes(mapTypes(source.types));
     if (source && "weight" in source && !WEIGHT_KEYS.includes(source.weight)) source.weight = "light";
     // Aid and situational Enchantments are the GM's, not an Instrument's (PHB 5.3.4); Focus Gems are gone.
     if (source?.enchantment?.bonus?.kind === "aid") source.enchantment.bonus.kind = "";
@@ -63,16 +72,23 @@ export class InstrumentData extends foundry.abstract.TypeDataModel {
       maxRange: new f.StringField({ required: true, blank: true, initial: "close", choices: ["", ...RANGE_BANDS] }),
       // The nearest band it works from, when it has one (blank for none).
       minRange: new f.StringField({ required: true, blank: true, initial: "", choices: ["", ...RANGE_BANDS] }),
+      // Its Instrument Type first, then its Properties (PHB 4.1.1).
       types: slugArray(),
-      // Verbatim Types line when it isn't a plain list (a Wand's "or Fortifying (pick one)").
+      // Verbatim Types line when it isn't a plain list.
       typesDisplay: str(""),
       price: int(0),
       rider: str(""),
-      // Three built-in Techniques, one per Skill its Primary Attribute reaches (PHB 7.4.0).
+      // Its family, which shares one signature, and the Voice Technique its third Skill backs (PHB 4.1.3).
+      family: str(""),
+      backs: str(""),
+      // A Shield's Resistance or Skill bonus, which applies while it is carried (PHB 5.2.4).
+      qualities: qualitiesSchema(),
+      // Its built-in Techniques (PHB 4.1.3): most pair a Stress Technique with the family's signature, which costs the Action.
       kit: new f.ArrayField(new f.SchemaField({
         name: str(""),
         skill: new f.StringField({ required: true, initial: "prowess", choices: SKILL_KEYS }),
-        effect: str("")
+        effect: str(""),
+        signature: bool(false)
       })),
       // Body, Voice, and Mind: every character has them, free (PHB 2.5.3).
       innate: bool(false),
@@ -108,7 +124,9 @@ export class InstrumentData extends foundry.abstract.TypeDataModel {
 
 export class TechniqueData extends foundry.abstract.TypeDataModel {
   static migrateData(source) {
-    if (source?.requires) source.requires = mapTypes(source.requires);
+    // A Fortifying Technique aims only at allies or its user, so it keeps its 8 XP floor as Incorporeal (PHB 4.2.1).
+    if (source?.requires?.includes?.("fortifying") && source.floor === undefined) source.floor = true;
+    if (source?.requires) source.requires = currentRequires(mapTypes(source.requires));
     if (source && source.floorOverride !== undefined && source.floor === undefined) {
       source.floor = Number(source.floorOverride) > 0;
     }
@@ -117,7 +135,7 @@ export class TechniqueData extends foundry.abstract.TypeDataModel {
 
   static defineSchema() {
     return {
-      // Instrument Type slugs, any one of; empty with `innate` means no Instrument at all.
+      // The Instrument Types or Properties it needs, any one of; "guarding+melee" needs both. Empty with `innate`: no Instrument at all.
       requires: slugArray(),
       innate: bool(false),
       // Range for a Technique that has no Instrument, and the nearest band it works from (blank for none).
@@ -186,7 +204,7 @@ export class EquipmentData extends foundry.abstract.TypeDataModel {
         value: int(0),
         param: str("")
       })),
-      // What it does or helps with: a Shield's Blocking, a Rope's climbing and hauling.
+      // What it does or helps with: a Rope's climbing and hauling.
       effect: str(""),
       tier: new f.NumberField({ required: true, integer: true, initial: 1, min: 1, max: 5 }),
       // An Enchantment (PHB 5.3.4): Resistance +N or +N to a Skill, or a Technique that takes no roll (user, 2026-10-26).

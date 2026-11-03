@@ -15,43 +15,26 @@ export const LEGACY_TYPE_KEY = {
 };
 
 /**
- * An Instrument Type (PHB 4.1.1): a tag with a type effect on a landed hit's
- * Stress, or on how the Instrument is used.
+ * An Instrument Type or Property (PHB 4.1.1). A Type (Melee, Ranged, Arcane, Sonic) sets which Attributes the Instrument harms;
+ * a Property says what else it can do, and Kinetic and Incorporeal set what an Arcane Instrument harms. Neither adds Stress.
  */
 export class InstrumentTypeData extends foundry.abstract.TypeDataModel {
   static FAMILIES = ["melee", "ranged", "arcane", "sonic", "other"];
+  static KINDS = ["type", "property"];
+  static HARMS = ["", "physical", "mental"];
   static RELOADS = ["", "quick", "action"];
-
-  static migrateData(source) {
-    if (source && source.stressPhysical === undefined && source.bonusStress !== undefined) {
-      source.stressPhysical = Number(source.bonusStress) || 0;
-    }
-    // Edged went from no bonus against any Resistance to Resistance counting double (2026-09-29).
-    if (source && source.doubleResistance === undefined && source.noBonusVsResistance !== undefined) {
-      source.doubleResistance = !!source.noBonusVsResistance;
-    }
-    return super.migrateData(source);
-  }
 
   static defineSchema() {
     return {
       key: slugField(""),
+      kind: new f.StringField({ required: true, initial: "property", choices: InstrumentTypeData.KINDS }),
       family: new f.StringField({ required: true, initial: "other", choices: InstrumentTypeData.FAMILIES }),
-      // Stress this Type adds against a physical or a mental Attribute (may be negative).
-      stressPhysical: int(0),
-      stressMental: int(0),
-      // Pierce against physical Resistance (Pointed 1, Blunt 3).
-      pierce: int(0),
-      // Edged: physical Resistance, after Pierce, counts double against it.
-      doubleResistance: bool(false),
-      // Grappling deals no Stress.
-      dealsNoStress: bool(false),
-      // Built-in Techniques usable as a Quick Action too.
+      // The kind of Attribute it harms: a Type's, or an Arcane Instrument's Kinetic (physical) or Incorporeal (mental).
+      harms: new f.StringField({ required: true, blank: true, initial: "", choices: InstrumentTypeData.HARMS }),
+      // A creature's natural weapon whose built-ins may be used as a Quick Action (GMG 9.6.0).
       quick: bool(false),
-      // Blocking: its +N applies to Oppose rolls only.
-      blocking: bool(false),
       reload: new f.StringField({ required: true, blank: true, initial: "", choices: InstrumentTypeData.RELOADS }),
-      // Tool and Craft roll against a Difficulty as a Trade (PHB 4.2.6).
+      // Tools and Tools [Material] roll against a Difficulty as a Trade (PHB 4.2.6).
       isTool: bool(false),
       description: html("")
     };

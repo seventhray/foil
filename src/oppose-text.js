@@ -13,15 +13,16 @@ const habitOf = note => String(note).replace(/;? by .*$/, "");
 /** The Oppose roll's extra modifiers, from the dialog's answers (PHB 6.5.0, 3.2.0): see rules/oppose.js. */
 export { opposeExtras } from "../rules/oppose.js";
 
-export function opposeDialog({ flagName, attackLine, defenderName, conditionName, aim, skills, flagHtml, opts, attackerName, exposed, kind, guarded = "", canParry = false, disarm = false }) {
+export function opposeDialog({ flagName, attackLine, defenderName, conditionName, aim, skills, flagHtml, opts, attackerName, exposed, kind, guarded = "", guards = [], disarm = false }) {
   const cnd = conditionName;
   const goal = disarm ? `disarm ${esc(defenderName)}` : `make ${esc(defenderName)} ${cnd ?? `suffer Stress at ${ATTR_LABEL[aim]}`}`;
-  return `<p>${esc(flagName)} rolled ${attackLine} to ${goal}. ${cnd ? `${esc(defenderName)} must Oppose with ${skills.map(k => SKILL_LABEL[k]).join(" or ")} (PHB ${disarm ? "4.2.1" : "6.5.0"}). ` : ""}Conditions and a Blocking Instrument's bonus are added.</p>${flagHtml}`
+  return `<p>${esc(flagName)} rolled ${attackLine} to ${goal}. ${cnd ? `${esc(defenderName)} must Oppose with ${skills.map(k => SKILL_LABEL[k]).join(" or ")} (PHB ${disarm ? "4.2.1" : "6.5.0"}). ` : ""}Conditions and a Guard are added.</p>${flagHtml}`
     + `<div class="form-group"><label>Oppose with</label><select name="skill">${opts}</select></div>`
     + exposed.map((c, n) => `<div class="form-group"><label>${esc(attackerName)} uses Foil Exposed: ${habitOf(c.note)} <em>(-2, used up)</em></label><input type="checkbox" name="exposed${n}" /></div>`).join("")
-    // Guard is put on beforehand, as a Guarded Condition (PHB 6.5.1), and adds by itself; Parry needs a ready Parry Instrument (PHB 6.5.2).
-    + (guarded ? `<p><em>Guarded (${esc(guarded)}): +2 to this Oppose (PHB 6.5.1).</em></p>` : "")
-    + (canParry ? `<div class="form-group"><label>Parry <em>(Physical Resistance +1)</em></label><input type="checkbox" name="parry" /></div>` : "")
+    // A Guarded mark put on before adds by itself (PHB 6.5.1); without one, the defender may Guard now through its own ready Guarding
+    // Instrument, with the Quick Action (PHB 6.5.2). An ally's Guard is a Guarded mark the GM puts on before the Oppose.
+    + (guarded ? `<p><em>Guarded (${esc(guarded)}): its Guard adds to this Oppose (PHB 6.5.1).</em></p>` : "")
+    + (guards.length ? `<div class="form-group"><label>Guard <em>(the Quick Action; Guarded for 1 round, PHB 6.5.1)</em></label><select name="guard"><option value="">No Guard</option>${guards.map(g => `<option value="${esc(g.id)}">${esc(g.name)}: +${g.value}</option>`).join("")}</select></div>` : "")
     + `<div class="form-group"><label>Other Oppose modifier</label><input type="number" name="other" value="0" /></div>`;
 }
 

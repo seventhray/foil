@@ -138,6 +138,8 @@ export class FoilItemSheet extends HandlebarsApplicationMixin(ItemSheetV2Base) {
       effectOptions: effectOptions().filter(o => !o.key.endsWith("-minute")),
       qualityOptions: qualityOptions(),
       familyOptions: InstrumentTypeData.FAMILIES.map(k => opt(k, cap(k))),
+      kindOptions: [opt("type", "Instrument Type"), opt("property", "Property")],
+      harmsOptions: [opt("", "Nothing"), opt("physical", "Might or Finesse"), opt("mental", "Wit or Presence")],
       reloadOptions: [opt("", "None"), opt("quick", "Quick Action"), opt("action", "Action")],
       qualityKinds: QualityData.KINDS.map(k => opt(k, cap(k))),
       qualityScopes: QualityData.SCOPES.map(k => opt(k, cap(k))),

@@ -21,7 +21,7 @@ import {
   REST_BLOCK_HOURS, REST_RATION_HOURS
 } from "../constants.js";
 import { consumableSummary, equipmentSummary, materialSummary } from "../registry.js";
-import { stressFor, alwaysTypes, isAlwaysType } from "../stress.js";
+import { stressFor } from "../stress.js";
 import { ask, dialogApi, addButton, esc } from "../dialogs.js";
 import "../chat-actions.js";
 import { allowedAims, declarableTypes, targetFlags } from "../combat.js";
@@ -713,15 +713,11 @@ export class FoilCreatureSheet extends FoilActorSheet {
  * Applying it to the target stays with the table.
  */
 async function computeStress(flag) {
-  const pick = (flag.types ?? []).findIndex(t => !isAlwaysType(t));
-  const typeOpts = [`<option value="">None</option>`, ...(flag.types ?? []).map((t, i) => isAlwaysType(t) ? "" :
-    `<option value="${i}" ${i === pick ? "selected" : ""}>${esc(t.label)}</option>`)].join("");
   const answer = await ask(`${flag.name}: Stress`,
     `<p>${esc(flag.name)} rolled <strong>${flag.attackTotal}</strong>.</p>`
     + `<div class="form-group"><label>Target's Oppose total</label><input type="number" name="oppose" autofocus /></div>`
     + `<div class="form-group"><label>Attribute aimed at</label><select name="kind"><option value="physical">Might or Finesse</option><option value="mental">Wit or Presence</option></select></div>`
     + `<div class="form-group"><label>Target's Resistance of that kind</label><input type="number" name="resistance" value="0" /></div>`
-    + (pick >= 0 ? `<div class="form-group"><label>Type used <em>(one for this Technique; Drawn and Fired always add)</em></label><select name="type">${typeOpts}</select></div>` : "")
     + `<div class="form-group"><label>Other Stress bonus <em>(a Feat such as Heavy Hand)</em></label><input type="number" name="other" value="0" /></div>`,
     "Compute");
   if (!answer) return;
@@ -734,8 +730,6 @@ async function computeStress(flag) {
     mult: Number(flag.mult ?? (flag.double ? 2 : 1)),
     kind: answer.kind === "mental" ? "mental" : "physical",
     resistance: Number(answer.resistance) || 0,
-    type: answer.type === "" || answer.type === undefined ? null : flag.types?.[Number(answer.type)] ?? null,
-    always: alwaysTypes(flag.types),
     bespoke: Number(flag.bespoke ?? 0), other: Number(answer.other) || 0, pierce: Number(flag.pierce ?? 0)
   });
   if (!r.landed) {
