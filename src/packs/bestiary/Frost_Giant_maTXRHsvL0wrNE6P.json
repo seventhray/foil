@@ -130,7 +130,8 @@
         "size": "medium",
         "materials": "1 Metal, 1 Wood",
         "description": "",
-        "location": "equipped"
+        "location": "equipped",
+        "catalogName": "Battleaxe"
       },
       "effects": [],
       "folder": null,

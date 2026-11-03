@@ -108,7 +108,14 @@ export function bestiaryDocs(lib) {
         const [, source, alias, weight, typesText, range, grants, note] = held;
         const phb = /^PHB/.test(source) ? inst.get(lc(alias ?? head)) : null;
         // A creature fights with what its stat block lists, ready (PHB 4.1.0).
-        if (phb) { const d = clone(phb); d.name = head.trim(); d.system.location = "equipped"; items.push(d); continue; }
+        if (phb) {
+          const d = clone(phb);
+          d.name = head.trim();
+          d.system.location = "equipped";
+          if (lc(d.name) !== lc(phb.name)) d.system.catalogName = phb.name;
+          items.push(d);
+          continue;
+        }
         if (/^PHB/.test(source)) notes.push(`${name}: no Catalog Instrument ${alias ?? head}`);
         items.push(natural(head.trim(), typesText.replace(/ \[[^\]]*\]/g, ""), { range, weight: weight ?? "light", note: note ?? "", grants: lc(grants ?? "") }));
         continue;

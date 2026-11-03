@@ -128,7 +128,8 @@
         "size": "small",
         "materials": "1 Metal",
         "description": "",
-        "location": "equipped"
+        "location": "equipped",
+        "catalogName": "Shortsword"
       },
       "effects": [],
       "folder": null,

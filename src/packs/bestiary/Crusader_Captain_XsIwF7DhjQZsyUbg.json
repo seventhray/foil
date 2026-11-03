@@ -191,7 +191,8 @@
         "size": "medium",
         "materials": "1 Wood",
         "description": "",
-        "location": "equipped"
+        "location": "equipped",
+        "catalogName": "Round Shield"
       },
       "effects": [],
       "folder": null,

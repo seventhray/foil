@@ -130,7 +130,8 @@
         "size": "medium",
         "materials": "2 Metal",
         "description": "",
-        "location": "equipped"
+        "location": "equipped",
+        "catalogName": "Mace"
       },
       "effects": [],
       "folder": null,

@@ -78,6 +78,8 @@ export class InstrumentData extends foundry.abstract.TypeDataModel {
       typesDisplay: str(""),
       price: int(0),
       rider: str(""),
+      // The Catalog Instrument it is, when its own name differs: a creature's Hammer that is a Mace, a Thorn Blade that is a Shortsword.
+      catalogName: str(""),
       // Its family, which shares one signature, and the Voice Technique its third Skill backs (PHB 4.1.3).
       family: str(""),
       backs: str(""),

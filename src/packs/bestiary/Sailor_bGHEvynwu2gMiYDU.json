@@ -129,7 +129,8 @@
         "size": "small",
         "materials": "1 Metal",
         "description": "",
-        "location": "equipped"
+        "location": "equipped",
+        "catalogName": "Dagger"
       },
       "effects": [],
       "folder": null,

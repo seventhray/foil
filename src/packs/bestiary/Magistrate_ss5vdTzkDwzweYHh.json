@@ -134,7 +134,8 @@
         "size": "medium",
         "materials": "2 Wood",
         "description": "",
-        "location": "equipped"
+        "location": "equipped",
+        "catalogName": "Quarterstaff"
       },
       "effects": [],
       "folder": null,
