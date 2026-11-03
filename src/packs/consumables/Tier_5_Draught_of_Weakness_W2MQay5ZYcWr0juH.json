@@ -1,6 +1,6 @@
 {
-  "_id": "6KHFn3qDRW4vPG3Q",
-  "name": "Draught of Weakness",
+  "_id": "W2MQay5ZYcWr0juH",
+  "name": "Tier 5 Draught of Weakness",
   "type": "consumable",
   "img": "icons/svg/pill.svg",
   "system": {
@@ -10,7 +10,7 @@
     "quantity": 1,
     "price": 900,
     "weight": 1,
-    "tier": 0,
+    "tier": 5,
     "materials": "Reagent",
     "location": "carried",
     "storedAt": "",
@@ -19,10 +19,10 @@
   },
   "effects": [],
   "folder": null,
-  "sort": 1100000,
+  "sort": 1300000,
   "ownership": {
     "default": 0
   },
   "flags": {},
-  "_key": "!items!6KHFn3qDRW4vPG3Q"
+  "_key": "!items!W2MQay5ZYcWr0juH"
 }

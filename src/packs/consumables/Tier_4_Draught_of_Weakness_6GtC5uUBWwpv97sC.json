@@ -1,0 +1,28 @@
+{
+  "_id": "6GtC5uUBWwpv97sC",
+  "name": "Tier 4 Draught of Weakness",
+  "type": "consumable",
+  "img": "icons/svg/pill.svg",
+  "system": {
+    "effect": "-1 [Attribute], thrown",
+    "duration": "1 minute",
+    "uses": "1",
+    "quantity": 1,
+    "price": 300,
+    "weight": 1,
+    "tier": 4,
+    "materials": "Reagent",
+    "location": "carried",
+    "storedAt": "",
+    "notes": "",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 1200000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!6GtC5uUBWwpv97sC"
+}

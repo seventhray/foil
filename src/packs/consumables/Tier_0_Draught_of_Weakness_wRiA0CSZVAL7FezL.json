@@ -1,0 +1,28 @@
+{
+  "_id": "wRiA0CSZVAL7FezL",
+  "name": "Tier 0 Draught of Weakness",
+  "type": "consumable",
+  "img": "icons/svg/pill.svg",
+  "system": {
+    "effect": "-1 [Attribute], thrown",
+    "duration": "1 round",
+    "uses": "1",
+    "quantity": 1,
+    "price": 3,
+    "weight": 1,
+    "tier": 0,
+    "materials": "Reagent",
+    "location": "carried",
+    "storedAt": "",
+    "notes": "",
+    "description": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 1100000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!items!wRiA0CSZVAL7FezL"
+}
