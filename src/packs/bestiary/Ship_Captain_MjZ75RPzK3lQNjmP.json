@@ -371,48 +371,6 @@
       },
       "flags": {},
       "_key": "!actors.items!MjZ75RPzK3lQNjmP.3wNBHR5vOr5hDMeW"
-    },
-    {
-      "_id": "yV8O6CBwEckjvFoP",
-      "name": "Reel (Sonic)",
-      "type": "technique",
-      "img": "icons/svg/aura.svg",
-      "idName": "Fluster",
-      "system": {
-        "requires": [
-          "sonic"
-        ],
-        "innate": false,
-        "skill": "assertiveness",
-        "family": "Sonic",
-        "subgroup": "Control & Deception",
-        "effects": [
-          {
-            "key": "reeling",
-            "magnitude": 1,
-            "pattern": "single",
-            "bands": 0,
-            "placement": 0,
-            "selectiveR": 0
-          }
-        ],
-        "floor": false,
-        "formerNames": [
-          "Fluster"
-        ],
-        "ancestryGrant": "",
-        "grantedBy": "",
-        "effectText": "-1 Oppose",
-        "description": ""
-      },
-      "effects": [],
-      "folder": null,
-      "sort": 600000,
-      "ownership": {
-        "default": 0
-      },
-      "flags": {},
-      "_key": "!actors.items!MjZ75RPzK3lQNjmP.yV8O6CBwEckjvFoP"
     }
   ],
   "_key": "!actors!MjZ75RPzK3lQNjmP"

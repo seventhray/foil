@@ -331,70 +331,19 @@
       "_key": "!actors.items!jEK7zd8TG7DAXltJ.CuuMH15YuiY302up"
     },
     {
-      "_id": "FMkfLhWRJ5FazjJB",
-      "name": "Quick Reel (Sonic)",
+      "_id": "4ce0IhEzAJiALBoh",
+      "name": "Weaken (Incorporeal)",
       "type": "technique",
       "img": "icons/svg/aura.svg",
-      "idName": "Distract",
+      "idName": "Dread Visage",
       "system": {
         "requires": [
-          "sonic"
+          "incorporeal"
         ],
         "innate": false,
-        "skill": "guile",
-        "family": "Sonic",
-        "subgroup": "Control & Deception",
-        "effects": [
-          {
-            "key": "reeling",
-            "magnitude": 1,
-            "pattern": "single",
-            "bands": 0,
-            "placement": 0,
-            "selectiveR": 0
-          },
-          {
-            "key": "quick",
-            "magnitude": 1,
-            "pattern": "single",
-            "bands": 0,
-            "placement": 0,
-            "selectiveR": 0,
-            "untriggered": true
-          }
-        ],
-        "floor": false,
-        "formerNames": [
-          "Distract"
-        ],
-        "ancestryGrant": "",
-        "grantedBy": "",
-        "effectText": "Quick: -1 Oppose",
-        "description": ""
-      },
-      "effects": [],
-      "folder": null,
-      "sort": 500000,
-      "ownership": {
-        "default": 0
-      },
-      "flags": {},
-      "_key": "!actors.items!jEK7zd8TG7DAXltJ.FMkfLhWRJ5FazjJB"
-    },
-    {
-      "_id": "gbLDMGhoi8OHxTT5",
-      "name": "Weaken (Sonic)",
-      "type": "technique",
-      "img": "icons/svg/aura.svg",
-      "idName": "Unnerve",
-      "system": {
-        "requires": [
-          "sonic"
-        ],
-        "innate": false,
-        "skill": "guile",
-        "family": "Sonic",
-        "subgroup": "Debilitating & Reactive",
+        "skill": "resonance",
+        "family": "Incorporeal",
+        "subgroup": "Debilitating",
         "effects": [
           {
             "key": "weaken",
@@ -407,7 +356,7 @@
         ],
         "floor": false,
         "formerNames": [
-          "Unnerve"
+          "Dread Visage"
         ],
         "ancestryGrant": "",
         "grantedBy": "",
@@ -416,12 +365,12 @@
       },
       "effects": [],
       "folder": null,
-      "sort": 600000,
+      "sort": 500000,
       "ownership": {
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!jEK7zd8TG7DAXltJ.gbLDMGhoi8OHxTT5"
+      "_key": "!actors.items!jEK7zd8TG7DAXltJ.4ce0IhEzAJiALBoh"
     }
   ],
   "_key": "!actors!jEK7zd8TG7DAXltJ"

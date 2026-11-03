@@ -233,57 +233,7 @@
       "_key": "!actors.items!VnFWbsQWfhwDUi2r.ptFJ8aNBitahikSy"
     },
     {
-      "_id": "ANqAKijJJUswn9lp",
-      "name": "Frightening Cry",
-      "type": "technique",
-      "img": "icons/svg/aura.svg",
-      "idName": "Dread Cry",
-      "system": {
-        "requires": [
-          "sonic"
-        ],
-        "innate": false,
-        "skill": "assertiveness",
-        "family": "Sonic",
-        "subgroup": "Debilitating & Reactive",
-        "effects": [
-          {
-            "key": "stress",
-            "magnitude": 1,
-            "pattern": "single",
-            "bands": 0,
-            "placement": 0,
-            "selectiveR": 0
-          },
-          {
-            "key": "frightened",
-            "magnitude": 1,
-            "pattern": "single",
-            "bands": 0,
-            "placement": 0,
-            "selectiveR": 0
-          }
-        ],
-        "floor": false,
-        "formerNames": [
-          "Dread Cry"
-        ],
-        "ancestryGrant": "",
-        "grantedBy": "",
-        "effectText": "Stress, Frightened",
-        "description": ""
-      },
-      "effects": [],
-      "folder": null,
-      "sort": 300000,
-      "ownership": {
-        "default": 0
-      },
-      "flags": {},
-      "_key": "!actors.items!VnFWbsQWfhwDUi2r.ANqAKijJJUswn9lp"
-    },
-    {
-      "_id": "aZOjwpZ9wrvCS6zs",
+      "_id": "n0eiVxwixkco4Q8Q",
       "name": "Shouted Threat",
       "type": "technique",
       "img": "icons/svg/aura.svg",
@@ -322,15 +272,15 @@
       },
       "effects": [],
       "folder": null,
-      "sort": 400000,
+      "sort": 300000,
       "ownership": {
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!VnFWbsQWfhwDUi2r.aZOjwpZ9wrvCS6zs"
+      "_key": "!actors.items!VnFWbsQWfhwDUi2r.n0eiVxwixkco4Q8Q"
     },
     {
-      "_id": "zxHFbIejG7q4QJIS",
+      "_id": "Gi8AkVtJvtb18c40",
       "name": "Quick Reel (Sonic)",
       "type": "technique",
       "img": "icons/svg/aura.svg",
@@ -373,12 +323,12 @@
       },
       "effects": [],
       "folder": null,
-      "sort": 500000,
+      "sort": 400000,
       "ownership": {
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!VnFWbsQWfhwDUi2r.zxHFbIejG7q4QJIS"
+      "_key": "!actors.items!VnFWbsQWfhwDUi2r.Gi8AkVtJvtb18c40"
     }
   ],
   "_key": "!actors!VnFWbsQWfhwDUi2r"

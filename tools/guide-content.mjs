@@ -144,7 +144,8 @@ p("Pricing a Technique", `
 <li>A Pattern, Selective, or Extend Range is priced by Range and counts as an Effect.</li>
 <li>Add 4 XP for every Effect beyond the first. Quick and Upkeep don't count; Upkeep costs a flat 4 XP and Quick 3.</li>
 <li>A Technique that aims only at allies or its user, a ward or bonus lasting 1 round or longer, or a Quick trigger costs at least 8 XP.</li>
-<li>Strain is floor((XP - 24) / 8), never below 0.</li>
+<li>A Sonic Technique with a Condition adds 8 XP for its reach (PHB 4.2.4).</li>
+<li>Strain is floor((XP - 24) / 8), never below 0. A Selective Technique, or a Sonic Technique with a Condition, takes its Strain from its XP less the 8 XP charge.</li>
 </ol>
 <table><thead><tr><th>Effect</th><th>XP</th></tr></thead><tbody>
 <tr><td>Stress</td><td>4</td></tr>

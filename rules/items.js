@@ -151,11 +151,13 @@ export function deriveTechnique(sys, registry = {}) {
   const fortifying = (sys.requires ?? []).includes("fortifying");
   const types = currentRequires(sys.requires ?? []);
   const { unknown } = resolveTypes(types.flatMap(r => r.split("+")), registry.instrumentTypes);
-  const priced = effects ? priceTechnique(sys.effects ?? [], effects, { floor: sys.floor || fortifying })
+  // A Sonic one with a Condition pays for its reach (PHB 4.2.4). An Origin's comes with the Origin, unpriced by it.
+  const sonic = !sys.ancestryGrant && types.length > 0 && types.every(r => r.split("+").includes("sonic"));
+  const priced = effects ? priceTechnique(sys.effects ?? [], effects, { floor: sys.floor || fortifying, sonic })
                           : { xp: 0, breakdown: [] };
   sys.xpCost = priced.xp;
   sys.perTarget = (sys.effects ?? []).some(e => e.key === "selective");
-  sys.strain = strainFor(sys.xpCost - (sys.perTarget ? SELECTIVE_PREMIUM : 0));
+  sys.strain = priced.strain ?? strainFor(sys.xpCost - (sys.perTarget ? SELECTIVE_PREMIUM : 0));
   sys.pricingBreakdown = priced.breakdown;
   sys.priceMath = priced.math ?? "";
 

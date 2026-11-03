@@ -531,31 +531,7 @@
       "_key": "!actors.items!idz9VsiYJBiSrt7U.8OwhBJP9jjdLkCfJ"
     },
     {
-      "_id": "578eP1FgRJDDvAKH",
-      "name": "Second Wind",
-      "type": "feat",
-      "img": "icons/svg/upgrade.svg",
-      "system": {
-        "featType": "trait",
-        "xpCost": 12,
-        "requirements": "",
-        "effect": "the first time an Attribute of this creature's would be Incapacitated in a conflict, its Stress stops 1 short of its Potential instead.",
-        "ancestry": "",
-        "grantsTechnique": "",
-        "modifiers": [],
-        "description": ""
-      },
-      "effects": [],
-      "folder": null,
-      "sort": 1000000,
-      "ownership": {
-        "default": 0
-      },
-      "flags": {},
-      "_key": "!actors.items!idz9VsiYJBiSrt7U.578eP1FgRJDDvAKH"
-    },
-    {
-      "_id": "7ugzA2WansA4JblT",
+      "_id": "hlqEjxMUB3vZhenS",
       "name": "Specialized Immunity [Frightened]",
       "type": "feat",
       "img": "icons/svg/upgrade.svg",
@@ -571,15 +547,15 @@
       },
       "effects": [],
       "folder": null,
-      "sort": 1100000,
+      "sort": 1000000,
       "ownership": {
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!idz9VsiYJBiSrt7U.7ugzA2WansA4JblT"
+      "_key": "!actors.items!idz9VsiYJBiSrt7U.hlqEjxMUB3vZhenS"
     },
     {
-      "_id": "i7jqHhnDdj1KtPZu",
+      "_id": "Yz92EwRxWtXE68VH",
       "name": "Specialized Immunity [Charmed]",
       "type": "feat",
       "img": "icons/svg/upgrade.svg",
@@ -595,12 +571,12 @@
       },
       "effects": [],
       "folder": null,
-      "sort": 1200000,
+      "sort": 1100000,
       "ownership": {
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!idz9VsiYJBiSrt7U.i7jqHhnDdj1KtPZu"
+      "_key": "!actors.items!idz9VsiYJBiSrt7U.Yz92EwRxWtXE68VH"
     }
   ],
   "_key": "!actors!idz9VsiYJBiSrt7U"

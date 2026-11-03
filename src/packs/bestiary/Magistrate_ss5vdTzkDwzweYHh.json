@@ -387,48 +387,6 @@
       },
       "flags": {},
       "_key": "!actors.items!ss5vdTzkDwzweYHh.dehsaJ9p7eQ8EHKV"
-    },
-    {
-      "_id": "X0DCqPCGQ6P9CWB2",
-      "name": "Weaken (Sonic)",
-      "type": "technique",
-      "img": "icons/svg/aura.svg",
-      "idName": "Unnerve",
-      "system": {
-        "requires": [
-          "sonic"
-        ],
-        "innate": false,
-        "skill": "assertiveness",
-        "family": "Sonic",
-        "subgroup": "Debilitating & Reactive",
-        "effects": [
-          {
-            "key": "weaken",
-            "magnitude": 1,
-            "pattern": "single",
-            "bands": 0,
-            "placement": 0,
-            "selectiveR": 0
-          }
-        ],
-        "floor": false,
-        "formerNames": [
-          "Unnerve"
-        ],
-        "ancestryGrant": "",
-        "grantedBy": "",
-        "effectText": "-1 [target Attribute]",
-        "description": ""
-      },
-      "effects": [],
-      "folder": null,
-      "sort": 600000,
-      "ownership": {
-        "default": 0
-      },
-      "flags": {},
-      "_key": "!actors.items!ss5vdTzkDwzweYHh.X0DCqPCGQ6P9CWB2"
     }
   ],
   "_key": "!actors!ss5vdTzkDwzweYHh"

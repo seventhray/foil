@@ -336,57 +336,7 @@
       "_key": "!actors.items!fPccwpjMVx4WJir0.TEdyCusMllsniCTK"
     },
     {
-      "_id": "evJNiosGpa70dTJ2",
-      "name": "Frightening Cry",
-      "type": "technique",
-      "img": "icons/svg/aura.svg",
-      "idName": "Dread Cry",
-      "system": {
-        "requires": [
-          "sonic"
-        ],
-        "innate": false,
-        "skill": "resonance",
-        "family": "Sonic",
-        "subgroup": "Debilitating & Reactive",
-        "effects": [
-          {
-            "key": "stress",
-            "magnitude": 1,
-            "pattern": "single",
-            "bands": 0,
-            "placement": 0,
-            "selectiveR": 0
-          },
-          {
-            "key": "frightened",
-            "magnitude": 1,
-            "pattern": "single",
-            "bands": 0,
-            "placement": 0,
-            "selectiveR": 0
-          }
-        ],
-        "floor": false,
-        "formerNames": [
-          "Dread Cry"
-        ],
-        "ancestryGrant": "",
-        "grantedBy": "",
-        "effectText": "Stress, Frightened",
-        "description": ""
-      },
-      "effects": [],
-      "folder": null,
-      "sort": 500000,
-      "ownership": {
-        "default": 0
-      },
-      "flags": {},
-      "_key": "!actors.items!fPccwpjMVx4WJir0.evJNiosGpa70dTJ2"
-    },
-    {
-      "_id": "guiRYA1fDJ0OfyXc",
+      "_id": "RlahnxCqtScAvrXJ",
       "name": "Charm (Sonic)",
       "type": "technique",
       "img": "icons/svg/aura.svg",
@@ -420,15 +370,15 @@
       },
       "effects": [],
       "folder": null,
-      "sort": 600000,
+      "sort": 500000,
       "ownership": {
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!fPccwpjMVx4WJir0.guiRYA1fDJ0OfyXc"
+      "_key": "!actors.items!fPccwpjMVx4WJir0.RlahnxCqtScAvrXJ"
     },
     {
-      "_id": "GoMtvGZmHyB9r3MK",
+      "_id": "rs3ptug0VsPbvF43",
       "name": "Quick Bolstering Cry",
       "type": "technique",
       "img": "icons/svg/aura.svg",
@@ -471,15 +421,15 @@
       },
       "effects": [],
       "folder": null,
-      "sort": 700000,
+      "sort": 600000,
       "ownership": {
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!fPccwpjMVx4WJir0.GoMtvGZmHyB9r3MK"
+      "_key": "!actors.items!fPccwpjMVx4WJir0.rs3ptug0VsPbvF43"
     },
     {
-      "_id": "iy6Y0eLoAoK2aorX",
+      "_id": "Hjr37BwITLuRyhXs",
       "name": "Cutting Word",
       "type": "feat",
       "img": "icons/svg/upgrade.svg",
@@ -495,12 +445,12 @@
       },
       "effects": [],
       "folder": null,
-      "sort": 800000,
+      "sort": 700000,
       "ownership": {
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!fPccwpjMVx4WJir0.iy6Y0eLoAoK2aorX"
+      "_key": "!actors.items!fPccwpjMVx4WJir0.Hjr37BwITLuRyhXs"
     }
   ],
   "_key": "!actors!fPccwpjMVx4WJir0"

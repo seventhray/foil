@@ -284,7 +284,10 @@ function techniqueDoc(n) {
   let xp = n.xp == null ? null : Number(n.xp) || 0;
   // PHB 4.2.1's floor: aimed only at allies or its user, a ward or bonus for 1 round or longer, or a stated trigger.
   const floor = /\b(ally|allies|self)\b|for 1 round|\(self, 1 round\)|Quick \(trigger/i.test(n.effect ?? "");
-  const price = effects => priceTechnique(effects, EFFECT_REG, { floor }).xp;
+  // A Sonic one with a Condition pays 8 XP for its reach, an Origin's excepted (PHB 4.2.4).
+  const sonic = !n.origin_grant && requires.length > 0 && requires.every(r => r.split("+").includes("sonic"));
+  const priced = effects => priceTechnique(effects, EFFECT_REG, { floor, sonic });
+  const price = effects => priced(effects).xp;
   const perTarget = list.some(x => x.key === "selective");
 
   // A Technique deals Stress only when its line says so (PHB 4.2.1).
@@ -300,8 +303,10 @@ function techniqueDoc(n) {
   if (effects.length && (computed !== xp || unparsed.length)) {
     priceFails.push(`${n.name}: printed ${xp}, Effects price ${computed}  [${n.effect}]${unparsed.length ? `  unparsed: ${unparsed.join(" | ")}` : ""}`);
   }
-  if (n.strain !== undefined && n.strain !== null && Number(n.strain) !== strainFor(xp - (perTarget ? 8 : 0))) {
-    warnings.push(`${n.name}: printed Strain ${n.strain}, floor((${xp - (perTarget ? 8 : 0)}-24)/8) = ${strainFor(xp - (perTarget ? 8 : 0))}`);
+  // Strain comes from the XP less the Selective premium and the Sonic reach (PHB 4.2.3).
+  const charges = (perTarget ? 8 : 0) + (effects.length && priced(effects).reach ? 8 : 0);
+  if (n.strain !== undefined && n.strain !== null && Number(n.strain) !== strainFor(xp - charges)) {
+    warnings.push(`${n.name}: printed Strain ${n.strain}, floor((${xp - charges}-24)/8) = ${strainFor(xp - charges)}`);
   }
   const skillMatch = String(n.requires ?? "").match(/\b(Prowess|Discipline|Assertiveness|Acuity|Guile|Resonance)\b/);
   return {
@@ -333,7 +338,8 @@ if (process.argv.includes("--price")) {
   for (const line of arg("--price").split("||")) {
     const effect = line.trim();
     const doc = techniqueDoc({ name: "(priced)", requires: process.argv.includes("--requires") ? arg("--requires") : "", effect, xp: null });
-    const priced = priceTechnique(doc.system.effects, EFFECT_REG, { floor: doc.system.floor });
+    const req = doc.system.requires;
+    const priced = priceTechnique(doc.system.effects, EFFECT_REG, { floor: doc.system.floor, sonic: req.length > 0 && req.every(r => r.split("+").includes("sonic")) });
     const bad = priceFails.pop();
     console.log(`${priced.xp} XP, Strain ${priced.strain}  [${effect}]${bad && /unparsed/.test(bad) ? "  UNPARSED" + bad.split("unparsed")[1] : ""}`);
   }

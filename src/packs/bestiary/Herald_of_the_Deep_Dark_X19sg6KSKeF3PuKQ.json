@@ -385,31 +385,7 @@
       "_key": "!actors.items!X19sg6KSKeF3PuKQ.Fr58BGRQuOuDm1Bv"
     },
     {
-      "_id": "TjuwisRuy3MfKmZy",
-      "name": "Dread Presence",
-      "type": "feat",
-      "img": "icons/svg/upgrade.svg",
-      "system": {
-        "featType": "trait",
-        "xpCost": 12,
-        "requirements": "",
-        "effect": "enemies within Range 1 of this creature suffer -1 on Skill rolls made to Oppose it.",
-        "ancestry": "",
-        "grantsTechnique": "",
-        "modifiers": [],
-        "description": ""
-      },
-      "effects": [],
-      "folder": null,
-      "sort": 700000,
-      "ownership": {
-        "default": 0
-      },
-      "flags": {},
-      "_key": "!actors.items!X19sg6KSKeF3PuKQ.TjuwisRuy3MfKmZy"
-    },
-    {
-      "_id": "fhino82wPptdzvVi",
+      "_id": "PFwsErNgDW6SEnQA",
       "name": "Legendary Action",
       "type": "feat",
       "img": "icons/svg/upgrade.svg",
@@ -425,12 +401,12 @@
       },
       "effects": [],
       "folder": null,
-      "sort": 800000,
+      "sort": 700000,
       "ownership": {
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!X19sg6KSKeF3PuKQ.fhino82wPptdzvVi"
+      "_key": "!actors.items!X19sg6KSKeF3PuKQ.PFwsErNgDW6SEnQA"
     }
   ],
   "_key": "!actors!X19sg6KSKeF3PuKQ"

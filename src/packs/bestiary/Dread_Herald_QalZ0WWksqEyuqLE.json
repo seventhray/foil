@@ -402,30 +402,6 @@
       },
       "flags": {},
       "_key": "!actors.items!QalZ0WWksqEyuqLE.DAmnBPNIyHSOs5Ti"
-    },
-    {
-      "_id": "z2c77IfIh8moWGvo",
-      "name": "Heavy Hand",
-      "type": "feat",
-      "img": "icons/svg/upgrade.svg",
-      "system": {
-        "featType": "learned",
-        "xpCost": 12,
-        "requirements": "12 Might, 12 Finesse",
-        "effect": "When using a Melee Technique that deals Stress to the Target, deal +1 additional Stress.",
-        "ancestry": "",
-        "grantsTechnique": "",
-        "modifiers": [],
-        "description": ""
-      },
-      "effects": [],
-      "folder": null,
-      "sort": 800000,
-      "ownership": {
-        "default": 0
-      },
-      "flags": {},
-      "_key": "!actors.items!QalZ0WWksqEyuqLE.z2c77IfIh8moWGvo"
     }
   ],
   "_key": "!actors!QalZ0WWksqEyuqLE"

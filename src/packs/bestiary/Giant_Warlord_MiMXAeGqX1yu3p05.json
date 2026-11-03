@@ -406,31 +406,7 @@
       "_key": "!actors.items!MiMXAeGqX1yu3p05.hNtPMXmDB8xAhvjp"
     },
     {
-      "_id": "qEJkwrgGRxcYiwtg",
-      "name": "Second Wind",
-      "type": "feat",
-      "img": "icons/svg/upgrade.svg",
-      "system": {
-        "featType": "trait",
-        "xpCost": 12,
-        "requirements": "",
-        "effect": "the first time an Attribute of this creature's would be Incapacitated in a conflict, its Stress stops 1 short of its Potential instead.",
-        "ancestry": "",
-        "grantsTechnique": "",
-        "modifiers": [],
-        "description": ""
-      },
-      "effects": [],
-      "folder": null,
-      "sort": 700000,
-      "ownership": {
-        "default": 0
-      },
-      "flags": {},
-      "_key": "!actors.items!MiMXAeGqX1yu3p05.qEJkwrgGRxcYiwtg"
-    },
-    {
-      "_id": "nDthbVynxEYFGBCc",
+      "_id": "wPz3Ljn6kV0sh99A",
       "name": "Heavy Hand",
       "type": "feat",
       "img": "icons/svg/upgrade.svg",
@@ -446,12 +422,12 @@
       },
       "effects": [],
       "folder": null,
-      "sort": 800000,
+      "sort": 700000,
       "ownership": {
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!MiMXAeGqX1yu3p05.nDthbVynxEYFGBCc"
+      "_key": "!actors.items!MiMXAeGqX1yu3p05.wPz3Ljn6kV0sh99A"
     }
   ],
   "_key": "!actors!MiMXAeGqX1yu3p05"

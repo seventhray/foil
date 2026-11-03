@@ -338,58 +338,7 @@
       "_key": "!actors.items!hP9LPac9Du50kQBx.c51OxEiEEK0YUn4A"
     },
     {
-      "_id": "ugAtWx6UOMZXxxnp",
-      "name": "Quick Reel (Sonic)",
-      "type": "technique",
-      "img": "icons/svg/aura.svg",
-      "idName": "Distract",
-      "system": {
-        "requires": [
-          "sonic"
-        ],
-        "innate": false,
-        "skill": "guile",
-        "family": "Sonic",
-        "subgroup": "Control & Deception",
-        "effects": [
-          {
-            "key": "reeling",
-            "magnitude": 1,
-            "pattern": "single",
-            "bands": 0,
-            "placement": 0,
-            "selectiveR": 0
-          },
-          {
-            "key": "quick",
-            "magnitude": 1,
-            "pattern": "single",
-            "bands": 0,
-            "placement": 0,
-            "selectiveR": 0,
-            "untriggered": true
-          }
-        ],
-        "floor": false,
-        "formerNames": [
-          "Distract"
-        ],
-        "ancestryGrant": "",
-        "grantedBy": "",
-        "effectText": "Quick: -1 Oppose",
-        "description": ""
-      },
-      "effects": [],
-      "folder": null,
-      "sort": 500000,
-      "ownership": {
-        "default": 0
-      },
-      "flags": {},
-      "_key": "!actors.items!hP9LPac9Du50kQBx.ugAtWx6UOMZXxxnp"
-    },
-    {
-      "_id": "A8xRQSvoXhDCTD39",
+      "_id": "5r4hNnut20ZltCto",
       "name": "Cutting Question",
       "type": "technique",
       "img": "icons/svg/aura.svg",
@@ -428,12 +377,12 @@
       },
       "effects": [],
       "folder": null,
-      "sort": 600000,
+      "sort": 500000,
       "ownership": {
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!hP9LPac9Du50kQBx.A8xRQSvoXhDCTD39"
+      "_key": "!actors.items!hP9LPac9Du50kQBx.5r4hNnut20ZltCto"
     }
   ],
   "_key": "!actors!hP9LPac9Du50kQBx"

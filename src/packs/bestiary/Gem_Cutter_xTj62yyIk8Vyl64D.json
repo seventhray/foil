@@ -306,11 +306,11 @@
       "_key": "!actors.items!xTj62yyIk8Vyl64D.aLeUaakFkQdWzFVI"
     },
     {
-      "_id": "OL5vUsgbaABnNWf8",
-      "name": "Quick Reel (Sonic)",
+      "_id": "e47ONmnydsmfZuEA",
+      "name": "Reel (Sonic)",
       "type": "technique",
       "img": "icons/svg/aura.svg",
-      "idName": "Distract",
+      "idName": "Fluster",
       "system": {
         "requires": [
           "sonic"
@@ -327,24 +327,15 @@
             "bands": 0,
             "placement": 0,
             "selectiveR": 0
-          },
-          {
-            "key": "quick",
-            "magnitude": 1,
-            "pattern": "single",
-            "bands": 0,
-            "placement": 0,
-            "selectiveR": 0,
-            "untriggered": true
           }
         ],
         "floor": false,
         "formerNames": [
-          "Distract"
+          "Fluster"
         ],
         "ancestryGrant": "",
         "grantedBy": "",
-        "effectText": "Quick: -1 Oppose",
+        "effectText": "-1 Oppose",
         "description": ""
       },
       "effects": [],
@@ -354,7 +345,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!xTj62yyIk8Vyl64D.OL5vUsgbaABnNWf8"
+      "_key": "!actors.items!xTj62yyIk8Vyl64D.e47ONmnydsmfZuEA"
     }
   ],
   "_key": "!actors!xTj62yyIk8Vyl64D"

@@ -287,19 +287,19 @@
       "_key": "!actors.items!VBGQEou0Eag54s4A.wAVmD1Ht7U9COqor"
     },
     {
-      "_id": "TjwLAnGAc8Uzjb8A",
-      "name": "Reel (Sonic)",
+      "_id": "I0ZcqQE3yiEzJTup",
+      "name": "Reel (Melee)",
       "type": "technique",
       "img": "icons/svg/aura.svg",
       "idName": "Fluster",
       "system": {
         "requires": [
-          "sonic"
+          "melee"
         ],
         "innate": false,
-        "skill": "guile",
-        "family": "Sonic",
-        "subgroup": "Control & Deception",
+        "skill": "prowess",
+        "family": "Melee",
+        "subgroup": "Control",
         "effects": [
           {
             "key": "reeling",
@@ -326,7 +326,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!VBGQEou0Eag54s4A.TjwLAnGAc8Uzjb8A"
+      "_key": "!actors.items!VBGQEou0Eag54s4A.I0ZcqQE3yiEzJTup"
     }
   ],
   "_key": "!actors!VBGQEou0Eag54s4A"

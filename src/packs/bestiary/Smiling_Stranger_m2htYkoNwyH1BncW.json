@@ -424,100 +424,7 @@
       "_key": "!actors.items!m2htYkoNwyH1BncW.h6aXbAw9zh9BtpgO"
     },
     {
-      "_id": "ySec7MNFjqa8QdZ0",
-      "name": "Illusion (Sonic)",
-      "type": "technique",
-      "img": "icons/svg/aura.svg",
-      "idName": "Ghost Sound",
-      "system": {
-        "requires": [
-          "sonic"
-        ],
-        "innate": false,
-        "skill": "guile",
-        "family": "Sonic",
-        "subgroup": "Control & Deception",
-        "effects": [
-          {
-            "key": "illusion",
-            "magnitude": 1,
-            "pattern": "single",
-            "bands": 0,
-            "placement": 0,
-            "selectiveR": 0
-          }
-        ],
-        "floor": false,
-        "formerNames": [
-          "Ghost Sound"
-        ],
-        "ancestryGrant": "",
-        "grantedBy": "",
-        "effectText": "Illusion",
-        "description": ""
-      },
-      "effects": [],
-      "folder": null,
-      "sort": 700000,
-      "ownership": {
-        "default": 0
-      },
-      "flags": {},
-      "_key": "!actors.items!m2htYkoNwyH1BncW.ySec7MNFjqa8QdZ0"
-    },
-    {
-      "_id": "1qGSGHvHzMlxsyST",
-      "name": "Quick Reel (Sonic)",
-      "type": "technique",
-      "img": "icons/svg/aura.svg",
-      "idName": "Distract",
-      "system": {
-        "requires": [
-          "sonic"
-        ],
-        "innate": false,
-        "skill": "guile",
-        "family": "Sonic",
-        "subgroup": "Control & Deception",
-        "effects": [
-          {
-            "key": "reeling",
-            "magnitude": 1,
-            "pattern": "single",
-            "bands": 0,
-            "placement": 0,
-            "selectiveR": 0
-          },
-          {
-            "key": "quick",
-            "magnitude": 1,
-            "pattern": "single",
-            "bands": 0,
-            "placement": 0,
-            "selectiveR": 0,
-            "untriggered": true
-          }
-        ],
-        "floor": false,
-        "formerNames": [
-          "Distract"
-        ],
-        "ancestryGrant": "",
-        "grantedBy": "",
-        "effectText": "Quick: -1 Oppose",
-        "description": ""
-      },
-      "effects": [],
-      "folder": null,
-      "sort": 800000,
-      "ownership": {
-        "default": 0
-      },
-      "flags": {},
-      "_key": "!actors.items!m2htYkoNwyH1BncW.1qGSGHvHzMlxsyST"
-    },
-    {
-      "_id": "kGAYVC6GYklFJg5A",
+      "_id": "cm3pHcL6GNvl6sOk",
       "name": "Step Aside",
       "type": "technique",
       "img": "icons/svg/aura.svg",
@@ -546,12 +453,12 @@
       },
       "effects": [],
       "folder": null,
-      "sort": 900000,
+      "sort": 700000,
       "ownership": {
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!m2htYkoNwyH1BncW.kGAYVC6GYklFJg5A"
+      "_key": "!actors.items!m2htYkoNwyH1BncW.cm3pHcL6GNvl6sOk"
     }
   ],
   "_key": "!actors!m2htYkoNwyH1BncW"

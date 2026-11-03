@@ -16,6 +16,9 @@
  *     Selective names N targets within R bands: the range is priced at 1 XP
  *     per band as an Effect, and Selective adds an 8 XP premium. Strain is
  *     that of the one-target price, paid for each target at use.
+ *     A Sonic Technique with a Condition (-N Oppose and -N to a target
+ *     Attribute among them) adds the same 8 XP for its reach, and takes its
+ *     Strain from its XP less that 8 (PHB 4.2.3, 4.2.4).
  *  4. Floors: a Technique that answers a class of attack, grants a ward or a
  *     roll bonus for 1 round or longer, is Quick with a trigger, or is
  *     Fortifying costs at least 8 XP.
@@ -27,6 +30,7 @@ export const DEFENSIVE_FLOOR = 8;
 export const STRAIN_FREE_XP = 24;
 export const STRAIN_DIVISOR = 8;
 export const SELECTIVE_PREMIUM = 8;
+export const SONIC_REACH = 8;
 
 /** Running sum 1 + 2 + ... + N (the Beam reach cost). */
 function beamCost(bands) {
@@ -102,7 +106,7 @@ export function priceEntry(entry, def) {
  * Price a whole Technique.
  * @param {Array}  effects   composed entries ({ key, magnitude, pattern, bands, ... })
  * @param {object} registry  { slug: effectDefinition }
- * @param {object} opts      { floor: boolean } a stated defensive floor
+ * @param {object} opts      { floor: boolean } a stated defensive floor; { sonic: boolean } its Requirement is Sonic
  * @returns {{ xp, strain, premium, floor, breakdown }}
  */
 export function priceTechnique(effects = [], registry = {}, opts = {}) {
@@ -126,18 +130,21 @@ export function priceTechnique(effects = [], registry = {}, opts = {}) {
 
   const premium = PREMIUM_PER_EFFECT * Math.max(0, counted - 1);
   const single = Math.max(sum + flat + premium, floor);
-  const xp = single + (sel ? SELECTIVE_PREMIUM : 0);
+  const reach = !!opts.sonic && effects.some(e => SONIC_CONDITIONS.has(e.key));
+  const xp = single + (sel ? SELECTIVE_PREMIUM : 0) + (reach ? SONIC_REACH : 0);
   if (sel) breakdown.push({ key: "selective-premium", label: "Selective premium", cost: SELECTIVE_PREMIUM });
+  if (reach) breakdown.push({ key: "sonic-reach", label: "Sonic reach", cost: SONIC_REACH });
   // The whole sum, every term named (PHB 4.2.1, 4.2.3).
-  const terms = breakdown.filter(b => b.key !== "selective-premium").map(b => `${b.label} ${b.cost}`);
+  const terms = breakdown.filter(b => b.key !== "selective-premium" && b.key !== "sonic-reach").map(b => `${b.label} ${b.cost}`);
   terms.push(`premium ${premium} (${Math.max(0, counted - 1)} Effect${counted - 1 === 1 ? "" : "s"} past the first x${PREMIUM_PER_EFFECT})`);
   const raw = sum + flat + premium;
   const strain = strainFor(single);
   const math = `${terms.join(" + ")} = ${raw}`
     + (floor ? `; floor ${floor}${raw < floor ? `, raised to ${floor}` : ""}` : "")
-    + (sel ? `; + Selective premium ${SELECTIVE_PREMIUM} = ${xp}` : "")
+    + (sel ? `; + Selective premium ${SELECTIVE_PREMIUM}${reach ? "" : ` = ${xp}`}` : "")
+    + (reach ? `; + Sonic reach ${SONIC_REACH} = ${xp}` : "")
     + `. Strain: (${single} - ${STRAIN_FREE_XP}) / ${STRAIN_DIVISOR}, rounded down, at least 0 = ${strain}${sel ? ", per target" : ""}.`;
-  return { xp, strain, perTarget: !!sel, premium, floor, breakdown, math };
+  return { xp, strain, perTarget: !!sel, reach, premium, floor, breakdown, math };
 }
 
 const BAND_NAME = ["", "Range 1", "Range 2", "Range 4", "Range 8", "Range 20"];
@@ -147,6 +154,8 @@ export const DURATIONS = ["1 round", "1 minute", "until the scene ends"];
 export const CONDITION_EFFECTS = new Set(["angered", "baited", "blinded", "charmed", "controlled", "enthralled", "frightened", "grappled",
   "impressed", "intimidated", "invisible", "prone", "relaxed", "restrained", "slowed", "stunned", "wary", "foil-exposed"]);
 export const DURATION_BASES = new Set(["skill-mod", "reeling", "weaken"]);
+/** The Conditions a Sonic Technique pays its reach for: every Condition Effect, and -N Oppose and -N to a target Attribute. */
+export const SONIC_CONDITIONS = new Set([...CONDITION_EFFECTS, "reeling", "reeling-minute", "weaken", "weaken-minute"]);
 export const withDuration = (key, minute) => `${String(key).replace(/-minute$/, "")}${minute && DURATION_BASES.has(String(key).replace(/-minute$/, "")) ? "-minute" : ""}`;
 
 /** A readable label for one composed entry ("Pierce 2", "Cone (Range 2)"). */

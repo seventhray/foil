@@ -281,58 +281,7 @@
       "_key": "!actors.items!NH1SvSSwsrEx7MSC.FYolB1CV5BkRrekw"
     },
     {
-      "_id": "OvchUPgv0Ciy7Pym",
-      "name": "Quick Bolstering Cry",
-      "type": "technique",
-      "img": "icons/svg/aura.svg",
-      "idName": "Rally",
-      "system": {
-        "requires": [
-          "sonic"
-        ],
-        "innate": false,
-        "skill": "resonance",
-        "family": "Sonic",
-        "subgroup": "Restorative",
-        "effects": [
-          {
-            "key": "skill-mod",
-            "magnitude": 1,
-            "pattern": "single",
-            "bands": 0,
-            "placement": 0,
-            "selectiveR": 0
-          },
-          {
-            "key": "quick",
-            "magnitude": 1,
-            "pattern": "single",
-            "bands": 0,
-            "placement": 0,
-            "selectiveR": 0,
-            "untriggered": true
-          }
-        ],
-        "floor": true,
-        "formerNames": [
-          "Rally"
-        ],
-        "ancestryGrant": "",
-        "grantedBy": "",
-        "effectText": "Quick: +1 [Skill] to self or an ally",
-        "description": ""
-      },
-      "effects": [],
-      "folder": null,
-      "sort": 400000,
-      "ownership": {
-        "default": 0
-      },
-      "flags": {},
-      "_key": "!actors.items!NH1SvSSwsrEx7MSC.OvchUPgv0Ciy7Pym"
-    },
-    {
-      "_id": "ZSzmqYmfodjGM0QL",
+      "_id": "foGFlrFcXTIVGH8T",
       "name": "Fall Back",
       "type": "technique",
       "img": "icons/svg/aura.svg",
@@ -361,12 +310,12 @@
       },
       "effects": [],
       "folder": null,
-      "sort": 500000,
+      "sort": 400000,
       "ownership": {
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!NH1SvSSwsrEx7MSC.ZSzmqYmfodjGM0QL"
+      "_key": "!actors.items!NH1SvSSwsrEx7MSC.foGFlrFcXTIVGH8T"
     }
   ],
   "_key": "!actors!NH1SvSSwsrEx7MSC"
