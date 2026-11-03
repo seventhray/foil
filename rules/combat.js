@@ -5,7 +5,7 @@
  */
 
 import { SKILL_ATTRS, ATTR_LABEL, ATTRIBUTE_KEYS } from "./constants.js";
-import { isAlwaysType } from "./stress.js";
+import { HARMS } from "./types.js";
 
 export const kindOf = attr => (attr === "might" || attr === "finesse" ? "physical" : "mental");
 
@@ -89,33 +89,40 @@ export const harmNames = (conditions = []) => [...new Set(conditions.map(c => c.
 /** Conditions on a target that end when it is harmed. */
 export const harmFlags = conditions => harmNames(conditions).map(n => `Check ${n}: ${HARM_ENDS[n]}.`);
 
+/** A channel's kind: "physical" or "mental". A stored card's older Type entries read through their key. */
+const kindOfChannel = t => t.kind ?? HARMS[t.key] ?? (MENTAL_ONLY.includes(t.key) ? "mental" : "physical");
+const MENTAL_ONLY = ["incorporeal", "sonic"];
+
+/** The keys a Requirement names, its "and" parts split out. */
+const requiredKeys = requires => (requires ?? []).flatMap(r => String(r).split("+"));
+
 /**
- * The Attributes a Stress Technique may aim at (PHB 6.4.0). A stated "Deals Stress to X or Y" decides;
- * otherwise Incorporeal and Sonic reach mental Attributes only, and Melee, Ranged and Kinetic Types physical ones (PHB 4.2.1).
+ * The Attributes a Stress Technique may aim at (PHB 6.4.0). A stated "Deals Stress to X or Y" decides; otherwise the Instrument's
+ * channels do: Melee, Ranged and Kinetic reach Might and Finesse, Sonic and Incorporeal Wit and Presence (PHB 4.1.1, 4.2.1).
  */
 export function allowedAims({ text = "", stressTypes = [], requires = [] } = {}) {
   const named = [...String(text).matchAll(/Stress to ([^.;]*)/gi)].flatMap(m => m[1].match(/Might|Finesse|Wit|Presence/g) ?? []);
   if (named.length) return ATTRIBUTE_KEYS.filter(k => named.includes(ATTR_LABEL[k]));
-  const types = stressTypes.filter(t => !requires.length || requires.includes(t.key));
+  const keys = requiredKeys(requires);
+  const types = stressTypes.filter(t => !keys.length || keys.includes(t.key));
   const pool = types.length ? types : stressTypes;
-  const mental = pool.some(t => MENTAL_ONLY.includes(t.key));
-  const physical = !pool.length || pool.some(t => !MENTAL_ONLY.includes(t.key));
+  const mental = pool.some(t => kindOfChannel(t) === "mental");
+  const physical = !pool.length || pool.some(t => kindOfChannel(t) === "physical");
   return ATTRIBUTE_KEYS.filter(k => (kindOf(k) === "mental" ? mental : physical));
 }
 
-const MENTAL_ONLY = ["incorporeal", "sonic"];
-
 /**
- * The Types a Technique may declare through an Instrument (PHB 4.1.1), each with its index in `stressTypes` (a card's typeIndex):
- * not Drawn or Fired, which always add, nor a Type that deals no Stress. Where any match, only the Types the Technique requires,
- * then only those that reach the aimed Attribute (PHB 4.2.1).
+ * The channels a Technique may declare through an Instrument (PHB 4.1.1), each with its index in `stressTypes` (a card's typeIndex).
+ * An Arcane Instrument with Kinetic and Incorporeal offers both; any other offers its one Type. Where any match, only the ones the
+ * Technique requires, then only those that reach the aimed Attribute (PHB 4.2.1).
  * @returns {{ index:number, type:object }[]}
  */
 export function declarableTypes(stressTypes = [], { requires = [], aim = "" } = {}) {
-  let out = stressTypes.map((type, index) => ({ index, type })).filter(({ type }) => !isAlwaysType(type) && !type.dealsNoStress);
+  let out = stressTypes.map((type, index) => ({ index, type })).filter(({ type }) => !type.dealsNoStress && !["drawn", "fired"].includes(type.key));
   const narrow = keep => { const fit = out.filter(keep); if (fit.length) out = fit; };
-  if (requires.length) narrow(({ type }) => requires.includes(type.key));
-  if (aim) narrow(({ type }) => MENTAL_ONLY.includes(type.key) === (kindOf(aim) === "mental"));
+  const keys = requiredKeys(requires);
+  if (keys.length) narrow(({ type }) => keys.includes(type.key));
+  if (aim) narrow(({ type }) => kindOfChannel(type) === kindOf(aim));
   return out;
 }
 

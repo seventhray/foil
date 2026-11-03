@@ -1,44 +1,51 @@
 /**
  * src/resist.js
- * Narrow Resistance against an incoming hit (Specialized Resistance, GMG 9.5.1). It counts when the
- * attack's Instrument has the Type, or belongs to the Family, that the Resistance names.
- * Pure, so it runs headlessly.
+ * Narrow Resistance against an incoming hit (Specialized Resistance, GMG 9.5.1). It counts when the attack's Instrument harms the
+ * way the Resistance names: Melee or Ranged by its Type, Kinetic or Incorporeal by the Property an Arcane Instrument harmed through,
+ * or Sonic. Rows stored before 2026-11-02 name the older Types; they read as the new scope. Pure, so it runs headlessly.
  */
 
-/** Instrument Families (PHB 4.1.1): Melee, Ranged, Arcane, each a group of Types. */
-export const RESISTANCE_FAMILIES = {
-  melee: ["edged", "pointed", "blunt", "grappling", "parry"],
-  ranged: ["thrown", "drawn", "fired"],
-  arcane: ["kinetic", "incorporeal", "fortifying"]
-};
+import { channelsOf } from "./types.js";
 
-/** Instrument Types a Specialized Resistance can name. */
-export const RESISTANCE_TYPES = ["edged", "pointed", "blunt", "grappling", "thrown", "drawn", "fired", "kinetic", "incorporeal", "sonic"];
+/** The scopes a Specialized Resistance can name (GMG 9.5.1). */
+export const RESISTANCE_TYPES = ["melee", "ranged", "kinetic", "sonic", "incorporeal"];
+
+/** Older scopes, and what each reads as now. "arcane" covered both of an Arcane Instrument's Properties. */
+const LEGACY_SCOPE = { edged: ["melee"], pointed: ["melee"], blunt: ["melee"], grappling: ["melee"], thrown: ["ranged"], drawn: ["ranged"],
+  fired: ["ranged"], arcane: ["kinetic", "incorporeal"] };
 
 /** Every scope key a narrow Resistance row accepts. */
-export const RESISTANCE_SCOPES = [...Object.keys(RESISTANCE_FAMILIES), ...RESISTANCE_TYPES];
+export const RESISTANCE_SCOPES = [...RESISTANCE_TYPES];
 
-/** One scope choice per row: Broad, a Family, or an Instrument Type. */
+/** One scope choice per row: Broad, or the way an attack harms. */
 export const SCOPE_GROUPS = [
   { label: "Broad", options: [["physical", "Physical"], ["mental", "Mental"]] },
-  { label: "Family", options: Object.keys(RESISTANCE_FAMILIES).map(f => [f, f.replace(/^./, c => c.toUpperCase())]) },
-  { label: "Instrument Type", options: RESISTANCE_TYPES.map(t => [t, t.replace(/^./, c => c.toUpperCase())]) }
+  { label: "Instrument Type or Property", options: RESISTANCE_TYPES.map(t => [t, t.replace(/^./, c => c.toUpperCase())]) }
 ];
 
 export const scopeLabel = entry => entry.scope.replace(/^./, c => c.toUpperCase());
 
-/** The Families an Instrument's Types belong to. */
-export const familiesOf = types => Object.entries(RESISTANCE_FAMILIES).filter(([, members]) => types.some(t => members.includes(t))).map(([f]) => f);
+/**
+ * What a hit through an Instrument counts as for narrow Resistance: its Type, and for an Arcane Instrument the Property it was declared
+ * through (channel, a key from channelsOf; the first when none is given).
+ */
+export function attackScopes(types = [], channel = "") {
+  const ch = channelsOf(types);
+  const pick = ch.find(c => c.key === channel) ?? ch[0];
+  return pick ? [pick.key] : [];
+}
 
 /**
  * Does one scope apply to this attack?
- * @param {object} attack { types:[slug], families:[slug], kind:"physical"|"mental" }
+ * @param {object} attack { types:[scope], kind:"physical"|"mental" }
  */
 export function scopeApplies(entry, attack) {
   const s = entry.scope;
   if (s === "physical" || s === "mental") return attack.kind === s;
-  if (s in RESISTANCE_FAMILIES) return (attack.families ?? []).includes(s);
-  return (attack.types ?? []).includes(s);
+  const scopes = LEGACY_SCOPE[s] ?? [s];
+  // A card made before the rework lists the Instrument's older Types; read them the way a new card names its scope.
+  const have = new Set([...(attack.types ?? []), ...attackScopes(attack.types ?? [])]);
+  return scopes.some(k => have.has(k));
 }
 
 /**

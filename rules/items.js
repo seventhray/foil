@@ -8,22 +8,24 @@
  */
 
 import {
-  WEIGHT_CLASS, SKILL_KEYS, SKILL_LABEL, PRIMARY_SKILLS, BONUS_PRICE, MATERIAL_TIER_PRICE, SIZE, TYPE_SURCHARGE,
+  WEIGHT_CLASS, SKILL_KEYS, SKILL_LABEL, PRIMARY_SKILLS, BONUS_PRICE, MATERIAL_TIER_PRICE, SIZE, PROPERTY_PRICE,
   REACH_PRICE_PER_BAND, RANGE_BANDS, RANGE_LABEL, rangeBandOf, usualRange, rangeTextFor, RESISTANCE_LABEL, ATTR_LABEL,
   MATERIAL_CATEGORY_LABEL, MATERIAL_SCARCITY_LABEL, MATERIAL_SCARCITY_MULT, MATERIAL_BATCH_LBS, CONDITION_ATTR
 } from "./constants.js";
 import { priceTechnique, strainFor, SELECTIVE_PREMIUM } from "./pricing.js";
-
-const ARCANE_TYPES = ["kinetic", "incorporeal", "fortifying"];
+import { INSTRUMENT_TYPES, TYPE_LABEL, CHANNEL_LABEL, currentTypes, currentRequires, typeOf, channelsOf, kindsOf, unpricedProperty, requiresLabel } from "./types.js";
 
 /** The Instrument Types an item carries, resolved against the registry's Type definitions. */
 function resolveTypes(types, reg = {}) {
   return { reg, defs: types.map(k => reg[k]).filter(Boolean), unknown: types.filter(k => !reg[k]) };
 }
 
+/** A Type or Property's label: the registry's, else the books'. */
+const labelOf = (k, reg = {}) => reg[k]?.label ?? TYPE_LABEL[k] ?? CHANNEL_LABEL[k] ?? k.replace(/^./, c => c.toUpperCase());
+
 /** An Instrument's derived fields. */
 export function deriveInstrument(sys, registry = {}) {
-  const types = sys.types ?? [];
+  const types = currentTypes(sys.types ?? []);
   const { defs, unknown } = resolveTypes(types, registry.instrumentTypes);
   const w = WEIGHT_CLASS[sys.weight] ?? WEIGHT_CLASS.light;
   sys.weightLabel = w.label;
@@ -39,19 +41,19 @@ export function deriveInstrument(sys, registry = {}) {
   sys.rangeBand = sys.maxRange || rangeBandOf(sys.range);
   sys.range = rangeTextFor(sys.minRange, sys.rangeBand) || sys.range;
   sys.primarySkills = PRIMARY_SKILLS[sys.primaryAttribute] ?? [];
-  sys.typesLabel = sys.typesDisplay || types.map(k => defs.find(d => d.key === k)?.label ?? k).join(", ");
+  const type = typeOf(types);
+  const props = types.filter(k => !INSTRUMENT_TYPES.includes(k));
+  sys.instrumentType = type;
+  sys.properties = props;
+  sys.typesLabel = sys.typesDisplay || types.map(k => labelOf(k, registry.instrumentTypes)).join(", ");
 
-  // Price formula (PHB 5.2.2): weight class + Type surcharges + 10p per band past the usual Range.
-  const channels = types.filter(t => ARCANE_TYPES.includes(t));
-  const surcharge = types.reduce((n, t) => n + (TYPE_SURCHARGE[t] ?? 0), 0)
-    - (sys.typesDisplay && channels.length > 1 ? (channels.length - 1) * 5 : 0);
-  const usual = usualRange(sys.category, sys.weight, types);
+  // Price formula (PHB 5.2.2): weight class + 10p per Property other than Tools and Immobile + 10p per band past the usual Range.
+  const pricedProps = props.filter(k => !unpricedProperty(k));
+  const surcharge = PROPERTY_PRICE * pricedProps.length;
+  const usual = usualRange(type, sys.weight, types);
   const extra = Math.max(0, RANGE_BANDS.indexOf(sys.rangeBand) - RANGE_BANDS.indexOf(usual));
-  const typeTerms = types.filter(t => TYPE_SURCHARGE[t]).map(t => `${defs.find(d => d.key === t)?.label ?? t} ${TYPE_SURCHARGE[t]}`);
-  const shared = sys.typesDisplay && channels.length > 1 ? (channels.length - 1) * 5 : 0;
-  sys.priceMath = [`${w.label} ${w.price}`, ...typeTerms, ...(shared ? [`pick-one channels -${shared}`] : []),
-    `reach ${REACH_PRICE_PER_BAND * extra} (${extra} step${extra === 1 ? "" : "s"} past the usual ${RANGE_LABEL[usual] ?? usual}, x${REACH_PRICE_PER_BAND})`].join(" + ")
-    .replace(/\+ pick-one channels -/, "- pick-one channels ");
+  sys.priceMath = [`${w.label} ${w.price}`, ...pricedProps.map(k => `${labelOf(k, registry.instrumentTypes)} ${PROPERTY_PRICE}`),
+    `reach ${REACH_PRICE_PER_BAND * extra} (${extra} step${extra === 1 ? "" : "s"} past the usual ${RANGE_LABEL[usual] ?? usual}, x${REACH_PRICE_PER_BAND})`].join(" + ");
   // Tools sit on their own cheap penny scale, outside the formula (Fundamental Math).
   const formulaApplies = !sys.innate && sys.category !== "tool";
   sys.formulaPrice = formulaApplies ? w.price + surcharge + REACH_PRICE_PER_BAND * extra : sys.price;
@@ -64,23 +66,22 @@ export function deriveInstrument(sys, registry = {}) {
   sys.bonusMath = `+${sys.bonus} on a ${SIZE[sys.size]?.label ?? sys.size} item = ${sys.bonusPrice}p (PHB 7.10.1)`;
   sys.craftMath = `${SIZE[sys.size]?.batches ?? 2} batches (${SIZE[sys.size]?.label ?? sys.size}) x Tier ${sys.bonus} Common ${MATERIAL_TIER_PRICE[sys.bonus] ?? 0}p = ${sys.craftCost}p (PHB 5.3.1, 5.3.2)`;
 
-  // Type effects (PHB 4.1.1).
-  // A Light Instrument's built-ins can use the Quick Action (PHB 4.1.1). The Quick Type
+  // What its Type and Properties do (PHB 4.1.1).
+  // A Light Instrument's built-ins can use the Quick Action (PHB 4.2.2). The Quick Property
   // survives only for a creature's natural weapon chosen to work that way (GMG 9.6.0).
-  sys.quick = sys.weight === "light" || defs.some(d => d.quick);
-  sys.reload = defs.find(d => d.reload)?.reload ?? "";
-  sys.blockingOnly = defs.some(d => d.blocking) && !defs.some(d => d.family === "melee" || d.family === "ranged");
-  sys.stressTypes = defs.filter(d => d.stressPhysical || d.stressMental || d.pierce || d.dealsNoStress || d.doubleResistance)
-    .map(d => ({ key: d.key, family: d.family, label: d.label, physical: d.stressPhysical, mental: d.stressMental,
-                 pierce: d.pierce, doubleResistance: d.doubleResistance, dealsNoStress: d.dealsNoStress }));
+  sys.quick = sys.weight === "light" || types.includes("quick");
+  sys.reload = types.includes("fired") ? "action" : types.includes("drawn") ? "quick" : "";
+  // The ways it harms, one chosen per Technique for an Arcane Instrument with Kinetic and Incorporeal; a card's typeIndex points here.
+  sys.stressTypes = channelsOf(types);
+  // A Guarding Instrument guards its user or an ally within its Range, and covers the Attributes it harms (PHB 6.5.2).
+  sys.guarding = types.includes("guarding");
+  sys.guardCovers = sys.guarding ? kindsOf(types) : [];
 
-  // +N (PHB 5.2.1): +N to rolls, Pierce half of N (rounded down) for Melee or Ranged;
-  // Blocking-only is Oppose-only.
-  const meleeOrRanged = defs.some(d => d.family === "melee" || d.family === "ranged");
-  sys.isMelee = defs.some(d => d.family === "melee");
-  sys.bonusRoll   = sys.blockingOnly ? 0 : sys.bonus;
-  sys.bonusPierce = !sys.blockingOnly && meleeOrRanged ? Math.floor(sys.bonus / 2) : 0;
-  sys.bonusOppose = sys.blockingOnly ? sys.bonus : 0;
+  // +N (PHB 5.2.1): +N to rolls, Pierce half of N (rounded down) for Melee or Ranged, and +N to the Oppose it guards.
+  sys.isMelee = type === "melee";
+  sys.bonusRoll   = sys.bonus;
+  sys.bonusPierce = type === "melee" || type === "ranged" ? Math.floor(sys.bonus / 2) : 0;
+  sys.bonusOppose = sys.guarding ? sys.bonus : 0;
 
   // An enchanted bonus (PHB 5.3.4).
   const eb = sys.enchantment?.bonus ?? {};
@@ -101,14 +102,16 @@ export function deriveInstrument(sys, registry = {}) {
     else if (eb.kind === "skill") sys.enchantSkill = { skill: eb.skill, n: eb.n };
   } else sys.enchantBonus = null;
 
-  sys.isArcane = channels.length > 0;
+  sys.isArcane = type === "arcane";
 
   sys.typeWarning = types.length === 0 && !sys.innate
-    ? "No Instrument Types set: this Instrument can't be used for anything."
-    : unknown.length ? `Unresolved Instrument Type(s): ${unknown.join(", ")}.` : "";
+    ? "No Instrument Type set: this Instrument can't be used for anything."
+    : unknown.length ? `Unresolved Instrument Type or Property: ${unknown.join(", ")}.` : "";
 
-  // Its three built-in Techniques (PHB 7.4.0), each with what it means, as a Technique's fullText says it.
+  // Its built-in Techniques (PHB 4.1.3), each with what it means, as a Technique's fullText says it. A signature costs the Action
+  // at any weight, and one priced over 11 XP states its Strain ("Applies Stunned. Strain 1.").
   for (const k of sys.kit ?? []) {
+    k.strain = kitStrain(k);
     k.explain = explainKit(k);
     const printed = String(k.effect ?? "").trim();
     k.fullText = [printed && !/[.!?]$/.test(printed) ? `${printed}.` : printed, k.explain].filter(Boolean).join(" ");
@@ -140,9 +143,10 @@ export function enchantWork(price, tier) {
 /** A Technique's derived fields. */
 export function deriveTechnique(sys, registry = {}) {
   const effects = registry.effects ?? null;
-  const types = sys.requires ?? [];
-  const { defs, unknown } = resolveTypes(types, registry.instrumentTypes);
-  const fortifying = types.includes("fortifying");
+  // A Fortifying Technique stored before 2026-11-02 aims only at allies or its user, so it keeps the 8 XP floor (PHB 4.2.1).
+  const fortifying = (sys.requires ?? []).includes("fortifying");
+  const types = currentRequires(sys.requires ?? []);
+  const { unknown } = resolveTypes(types.flatMap(r => r.split("+")), registry.instrumentTypes);
   const priced = effects ? priceTechnique(sys.effects ?? [], effects, { floor: sys.floor || fortifying })
                           : { xp: 0, breakdown: [] };
   sys.xpCost = priced.xp;
@@ -165,12 +169,8 @@ export function deriveTechnique(sys, registry = {}) {
     "angered", "relaxed", "impressed", "wary", "enthralled", "blinded", "slowed", "stunned", "disarm", "foil-exposed"]);
   sys.offensive = (sys.effects ?? []).some(e => TARGETED.has(e.key) || (e.key.startsWith("skill-mod") && Number(e.magnitude) < 0));
 
-  const sameSet = group => group.length === types.length && group.every(k => types.includes(k));
-  sys.requiresLabel = sys.innate ? "Innate"
-    : sameSet(["thrown", "drawn", "fired"]) ? "Ranged"
-    : sameSet(["edged", "pointed", "blunt", "grappling", "parry"]) ? "Melee"
-    : types.length ? types.map(k => defs.find(d => d.key === k)?.label ?? k).join(" or ") : "Any";
-  sys.typeWarning = unknown.length ? `Unresolved Instrument Type(s) in Requirement: ${unknown.join(", ")}.` : "";
+  sys.requiresLabel = sys.innate ? "Innate" : requiresLabel(types, k => labelOf(k, registry.instrumentTypes));
+  sys.typeWarning = unknown.length ? `Unresolved Instrument Type or Property in Requirement: ${unknown.join(", ")}.` : "";
 
   const base = (priced.breakdown ?? []).map(b => b.label).join(", ");
   sys.effectSummary = sys.strain ? (base ? `${base}, Strain ${sys.strain}${sys.perTarget ? " per target" : ""}` : `Strain ${sys.strain}`) : base;
@@ -210,12 +210,19 @@ export function explainTechnique(sys, effectDefs = null) {
  */
 export function explainKit(kit) {
   const effect = String(kit?.effect ?? "").trim();
+  if (/^Disarms\b/i.test(effect)) return "The target opposes with a Might Skill.";
   if (/^Deals Stress\b/i.test(effect)) return "The target opposes with a Skill built on the Attribute you name.";
   const m = effect.match(/^Applies (Foil Exposed|\w+)(?: \[(\w+)\])?/i);
   if (!m) return "";
   const attr = m[1] === "Weakened" ? Object.keys(ATTR_LABEL).find(k => ATTR_LABEL[k].toLowerCase() === String(m[2] ?? "").toLowerCase()) : CONDITION_ATTR[m[1]];
   return attr ? `The target opposes with a ${ATTR_LABEL[attr]} Skill.` : "";
 }
+
+/** A built-in Technique's stated Strain, "Applies Stunned. Strain 1." -> 1 (PHB 4.1.3). */
+export const kitStrain = kit => Number(String(kit?.effect ?? "").match(/\bStrain (\d+)/i)?.[1] ?? 0);
+
+/** A built-in Technique's stated Pierce, "Deals Stress to Might or Finesse, with Pierce 2." -> 2. */
+export const kitPierce = kit => Number(String(kit?.effect ?? "").match(/Deals Stress[^.]*\bPierce (\d+)/i)?.[1] ?? 0);
 
 /** A piece of Equipment's derived fields. */
 export function deriveEquipment(sys, registry = {}) {

@@ -108,19 +108,20 @@ export function rangeTextOf(text) {
   return b ? RANGE_LABEL[b] : t;
 }
 
-// Instrument price surcharges by Instrument Type, and reach pricing (PHB 5.2.2).
-export const TYPE_SURCHARGE = {
-  edged: 5, blunt: 5, kinetic: 5, incorporeal: 5, fortifying: 5, pointed: 10, drawn: 25, fired: 50
-};
+// Each priced Property adds 10p, and so does each step of reach past the usual Range (PHB 5.2.2).
+export const PROPERTY_PRICE = 10;
 export const REACH_PRICE_PER_BAND = 10;
 
-/** The usual Range for an Instrument's kind; reach past it adds 10p a band (PHB 5.2.2). */
-export function usualRange(category, weight, types = []) {
-  if (category === "melee") return "close";
+/**
+ * The usual Range for an Instrument's kind; reach past it adds 10p a band (PHB 5.2.2, 7.10.1). Melee Range 1, Thrown or a Net
+ * Range 4, Drawn Range 8, Fired Range 20, a Light arcane focus Range 4, a staff or tome Range 8, Sonic Range 8.
+ */
+export function usualRange(type, weight, types = []) {
+  if (type === "melee") return "close";
   if (types.includes("fired")) return "long";
   if (types.includes("drawn")) return "mid";
-  if (category === "ranged") return "short";
-  if (category === "sonic") return "mid";
+  if (type === "ranged") return "short";
+  if (type === "sonic") return "mid";
   return weight === "light" ? "short" : "mid";
 }
 

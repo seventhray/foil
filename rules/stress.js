@@ -6,11 +6,10 @@
  *   then capped by its weight: half its Primary Potential for Light, all of it for
  *   Medium or Heavy.
  *   Only the margin is capped; the bonuses below add after it
- *   + the bonus of the Type the Technique was declared with (Edged: physical Resistance, after
- *     Pierce, counts double), and Drawn or Fired on top of it (PHB 4.1.1)
  *   + the Technique's own bonus, and any other stated bonus
  *   - Resistance after Pierce (Pierce never takes it below 0; a negative Resistance is
  *     negative Resistance and adds, PHB 6.6.0), to a minimum of 0.
+ * No Instrument Type adds Stress or Pierce (PHB 4.1.1).
  */
 
 /**
@@ -22,20 +21,12 @@
  * @param {number} a.mult         the weight's margin multiplier (a.double is the older Heavy flag)
  * @param {"physical"|"mental"} a.kind  the kind of Attribute aimed at
  * @param {number} a.resistance   the target's Resistance of that kind (negative adds Stress)
- * @param {object|null} a.type    { label, physical, mental, pierce, doubleResistance }
- * @param {object[]} a.always    Types whose bonus is never chosen and always adds (Drawn, Fired)
  * @param {number} a.bespoke      the Technique's own bonus
  * @param {number} a.other        any other bonus (a Feat such as Heavy Hand)
  * @param {number} a.pierce       Pierce from the Technique, the Instrument's +N, an Enchantment
  * @returns {{ landed:boolean, stress:number, margin:number, capped:number, parts:string[] }}
  */
-/** Drawn and Fired are not chosen: their bonus adds to every Technique through the Instrument (PHB 4.1.1). */
-export const ALWAYS_TYPES = ["drawn", "fired"];
-export const isAlwaysType = t => ALWAYS_TYPES.includes(String(t?.key ?? t?.label ?? "").toLowerCase());
-/** The always-on Types of a list, leaving out the one that was (wrongly) picked as the chosen Type. */
-export const alwaysTypes = (types = [], chosen = null) => (types ?? []).filter(t => isAlwaysType(t) && t !== chosen);
-
-export function stressFor({ attack, oppose, cap, kind = "physical", resistance = 0, resistanceParts = null, type = null, always = [],
+export function stressFor({ attack, oppose, cap, kind = "physical", resistance = 0, resistanceParts = null,
                             bespoke = 0, bespokeParts = null, other = 0, pierce = 0, pierceParts = null, name = "the Technique",
                             capAttr = "", capLabel = "", double = false, mult = 1, multLabel = "" }) {
   const sgn = n => `${n < 0 ? "-" : "+"}${Math.abs(n)}`;
@@ -51,29 +42,19 @@ export function stressFor({ attack, oppose, cap, kind = "physical", resistance =
   parts.push(`cap ${capNum}${capLabel ? ` (${capLabel})` : capAttr ? ` (half ${capAttr} Potential)` : ""}: ${capped}`);
 
   const adds = [];
-  let totalPierce = 0;
   const pierces = list(pierceParts, Number(pierce) || 0, "Pierce").map(p => ({ label: p.label, value: Number(p.value) || 0 }));
-  if (type) {
-    const b = kind === "physical" ? Number(type.physical ?? 0) : Number(type.mental ?? 0);
-    adds.push({ label: `${type.label} (declared Type)`, value: b });
-    if (kind === "physical" && Number(type.pierce ?? 0)) pierces.push({ label: type.label, value: Number(type.pierce) });
-  } else adds.push({ label: "declared Type: none", value: 0 });
-  for (const a of always ?? []) adds.push({ label: a.label, value: kind === "physical" ? Number(a.physical ?? 0) : Number(a.mental ?? 0) });
   const own = list(bespokeParts, Number(bespoke) || 0, name);
   if (own.length) adds.push(...own.map(p => ({ label: p.label, value: Number(p.value) || 0 })));
   else adds.push({ label: name, value: 0 });
   adds.push({ label: "other", value: Number(other) || 0 });
   parts.push(...adds.map(a => `${a.label} ${sgn(a.value)}`));
-  totalPierce = pierces.reduce((n, p) => n + p.value, 0);
+  const totalPierce = pierces.reduce((n, p) => n + p.value, 0);
 
   const res = Number(resistance) || 0;
-  let effRes = res > 0 ? Math.max(0, res - totalPierce) : res;
-  const doubled = !!type?.doubleResistance && kind === "physical" && effRes > 0;
-  if (doubled) effRes *= 2;
+  const effRes = res > 0 ? Math.max(0, res - totalPierce) : res;
   const from = resistanceParts?.length ? ` (${resistanceParts.join(", ")})` : "";
   parts.push(`Resistance ${res}${from}`);
   parts.push(`Pierce ${totalPierce}${pierces.length ? ` (${pierces.map(p => `${p.label} ${p.value}`).join(", ")})` : ""}${res > 0 ? `, leaves ${Math.max(0, res - totalPierce)}` : res < 0 ? ", none to lower" : ""}`);
-  if (doubled) parts.push(`doubled against ${type.label}: ${effRes}`);
   if (res < 0) parts.push(`Resistance below 0 adds ${-res}`);
   const sum = adds.reduce((n, a) => n + a.value, 0);
   const before = capped + sum - effRes;

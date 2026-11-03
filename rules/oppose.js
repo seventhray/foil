@@ -9,8 +9,10 @@
  * is the async form and takes an `io` with a method per name.
  *
  * io (each may be async when driven with driveAsync):
- *   askOppose(data)                          the Oppose dialog; returns its answers { skill, other, parry, exposed0.. } or null. data.guarded
- *                                            names a Guarded mark that adds +2 by itself; data.canParry says whether a Parry may be asked.
+ *   askOppose(data)                          the Oppose dialog; returns its answers { skill, other, guard, exposed0.. } or null. data.guarded
+ *                                            names a Guarded mark that adds its Guard by itself; data.guards lists the defender's own
+ *                                            ready Guarding Instruments that cover the Attribute, for a Guard now (answer.guard: an id),
+ *                                            which costs its Quick Action (the host spends it) and marks it Guarded for 1 round.
  *   updateConditions(list)                   replace the target's Conditions
  *   rollOppose({ formula, math, skill, flags })   roll it and show it; returns { total, formula, dice: [{ faces, value }] }
  *   askReroll({ title, total, dice, tokens })      { die } or null: the die index to reroll with a Foil Token
@@ -28,11 +30,12 @@
  */
 
 import { ATTRIBUTE_KEYS, ATTR_LABEL, SKILL_LABEL, PRIMARY_SKILLS, CONDITION_PRESETS, FOIL_AXES, conditionAttr } from "./constants.js";
-import { stressFor, alwaysTypes, landStress } from "./stress.js";
+import { stressFor, landStress } from "./stress.js";
 import { conditionFlags, conditionMods, harmFlags, harmNames, incomingMods, kindOf, skillFormula, skillMath, targetFlags } from "./combat.js";
 import { scopedResistance } from "./resist.js";
 import { driveAsync } from "./flow.js";
 import { isReady } from "./roll.js";
+import { kindsOf, meetsRequirement } from "./types.js";
 
 export const PLAIN = { esc: s => String(s ?? ""), br: "\n", arrow: "→" };
 
@@ -42,50 +45,56 @@ const potentialOf = (actor, k) => Number(actor.system.attributes?.[k]?.potential
 const foilTokens = actor => Number(actor.system.foilTokens ?? 0);
 const hasToken = actor => actor.type === "character" && foilTokens(actor) > 0;
 
-// ---- Guard and Parry (PHB 6.5.1, 6.5.2) ----
+// ---- Guard (PHB 6.5.1, 6.5.2) ----
 
-/** The Attributes each kind of block covers (PHB 6.5.1). */
-export const BLOCK_COVERS = { physical: ["might", "finesse"], arcane: ["wit", "presence"] };
+/** The Attributes a Guard covers, by the kind its Guarding Instrument harms (PHB 6.5.2). "arcane" is an older mark's word for mental. */
+export const GUARD_COVERS = { physical: ["might", "finesse"], mental: ["wit", "presence"], arcane: ["wit", "presence"] };
 
 /**
- * A character's ready blocks (PHB 6.5.1): its Blocking Instruments, Shields and Wards. A Ward or an arcane Instrument is an arcane block,
- * so its Guard covers only Wit and Presence, the mental attacks; any other is physical. A Shield or Ward states no Range, so it reaches
- * Range 1 (user, 2026-10-29).
+ * A character's ready Guarding Instruments (PHB 6.5.2). Each guards its user or one ally within its Range and covers the kinds of
+ * Attribute it harms: Might and Finesse for a shield or a sword, Wit and Presence for an Incorporeal ward. Its +N adds to the guarded
+ * Oppose (PHB 5.2.1). A Shield stored as Equipment before 2026-11-02 guards Might and Finesse at Range 1.
  */
-export function blocksOf(actor) {
-  return (actor?.items ?? []).filter(i => isReady(i) && ((i.type === "instrument" && (i.system.types ?? []).includes("blocking"))
-    || (i.type === "equipment" && ["shield", "ward"].includes(i.system.category))))
-    .map(i => ({ id: i.id, name: i.name, kind: (i.type === "instrument" && i.system.category === "arcane") || i.system.category === "ward" ? "arcane" : "physical",
-      band: i.system.rangeBand || "close" }));
+export function guardsOf(actor) {
+  return (actor?.items ?? []).filter(i => isReady(i) && ((i.type === "instrument" && meetsRequirement(i.system.types, ["guarding"]))
+    || (i.type === "equipment" && i.system.category === "shield")))
+    .map(i => {
+      const inst = i.type === "instrument";
+      const kinds = inst ? kindsOf(i.system.types) : ["physical"];
+      return { id: i.id, name: i.name, kinds: kinds.length ? kinds : ["physical"], band: (inst && i.system.rangeBand) || "close",
+        bonus: inst ? Math.max(0, Number(i.system.bonus ?? 0)) : 0 };
+    });
 }
 
-/** A Guarded mark's note, which names the block's kind so it reads back: "Round Shield, physical block, by Kessen". */
-export const guardNote = (kind, blockName, guarderName) => `${blockName}, ${kind} block, by ${guarderName}`;
+/** The Guard a Guarding Instrument gives: +2, and its +N on top (PHB 6.5.1, 5.2.1). */
+export const guardValue = guard => 2 + Number(guard?.bonus ?? 0);
+
+/** A Guarded mark's note, which names what it covers and gives so it reads back: "Longsword +2, physical guard +4, by Ulik". */
+export const guardNote = (kinds, name, guarderName, value = 2) =>
+  `${name}, ${[kinds].flat().join(" and ")} guard${value !== 2 ? ` +${value}` : ""}, by ${guarderName}`;
 
 /**
- * The Guarded mark that covers an Attribute, or null (PHB 6.5.1). A note that says "arcane block", or only "arcane", covers Wit and
- * Presence; any other, a blank one too, covers Might and Finesse.
+ * The kinds a Guarded mark covers, from its note: "mental", or an older "arcane block", covers Wit and Presence; "physical and mental"
+ * covers all four; any other, a blank one too, covers Might and Finesse.
  */
-export const guardKind = note => (/\barcane block\b|^\s*arcane\s*$/i.test(note ?? "") ? "arcane" : "physical");
+export function guardKinds(note) {
+  const n = String(note ?? "");
+  const mental = /\b(mental|arcane)\b/i.test(n);
+  return mental && /\bphysical\b/i.test(n) ? ["physical", "mental"] : mental ? ["mental"] : ["physical"];
+}
+
+/** The Guard a mark gives (PHB 6.5.1): the "+N" its note states after "guard", else +2. */
+export const markValue = mark => Number(String(mark?.note ?? "").match(/\bguard \+(\d+)/i)?.[1] ?? 2);
+
+/** The Guarded mark that covers an Attribute, or null (PHB 6.5.1). */
 export function guardFor(conditions, attr) {
-  return (conditions ?? []).find(c => c.name === "Guarded" && BLOCK_COVERS[guardKind(c.note)].includes(attr)) ?? null;
+  return (conditions ?? []).find(c => c.name === "Guarded" && guardKinds(c.note).some(k => GUARD_COVERS[k].includes(attr))) ?? null;
 }
 
-/**
- * Whether a defender may Parry (PHB 6.5.2): it has a ready Parry Instrument, and the Technique is a Melee or Ranged one, by the families
- * of the Instrument it went through, that deals physical Stress, since Parry is Physical Resistance. A card with no families counts as either.
- */
-export function canParry(actor, flag, kind) {
-  const parryInstrument = (actor?.items ?? []).some(i => i.type === "instrument" && isReady(i) && (i.system.types ?? []).includes("parry"));
-  const families = flag.attackInfo?.families;
-  return parryInstrument && kind === "physical" && (!families || families.includes("melee") || families.includes("ranged"));
-}
-
-/** The Oppose roll's extra modifiers, from the dialog's answers (PHB 6.5.0, 3.2.0). */
-export function opposeExtras({ conditionParts = [], block = 0, guard = false, exposedSpent = [], other = 0 }) {
+/** The Oppose roll's extra modifiers, from the dialog's answers (PHB 6.5.0, 3.2.0). `guard` is the Guard's value, +2 and any +N. */
+export function opposeExtras({ conditionParts = [], guard = 0, exposedSpent = [], other = 0 }) {
   const extras = [...conditionParts];
-  if (block) extras.push({ label: "Blocking Instrument", value: block });
-  if (guard) extras.push({ label: "Guard", value: 2 });
+  if (guard) extras.push({ label: "Guard", value: guard === true ? 2 : Number(guard) });
   for (const c of exposedSpent) extras.push({ label: `Foil Exposed (${habitOf(c.note)})`, value: -2 });
   if (other) extras.push({ label: "Other", value: other });
   return extras;
@@ -182,24 +191,26 @@ export function* resolveOpposeSteps({ defender: actor, attacker, flag, fmt = PLA
   const attackerName = attacker?.name ?? "";
   const exposed = (sys.conditions ?? []).map((c, i) => ({ ...c, i })).filter(c => c.name === "Foil Exposed" && attackerName && String(c.note).endsWith(`by ${attackerName}`));
   const flags = [...targetFlags(sys.conditions), ...conditionFlags(sys.conditions, { skill: best })];
-  // Guard is a mark the guarder put on before (PHB 6.5.1), so it adds by itself when it covers the Attribute under attack; Parry is
-  // the defender's choice, asked only when it may Parry (PHB 6.5.2).
-  const guarded = guardFor(sys.conditions, cnd ? conditionAttr(cnd) : aim);
-  const parryable = !cnd && canParry(actor, flag, kind);
+  // A Guarded mark put on before adds by itself when it covers the Attribute under attack (PHB 6.5.1). Without one, the defender may
+  // Guard now through its own ready Guarding Instrument that covers it: the Quick Action, which the host spends from the answer.
+  const under = cnd ? conditionAttr(cnd) : aim;
+  const guarded = guardFor(sys.conditions, under);
+  const guards = guarded ? [] : guardsOf(actor).filter(g => g.kinds.some(k => GUARD_COVERS[k].includes(under)));
   const answer = (yield ["askOppose", { actor, flag, attack, incoming, cnd, aim, kind, skills, best, flags, attackerName, exposed,
-    guarded: guarded ? guarded.note || "physical block" : "", canParry: parryable }]);
+    guarded: guarded ? guarded.note || "physical guard" : "", guards: guards.map(g => ({ id: g.id, name: g.name, value: guardValue(g) })) }]);
   if (!answer) return;
 
   const skill = skills.includes(answer.skill) ? answer.skill : best;
   const cm = conditionMods(sys.conditions, { skill, oppose: true });
-  const block = actor.items.reduce((n, i) => (i.type === "instrument" && i.system.location === "equipped" ? Math.max(n, Number(i.system.bonusOppose ?? 0)) : n), 0);
   const other = Math.trunc(Number(answer.other) || 0);
   const spent = exposed.filter((c, n) => answer[`exposed${n}`]);
-  const extras = [...opposeExtras({ conditionParts: cm.parts, block, guard: !!guarded, exposedSpent: spent, other }), ...(flag.opposeParts ?? []).filter(p => p.value)];
-  const parried = parryable && !!answer.parry;
+  const guardNow = answer.guard ? guards.find(g => g.id === answer.guard) ?? (answer.guard === true ? guards[0] : null) ?? null : null;
+  const guard = guarded ? markValue(guarded) : guardNow ? guardValue(guardNow) : 0;
+  const extras = [...opposeExtras({ conditionParts: cm.parts, guard, exposedSpent: spent, other }), ...(flag.opposeParts ?? []).filter(p => p.value)];
   const oppFlags = [...targetFlags(sys.conditions), ...conditionFlags(sys.conditions, { skill })];
-  if (spent.length) {
-    const left = clone(actor.system.conditions ?? []).filter((c, i) => !spent.some(s => s.i === i));
+  if (spent.length || guardNow) {
+    const left = clone(actor.system.conditions ?? []).filter((c, i) => !spent.some(s => s.i === i)).filter(c => !guardNow || c.name !== "Guarded");
+    if (guardNow) left.push({ name: "Guarded", rounds: "1 round", note: guardNote(guardNow.kinds, guardNow.name, actor.name, guardValue(guardNow)) });
     (yield ["updateConditions", left]);
   }
   // The Conditions are already in extras, so the roll doesn't add them twice.
@@ -227,19 +238,18 @@ export function* resolveOpposeSteps({ defender: actor, attacker, flag, fmt = PLA
   }
 
   const scoped = scopedResistance({ narrowResistance: sys.narrowResistance }, { ...(flag.attackInfo ?? {}), kind });
-  const resistance = Number(sys.attributes?.[aim]?.resistanceTotal ?? sys.resistance?.[`${kind}Total`] ?? 0) + (parried ? 1 : 0) + scoped.net;
+  const resistance = Number(sys.attributes?.[aim]?.resistanceTotal ?? sys.resistance?.[`${kind}Total`] ?? 0) + scoped.net;
   // Every source of that Resistance, named on the card.
   const kindLabel = kind === "physical" ? "Physical" : "Mental";
   const resistanceParts = [
     `${kindLabel} ${Number(sys.resistance?.[`${kind}Total`] ?? 0)}${sys.resistance?.[`${kind}FromLabel`] ? ` (${sys.resistance[`${kind}FromLabel`]})` : ""}`,
     ...(sys.attributes?.[aim]?.resistanceExtra ? [`${ATTR_LABEL[aim]} only +${sys.attributes[aim].resistanceExtra}${sys.attributes[aim].resistanceFromLabel ? ` (${sys.attributes[aim].resistanceFromLabel})` : ""}`] : []),
-    ...(parried ? ["Parry +1"] : []),
     ...scoped.parts
   ];
   const type = flag.typeIndex === "" || flag.typeIndex === undefined || flag.typeIndex === null ? null : flag.types?.[Number(flag.typeIndex)] ?? null;
   const r = stressFor({
     attack, oppose, name: flag.name, cap: flag.cap, capLabel: flag.capLabel, mult: Number(flag.mult ?? 1), multLabel: flag.multLabel ?? "",
-    kind, resistance, resistanceParts, type, always: alwaysTypes(flag.types, type), bespoke: Number(flag.bespoke ?? 0), bespokeParts: flag.bespokeParts ?? null,
+    kind, resistance, resistanceParts, bespoke: Number(flag.bespoke ?? 0), bespokeParts: flag.bespokeParts ?? null,
     other: Number(flag.other ?? 0), pierce: Number(flag.pierce ?? 0), pierceParts: flag.pierceParts ?? null
   });
   (yield ["log", "oppose", { ...logBase, landed: r.landed, margin: r.margin, cappedMargin: r.capped, stress: r.stress,

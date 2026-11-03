@@ -25,8 +25,11 @@ import {
   ATTRIBUTE_KEYS, ATTR_LABEL, SKILL_ATTRS, SKILL_LABEL, MARGIN_CAP, marginCap, CONDITION_OPPOSE, EFFECT_CONDITION, conditionAttr, DISARM
 } from "./constants.js";
 import { conditionFlags, skillFormula, skillMath } from "./combat.js";
-import { familiesOf } from "./resist.js";
+import { attackScopes } from "./resist.js";
 import { featBonuses } from "./feats.js";
+import { kitStrain, kitPierce } from "./items.js";
+import { currentRequires, meetsRequirement, typeOf } from "./types.js";
+import { RANGE_STEP } from "./constants.js";
 import { driveAsync } from "./flow.js";
 
 /** No Feat bonuses: a host that leaves them to the table (Foundry) passes no `feats`. */
@@ -63,11 +66,30 @@ export function rollNotes(sys, skill, technique = false) {
   return notes;
 }
 
-/** What a hit through this Instrument counts as for narrow Resistance (GMG 9.5.1). */
-export function attackInfo(inst) {
-  const types = inst.system.types ?? [];
-  return { types, families: familiesOf(types), materials: inst.system.materials ?? "" };
+/**
+ * What a hit through this Instrument counts as for narrow Resistance (GMG 9.5.1): its Type, or the Arcane Property it was declared
+ * through (`channel`, a key of its stressTypes).
+ */
+export function attackInfo(inst, channel = "") {
+  return { types: attackScopes(inst.system.types ?? [], channel), materials: inst.system.materials ?? "" };
 }
+
+/** The channel a card declared: the key of the Instrument's stressTypes entry at typeIndex, "" when none was picked. */
+const channelOf = (inst, typeIndex) => (typeIndex === "" || typeIndex === undefined || typeIndex === null ? "" : inst?.system.stressTypes?.[Number(typeIndex)]?.key ?? "");
+
+/**
+ * The ready Instruments that back one of Voice's Techniques (PHB 4.1.3): a Melee, Ranged or Sonic Instrument whose `backs` names it.
+ * Each gives +2 against a target within its Range, and a Sonic one also carries the Technique out to its own Range. Only one counts on
+ * a roll, so the host adds the best that reaches each target. Each is { id, name, band, range, carries }.
+ */
+export function backersOf(actor, inst, kit) {
+  if (!inst?.system.innate || typeOf(inst.system.types) !== "sonic" || !kit?.name) return [];
+  return items(actor).filter(i => i.type === "instrument" && i.id !== inst.id && isReady(i) && i.system.backs === kit.name
+    && ["melee", "ranged", "sonic"].includes(typeOf(i.system.types)))
+    .map(i => ({ id: i.id, name: i.name, band: i.system.rangeBand || "close", range: RANGE_STEP[i.system.rangeBand || "close"] ?? 1,
+      carries: typeOf(i.system.types) === "sonic" }));
+}
+export const BACKING = 2;
 
 /** The Skills an Instrument (or a shield) rolls: the ones its Primary Attribute reaches (PHB 4.1.0). */
 export const skillsOf = i => i.type === "instrument" ? i.system.primarySkills : ["prowess", "discipline", "assertiveness"];
@@ -76,15 +98,16 @@ export const skillsOf = i => i.type === "instrument" ? i.system.primarySkills : 
 const storedNote = (inst, esc) => `${esc(inst.name)} is stored${inst.system.storedAt ? ` at ${esc(inst.system.storedAt)}` : ""}: using it means being there.`;
 
 /**
- * Instruments of a Type a Technique requires, or a Shield for Blocking, ready or not: equipped ones first, stored ones last.
- * Any Tool meets a Tool requirement, a Craft one too (Jeweler's Tools is Craft [Gemstone]).
+ * Instruments that meet a Technique's Requirement (PHB 4.2.0), ready or not: equipped ones first, stored ones last.
+ * Any Tools meets a Tools Requirement, Tools [Material] too (Jeweler's Tools is Tools [Gemstone]).
  */
 export function matchingInstruments(actor, tech) {
   const req = tech.system.requires ?? [];
   const rank = i => isReady(i) ? 0 : i.system.location === "stored" ? 2 : 1;
   return items(actor).filter(i => {
-    if (i.type === "instrument") return req.length === 0 || req.some(k => i.system.types?.includes(k) || (k === "tool" && i.system.category === "tool"));
-    if (i.type === "equipment" && i.system.category === "shield") return req.includes("blocking");
+    if (i.type === "instrument") return meetsRequirement(i.system.types ?? [], req, { category: i.system.category });
+    // A Shield stored as Equipment before 2026-11-02 still meets a Guarding Requirement.
+    if (i.type === "equipment" && i.system.category === "shield") return currentRequires(req).includes("guarding");
     return false;
   }).sort((a, b) => rank(a) - rank(b));
 }
@@ -115,7 +138,7 @@ export function stressPayload(actor, inst, name, total, { bespoke = [], pierce =
       mult: Number(inst.system.marginMultiplier ?? 1), multLabel: inst.system.weightLabel || weight,
       types: inst.system.stressTypes ?? [],
       bespoke: bespoke.reduce((n, p) => n + p.value, 0), bespokeParts: bespoke.filter(p => p.value),
-      pierce: pierce.reduce((n, p) => n + p.value, 0), pierceParts: pierce.filter(p => p.value), attackInfo: attackInfo(inst),
+      pierce: pierce.reduce((n, p) => n + p.value, 0), pierceParts: pierce.filter(p => p.value), attackInfo: attackInfo(inst, channelOf(inst, aim.typeIndex)),
       melee: !!inst.system.isMelee, targets: aim.targets, aim: aim.aim, typeIndex: aim.typeIndex, other: aim.other, ...(also ? { also } : {})
     }
   };
@@ -142,9 +165,14 @@ export function* rollSkillSteps({ actor, skill, fmt = PLAIN }) {
   }]);
 }
 
-/** Roll one of an Instrument's three built-in Techniques (PHB 7.4.0). */
+/**
+ * Roll one of an Instrument's built-in Techniques (PHB 4.1.3). A signature costs the Action at any weight and takes the Strain it states.
+ * One of Voice's Techniques lists the ready Instruments that back it (backersOf); the payload carries them for the host to add +2 against
+ * each target one reaches. A Sonic Instrument's Condition reaches every hearer its user chooses within its Range, each Opposing on its
+ * own (PHB 4.1.1): the payload says so in `group`.
+ */
 export function* rollKitSteps({ actor, inst, index, unaware = false, feats = false, fmt = PLAIN }) {
-  const { esc, br } = fmt;
+  const { esc, br, arrow } = fmt;
   const sys = actor.system;
   const kit = inst?.system.kit?.[Number(index)];
   if (!inst || !kit) return;
@@ -152,10 +180,11 @@ export function* rollKitSteps({ actor, inst, index, unaware = false, feats = fal
   notes.unshift(`${esc(inst.name)}: ${esc(kit.effect)}`);
   if (inst.system.location === "stored") notes.push(storedNote(inst, esc));
   else if (!inst.system.innate && inst.system.location !== "equipped") notes.push(`${esc(inst.name)} isn't equipped: switching to it costs the Quick Action (PHB 4.1.0).`);
-  if (inst.system.quick) notes.push("Light: after an Action through a Light Instrument, the Quick Action can pay for this (PHB 4.2.2).");
-  if (inst.system.doublesMargin) notes.push("Heavy: costs the Action and the Quick Action; the margin doubles (PHB 4.1.1).");
-  if (inst.system.reload) notes.push(`Reload: ${inst.system.reload === "quick" ? "Quick Action" : "Action"}.`);
   const stress = /Deals Stress/i.test(kit.effect);
+  if (kit.signature) notes.push("Signature: costs the Action, whatever the weight (PHB 4.1.3).");
+  else if (inst.system.quick) notes.push("Light: after an Action through a Light Instrument, the Quick Action can pay for this (PHB 4.2.2).");
+  if (inst.system.doublesMargin && stress) notes.push("Heavy: costs the Action and the Quick Action; the margin doubles (PHB 4.1.1).");
+  if (inst.system.reload) notes.push(`Reload: ${inst.system.reload === "quick" ? "Quick Action" : "Action"}.`);
   // "Disarms." is Opposed with Might (PHB 4.2.1).
   const disarms = !stress && /^Disarms\b/i.test(kit.effect);
   // "Applies Reeling.", or "Applies Weakened [Finesse]." naming the Attribute it weakens and is resisted with (PHB 6.8.4).
@@ -171,8 +200,22 @@ export function* rollKitSteps({ actor, inst, index, unaware = false, feats = fal
   const aim = stress ? (yield ["aim", { inst, name: kit.name, text: kit.effect, requires: [] }]) : { targets: [] };
   if (!aim) return;
   notes.push(...(aim.notes ?? []));
+  // A signature's stated Strain lands on the Instrument's Primary Attribute, hit or miss, ignoring Resistance (PHB 4.1.3, 4.2.3).
+  const strain = kitStrain(kit);
+  if (strain > 0) {
+    const attr = inst.system.primaryAttribute;
+    const { before, after } = (yield ["takeStress", attr, strain]);
+    (yield ["log", "strain", { source: `${inst.name}: ${kit.name}`, attribute: attr, amount: strain, before, after }]);
+    const max = Number(sys.attributes?.[attr]?.potential?.max ?? 0);
+    notes.push(`Strain ${strain} on ${ATTR_LABEL[attr]} (Stress ${max - before} ${arrow} ${max - after} of ${max}) (PHB 4.1.3).`);
+  }
+  // The Instruments that back it (PHB 4.1.3): +2 against a target within one's Range; only one counts.
+  const backers = backersOf(actor, inst, kit);
+  for (const b of backers) notes.push(`${esc(b.name)} backs ${esc(kit.name)}: +${BACKING} against a target within Range ${b.range}${b.carries ? `, and carries it out to Range ${b.range}` : ""}. Only one backing counts (PHB 4.1.3).`);
+  const group = !stress && !!kitResist && typeOf(inst.system.types) === "sonic";
+  if (group) notes.push(`Sonic: it reaches each creature ${esc(actor.name)} chooses that can hear it within Range ${RANGE_STEP[inst.system.rangeBand] ?? ""}; each Opposes on its own (PHB 4.1.1).`);
   // A Learned Feat's +1s, when the host counts them (rules/feats.js): by the Attribute aimed at, or the one its Condition is resisted with.
-  const fb = feats ? featBonuses(actor, { types: inst.system.types ?? [], target: stress ? aim.aim ?? "" : kitResist, stress }) : NO_FEATS;
+  const fb = feats ? featBonuses(actor, { types: inst.system.types ?? [], channel: channelOf(inst, aim.typeIndex), target: stress ? aim.aim ?? "" : kitResist, stress }) : NO_FEATS;
   const kitExtras = [...instrumentExtras(inst, kit.skill), ...fb.roll, ...unawareExtra(unaware && targeted, notes)];
   const kitDice = targeted && inst.system.weightDice ? [{ label: inst.system.weightLabel || "Weight", dice: inst.system.weightDice }] : [];
   notes.unshift(esc(skillMath(sys, kit.skill, kitExtras, kitDice)));
@@ -180,10 +223,11 @@ export function* rollKitSteps({ actor, inst, index, unaware = false, feats = fal
     formula: skillFormula(sys, kit.skill, kitExtras, kitDice), title: `${kit.name} (${SKILL_LABEL[kit.skill]})`, note: notes.join(br),
     payload: {
       cond: true,
-      condition: kitResist ? { name: kit.name, condition: kitCond, melee: !!inst.system.isMelee } : null,
+      ...(backers.length ? { backers } : {}),
+      condition: kitResist ? { name: kit.name, condition: kitCond, melee: !!inst.system.isMelee, ...(group ? { group: true } : {}) } : null,
       stress: stress ? { inst, name: kit.name, aim,
         bespoke: [{ label: kit.name, value: bespokeBonus(kit.effect) }, { label: `${inst.name} Enchantment`, value: Number(inst.system.enchantStress ?? 0) }, ...fb.stress],
-        pierce: enchantPierceParts(inst) } : null
+        pierce: [{ label: kit.name, value: kitPierce(kit) }, ...enchantPierceParts(inst)] } : null
     }
   }]);
 }
@@ -265,7 +309,7 @@ export function* rollTechniqueSteps({ actor, tech, unaware = false, feats = fals
 
   // A Learned Feat's +1s, when the host counts them (rules/feats.js): by the Attribute aimed at, or the one its Condition is resisted with.
   const featTarget = aim.aim || (applied && !weakens ? conditionAttr(disarms ? DISARM : { name: EFFECT_CONDITION[applied.key] }) : "");
-  const fb = feats ? featBonuses(actor, { types: inst?.system.types ?? [], target: featTarget, stress: !!(sys.dealsStress && inst) }) : NO_FEATS;
+  const fb = feats ? featBonuses(actor, { types: inst?.system.types ?? [], channel: channelOf(inst, aim.typeIndex), target: featTarget, stress: !!(sys.dealsStress && inst) }) : NO_FEATS;
   bonus.push(...fb.roll, ...unawareExtra(unaware, notes));
   const wdice = sys.offensive && inst?.type === "instrument" && inst.system.weightDice ? [{ label: inst.system.weightLabel || "Weight", dice: inst.system.weightDice }] : [];
   notes.unshift(esc(skillMath(asys, skill, bonus, wdice)));
@@ -288,7 +332,7 @@ export function* rollTechniqueSteps({ actor, tech, unaware = false, feats = fals
     formula: skillFormula(asys, skill, bonus, wdice), title: `${esc(tech.name)} (${SKILL_LABEL[skill]})`, note: notes.join(br),
     payload: {
       cond: true,
-      condition: condition ? { name: tech.name, condition, melee: !!inst?.system.isMelee } : null,
+      condition: condition ? { name: tech.name, condition, melee: !!inst?.system.isMelee, ...(inst && typeOf(inst.system.types) === "sonic" ? { group: true } : {}) } : null,
       stress: sys.dealsStress && inst ? { inst, name: tech.name, aim,
         bespoke: [{ label: tech.name, value: Number(sys.stressRider ?? 0) }, { label: `${inst.name} Enchantment`, value: Number(inst.system.enchantStress ?? 0) }, ...fb.stress],
         pierce: [{ label: tech.name, value: Number(sys.pierceTotal ?? 0) }, ...enchantPierceParts(inst)], ...(also ? { also } : {}) } : null
