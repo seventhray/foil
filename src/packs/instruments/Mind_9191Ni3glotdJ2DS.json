@@ -9,7 +9,10 @@
     "primaryAttribute": "wit",
     "range": "Range 2",
     "maxRange": "near",
-    "types": [],
+    "types": [
+      "arcane",
+      "incorporeal"
+    ],
     "typesDisplay": "",
     "price": 0,
     "rider": "Innate: every character has it, free (PHB 2.5.3).",

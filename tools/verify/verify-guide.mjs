@@ -55,7 +55,7 @@ ok("Guard: the Quick Action, +2 to Oppose for 1 round", /Spend your Quick Action
 ok("a signature costs the Action, with Strain past 11 XP", /A signature costs the Action, whatever the Instrument's weight\. A signature priced over 11 XP costs Strain/.test(phb)
   && /A signature costs the Action at any weight\. A signature priced over 11 XP costs 1 Strain for each full 8 XP over\./.test(all));
 ok("weight classes 15/30/45p, 2/4/8 lbs, Medium full cap, Heavy whole turn with the margin doubled", /Light 15p, Medium 30p, Heavy 45p/.test(phb) && /A Heavy Instrument \| 8 lbs/.test(phb) && /\(15p, 30p, 45p\)/.test(all) && /\(2, 4, 8 lbs\)/.test(all)
-  && /\*\*Medium\*\*: its margin caps at the full Primary Potential/.test(phb) && /\*\*Heavy\*\*: any Technique through it that deals Stress, a Quick one included, costs the Action and the Quick Action\. Its margin is doubled, then capped at the full Primary Potential\. It takes both hands/.test(phb)
+  && /A Medium Instrument's margin caps at the full Primary Potential/.test(phb) && /A Heavy Instrument's Stress Technique costs the Action and the Quick Action\. Its margin is doubled, then capped at the full Primary Potential\. It takes both hands/.test(phb)
   && /its margin doubles before the cap/.test(all));
 ok("Incapacitation lifts at half Potential, rounded down", /down to half its Potential, rounded down/.test(phb) && /half its Potential or less, rounded down/.test(all));
 ok("Foil Tokens: max four, halve one source, reroll one die", /at most \*\*four\*\* Foil Tokens/.test(phb) && /halves the Stress from one source/.test(phb) && /reroll any one die/.test(phb)

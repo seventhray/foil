@@ -98,7 +98,7 @@ export const GLOSSARY = {
   },
   "frightened": {
     "name": "Frightened",
-    "text": "Resisted with Presence. While the creature can perceive the source, its rolls take -1. It can't willingly move closer to the source. It ends when the source leaves its perception or the duration ends. > [!EXAMPLE] > In round 3 Mira threatens the captain through Voice and chooses Frightened: Assertiveness 20 against his Assertiveness 13. It lands, so the captain's rolls take -1 and he can't step toward Mira."
+    "text": "Resisted with Presence. While the creature can perceive the source, its rolls take -1. It can't willingly move closer to the source. It ends when the source leaves its perception or the duration ends. > [!EXAMPLE] > In round 3 Mira threatens the captain through Voice and chooses Frightened: Assertiveness 20 against his Assertiveness 13. It lands. The captain's rolls take -1. He keeps his distance from Mira."
   },
   "grappled": {
     "name": "Grappled",
@@ -116,21 +116,13 @@ export const GLOSSARY = {
     "name": "Hasten",
     "text": "Grant the target an extra Action on its next turn. Holding it past that turn requires the Upkeep Effect"
   },
-  "heavy": {
-    "name": "Heavy",
-    "text": "any Technique through it that deals Stress, a Quick one included, costs the Action and the Quick Action. Its margin is doubled, then capped at the full Primary Potential. It takes both hands."
-  },
-  "heavy instrument": {
-    "name": "Heavy Instrument",
-    "text": "any Technique through it that deals Stress, a Quick one included, costs the Action and the Quick Action. Its margin is doubled, then capped at the full Primary Potential. It takes both hands."
-  },
   "illusion": {
     "name": "Illusion",
     "text": "Conjure a convincing false sight or sound. A creature that would act on the truth Opposes with Acuity to see through it; until it does, it treats the illusion as real (the GM adjudicates what it accomplishes)"
   },
   "immobile": {
     "name": "Immobile",
-    "text": "It is fixed in place: using it means being there."
+    "text": "It is fixed in place."
   },
   "impressed": {
     "name": "Impressed",
@@ -138,11 +130,11 @@ export const GLOSSARY = {
   },
   "incapacitated": {
     "name": "Incapacitated",
-    "text": "An Attribute is Incapacitated when its Stress reaches its Potential. It adds no dice to any roll that draws on it. It can still be targeted, by Techniques and by healing. Incapacitation lifts once healing brings its Stress down to half its Potential, rounded down. Healing short of that lowers its Stress, and new Stress fills it again before overflowing. A character with an Incapacitated Attribute stays in the conflict with a full Action, Quick Action, and movement. It can use any Technique whose Skill still has dice. > [!EXAMPLE] > A creature has taken heavy damage: Might, Wit, and Presence are all Incapacitated, leaving only Finesse standing. Prowess (Might + Finesse), Acuity (Finesse + Wit), and Guile (Finesse + Presence) still roll, each on Finesse's dice alone. Discipline, Assertiveness, and Resonance are dead: neither of their Attributes has dice left, so nothing that rolls them can be attempted. | Attribute | Incapacitated looks like | | --------- | ------------------------ | | Might | The body gives out: strength fails, legs buckle, breath won't come. | | Finesse | Control slips: reactions slow, balance falters, hands shake. | | Wit | The mind stalls: thoughts scatter, memory slips, nothing adds up. | | Presence | Words fail: eloquence goes, feelings spill over, reading the room grows hard. | The player calls it first, and the GM steps in only if asked. Show it once, in a sentence, and play on. > [!EXAMPLE] > In round 2 Kessen uses Relentless Blow through the Longsword on the captain's Might: Prowess 23 against his 12, a margin of 11. Pierce 4 clears the Mail, for 11 Stress. His Might reaches 18 of 16 and is Incapacitated, and the extra 2 overflows onto his Presence. The captain's legs buckle and the Mace sags, but he is still in the fight."
+    "text": "An Attribute is Incapacitated when its Stress reaches its Potential. It adds no dice to any roll that draws on it. It can still be targeted, by Techniques and by healing. Incapacitation lifts once healing brings its Stress down to half its Potential, rounded down. Healing short of that lowers its Stress, and new Stress fills it again before overflowing. A character with an Incapacitated Attribute stays in the conflict with a full Action, Quick Action, and movement. It can use any Technique whose Skill still has dice. > [!EXAMPLE] > A creature has taken heavy damage: Might, Wit, and Presence are all Incapacitated, leaving only Finesse standing. Prowess (Might + Finesse), Acuity (Finesse + Wit), and Guile (Finesse + Presence) still roll, each on Finesse's dice alone. Discipline, Assertiveness, and Resonance are dead: neither of their Attributes has dice left, so nothing that rolls them can be attempted. | Attribute | Incapacitated looks like | | --------- | ------------------------ | | Might | The body gives out: strength fails, legs buckle, breath won't come. | | Finesse | Control slips: reactions slow, balance falters, hands shake. | | Wit | The mind stalls: thoughts scatter, memory slips, nothing adds up. | | Presence | Words fail: eloquence goes, feelings spill over, reading the room grows hard. | The player calls it first, and the GM steps in only if asked. Show it once, in a sentence, and play on. > [!EXAMPLE] > In round 2 Kessen uses Relentless Blow through the Longsword on the captain's Might: Prowess 23 against his 12, a margin of 11. Pierce 4 clears the Mail, for 11 Stress. His Might reaches 18 of 16 and is Incapacitated, and the extra 2 overflows onto his Presence. The captain's legs buckle and the Mace sags. He fights on."
   },
   "incorporeal": {
     "name": "Incorporeal",
-    "text": "An Arcane Instrument with it harms Wit or Presence, with fear, curses, or drained life. It also carries life magic, such as Mend."
+    "text": "An Arcane Instrument with it harms Wit or Presence, with fear, curses, or drained life."
   },
   "instrument": {
     "name": "Instrument",
@@ -164,25 +156,9 @@ export const GLOSSARY = {
     "name": "Kinetic",
     "text": "An Arcane Instrument with it harms Might or Finesse, with fire, cold, lightning, acid, or force."
   },
-  "light": {
-    "name": "Light",
-    "text": "its margin caps at half the Primary Potential. It allows a Quick Action follow-up."
-  },
-  "light instrument": {
-    "name": "Light Instrument",
-    "text": "its margin caps at half the Primary Potential. It allows a Quick Action follow-up."
-  },
   "lingering": {
     "name": "Lingering",
     "text": "The target takes N Stress at the start of its turn for two rounds; this Stress ignores Resistance"
-  },
-  "medium": {
-    "name": "Medium",
-    "text": "its margin caps at the full Primary Potential."
-  },
-  "medium instrument": {
-    "name": "Medium Instrument",
-    "text": "its margin caps at the full Primary Potential."
   },
   "melee": {
     "name": "Melee",
@@ -322,7 +298,7 @@ export const GLOSSARY = {
   },
   "thrown": {
     "name": "Thrown",
-    "text": "It can be thrown. A Melee Instrument with it is thrown at any target past its reach, out to Range 4, and counts as Ranged for that Technique."
+    "text": "It can be thrown. A Melee Instrument with it is thrown at any target past its reach, out to Range 4. It counts as Ranged for that Technique."
   },
   "toil": {
     "name": "Toil",
