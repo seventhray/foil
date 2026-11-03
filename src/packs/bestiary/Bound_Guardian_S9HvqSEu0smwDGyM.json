@@ -96,31 +96,30 @@
       "img": "icons/svg/claw.svg",
       "system": {
         "types": [
-          "blunt"
+          "melee"
         ],
         "range": "Range 1",
+        "maxRange": "close",
         "weight": "light",
         "innate": true,
+        "location": "equipped",
         "primaryAttribute": "might",
         "category": "melee",
         "price": 0,
         "kit": [
           {
-            "name": "Bash",
+            "name": "Strike",
             "skill": "prowess",
             "effect": "Deals Stress to Might or Finesse."
           },
           {
-            "name": "Sweep",
-            "skill": "acuity",
-            "effect": "Applies Prone."
-          },
-          {
-            "name": "Feint Jab",
-            "skill": "guile",
-            "effect": "Applies Reeling."
+            "name": "Push",
+            "skill": "discipline",
+            "effect": "Moves the target up to Range 2.",
+            "signature": true
           }
         ],
+        "backs": "Threaten",
         "description": ""
       },
       "effects": [],
@@ -133,13 +132,14 @@
       "_key": "!actors.items!S9HvqSEu0smwDGyM.JuVrLVpTSeLgtG3G"
     },
     {
-      "_id": "X7t1q48HRR9Se60I",
-      "name": "Concuss",
+      "_id": "0G1MwDlprQbiXlez",
+      "name": "Weakening Strike",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Concuss",
       "system": {
         "requires": [
-          "blunt"
+          "melee"
         ],
         "innate": false,
         "skill": "prowess",
@@ -164,7 +164,12 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Concuss",
+          "Hamstring"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, -1 [target Attribute]",
         "description": ""
       },
@@ -175,20 +180,17 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!S9HvqSEu0smwDGyM.X7t1q48HRR9Se60I"
+      "_key": "!actors.items!S9HvqSEu0smwDGyM.0G1MwDlprQbiXlez"
     },
     {
-      "_id": "1SKmIim4cSDi2x55",
-      "name": "Trip",
+      "_id": "u9wfobBdJi9L86UD",
+      "name": "Toppling Strike",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Trip",
       "system": {
         "requires": [
-          "edged",
-          "pointed",
-          "blunt",
-          "grappling",
-          "parry"
+          "melee"
         ],
         "innate": false,
         "skill": "prowess",
@@ -213,7 +215,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Trip"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Prone",
         "description": ""
       },
@@ -224,7 +230,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!S9HvqSEu0smwDGyM.1SKmIim4cSDi2x55"
+      "_key": "!actors.items!S9HvqSEu0smwDGyM.u9wfobBdJi9L86UD"
     },
     {
       "_id": "CB9u6ofSAg2LnFhU",

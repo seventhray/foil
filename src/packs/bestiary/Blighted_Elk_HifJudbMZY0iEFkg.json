@@ -96,31 +96,30 @@
       "img": "icons/svg/claw.svg",
       "system": {
         "types": [
-          "pointed"
+          "melee"
         ],
         "range": "Range 1",
+        "maxRange": "close",
         "weight": "light",
         "innate": true,
+        "location": "equipped",
         "primaryAttribute": "might",
         "category": "melee",
         "price": 0,
         "kit": [
           {
-            "name": "Stab",
+            "name": "Strike",
             "skill": "prowess",
             "effect": "Deals Stress to Might or Finesse."
           },
           {
-            "name": "Vital Strike",
-            "skill": "acuity",
-            "effect": "Applies Weakened [Finesse]."
-          },
-          {
-            "name": "Low Feint",
-            "skill": "guile",
-            "effect": "Applies Reeling."
+            "name": "Topple",
+            "skill": "discipline",
+            "effect": "Applies Prone.",
+            "signature": true
           }
         ],
+        "backs": "Threaten",
         "description": "<p>its antlers.</p>"
       },
       "effects": [],
@@ -139,31 +138,30 @@
       "img": "icons/svg/claw.svg",
       "system": {
         "types": [
-          "blunt"
+          "melee"
         ],
         "range": "Range 1",
+        "maxRange": "close",
         "weight": "light",
         "innate": true,
+        "location": "equipped",
         "primaryAttribute": "might",
         "category": "melee",
         "price": 0,
         "kit": [
           {
-            "name": "Bash",
+            "name": "Strike",
             "skill": "prowess",
             "effect": "Deals Stress to Might or Finesse."
           },
           {
-            "name": "Sweep",
-            "skill": "acuity",
-            "effect": "Applies Prone."
-          },
-          {
-            "name": "Feint Jab",
-            "skill": "guile",
-            "effect": "Applies Reeling."
+            "name": "Stun",
+            "skill": "discipline",
+            "effect": "Applies Stunned. Strain 1.",
+            "signature": true
           }
         ],
+        "backs": "Threaten",
         "description": ""
       },
       "effects": [],
@@ -182,7 +180,7 @@
       "img": "icons/svg/aura.svg",
       "system": {
         "requires": [
-          "pointed"
+          "melee"
         ],
         "innate": false,
         "skill": "prowess",
@@ -215,7 +213,9 @@
           }
         ],
         "floor": false,
+        "formerNames": [],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Pierce 1, -1 [target Attribute]",
         "description": ""
       },
@@ -235,7 +235,7 @@
       "img": "icons/svg/aura.svg",
       "system": {
         "requires": [
-          "blunt"
+          "melee"
         ],
         "innate": false,
         "skill": "prowess",
@@ -260,7 +260,9 @@
           }
         ],
         "floor": false,
+        "formerNames": [],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Prone",
         "description": ""
       },

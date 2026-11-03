@@ -104,35 +104,34 @@
         "range": "Range 1",
         "maxRange": "close",
         "types": [
-          "edged",
-          "pointed",
-          "parry"
+          "melee",
+          "guarding"
         ],
         "typesDisplay": "",
-        "price": 45,
+        "price": 40,
         "rider": "",
+        "family": "Swords",
+        "backs": "Threaten",
         "kit": [
           {
-            "name": "Broad Cut",
+            "name": "Strike",
             "skill": "prowess",
-            "effect": "Deals Stress to Might or Finesse."
+            "effect": "Deals Stress to Might or Finesse.",
+            "signature": false
           },
           {
-            "name": "Wrest",
+            "name": "Disarm",
             "skill": "discipline",
-            "effect": "Disarms."
-          },
-          {
-            "name": "Challenge",
-            "skill": "assertiveness",
-            "effect": "Applies Baited."
+            "effect": "Disarms.",
+            "signature": true
           }
         ],
         "innate": false,
         "bonus": 0,
         "size": "medium",
         "materials": "2 Metal",
-        "description": ""
+        "description": "",
+        "location": "equipped"
       },
       "effects": [],
       "folder": null,
@@ -150,31 +149,25 @@
       "img": "icons/svg/claw.svg",
       "system": {
         "types": [
+          "arcane",
           "incorporeal"
         ],
         "range": "Range 0",
+        "maxRange": "touching",
         "weight": "light",
         "innate": true,
+        "location": "equipped",
         "primaryAttribute": "wit",
         "category": "arcane",
         "price": 0,
         "kit": [
           {
-            "name": "Withering Curse",
+            "name": "Curse Touch",
             "skill": "discipline",
-            "effect": "Applies Weakened [Might]."
-          },
-          {
-            "name": "Maddening Whisper",
-            "skill": "acuity",
             "effect": "Deals Stress to Wit or Presence."
-          },
-          {
-            "name": "Despairing Word",
-            "skill": "resonance",
-            "effect": "Applies Frightened."
           }
         ],
+        "backs": "",
         "description": ""
       },
       "effects": [],
@@ -196,28 +189,69 @@
         "weight": "light",
         "primaryAttribute": "presence",
         "range": "Range 8",
+        "maxRange": "mid",
         "types": [
-          "quick",
           "sonic"
         ],
         "typesDisplay": "",
         "price": 0,
         "rider": "Innate: every character has it, free (PHB 2.5.3).",
+        "family": "",
+        "backs": "",
         "kit": [
           {
-            "name": "Browbeat",
+            "name": "Threaten",
             "skill": "assertiveness",
-            "effect": "Deals Stress to Presence or Wit."
+            "effect": "Deals Stress to Wit or Presence.",
+            "signature": false
           },
           {
-            "name": "Mislead",
+            "name": "Threaten",
+            "skill": "assertiveness",
+            "effect": "Applies Intimidated.",
+            "signature": false
+          },
+          {
+            "name": "Threaten",
+            "skill": "assertiveness",
+            "effect": "Applies Frightened.",
+            "signature": false
+          },
+          {
+            "name": "Deceive",
             "skill": "guile",
-            "effect": "Applies Misled."
+            "effect": "Deals Stress to Wit or Presence.",
+            "signature": false
           },
           {
-            "name": "Sway",
+            "name": "Deceive",
+            "skill": "guile",
+            "effect": "Applies Misled.",
+            "signature": false
+          },
+          {
+            "name": "Deceive",
+            "skill": "guile",
+            "effect": "Applies Baited.",
+            "signature": false
+          },
+          {
+            "name": "Persuade",
             "skill": "resonance",
-            "effect": "Applies Swayed."
+            "effect": "Deals Stress to Wit or Presence.",
+            "signature": false
+          },
+          {
+            "name": "Persuade",
+            "skill": "resonance",
+            "effect": "Applies Swayed.",
+            "signature": false
+          },
+          {
+            "name": "Persuade",
+            "skill": "resonance",
+            "effect": "Applies Relaxed.",
+            "signature": false
           }
         ],
         "innate": true,
@@ -236,10 +270,11 @@
       "_key": "!actors.items!idz9VsiYJBiSrt7U.iIdPQj3TgDEaodsS"
     },
     {
-      "_id": "ElwpL1oE17BX0unC",
-      "name": "Soul Harvest",
+      "_id": "hEWjZ8H4jAQOZBvq",
+      "name": "Bursting Draining Spell",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Soul Harvest",
       "system": {
         "requires": [
           "incorporeal"
@@ -275,7 +310,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Soul Harvest"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Drain, Radius (Range 2), Strain 4",
         "description": ""
       },
@@ -286,13 +325,14 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!idz9VsiYJBiSrt7U.ElwpL1oE17BX0unC"
+      "_key": "!actors.items!idz9VsiYJBiSrt7U.hEWjZ8H4jAQOZBvq"
     },
     {
-      "_id": "RRn6QH3ZUlrVdNhE",
-      "name": "Grievous Curse",
+      "_id": "GF4f0ylXF5sr5FYN",
+      "name": "Lasting Weakening Spell",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Grievous Curse",
       "system": {
         "requires": [
           "incorporeal"
@@ -320,7 +360,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Grievous Curse"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, -1 [target Attribute] (1 minute), Strain 1",
         "description": ""
       },
@@ -331,17 +375,17 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!idz9VsiYJBiSrt7U.RRn6QH3ZUlrVdNhE"
+      "_key": "!actors.items!idz9VsiYJBiSrt7U.GF4f0ylXF5sr5FYN"
     },
     {
-      "_id": "WWyiFKb7oaB2k047",
-      "name": "Maiming Strike",
+      "_id": "nEUpdjP90JMusz06",
+      "name": "Piercing Weakening Strike 2",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Maiming Strike",
       "system": {
         "requires": [
-          "edged",
-          "pointed"
+          "melee"
         ],
         "innate": false,
         "skill": "prowess",
@@ -374,7 +418,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Maiming Strike"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Pierce 2, -1 [target Attribute]",
         "description": ""
       },
@@ -385,7 +433,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!idz9VsiYJBiSrt7U.WWyiFKb7oaB2k047"
+      "_key": "!actors.items!idz9VsiYJBiSrt7U.nEUpdjP90JMusz06"
     },
     {
       "_id": "xvHxM1nSGPV8LHNC",
@@ -419,7 +467,9 @@
           }
         ],
         "floor": false,
+        "formerNames": [],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, -1 Oppose (1 minute)",
         "description": ""
       },

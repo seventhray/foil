@@ -96,31 +96,25 @@
       "img": "icons/svg/claw.svg",
       "system": {
         "types": [
+          "arcane",
           "incorporeal"
         ],
         "range": "Range 1",
+        "maxRange": "close",
         "weight": "light",
         "innate": true,
+        "location": "equipped",
         "primaryAttribute": "wit",
         "category": "arcane",
         "price": 0,
         "kit": [
           {
-            "name": "Withering Curse",
+            "name": "Chilling Presence",
             "skill": "discipline",
-            "effect": "Applies Weakened [Might]."
-          },
-          {
-            "name": "Maddening Whisper",
-            "skill": "acuity",
             "effect": "Deals Stress to Wit or Presence."
-          },
-          {
-            "name": "Despairing Word",
-            "skill": "resonance",
-            "effect": "Applies Frightened."
           }
         ],
+        "backs": "",
         "description": ""
       },
       "effects": [],
@@ -139,31 +133,25 @@
       "img": "icons/svg/claw.svg",
       "system": {
         "types": [
+          "arcane",
           "incorporeal"
         ],
         "range": "Range 0",
+        "maxRange": "touching",
         "weight": "light",
         "innate": true,
+        "location": "equipped",
         "primaryAttribute": "wit",
         "category": "arcane",
         "price": 0,
         "kit": [
           {
-            "name": "Withering Curse",
+            "name": "Curse Touch",
             "skill": "discipline",
-            "effect": "Applies Weakened [Might]."
-          },
-          {
-            "name": "Maddening Whisper",
-            "skill": "acuity",
             "effect": "Deals Stress to Wit or Presence."
-          },
-          {
-            "name": "Despairing Word",
-            "skill": "resonance",
-            "effect": "Applies Frightened."
           }
         ],
+        "backs": "",
         "description": ""
       },
       "effects": [],
@@ -190,7 +178,9 @@
         "subgroup": "",
         "effects": [],
         "floor": true,
+        "formerNames": [],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "-1 Presence for 1 round",
         "description": ""
       },
@@ -227,7 +217,9 @@
           }
         ],
         "floor": false,
+        "formerNames": [],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Controlled",
         "description": ""
       },
@@ -265,10 +257,11 @@
       "_key": "!actors.items!q2iwtVVAC25DJ2aw.28FmAVbKdeHN3z7N"
     },
     {
-      "_id": "GBeKqHjIVfjnDH9C",
-      "name": "Cause Fear",
+      "_id": "BDJLJie0OzD117LE",
+      "name": "Frightening Spell",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Cause Fear",
       "system": {
         "requires": [
           "incorporeal"
@@ -296,7 +289,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Cause Fear"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Frightened",
         "description": ""
       },
@@ -307,13 +304,14 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!q2iwtVVAC25DJ2aw.GBeKqHjIVfjnDH9C"
+      "_key": "!actors.items!q2iwtVVAC25DJ2aw.BDJLJie0OzD117LE"
     },
     {
-      "_id": "Gs6oHRGzNB4JVFZJ",
-      "name": "Soul Leech",
+      "_id": "F7WA7GL0s8f7sqYz",
+      "name": "Draining Spell",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Soul Leech",
       "system": {
         "requires": [
           "incorporeal"
@@ -341,7 +339,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Soul Leech"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Drain",
         "description": ""
       },
@@ -352,7 +354,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!q2iwtVVAC25DJ2aw.Gs6oHRGzNB4JVFZJ"
+      "_key": "!actors.items!q2iwtVVAC25DJ2aw.F7WA7GL0s8f7sqYz"
     },
     {
       "_id": "6rVpCf2UzP89v0uS",
@@ -403,18 +405,24 @@
       "_key": "!actors.items!q2iwtVVAC25DJ2aw.ZnG8wCOFBtDBmWxc"
     },
     {
-      "_id": "IxO7fsooeTGeDjGY",
-      "name": "Specialized Resistance",
+      "_id": "6y1YMn0ccEWgJZDb",
+      "name": "Specialized Resistance (Melee)",
       "type": "feat",
       "img": "icons/svg/upgrade.svg",
       "system": {
         "featType": "trait",
-        "xpCost": 8,
+        "xpCost": 16,
         "requirements": "",
-        "effect": "8 XP, an incorporeal body.",
+        "effect": "Melee +2 Resistance: an incorporeal body.",
         "ancestry": "",
         "grantsTechnique": "",
-        "modifiers": [],
+        "modifiers": [
+          {
+            "type": "resistance",
+            "key": "melee",
+            "value": 2
+          }
+        ],
         "description": ""
       },
       "effects": [],
@@ -424,21 +432,27 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!q2iwtVVAC25DJ2aw.IxO7fsooeTGeDjGY"
+      "_key": "!actors.items!q2iwtVVAC25DJ2aw.6y1YMn0ccEWgJZDb"
     },
     {
-      "_id": "vjgiEEhun66i5bhC",
-      "name": "Specialized Resistance",
+      "_id": "odNafofwWRRh9Ogc",
+      "name": "Specialized Resistance (Ranged)",
       "type": "feat",
       "img": "icons/svg/upgrade.svg",
       "system": {
         "featType": "trait",
-        "xpCost": 8,
+        "xpCost": 16,
         "requirements": "",
-        "effect": "8 XP, an incorporeal body.",
+        "effect": "Ranged +2 Resistance: an incorporeal body.",
         "ancestry": "",
         "grantsTechnique": "",
-        "modifiers": [],
+        "modifiers": [
+          {
+            "type": "resistance",
+            "key": "ranged",
+            "value": 2
+          }
+        ],
         "description": ""
       },
       "effects": [],
@@ -448,31 +462,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!q2iwtVVAC25DJ2aw.vjgiEEhun66i5bhC"
-    },
-    {
-      "_id": "tnJDG6GEwBElBVFj",
-      "name": "Specialized Resistance",
-      "type": "feat",
-      "img": "icons/svg/upgrade.svg",
-      "system": {
-        "featType": "trait",
-        "xpCost": 8,
-        "requirements": "",
-        "effect": "8 XP, an incorporeal body.",
-        "ancestry": "",
-        "grantsTechnique": "",
-        "modifiers": [],
-        "description": ""
-      },
-      "effects": [],
-      "folder": null,
-      "sort": 1200000,
-      "ownership": {
-        "default": 0
-      },
-      "flags": {},
-      "_key": "!actors.items!q2iwtVVAC25DJ2aw.tnJDG6GEwBElBVFj"
+      "_key": "!actors.items!q2iwtVVAC25DJ2aw.odNafofwWRRh9Ogc"
     }
   ],
   "_key": "!actors!q2iwtVVAC25DJ2aw"

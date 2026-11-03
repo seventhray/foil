@@ -104,35 +104,34 @@
         "range": "Range 1",
         "maxRange": "close",
         "types": [
-          "edged",
-          "pointed",
-          "parry"
+          "melee",
+          "guarding"
         ],
         "typesDisplay": "",
-        "price": 45,
+        "price": 40,
         "rider": "",
+        "family": "Swords",
+        "backs": "Threaten",
         "kit": [
           {
-            "name": "Broad Cut",
+            "name": "Strike",
             "skill": "prowess",
-            "effect": "Deals Stress to Might or Finesse."
+            "effect": "Deals Stress to Might or Finesse.",
+            "signature": false
           },
           {
-            "name": "Wrest",
+            "name": "Disarm",
             "skill": "discipline",
-            "effect": "Disarms."
-          },
-          {
-            "name": "Challenge",
-            "skill": "assertiveness",
-            "effect": "Applies Baited."
+            "effect": "Disarms.",
+            "signature": true
           }
         ],
         "innate": false,
         "bonus": 0,
         "size": "medium",
         "materials": "2 Metal",
-        "description": ""
+        "description": "",
+        "location": "equipped"
       },
       "effects": [],
       "folder": null,
@@ -144,14 +143,14 @@
       "_key": "!actors.items!WyeRt2GUmc1Hsc0z.7qqZdXsZAf9qiXM0"
     },
     {
-      "_id": "qH7wCyo7TALbO3sj",
-      "name": "Gutting Blow",
+      "_id": "HPFaQ25FWs5ogxSw",
+      "name": "Piercing Weakening Strike 1",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Gutting Blow",
       "system": {
         "requires": [
-          "edged",
-          "pointed"
+          "melee"
         ],
         "innate": false,
         "skill": "prowess",
@@ -184,7 +183,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Gutting Blow"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Pierce 1, -1 [target Attribute]",
         "description": ""
       },
@@ -195,20 +198,17 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!WyeRt2GUmc1Hsc0z.qH7wCyo7TALbO3sj"
+      "_key": "!actors.items!WyeRt2GUmc1Hsc0z.HPFaQ25FWs5ogxSw"
     },
     {
-      "_id": "Hz0P2pJHhQhxb6dy",
-      "name": "Trip",
+      "_id": "3A6AFJ2dHkqLVGTx",
+      "name": "Toppling Strike",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Trip",
       "system": {
         "requires": [
-          "edged",
-          "pointed",
-          "blunt",
-          "grappling",
-          "parry"
+          "melee"
         ],
         "innate": false,
         "skill": "prowess",
@@ -233,7 +233,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Trip"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Prone",
         "description": ""
       },
@@ -244,7 +248,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!WyeRt2GUmc1Hsc0z.Hz0P2pJHhQhxb6dy"
+      "_key": "!actors.items!WyeRt2GUmc1Hsc0z.3A6AFJ2dHkqLVGTx"
     },
     {
       "_id": "v9FxSSymgfjSsGsm",

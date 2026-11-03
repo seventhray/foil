@@ -86,50 +86,7 @@
   },
   "items": [
     {
-      "_id": "Bsqz6IX9uglQ4aIS",
-      "name": "Quick hands",
-      "type": "instrument",
-      "img": "icons/svg/claw.svg",
-      "system": {
-        "types": [
-          "grappling"
-        ],
-        "range": "Range 1",
-        "weight": "light",
-        "innate": true,
-        "primaryAttribute": "might",
-        "category": "melee",
-        "price": 0,
-        "kit": [
-          {
-            "name": "Snare",
-            "skill": "prowess",
-            "effect": "Applies Grappled."
-          },
-          {
-            "name": "Tumble",
-            "skill": "acuity",
-            "effect": "Applies Prone."
-          },
-          {
-            "name": "Tangle",
-            "skill": "guile",
-            "effect": "Applies Restrained."
-          }
-        ],
-        "description": ""
-      },
-      "effects": [],
-      "folder": null,
-      "sort": 100000,
-      "ownership": {
-        "default": 0
-      },
-      "flags": {},
-      "_key": "!actors.items!mUf2mcDKuBxy7J27.Bsqz6IX9uglQ4aIS"
-    },
-    {
-      "_id": "zwHnDnSIXpNSn3KO",
+      "_id": "qNLXj5eLFeNv71jB",
       "name": "Dagger",
       "type": "instrument",
       "img": "icons/svg/sword.svg",
@@ -140,34 +97,83 @@
         "range": "Range 1",
         "maxRange": "close",
         "types": [
-          "edged",
-          "pointed",
-          "parry"
+          "melee",
+          "guarding",
+          "thrown"
         ],
         "typesDisplay": "",
-        "price": 30,
+        "price": 35,
         "rider": "",
+        "family": "Knives",
+        "backs": "Deceive",
         "kit": [
           {
-            "name": "Stab",
+            "name": "Strike",
             "skill": "prowess",
-            "effect": "Deals Stress to Might or Finesse."
+            "effect": "Deals Stress to Might or Finesse.",
+            "signature": false
           },
           {
-            "name": "Vital Strike",
+            "name": "Bleed",
             "skill": "acuity",
-            "effect": "Applies Weakened [Finesse]."
-          },
-          {
-            "name": "Low Feint",
-            "skill": "guile",
-            "effect": "Applies Reeling."
+            "effect": "Lingering 1.",
+            "signature": true
           }
         ],
         "innate": false,
         "bonus": 0,
         "size": "small",
         "materials": "1 Metal",
+        "description": "",
+        "location": "equipped"
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!mUf2mcDKuBxy7J27.qNLXj5eLFeNv71jB"
+    },
+    {
+      "_id": "gLHSVsPRBKqrydmD",
+      "name": "Body",
+      "type": "instrument",
+      "img": "icons/svg/combat.svg",
+      "system": {
+        "category": "innate",
+        "weight": "light",
+        "primaryAttribute": "might",
+        "range": "Range 1",
+        "maxRange": "close",
+        "types": [
+          "melee",
+          "grappling"
+        ],
+        "typesDisplay": "",
+        "price": 0,
+        "rider": "Innate: every character has it, free (PHB 2.5.3).",
+        "family": "",
+        "backs": "Threaten",
+        "kit": [
+          {
+            "name": "Strike",
+            "skill": "prowess",
+            "effect": "Deals Stress to Might or Finesse.",
+            "signature": false
+          },
+          {
+            "name": "Grapple",
+            "skill": "discipline",
+            "effect": "Applies Grappled.",
+            "signature": false
+          }
+        ],
+        "innate": true,
+        "bonus": 0,
+        "size": "medium",
+        "materials": "",
         "description": ""
       },
       "effects": [],
@@ -177,7 +183,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!mUf2mcDKuBxy7J27.zwHnDnSIXpNSn3KO"
+      "_key": "!actors.items!mUf2mcDKuBxy7J27.gLHSVsPRBKqrydmD"
     },
     {
       "_id": "3CGiT8ArYvxiQi6Y",
@@ -203,7 +209,9 @@
           }
         ],
         "floor": false,
+        "formerNames": [],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Disarm",
         "description": ""
       },
@@ -238,7 +246,9 @@
           }
         ],
         "floor": false,
+        "formerNames": [],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Evade",
         "description": ""
       },

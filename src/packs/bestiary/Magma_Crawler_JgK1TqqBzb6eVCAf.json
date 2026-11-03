@@ -96,31 +96,30 @@
       "img": "icons/svg/claw.svg",
       "system": {
         "types": [
-          "blunt"
+          "melee"
         ],
         "range": "Range 1",
+        "maxRange": "close",
         "weight": "light",
         "innate": true,
+        "location": "equipped",
         "primaryAttribute": "might",
         "category": "melee",
         "price": 0,
         "kit": [
           {
-            "name": "Bash",
+            "name": "Strike",
             "skill": "prowess",
             "effect": "Deals Stress to Might or Finesse."
           },
           {
-            "name": "Sweep",
-            "skill": "acuity",
-            "effect": "Applies Prone."
-          },
-          {
-            "name": "Feint Jab",
-            "skill": "guile",
-            "effect": "Applies Reeling."
+            "name": "Push",
+            "skill": "discipline",
+            "effect": "Moves the target up to Range 2.",
+            "signature": true
           }
         ],
+        "backs": "Threaten",
         "description": ""
       },
       "effects": [],
@@ -139,31 +138,25 @@
       "img": "icons/svg/claw.svg",
       "system": {
         "types": [
+          "arcane",
           "kinetic"
         ],
         "range": "Range 0",
+        "maxRange": "touching",
         "weight": "light",
         "innate": true,
+        "location": "equipped",
         "primaryAttribute": "wit",
         "category": "arcane",
         "price": 0,
         "kit": [
           {
-            "name": "Devastating Bolt",
+            "name": "Searing Touch",
             "skill": "discipline",
             "effect": "Deals Stress to Might or Finesse."
-          },
-          {
-            "name": "Disorienting Blast",
-            "skill": "acuity",
-            "effect": "Applies Reeling."
-          },
-          {
-            "name": "Overwhelming Force",
-            "skill": "resonance",
-            "effect": "Applies Prone."
           }
         ],
+        "backs": "",
         "description": ""
       },
       "effects": [],
@@ -207,7 +200,9 @@
           }
         ],
         "floor": true,
+        "formerNames": [],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Quick (trigger: a Melee Technique lands on this creature from Range 0 or 1): Stress",
         "description": ""
       },
@@ -221,10 +216,11 @@
       "_key": "!actors.items!JgK1TqqBzb6eVCAf.9jQbD0xkxyGyZUvX"
     },
     {
-      "_id": "2JDE93v47X29DL2T",
-      "name": "Searing Cinders",
+      "_id": "2PZiWWtQ4Z8sEUa1",
+      "name": "Lingering Force",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Searing Cinders",
       "system": {
         "requires": [
           "kinetic"
@@ -252,7 +248,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Searing Cinders"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Lingering 1",
         "description": ""
       },
@@ -263,16 +263,17 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!JgK1TqqBzb6eVCAf.2JDE93v47X29DL2T"
+      "_key": "!actors.items!JgK1TqqBzb6eVCAf.2PZiWWtQ4Z8sEUa1"
     },
     {
-      "_id": "hBrntyeZJgdtlx1N",
-      "name": "Break",
+      "_id": "Cg1RHxhktO3raIiZ",
+      "name": "Lasting Weakening Strike",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Break",
       "system": {
         "requires": [
-          "blunt"
+          "melee"
         ],
         "innate": false,
         "skill": "prowess",
@@ -297,7 +298,12 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Break",
+          "Sinew Cut"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, -1 [target Attribute] (1 minute), Strain 1",
         "description": ""
       },
@@ -308,7 +314,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!JgK1TqqBzb6eVCAf.hBrntyeZJgdtlx1N"
+      "_key": "!actors.items!JgK1TqqBzb6eVCAf.Cg1RHxhktO3raIiZ"
     },
     {
       "_id": "Px9eNVpPXeKmy2MX",
@@ -342,7 +348,9 @@
           }
         ],
         "floor": false,
+        "formerNames": [],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Radius (Range 2), Strain 2",
         "description": ""
       },
@@ -404,18 +412,24 @@
       "_key": "!actors.items!JgK1TqqBzb6eVCAf.w1Uv2kCUHphvjUyy"
     },
     {
-      "_id": "cpoBM8E0YU5EWvT2",
-      "name": "Specialized Resistance",
+      "_id": "xmW08tk4iUvTDswI",
+      "name": "Specialized Resistance (Kinetic)",
       "type": "feat",
       "img": "icons/svg/upgrade.svg",
       "system": {
         "featType": "trait",
         "xpCost": 16,
         "requirements": "",
-        "effect": "16 XP, a body of molten rock.",
+        "effect": "Kinetic +4 Resistance: a body of molten rock.",
         "ancestry": "",
         "grantsTechnique": "",
-        "modifiers": [],
+        "modifiers": [
+          {
+            "type": "resistance",
+            "key": "kinetic",
+            "value": 4
+          }
+        ],
         "description": ""
       },
       "effects": [],
@@ -425,7 +439,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!JgK1TqqBzb6eVCAf.cpoBM8E0YU5EWvT2"
+      "_key": "!actors.items!JgK1TqqBzb6eVCAf.xmW08tk4iUvTDswI"
     }
   ],
   "_key": "!actors!JgK1TqqBzb6eVCAf"

@@ -96,31 +96,30 @@
       "img": "icons/svg/claw.svg",
       "system": {
         "types": [
-          "blunt"
+          "melee"
         ],
         "range": "Range 1",
+        "maxRange": "close",
         "weight": "light",
         "innate": true,
+        "location": "equipped",
         "primaryAttribute": "might",
         "category": "melee",
         "price": 0,
         "kit": [
           {
-            "name": "Bash",
+            "name": "Strike",
             "skill": "prowess",
             "effect": "Deals Stress to Might or Finesse."
           },
           {
-            "name": "Sweep",
-            "skill": "acuity",
-            "effect": "Applies Prone."
-          },
-          {
-            "name": "Feint Jab",
-            "skill": "guile",
-            "effect": "Applies Reeling."
+            "name": "Push",
+            "skill": "discipline",
+            "effect": "Moves the target up to Range 2.",
+            "signature": true
           }
         ],
+        "backs": "Threaten",
         "description": ""
       },
       "effects": [],
@@ -139,31 +138,31 @@
       "img": "icons/svg/claw.svg",
       "system": {
         "types": [
+          "melee",
           "grappling"
         ],
         "range": "Range 0",
+        "maxRange": "touching",
         "weight": "light",
         "innate": true,
+        "location": "equipped",
         "primaryAttribute": "might",
         "category": "melee",
         "price": 0,
         "kit": [
           {
-            "name": "Snare",
+            "name": "Strike",
             "skill": "prowess",
-            "effect": "Applies Grappled."
+            "effect": "Deals Stress to Might or Finesse."
           },
           {
-            "name": "Tumble",
-            "skill": "acuity",
-            "effect": "Applies Prone."
-          },
-          {
-            "name": "Tangle",
-            "skill": "guile",
-            "effect": "Applies Restrained."
+            "name": "Restrain",
+            "skill": "discipline",
+            "effect": "Applies Restrained.",
+            "signature": true
           }
         ],
+        "backs": "Threaten",
         "description": "<p>its undertow.</p>"
       },
       "effects": [],
@@ -182,31 +181,25 @@
       "img": "icons/svg/claw.svg",
       "system": {
         "types": [
+          "arcane",
           "kinetic"
         ],
         "range": "Range 8",
+        "maxRange": "mid",
         "weight": "light",
         "innate": true,
+        "location": "equipped",
         "primaryAttribute": "wit",
         "category": "arcane",
         "price": 0,
         "kit": [
           {
-            "name": "Devastating Bolt",
+            "name": "Breath Weapon",
             "skill": "discipline",
             "effect": "Deals Stress to Might or Finesse."
-          },
-          {
-            "name": "Disorienting Blast",
-            "skill": "acuity",
-            "effect": "Applies Reeling."
-          },
-          {
-            "name": "Overwhelming Force",
-            "skill": "resonance",
-            "effect": "Applies Prone."
           }
         ],
+        "backs": "",
         "description": "<p>a jet of water.</p>"
       },
       "effects": [],
@@ -258,7 +251,9 @@
           }
         ],
         "floor": false,
+        "formerNames": [],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Prone, -1 [target Attribute] (1 minute), Strain 2",
         "description": ""
       },
@@ -272,10 +267,11 @@
       "_key": "!actors.items!4eKRuminpegug4hL.VMZdoWsGnIGzZ9pz"
     },
     {
-      "_id": "XJKjkDcROzQRo2eY",
-      "name": "Pin",
+      "_id": "3dBgnEOxr3tgGxaE",
+      "name": "Restraining Hold",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Pin",
       "system": {
         "requires": [
           "grappling"
@@ -303,7 +299,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Pin"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Restrained",
         "description": ""
       },
@@ -314,13 +314,14 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!4eKRuminpegug4hL.XJKjkDcROzQRo2eY"
+      "_key": "!actors.items!4eKRuminpegug4hL.3dBgnEOxr3tgGxaE"
     },
     {
-      "_id": "FA1yLbWIuEtkvFR5",
-      "name": "Cataclysmic Wave",
+      "_id": "9cLVveffKRgsKMdv",
+      "name": "Sweeping Pushing Force",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Cataclysmic Wave",
       "system": {
         "requires": [
           "kinetic"
@@ -356,7 +357,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Cataclysmic Wave"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Cone (Range 2), Move each target up to Range 2",
         "description": ""
       },
@@ -367,7 +372,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!4eKRuminpegug4hL.FA1yLbWIuEtkvFR5"
+      "_key": "!actors.items!4eKRuminpegug4hL.9cLVveffKRgsKMdv"
     },
     {
       "_id": "dZAlA0HTiKaJ7Tx2",
@@ -466,18 +471,24 @@
       "_key": "!actors.items!4eKRuminpegug4hL.nuSNChCHC31uq2WA"
     },
     {
-      "_id": "LWbuRj15uaBvbDOU",
-      "name": "Specialized Resistance",
+      "_id": "xdJysBpnxwhxru83",
+      "name": "Specialized Resistance (Melee)",
       "type": "feat",
       "img": "icons/svg/upgrade.svg",
       "system": {
         "featType": "trait",
         "xpCost": 8,
         "requirements": "",
-        "effect": "8 XP, water that closes behind a blade.",
+        "effect": "Melee +1 Resistance: water that closes behind a blade.",
         "ancestry": "",
         "grantsTechnique": "",
-        "modifiers": [],
+        "modifiers": [
+          {
+            "type": "resistance",
+            "key": "melee",
+            "value": 1
+          }
+        ],
         "description": ""
       },
       "effects": [],
@@ -487,7 +498,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!4eKRuminpegug4hL.LWbuRj15uaBvbDOU"
+      "_key": "!actors.items!4eKRuminpegug4hL.xdJysBpnxwhxru83"
     }
   ],
   "_key": "!actors!4eKRuminpegug4hL"

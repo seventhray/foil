@@ -99,31 +99,30 @@
       "img": "icons/svg/claw.svg",
       "system": {
         "types": [
-          "pointed"
+          "melee"
         ],
         "range": "Range 1",
+        "maxRange": "close",
         "weight": "light",
         "innate": true,
+        "location": "equipped",
         "primaryAttribute": "might",
         "category": "melee",
         "price": 0,
         "kit": [
           {
-            "name": "Stab",
+            "name": "Strike",
             "skill": "prowess",
             "effect": "Deals Stress to Might or Finesse."
           },
           {
-            "name": "Vital Strike",
-            "skill": "acuity",
-            "effect": "Applies Weakened [Finesse]."
-          },
-          {
-            "name": "Low Feint",
-            "skill": "guile",
-            "effect": "Applies Reeling."
+            "name": "Weaken",
+            "skill": "discipline",
+            "effect": "Applies Weakened [Finesse].",
+            "signature": true
           }
         ],
+        "backs": "Threaten",
         "description": ""
       },
       "effects": [],
@@ -142,31 +141,31 @@
       "img": "icons/svg/claw.svg",
       "system": {
         "types": [
+          "melee",
           "grappling"
         ],
         "range": "Range 0",
+        "maxRange": "touching",
         "weight": "light",
         "innate": true,
+        "location": "equipped",
         "primaryAttribute": "might",
         "category": "melee",
         "price": 0,
         "kit": [
           {
-            "name": "Snare",
+            "name": "Strike",
             "skill": "prowess",
-            "effect": "Applies Grappled."
+            "effect": "Deals Stress to Might or Finesse."
           },
           {
-            "name": "Tumble",
-            "skill": "acuity",
-            "effect": "Applies Prone."
-          },
-          {
-            "name": "Tangle",
-            "skill": "guile",
-            "effect": "Applies Restrained."
+            "name": "Restrain",
+            "skill": "discipline",
+            "effect": "Applies Restrained.",
+            "signature": true
           }
         ],
+        "backs": "Threaten",
         "description": ""
       },
       "effects": [],
@@ -185,31 +184,30 @@
       "img": "icons/svg/claw.svg",
       "system": {
         "types": [
-          "blunt"
+          "melee"
         ],
         "range": "Range 1",
+        "maxRange": "close",
         "weight": "light",
         "innate": true,
+        "location": "equipped",
         "primaryAttribute": "might",
         "category": "melee",
         "price": 0,
         "kit": [
           {
-            "name": "Bash",
+            "name": "Strike",
             "skill": "prowess",
             "effect": "Deals Stress to Might or Finesse."
           },
           {
-            "name": "Sweep",
-            "skill": "acuity",
-            "effect": "Applies Prone."
-          },
-          {
-            "name": "Feint Jab",
-            "skill": "guile",
-            "effect": "Applies Reeling."
+            "name": "Topple",
+            "skill": "discipline",
+            "effect": "Applies Prone.",
+            "signature": true
           }
         ],
+        "backs": "Threaten",
         "description": ""
       },
       "effects": [],
@@ -222,14 +220,14 @@
       "_key": "!actors.items!lwrDJsmRX2j9p0j3.rpbBQNaSRZvCsuY1"
     },
     {
-      "_id": "NpwkvYlz6wLlHXrp",
-      "name": "Maiming Strike",
+      "_id": "X4OX3hEewcxI953X",
+      "name": "Piercing Weakening Strike 2",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Maiming Strike",
       "system": {
         "requires": [
-          "edged",
-          "pointed"
+          "melee"
         ],
         "innate": false,
         "skill": "prowess",
@@ -262,7 +260,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Maiming Strike"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Pierce 2, -1 [target Attribute]",
         "description": ""
       },
@@ -273,7 +275,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!lwrDJsmRX2j9p0j3.NpwkvYlz6wLlHXrp"
+      "_key": "!actors.items!lwrDJsmRX2j9p0j3.X4OX3hEewcxI953X"
     },
     {
       "_id": "cdAasG8WbUe5XnB1",
@@ -282,7 +284,7 @@
       "img": "icons/svg/aura.svg",
       "system": {
         "requires": [
-          "blunt"
+          "melee"
         ],
         "innate": false,
         "skill": "prowess",
@@ -307,7 +309,9 @@
           }
         ],
         "floor": false,
+        "formerNames": [],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Cone (Range 1)",
         "description": ""
       },
@@ -360,7 +364,9 @@
           }
         ],
         "floor": false,
+        "formerNames": [],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Prone, -1 [target Attribute] (1 minute), Strain 2",
         "description": ""
       },
@@ -374,13 +380,14 @@
       "_key": "!actors.items!lwrDJsmRX2j9p0j3.mdOfu5wNrxDZ89OB"
     },
     {
-      "_id": "1wo9nBc6H2pAoB4j",
-      "name": "Break",
+      "_id": "y5K8wgKOWSgwcmLq",
+      "name": "Lasting Weakening Strike",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Break",
       "system": {
         "requires": [
-          "blunt"
+          "melee"
         ],
         "innate": false,
         "skill": "prowess",
@@ -405,7 +412,12 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Break",
+          "Sinew Cut"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, -1 [target Attribute] (1 minute), Strain 1",
         "description": ""
       },
@@ -416,7 +428,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!lwrDJsmRX2j9p0j3.1wo9nBc6H2pAoB4j"
+      "_key": "!actors.items!lwrDJsmRX2j9p0j3.y5K8wgKOWSgwcmLq"
     },
     {
       "_id": "Dpp9DjK4ZvzFoiHk",

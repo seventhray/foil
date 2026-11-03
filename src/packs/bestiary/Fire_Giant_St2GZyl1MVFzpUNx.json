@@ -101,34 +101,34 @@
         "range": "Range 1",
         "maxRange": "close",
         "types": [
-          "edged",
-          "pointed"
+          "melee",
+          "guarding"
         ],
         "typesDisplay": "",
-        "price": 60,
+        "price": 55,
         "rider": "",
+        "family": "Swords",
+        "backs": "Threaten",
         "kit": [
           {
-            "name": "Heavy Swing",
+            "name": "Strike",
             "skill": "prowess",
-            "effect": "Deals Stress to Might or Finesse."
+            "effect": "Deals Stress to Might or Finesse.",
+            "signature": false
           },
           {
-            "name": "Bowl Over",
+            "name": "Disarm",
             "skill": "discipline",
-            "effect": "Applies Prone."
-          },
-          {
-            "name": "Crushing Display",
-            "skill": "assertiveness",
-            "effect": "Applies Intimidated."
+            "effect": "Disarms.",
+            "signature": true
           }
         ],
         "innate": false,
         "bonus": 0,
         "size": "medium",
         "materials": "2 Metal",
-        "description": ""
+        "description": "",
+        "location": "equipped"
       },
       "effects": [],
       "folder": null,
@@ -140,14 +140,14 @@
       "_key": "!actors.items!St2GZyl1MVFzpUNx.DNBBhMWl4DNNYLzB"
     },
     {
-      "_id": "Jhk0I276sQ1TZEPJ",
-      "name": "Maiming Strike",
+      "_id": "6lG08x3ptga9NYUU",
+      "name": "Piercing Weakening Strike 2",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Maiming Strike",
       "system": {
         "requires": [
-          "edged",
-          "pointed"
+          "melee"
         ],
         "innate": false,
         "skill": "prowess",
@@ -180,7 +180,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Maiming Strike"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Pierce 2, -1 [target Attribute]",
         "description": ""
       },
@@ -191,20 +195,17 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!St2GZyl1MVFzpUNx.Jhk0I276sQ1TZEPJ"
+      "_key": "!actors.items!St2GZyl1MVFzpUNx.6lG08x3ptga9NYUU"
     },
     {
-      "_id": "Bx1OwCrOHa8CWYM9",
-      "name": "Trip",
+      "_id": "iSLwCwjfINlDwMz1",
+      "name": "Toppling Strike",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Trip",
       "system": {
         "requires": [
-          "edged",
-          "pointed",
-          "blunt",
-          "grappling",
-          "parry"
+          "melee"
         ],
         "innate": false,
         "skill": "prowess",
@@ -229,7 +230,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Trip"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Prone",
         "description": ""
       },
@@ -240,7 +245,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!St2GZyl1MVFzpUNx.Bx1OwCrOHa8CWYM9"
+      "_key": "!actors.items!St2GZyl1MVFzpUNx.iSLwCwjfINlDwMz1"
     },
     {
       "_id": "ifDQfbUhNlRQGqFh",
@@ -363,18 +368,24 @@
       "_key": "!actors.items!St2GZyl1MVFzpUNx.UUvnYxF9QdQ51HJo"
     },
     {
-      "_id": "U8hvqiHIyoTHYQCm",
-      "name": "Specialized Resistance",
+      "_id": "RcUVB1LW3XXPkRr1",
+      "name": "Specialized Resistance (Kinetic)",
       "type": "feat",
       "img": "icons/svg/upgrade.svg",
       "system": {
         "featType": "trait",
         "xpCost": 12,
         "requirements": "",
-        "effect": "12 XP, forged plate and a lifetime at the forge.",
+        "effect": "Kinetic +3 Resistance: forged plate and a lifetime at the forge.",
         "ancestry": "",
         "grantsTechnique": "",
-        "modifiers": [],
+        "modifiers": [
+          {
+            "type": "resistance",
+            "key": "kinetic",
+            "value": 3
+          }
+        ],
         "description": ""
       },
       "effects": [],
@@ -384,7 +395,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!St2GZyl1MVFzpUNx.U8hvqiHIyoTHYQCm"
+      "_key": "!actors.items!St2GZyl1MVFzpUNx.RcUVB1LW3XXPkRr1"
     }
   ],
   "_key": "!actors!St2GZyl1MVFzpUNx"

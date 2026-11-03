@@ -96,31 +96,30 @@
       "img": "icons/svg/claw.svg",
       "system": {
         "types": [
-          "blunt"
+          "melee"
         ],
         "range": "Range 1",
+        "maxRange": "close",
         "weight": "light",
         "innate": true,
+        "location": "equipped",
         "primaryAttribute": "might",
         "category": "melee",
         "price": 0,
         "kit": [
           {
-            "name": "Bash",
+            "name": "Strike",
             "skill": "prowess",
             "effect": "Deals Stress to Might or Finesse."
           },
           {
-            "name": "Sweep",
-            "skill": "acuity",
-            "effect": "Applies Prone."
-          },
-          {
-            "name": "Feint Jab",
-            "skill": "guile",
-            "effect": "Applies Reeling."
+            "name": "Push",
+            "skill": "discipline",
+            "effect": "Moves the target up to Range 2.",
+            "signature": true
           }
         ],
+        "backs": "Threaten",
         "description": ""
       },
       "effects": [],
@@ -139,31 +138,31 @@
       "img": "icons/svg/claw.svg",
       "system": {
         "types": [
+          "melee",
           "grappling"
         ],
         "range": "Range 1",
+        "maxRange": "close",
         "weight": "light",
         "innate": true,
+        "location": "equipped",
         "primaryAttribute": "might",
         "category": "melee",
         "price": 0,
         "kit": [
           {
-            "name": "Snare",
+            "name": "Strike",
             "skill": "prowess",
-            "effect": "Applies Grappled."
+            "effect": "Deals Stress to Might or Finesse."
           },
           {
-            "name": "Tumble",
-            "skill": "acuity",
-            "effect": "Applies Prone."
-          },
-          {
-            "name": "Tangle",
-            "skill": "guile",
-            "effect": "Applies Restrained."
+            "name": "Slow",
+            "skill": "discipline",
+            "effect": "Applies Slowed.",
+            "signature": true
           }
         ],
+        "backs": "Threaten",
         "description": ""
       },
       "effects": [],
@@ -207,7 +206,9 @@
           }
         ],
         "floor": false,
+        "formerNames": [],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Restrained",
         "description": ""
       },
@@ -252,7 +253,9 @@
           }
         ],
         "floor": false,
+        "formerNames": [],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Prone",
         "description": ""
       },

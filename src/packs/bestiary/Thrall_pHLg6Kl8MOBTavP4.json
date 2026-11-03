@@ -101,35 +101,34 @@
         "range": "Range 1",
         "maxRange": "close",
         "types": [
-          "edged",
-          "pointed",
-          "parry"
+          "melee",
+          "guarding"
         ],
         "typesDisplay": "",
-        "price": 30,
+        "price": 25,
         "rider": "",
+        "family": "Swords",
+        "backs": "Deceive",
         "kit": [
           {
-            "name": "Thrust",
+            "name": "Strike",
             "skill": "prowess",
-            "effect": "Deals Stress to Might or Finesse."
+            "effect": "Deals Stress to Might or Finesse.",
+            "signature": false
           },
           {
-            "name": "Precise Cut",
+            "name": "Disarm",
             "skill": "acuity",
-            "effect": "Applies Weakened [Finesse]."
-          },
-          {
-            "name": "Feinted Slash",
-            "skill": "guile",
-            "effect": "Applies Reeling."
+            "effect": "Disarms.",
+            "signature": true
           }
         ],
         "innate": false,
         "bonus": 0,
         "size": "small",
         "materials": "1 Metal",
-        "description": ""
+        "description": "",
+        "location": "equipped"
       },
       "effects": [],
       "folder": null,
@@ -141,14 +140,14 @@
       "_key": "!actors.items!pHLg6Kl8MOBTavP4.53MiWtXg8WPKDqze"
     },
     {
-      "_id": "34LM77LBL1jv06tz",
-      "name": "Rend",
+      "_id": "7QOZfXJ6dj6VWKt0",
+      "name": "Piercing Strike 2",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Rend",
       "system": {
         "requires": [
-          "edged",
-          "pointed"
+          "melee"
         ],
         "innate": false,
         "skill": "prowess",
@@ -173,7 +172,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Rend"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Pierce 2",
         "description": ""
       },
@@ -184,7 +187,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!pHLg6Kl8MOBTavP4.34LM77LBL1jv06tz"
+      "_key": "!actors.items!pHLg6Kl8MOBTavP4.7QOZfXJ6dj6VWKt0"
     },
     {
       "_id": "qjIsmLTdUnaAKN7t",

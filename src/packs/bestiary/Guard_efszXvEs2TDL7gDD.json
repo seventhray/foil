@@ -74,7 +74,7 @@
       }
     },
     "resistance": {
-      "physical": 1,
+      "physical": 0,
       "mental": 0
     },
     "notes": "<p><em>A paid guard in a leather coat, with a spear and a shield and orders to hold the door</em></p><p><strong>Habits</strong> Order Methodical: Rules exist because someone already learned the hard way; I'd rather not relearn it. Individualism Communal: I put myself between danger and whoever's behind me, without being asked.</p><p>Stands between the party and whoever pays it. The Guard falls back once its captain does.</p>"
@@ -104,34 +104,34 @@
         "range": "Range 2",
         "maxRange": "near",
         "types": [
-          "pointed",
-          "parry"
+          "melee",
+          "guarding"
         ],
         "typesDisplay": "",
         "price": 50,
         "rider": "",
+        "family": "Spears",
+        "backs": "Threaten",
         "kit": [
           {
-            "name": "Lunge",
+            "name": "Strike",
             "skill": "prowess",
-            "effect": "Deals Stress to Might or Finesse."
+            "effect": "Deals Stress to Might or Finesse.",
+            "signature": false
           },
           {
-            "name": "Topple",
+            "name": "Push",
             "skill": "discipline",
-            "effect": "Applies Prone."
-          },
-          {
-            "name": "War Cry",
-            "skill": "assertiveness",
-            "effect": "Applies Intimidated."
+            "effect": "Moves the target up to Range 2.",
+            "signature": true
           }
         ],
         "innate": false,
         "bonus": 0,
         "size": "medium",
         "materials": "1 Metal, 1 Wood",
-        "description": ""
+        "description": "",
+        "location": "equipped"
       },
       "effects": [],
       "folder": null,
@@ -146,35 +146,49 @@
       "_id": "FjozhD5KNQag01vI",
       "name": "Shield",
       "type": "instrument",
-      "img": "icons/svg/claw.svg",
+      "img": "icons/svg/shield.svg",
       "system": {
-        "types": [
-          "blocking"
-        ],
-        "range": "Range 1",
+        "category": "shield",
         "weight": "light",
-        "innate": true,
         "primaryAttribute": "might",
-        "category": "melee",
-        "price": 0,
+        "range": "Range 1",
+        "maxRange": "close",
+        "types": [
+          "melee",
+          "guarding"
+        ],
+        "typesDisplay": "",
+        "price": 40,
+        "rider": "",
+        "family": "Shields",
+        "backs": "Threaten",
         "kit": [
           {
-            "name": "Steel the Mind",
+            "name": "Strike",
+            "skill": "prowess",
+            "effect": "Deals Stress to Might or Finesse.",
+            "signature": false
+          },
+          {
+            "name": "Push",
             "skill": "discipline",
-            "effect": "Grants Resistance +1 (Mental) to self or an ally for 1 round."
-          },
-          {
-            "name": "Foresee the Blow",
-            "skill": "acuity",
-            "effect": "Grants +1 to an ally's next Oppose roll before your next turn."
-          },
-          {
-            "name": "Calm the Nerves",
-            "skill": "resonance",
-            "effect": "Removes a Frightened, Wary, or Intimidated Condition from an ally within Range 1."
+            "effect": "Moves the target up to Range 2.",
+            "signature": true
           }
         ],
-        "description": ""
+        "qualities": [
+          {
+            "key": "resistance",
+            "value": 1,
+            "param": "physical"
+          }
+        ],
+        "innate": false,
+        "bonus": 0,
+        "size": "medium",
+        "materials": "1 Wood",
+        "description": "",
+        "location": "equipped"
       },
       "effects": [],
       "folder": null,
@@ -186,20 +200,14 @@
       "_key": "!actors.items!efszXvEs2TDL7gDD.FjozhD5KNQag01vI"
     },
     {
-      "_id": "CACQKGg9Tdu5skqR",
-      "name": "Hinder",
+      "_id": "mBFB3LkhuHXnwddb",
+      "name": "Slow (Melee)",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Hinder",
       "system": {
         "requires": [
-          "edged",
-          "pointed",
-          "blunt",
-          "grappling",
-          "parry",
-          "thrown",
-          "drawn",
-          "fired"
+          "melee"
         ],
         "innate": false,
         "skill": "prowess",
@@ -216,7 +224,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Hinder"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Slowed",
         "description": ""
       },
@@ -227,7 +239,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!efszXvEs2TDL7gDD.CACQKGg9Tdu5skqR"
+      "_key": "!actors.items!efszXvEs2TDL7gDD.mBFB3LkhuHXnwddb"
     },
     {
       "_id": "vtOpix0GjQT70GHy",

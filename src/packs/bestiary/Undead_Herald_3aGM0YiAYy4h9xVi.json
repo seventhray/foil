@@ -104,35 +104,34 @@
         "range": "Range 1",
         "maxRange": "close",
         "types": [
-          "edged",
-          "pointed",
-          "parry"
+          "melee",
+          "guarding"
         ],
         "typesDisplay": "",
-        "price": 45,
+        "price": 40,
         "rider": "",
+        "family": "Swords",
+        "backs": "Threaten",
         "kit": [
           {
-            "name": "Broad Cut",
+            "name": "Strike",
             "skill": "prowess",
-            "effect": "Deals Stress to Might or Finesse."
+            "effect": "Deals Stress to Might or Finesse.",
+            "signature": false
           },
           {
-            "name": "Wrest",
+            "name": "Disarm",
             "skill": "discipline",
-            "effect": "Disarms."
-          },
-          {
-            "name": "Challenge",
-            "skill": "assertiveness",
-            "effect": "Applies Baited."
+            "effect": "Disarms.",
+            "signature": true
           }
         ],
         "innate": false,
         "bonus": 0,
         "size": "medium",
         "materials": "2 Metal",
-        "description": ""
+        "description": "",
+        "location": "equipped"
       },
       "effects": [],
       "folder": null,
@@ -153,28 +152,69 @@
         "weight": "light",
         "primaryAttribute": "presence",
         "range": "Range 8",
+        "maxRange": "mid",
         "types": [
-          "quick",
           "sonic"
         ],
         "typesDisplay": "",
         "price": 0,
         "rider": "Innate: every character has it, free (PHB 2.5.3).",
+        "family": "",
+        "backs": "",
         "kit": [
           {
-            "name": "Browbeat",
+            "name": "Threaten",
             "skill": "assertiveness",
-            "effect": "Deals Stress to Presence or Wit."
+            "effect": "Deals Stress to Wit or Presence.",
+            "signature": false
           },
           {
-            "name": "Mislead",
+            "name": "Threaten",
+            "skill": "assertiveness",
+            "effect": "Applies Intimidated.",
+            "signature": false
+          },
+          {
+            "name": "Threaten",
+            "skill": "assertiveness",
+            "effect": "Applies Frightened.",
+            "signature": false
+          },
+          {
+            "name": "Deceive",
             "skill": "guile",
-            "effect": "Applies Misled."
+            "effect": "Deals Stress to Wit or Presence.",
+            "signature": false
           },
           {
-            "name": "Sway",
+            "name": "Deceive",
+            "skill": "guile",
+            "effect": "Applies Misled.",
+            "signature": false
+          },
+          {
+            "name": "Deceive",
+            "skill": "guile",
+            "effect": "Applies Baited.",
+            "signature": false
+          },
+          {
+            "name": "Persuade",
             "skill": "resonance",
-            "effect": "Applies Swayed."
+            "effect": "Deals Stress to Wit or Presence.",
+            "signature": false
+          },
+          {
+            "name": "Persuade",
+            "skill": "resonance",
+            "effect": "Applies Swayed.",
+            "signature": false
+          },
+          {
+            "name": "Persuade",
+            "skill": "resonance",
+            "effect": "Applies Relaxed.",
+            "signature": false
           }
         ],
         "innate": true,
@@ -193,10 +233,11 @@
       "_key": "!actors.items!3aGM0YiAYy4h9xVi.bK6H0JX5lXQMkn7X"
     },
     {
-      "_id": "7tsjzwcVFVAKNCx5",
-      "name": "Keening Wail",
+      "_id": "RI2TzqMDtyn5JJdc",
+      "name": "Sweeping Frightening Weakening Cry",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Keening Wail",
       "system": {
         "requires": [
           "sonic"
@@ -240,7 +281,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Keening Wail"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, -1 [target Attribute], Frightened, Cone (Range 2), Strain 1",
         "description": ""
       },
@@ -251,7 +296,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!3aGM0YiAYy4h9xVi.7tsjzwcVFVAKNCx5"
+      "_key": "!actors.items!3aGM0YiAYy4h9xVi.RI2TzqMDtyn5JJdc"
     },
     {
       "_id": "IryWZOgdEBwLwcSE",
@@ -285,7 +330,9 @@
           }
         ],
         "floor": false,
+        "formerNames": [],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, -1 Oppose (1 minute)",
         "description": ""
       },
@@ -299,14 +346,14 @@
       "_key": "!actors.items!3aGM0YiAYy4h9xVi.IryWZOgdEBwLwcSE"
     },
     {
-      "_id": "f8FdgQPV0gBNVSGA",
-      "name": "Maiming Strike",
+      "_id": "sPKlZ6K4jnzOUuT6",
+      "name": "Piercing Weakening Strike 2",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Maiming Strike",
       "system": {
         "requires": [
-          "edged",
-          "pointed"
+          "melee"
         ],
         "innate": false,
         "skill": "prowess",
@@ -339,7 +386,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Maiming Strike"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Pierce 2, -1 [target Attribute]",
         "description": ""
       },
@@ -350,13 +401,14 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!3aGM0YiAYy4h9xVi.f8FdgQPV0gBNVSGA"
+      "_key": "!actors.items!3aGM0YiAYy4h9xVi.sPKlZ6K4jnzOUuT6"
     },
     {
-      "_id": "MtqjztzaP3bxjS1J",
-      "name": "Rally",
+      "_id": "N95IsswQVmMaSTwW",
+      "name": "Quick Bolstering Cry",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Rally",
       "system": {
         "requires": [
           "sonic"
@@ -384,8 +436,12 @@
             "untriggered": true
           }
         ],
-        "floor": false,
+        "floor": true,
+        "formerNames": [
+          "Rally"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Quick: +1 [Skill] to self or an ally",
         "description": ""
       },
@@ -396,7 +452,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!3aGM0YiAYy4h9xVi.MtqjztzaP3bxjS1J"
+      "_key": "!actors.items!3aGM0YiAYy4h9xVi.N95IsswQVmMaSTwW"
     },
     {
       "_id": "mmmCXmGJdQGSS2vV",

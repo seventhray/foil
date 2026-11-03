@@ -99,31 +99,25 @@
       "img": "icons/svg/claw.svg",
       "system": {
         "types": [
+          "arcane",
           "kinetic"
         ],
         "range": "Range 0",
+        "maxRange": "touching",
         "weight": "light",
         "innate": true,
+        "location": "equipped",
         "primaryAttribute": "wit",
         "category": "arcane",
         "price": 0,
         "kit": [
           {
-            "name": "Devastating Bolt",
+            "name": "Searing Touch",
             "skill": "discipline",
             "effect": "Deals Stress to Might or Finesse."
-          },
-          {
-            "name": "Disorienting Blast",
-            "skill": "acuity",
-            "effect": "Applies Reeling."
-          },
-          {
-            "name": "Overwhelming Force",
-            "skill": "resonance",
-            "effect": "Applies Prone."
           }
         ],
+        "backs": "",
         "description": ""
       },
       "effects": [],
@@ -142,31 +136,25 @@
       "img": "icons/svg/claw.svg",
       "system": {
         "types": [
+          "arcane",
           "incorporeal"
         ],
         "range": "Range 60",
+        "maxRange": "sight",
         "weight": "light",
         "innate": true,
+        "location": "equipped",
         "primaryAttribute": "wit",
         "category": "arcane",
         "price": 0,
         "kit": [
           {
-            "name": "Withering Curse",
+            "name": "Evil Eye",
             "skill": "discipline",
-            "effect": "Applies Weakened [Might]."
-          },
-          {
-            "name": "Maddening Whisper",
-            "skill": "acuity",
             "effect": "Deals Stress to Wit or Presence."
-          },
-          {
-            "name": "Despairing Word",
-            "skill": "resonance",
-            "effect": "Applies Frightened."
           }
         ],
+        "backs": "",
         "description": "<p>its burning gaze.</p>"
       },
       "effects": [],
@@ -210,7 +198,9 @@
           }
         ],
         "floor": false,
+        "formerNames": [],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Pierce 2",
         "description": ""
       },
@@ -255,7 +245,9 @@
           }
         ],
         "floor": true,
+        "formerNames": [],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Quick (trigger: a Melee Technique lands on this creature from Range 0 or 1): Stress",
         "description": ""
       },
@@ -300,7 +292,9 @@
           }
         ],
         "floor": false,
+        "formerNames": [],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Lingering 3",
         "description": ""
       },
@@ -314,8 +308,8 @@
       "_key": "!actors.items!wYQfWp7YPskwugQG.yb0CaPJvCu3fp7l4"
     },
     {
-      "_id": "6MciwXTe6QqyYEP8",
-      "name": "Death Throes",
+      "_id": "ADDuYPL1tfvZ4xgk",
+      "name": "Death Throes (Quick)",
       "type": "technique",
       "img": "icons/svg/aura.svg",
       "system": {
@@ -345,7 +339,9 @@
           }
         ],
         "floor": false,
+        "formerNames": [],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Radius (Range 2), Strain 2",
         "description": ""
       },
@@ -356,7 +352,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!wYQfWp7YPskwugQG.6MciwXTe6QqyYEP8"
+      "_key": "!actors.items!wYQfWp7YPskwugQG.ADDuYPL1tfvZ4xgk"
     },
     {
       "_id": "nx1rmGvBfySIaQ9J",

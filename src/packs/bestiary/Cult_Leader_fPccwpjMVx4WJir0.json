@@ -104,35 +104,35 @@
         "range": "Range 1",
         "maxRange": "close",
         "types": [
-          "edged",
-          "pointed",
-          "parry"
+          "melee",
+          "guarding",
+          "thrown"
         ],
         "typesDisplay": "",
-        "price": 30,
+        "price": 35,
         "rider": "",
+        "family": "Knives",
+        "backs": "Deceive",
         "kit": [
           {
-            "name": "Stab",
+            "name": "Strike",
             "skill": "prowess",
-            "effect": "Deals Stress to Might or Finesse."
+            "effect": "Deals Stress to Might or Finesse.",
+            "signature": false
           },
           {
-            "name": "Vital Strike",
+            "name": "Bleed",
             "skill": "acuity",
-            "effect": "Applies Weakened [Finesse]."
-          },
-          {
-            "name": "Low Feint",
-            "skill": "guile",
-            "effect": "Applies Reeling."
+            "effect": "Lingering 1.",
+            "signature": true
           }
         ],
         "innate": false,
         "bonus": 0,
         "size": "small",
         "materials": "1 Metal",
-        "description": ""
+        "description": "",
+        "location": "equipped"
       },
       "effects": [],
       "folder": null,
@@ -153,28 +153,69 @@
         "weight": "light",
         "primaryAttribute": "presence",
         "range": "Range 8",
+        "maxRange": "mid",
         "types": [
-          "quick",
           "sonic"
         ],
         "typesDisplay": "",
         "price": 0,
         "rider": "Innate: every character has it, free (PHB 2.5.3).",
+        "family": "",
+        "backs": "",
         "kit": [
           {
-            "name": "Browbeat",
+            "name": "Threaten",
             "skill": "assertiveness",
-            "effect": "Deals Stress to Presence or Wit."
+            "effect": "Deals Stress to Wit or Presence.",
+            "signature": false
           },
           {
-            "name": "Mislead",
+            "name": "Threaten",
+            "skill": "assertiveness",
+            "effect": "Applies Intimidated.",
+            "signature": false
+          },
+          {
+            "name": "Threaten",
+            "skill": "assertiveness",
+            "effect": "Applies Frightened.",
+            "signature": false
+          },
+          {
+            "name": "Deceive",
             "skill": "guile",
-            "effect": "Applies Misled."
+            "effect": "Deals Stress to Wit or Presence.",
+            "signature": false
           },
           {
-            "name": "Sway",
+            "name": "Deceive",
+            "skill": "guile",
+            "effect": "Applies Misled.",
+            "signature": false
+          },
+          {
+            "name": "Deceive",
+            "skill": "guile",
+            "effect": "Applies Baited.",
+            "signature": false
+          },
+          {
+            "name": "Persuade",
             "skill": "resonance",
-            "effect": "Applies Swayed."
+            "effect": "Deals Stress to Wit or Presence.",
+            "signature": false
+          },
+          {
+            "name": "Persuade",
+            "skill": "resonance",
+            "effect": "Applies Swayed.",
+            "signature": false
+          },
+          {
+            "name": "Persuade",
+            "skill": "resonance",
+            "effect": "Applies Relaxed.",
+            "signature": false
           }
         ],
         "innate": true,
@@ -202,28 +243,34 @@
         "weight": "light",
         "primaryAttribute": "wit",
         "range": "Range 2",
+        "maxRange": "near",
         "types": [
-          "quick",
+          "arcane",
           "incorporeal"
         ],
         "typesDisplay": "",
         "price": 0,
         "rider": "Innate: every character has it, free (PHB 2.5.3).",
+        "family": "",
+        "backs": "",
         "kit": [
           {
             "name": "Deduce",
             "skill": "discipline",
-            "effect": "Works out a problem or recalls a fact."
+            "effect": "Solves a problem or recalls a fact.",
+            "signature": false
           },
           {
             "name": "Analyze",
             "skill": "acuity",
-            "effect": "Learns a creature's Attributes, or notices something specific."
+            "effect": "Learns a creature's Attributes, or notices something specific.",
+            "signature": false
           },
           {
             "name": "Intuit",
             "skill": "resonance",
-            "effect": "Applies Foil Exposed, or gives insight into a situation."
+            "effect": "Applies Foil Exposed, or gives insight into a situation.",
+            "signature": false
           }
         ],
         "innate": true,
@@ -273,7 +320,9 @@
           }
         ],
         "floor": false,
+        "formerNames": [],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, -1 [target Attribute] (1 minute), Strain 1",
         "description": ""
       },
@@ -287,10 +336,11 @@
       "_key": "!actors.items!fPccwpjMVx4WJir0.TEdyCusMllsniCTK"
     },
     {
-      "_id": "cMUWc3ClzFtoGI5E",
-      "name": "Dread Cry",
+      "_id": "evJNiosGpa70dTJ2",
+      "name": "Frightening Cry",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Dread Cry",
       "system": {
         "requires": [
           "sonic"
@@ -318,7 +368,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Dread Cry"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Frightened",
         "description": ""
       },
@@ -329,13 +383,14 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!fPccwpjMVx4WJir0.cMUWc3ClzFtoGI5E"
+      "_key": "!actors.items!fPccwpjMVx4WJir0.evJNiosGpa70dTJ2"
     },
     {
-      "_id": "r2aKfVE6xaSdDDn4",
-      "name": "Beguile",
+      "_id": "guiRYA1fDJ0OfyXc",
+      "name": "Charm (Sonic)",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Beguile",
       "system": {
         "requires": [
           "sonic"
@@ -355,7 +410,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Beguile"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Charmed",
         "description": ""
       },
@@ -366,13 +425,14 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!fPccwpjMVx4WJir0.r2aKfVE6xaSdDDn4"
+      "_key": "!actors.items!fPccwpjMVx4WJir0.guiRYA1fDJ0OfyXc"
     },
     {
-      "_id": "jZCVzWCNUPxBpmYp",
-      "name": "Rally",
+      "_id": "GoMtvGZmHyB9r3MK",
+      "name": "Quick Bolstering Cry",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Rally",
       "system": {
         "requires": [
           "sonic"
@@ -400,8 +460,12 @@
             "untriggered": true
           }
         ],
-        "floor": false,
+        "floor": true,
+        "formerNames": [
+          "Rally"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Quick: +1 [Skill] to self or an ally",
         "description": ""
       },
@@ -412,7 +476,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!fPccwpjMVx4WJir0.jZCVzWCNUPxBpmYp"
+      "_key": "!actors.items!fPccwpjMVx4WJir0.GoMtvGZmHyB9r3MK"
     },
     {
       "_id": "iy6Y0eLoAoK2aorX",

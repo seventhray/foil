@@ -96,31 +96,30 @@
       "img": "icons/svg/claw.svg",
       "system": {
         "types": [
-          "edged"
+          "melee"
         ],
         "range": "Range 1",
+        "maxRange": "close",
         "weight": "light",
         "innate": true,
+        "location": "equipped",
         "primaryAttribute": "might",
         "category": "melee",
         "price": 0,
         "kit": [
           {
-            "name": "Stab",
+            "name": "Strike",
             "skill": "prowess",
             "effect": "Deals Stress to Might or Finesse."
           },
           {
-            "name": "Vital Strike",
-            "skill": "acuity",
-            "effect": "Applies Weakened [Finesse]."
-          },
-          {
-            "name": "Low Feint",
-            "skill": "guile",
-            "effect": "Applies Reeling."
+            "name": "Bleed",
+            "skill": "discipline",
+            "effect": "Lingering 1.",
+            "signature": true
           }
         ],
+        "backs": "Threaten",
         "description": ""
       },
       "effects": [],
@@ -139,31 +138,30 @@
       "img": "icons/svg/claw.svg",
       "system": {
         "types": [
-          "pointed"
+          "melee"
         ],
         "range": "Range 1",
+        "maxRange": "close",
         "weight": "light",
         "innate": true,
+        "location": "equipped",
         "primaryAttribute": "might",
         "category": "melee",
         "price": 0,
         "kit": [
           {
-            "name": "Stab",
+            "name": "Strike",
             "skill": "prowess",
             "effect": "Deals Stress to Might or Finesse."
           },
           {
-            "name": "Vital Strike",
-            "skill": "acuity",
-            "effect": "Applies Weakened [Finesse]."
-          },
-          {
-            "name": "Low Feint",
-            "skill": "guile",
-            "effect": "Applies Reeling."
+            "name": "Weaken",
+            "skill": "discipline",
+            "effect": "Applies Weakened [Finesse].",
+            "signature": true
           }
         ],
+        "backs": "Threaten",
         "description": ""
       },
       "effects": [],
@@ -182,7 +180,7 @@
       "img": "icons/svg/aura.svg",
       "system": {
         "requires": [
-          "edged"
+          "melee"
         ],
         "innate": false,
         "skill": "prowess",
@@ -207,7 +205,9 @@
           }
         ],
         "floor": false,
+        "formerNames": [],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Prone",
         "description": ""
       },
@@ -221,13 +221,14 @@
       "_key": "!actors.items!xSivgo474WMFuxvi.q8PX8C1XofYRzAok"
     },
     {
-      "_id": "3fwRmvCpjhRcnyW5",
-      "name": "Hamstring",
+      "_id": "KifdrlkoJcmeOpIv",
+      "name": "Weakening Strike",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Concuss",
       "system": {
         "requires": [
-          "edged"
+          "melee"
         ],
         "innate": false,
         "skill": "prowess",
@@ -252,7 +253,12 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Concuss",
+          "Hamstring"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, -1 [target Attribute]",
         "description": ""
       },
@@ -263,7 +269,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!xSivgo474WMFuxvi.3fwRmvCpjhRcnyW5"
+      "_key": "!actors.items!xSivgo474WMFuxvi.KifdrlkoJcmeOpIv"
     },
     {
       "_id": "PW9wuOtIvDaWXUiX",
@@ -335,7 +341,9 @@
           }
         ],
         "floor": false,
+        "formerNames": [],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Evade",
         "description": ""
       },

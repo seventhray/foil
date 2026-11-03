@@ -99,31 +99,25 @@
       "img": "icons/svg/claw.svg",
       "system": {
         "types": [
+          "arcane",
           "incorporeal"
         ],
         "range": "Range 8",
+        "maxRange": "mid",
         "weight": "light",
         "innate": true,
+        "location": "equipped",
         "primaryAttribute": "wit",
         "category": "arcane",
         "price": 0,
         "kit": [
           {
-            "name": "Withering Curse",
+            "name": "Mind Lash",
             "skill": "discipline",
-            "effect": "Applies Weakened [Might]."
-          },
-          {
-            "name": "Maddening Whisper",
-            "skill": "acuity",
             "effect": "Deals Stress to Wit or Presence."
-          },
-          {
-            "name": "Despairing Word",
-            "skill": "resonance",
-            "effect": "Applies Frightened."
           }
         ],
+        "backs": "",
         "description": ""
       },
       "effects": [],
@@ -142,31 +136,31 @@
       "img": "icons/svg/claw.svg",
       "system": {
         "types": [
+          "melee",
           "grappling"
         ],
         "range": "Range 2",
+        "maxRange": "near",
         "weight": "light",
         "innate": true,
+        "location": "equipped",
         "primaryAttribute": "might",
         "category": "melee",
         "price": 0,
         "kit": [
           {
-            "name": "Snare",
+            "name": "Strike",
             "skill": "prowess",
-            "effect": "Applies Grappled."
+            "effect": "Deals Stress to Might or Finesse."
           },
           {
-            "name": "Tumble",
-            "skill": "acuity",
-            "effect": "Applies Prone."
-          },
-          {
-            "name": "Tangle",
-            "skill": "guile",
-            "effect": "Applies Restrained."
+            "name": "Restrain",
+            "skill": "discipline",
+            "effect": "Applies Restrained.",
+            "signature": true
           }
         ],
+        "backs": "Threaten",
         "description": ""
       },
       "effects": [],
@@ -179,10 +173,11 @@
       "_key": "!actors.items!NxqS5UdVkK0gOFDw.q64juKa83aZ6K7Jb"
     },
     {
-      "_id": "lx6KdXk6IlSmdDrc",
-      "name": "Fog of Madness",
+      "_id": "9KUig0AReyRnGacf",
+      "name": "Bursting Weakening Spell",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Fog of Madness",
       "system": {
         "requires": [
           "incorporeal"
@@ -218,7 +213,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Fog of Madness"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, -1 [target Attribute], Radius (Range 2), Strain 3",
         "description": ""
       },
@@ -229,13 +228,14 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!NxqS5UdVkK0gOFDw.lx6KdXk6IlSmdDrc"
+      "_key": "!actors.items!NxqS5UdVkK0gOFDw.9KUig0AReyRnGacf"
     },
     {
-      "_id": "hnQFHOLWKm71Aazs",
-      "name": "Waking Nightmare",
+      "_id": "OtnVUw3m17q6Cb0j",
+      "name": "Pushing Lasting Weakening Spell",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Waking Nightmare",
       "system": {
         "requires": [
           "incorporeal"
@@ -271,7 +271,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Waking Nightmare"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, -1 [target Attribute] (1 minute), Move the target up to Range 2, Strain 2",
         "description": ""
       },
@@ -282,13 +286,14 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!NxqS5UdVkK0gOFDw.hnQFHOLWKm71Aazs"
+      "_key": "!actors.items!NxqS5UdVkK0gOFDw.OtnVUw3m17q6Cb0j"
     },
     {
-      "_id": "95H0vwNRW0kVkH0C",
-      "name": "Dominate",
+      "_id": "PYXWjOjG9AOlE1K9",
+      "name": "Control, Held (Incorporeal)",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Dominate",
       "system": {
         "requires": [
           "incorporeal"
@@ -316,7 +321,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Dominate"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Controlled, Upkeep, Strain 1",
         "description": ""
       },
@@ -327,7 +336,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!NxqS5UdVkK0gOFDw.95H0vwNRW0kVkH0C"
+      "_key": "!actors.items!NxqS5UdVkK0gOFDw.PYXWjOjG9AOlE1K9"
     },
     {
       "_id": "yjSd6YI3B7wpiFDV",
@@ -361,7 +370,9 @@
           }
         ],
         "floor": false,
+        "formerNames": [],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, -1 [target Attribute] (1 minute), Strain 1",
         "description": ""
       },

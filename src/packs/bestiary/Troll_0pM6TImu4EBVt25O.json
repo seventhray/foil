@@ -96,31 +96,30 @@
       "img": "icons/svg/claw.svg",
       "system": {
         "types": [
-          "edged"
+          "melee"
         ],
         "range": "Range 1",
+        "maxRange": "close",
         "weight": "light",
         "innate": true,
+        "location": "equipped",
         "primaryAttribute": "might",
         "category": "melee",
         "price": 0,
         "kit": [
           {
-            "name": "Stab",
+            "name": "Strike",
             "skill": "prowess",
             "effect": "Deals Stress to Might or Finesse."
           },
           {
-            "name": "Vital Strike",
-            "skill": "acuity",
-            "effect": "Applies Weakened [Finesse]."
-          },
-          {
-            "name": "Low Feint",
-            "skill": "guile",
-            "effect": "Applies Reeling."
+            "name": "Bleed",
+            "skill": "discipline",
+            "effect": "Lingering 1.",
+            "signature": true
           }
         ],
+        "backs": "Threaten",
         "description": ""
       },
       "effects": [],
@@ -133,14 +132,14 @@
       "_key": "!actors.items!0pM6TImu4EBVt25O.fa0VNSVa6fvnaBK2"
     },
     {
-      "_id": "7gA0pkwjqKH13giz",
-      "name": "Rend",
+      "_id": "svOYPfI0CgctTteF",
+      "name": "Piercing Strike 2",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Rend",
       "system": {
         "requires": [
-          "edged",
-          "pointed"
+          "melee"
         ],
         "innate": false,
         "skill": "prowess",
@@ -165,7 +164,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Rend"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Pierce 2",
         "description": ""
       },
@@ -176,20 +179,17 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!0pM6TImu4EBVt25O.7gA0pkwjqKH13giz"
+      "_key": "!actors.items!0pM6TImu4EBVt25O.svOYPfI0CgctTteF"
     },
     {
-      "_id": "uULBAQ0n41R23Txs",
-      "name": "Trip",
+      "_id": "rQCRNGVM5ALEVhLE",
+      "name": "Toppling Strike",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Trip",
       "system": {
         "requires": [
-          "edged",
-          "pointed",
-          "blunt",
-          "grappling",
-          "parry"
+          "melee"
         ],
         "innate": false,
         "skill": "prowess",
@@ -214,7 +214,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Trip"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Prone",
         "description": ""
       },
@@ -225,7 +229,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!0pM6TImu4EBVt25O.uULBAQ0n41R23Txs"
+      "_key": "!actors.items!0pM6TImu4EBVt25O.rQCRNGVM5ALEVhLE"
     },
     {
       "_id": "uhwxSg4D4Ik4nX7L",

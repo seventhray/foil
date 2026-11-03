@@ -96,31 +96,30 @@
       "img": "icons/svg/claw.svg",
       "system": {
         "types": [
-          "pointed"
+          "melee"
         ],
         "range": "Range 1",
+        "maxRange": "close",
         "weight": "light",
         "innate": true,
+        "location": "equipped",
         "primaryAttribute": "might",
         "category": "melee",
         "price": 0,
         "kit": [
           {
-            "name": "Stab",
+            "name": "Strike",
             "skill": "prowess",
             "effect": "Deals Stress to Might or Finesse."
           },
           {
-            "name": "Vital Strike",
-            "skill": "acuity",
-            "effect": "Applies Weakened [Finesse]."
-          },
-          {
-            "name": "Low Feint",
-            "skill": "guile",
-            "effect": "Applies Reeling."
+            "name": "Weaken",
+            "skill": "discipline",
+            "effect": "Applies Weakened [Finesse].",
+            "signature": true
           }
         ],
+        "backs": "Threaten",
         "description": ""
       },
       "effects": [],
@@ -139,31 +138,31 @@
       "img": "icons/svg/claw.svg",
       "system": {
         "types": [
+          "melee",
           "grappling"
         ],
         "range": "Range 0",
+        "maxRange": "touching",
         "weight": "light",
         "innate": true,
+        "location": "equipped",
         "primaryAttribute": "might",
         "category": "melee",
         "price": 0,
         "kit": [
           {
-            "name": "Snare",
+            "name": "Strike",
             "skill": "prowess",
-            "effect": "Applies Grappled."
+            "effect": "Deals Stress to Might or Finesse."
           },
           {
-            "name": "Tumble",
-            "skill": "acuity",
-            "effect": "Applies Prone."
-          },
-          {
-            "name": "Tangle",
-            "skill": "guile",
-            "effect": "Applies Restrained."
+            "name": "Restrain",
+            "skill": "discipline",
+            "effect": "Applies Restrained.",
+            "signature": true
           }
         ],
+        "backs": "Threaten",
         "description": ""
       },
       "effects": [],
@@ -182,31 +181,25 @@
       "img": "icons/svg/claw.svg",
       "system": {
         "types": [
+          "arcane",
           "incorporeal"
         ],
         "range": "Range 0",
+        "maxRange": "touching",
         "weight": "light",
         "innate": true,
+        "location": "equipped",
         "primaryAttribute": "wit",
         "category": "arcane",
         "price": 0,
         "kit": [
           {
-            "name": "Withering Curse",
+            "name": "Siphoning Maw",
             "skill": "discipline",
-            "effect": "Applies Weakened [Might]."
-          },
-          {
-            "name": "Maddening Whisper",
-            "skill": "acuity",
             "effect": "Deals Stress to Wit or Presence."
-          },
-          {
-            "name": "Despairing Word",
-            "skill": "resonance",
-            "effect": "Applies Frightened."
           }
         ],
+        "backs": "",
         "description": ""
       },
       "effects": [],
@@ -250,7 +243,9 @@
           }
         ],
         "floor": false,
+        "formerNames": [],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Drain",
         "description": ""
       },
@@ -264,10 +259,11 @@
       "_key": "!actors.items!B69M3gmE5CfCwotK.qcNCG1xF9uOOvdYa"
     },
     {
-      "_id": "tQGGXmJCMQWcDsyG",
-      "name": "Vampiric Blight",
+      "_id": "YiyKGAkgWhDgfWx9",
+      "name": "Lingering Draining Spell",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Vampiric Blight",
       "system": {
         "requires": [
           "incorporeal"
@@ -303,7 +299,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Vampiric Blight"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Drain, Lingering 1",
         "description": ""
       },
@@ -314,7 +314,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!B69M3gmE5CfCwotK.tQGGXmJCMQWcDsyG"
+      "_key": "!actors.items!B69M3gmE5CfCwotK.YiyKGAkgWhDgfWx9"
     },
     {
       "_id": "iCObspkbuDmqCbLc",
@@ -348,7 +348,9 @@
           }
         ],
         "floor": false,
+        "formerNames": [],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Restrained",
         "description": ""
       },
@@ -362,14 +364,14 @@
       "_key": "!actors.items!B69M3gmE5CfCwotK.iCObspkbuDmqCbLc"
     },
     {
-      "_id": "6MSBHsfq11KfEs2C",
-      "name": "Maiming Strike",
+      "_id": "mA1NWXM0GEoIGCVL",
+      "name": "Piercing Weakening Strike 2",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Maiming Strike",
       "system": {
         "requires": [
-          "edged",
-          "pointed"
+          "melee"
         ],
         "innate": false,
         "skill": "prowess",
@@ -402,7 +404,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Maiming Strike"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Pierce 2, -1 [target Attribute]",
         "description": ""
       },
@@ -413,7 +419,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!B69M3gmE5CfCwotK.6MSBHsfq11KfEs2C"
+      "_key": "!actors.items!B69M3gmE5CfCwotK.mA1NWXM0GEoIGCVL"
     },
     {
       "_id": "YJWWsSTbXZgdAAzs",

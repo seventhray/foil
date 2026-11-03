@@ -97,35 +97,34 @@
         "range": "Range 1",
         "maxRange": "close",
         "types": [
-          "edged",
-          "pointed",
-          "parry"
+          "melee",
+          "guarding"
         ],
         "typesDisplay": "",
-        "price": 30,
+        "price": 25,
         "rider": "",
+        "family": "Swords",
+        "backs": "Deceive",
         "kit": [
           {
-            "name": "Thrust",
+            "name": "Strike",
             "skill": "prowess",
-            "effect": "Deals Stress to Might or Finesse."
+            "effect": "Deals Stress to Might or Finesse.",
+            "signature": false
           },
           {
-            "name": "Precise Cut",
+            "name": "Disarm",
             "skill": "acuity",
-            "effect": "Applies Weakened [Finesse]."
-          },
-          {
-            "name": "Feinted Slash",
-            "skill": "guile",
-            "effect": "Applies Reeling."
+            "effect": "Disarms.",
+            "signature": true
           }
         ],
         "innate": false,
         "bonus": 0,
         "size": "small",
         "materials": "1 Metal",
-        "description": ""
+        "description": "",
+        "location": "equipped"
       },
       "effects": [],
       "folder": null,
@@ -137,7 +136,49 @@
       "_key": "!actors.items!kGylp3xwrxZLTzIm.yJDvsln6h8nz0rNr"
     },
     {
-      "_id": "RD86ZRBGANBp96Qb",
+      "_id": "dlA8JIeULjiVNr4N",
+      "name": "Reel (Melee)",
+      "type": "technique",
+      "img": "icons/svg/aura.svg",
+      "idName": "Fluster",
+      "system": {
+        "requires": [
+          "melee"
+        ],
+        "innate": false,
+        "skill": "prowess",
+        "family": "Melee",
+        "subgroup": "Control",
+        "effects": [
+          {
+            "key": "reeling",
+            "magnitude": 1,
+            "pattern": "single",
+            "bands": 0,
+            "placement": 0,
+            "selectiveR": 0
+          }
+        ],
+        "floor": false,
+        "formerNames": [
+          "Fluster"
+        ],
+        "ancestryGrant": "",
+        "grantedBy": "",
+        "effectText": "-1 Oppose",
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!kGylp3xwrxZLTzIm.dlA8JIeULjiVNr4N"
+    },
+    {
+      "_id": "j0eGKktdSTJYzQAA",
       "name": "Specialized Immunity [Frightened]",
       "type": "feat",
       "img": "icons/svg/upgrade.svg",
@@ -153,36 +194,12 @@
       },
       "effects": [],
       "folder": null,
-      "sort": 200000,
-      "ownership": {
-        "default": 0
-      },
-      "flags": {},
-      "_key": "!actors.items!kGylp3xwrxZLTzIm.RD86ZRBGANBp96Qb"
-    },
-    {
-      "_id": "1qUvd2HBUzoGb60o",
-      "name": "Specialized Resistance",
-      "type": "feat",
-      "img": "icons/svg/upgrade.svg",
-      "system": {
-        "featType": "trait",
-        "xpCost": 4,
-        "requirements": "",
-        "effect": "4 XP, bare bone with nothing to pierce.",
-        "ancestry": "",
-        "grantsTechnique": "",
-        "modifiers": [],
-        "description": ""
-      },
-      "effects": [],
-      "folder": null,
       "sort": 300000,
       "ownership": {
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!kGylp3xwrxZLTzIm.1qUvd2HBUzoGb60o"
+      "_key": "!actors.items!kGylp3xwrxZLTzIm.j0eGKktdSTJYzQAA"
     }
   ],
   "_key": "!actors!kGylp3xwrxZLTzIm"

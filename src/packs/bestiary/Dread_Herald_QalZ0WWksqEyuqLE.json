@@ -99,31 +99,30 @@
       "img": "icons/svg/claw.svg",
       "system": {
         "types": [
-          "edged"
+          "melee"
         ],
         "range": "Range 1",
+        "maxRange": "close",
         "weight": "light",
         "innate": true,
+        "location": "equipped",
         "primaryAttribute": "might",
         "category": "melee",
         "price": 0,
         "kit": [
           {
-            "name": "Stab",
+            "name": "Strike",
             "skill": "prowess",
             "effect": "Deals Stress to Might or Finesse."
           },
           {
-            "name": "Vital Strike",
-            "skill": "acuity",
-            "effect": "Applies Weakened [Finesse]."
-          },
-          {
-            "name": "Low Feint",
-            "skill": "guile",
-            "effect": "Applies Reeling."
+            "name": "Bleed",
+            "skill": "discipline",
+            "effect": "Lingering 1.",
+            "signature": true
           }
         ],
+        "backs": "Threaten",
         "description": ""
       },
       "effects": [],
@@ -145,28 +144,27 @@
           "sonic"
         ],
         "range": "Range 8",
+        "maxRange": "mid",
         "weight": "light",
         "innate": true,
+        "location": "equipped",
         "primaryAttribute": "presence",
         "category": "sonic",
         "price": 0,
         "kit": [
           {
-            "name": "Rousing Chord",
-            "skill": "assertiveness",
-            "effect": "Applies Intimidated."
-          },
-          {
-            "name": "Cutting Verse",
-            "skill": "guile",
-            "effect": "Applies Baited."
-          },
-          {
-            "name": "Discordant Note",
-            "skill": "resonance",
+            "name": "Cry",
+            "skill": "prowess",
             "effect": "Deals Stress to Wit or Presence."
+          },
+          {
+            "name": "Reel",
+            "skill": "guile",
+            "effect": "Applies Reeling.",
+            "signature": true
           }
         ],
+        "backs": "",
         "description": ""
       },
       "effects": [],
@@ -179,10 +177,11 @@
       "_key": "!actors.items!QalZ0WWksqEyuqLE.67JDxScJITA8utV0"
     },
     {
-      "_id": "fGCmWHIgHYrwdAzf",
-      "name": "Keening Wail",
+      "_id": "oBjJ7sfujlVEZrZq",
+      "name": "Sweeping Frightening Weakening Cry",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Keening Wail",
       "system": {
         "requires": [
           "sonic"
@@ -226,7 +225,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Keening Wail"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, -1 [target Attribute], Frightened, Cone (Range 2), Strain 1",
         "description": ""
       },
@@ -237,7 +240,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!QalZ0WWksqEyuqLE.fGCmWHIgHYrwdAzf"
+      "_key": "!actors.items!QalZ0WWksqEyuqLE.oBjJ7sfujlVEZrZq"
     },
     {
       "_id": "rMsbaU6uVskQdkHc",
@@ -279,7 +282,9 @@
           }
         ],
         "floor": false,
+        "formerNames": [],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Frightened, Radius (Range 2), Strain 4",
         "description": ""
       },
@@ -293,14 +298,14 @@
       "_key": "!actors.items!QalZ0WWksqEyuqLE.rMsbaU6uVskQdkHc"
     },
     {
-      "_id": "ySmaXCOl6tm0Vaqd",
-      "name": "Maiming Strike",
+      "_id": "CwNcngqS5J3WxqdB",
+      "name": "Piercing Weakening Strike 2",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Maiming Strike",
       "system": {
         "requires": [
-          "edged",
-          "pointed"
+          "melee"
         ],
         "innate": false,
         "skill": "prowess",
@@ -333,7 +338,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Maiming Strike"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Pierce 2, -1 [target Attribute]",
         "description": ""
       },
@@ -344,7 +353,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!QalZ0WWksqEyuqLE.ySmaXCOl6tm0Vaqd"
+      "_key": "!actors.items!QalZ0WWksqEyuqLE.CwNcngqS5J3WxqdB"
     },
     {
       "_id": "Xak1E89mJZiWSIIZ",

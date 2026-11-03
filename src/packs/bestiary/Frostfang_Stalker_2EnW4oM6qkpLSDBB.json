@@ -96,31 +96,30 @@
       "img": "icons/svg/claw.svg",
       "system": {
         "types": [
-          "pointed"
+          "melee"
         ],
         "range": "Range 1",
+        "maxRange": "close",
         "weight": "light",
         "innate": true,
+        "location": "equipped",
         "primaryAttribute": "might",
         "category": "melee",
         "price": 0,
         "kit": [
           {
-            "name": "Stab",
+            "name": "Strike",
             "skill": "prowess",
             "effect": "Deals Stress to Might or Finesse."
           },
           {
-            "name": "Vital Strike",
-            "skill": "acuity",
-            "effect": "Applies Weakened [Finesse]."
-          },
-          {
-            "name": "Low Feint",
-            "skill": "guile",
-            "effect": "Applies Reeling."
+            "name": "Weaken",
+            "skill": "discipline",
+            "effect": "Applies Weakened [Finesse].",
+            "signature": true
           }
         ],
+        "backs": "Threaten",
         "description": ""
       },
       "effects": [],
@@ -139,31 +138,30 @@
       "img": "icons/svg/claw.svg",
       "system": {
         "types": [
-          "edged"
+          "melee"
         ],
         "range": "Range 1",
+        "maxRange": "close",
         "weight": "light",
         "innate": true,
+        "location": "equipped",
         "primaryAttribute": "might",
         "category": "melee",
         "price": 0,
         "kit": [
           {
-            "name": "Stab",
+            "name": "Strike",
             "skill": "prowess",
             "effect": "Deals Stress to Might or Finesse."
           },
           {
-            "name": "Vital Strike",
-            "skill": "acuity",
-            "effect": "Applies Weakened [Finesse]."
-          },
-          {
-            "name": "Low Feint",
-            "skill": "guile",
-            "effect": "Applies Reeling."
+            "name": "Bleed",
+            "skill": "discipline",
+            "effect": "Lingering 1.",
+            "signature": true
           }
         ],
+        "backs": "Threaten",
         "description": ""
       },
       "effects": [],
@@ -176,14 +174,14 @@
       "_key": "!actors.items!2EnW4oM6qkpLSDBB.nn9BaSVEDEBzXNUY"
     },
     {
-      "_id": "i4LBlW5Zqnc3dVYk",
-      "name": "Numbing Strike",
+      "_id": "2i6kdpRCgin2qi4S",
+      "name": "Slowing Strike",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Numbing Strike",
       "system": {
         "requires": [
-          "edged",
-          "pointed"
+          "melee"
         ],
         "innate": false,
         "skill": "prowess",
@@ -208,7 +206,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Numbing Strike"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Slowed",
         "description": ""
       },
@@ -219,20 +221,17 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!2EnW4oM6qkpLSDBB.i4LBlW5Zqnc3dVYk"
+      "_key": "!actors.items!2EnW4oM6qkpLSDBB.2i6kdpRCgin2qi4S"
     },
     {
-      "_id": "72Bd06ZQg2esXIFU",
-      "name": "Trip",
+      "_id": "T7kXHhfIwsudhgUc",
+      "name": "Toppling Strike",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Trip",
       "system": {
         "requires": [
-          "edged",
-          "pointed",
-          "blunt",
-          "grappling",
-          "parry"
+          "melee"
         ],
         "innate": false,
         "skill": "prowess",
@@ -257,7 +256,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Trip"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Prone",
         "description": ""
       },
@@ -268,16 +271,17 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!2EnW4oM6qkpLSDBB.72Bd06ZQg2esXIFU"
+      "_key": "!actors.items!2EnW4oM6qkpLSDBB.T7kXHhfIwsudhgUc"
     },
     {
-      "_id": "NLjP8vE0NB2gj1Qt",
-      "name": "Sinew Cut",
+      "_id": "fAOvI3qw4isyIVLH",
+      "name": "Lasting Weakening Strike",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Break",
       "system": {
         "requires": [
-          "edged"
+          "melee"
         ],
         "innate": false,
         "skill": "prowess",
@@ -302,7 +306,12 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Break",
+          "Sinew Cut"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, -1 [target Attribute] (1 minute), Strain 1",
         "description": ""
       },
@@ -313,7 +322,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!2EnW4oM6qkpLSDBB.NLjP8vE0NB2gj1Qt"
+      "_key": "!actors.items!2EnW4oM6qkpLSDBB.fAOvI3qw4isyIVLH"
     },
     {
       "_id": "jXybp3gCxMtUMARn",
@@ -385,7 +394,9 @@
           }
         ],
         "floor": false,
+        "formerNames": [],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Evade",
         "description": ""
       },
@@ -447,18 +458,24 @@
       "_key": "!actors.items!2EnW4oM6qkpLSDBB.NgRVLT0tILR6wKmE"
     },
     {
-      "_id": "WXR7AmBAuDueq52I",
-      "name": "Specialized Resistance",
+      "_id": "MpnnJapDasA9f62q",
+      "name": "Specialized Resistance (Kinetic)",
       "type": "feat",
       "img": "icons/svg/upgrade.svg",
       "system": {
         "featType": "trait",
         "xpCost": 12,
         "requirements": "",
-        "effect": "12 XP, a body long since frozen through.",
+        "effect": "Kinetic +3 Resistance: a body long since frozen through.",
         "ancestry": "",
         "grantsTechnique": "",
-        "modifiers": [],
+        "modifiers": [
+          {
+            "type": "resistance",
+            "key": "kinetic",
+            "value": 3
+          }
+        ],
         "description": ""
       },
       "effects": [],
@@ -468,7 +485,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!2EnW4oM6qkpLSDBB.WXR7AmBAuDueq52I"
+      "_key": "!actors.items!2EnW4oM6qkpLSDBB.MpnnJapDasA9f62q"
     }
   ],
   "_key": "!actors!2EnW4oM6qkpLSDBB"

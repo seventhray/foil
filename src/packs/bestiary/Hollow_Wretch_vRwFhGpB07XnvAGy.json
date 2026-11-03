@@ -96,31 +96,30 @@
       "img": "icons/svg/claw.svg",
       "system": {
         "types": [
-          "edged"
+          "melee"
         ],
         "range": "Range 1",
+        "maxRange": "close",
         "weight": "light",
         "innate": true,
+        "location": "equipped",
         "primaryAttribute": "might",
         "category": "melee",
         "price": 0,
         "kit": [
           {
-            "name": "Stab",
+            "name": "Strike",
             "skill": "prowess",
             "effect": "Deals Stress to Might or Finesse."
           },
           {
-            "name": "Vital Strike",
-            "skill": "acuity",
-            "effect": "Applies Weakened [Finesse]."
-          },
-          {
-            "name": "Low Feint",
-            "skill": "guile",
-            "effect": "Applies Reeling."
+            "name": "Bleed",
+            "skill": "discipline",
+            "effect": "Lingering 1.",
+            "signature": true
           }
         ],
+        "backs": "Threaten",
         "description": ""
       },
       "effects": [],
@@ -139,31 +138,25 @@
       "img": "icons/svg/claw.svg",
       "system": {
         "types": [
+          "arcane",
           "incorporeal"
         ],
         "range": "Range 0",
+        "maxRange": "touching",
         "weight": "light",
         "innate": true,
+        "location": "equipped",
         "primaryAttribute": "wit",
         "category": "arcane",
         "price": 0,
         "kit": [
           {
-            "name": "Withering Curse",
+            "name": "Siphoning Maw",
             "skill": "discipline",
-            "effect": "Applies Weakened [Might]."
-          },
-          {
-            "name": "Maddening Whisper",
-            "skill": "acuity",
             "effect": "Deals Stress to Wit or Presence."
-          },
-          {
-            "name": "Despairing Word",
-            "skill": "resonance",
-            "effect": "Applies Frightened."
           }
         ],
+        "backs": "",
         "description": ""
       },
       "effects": [],
@@ -176,14 +169,14 @@
       "_key": "!actors.items!vRwFhGpB07XnvAGy.f1418mxRjI9OivCd"
     },
     {
-      "_id": "LnTBTsJPnJqWEXOW",
-      "name": "Rend",
+      "_id": "iwwP7VTA5fOAyKHN",
+      "name": "Piercing Strike 2",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Rend",
       "system": {
         "requires": [
-          "edged",
-          "pointed"
+          "melee"
         ],
         "innate": false,
         "skill": "prowess",
@@ -208,7 +201,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Rend"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Pierce 2",
         "description": ""
       },
@@ -219,7 +216,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!vRwFhGpB07XnvAGy.LnTBTsJPnJqWEXOW"
+      "_key": "!actors.items!vRwFhGpB07XnvAGy.iwwP7VTA5fOAyKHN"
     },
     {
       "_id": "cKyQEzAqLetlYZnO",
@@ -253,7 +250,9 @@
           }
         ],
         "floor": false,
+        "formerNames": [],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Drain",
         "description": ""
       },

@@ -99,31 +99,30 @@
       "img": "icons/svg/claw.svg",
       "system": {
         "types": [
-          "pointed"
+          "melee"
         ],
         "range": "Range 1",
+        "maxRange": "close",
         "weight": "light",
         "innate": true,
+        "location": "equipped",
         "primaryAttribute": "might",
         "category": "melee",
         "price": 0,
         "kit": [
           {
-            "name": "Stab",
+            "name": "Strike",
             "skill": "prowess",
             "effect": "Deals Stress to Might or Finesse."
           },
           {
-            "name": "Vital Strike",
-            "skill": "acuity",
-            "effect": "Applies Weakened [Finesse]."
-          },
-          {
-            "name": "Low Feint",
-            "skill": "guile",
-            "effect": "Applies Reeling."
+            "name": "Weaken",
+            "skill": "discipline",
+            "effect": "Applies Weakened [Finesse].",
+            "signature": true
           }
         ],
+        "backs": "Threaten",
         "description": ""
       },
       "effects": [],
@@ -142,31 +141,32 @@
       "img": "icons/svg/claw.svg",
       "system": {
         "types": [
-          "grappling"
+          "ranged",
+          "grappling",
+          "thrown"
         ],
         "range": "Range 4",
+        "maxRange": "short",
         "weight": "light",
         "innate": true,
+        "location": "equipped",
         "primaryAttribute": "might",
         "category": "melee",
         "price": 0,
         "kit": [
           {
-            "name": "Snare",
+            "name": "Restrain",
             "skill": "prowess",
-            "effect": "Applies Grappled."
-          },
-          {
-            "name": "Tumble",
-            "skill": "acuity",
-            "effect": "Applies Prone."
-          },
-          {
-            "name": "Tangle",
-            "skill": "guile",
             "effect": "Applies Restrained."
+          },
+          {
+            "name": "Slow",
+            "skill": "discipline",
+            "effect": "Applies Slowed.",
+            "signature": true
           }
         ],
+        "backs": "Threaten",
         "description": ""
       },
       "effects": [],
@@ -185,7 +185,7 @@
       "img": "icons/svg/aura.svg",
       "system": {
         "requires": [
-          "pointed"
+          "melee"
         ],
         "innate": false,
         "skill": "prowess",
@@ -210,7 +210,9 @@
           }
         ],
         "floor": false,
+        "formerNames": [],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, -1 [target Attribute] (1 minute), Strain 1",
         "description": ""
       },
@@ -255,7 +257,9 @@
           }
         ],
         "floor": false,
+        "formerNames": [],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Restrained",
         "description": ""
       },
@@ -269,14 +273,14 @@
       "_key": "!actors.items!BcZiE7GvN4YhfDCL.wlpGS4iuTu9FMQcW"
     },
     {
-      "_id": "6Fw6fvlcAiz4rNGL",
-      "name": "Numbing Strike",
+      "_id": "ylHTWl2pd1W73GcZ",
+      "name": "Slowing Strike",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Numbing Strike",
       "system": {
         "requires": [
-          "edged",
-          "pointed"
+          "melee"
         ],
         "innate": false,
         "skill": "prowess",
@@ -301,7 +305,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Numbing Strike"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Slowed",
         "description": ""
       },
@@ -312,7 +320,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!BcZiE7GvN4YhfDCL.6Fw6fvlcAiz4rNGL"
+      "_key": "!actors.items!BcZiE7GvN4YhfDCL.ylHTWl2pd1W73GcZ"
     },
     {
       "_id": "3F0VjdMFFsU16Wu8",

@@ -96,31 +96,30 @@
       "img": "icons/svg/claw.svg",
       "system": {
         "types": [
-          "pointed"
+          "melee"
         ],
         "range": "Range 1",
+        "maxRange": "close",
         "weight": "light",
         "innate": true,
+        "location": "equipped",
         "primaryAttribute": "might",
         "category": "melee",
         "price": 0,
         "kit": [
           {
-            "name": "Stab",
+            "name": "Strike",
             "skill": "prowess",
             "effect": "Deals Stress to Might or Finesse."
           },
           {
-            "name": "Vital Strike",
-            "skill": "acuity",
-            "effect": "Applies Weakened [Finesse]."
-          },
-          {
-            "name": "Low Feint",
-            "skill": "guile",
-            "effect": "Applies Reeling."
+            "name": "Weaken",
+            "skill": "discipline",
+            "effect": "Applies Weakened [Finesse].",
+            "signature": true
           }
         ],
+        "backs": "Threaten",
         "description": ""
       },
       "effects": [],
@@ -139,31 +138,25 @@
       "img": "icons/svg/claw.svg",
       "system": {
         "types": [
+          "arcane",
           "kinetic"
         ],
         "range": "Range 0",
+        "maxRange": "touching",
         "weight": "light",
         "innate": true,
+        "location": "equipped",
         "primaryAttribute": "wit",
         "category": "arcane",
         "price": 0,
         "kit": [
           {
-            "name": "Devastating Bolt",
+            "name": "Searing Touch",
             "skill": "discipline",
             "effect": "Deals Stress to Might or Finesse."
-          },
-          {
-            "name": "Disorienting Blast",
-            "skill": "acuity",
-            "effect": "Applies Reeling."
-          },
-          {
-            "name": "Overwhelming Force",
-            "skill": "resonance",
-            "effect": "Applies Prone."
           }
         ],
+        "backs": "",
         "description": ""
       },
       "effects": [],
@@ -207,7 +200,9 @@
           }
         ],
         "floor": false,
+        "formerNames": [],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Lingering 1",
         "description": ""
       },
@@ -252,7 +247,9 @@
           }
         ],
         "floor": true,
+        "formerNames": [],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Quick (trigger: a Melee Technique lands on this creature from Range 0 or 1): Stress",
         "description": ""
       },
@@ -311,7 +308,9 @@
           }
         ],
         "floor": false,
+        "formerNames": [],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Evade",
         "description": ""
       },
@@ -349,18 +348,24 @@
       "_key": "!actors.items!b0BBFBWNhVxNxANW.CYlfTbCApZg0ouAF"
     },
     {
-      "_id": "jQFu57PpG3HBTIY8",
-      "name": "Specialized Resistance",
+      "_id": "rr4ptGxcA3qWrkHG",
+      "name": "Specialized Resistance (Kinetic)",
       "type": "feat",
       "img": "icons/svg/upgrade.svg",
       "system": {
         "featType": "trait",
         "xpCost": 8,
         "requirements": "",
-        "effect": "8 XP, a body already burning.",
+        "effect": "Kinetic +2 Resistance: a body already burning.",
         "ancestry": "",
         "grantsTechnique": "",
-        "modifiers": [],
+        "modifiers": [
+          {
+            "type": "resistance",
+            "key": "kinetic",
+            "value": 2
+          }
+        ],
         "description": ""
       },
       "effects": [],
@@ -370,7 +375,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!b0BBFBWNhVxNxANW.jQFu57PpG3HBTIY8"
+      "_key": "!actors.items!b0BBFBWNhVxNxANW.rr4ptGxcA3qWrkHG"
     }
   ],
   "_key": "!actors!b0BBFBWNhVxNxANW"

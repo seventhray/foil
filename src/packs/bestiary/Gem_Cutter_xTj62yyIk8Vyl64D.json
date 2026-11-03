@@ -101,35 +101,35 @@
         "range": "Range 1",
         "maxRange": "close",
         "types": [
-          "edged",
-          "pointed",
-          "parry"
+          "melee",
+          "guarding",
+          "thrown"
         ],
         "typesDisplay": "",
-        "price": 30,
+        "price": 35,
         "rider": "",
+        "family": "Knives",
+        "backs": "Deceive",
         "kit": [
           {
-            "name": "Stab",
+            "name": "Strike",
             "skill": "prowess",
-            "effect": "Deals Stress to Might or Finesse."
+            "effect": "Deals Stress to Might or Finesse.",
+            "signature": false
           },
           {
-            "name": "Vital Strike",
+            "name": "Bleed",
             "skill": "acuity",
-            "effect": "Applies Weakened [Finesse]."
-          },
-          {
-            "name": "Low Feint",
-            "skill": "guile",
-            "effect": "Applies Reeling."
+            "effect": "Lingering 1.",
+            "signature": true
           }
         ],
         "innate": false,
         "bonus": 0,
         "size": "small",
         "materials": "1 Metal",
-        "description": ""
+        "description": "",
+        "location": "equipped"
       },
       "effects": [],
       "folder": null,
@@ -153,7 +153,7 @@
         "types": [
           "craft-gemstone"
         ],
-        "typesDisplay": "Craft [Gemstone]",
+        "typesDisplay": "Tools [Gemstone]",
         "price": 22,
         "rider": "",
         "kit": [],
@@ -161,7 +161,8 @@
         "bonus": 0,
         "size": "medium",
         "materials": "Gemstone",
-        "description": ""
+        "description": "",
+        "location": "equipped"
       },
       "effects": [],
       "folder": null,
@@ -182,28 +183,69 @@
         "weight": "light",
         "primaryAttribute": "presence",
         "range": "Range 8",
+        "maxRange": "mid",
         "types": [
-          "quick",
           "sonic"
         ],
         "typesDisplay": "",
         "price": 0,
         "rider": "Innate: every character has it, free (PHB 2.5.3).",
+        "family": "",
+        "backs": "",
         "kit": [
           {
-            "name": "Browbeat",
+            "name": "Threaten",
             "skill": "assertiveness",
-            "effect": "Deals Stress to Presence or Wit."
+            "effect": "Deals Stress to Wit or Presence.",
+            "signature": false
           },
           {
-            "name": "Mislead",
+            "name": "Threaten",
+            "skill": "assertiveness",
+            "effect": "Applies Intimidated.",
+            "signature": false
+          },
+          {
+            "name": "Threaten",
+            "skill": "assertiveness",
+            "effect": "Applies Frightened.",
+            "signature": false
+          },
+          {
+            "name": "Deceive",
             "skill": "guile",
-            "effect": "Applies Misled."
+            "effect": "Deals Stress to Wit or Presence.",
+            "signature": false
           },
           {
-            "name": "Sway",
+            "name": "Deceive",
+            "skill": "guile",
+            "effect": "Applies Misled.",
+            "signature": false
+          },
+          {
+            "name": "Deceive",
+            "skill": "guile",
+            "effect": "Applies Baited.",
+            "signature": false
+          },
+          {
+            "name": "Persuade",
             "skill": "resonance",
-            "effect": "Applies Swayed."
+            "effect": "Deals Stress to Wit or Presence.",
+            "signature": false
+          },
+          {
+            "name": "Persuade",
+            "skill": "resonance",
+            "effect": "Applies Swayed.",
+            "signature": false
+          },
+          {
+            "name": "Persuade",
+            "skill": "resonance",
+            "effect": "Applies Relaxed.",
+            "signature": false
           }
         ],
         "innate": true,
@@ -222,10 +264,11 @@
       "_key": "!actors.items!xTj62yyIk8Vyl64D.Hg6SFxF2KE7VZ93j"
     },
     {
-      "_id": "HCMiLqYNJezPbSIR",
-      "name": "Careful Work",
+      "_id": "aLeUaakFkQdWzFVI",
+      "name": "Lasting Bolstering Work",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Careful Work",
       "system": {
         "requires": [
           "tool"
@@ -245,7 +288,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Careful Work"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "+1 [Skill] (1 minute)",
         "description": ""
       },
@@ -256,13 +303,14 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!xTj62yyIk8Vyl64D.HCMiLqYNJezPbSIR"
+      "_key": "!actors.items!xTj62yyIk8Vyl64D.aLeUaakFkQdWzFVI"
     },
     {
-      "_id": "JEmukAD38jRufrZy",
-      "name": "Distract",
+      "_id": "OL5vUsgbaABnNWf8",
+      "name": "Quick Reel (Sonic)",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Distract",
       "system": {
         "requires": [
           "sonic"
@@ -291,7 +339,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Distract"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Quick: -1 Oppose",
         "description": ""
       },
@@ -302,7 +354,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!xTj62yyIk8Vyl64D.JEmukAD38jRufrZy"
+      "_key": "!actors.items!xTj62yyIk8Vyl64D.OL5vUsgbaABnNWf8"
     }
   ],
   "_key": "!actors!xTj62yyIk8Vyl64D"

@@ -74,7 +74,7 @@
       }
     },
     "resistance": {
-      "physical": 2,
+      "physical": 1,
       "mental": 0
     },
     "notes": "<p><em>A sergeant who has run a line long enough to know which soldiers will hold</em></p><p><strong>Habits</strong> Order Methodical: I think a plan beats improvising, nine times out of ten. Individualism Communal: I put myself between danger and whoever's behind me, without being asked.</p><p>Holds the line together with its voice. Soldiers near the Sergeant stand while it stands.</p>"
@@ -104,35 +104,34 @@
         "range": "Range 1",
         "maxRange": "close",
         "types": [
-          "edged",
-          "pointed",
-          "parry"
+          "melee",
+          "guarding"
         ],
         "typesDisplay": "",
-        "price": 45,
+        "price": 40,
         "rider": "",
+        "family": "Swords",
+        "backs": "Threaten",
         "kit": [
           {
-            "name": "Broad Cut",
+            "name": "Strike",
             "skill": "prowess",
-            "effect": "Deals Stress to Might or Finesse."
+            "effect": "Deals Stress to Might or Finesse.",
+            "signature": false
           },
           {
-            "name": "Wrest",
+            "name": "Disarm",
             "skill": "discipline",
-            "effect": "Disarms."
-          },
-          {
-            "name": "Challenge",
-            "skill": "assertiveness",
-            "effect": "Applies Baited."
+            "effect": "Disarms.",
+            "signature": true
           }
         ],
         "innate": false,
         "bonus": 0,
         "size": "medium",
         "materials": "2 Metal",
-        "description": ""
+        "description": "",
+        "location": "equipped"
       },
       "effects": [],
       "folder": null,
@@ -147,35 +146,49 @@
       "_id": "JHAELjjtdnWZfPdE",
       "name": "Shield",
       "type": "instrument",
-      "img": "icons/svg/claw.svg",
+      "img": "icons/svg/shield.svg",
       "system": {
-        "types": [
-          "blocking"
-        ],
-        "range": "Range 1",
+        "category": "shield",
         "weight": "light",
-        "innate": true,
         "primaryAttribute": "might",
-        "category": "melee",
-        "price": 0,
+        "range": "Range 1",
+        "maxRange": "close",
+        "types": [
+          "melee",
+          "guarding"
+        ],
+        "typesDisplay": "",
+        "price": 40,
+        "rider": "",
+        "family": "Shields",
+        "backs": "Threaten",
         "kit": [
           {
-            "name": "Steel the Mind",
+            "name": "Strike",
+            "skill": "prowess",
+            "effect": "Deals Stress to Might or Finesse.",
+            "signature": false
+          },
+          {
+            "name": "Push",
             "skill": "discipline",
-            "effect": "Grants Resistance +1 (Mental) to self or an ally for 1 round."
-          },
-          {
-            "name": "Foresee the Blow",
-            "skill": "acuity",
-            "effect": "Grants +1 to an ally's next Oppose roll before your next turn."
-          },
-          {
-            "name": "Calm the Nerves",
-            "skill": "resonance",
-            "effect": "Removes a Frightened, Wary, or Intimidated Condition from an ally within Range 1."
+            "effect": "Moves the target up to Range 2.",
+            "signature": true
           }
         ],
-        "description": ""
+        "qualities": [
+          {
+            "key": "resistance",
+            "value": 1,
+            "param": "physical"
+          }
+        ],
+        "innate": false,
+        "bonus": 0,
+        "size": "medium",
+        "materials": "1 Wood",
+        "description": "",
+        "location": "equipped"
       },
       "effects": [],
       "folder": null,
@@ -196,28 +209,69 @@
         "weight": "light",
         "primaryAttribute": "presence",
         "range": "Range 8",
+        "maxRange": "mid",
         "types": [
-          "quick",
           "sonic"
         ],
         "typesDisplay": "",
         "price": 0,
         "rider": "Innate: every character has it, free (PHB 2.5.3).",
+        "family": "",
+        "backs": "",
         "kit": [
           {
-            "name": "Browbeat",
+            "name": "Threaten",
             "skill": "assertiveness",
-            "effect": "Deals Stress to Presence or Wit."
+            "effect": "Deals Stress to Wit or Presence.",
+            "signature": false
           },
           {
-            "name": "Mislead",
+            "name": "Threaten",
+            "skill": "assertiveness",
+            "effect": "Applies Intimidated.",
+            "signature": false
+          },
+          {
+            "name": "Threaten",
+            "skill": "assertiveness",
+            "effect": "Applies Frightened.",
+            "signature": false
+          },
+          {
+            "name": "Deceive",
             "skill": "guile",
-            "effect": "Applies Misled."
+            "effect": "Deals Stress to Wit or Presence.",
+            "signature": false
           },
           {
-            "name": "Sway",
+            "name": "Deceive",
+            "skill": "guile",
+            "effect": "Applies Misled.",
+            "signature": false
+          },
+          {
+            "name": "Deceive",
+            "skill": "guile",
+            "effect": "Applies Baited.",
+            "signature": false
+          },
+          {
+            "name": "Persuade",
             "skill": "resonance",
-            "effect": "Applies Swayed."
+            "effect": "Deals Stress to Wit or Presence.",
+            "signature": false
+          },
+          {
+            "name": "Persuade",
+            "skill": "resonance",
+            "effect": "Applies Swayed.",
+            "signature": false
+          },
+          {
+            "name": "Persuade",
+            "skill": "resonance",
+            "effect": "Applies Relaxed.",
+            "signature": false
           }
         ],
         "innate": true,
@@ -236,14 +290,14 @@
       "_key": "!actors.items!OIQN153Z7hSk6f3v.yvb0oDkqhwBovUzK"
     },
     {
-      "_id": "QcpHbLl6oXYS7ryK",
-      "name": "Sunder",
+      "_id": "GiDjnCM7ngBtqCNY",
+      "name": "Piercing Strike 1",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Sunder",
       "system": {
         "requires": [
-          "edged",
-          "pointed"
+          "melee"
         ],
         "innate": false,
         "skill": "prowess",
@@ -268,7 +322,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Sunder"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Pierce 1",
         "description": ""
       },
@@ -279,13 +337,14 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!OIQN153Z7hSk6f3v.QcpHbLl6oXYS7ryK"
+      "_key": "!actors.items!OIQN153Z7hSk6f3v.GiDjnCM7ngBtqCNY"
     },
     {
-      "_id": "bRQepXtqTssMbyDd",
-      "name": "Rally",
+      "_id": "qLlUaGfVoys4K8eq",
+      "name": "Quick Bolstering Cry",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Rally",
       "system": {
         "requires": [
           "sonic"
@@ -313,8 +372,12 @@
             "untriggered": true
           }
         ],
-        "floor": false,
+        "floor": true,
+        "formerNames": [
+          "Rally"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Quick: +1 [Skill] to self or an ally",
         "description": ""
       },
@@ -325,13 +388,14 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!OIQN153Z7hSk6f3v.bRQepXtqTssMbyDd"
+      "_key": "!actors.items!OIQN153Z7hSk6f3v.qLlUaGfVoys4K8eq"
     },
     {
-      "_id": "721vUXmwdHWX75Q3",
-      "name": "Dread Cry",
+      "_id": "8AHPDfmG37BLiVjQ",
+      "name": "Frightening Cry",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Dread Cry",
       "system": {
         "requires": [
           "sonic"
@@ -359,7 +423,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Dread Cry"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Frightened",
         "description": ""
       },
@@ -370,7 +438,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!OIQN153Z7hSk6f3v.721vUXmwdHWX75Q3"
+      "_key": "!actors.items!OIQN153Z7hSk6f3v.8AHPDfmG37BLiVjQ"
     }
   ],
   "_key": "!actors!OIQN153Z7hSk6f3v"

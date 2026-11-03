@@ -104,34 +104,22 @@
         "range": "Range 4",
         "maxRange": "short",
         "types": [
+          "arcane",
           "kinetic",
           "incorporeal"
         ],
         "typesDisplay": "",
-        "price": 25,
+        "price": 35,
         "rider": "",
-        "kit": [
-          {
-            "name": "Force Bolt",
-            "skill": "discipline",
-            "effect": "Deals Stress to Might or Finesse."
-          },
-          {
-            "name": "Mind-Piercing Ray",
-            "skill": "acuity",
-            "effect": "Deals Stress to Wit or Presence."
-          },
-          {
-            "name": "Unsettling Pulse",
-            "skill": "resonance",
-            "effect": "Applies Frightened."
-          }
-        ],
+        "family": "",
+        "backs": "",
+        "kit": [],
         "innate": false,
         "bonus": 0,
         "size": "small",
         "materials": "1 Wood",
-        "description": ""
+        "description": "",
+        "location": "equipped"
       },
       "effects": [],
       "folder": null,
@@ -155,7 +143,7 @@
         "types": [
           "craft-gemstone"
         ],
-        "typesDisplay": "Craft [Gemstone]",
+        "typesDisplay": "Tools [Gemstone]",
         "price": 22,
         "rider": "",
         "kit": [],
@@ -163,7 +151,8 @@
         "bonus": 0,
         "size": "medium",
         "materials": "Gemstone",
-        "description": ""
+        "description": "",
+        "location": "equipped"
       },
       "effects": [],
       "folder": null,
@@ -186,34 +175,22 @@
         "range": "Range 1",
         "maxRange": "close",
         "types": [
-          "blocking",
-          "fortifying"
+          "arcane",
+          "incorporeal",
+          "guarding"
         ],
         "typesDisplay": "",
-        "price": 20,
+        "price": 35,
         "rider": "",
-        "kit": [
-          {
-            "name": "Steel the Mind",
-            "skill": "discipline",
-            "effect": "Grants Resistance +1 (Mental) to self or an ally for 1 round."
-          },
-          {
-            "name": "Foresee the Blow",
-            "skill": "acuity",
-            "effect": "Grants +1 to an ally's next Oppose roll before your next turn."
-          },
-          {
-            "name": "Calm the Nerves",
-            "skill": "resonance",
-            "effect": "Removes a Frightened, Wary, or Intimidated Condition from an ally within Range 1."
-          }
-        ],
+        "family": "",
+        "backs": "",
+        "kit": [],
         "innate": false,
         "bonus": 0,
         "size": "small",
         "materials": "1 Metal",
-        "description": ""
+        "description": "",
+        "location": "equipped"
       },
       "effects": [],
       "folder": null,
@@ -225,10 +202,11 @@
       "_key": "!actors.items!vcbx5tMsJjecsTGf.kmfn0NpdEiNKImvn"
     },
     {
-      "_id": "gHncHnKxqugu8jLb",
-      "name": "Guided Bolt",
+      "_id": "Wy9MnMMWMNtnRZ5a",
+      "name": "Aimed Force",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Guided Bolt",
       "system": {
         "requires": [
           "kinetic"
@@ -256,7 +234,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Guided Bolt"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, +2",
         "description": ""
       },
@@ -267,13 +249,14 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!vcbx5tMsJjecsTGf.gHncHnKxqugu8jLb"
+      "_key": "!actors.items!vcbx5tMsJjecsTGf.Wy9MnMMWMNtnRZ5a"
     },
     {
-      "_id": "J5aH7AupCLlMsYmn",
-      "name": "Hexing Bolt",
+      "_id": "Peo8jSvqs2QEee9X",
+      "name": "Aimed Spell",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Hexing Bolt",
       "system": {
         "requires": [
           "incorporeal"
@@ -301,7 +284,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Hexing Bolt"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, +2",
         "description": ""
       },
@@ -312,7 +299,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!vcbx5tMsJjecsTGf.J5aH7AupCLlMsYmn"
+      "_key": "!actors.items!vcbx5tMsJjecsTGf.Peo8jSvqs2QEee9X"
     },
     {
       "_id": "qX4SbRMAj3vnfEcr",
@@ -325,8 +312,8 @@
         ],
         "innate": false,
         "skill": "",
-        "family": "Kinetic",
-        "subgroup": "Mobility",
+        "family": "",
+        "subgroup": "",
         "effects": [
           {
             "key": "evade",
@@ -335,19 +322,13 @@
             "bands": 0,
             "placement": 0,
             "selectiveR": 0
-          },
-          {
-            "key": "quick",
-            "magnitude": 1,
-            "pattern": "single",
-            "bands": 0,
-            "placement": 0,
-            "selectiveR": 0
           }
         ],
-        "floor": true,
+        "floor": false,
+        "formerNames": [],
         "ancestryGrant": "",
-        "effectText": "Quick (trigger: a hostile's Melee Technique targets you): Evade before it rolls.",
+        "grantedBy": "",
+        "effectText": "Evade",
         "description": ""
       },
       "effects": [],
@@ -360,13 +341,15 @@
       "_key": "!actors.items!vcbx5tMsJjecsTGf.qX4SbRMAj3vnfEcr"
     },
     {
-      "_id": "H5xYqbc46a3KS5Oh",
-      "name": "Force Ward",
+      "_id": "ytIvZmvINH0chsfq",
+      "name": "Ward (Arcane)",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Force Ward",
       "system": {
         "requires": [
-          "fortifying"
+          "kinetic",
+          "incorporeal"
         ],
         "innate": false,
         "skill": "discipline",
@@ -383,7 +366,11 @@
           }
         ],
         "floor": true,
+        "formerNames": [
+          "Force Ward"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Resistance +1, Physical or Mental, self or ally",
         "description": ""
       },
@@ -394,16 +381,17 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!vcbx5tMsJjecsTGf.H5xYqbc46a3KS5Oh"
+      "_key": "!actors.items!vcbx5tMsJjecsTGf.ytIvZmvINH0chsfq"
     },
     {
-      "_id": "3rw0LQwBV1A8tCw5",
-      "name": "Aegis of Force",
+      "_id": "jVnynt8F0uDaDIgt",
+      "name": "Group Warding Force 1",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Aegis of Force",
       "system": {
         "requires": [
-          "fortifying"
+          "kinetic"
         ],
         "innate": false,
         "skill": "discipline",
@@ -428,7 +416,11 @@
           }
         ],
         "floor": true,
+        "formerNames": [
+          "Aegis of Force"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Resistance +1 to chosen allies within Range 2 (Selective)",
         "description": ""
       },
@@ -439,13 +431,14 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!vcbx5tMsJjecsTGf.3rw0LQwBV1A8tCw5"
+      "_key": "!actors.items!vcbx5tMsJjecsTGf.jVnynt8F0uDaDIgt"
     },
     {
-      "_id": "mdlYKf8B7Wr0cGpm",
-      "name": "Careful Work",
+      "_id": "Uy8XfjN2sacb6Kl9",
+      "name": "Lasting Bolstering Work",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Careful Work",
       "system": {
         "requires": [
           "tool"
@@ -465,7 +458,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Careful Work"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "+1 [Skill] (1 minute)",
         "description": ""
       },
@@ -476,7 +473,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!vcbx5tMsJjecsTGf.mdlYKf8B7Wr0cGpm"
+      "_key": "!actors.items!vcbx5tMsJjecsTGf.Uy8XfjN2sacb6Kl9"
     },
     {
       "_id": "8jQoqpCVFvDVpReJ",

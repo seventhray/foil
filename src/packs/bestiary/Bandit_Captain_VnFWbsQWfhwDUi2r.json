@@ -104,35 +104,34 @@
         "range": "Range 1",
         "maxRange": "close",
         "types": [
-          "edged",
-          "pointed",
-          "parry"
+          "melee",
+          "guarding"
         ],
         "typesDisplay": "",
-        "price": 45,
+        "price": 40,
         "rider": "",
+        "family": "Swords",
+        "backs": "Threaten",
         "kit": [
           {
-            "name": "Broad Cut",
+            "name": "Strike",
             "skill": "prowess",
-            "effect": "Deals Stress to Might or Finesse."
+            "effect": "Deals Stress to Might or Finesse.",
+            "signature": false
           },
           {
-            "name": "Wrest",
+            "name": "Disarm",
             "skill": "discipline",
-            "effect": "Disarms."
-          },
-          {
-            "name": "Challenge",
-            "skill": "assertiveness",
-            "effect": "Applies Baited."
+            "effect": "Disarms.",
+            "signature": true
           }
         ],
         "innate": false,
         "bonus": 0,
         "size": "medium",
         "materials": "2 Metal",
-        "description": ""
+        "description": "",
+        "location": "equipped"
       },
       "effects": [],
       "folder": null,
@@ -153,28 +152,69 @@
         "weight": "light",
         "primaryAttribute": "presence",
         "range": "Range 8",
+        "maxRange": "mid",
         "types": [
-          "quick",
           "sonic"
         ],
         "typesDisplay": "",
         "price": 0,
         "rider": "Innate: every character has it, free (PHB 2.5.3).",
+        "family": "",
+        "backs": "",
         "kit": [
           {
-            "name": "Browbeat",
+            "name": "Threaten",
             "skill": "assertiveness",
-            "effect": "Deals Stress to Presence or Wit."
+            "effect": "Deals Stress to Wit or Presence.",
+            "signature": false
           },
           {
-            "name": "Mislead",
+            "name": "Threaten",
+            "skill": "assertiveness",
+            "effect": "Applies Intimidated.",
+            "signature": false
+          },
+          {
+            "name": "Threaten",
+            "skill": "assertiveness",
+            "effect": "Applies Frightened.",
+            "signature": false
+          },
+          {
+            "name": "Deceive",
             "skill": "guile",
-            "effect": "Applies Misled."
+            "effect": "Deals Stress to Wit or Presence.",
+            "signature": false
           },
           {
-            "name": "Sway",
+            "name": "Deceive",
+            "skill": "guile",
+            "effect": "Applies Misled.",
+            "signature": false
+          },
+          {
+            "name": "Deceive",
+            "skill": "guile",
+            "effect": "Applies Baited.",
+            "signature": false
+          },
+          {
+            "name": "Persuade",
             "skill": "resonance",
-            "effect": "Applies Swayed."
+            "effect": "Deals Stress to Wit or Presence.",
+            "signature": false
+          },
+          {
+            "name": "Persuade",
+            "skill": "resonance",
+            "effect": "Applies Swayed.",
+            "signature": false
+          },
+          {
+            "name": "Persuade",
+            "skill": "resonance",
+            "effect": "Applies Relaxed.",
+            "signature": false
           }
         ],
         "innate": true,
@@ -193,10 +233,11 @@
       "_key": "!actors.items!VnFWbsQWfhwDUi2r.ptFJ8aNBitahikSy"
     },
     {
-      "_id": "1C0zUzlwmCGQQJOv",
-      "name": "Dread Cry",
+      "_id": "ANqAKijJJUswn9lp",
+      "name": "Frightening Cry",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Dread Cry",
       "system": {
         "requires": [
           "sonic"
@@ -224,7 +265,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Dread Cry"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Frightened",
         "description": ""
       },
@@ -235,7 +280,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!VnFWbsQWfhwDUi2r.1C0zUzlwmCGQQJOv"
+      "_key": "!actors.items!VnFWbsQWfhwDUi2r.ANqAKijJJUswn9lp"
     },
     {
       "_id": "aZOjwpZ9wrvCS6zs",
@@ -269,7 +314,9 @@
           }
         ],
         "floor": false,
+        "formerNames": [],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, -1 Oppose (1 minute)",
         "description": ""
       },
@@ -283,10 +330,11 @@
       "_key": "!actors.items!VnFWbsQWfhwDUi2r.aZOjwpZ9wrvCS6zs"
     },
     {
-      "_id": "qfdnHwMMiLcgULed",
-      "name": "Distract",
+      "_id": "zxHFbIejG7q4QJIS",
+      "name": "Quick Reel (Sonic)",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Distract",
       "system": {
         "requires": [
           "sonic"
@@ -315,7 +363,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Distract"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Quick: -1 Oppose",
         "description": ""
       },
@@ -326,7 +378,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!VnFWbsQWfhwDUi2r.qfdnHwMMiLcgULed"
+      "_key": "!actors.items!VnFWbsQWfhwDUi2r.zxHFbIejG7q4QJIS"
     }
   ],
   "_key": "!actors!VnFWbsQWfhwDUi2r"

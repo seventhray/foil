@@ -99,31 +99,25 @@
       "img": "icons/svg/claw.svg",
       "system": {
         "types": [
+          "arcane",
           "incorporeal"
         ],
         "range": "Range 0",
+        "maxRange": "touching",
         "weight": "light",
         "innate": true,
+        "location": "equipped",
         "primaryAttribute": "wit",
         "category": "arcane",
         "price": 0,
         "kit": [
           {
-            "name": "Withering Curse",
+            "name": "Curse Touch",
             "skill": "discipline",
-            "effect": "Applies Weakened [Might]."
-          },
-          {
-            "name": "Maddening Whisper",
-            "skill": "acuity",
             "effect": "Deals Stress to Wit or Presence."
-          },
-          {
-            "name": "Despairing Word",
-            "skill": "resonance",
-            "effect": "Applies Frightened."
           }
         ],
+        "backs": "",
         "description": ""
       },
       "effects": [],
@@ -145,28 +139,69 @@
         "weight": "light",
         "primaryAttribute": "presence",
         "range": "Range 8",
+        "maxRange": "mid",
         "types": [
-          "quick",
           "sonic"
         ],
         "typesDisplay": "",
         "price": 0,
         "rider": "Innate: every character has it, free (PHB 2.5.3).",
+        "family": "",
+        "backs": "",
         "kit": [
           {
-            "name": "Browbeat",
+            "name": "Threaten",
             "skill": "assertiveness",
-            "effect": "Deals Stress to Presence or Wit."
+            "effect": "Deals Stress to Wit or Presence.",
+            "signature": false
           },
           {
-            "name": "Mislead",
+            "name": "Threaten",
+            "skill": "assertiveness",
+            "effect": "Applies Intimidated.",
+            "signature": false
+          },
+          {
+            "name": "Threaten",
+            "skill": "assertiveness",
+            "effect": "Applies Frightened.",
+            "signature": false
+          },
+          {
+            "name": "Deceive",
             "skill": "guile",
-            "effect": "Applies Misled."
+            "effect": "Deals Stress to Wit or Presence.",
+            "signature": false
           },
           {
-            "name": "Sway",
+            "name": "Deceive",
+            "skill": "guile",
+            "effect": "Applies Misled.",
+            "signature": false
+          },
+          {
+            "name": "Deceive",
+            "skill": "guile",
+            "effect": "Applies Baited.",
+            "signature": false
+          },
+          {
+            "name": "Persuade",
             "skill": "resonance",
-            "effect": "Applies Swayed."
+            "effect": "Deals Stress to Wit or Presence.",
+            "signature": false
+          },
+          {
+            "name": "Persuade",
+            "skill": "resonance",
+            "effect": "Applies Swayed.",
+            "signature": false
+          },
+          {
+            "name": "Persuade",
+            "skill": "resonance",
+            "effect": "Applies Relaxed.",
+            "signature": false
           }
         ],
         "innate": true,
@@ -185,10 +220,11 @@
       "_key": "!actors.items!A2O0HefnDWDNKI9E.vyQYjaIDHDDnW0Ei"
     },
     {
-      "_id": "FLRLVLX96E6h8EoI",
-      "name": "Deathly Touch",
+      "_id": "rZTzbjUF0fgDTCHU",
+      "name": "Lingering Spell",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Deathly Touch",
       "system": {
         "requires": [
           "incorporeal"
@@ -216,7 +252,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Deathly Touch"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Lingering 1",
         "description": ""
       },
@@ -227,13 +267,14 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!A2O0HefnDWDNKI9E.FLRLVLX96E6h8EoI"
+      "_key": "!actors.items!A2O0HefnDWDNKI9E.rZTzbjUF0fgDTCHU"
     },
     {
-      "_id": "6loZ9fEbg3tkZT3u",
-      "name": "Dread Cry",
+      "_id": "c0eA4q9P2Mr4GiUo",
+      "name": "Frightening Cry",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Dread Cry",
       "system": {
         "requires": [
           "sonic"
@@ -261,7 +302,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Dread Cry"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Frightened",
         "description": ""
       },
@@ -272,7 +317,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!A2O0HefnDWDNKI9E.6loZ9fEbg3tkZT3u"
+      "_key": "!actors.items!A2O0HefnDWDNKI9E.c0eA4q9P2Mr4GiUo"
     },
     {
       "_id": "KHr4PhLDhMfHkJWL",
@@ -305,8 +350,10 @@
             "selectiveR": 2
           }
         ],
-        "floor": false,
+        "floor": true,
+        "formerNames": [],
         "ancestryGrant": "Jungle Canopy",
+        "grantedBy": "",
         "effectText": "+1 to one Skill of choice, chosen allies within Range 2 (Selective).",
         "description": ""
       },
@@ -343,7 +390,9 @@
           }
         ],
         "floor": false,
+        "formerNames": [],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "-1 Oppose (1 minute)",
         "description": ""
       },
@@ -357,10 +406,11 @@
       "_key": "!actors.items!A2O0HefnDWDNKI9E.uDII48RMFV18h3aX"
     },
     {
-      "_id": "tnxf6HGjHAq3yR6i",
-      "name": "Rally",
+      "_id": "6UrwTnYAUkL8ff1j",
+      "name": "Quick Bolstering Cry",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Rally",
       "system": {
         "requires": [
           "sonic"
@@ -388,8 +438,12 @@
             "untriggered": true
           }
         ],
-        "floor": false,
+        "floor": true,
+        "formerNames": [
+          "Rally"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Quick: +1 [Skill] to self or an ally",
         "description": ""
       },
@@ -400,7 +454,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!A2O0HefnDWDNKI9E.tnxf6HGjHAq3yR6i"
+      "_key": "!actors.items!A2O0HefnDWDNKI9E.6UrwTnYAUkL8ff1j"
     },
     {
       "_id": "XtW9O7qf7bey9zqC",

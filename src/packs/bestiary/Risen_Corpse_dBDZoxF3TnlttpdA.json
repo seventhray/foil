@@ -92,31 +92,30 @@
       "img": "icons/svg/claw.svg",
       "system": {
         "types": [
-          "blunt"
+          "melee"
         ],
         "range": "Range 1",
+        "maxRange": "close",
         "weight": "light",
         "innate": true,
+        "location": "equipped",
         "primaryAttribute": "might",
         "category": "melee",
         "price": 0,
         "kit": [
           {
-            "name": "Bash",
+            "name": "Strike",
             "skill": "prowess",
             "effect": "Deals Stress to Might or Finesse."
           },
           {
-            "name": "Sweep",
-            "skill": "acuity",
-            "effect": "Applies Prone."
-          },
-          {
-            "name": "Feint Jab",
-            "skill": "guile",
-            "effect": "Applies Reeling."
+            "name": "Push",
+            "skill": "discipline",
+            "effect": "Moves the target up to Range 2.",
+            "signature": true
           }
         ],
+        "backs": "Threaten",
         "description": ""
       },
       "effects": [],
@@ -153,31 +152,7 @@
       "_key": "!actors.items!dBDZoxF3TnlttpdA.hDgeBeTHrBE8hpAk"
     },
     {
-      "_id": "xSzyEuMevc1BCBZ9",
-      "name": "Second Wind",
-      "type": "feat",
-      "img": "icons/svg/upgrade.svg",
-      "system": {
-        "featType": "trait",
-        "xpCost": 12,
-        "requirements": "",
-        "effect": "the first time an Attribute of this creature's would be Incapacitated in a conflict, its Stress stops 1 short of its Potential instead.",
-        "ancestry": "",
-        "grantsTechnique": "",
-        "modifiers": [],
-        "description": ""
-      },
-      "effects": [],
-      "folder": null,
-      "sort": 300000,
-      "ownership": {
-        "default": 0
-      },
-      "flags": {},
-      "_key": "!actors.items!dBDZoxF3TnlttpdA.xSzyEuMevc1BCBZ9"
-    },
-    {
-      "_id": "nEDQZblW0chaNECq",
+      "_id": "m6HV1yBSkIYOwFRE",
       "name": "Specialized Immunity [Frightened]",
       "type": "feat",
       "img": "icons/svg/upgrade.svg",
@@ -193,23 +168,53 @@
       },
       "effects": [],
       "folder": null,
+      "sort": 300000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!dBDZoxF3TnlttpdA.m6HV1yBSkIYOwFRE"
+    },
+    {
+      "_id": "0OMmbxXs95WXMpIX",
+      "name": "Specialized Resistance (Ranged)",
+      "type": "feat",
+      "img": "icons/svg/upgrade.svg",
+      "system": {
+        "featType": "trait",
+        "xpCost": 8,
+        "requirements": "",
+        "effect": "Ranged +1 Resistance: dead flesh that does not bleed.",
+        "ancestry": "",
+        "grantsTechnique": "",
+        "modifiers": [
+          {
+            "type": "resistance",
+            "key": "ranged",
+            "value": 1
+          }
+        ],
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
       "sort": 400000,
       "ownership": {
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!dBDZoxF3TnlttpdA.nEDQZblW0chaNECq"
+      "_key": "!actors.items!dBDZoxF3TnlttpdA.0OMmbxXs95WXMpIX"
     },
     {
-      "_id": "9C2rz8yQwsNbZ9JD",
-      "name": "Specialized Resistance",
+      "_id": "w3FcXtN7al9dxFJ0",
+      "name": "Specialized Immunity [Charmed]",
       "type": "feat",
       "img": "icons/svg/upgrade.svg",
       "system": {
         "featType": "trait",
-        "xpCost": 4,
+        "xpCost": 8,
         "requirements": "",
-        "effect": "4 XP, dead flesh that does not bleed.",
+        "effect": "this creature cannot be Charmed. It has no will to turn.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [],
@@ -222,7 +227,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!dBDZoxF3TnlttpdA.9C2rz8yQwsNbZ9JD"
+      "_key": "!actors.items!dBDZoxF3TnlttpdA.w3FcXtN7al9dxFJ0"
     }
   ],
   "_key": "!actors!dBDZoxF3TnlttpdA"

@@ -65,11 +65,7 @@
         "incapacitated": false
       }
     },
-    "skills": {
-      "discipline": {
-        "training": 1
-      }
-    },
+    "skills": {},
     "resistance": {
       "physical": 0,
       "mental": 0
@@ -96,31 +92,31 @@
       "img": "icons/svg/claw.svg",
       "system": {
         "types": [
+          "melee",
           "grappling"
         ],
         "range": "Range 0",
+        "maxRange": "touching",
         "weight": "light",
         "innate": true,
+        "location": "equipped",
         "primaryAttribute": "might",
         "category": "melee",
         "price": 0,
         "kit": [
           {
-            "name": "Snare",
+            "name": "Strike",
             "skill": "prowess",
-            "effect": "Applies Grappled."
+            "effect": "Deals Stress to Might or Finesse."
           },
           {
-            "name": "Tumble",
-            "skill": "acuity",
-            "effect": "Applies Prone."
-          },
-          {
-            "name": "Tangle",
-            "skill": "guile",
-            "effect": "Applies Restrained."
+            "name": "Restrain",
+            "skill": "discipline",
+            "effect": "Applies Restrained.",
+            "signature": true
           }
         ],
+        "backs": "Threaten",
         "description": ""
       },
       "effects": [],
@@ -164,7 +160,9 @@
           }
         ],
         "floor": false,
+        "formerNames": [],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Grappled",
         "description": ""
       },
@@ -178,10 +176,11 @@
       "_key": "!actors.items!gTdJFzrCWhjmW3mX.uI0IG6jq4jKleByV"
     },
     {
-      "_id": "YGIHJJlqnQR1JLR0",
-      "name": "Reel In",
+      "_id": "u0HEJRleXNxXYOvS",
+      "name": "Grapple and Pull",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Reel In",
       "system": {
         "requires": [
           "grappling"
@@ -209,7 +208,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Reel In"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Grappled, Move the target up to Range 2",
         "description": ""
       },
@@ -220,21 +223,39 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!gTdJFzrCWhjmW3mX.YGIHJJlqnQR1JLR0"
+      "_key": "!actors.items!gTdJFzrCWhjmW3mX.u0HEJRleXNxXYOvS"
     },
     {
-      "_id": "tzJuEiMVto6LmOkp",
-      "name": "Specialized Resistance",
-      "type": "feat",
-      "img": "icons/svg/upgrade.svg",
+      "_id": "T1qbnMQ2MELsTBb1",
+      "name": "Slow (Melee)",
+      "type": "technique",
+      "img": "icons/svg/aura.svg",
+      "idName": "Hinder",
       "system": {
-        "featType": "trait",
-        "xpCost": 4,
-        "requirements": "",
-        "effect": "4 XP, green wood that bends under a blow.",
-        "ancestry": "",
-        "grantsTechnique": "",
-        "modifiers": [],
+        "requires": [
+          "melee"
+        ],
+        "innate": false,
+        "skill": "prowess",
+        "family": "Melee",
+        "subgroup": "Control",
+        "effects": [
+          {
+            "key": "slowed",
+            "magnitude": 1,
+            "pattern": "single",
+            "bands": 0,
+            "placement": 0,
+            "selectiveR": 0
+          }
+        ],
+        "floor": false,
+        "formerNames": [
+          "Hinder"
+        ],
+        "ancestryGrant": "",
+        "grantedBy": "",
+        "effectText": "Slowed",
         "description": ""
       },
       "effects": [],
@@ -244,7 +265,37 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!gTdJFzrCWhjmW3mX.tzJuEiMVto6LmOkp"
+      "_key": "!actors.items!gTdJFzrCWhjmW3mX.T1qbnMQ2MELsTBb1"
+    },
+    {
+      "_id": "CovaAuEoOAnuYPXe",
+      "name": "Specialized Resistance (Melee)",
+      "type": "feat",
+      "img": "icons/svg/upgrade.svg",
+      "system": {
+        "featType": "trait",
+        "xpCost": 8,
+        "requirements": "",
+        "effect": "Melee +1 Resistance: green wood that bends under a blow.",
+        "ancestry": "",
+        "grantsTechnique": "",
+        "modifiers": [
+          {
+            "type": "resistance",
+            "key": "melee",
+            "value": 1
+          }
+        ],
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 500000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!gTdJFzrCWhjmW3mX.CovaAuEoOAnuYPXe"
     }
   ],
   "_key": "!actors!gTdJFzrCWhjmW3mX"

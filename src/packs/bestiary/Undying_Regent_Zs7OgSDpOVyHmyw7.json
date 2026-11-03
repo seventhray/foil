@@ -99,35 +99,41 @@
       "_id": "0ECTZhSYSkChO6Ar",
       "name": "Sceptre",
       "type": "instrument",
-      "img": "icons/svg/claw.svg",
+      "img": "icons/svg/sword.svg",
       "system": {
-        "types": [
-          "blunt"
-        ],
-        "range": "Range 1",
-        "weight": "medium",
-        "innate": false,
-        "primaryAttribute": "might",
         "category": "melee",
-        "price": 0,
+        "weight": "medium",
+        "primaryAttribute": "might",
+        "range": "Range 1",
+        "maxRange": "close",
+        "types": [
+          "melee"
+        ],
+        "typesDisplay": "",
+        "price": 30,
+        "rider": "",
+        "family": "Hammers",
+        "backs": "Threaten",
         "kit": [
           {
-            "name": "Bash",
+            "name": "Strike",
             "skill": "prowess",
-            "effect": "Deals Stress to Might or Finesse."
+            "effect": "Deals Stress to Might or Finesse.",
+            "signature": false
           },
           {
-            "name": "Sweep",
-            "skill": "acuity",
-            "effect": "Applies Prone."
-          },
-          {
-            "name": "Feint Jab",
-            "skill": "guile",
-            "effect": "Applies Reeling."
+            "name": "Stun",
+            "skill": "discipline",
+            "effect": "Applies Stunned. Strain 1.",
+            "signature": true
           }
         ],
-        "description": ""
+        "innate": false,
+        "bonus": 0,
+        "size": "medium",
+        "materials": "2 Metal",
+        "description": "",
+        "location": "equipped"
       },
       "effects": [],
       "folder": null,
@@ -148,28 +154,69 @@
         "weight": "light",
         "primaryAttribute": "presence",
         "range": "Range 8",
+        "maxRange": "mid",
         "types": [
-          "quick",
           "sonic"
         ],
         "typesDisplay": "",
         "price": 0,
         "rider": "Innate: every character has it, free (PHB 2.5.3).",
+        "family": "",
+        "backs": "",
         "kit": [
           {
-            "name": "Browbeat",
+            "name": "Threaten",
             "skill": "assertiveness",
-            "effect": "Deals Stress to Presence or Wit."
+            "effect": "Deals Stress to Wit or Presence.",
+            "signature": false
           },
           {
-            "name": "Mislead",
+            "name": "Threaten",
+            "skill": "assertiveness",
+            "effect": "Applies Intimidated.",
+            "signature": false
+          },
+          {
+            "name": "Threaten",
+            "skill": "assertiveness",
+            "effect": "Applies Frightened.",
+            "signature": false
+          },
+          {
+            "name": "Deceive",
             "skill": "guile",
-            "effect": "Applies Misled."
+            "effect": "Deals Stress to Wit or Presence.",
+            "signature": false
           },
           {
-            "name": "Sway",
+            "name": "Deceive",
+            "skill": "guile",
+            "effect": "Applies Misled.",
+            "signature": false
+          },
+          {
+            "name": "Deceive",
+            "skill": "guile",
+            "effect": "Applies Baited.",
+            "signature": false
+          },
+          {
+            "name": "Persuade",
             "skill": "resonance",
-            "effect": "Applies Swayed."
+            "effect": "Deals Stress to Wit or Presence.",
+            "signature": false
+          },
+          {
+            "name": "Persuade",
+            "skill": "resonance",
+            "effect": "Applies Swayed.",
+            "signature": false
+          },
+          {
+            "name": "Persuade",
+            "skill": "resonance",
+            "effect": "Applies Relaxed.",
+            "signature": false
           }
         ],
         "innate": true,
@@ -197,28 +244,34 @@
         "weight": "light",
         "primaryAttribute": "wit",
         "range": "Range 2",
+        "maxRange": "near",
         "types": [
-          "quick",
+          "arcane",
           "incorporeal"
         ],
         "typesDisplay": "",
         "price": 0,
         "rider": "Innate: every character has it, free (PHB 2.5.3).",
+        "family": "",
+        "backs": "",
         "kit": [
           {
             "name": "Deduce",
             "skill": "discipline",
-            "effect": "Works out a problem or recalls a fact."
+            "effect": "Solves a problem or recalls a fact.",
+            "signature": false
           },
           {
             "name": "Analyze",
             "skill": "acuity",
-            "effect": "Learns a creature's Attributes, or notices something specific."
+            "effect": "Learns a creature's Attributes, or notices something specific.",
+            "signature": false
           },
           {
             "name": "Intuit",
             "skill": "resonance",
-            "effect": "Applies Foil Exposed, or gives insight into a situation."
+            "effect": "Applies Foil Exposed, or gives insight into a situation.",
+            "signature": false
           }
         ],
         "innate": true,
@@ -237,10 +290,11 @@
       "_key": "!actors.items!Zs7OgSDpOVyHmyw7.plCbUS8XbztlsvW1"
     },
     {
-      "_id": "Nb7hxv1tYrzSBFsX",
-      "name": "Dominate",
+      "_id": "Imt0nG2TUVyVw0ok",
+      "name": "Control, Held (Incorporeal)",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Dominate",
       "system": {
         "requires": [
           "incorporeal"
@@ -268,7 +322,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Dominate"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Controlled, Upkeep, Strain 1",
         "description": ""
       },
@@ -279,13 +337,14 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!Zs7OgSDpOVyHmyw7.Nb7hxv1tYrzSBFsX"
+      "_key": "!actors.items!Zs7OgSDpOVyHmyw7.Imt0nG2TUVyVw0ok"
     },
     {
-      "_id": "u3ioRjgoQNNyhuyP",
-      "name": "Waking Nightmare",
+      "_id": "AgJxyWRDUDHBBm1Q",
+      "name": "Pushing Lasting Weakening Spell",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Waking Nightmare",
       "system": {
         "requires": [
           "incorporeal"
@@ -321,7 +380,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Waking Nightmare"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, -1 [target Attribute] (1 minute), Move the target up to Range 2, Strain 2",
         "description": ""
       },
@@ -332,13 +395,14 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!Zs7OgSDpOVyHmyw7.u3ioRjgoQNNyhuyP"
+      "_key": "!actors.items!Zs7OgSDpOVyHmyw7.AgJxyWRDUDHBBm1Q"
     },
     {
-      "_id": "DiJb12uLUkcYbKnH",
-      "name": "Fog of Madness",
+      "_id": "Bmi7Evb44YZZqTEx",
+      "name": "Bursting Weakening Spell",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Fog of Madness",
       "system": {
         "requires": [
           "incorporeal"
@@ -374,7 +438,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Fog of Madness"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, -1 [target Attribute], Radius (Range 2), Strain 3",
         "description": ""
       },
@@ -385,7 +453,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!Zs7OgSDpOVyHmyw7.DiJb12uLUkcYbKnH"
+      "_key": "!actors.items!Zs7OgSDpOVyHmyw7.Bmi7Evb44YZZqTEx"
     },
     {
       "_id": "noCwhnNSH7slGkKC",

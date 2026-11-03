@@ -20,7 +20,8 @@ function renderLine(d) {
   switch (d.kind) {
     case "raw": return d.text;
     case "base": return `**${d.name}** (${d.source ?? "GMG 9.6.0"}): Stress through a ${d.weight} ${d.type} Instrument${d.note ? ` (${d.note})` : ""}, part of its baseline kit.`;
-    case "natural_weapon": return `**${d.name}** (GMG 9.6.1): ${d.weight} ${d.type} Instrument, Range ${d.range}, built-in Techniques free${d.note ? ` (${d.note})` : ""}.`;
+    // An Arcane natural weapon comes with one Stress Technique, any other with its row's built-ins (GMG 9.6.0; creature_data.py _kit_words).
+    case "natural_weapon": return `**${d.name}** (GMG 9.6.1): ${d.weight} ${d.type} Instrument, Range ${d.range}, ${String(d.type).startsWith("Arcane") ? "one Stress Technique" : "built-in Techniques"} free${d.note ? ` (${d.note})` : ""}.`;
     case "innate": return `**${d.name}** (PHB 2.5.3): innate Instrument, built-in Techniques free.`;
     case "evade": return `**${d.name}**: Evade, 4 XP (None). Moves ${d.moves} without spending the Disengage Quick Action.`;
     case "legendary_action": return `**Legendary Action** (${d.uses} uses, ${d.xp} XP, 9.5.1): ${d.text}`;

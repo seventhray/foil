@@ -101,35 +101,35 @@
         "range": "Range 1",
         "maxRange": "close",
         "types": [
-          "edged",
-          "pointed",
-          "parry"
+          "melee",
+          "guarding",
+          "thrown"
         ],
         "typesDisplay": "",
-        "price": 30,
+        "price": 35,
         "rider": "",
+        "family": "Knives",
+        "backs": "Deceive",
         "kit": [
           {
-            "name": "Stab",
+            "name": "Strike",
             "skill": "prowess",
-            "effect": "Deals Stress to Might or Finesse."
+            "effect": "Deals Stress to Might or Finesse.",
+            "signature": false
           },
           {
-            "name": "Vital Strike",
+            "name": "Bleed",
             "skill": "acuity",
-            "effect": "Applies Weakened [Finesse]."
-          },
-          {
-            "name": "Low Feint",
-            "skill": "guile",
-            "effect": "Applies Reeling."
+            "effect": "Lingering 1.",
+            "signature": true
           }
         ],
         "innate": false,
         "bonus": 0,
         "size": "small",
         "materials": "1 Metal",
-        "description": ""
+        "description": "",
+        "location": "equipped"
       },
       "effects": [],
       "folder": null,
@@ -141,8 +141,8 @@
       "_key": "!actors.items!wwsc1pvrr998k0Sp.8Ygv50O6VnQ2Jgrj"
     },
     {
-      "_id": "Et15Nhspum5VZReW",
-      "name": "Mending Focus",
+      "_id": "5Khs5vnSd0IdgbFC",
+      "name": "Holy Symbol",
       "type": "instrument",
       "img": "icons/svg/sword.svg",
       "system": {
@@ -152,33 +152,21 @@
         "range": "Range 4",
         "maxRange": "short",
         "types": [
-          "fortifying"
+          "arcane",
+          "incorporeal"
         ],
         "typesDisplay": "",
-        "price": 20,
+        "price": 25,
         "rider": "",
-        "kit": [
-          {
-            "name": "Steadying Word",
-            "skill": "assertiveness",
-            "effect": "Grants an ally +1 [Skill] for 1 round."
-          },
-          {
-            "name": "Settle",
-            "skill": "guile",
-            "effect": "Removes a Frightened or Wary Condition from an ally."
-          },
-          {
-            "name": "Soothing Touch",
-            "skill": "resonance",
-            "effect": "Removes 1d4 Stress from an ally's Attribute."
-          }
-        ],
+        "family": "",
+        "backs": "",
+        "kit": [],
         "innate": false,
         "bonus": 0,
-        "size": "small",
-        "materials": "1 Metal",
-        "description": ""
+        "size": "medium",
+        "materials": "",
+        "description": "",
+        "location": "equipped"
       },
       "effects": [],
       "folder": null,
@@ -187,16 +175,17 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!wwsc1pvrr998k0Sp.Et15Nhspum5VZReW"
+      "_key": "!actors.items!wwsc1pvrr998k0Sp.5Khs5vnSd0IdgbFC"
     },
     {
-      "_id": "7jx6sFQ9Lai7rsQt",
-      "name": "Healing Word",
+      "_id": "lYEomF0VkgBzB8lG",
+      "name": "Mending Spell 1d4",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Healing Word",
       "system": {
         "requires": [
-          "fortifying"
+          "incorporeal"
         ],
         "innate": false,
         "skill": "resonance",
@@ -212,8 +201,12 @@
             "selectiveR": 0
           }
         ],
-        "floor": true,
+        "floor": false,
+        "formerNames": [
+          "Healing Word"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Mend 1d4",
         "description": ""
       },
@@ -224,16 +217,17 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!wwsc1pvrr998k0Sp.7jx6sFQ9Lai7rsQt"
+      "_key": "!actors.items!wwsc1pvrr998k0Sp.lYEomF0VkgBzB8lG"
     },
     {
-      "_id": "iciHy7glMKIAqdSX",
-      "name": "Restoring Light",
+      "_id": "1NL3YJBIDiq1ZtOH",
+      "name": "Mending Spell 2d4",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Restoring Light",
       "system": {
         "requires": [
-          "fortifying"
+          "incorporeal"
         ],
         "innate": false,
         "skill": "resonance",
@@ -249,8 +243,12 @@
             "selectiveR": 0
           }
         ],
-        "floor": true,
+        "floor": false,
+        "formerNames": [
+          "Restoring Light"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Mend 2d4",
         "description": ""
       },
@@ -261,7 +259,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!wwsc1pvrr998k0Sp.iciHy7glMKIAqdSX"
+      "_key": "!actors.items!wwsc1pvrr998k0Sp.1NL3YJBIDiq1ZtOH"
     }
   ],
   "_key": "!actors!wwsc1pvrr998k0Sp"

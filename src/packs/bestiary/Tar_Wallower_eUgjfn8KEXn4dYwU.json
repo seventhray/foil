@@ -96,31 +96,30 @@
       "img": "icons/svg/claw.svg",
       "system": {
         "types": [
-          "blunt"
+          "melee"
         ],
         "range": "Range 1",
+        "maxRange": "close",
         "weight": "light",
         "innate": true,
+        "location": "equipped",
         "primaryAttribute": "might",
         "category": "melee",
         "price": 0,
         "kit": [
           {
-            "name": "Bash",
+            "name": "Strike",
             "skill": "prowess",
             "effect": "Deals Stress to Might or Finesse."
           },
           {
-            "name": "Sweep",
-            "skill": "acuity",
-            "effect": "Applies Prone."
-          },
-          {
-            "name": "Feint Jab",
-            "skill": "guile",
-            "effect": "Applies Reeling."
+            "name": "Push",
+            "skill": "discipline",
+            "effect": "Moves the target up to Range 2.",
+            "signature": true
           }
         ],
+        "backs": "Threaten",
         "description": ""
       },
       "effects": [],
@@ -139,31 +138,31 @@
       "img": "icons/svg/claw.svg",
       "system": {
         "types": [
+          "melee",
           "grappling"
         ],
         "range": "Range 1",
+        "maxRange": "close",
         "weight": "light",
         "innate": true,
+        "location": "equipped",
         "primaryAttribute": "might",
         "category": "melee",
         "price": 0,
         "kit": [
           {
-            "name": "Snare",
+            "name": "Strike",
             "skill": "prowess",
-            "effect": "Applies Grappled."
+            "effect": "Deals Stress to Might or Finesse."
           },
           {
-            "name": "Tumble",
-            "skill": "acuity",
-            "effect": "Applies Prone."
-          },
-          {
-            "name": "Tangle",
-            "skill": "guile",
-            "effect": "Applies Restrained."
+            "name": "Slow",
+            "skill": "discipline",
+            "effect": "Applies Slowed.",
+            "signature": true
           }
         ],
+        "backs": "Threaten",
         "description": ""
       },
       "effects": [],
@@ -176,10 +175,11 @@
       "_key": "!actors.items!eUgjfn8KEXn4dYwU.QRmakBFriTtJ4CtT"
     },
     {
-      "_id": "HbzLbAnwIJmExKbG",
-      "name": "Pin",
+      "_id": "GkLwD7yoXpT6O5Xn",
+      "name": "Restraining Hold",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Pin",
       "system": {
         "requires": [
           "grappling"
@@ -207,7 +207,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Pin"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Restrained",
         "description": ""
       },
@@ -218,7 +222,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!eUgjfn8KEXn4dYwU.HbzLbAnwIJmExKbG"
+      "_key": "!actors.items!eUgjfn8KEXn4dYwU.GkLwD7yoXpT6O5Xn"
     },
     {
       "_id": "c12cF0p0kNaxKSNb",
@@ -260,7 +264,9 @@
           }
         ],
         "floor": false,
+        "formerNames": [],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Prone, -1 [target Attribute] (1 minute), Strain 2",
         "description": ""
       },
@@ -274,10 +280,11 @@
       "_key": "!actors.items!eUgjfn8KEXn4dYwU.c12cF0p0kNaxKSNb"
     },
     {
-      "_id": "PWDE6Q5NsSna8ZZA",
-      "name": "Bind",
+      "_id": "rL09LUOvA2ePLiau",
+      "name": "Lasting Weaken (Grappling or Kinetic)",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Bind",
       "system": {
         "requires": [
           "grappling",
@@ -298,7 +305,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Bind"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "-1 [target Attribute] (1 minute)",
         "description": ""
       },
@@ -309,7 +320,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!eUgjfn8KEXn4dYwU.PWDE6Q5NsSna8ZZA"
+      "_key": "!actors.items!eUgjfn8KEXn4dYwU.rL09LUOvA2ePLiau"
     },
     {
       "_id": "0DSbfg7HoyoNqRFS",

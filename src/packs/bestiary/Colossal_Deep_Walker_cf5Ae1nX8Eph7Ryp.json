@@ -99,31 +99,30 @@
       "img": "icons/svg/claw.svg",
       "system": {
         "types": [
-          "blunt"
+          "melee"
         ],
         "range": "Range 1",
+        "maxRange": "close",
         "weight": "light",
         "innate": true,
+        "location": "equipped",
         "primaryAttribute": "might",
         "category": "melee",
         "price": 0,
         "kit": [
           {
-            "name": "Bash",
+            "name": "Strike",
             "skill": "prowess",
             "effect": "Deals Stress to Might or Finesse."
           },
           {
-            "name": "Sweep",
-            "skill": "acuity",
-            "effect": "Applies Prone."
-          },
-          {
-            "name": "Feint Jab",
-            "skill": "guile",
-            "effect": "Applies Reeling."
+            "name": "Push",
+            "skill": "discipline",
+            "effect": "Moves the target up to Range 2.",
+            "signature": true
           }
         ],
+        "backs": "Threaten",
         "description": ""
       },
       "effects": [],
@@ -142,31 +141,31 @@
       "img": "icons/svg/claw.svg",
       "system": {
         "types": [
+          "melee",
           "grappling"
         ],
         "range": "Range 2",
+        "maxRange": "near",
         "weight": "light",
         "innate": true,
+        "location": "equipped",
         "primaryAttribute": "might",
         "category": "melee",
         "price": 0,
         "kit": [
           {
-            "name": "Snare",
+            "name": "Strike",
             "skill": "prowess",
-            "effect": "Applies Grappled."
+            "effect": "Deals Stress to Might or Finesse."
           },
           {
-            "name": "Tumble",
-            "skill": "acuity",
-            "effect": "Applies Prone."
-          },
-          {
-            "name": "Tangle",
-            "skill": "guile",
-            "effect": "Applies Restrained."
+            "name": "Restrain",
+            "skill": "discipline",
+            "effect": "Applies Restrained.",
+            "signature": true
           }
         ],
+        "backs": "Threaten",
         "description": ""
       },
       "effects": [],
@@ -185,31 +184,31 @@
       "img": "icons/svg/claw.svg",
       "system": {
         "types": [
+          "melee",
           "grappling"
         ],
         "range": "Range 1",
+        "maxRange": "close",
         "weight": "light",
         "innate": true,
+        "location": "equipped",
         "primaryAttribute": "might",
         "category": "melee",
         "price": 0,
         "kit": [
           {
-            "name": "Snare",
+            "name": "Strike",
             "skill": "prowess",
-            "effect": "Applies Grappled."
+            "effect": "Deals Stress to Might or Finesse."
           },
           {
-            "name": "Tumble",
-            "skill": "acuity",
-            "effect": "Applies Prone."
-          },
-          {
-            "name": "Tangle",
-            "skill": "guile",
-            "effect": "Applies Restrained."
+            "name": "Slow",
+            "skill": "discipline",
+            "effect": "Applies Slowed.",
+            "signature": true
           }
         ],
+        "backs": "Threaten",
         "description": ""
       },
       "effects": [],
@@ -253,7 +252,9 @@
           }
         ],
         "floor": false,
+        "formerNames": [],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, -1 [target Attribute] (1 minute), Strain 1",
         "description": ""
       },
@@ -306,7 +307,9 @@
           }
         ],
         "floor": false,
+        "formerNames": [],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Prone, -1 [target Attribute] (1 minute), Strain 2",
         "description": ""
       },
@@ -320,10 +323,11 @@
       "_key": "!actors.items!cf5Ae1nX8Eph7Ryp.BMJBmHLHY6YG3Ygc"
     },
     {
-      "_id": "Nj7r2nnCcuxJjwna",
-      "name": "Pin",
+      "_id": "JNR69AXpMSxMCcXC",
+      "name": "Restraining Hold",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Pin",
       "system": {
         "requires": [
           "grappling"
@@ -351,7 +355,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Pin"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Restrained",
         "description": ""
       },
@@ -362,16 +370,17 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!cf5Ae1nX8Eph7Ryp.Nj7r2nnCcuxJjwna"
+      "_key": "!actors.items!cf5Ae1nX8Eph7Ryp.JNR69AXpMSxMCcXC"
     },
     {
-      "_id": "ImspVeAUM361tSQy",
-      "name": "Break",
+      "_id": "X0fLk7CDDCceU90L",
+      "name": "Lasting Weakening Strike",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Break",
       "system": {
         "requires": [
-          "blunt"
+          "melee"
         ],
         "innate": false,
         "skill": "prowess",
@@ -396,7 +405,12 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Break",
+          "Sinew Cut"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, -1 [target Attribute] (1 minute), Strain 1",
         "description": ""
       },
@@ -407,7 +421,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!cf5Ae1nX8Eph7Ryp.ImspVeAUM361tSQy"
+      "_key": "!actors.items!cf5Ae1nX8Eph7Ryp.X0fLk7CDDCceU90L"
     },
     {
       "_id": "HS5AuMpfFnNyNk18",

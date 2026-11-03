@@ -96,31 +96,25 @@
       "img": "icons/svg/claw.svg",
       "system": {
         "types": [
+          "arcane",
           "incorporeal"
         ],
         "range": "Range 0",
+        "maxRange": "touching",
         "weight": "light",
         "innate": true,
+        "location": "equipped",
         "primaryAttribute": "wit",
         "category": "arcane",
         "price": 0,
         "kit": [
           {
-            "name": "Withering Curse",
+            "name": "Curse Touch",
             "skill": "discipline",
-            "effect": "Applies Weakened [Might]."
-          },
-          {
-            "name": "Maddening Whisper",
-            "skill": "acuity",
             "effect": "Deals Stress to Wit or Presence."
-          },
-          {
-            "name": "Despairing Word",
-            "skill": "resonance",
-            "effect": "Applies Frightened."
           }
         ],
+        "backs": "",
         "description": ""
       },
       "effects": [],
@@ -139,31 +133,25 @@
       "img": "icons/svg/claw.svg",
       "system": {
         "types": [
+          "arcane",
           "incorporeal"
         ],
         "range": "Range 1",
+        "maxRange": "close",
         "weight": "light",
         "innate": true,
+        "location": "equipped",
         "primaryAttribute": "wit",
         "category": "arcane",
         "price": 0,
         "kit": [
           {
-            "name": "Withering Curse",
+            "name": "Chilling Presence",
             "skill": "discipline",
-            "effect": "Applies Weakened [Might]."
-          },
-          {
-            "name": "Maddening Whisper",
-            "skill": "acuity",
             "effect": "Deals Stress to Wit or Presence."
-          },
-          {
-            "name": "Despairing Word",
-            "skill": "resonance",
-            "effect": "Applies Frightened."
           }
         ],
+        "backs": "",
         "description": ""
       },
       "effects": [],
@@ -176,10 +164,11 @@
       "_key": "!actors.items!JtlAqSXEw3kpFDML.kFNC1TPIgcMJlI2x"
     },
     {
-      "_id": "on25IflioFtbnAnr",
-      "name": "Vampiric Blight",
+      "_id": "aeF6kls60oVXurJ7",
+      "name": "Lingering Draining Spell",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Vampiric Blight",
       "system": {
         "requires": [
           "incorporeal"
@@ -215,7 +204,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Vampiric Blight"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Drain, Lingering 1",
         "description": ""
       },
@@ -226,13 +219,14 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!JtlAqSXEw3kpFDML.on25IflioFtbnAnr"
+      "_key": "!actors.items!JtlAqSXEw3kpFDML.aeF6kls60oVXurJ7"
     },
     {
-      "_id": "5nAOHA8nDbwF5TnZ",
-      "name": "Grievous Curse",
+      "_id": "9jVvU64iyqtQuisP",
+      "name": "Lasting Weakening Spell",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Grievous Curse",
       "system": {
         "requires": [
           "incorporeal"
@@ -260,7 +254,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Grievous Curse"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, -1 [target Attribute] (1 minute), Strain 1",
         "description": ""
       },
@@ -271,13 +269,14 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!JtlAqSXEw3kpFDML.5nAOHA8nDbwF5TnZ"
+      "_key": "!actors.items!JtlAqSXEw3kpFDML.9jVvU64iyqtQuisP"
     },
     {
-      "_id": "ilojhnQhzhHCASWY",
-      "name": "Withering Touch",
+      "_id": "aQxAqhNHi2DC9aos",
+      "name": "Lasting Reeling Spell",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Withering Touch",
       "system": {
         "requires": [
           "incorporeal"
@@ -305,7 +304,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Withering Touch"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, -1 Oppose (1 minute)",
         "description": ""
       },
@@ -316,13 +319,14 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!JtlAqSXEw3kpFDML.ilojhnQhzhHCASWY"
+      "_key": "!actors.items!JtlAqSXEw3kpFDML.aQxAqhNHi2DC9aos"
     },
     {
-      "_id": "EO8QXH02TgaAngx5",
-      "name": "Soul Leech",
+      "_id": "hUAgBmjPqSbV1Udo",
+      "name": "Draining Spell",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Soul Leech",
       "system": {
         "requires": [
           "incorporeal"
@@ -350,7 +354,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Soul Leech"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Drain",
         "description": ""
       },
@@ -361,7 +369,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!JtlAqSXEw3kpFDML.EO8QXH02TgaAngx5"
+      "_key": "!actors.items!JtlAqSXEw3kpFDML.hUAgBmjPqSbV1Udo"
     },
     {
       "_id": "SVJFIqd4B4mUCAm8",

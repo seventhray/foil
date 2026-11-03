@@ -99,31 +99,30 @@
       "img": "icons/svg/claw.svg",
       "system": {
         "types": [
-          "edged"
+          "melee"
         ],
         "range": "Range 1",
+        "maxRange": "close",
         "weight": "light",
         "innate": true,
+        "location": "equipped",
         "primaryAttribute": "might",
         "category": "melee",
         "price": 0,
         "kit": [
           {
-            "name": "Stab",
+            "name": "Strike",
             "skill": "prowess",
             "effect": "Deals Stress to Might or Finesse."
           },
           {
-            "name": "Vital Strike",
-            "skill": "acuity",
-            "effect": "Applies Weakened [Finesse]."
-          },
-          {
-            "name": "Low Feint",
-            "skill": "guile",
-            "effect": "Applies Reeling."
+            "name": "Bleed",
+            "skill": "discipline",
+            "effect": "Lingering 1.",
+            "signature": true
           }
         ],
+        "backs": "Threaten",
         "description": ""
       },
       "effects": [],
@@ -142,31 +141,25 @@
       "img": "icons/svg/claw.svg",
       "system": {
         "types": [
+          "arcane",
           "incorporeal"
         ],
         "range": "Range 8",
+        "maxRange": "mid",
         "weight": "light",
         "innate": true,
+        "location": "equipped",
         "primaryAttribute": "wit",
         "category": "arcane",
         "price": 0,
         "kit": [
           {
-            "name": "Withering Curse",
+            "name": "Mind Lash",
             "skill": "discipline",
-            "effect": "Applies Weakened [Might]."
-          },
-          {
-            "name": "Maddening Whisper",
-            "skill": "acuity",
             "effect": "Deals Stress to Wit or Presence."
-          },
-          {
-            "name": "Despairing Word",
-            "skill": "resonance",
-            "effect": "Applies Frightened."
           }
         ],
+        "backs": "",
         "description": ""
       },
       "effects": [],
@@ -188,28 +181,27 @@
           "sonic"
         ],
         "range": "Range 8",
+        "maxRange": "mid",
         "weight": "light",
         "innate": true,
+        "location": "equipped",
         "primaryAttribute": "presence",
         "category": "sonic",
         "price": 0,
         "kit": [
           {
-            "name": "Rousing Chord",
-            "skill": "assertiveness",
-            "effect": "Applies Intimidated."
-          },
-          {
-            "name": "Cutting Verse",
-            "skill": "guile",
-            "effect": "Applies Baited."
-          },
-          {
-            "name": "Discordant Note",
-            "skill": "resonance",
+            "name": "Cry",
+            "skill": "prowess",
             "effect": "Deals Stress to Wit or Presence."
+          },
+          {
+            "name": "Reel",
+            "skill": "guile",
+            "effect": "Applies Reeling.",
+            "signature": true
           }
         ],
+        "backs": "",
         "description": ""
       },
       "effects": [],
@@ -222,10 +214,11 @@
       "_key": "!actors.items!X19sg6KSKeF3PuKQ.xQH9rGwruGm4isvl"
     },
     {
-      "_id": "f998ksxOdp7E6zjz",
-      "name": "Fog of Madness",
+      "_id": "MySehAe2GMsxURaQ",
+      "name": "Bursting Weakening Spell",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Fog of Madness",
       "system": {
         "requires": [
           "incorporeal"
@@ -261,7 +254,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Fog of Madness"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, -1 [target Attribute], Radius (Range 2), Strain 3",
         "description": ""
       },
@@ -272,13 +269,14 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!X19sg6KSKeF3PuKQ.f998ksxOdp7E6zjz"
+      "_key": "!actors.items!X19sg6KSKeF3PuKQ.MySehAe2GMsxURaQ"
     },
     {
-      "_id": "J3WFCP4UGJ1MygaI",
-      "name": "Soul Harvest",
+      "_id": "WnpRDOifC1knICBz",
+      "name": "Bursting Draining Spell",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Soul Harvest",
       "system": {
         "requires": [
           "incorporeal"
@@ -314,7 +312,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Soul Harvest"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Drain, Radius (Range 2), Strain 4",
         "description": ""
       },
@@ -325,7 +327,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!X19sg6KSKeF3PuKQ.J3WFCP4UGJ1MygaI"
+      "_key": "!actors.items!X19sg6KSKeF3PuKQ.WnpRDOifC1knICBz"
     },
     {
       "_id": "Fr58BGRQuOuDm1Bv",
@@ -367,7 +369,9 @@
           }
         ],
         "floor": false,
+        "formerNames": [],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Frightened, Radius (Range 2), Strain 4",
         "description": ""
       },

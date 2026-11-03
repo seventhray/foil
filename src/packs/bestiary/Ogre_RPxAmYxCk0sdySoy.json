@@ -96,35 +96,41 @@
       "_id": "QZ8x5zcdQtj862iU",
       "name": "Club",
       "type": "instrument",
-      "img": "icons/svg/claw.svg",
+      "img": "icons/svg/sword.svg",
       "system": {
-        "types": [
-          "blunt"
-        ],
-        "range": "Range 1",
-        "weight": "medium",
-        "innate": false,
-        "primaryAttribute": "might",
         "category": "melee",
-        "price": 0,
+        "weight": "medium",
+        "primaryAttribute": "might",
+        "range": "Range 1",
+        "maxRange": "close",
+        "types": [
+          "melee"
+        ],
+        "typesDisplay": "",
+        "price": 30,
+        "rider": "",
+        "family": "Hammers",
+        "backs": "Threaten",
         "kit": [
           {
-            "name": "Bash",
+            "name": "Strike",
             "skill": "prowess",
-            "effect": "Deals Stress to Might or Finesse."
+            "effect": "Deals Stress to Might or Finesse.",
+            "signature": false
           },
           {
-            "name": "Sweep",
-            "skill": "acuity",
-            "effect": "Applies Prone."
-          },
-          {
-            "name": "Feint Jab",
-            "skill": "guile",
-            "effect": "Applies Reeling."
+            "name": "Stun",
+            "skill": "discipline",
+            "effect": "Applies Stunned. Strain 1.",
+            "signature": true
           }
         ],
-        "description": ""
+        "innate": false,
+        "bonus": 0,
+        "size": "medium",
+        "materials": "2 Metal",
+        "description": "",
+        "location": "equipped"
       },
       "effects": [],
       "folder": null,
@@ -136,13 +142,14 @@
       "_key": "!actors.items!RPxAmYxCk0sdySoy.QZ8x5zcdQtj862iU"
     },
     {
-      "_id": "SnxhMeYEBDuIHWbB",
-      "name": "Pommel Strike",
+      "_id": "7ALTPPYIJU0LTdS4",
+      "name": "Lasting Reeling Strike",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Pommel Strike",
       "system": {
         "requires": [
-          "blunt"
+          "melee"
         ],
         "innate": false,
         "skill": "prowess",
@@ -167,7 +174,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Pommel Strike"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, -1 Oppose (1 minute)",
         "description": ""
       },
@@ -178,7 +189,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!RPxAmYxCk0sdySoy.SnxhMeYEBDuIHWbB"
+      "_key": "!actors.items!RPxAmYxCk0sdySoy.7ALTPPYIJU0LTdS4"
     },
     {
       "_id": "lRntQHQiSU4ETueT",
@@ -205,18 +216,24 @@
       "_key": "!actors.items!RPxAmYxCk0sdySoy.lRntQHQiSU4ETueT"
     },
     {
-      "_id": "bGvBU5Bgl8DhKIDA",
-      "name": "Specialized Resistance",
+      "_id": "FFXgeu39l39PMRD1",
+      "name": "Specialized Resistance (Melee)",
       "type": "feat",
       "img": "icons/svg/upgrade.svg",
       "system": {
         "featType": "trait",
-        "xpCost": 4,
+        "xpCost": 8,
         "requirements": "",
-        "effect": "4 XP, a thick skull and gristle.",
+        "effect": "Melee +1 Resistance: a thick skull and gristle.",
         "ancestry": "",
         "grantsTechnique": "",
-        "modifiers": [],
+        "modifiers": [
+          {
+            "type": "resistance",
+            "key": "melee",
+            "value": 1
+          }
+        ],
         "description": ""
       },
       "effects": [],
@@ -226,7 +243,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!RPxAmYxCk0sdySoy.bGvBU5Bgl8DhKIDA"
+      "_key": "!actors.items!RPxAmYxCk0sdySoy.FFXgeu39l39PMRD1"
     }
   ],
   "_key": "!actors!RPxAmYxCk0sdySoy"

@@ -104,34 +104,34 @@
         "range": "Range 2",
         "maxRange": "near",
         "types": [
-          "pointed",
-          "parry"
+          "melee",
+          "guarding"
         ],
         "typesDisplay": "",
         "price": 50,
         "rider": "",
+        "family": "Spears",
+        "backs": "Threaten",
         "kit": [
           {
-            "name": "Lunge",
+            "name": "Strike",
             "skill": "prowess",
-            "effect": "Deals Stress to Might or Finesse."
+            "effect": "Deals Stress to Might or Finesse.",
+            "signature": false
           },
           {
-            "name": "Topple",
+            "name": "Push",
             "skill": "discipline",
-            "effect": "Applies Prone."
-          },
-          {
-            "name": "War Cry",
-            "skill": "assertiveness",
-            "effect": "Applies Intimidated."
+            "effect": "Moves the target up to Range 2.",
+            "signature": true
           }
         ],
         "innate": false,
         "bonus": 0,
         "size": "medium",
         "materials": "1 Metal, 1 Wood",
-        "description": ""
+        "description": "",
+        "location": "equipped"
       },
       "effects": [],
       "folder": null,
@@ -154,34 +154,34 @@
         "range": "Range 20",
         "maxRange": "long",
         "types": [
-          "pointed",
+          "ranged",
           "drawn"
         ],
         "typesDisplay": "",
-        "price": 75,
+        "price": 50,
         "rider": "Reload Quick Action.",
+        "family": "Bows",
+        "backs": "Threaten",
         "kit": [
           {
-            "name": "Full Draw",
+            "name": "Shot",
             "skill": "prowess",
-            "effect": "Deals Stress to Might or Finesse."
+            "effect": "Deals Stress to Might or Finesse.",
+            "signature": false
           },
           {
-            "name": "Pin Down",
+            "name": "Weaken",
             "skill": "discipline",
-            "effect": "Applies Prone."
-          },
-          {
-            "name": "Warning Shot",
-            "skill": "assertiveness",
-            "effect": "Applies Reeling."
+            "effect": "Applies Weakened [Finesse].",
+            "signature": true
           }
         ],
         "innate": false,
         "bonus": 0,
         "size": "medium",
         "materials": "2 Wood",
-        "description": ""
+        "description": "",
+        "location": "equipped"
       },
       "effects": [],
       "folder": null,
@@ -199,31 +199,30 @@
       "img": "icons/svg/claw.svg",
       "system": {
         "types": [
-          "blunt"
+          "melee"
         ],
         "range": "Range 1",
+        "maxRange": "close",
         "weight": "light",
         "innate": true,
+        "location": "equipped",
         "primaryAttribute": "might",
         "category": "melee",
         "price": 0,
         "kit": [
           {
-            "name": "Bash",
+            "name": "Strike",
             "skill": "prowess",
             "effect": "Deals Stress to Might or Finesse."
           },
           {
-            "name": "Sweep",
-            "skill": "acuity",
-            "effect": "Applies Prone."
-          },
-          {
-            "name": "Feint Jab",
-            "skill": "guile",
-            "effect": "Applies Reeling."
+            "name": "Stun",
+            "skill": "discipline",
+            "effect": "Applies Stunned. Strain 1.",
+            "signature": true
           }
         ],
+        "backs": "Threaten",
         "description": ""
       },
       "effects": [],
@@ -236,15 +235,14 @@
       "_key": "!actors.items!lL2GKCLxGu5h77HP.GdbMmvzoFPYCDcsw"
     },
     {
-      "_id": "JP6RUtO2DdrzuHNa",
-      "name": "Called Shot",
+      "_id": "NxKGUi3bMVOK9qOG",
+      "name": "Aimed Piercing Shot",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Called Shot",
       "system": {
         "requires": [
-          "thrown",
-          "drawn",
-          "fired"
+          "ranged"
         ],
         "innate": false,
         "skill": "prowess",
@@ -277,7 +275,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Called Shot"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Pierce 1, +2",
         "description": ""
       },
@@ -288,18 +290,17 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!lL2GKCLxGu5h77HP.JP6RUtO2DdrzuHNa"
+      "_key": "!actors.items!lL2GKCLxGu5h77HP.NxKGUi3bMVOK9qOG"
     },
     {
-      "_id": "hE1LB30S9U0flNuG",
-      "name": "Pinning Shot",
+      "_id": "X2TiOI2QDNuA1EOS",
+      "name": "Lasting Weakening Shot",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Pinning Shot",
       "system": {
         "requires": [
-          "thrown",
-          "drawn",
-          "fired"
+          "ranged"
         ],
         "innate": false,
         "skill": "prowess",
@@ -324,7 +325,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Pinning Shot"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, -1 [target Attribute] (1 minute), Strain 1",
         "description": ""
       },
@@ -335,17 +340,17 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!lL2GKCLxGu5h77HP.hE1LB30S9U0flNuG"
+      "_key": "!actors.items!lL2GKCLxGu5h77HP.X2TiOI2QDNuA1EOS"
     },
     {
-      "_id": "jhrlJDePdcWaEICU",
-      "name": "Maiming Strike",
+      "_id": "YOGOWq2GkGplprkn",
+      "name": "Piercing Weakening Strike 2",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Maiming Strike",
       "system": {
         "requires": [
-          "edged",
-          "pointed"
+          "melee"
         ],
         "innate": false,
         "skill": "prowess",
@@ -378,7 +383,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Maiming Strike"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Pierce 2, -1 [target Attribute]",
         "description": ""
       },
@@ -389,7 +398,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!lL2GKCLxGu5h77HP.jhrlJDePdcWaEICU"
+      "_key": "!actors.items!lL2GKCLxGu5h77HP.YOGOWq2GkGplprkn"
     },
     {
       "_id": "yD9Yoy82l1smjI1a",
@@ -398,7 +407,7 @@
       "img": "icons/svg/aura.svg",
       "system": {
         "requires": [
-          "blunt"
+          "melee"
         ],
         "innate": false,
         "skill": "prowess",
@@ -423,7 +432,9 @@
           }
         ],
         "floor": false,
+        "formerNames": [],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Prone",
         "description": ""
       },

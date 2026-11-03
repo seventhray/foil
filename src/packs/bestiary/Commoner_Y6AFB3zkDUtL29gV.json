@@ -89,35 +89,41 @@
       "_id": "4Ot3qmnhzNalkNkR",
       "name": "Club",
       "type": "instrument",
-      "img": "icons/svg/claw.svg",
+      "img": "icons/svg/sword.svg",
       "system": {
-        "types": [
-          "blunt"
-        ],
-        "range": "Range 1",
-        "weight": "medium",
-        "innate": false,
-        "primaryAttribute": "might",
         "category": "melee",
-        "price": 0,
+        "weight": "medium",
+        "primaryAttribute": "might",
+        "range": "Range 1",
+        "maxRange": "close",
+        "types": [
+          "melee"
+        ],
+        "typesDisplay": "",
+        "price": 30,
+        "rider": "",
+        "family": "Hammers",
+        "backs": "Threaten",
         "kit": [
           {
-            "name": "Bash",
+            "name": "Strike",
             "skill": "prowess",
-            "effect": "Deals Stress to Might or Finesse."
+            "effect": "Deals Stress to Might or Finesse.",
+            "signature": false
           },
           {
-            "name": "Sweep",
-            "skill": "acuity",
-            "effect": "Applies Prone."
-          },
-          {
-            "name": "Feint Jab",
-            "skill": "guile",
-            "effect": "Applies Reeling."
+            "name": "Stun",
+            "skill": "discipline",
+            "effect": "Applies Stunned. Strain 1.",
+            "signature": true
           }
         ],
-        "description": ""
+        "innate": false,
+        "bonus": 0,
+        "size": "medium",
+        "materials": "2 Metal",
+        "description": "",
+        "location": "equipped"
       },
       "effects": [],
       "folder": null,
@@ -150,7 +156,9 @@
           }
         ],
         "floor": false,
+        "formerNames": [],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Evade",
         "description": ""
       },

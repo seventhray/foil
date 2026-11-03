@@ -99,31 +99,25 @@
       "img": "icons/svg/claw.svg",
       "system": {
         "types": [
+          "arcane",
           "incorporeal"
         ],
         "range": "Range 0",
+        "maxRange": "touching",
         "weight": "light",
         "innate": true,
+        "location": "equipped",
         "primaryAttribute": "wit",
         "category": "arcane",
         "price": 0,
         "kit": [
           {
-            "name": "Withering Curse",
+            "name": "Curse Touch",
             "skill": "discipline",
-            "effect": "Applies Weakened [Might]."
-          },
-          {
-            "name": "Maddening Whisper",
-            "skill": "acuity",
             "effect": "Deals Stress to Wit or Presence."
-          },
-          {
-            "name": "Despairing Word",
-            "skill": "resonance",
-            "effect": "Applies Frightened."
           }
         ],
+        "backs": "",
         "description": ""
       },
       "effects": [],
@@ -147,35 +141,22 @@
         "range": "Range 20",
         "maxRange": "long",
         "types": [
+          "arcane",
           "kinetic",
-          "incorporeal",
-          "fortifying"
+          "incorporeal"
         ],
         "typesDisplay": "",
-        "price": 70,
+        "price": 75,
         "rider": "",
-        "kit": [
-          {
-            "name": "Grand Strike",
-            "skill": "assertiveness",
-            "effect": "Deals Stress to Might or Finesse."
-          },
-          {
-            "name": "Mind Break",
-            "skill": "guile",
-            "effect": "Deals Stress to Wit or Presence."
-          },
-          {
-            "name": "Restorative Surge",
-            "skill": "resonance",
-            "effect": "Removes 3d4 Stress from an ally's Attribute."
-          }
-        ],
+        "family": "",
+        "backs": "",
+        "kit": [],
         "innate": false,
         "bonus": 0,
         "size": "medium",
         "materials": "2 Wood",
-        "description": ""
+        "description": "",
+        "location": "equipped"
       },
       "effects": [],
       "folder": null,
@@ -196,28 +177,34 @@
         "weight": "light",
         "primaryAttribute": "wit",
         "range": "Range 2",
+        "maxRange": "near",
         "types": [
-          "quick",
+          "arcane",
           "incorporeal"
         ],
         "typesDisplay": "",
         "price": 0,
         "rider": "Innate: every character has it, free (PHB 2.5.3).",
+        "family": "",
+        "backs": "",
         "kit": [
           {
             "name": "Deduce",
             "skill": "discipline",
-            "effect": "Works out a problem or recalls a fact."
+            "effect": "Solves a problem or recalls a fact.",
+            "signature": false
           },
           {
             "name": "Analyze",
             "skill": "acuity",
-            "effect": "Learns a creature's Attributes, or notices something specific."
+            "effect": "Learns a creature's Attributes, or notices something specific.",
+            "signature": false
           },
           {
             "name": "Intuit",
             "skill": "resonance",
-            "effect": "Applies Foil Exposed, or gives insight into a situation."
+            "effect": "Applies Foil Exposed, or gives insight into a situation.",
+            "signature": false
           }
         ],
         "innate": true,
@@ -236,8 +223,8 @@
       "_key": "!actors.items!OzjkKuff0cCoIRwB.JoDjYZlNAt3JNKyQ"
     },
     {
-      "_id": "N3G7F1GOQE2fh7KS",
-      "name": "Frost Ray",
+      "_id": "R7cNRE2zNLLvBcWU",
+      "name": "Frost Ray (Quick)",
       "type": "technique",
       "img": "icons/svg/aura.svg",
       "system": {
@@ -250,7 +237,9 @@
         "subgroup": "",
         "effects": [],
         "floor": false,
+        "formerNames": [],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "through an Incorporeal Instrument",
         "description": ""
       },
@@ -261,7 +250,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!OzjkKuff0cCoIRwB.N3G7F1GOQE2fh7KS"
+      "_key": "!actors.items!OzjkKuff0cCoIRwB.R7cNRE2zNLLvBcWU"
     },
     {
       "_id": "ZkJ5vDLMjRXBY9Z2",
@@ -295,7 +284,9 @@
           }
         ],
         "floor": false,
+        "formerNames": [],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, -1 Oppose (1 minute)",
         "description": ""
       },
@@ -309,10 +300,11 @@
       "_key": "!actors.items!OzjkKuff0cCoIRwB.ZkJ5vDLMjRXBY9Z2"
     },
     {
-      "_id": "xyZtlwBymEWRfrrx",
-      "name": "Annihilating Beam",
+      "_id": "hsLBql6eiX13CEmJ",
+      "name": "Piercing Force 2",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Annihilating Beam",
       "system": {
         "requires": [
           "kinetic"
@@ -340,7 +332,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Annihilating Beam"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Pierce 2",
         "description": ""
       },
@@ -351,13 +347,14 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!OzjkKuff0cCoIRwB.xyZtlwBymEWRfrrx"
+      "_key": "!actors.items!OzjkKuff0cCoIRwB.hsLBql6eiX13CEmJ"
     },
     {
-      "_id": "AIM0FfZzLpJv4mET",
-      "name": "Dominate",
+      "_id": "vbxFSonWz7OZSw6y",
+      "name": "Control, Held (Incorporeal)",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Dominate",
       "system": {
         "requires": [
           "incorporeal"
@@ -385,7 +382,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Dominate"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Controlled, Upkeep, Strain 1",
         "description": ""
       },
@@ -396,7 +397,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!OzjkKuff0cCoIRwB.AIM0FfZzLpJv4mET"
+      "_key": "!actors.items!OzjkKuff0cCoIRwB.vbxFSonWz7OZSw6y"
     },
     {
       "_id": "5OFbslkEpvQRxYlm",

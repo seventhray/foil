@@ -93,35 +93,43 @@
       "_id": "zXIlVmxL5vq9BkMe",
       "name": "Penknife",
       "type": "instrument",
-      "img": "icons/svg/claw.svg",
+      "img": "icons/svg/sword.svg",
       "system": {
-        "types": [
-          "edged"
-        ],
-        "range": "Range 1",
-        "weight": "light",
-        "innate": true,
-        "primaryAttribute": "might",
         "category": "melee",
-        "price": 0,
+        "weight": "light",
+        "primaryAttribute": "finesse",
+        "range": "Range 1",
+        "maxRange": "close",
+        "types": [
+          "melee",
+          "guarding",
+          "thrown"
+        ],
+        "typesDisplay": "",
+        "price": 35,
+        "rider": "",
+        "family": "Knives",
+        "backs": "Deceive",
         "kit": [
           {
-            "name": "Stab",
+            "name": "Strike",
             "skill": "prowess",
-            "effect": "Deals Stress to Might or Finesse."
+            "effect": "Deals Stress to Might or Finesse.",
+            "signature": false
           },
           {
-            "name": "Vital Strike",
+            "name": "Bleed",
             "skill": "acuity",
-            "effect": "Applies Weakened [Finesse]."
-          },
-          {
-            "name": "Low Feint",
-            "skill": "guile",
-            "effect": "Applies Reeling."
+            "effect": "Lingering 1.",
+            "signature": true
           }
         ],
-        "description": ""
+        "innate": false,
+        "bonus": 0,
+        "size": "small",
+        "materials": "1 Metal",
+        "description": "",
+        "location": "equipped"
       },
       "effects": [],
       "folder": null,
@@ -142,28 +150,69 @@
         "weight": "light",
         "primaryAttribute": "presence",
         "range": "Range 8",
+        "maxRange": "mid",
         "types": [
-          "quick",
           "sonic"
         ],
         "typesDisplay": "",
         "price": 0,
         "rider": "Innate: every character has it, free (PHB 2.5.3).",
+        "family": "",
+        "backs": "",
         "kit": [
           {
-            "name": "Browbeat",
+            "name": "Threaten",
             "skill": "assertiveness",
-            "effect": "Deals Stress to Presence or Wit."
+            "effect": "Deals Stress to Wit or Presence.",
+            "signature": false
           },
           {
-            "name": "Mislead",
+            "name": "Threaten",
+            "skill": "assertiveness",
+            "effect": "Applies Intimidated.",
+            "signature": false
+          },
+          {
+            "name": "Threaten",
+            "skill": "assertiveness",
+            "effect": "Applies Frightened.",
+            "signature": false
+          },
+          {
+            "name": "Deceive",
             "skill": "guile",
-            "effect": "Applies Misled."
+            "effect": "Deals Stress to Wit or Presence.",
+            "signature": false
           },
           {
-            "name": "Sway",
+            "name": "Deceive",
+            "skill": "guile",
+            "effect": "Applies Misled.",
+            "signature": false
+          },
+          {
+            "name": "Deceive",
+            "skill": "guile",
+            "effect": "Applies Baited.",
+            "signature": false
+          },
+          {
+            "name": "Persuade",
             "skill": "resonance",
-            "effect": "Applies Swayed."
+            "effect": "Deals Stress to Wit or Presence.",
+            "signature": false
+          },
+          {
+            "name": "Persuade",
+            "skill": "resonance",
+            "effect": "Applies Swayed.",
+            "signature": false
+          },
+          {
+            "name": "Persuade",
+            "skill": "resonance",
+            "effect": "Applies Relaxed.",
+            "signature": false
           }
         ],
         "innate": true,
@@ -191,28 +240,34 @@
         "weight": "light",
         "primaryAttribute": "wit",
         "range": "Range 2",
+        "maxRange": "near",
         "types": [
-          "quick",
+          "arcane",
           "incorporeal"
         ],
         "typesDisplay": "",
         "price": 0,
         "rider": "Innate: every character has it, free (PHB 2.5.3).",
+        "family": "",
+        "backs": "",
         "kit": [
           {
             "name": "Deduce",
             "skill": "discipline",
-            "effect": "Works out a problem or recalls a fact."
+            "effect": "Solves a problem or recalls a fact.",
+            "signature": false
           },
           {
             "name": "Analyze",
             "skill": "acuity",
-            "effect": "Learns a creature's Attributes, or notices something specific."
+            "effect": "Learns a creature's Attributes, or notices something specific.",
+            "signature": false
           },
           {
             "name": "Intuit",
             "skill": "resonance",
-            "effect": "Applies Foil Exposed, or gives insight into a situation."
+            "effect": "Applies Foil Exposed, or gives insight into a situation.",
+            "signature": false
           }
         ],
         "innate": true,
@@ -231,18 +286,14 @@
       "_key": "!actors.items!VBGQEou0Eag54s4A.wAVmD1Ht7U9COqor"
     },
     {
-      "_id": "CqAvPr3b6OMVIBgY",
-      "name": "Fluster",
+      "_id": "TjwLAnGAc8Uzjb8A",
+      "name": "Reel (Sonic)",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Fluster",
       "system": {
         "requires": [
-          "sonic",
-          "edged",
-          "pointed",
-          "blunt",
-          "grappling",
-          "parry"
+          "sonic"
         ],
         "innate": false,
         "skill": "guile",
@@ -259,7 +310,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Fluster"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "-1 Oppose",
         "description": ""
       },
@@ -270,7 +325,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!VBGQEou0Eag54s4A.CqAvPr3b6OMVIBgY"
+      "_key": "!actors.items!VBGQEou0Eag54s4A.TjwLAnGAc8Uzjb8A"
     }
   ],
   "_key": "!actors!VBGQEou0Eag54s4A"

@@ -96,31 +96,30 @@
       "img": "icons/svg/claw.svg",
       "system": {
         "types": [
-          "pointed"
+          "melee"
         ],
         "range": "Range 1",
+        "maxRange": "close",
         "weight": "light",
         "innate": true,
+        "location": "equipped",
         "primaryAttribute": "might",
         "category": "melee",
         "price": 0,
         "kit": [
           {
-            "name": "Stab",
+            "name": "Strike",
             "skill": "prowess",
             "effect": "Deals Stress to Might or Finesse."
           },
           {
-            "name": "Vital Strike",
-            "skill": "acuity",
-            "effect": "Applies Weakened [Finesse]."
-          },
-          {
-            "name": "Low Feint",
-            "skill": "guile",
-            "effect": "Applies Reeling."
+            "name": "Weaken",
+            "skill": "discipline",
+            "effect": "Applies Weakened [Finesse].",
+            "signature": true
           }
         ],
+        "backs": "Threaten",
         "description": ""
       },
       "effects": [],
@@ -139,31 +138,31 @@
       "img": "icons/svg/claw.svg",
       "system": {
         "types": [
+          "melee",
           "grappling"
         ],
         "range": "Range 0",
+        "maxRange": "touching",
         "weight": "light",
         "innate": true,
+        "location": "equipped",
         "primaryAttribute": "might",
         "category": "melee",
         "price": 0,
         "kit": [
           {
-            "name": "Snare",
+            "name": "Strike",
             "skill": "prowess",
-            "effect": "Applies Grappled."
+            "effect": "Deals Stress to Might or Finesse."
           },
           {
-            "name": "Tumble",
-            "skill": "acuity",
-            "effect": "Applies Prone."
-          },
-          {
-            "name": "Tangle",
-            "skill": "guile",
-            "effect": "Applies Restrained."
+            "name": "Restrain",
+            "skill": "discipline",
+            "effect": "Applies Restrained.",
+            "signature": true
           }
         ],
+        "backs": "Threaten",
         "description": ""
       },
       "effects": [],
@@ -176,14 +175,14 @@
       "_key": "!actors.items!Evd9U53XmlokkvNK.5vqR64Vc0YOSj66F"
     },
     {
-      "_id": "duDeQDjGMJHRg4yN",
-      "name": "Venom Strike",
+      "_id": "EwP9WZd724yzUuXF",
+      "name": "Lingering Strike",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Venom Strike",
       "system": {
         "requires": [
-          "edged",
-          "pointed"
+          "melee"
         ],
         "innate": false,
         "skill": "prowess",
@@ -208,7 +207,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Venom Strike"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Lingering 1",
         "description": ""
       },
@@ -219,17 +222,17 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!Evd9U53XmlokkvNK.duDeQDjGMJHRg4yN"
+      "_key": "!actors.items!Evd9U53XmlokkvNK.EwP9WZd724yzUuXF"
     },
     {
-      "_id": "hGpAsj7txmuP6bfq",
-      "name": "Rend",
+      "_id": "M8CEmWAoT8DJn6TL",
+      "name": "Piercing Strike 2",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Rend",
       "system": {
         "requires": [
-          "edged",
-          "pointed"
+          "melee"
         ],
         "innate": false,
         "skill": "prowess",
@@ -254,7 +257,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Rend"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Pierce 2",
         "description": ""
       },
@@ -265,7 +272,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!Evd9U53XmlokkvNK.hGpAsj7txmuP6bfq"
+      "_key": "!actors.items!Evd9U53XmlokkvNK.M8CEmWAoT8DJn6TL"
     },
     {
       "_id": "2FQSbQ8HtdPSiaXC",
@@ -299,7 +306,9 @@
           }
         ],
         "floor": false,
+        "formerNames": [],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, -1 [target Attribute] (1 minute), Strain 1",
         "description": ""
       },

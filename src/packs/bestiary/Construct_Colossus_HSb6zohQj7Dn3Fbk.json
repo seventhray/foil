@@ -99,31 +99,30 @@
       "img": "icons/svg/claw.svg",
       "system": {
         "types": [
-          "blunt"
+          "melee"
         ],
         "range": "Range 1",
+        "maxRange": "close",
         "weight": "light",
         "innate": true,
+        "location": "equipped",
         "primaryAttribute": "might",
         "category": "melee",
         "price": 0,
         "kit": [
           {
-            "name": "Bash",
+            "name": "Strike",
             "skill": "prowess",
             "effect": "Deals Stress to Might or Finesse."
           },
           {
-            "name": "Sweep",
-            "skill": "acuity",
-            "effect": "Applies Prone."
-          },
-          {
-            "name": "Feint Jab",
-            "skill": "guile",
-            "effect": "Applies Reeling."
+            "name": "Push",
+            "skill": "discipline",
+            "effect": "Moves the target up to Range 2.",
+            "signature": true
           }
         ],
+        "backs": "Threaten",
         "description": ""
       },
       "effects": [],
@@ -142,31 +141,31 @@
       "img": "icons/svg/claw.svg",
       "system": {
         "types": [
+          "ranged",
           "thrown"
         ],
         "range": "Range 8",
+        "maxRange": "mid",
         "weight": "light",
         "innate": true,
+        "location": "equipped",
         "primaryAttribute": "finesse",
-        "category": "melee",
+        "category": "ranged",
         "price": 0,
         "kit": [
           {
-            "name": "Snare",
+            "name": "Shot",
             "skill": "prowess",
-            "effect": "Applies Grappled."
+            "effect": "Deals Stress to Might or Finesse."
           },
           {
-            "name": "Tumble",
+            "name": "Topple",
             "skill": "acuity",
-            "effect": "Applies Prone."
-          },
-          {
-            "name": "Tangle",
-            "skill": "guile",
-            "effect": "Applies Restrained."
+            "effect": "Applies Prone.",
+            "signature": true
           }
         ],
+        "backs": "Deceive",
         "description": ""
       },
       "effects": [],
@@ -179,13 +178,14 @@
       "_key": "!actors.items!HSb6zohQj7Dn3Fbk.D1pZA0fu0LSYMCn0"
     },
     {
-      "_id": "lXhVPPjtzAAIjGX0",
-      "name": "Break",
+      "_id": "t6AbobD1dber7Ezm",
+      "name": "Lasting Weakening Strike",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Break",
       "system": {
         "requires": [
-          "blunt"
+          "melee"
         ],
         "innate": false,
         "skill": "prowess",
@@ -210,7 +210,12 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Break",
+          "Sinew Cut"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, -1 [target Attribute] (1 minute), Strain 1",
         "description": ""
       },
@@ -221,7 +226,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!HSb6zohQj7Dn3Fbk.lXhVPPjtzAAIjGX0"
+      "_key": "!actors.items!HSb6zohQj7Dn3Fbk.t6AbobD1dber7Ezm"
     },
     {
       "_id": "FElaAdtn5Wb4WeqB",
@@ -230,7 +235,7 @@
       "img": "icons/svg/aura.svg",
       "system": {
         "requires": [
-          "blunt"
+          "melee"
         ],
         "innate": false,
         "skill": "prowess",
@@ -255,7 +260,9 @@
           }
         ],
         "floor": false,
+        "formerNames": [],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Prone",
         "description": ""
       },
@@ -275,7 +282,7 @@
       "img": "icons/svg/aura.svg",
       "system": {
         "requires": [
-          "blunt"
+          "melee"
         ],
         "innate": false,
         "skill": "prowess",
@@ -300,7 +307,9 @@
           }
         ],
         "floor": false,
+        "formerNames": [],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, -1 Oppose (1 minute)",
         "description": ""
       },
@@ -320,7 +329,7 @@
       "img": "icons/svg/aura.svg",
       "system": {
         "requires": [
-          "thrown"
+          "ranged"
         ],
         "innate": false,
         "skill": "prowess",
@@ -345,7 +354,9 @@
           }
         ],
         "floor": false,
+        "formerNames": [],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Prone",
         "description": ""
       },

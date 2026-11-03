@@ -101,35 +101,34 @@
         "range": "Range 1",
         "maxRange": "close",
         "types": [
-          "edged",
-          "pointed",
-          "parry"
+          "melee",
+          "guarding"
         ],
         "typesDisplay": "",
-        "price": 30,
+        "price": 25,
         "rider": "",
+        "family": "Swords",
+        "backs": "Deceive",
         "kit": [
           {
-            "name": "Thrust",
+            "name": "Strike",
             "skill": "prowess",
-            "effect": "Deals Stress to Might or Finesse."
+            "effect": "Deals Stress to Might or Finesse.",
+            "signature": false
           },
           {
-            "name": "Precise Cut",
+            "name": "Disarm",
             "skill": "acuity",
-            "effect": "Applies Weakened [Finesse]."
-          },
-          {
-            "name": "Feinted Slash",
-            "skill": "guile",
-            "effect": "Applies Reeling."
+            "effect": "Disarms.",
+            "signature": true
           }
         ],
         "innate": false,
         "bonus": 0,
         "size": "small",
         "materials": "1 Metal",
-        "description": ""
+        "description": "",
+        "location": "equipped"
       },
       "effects": [],
       "folder": null,
@@ -152,34 +151,34 @@
         "range": "Range 20",
         "maxRange": "long",
         "types": [
-          "pointed",
+          "ranged",
           "drawn"
         ],
         "typesDisplay": "",
-        "price": 75,
+        "price": 50,
         "rider": "Reload Quick Action.",
+        "family": "Bows",
+        "backs": "Threaten",
         "kit": [
           {
-            "name": "Full Draw",
+            "name": "Shot",
             "skill": "prowess",
-            "effect": "Deals Stress to Might or Finesse."
+            "effect": "Deals Stress to Might or Finesse.",
+            "signature": false
           },
           {
-            "name": "Pin Down",
+            "name": "Weaken",
             "skill": "discipline",
-            "effect": "Applies Prone."
-          },
-          {
-            "name": "Warning Shot",
-            "skill": "assertiveness",
-            "effect": "Applies Reeling."
+            "effect": "Applies Weakened [Finesse].",
+            "signature": true
           }
         ],
         "innate": false,
         "bonus": 0,
         "size": "medium",
         "materials": "2 Wood",
-        "description": ""
+        "description": "",
+        "location": "equipped"
       },
       "effects": [],
       "folder": null,

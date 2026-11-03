@@ -93,35 +93,43 @@
       "_id": "Hd0HnimpIFhLKpSw",
       "name": "Knife",
       "type": "instrument",
-      "img": "icons/svg/claw.svg",
+      "img": "icons/svg/sword.svg",
       "system": {
-        "types": [
-          "edged"
-        ],
-        "range": "Range 1",
-        "weight": "light",
-        "innate": true,
-        "primaryAttribute": "might",
         "category": "melee",
-        "price": 0,
+        "weight": "light",
+        "primaryAttribute": "finesse",
+        "range": "Range 1",
+        "maxRange": "close",
+        "types": [
+          "melee",
+          "guarding",
+          "thrown"
+        ],
+        "typesDisplay": "",
+        "price": 35,
+        "rider": "",
+        "family": "Knives",
+        "backs": "Deceive",
         "kit": [
           {
-            "name": "Stab",
+            "name": "Strike",
             "skill": "prowess",
-            "effect": "Deals Stress to Might or Finesse."
+            "effect": "Deals Stress to Might or Finesse.",
+            "signature": false
           },
           {
-            "name": "Vital Strike",
+            "name": "Bleed",
             "skill": "acuity",
-            "effect": "Applies Weakened [Finesse]."
-          },
-          {
-            "name": "Low Feint",
-            "skill": "guile",
-            "effect": "Applies Reeling."
+            "effect": "Lingering 1.",
+            "signature": true
           }
         ],
-        "description": ""
+        "innate": false,
+        "bonus": 0,
+        "size": "small",
+        "materials": "1 Metal",
+        "description": "",
+        "location": "equipped"
       },
       "effects": [],
       "folder": null,
@@ -154,7 +162,9 @@
           }
         ],
         "floor": false,
+        "formerNames": [],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Evade",
         "description": ""
       },

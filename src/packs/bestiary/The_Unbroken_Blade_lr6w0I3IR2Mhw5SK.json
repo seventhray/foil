@@ -107,35 +107,34 @@
         "range": "Range 1",
         "maxRange": "close",
         "types": [
-          "edged",
-          "pointed",
-          "parry"
+          "melee",
+          "guarding"
         ],
         "typesDisplay": "",
-        "price": 45,
+        "price": 40,
         "rider": "",
+        "family": "Swords",
+        "backs": "Threaten",
         "kit": [
           {
-            "name": "Broad Cut",
+            "name": "Strike",
             "skill": "prowess",
-            "effect": "Deals Stress to Might or Finesse."
+            "effect": "Deals Stress to Might or Finesse.",
+            "signature": false
           },
           {
-            "name": "Wrest",
+            "name": "Disarm",
             "skill": "discipline",
-            "effect": "Disarms."
-          },
-          {
-            "name": "Challenge",
-            "skill": "assertiveness",
-            "effect": "Applies Baited."
+            "effect": "Disarms.",
+            "signature": true
           }
         ],
         "innate": false,
         "bonus": 0,
         "size": "medium",
         "materials": "2 Metal",
-        "description": ""
+        "description": "",
+        "location": "equipped"
       },
       "effects": [],
       "folder": null,
@@ -147,14 +146,14 @@
       "_key": "!actors.items!lr6w0I3IR2Mhw5SK.G3ubqWmeG9RUnZvF"
     },
     {
-      "_id": "KLVmBrdvByX43Fnv",
-      "name": "Maiming Strike",
+      "_id": "eCb5oMVzTPle64Gr",
+      "name": "Piercing Weakening Strike 2",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Maiming Strike",
       "system": {
         "requires": [
-          "edged",
-          "pointed"
+          "melee"
         ],
         "innate": false,
         "skill": "prowess",
@@ -187,7 +186,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Maiming Strike"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Pierce 2, -1 [target Attribute]",
         "description": ""
       },
@@ -198,16 +201,17 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!lr6w0I3IR2Mhw5SK.KLVmBrdvByX43Fnv"
+      "_key": "!actors.items!lr6w0I3IR2Mhw5SK.eCb5oMVzTPle64Gr"
     },
     {
-      "_id": "yUpLzvhjzWt80v3C",
-      "name": "Sinew Cut",
+      "_id": "DuQVQx7T18sKQrep",
+      "name": "Lasting Weakening Strike",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Break",
       "system": {
         "requires": [
-          "edged"
+          "melee"
         ],
         "innate": false,
         "skill": "prowess",
@@ -232,7 +236,12 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Break",
+          "Sinew Cut"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, -1 [target Attribute] (1 minute), Strain 1",
         "description": ""
       },
@@ -243,20 +252,17 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!lr6w0I3IR2Mhw5SK.yUpLzvhjzWt80v3C"
+      "_key": "!actors.items!lr6w0I3IR2Mhw5SK.DuQVQx7T18sKQrep"
     },
     {
-      "_id": "f1w1hGKKABdppyfa",
-      "name": "Trip",
+      "_id": "hD9yFbrEaEC5UUGg",
+      "name": "Toppling Strike",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Trip",
       "system": {
         "requires": [
-          "edged",
-          "pointed",
-          "blunt",
-          "grappling",
-          "parry"
+          "melee"
         ],
         "innate": false,
         "skill": "prowess",
@@ -281,7 +287,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Trip"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Prone",
         "description": ""
       },
@@ -292,16 +302,17 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!lr6w0I3IR2Mhw5SK.f1w1hGKKABdppyfa"
+      "_key": "!actors.items!lr6w0I3IR2Mhw5SK.hD9yFbrEaEC5UUGg"
     },
     {
-      "_id": "KAJFWPLUsXGsDPqd",
-      "name": "Riposte",
+      "_id": "49ur0Pzyq2rNiviH",
+      "name": "Return Strike",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Riposte",
       "system": {
         "requires": [
-          "parry"
+          "guarding+melee"
         ],
         "innate": false,
         "skill": "",
@@ -318,7 +329,11 @@
           }
         ],
         "floor": true,
+        "formerNames": [
+          "Riposte"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Quick (trigger: a Melee Technique fails against you): use a Melee Technique against that attacker through this Instrument.",
         "description": ""
       },
@@ -329,16 +344,17 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!lr6w0I3IR2Mhw5SK.KAJFWPLUsXGsDPqd"
+      "_key": "!actors.items!lr6w0I3IR2Mhw5SK.49ur0Pzyq2rNiviH"
     },
     {
-      "_id": "S3ixigcUHklA3pIL",
-      "name": "Deflect",
+      "_id": "OSyYH5k4ADs5jS8W",
+      "name": "Counter (Guarding and Melee)",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Deflect",
       "system": {
         "requires": [
-          "parry"
+          "guarding+melee"
         ],
         "innate": false,
         "skill": "prowess",
@@ -355,7 +371,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Deflect"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Counter",
         "description": ""
       },
@@ -366,7 +386,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!lr6w0I3IR2Mhw5SK.S3ixigcUHklA3pIL"
+      "_key": "!actors.items!lr6w0I3IR2Mhw5SK.OSyYH5k4ADs5jS8W"
     },
     {
       "_id": "AkXJp0qjkQKkK5YX",

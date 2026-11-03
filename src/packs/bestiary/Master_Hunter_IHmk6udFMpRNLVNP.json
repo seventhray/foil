@@ -104,34 +104,34 @@
         "range": "Range 20",
         "maxRange": "long",
         "types": [
-          "pointed",
+          "ranged",
           "drawn"
         ],
         "typesDisplay": "",
-        "price": 75,
+        "price": 50,
         "rider": "Reload Quick Action.",
+        "family": "Bows",
+        "backs": "Threaten",
         "kit": [
           {
-            "name": "Full Draw",
+            "name": "Shot",
             "skill": "prowess",
-            "effect": "Deals Stress to Might or Finesse."
+            "effect": "Deals Stress to Might or Finesse.",
+            "signature": false
           },
           {
-            "name": "Pin Down",
+            "name": "Weaken",
             "skill": "discipline",
-            "effect": "Applies Prone."
-          },
-          {
-            "name": "Warning Shot",
-            "skill": "assertiveness",
-            "effect": "Applies Reeling."
+            "effect": "Applies Weakened [Finesse].",
+            "signature": true
           }
         ],
         "innate": false,
         "bonus": 0,
         "size": "medium",
         "materials": "2 Wood",
-        "description": ""
+        "description": "",
+        "location": "equipped"
       },
       "effects": [],
       "folder": null,
@@ -146,35 +146,43 @@
       "_id": "ea32UdMUFBHuWgj1",
       "name": "Hunting Knife",
       "type": "instrument",
-      "img": "icons/svg/claw.svg",
+      "img": "icons/svg/sword.svg",
       "system": {
-        "types": [
-          "edged"
-        ],
-        "range": "Range 1",
-        "weight": "light",
-        "innate": true,
-        "primaryAttribute": "might",
         "category": "melee",
-        "price": 0,
+        "weight": "light",
+        "primaryAttribute": "finesse",
+        "range": "Range 1",
+        "maxRange": "close",
+        "types": [
+          "melee",
+          "guarding",
+          "thrown"
+        ],
+        "typesDisplay": "",
+        "price": 35,
+        "rider": "",
+        "family": "Knives",
+        "backs": "Deceive",
         "kit": [
           {
-            "name": "Stab",
+            "name": "Strike",
             "skill": "prowess",
-            "effect": "Deals Stress to Might or Finesse."
+            "effect": "Deals Stress to Might or Finesse.",
+            "signature": false
           },
           {
-            "name": "Vital Strike",
+            "name": "Bleed",
             "skill": "acuity",
-            "effect": "Applies Weakened [Finesse]."
-          },
-          {
-            "name": "Low Feint",
-            "skill": "guile",
-            "effect": "Applies Reeling."
+            "effect": "Lingering 1.",
+            "signature": true
           }
         ],
-        "description": ""
+        "innate": false,
+        "bonus": 0,
+        "size": "small",
+        "materials": "1 Metal",
+        "description": "",
+        "location": "equipped"
       },
       "effects": [],
       "folder": null,
@@ -186,15 +194,14 @@
       "_key": "!actors.items!IHmk6udFMpRNLVNP.ea32UdMUFBHuWgj1"
     },
     {
-      "_id": "12xLtS8HI1B0YtRp",
-      "name": "Called Shot",
+      "_id": "UvsXmAfCr5G8MvFy",
+      "name": "Aimed Piercing Shot",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Called Shot",
       "system": {
         "requires": [
-          "thrown",
-          "drawn",
-          "fired"
+          "ranged"
         ],
         "innate": false,
         "skill": "prowess",
@@ -227,7 +234,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Called Shot"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Pierce 1, +2",
         "description": ""
       },
@@ -238,18 +249,17 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!IHmk6udFMpRNLVNP.12xLtS8HI1B0YtRp"
+      "_key": "!actors.items!IHmk6udFMpRNLVNP.UvsXmAfCr5G8MvFy"
     },
     {
-      "_id": "qJjRAQtGhmiSBG91",
-      "name": "Crippling Shot",
+      "_id": "DoGSK3eHDsEL909m",
+      "name": "Weakening Shot",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Crippling Shot",
       "system": {
         "requires": [
-          "thrown",
-          "drawn",
-          "fired"
+          "ranged"
         ],
         "innate": false,
         "skill": "prowess",
@@ -274,7 +284,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Crippling Shot"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, -1 [target Attribute]",
         "description": ""
       },
@@ -285,18 +299,17 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!IHmk6udFMpRNLVNP.qJjRAQtGhmiSBG91"
+      "_key": "!actors.items!IHmk6udFMpRNLVNP.DoGSK3eHDsEL909m"
     },
     {
-      "_id": "uEMrargHe0hXWxDs",
-      "name": "Aim",
+      "_id": "xW7Q4nz9QiM8biH8",
+      "name": "Aimed Shot 2",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Aim",
       "system": {
         "requires": [
-          "thrown",
-          "drawn",
-          "fired"
+          "ranged"
         ],
         "innate": false,
         "skill": "prowess",
@@ -321,7 +334,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Aim"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, +2",
         "description": ""
       },
@@ -332,7 +349,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!IHmk6udFMpRNLVNP.uEMrargHe0hXWxDs"
+      "_key": "!actors.items!IHmk6udFMpRNLVNP.xW7Q4nz9QiM8biH8"
     },
     {
       "_id": "LakZS3u7ZT1iw0IU",

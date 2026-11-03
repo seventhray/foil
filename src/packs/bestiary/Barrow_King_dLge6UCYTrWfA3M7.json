@@ -104,34 +104,34 @@
         "range": "Range 1",
         "maxRange": "close",
         "types": [
-          "edged",
-          "pointed"
+          "melee",
+          "guarding"
         ],
         "typesDisplay": "",
-        "price": 60,
+        "price": 55,
         "rider": "",
+        "family": "Swords",
+        "backs": "Threaten",
         "kit": [
           {
-            "name": "Heavy Swing",
+            "name": "Strike",
             "skill": "prowess",
-            "effect": "Deals Stress to Might or Finesse."
+            "effect": "Deals Stress to Might or Finesse.",
+            "signature": false
           },
           {
-            "name": "Bowl Over",
+            "name": "Disarm",
             "skill": "discipline",
-            "effect": "Applies Prone."
-          },
-          {
-            "name": "Crushing Display",
-            "skill": "assertiveness",
-            "effect": "Applies Intimidated."
+            "effect": "Disarms.",
+            "signature": true
           }
         ],
         "innate": false,
         "bonus": 0,
         "size": "medium",
         "materials": "2 Metal",
-        "description": ""
+        "description": "",
+        "location": "equipped"
       },
       "effects": [],
       "folder": null,
@@ -152,28 +152,69 @@
         "weight": "light",
         "primaryAttribute": "presence",
         "range": "Range 8",
+        "maxRange": "mid",
         "types": [
-          "quick",
           "sonic"
         ],
         "typesDisplay": "",
         "price": 0,
         "rider": "Innate: every character has it, free (PHB 2.5.3).",
+        "family": "",
+        "backs": "",
         "kit": [
           {
-            "name": "Browbeat",
+            "name": "Threaten",
             "skill": "assertiveness",
-            "effect": "Deals Stress to Presence or Wit."
+            "effect": "Deals Stress to Wit or Presence.",
+            "signature": false
           },
           {
-            "name": "Mislead",
+            "name": "Threaten",
+            "skill": "assertiveness",
+            "effect": "Applies Intimidated.",
+            "signature": false
+          },
+          {
+            "name": "Threaten",
+            "skill": "assertiveness",
+            "effect": "Applies Frightened.",
+            "signature": false
+          },
+          {
+            "name": "Deceive",
             "skill": "guile",
-            "effect": "Applies Misled."
+            "effect": "Deals Stress to Wit or Presence.",
+            "signature": false
           },
           {
-            "name": "Sway",
+            "name": "Deceive",
+            "skill": "guile",
+            "effect": "Applies Misled.",
+            "signature": false
+          },
+          {
+            "name": "Deceive",
+            "skill": "guile",
+            "effect": "Applies Baited.",
+            "signature": false
+          },
+          {
+            "name": "Persuade",
             "skill": "resonance",
-            "effect": "Applies Swayed."
+            "effect": "Deals Stress to Wit or Presence.",
+            "signature": false
+          },
+          {
+            "name": "Persuade",
+            "skill": "resonance",
+            "effect": "Applies Swayed.",
+            "signature": false
+          },
+          {
+            "name": "Persuade",
+            "skill": "resonance",
+            "effect": "Applies Relaxed.",
+            "signature": false
           }
         ],
         "innate": true,
@@ -192,14 +233,14 @@
       "_key": "!actors.items!dLge6UCYTrWfA3M7.hjoDIpleLBUMFnG3"
     },
     {
-      "_id": "HRkYXw5yDacv90J2",
-      "name": "Maiming Strike",
+      "_id": "UH2iANlr8tY1mjfi",
+      "name": "Piercing Weakening Strike 2",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Maiming Strike",
       "system": {
         "requires": [
-          "edged",
-          "pointed"
+          "melee"
         ],
         "innate": false,
         "skill": "prowess",
@@ -232,7 +273,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Maiming Strike"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Pierce 2, -1 [target Attribute]",
         "description": ""
       },
@@ -243,16 +288,17 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!dLge6UCYTrWfA3M7.HRkYXw5yDacv90J2"
+      "_key": "!actors.items!dLge6UCYTrWfA3M7.UH2iANlr8tY1mjfi"
     },
     {
-      "_id": "J1COlxxC83BjNEKO",
-      "name": "Sinew Cut",
+      "_id": "yUapSqEvJFQlavkd",
+      "name": "Lasting Weakening Strike",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Break",
       "system": {
         "requires": [
-          "edged"
+          "melee"
         ],
         "innate": false,
         "skill": "prowess",
@@ -277,7 +323,12 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Break",
+          "Sinew Cut"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, -1 [target Attribute] (1 minute), Strain 1",
         "description": ""
       },
@@ -288,13 +339,14 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!dLge6UCYTrWfA3M7.J1COlxxC83BjNEKO"
+      "_key": "!actors.items!dLge6UCYTrWfA3M7.yUapSqEvJFQlavkd"
     },
     {
-      "_id": "c0J9iMoAOCwKPYwA",
-      "name": "Keening Wail",
+      "_id": "m6OuNPH8xh2jHi7r",
+      "name": "Sweeping Frightening Weakening Cry",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Keening Wail",
       "system": {
         "requires": [
           "sonic"
@@ -338,7 +390,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Keening Wail"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, -1 [target Attribute], Frightened, Cone (Range 2), Strain 1",
         "description": ""
       },
@@ -349,7 +405,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!dLge6UCYTrWfA3M7.c0J9iMoAOCwKPYwA"
+      "_key": "!actors.items!dLge6UCYTrWfA3M7.m6OuNPH8xh2jHi7r"
     },
     {
       "_id": "BMQK3nnRBHa1e0pc",
@@ -383,7 +439,9 @@
           }
         ],
         "floor": false,
+        "formerNames": [],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, -1 Oppose (1 minute)",
         "description": ""
       },

@@ -92,31 +92,30 @@
       "img": "icons/svg/claw.svg",
       "system": {
         "types": [
-          "blunt"
+          "melee"
         ],
         "range": "Range 1",
+        "maxRange": "close",
         "weight": "light",
         "innate": true,
+        "location": "equipped",
         "primaryAttribute": "might",
         "category": "melee",
         "price": 0,
         "kit": [
           {
-            "name": "Bash",
+            "name": "Strike",
             "skill": "prowess",
             "effect": "Deals Stress to Might or Finesse."
           },
           {
-            "name": "Sweep",
-            "skill": "acuity",
-            "effect": "Applies Prone."
-          },
-          {
-            "name": "Feint Jab",
-            "skill": "guile",
-            "effect": "Applies Reeling."
+            "name": "Push",
+            "skill": "discipline",
+            "effect": "Moves the target up to Range 2.",
+            "signature": true
           }
         ],
+        "backs": "Threaten",
         "description": ""
       },
       "effects": [],
@@ -129,7 +128,44 @@
       "_key": "!actors.items!JqF1u8UGRc68qz6O.fsF6bpnDGcQnlwbC"
     },
     {
-      "_id": "7wrCwFR5lkEaSiAW",
+      "_id": "YBMhCsyyrBvU8t8V",
+      "name": "Scatter",
+      "type": "technique",
+      "img": "icons/svg/aura.svg",
+      "system": {
+        "requires": [],
+        "innate": false,
+        "skill": "",
+        "family": "",
+        "subgroup": "",
+        "effects": [
+          {
+            "key": "evade",
+            "magnitude": 1,
+            "pattern": "single",
+            "bands": 0,
+            "placement": 0,
+            "selectiveR": 0
+          }
+        ],
+        "floor": false,
+        "formerNames": [],
+        "ancestryGrant": "",
+        "grantedBy": "",
+        "effectText": "Evade",
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!JqF1u8UGRc68qz6O.YBMhCsyyrBvU8t8V"
+    },
+    {
+      "_id": "VntBRTWKwJox3mVU",
       "name": "Swarm",
       "type": "feat",
       "img": "icons/svg/upgrade.svg",
@@ -145,36 +181,12 @@
       },
       "effects": [],
       "folder": null,
-      "sort": 200000,
-      "ownership": {
-        "default": 0
-      },
-      "flags": {},
-      "_key": "!actors.items!JqF1u8UGRc68qz6O.7wrCwFR5lkEaSiAW"
-    },
-    {
-      "_id": "EnCYyxqS3B5TDN8a",
-      "name": "Specialized Resistance",
-      "type": "feat",
-      "img": "icons/svg/upgrade.svg",
-      "system": {
-        "featType": "trait",
-        "xpCost": 4,
-        "requirements": "",
-        "effect": "4 XP, stone that turns a blade.",
-        "ancestry": "",
-        "grantsTechnique": "",
-        "modifiers": [],
-        "description": ""
-      },
-      "effects": [],
-      "folder": null,
       "sort": 300000,
       "ownership": {
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!JqF1u8UGRc68qz6O.EnCYyxqS3B5TDN8a"
+      "_key": "!actors.items!JqF1u8UGRc68qz6O.VntBRTWKwJox3mVU"
     }
   ],
   "_key": "!actors!JqF1u8UGRc68qz6O"

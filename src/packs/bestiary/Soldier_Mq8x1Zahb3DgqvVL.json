@@ -101,35 +101,34 @@
         "range": "Range 1",
         "maxRange": "close",
         "types": [
-          "edged",
-          "pointed",
-          "parry"
+          "melee",
+          "guarding"
         ],
         "typesDisplay": "",
-        "price": 45,
+        "price": 40,
         "rider": "",
+        "family": "Swords",
+        "backs": "Threaten",
         "kit": [
           {
-            "name": "Broad Cut",
+            "name": "Strike",
             "skill": "prowess",
-            "effect": "Deals Stress to Might or Finesse."
+            "effect": "Deals Stress to Might or Finesse.",
+            "signature": false
           },
           {
-            "name": "Wrest",
+            "name": "Disarm",
             "skill": "discipline",
-            "effect": "Disarms."
-          },
-          {
-            "name": "Challenge",
-            "skill": "assertiveness",
-            "effect": "Applies Baited."
+            "effect": "Disarms.",
+            "signature": true
           }
         ],
         "innate": false,
         "bonus": 0,
         "size": "medium",
         "materials": "2 Metal",
-        "description": ""
+        "description": "",
+        "location": "equipped"
       },
       "effects": [],
       "folder": null,
@@ -141,14 +140,14 @@
       "_key": "!actors.items!Mq8x1Zahb3DgqvVL.M2q3hrpIO8bLOY2N"
     },
     {
-      "_id": "UOAjq12r6sp0udTK",
-      "name": "Sunder",
+      "_id": "29bR0Xe6SzuiP5Vq",
+      "name": "Piercing Strike 1",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Sunder",
       "system": {
         "requires": [
-          "edged",
-          "pointed"
+          "melee"
         ],
         "innate": false,
         "skill": "prowess",
@@ -173,7 +172,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Sunder"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Pierce 1",
         "description": ""
       },
@@ -184,7 +187,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!Mq8x1Zahb3DgqvVL.UOAjq12r6sp0udTK"
+      "_key": "!actors.items!Mq8x1Zahb3DgqvVL.29bR0Xe6SzuiP5Vq"
     },
     {
       "_id": "mIYAxfYDCg1POPyo",

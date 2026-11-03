@@ -96,35 +96,41 @@
       "_id": "5IeWltaQzG3zgM50",
       "name": "Greatclub",
       "type": "instrument",
-      "img": "icons/svg/claw.svg",
+      "img": "icons/svg/sword.svg",
       "system": {
-        "types": [
-          "blunt"
-        ],
-        "range": "Range 1",
-        "weight": "heavy",
-        "innate": false,
-        "primaryAttribute": "might",
         "category": "melee",
-        "price": 0,
+        "weight": "heavy",
+        "primaryAttribute": "might",
+        "range": "Range 1",
+        "maxRange": "close",
+        "types": [
+          "melee"
+        ],
+        "typesDisplay": "",
+        "price": 45,
+        "rider": "",
+        "family": "Hammers",
+        "backs": "Threaten",
         "kit": [
           {
-            "name": "Bash",
+            "name": "Strike",
             "skill": "prowess",
-            "effect": "Deals Stress to Might or Finesse."
+            "effect": "Deals Stress to Might or Finesse.",
+            "signature": false
           },
           {
-            "name": "Sweep",
-            "skill": "acuity",
-            "effect": "Applies Prone."
-          },
-          {
-            "name": "Feint Jab",
-            "skill": "guile",
-            "effect": "Applies Reeling."
+            "name": "Stun",
+            "skill": "discipline",
+            "effect": "Applies Stunned. Strain 1.",
+            "signature": true
           }
         ],
-        "description": ""
+        "innate": false,
+        "bonus": 0,
+        "size": "medium",
+        "materials": "2 Metal",
+        "description": "",
+        "location": "equipped"
       },
       "effects": [],
       "folder": null,
@@ -145,28 +151,69 @@
         "weight": "light",
         "primaryAttribute": "presence",
         "range": "Range 8",
+        "maxRange": "mid",
         "types": [
-          "quick",
           "sonic"
         ],
         "typesDisplay": "",
         "price": 0,
         "rider": "Innate: every character has it, free (PHB 2.5.3).",
+        "family": "",
+        "backs": "",
         "kit": [
           {
-            "name": "Browbeat",
+            "name": "Threaten",
             "skill": "assertiveness",
-            "effect": "Deals Stress to Presence or Wit."
+            "effect": "Deals Stress to Wit or Presence.",
+            "signature": false
           },
           {
-            "name": "Mislead",
+            "name": "Threaten",
+            "skill": "assertiveness",
+            "effect": "Applies Intimidated.",
+            "signature": false
+          },
+          {
+            "name": "Threaten",
+            "skill": "assertiveness",
+            "effect": "Applies Frightened.",
+            "signature": false
+          },
+          {
+            "name": "Deceive",
             "skill": "guile",
-            "effect": "Applies Misled."
+            "effect": "Deals Stress to Wit or Presence.",
+            "signature": false
           },
           {
-            "name": "Sway",
+            "name": "Deceive",
+            "skill": "guile",
+            "effect": "Applies Misled.",
+            "signature": false
+          },
+          {
+            "name": "Deceive",
+            "skill": "guile",
+            "effect": "Applies Baited.",
+            "signature": false
+          },
+          {
+            "name": "Persuade",
             "skill": "resonance",
-            "effect": "Applies Swayed."
+            "effect": "Deals Stress to Wit or Presence.",
+            "signature": false
+          },
+          {
+            "name": "Persuade",
+            "skill": "resonance",
+            "effect": "Applies Swayed.",
+            "signature": false
+          },
+          {
+            "name": "Persuade",
+            "skill": "resonance",
+            "effect": "Applies Relaxed.",
+            "signature": false
           }
         ],
         "innate": true,
@@ -185,13 +232,14 @@
       "_key": "!actors.items!MiMXAeGqX1yu3p05.M9Yzh57n8GiXz5Mg"
     },
     {
-      "_id": "UONh5xxe8j06DECZ",
-      "name": "Break",
+      "_id": "M8s40iG1PGc7iYQL",
+      "name": "Lasting Weakening Strike",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Break",
       "system": {
         "requires": [
-          "blunt"
+          "melee"
         ],
         "innate": false,
         "skill": "prowess",
@@ -216,7 +264,12 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Break",
+          "Sinew Cut"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, -1 [target Attribute] (1 minute), Strain 1",
         "description": ""
       },
@@ -227,16 +280,17 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!MiMXAeGqX1yu3p05.UONh5xxe8j06DECZ"
+      "_key": "!actors.items!MiMXAeGqX1yu3p05.M8s40iG1PGc7iYQL"
     },
     {
-      "_id": "y8dFKlCMsq62BZAd",
-      "name": "Concuss",
+      "_id": "eqpHXuBQ3h14wUws",
+      "name": "Weakening Strike",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Concuss",
       "system": {
         "requires": [
-          "blunt"
+          "melee"
         ],
         "innate": false,
         "skill": "prowess",
@@ -261,7 +315,12 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Concuss",
+          "Hamstring"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, -1 [target Attribute]",
         "description": ""
       },
@@ -272,7 +331,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!MiMXAeGqX1yu3p05.y8dFKlCMsq62BZAd"
+      "_key": "!actors.items!MiMXAeGqX1yu3p05.eqpHXuBQ3h14wUws"
     },
     {
       "_id": "ouReTPiHAUsrOisC",
@@ -306,7 +365,9 @@
           }
         ],
         "floor": false,
+        "formerNames": [],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, -1 Oppose (1 minute)",
         "description": ""
       },

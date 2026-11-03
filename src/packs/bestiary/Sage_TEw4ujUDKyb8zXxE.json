@@ -104,34 +104,22 @@
         "range": "Range 8",
         "maxRange": "mid",
         "types": [
+          "arcane",
           "kinetic",
           "incorporeal"
         ],
         "typesDisplay": "",
-        "price": 40,
+        "price": 50,
         "rider": "",
-        "kit": [
-          {
-            "name": "Force Strike",
-            "skill": "discipline",
-            "effect": "Deals Stress to Might or Finesse."
-          },
-          {
-            "name": "Mind-Piercing Bolt",
-            "skill": "acuity",
-            "effect": "Deals Stress to Wit or Presence."
-          },
-          {
-            "name": "Unraveling Pulse",
-            "skill": "resonance",
-            "effect": "Applies Weakened [Presence]."
-          }
-        ],
+        "family": "",
+        "backs": "",
+        "kit": [],
         "innate": false,
         "bonus": 0,
         "size": "medium",
         "materials": "2 Wood",
-        "description": ""
+        "description": "",
+        "location": "equipped"
       },
       "effects": [],
       "folder": null,
@@ -143,10 +131,11 @@
       "_key": "!actors.items!TEw4ujUDKyb8zXxE.hAQwiJBH3G9kV1AN"
     },
     {
-      "_id": "3vBg12wojESa1WjS",
-      "name": "Guided Bolt",
+      "_id": "JwcMsvrvHC8OEhSK",
+      "name": "Aimed Force",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Guided Bolt",
       "system": {
         "requires": [
           "kinetic"
@@ -174,7 +163,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Guided Bolt"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, +2",
         "description": ""
       },
@@ -185,13 +178,14 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!TEw4ujUDKyb8zXxE.3vBg12wojESa1WjS"
+      "_key": "!actors.items!TEw4ujUDKyb8zXxE.JwcMsvrvHC8OEhSK"
     },
     {
-      "_id": "nyA6DzQKAf7eKI17",
-      "name": "Counterspell",
+      "_id": "rztuUCNC5bA16YkL",
+      "name": "Counter (Incorporeal)",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Counterspell",
       "system": {
         "requires": [
           "incorporeal"
@@ -211,7 +205,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Counterspell"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Counter",
         "description": ""
       },
@@ -222,13 +220,14 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!TEw4ujUDKyb8zXxE.nyA6DzQKAf7eKI17"
+      "_key": "!actors.items!TEw4ujUDKyb8zXxE.rztuUCNC5bA16YkL"
     },
     {
-      "_id": "r7TA73mmt1VqCGng",
-      "name": "Seed of Doubt",
+      "_id": "fYvGWtV5qezNYFSN",
+      "name": "Weakening Spell",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Seed of Doubt",
       "system": {
         "requires": [
           "incorporeal"
@@ -256,7 +255,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Seed of Doubt"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, -1 [target Attribute]",
         "description": ""
       },
@@ -267,13 +270,14 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!TEw4ujUDKyb8zXxE.r7TA73mmt1VqCGng"
+      "_key": "!actors.items!TEw4ujUDKyb8zXxE.fYvGWtV5qezNYFSN"
     },
     {
-      "_id": "XYCCaCNvihTB9g5Z",
-      "name": "Phantasmal Terror",
+      "_id": "rtS6osh9PxseAVFI",
+      "name": "Pushing Weakening Spell",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Phantasmal Terror",
       "system": {
         "requires": [
           "incorporeal"
@@ -309,7 +313,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Phantasmal Terror"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, -1 [target Attribute], Move the target up to Range 2",
         "description": ""
       },
@@ -320,7 +328,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!TEw4ujUDKyb8zXxE.XYCCaCNvihTB9g5Z"
+      "_key": "!actors.items!TEw4ujUDKyb8zXxE.rtS6osh9PxseAVFI"
     }
   ],
   "_key": "!actors!TEw4ujUDKyb8zXxE"

@@ -92,31 +92,31 @@
       "img": "icons/svg/claw.svg",
       "system": {
         "types": [
+          "melee",
           "grappling"
         ],
         "range": "Range 0",
+        "maxRange": "touching",
         "weight": "light",
         "innate": true,
+        "location": "equipped",
         "primaryAttribute": "might",
         "category": "melee",
         "price": 0,
         "kit": [
           {
-            "name": "Snare",
+            "name": "Strike",
             "skill": "prowess",
-            "effect": "Applies Grappled."
+            "effect": "Deals Stress to Might or Finesse."
           },
           {
-            "name": "Tumble",
-            "skill": "acuity",
-            "effect": "Applies Prone."
-          },
-          {
-            "name": "Tangle",
-            "skill": "guile",
-            "effect": "Applies Restrained."
+            "name": "Restrain",
+            "skill": "discipline",
+            "effect": "Applies Restrained.",
+            "signature": true
           }
         ],
+        "backs": "Threaten",
         "description": ""
       },
       "effects": [],
@@ -129,18 +129,37 @@
       "_key": "!actors.items!NsLRyQSxxkQYynXK.XZs881PydsA4eqy8"
     },
     {
-      "_id": "r4p4RjYyL5noClOJ",
-      "name": "Specialized Resistance",
-      "type": "feat",
-      "img": "icons/svg/upgrade.svg",
+      "_id": "WnYNLxQU0NMcOcSC",
+      "name": "Push (Melee or Grappling)",
+      "type": "technique",
+      "img": "icons/svg/aura.svg",
+      "idName": "Shove",
       "system": {
-        "featType": "trait",
-        "xpCost": 4,
-        "requirements": "",
-        "effect": "4 XP, fibrous stems turn a stab aside.",
-        "ancestry": "",
-        "grantsTechnique": "",
-        "modifiers": [],
+        "requires": [
+          "melee",
+          "grappling"
+        ],
+        "innate": false,
+        "skill": "prowess",
+        "family": "Grappling",
+        "subgroup": "",
+        "effects": [
+          {
+            "key": "move",
+            "magnitude": 1,
+            "pattern": "single",
+            "bands": 0,
+            "placement": 0,
+            "selectiveR": 0
+          }
+        ],
+        "floor": false,
+        "formerNames": [
+          "Shove"
+        ],
+        "ancestryGrant": "",
+        "grantedBy": "",
+        "effectText": "Move the target up to Range 2",
         "description": ""
       },
       "effects": [],
@@ -150,7 +169,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!NsLRyQSxxkQYynXK.r4p4RjYyL5noClOJ"
+      "_key": "!actors.items!NsLRyQSxxkQYynXK.WnYNLxQU0NMcOcSC"
     }
   ],
   "_key": "!actors!NsLRyQSxxkQYynXK"

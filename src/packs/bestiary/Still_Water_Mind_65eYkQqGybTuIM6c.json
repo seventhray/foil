@@ -124,7 +124,9 @@
           }
         ],
         "floor": false,
+        "formerNames": [],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Controlled, Upkeep, Strain 1",
         "description": ""
       },
@@ -144,31 +146,25 @@
       "img": "icons/svg/claw.svg",
       "system": {
         "types": [
+          "arcane",
           "incorporeal"
         ],
-        "range": "Range 1",
+        "range": "Range 4",
+        "maxRange": "short",
         "weight": "light",
         "innate": true,
+        "location": "equipped",
         "primaryAttribute": "wit",
         "category": "arcane",
         "price": 0,
         "kit": [
           {
-            "name": "Withering Curse",
+            "name": "Crushing Depths",
             "skill": "discipline",
-            "effect": "Applies Weakened [Might]."
-          },
-          {
-            "name": "Maddening Whisper",
-            "skill": "acuity",
             "effect": "Deals Stress to Wit or Presence."
-          },
-          {
-            "name": "Despairing Word",
-            "skill": "resonance",
-            "effect": "Applies Frightened."
           }
         ],
+        "backs": "",
         "description": ""
       },
       "effects": [],
@@ -181,10 +177,11 @@
       "_key": "!actors.items!65eYkQqGybTuIM6c.HeqCIwheB2ZCk9L4"
     },
     {
-      "_id": "TsRK8KpJ4R4yPI5F",
-      "name": "Phantasmal Terror",
+      "_id": "DcxH22aebKofowds",
+      "name": "Pushing Weakening Spell",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Phantasmal Terror",
       "system": {
         "requires": [
           "incorporeal"
@@ -220,7 +217,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Phantasmal Terror"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, -1 [target Attribute], Move the target up to Range 2",
         "description": ""
       },
@@ -231,7 +232,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!65eYkQqGybTuIM6c.TsRK8KpJ4R4yPI5F"
+      "_key": "!actors.items!65eYkQqGybTuIM6c.DcxH22aebKofowds"
     },
     {
       "_id": "C8BA7DqbGF6CMRyx",

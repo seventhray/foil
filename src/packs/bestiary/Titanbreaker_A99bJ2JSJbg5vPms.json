@@ -96,35 +96,41 @@
       "_id": "ynGe0YbsqEhXAYU4",
       "name": "Greatclub",
       "type": "instrument",
-      "img": "icons/svg/claw.svg",
+      "img": "icons/svg/sword.svg",
       "system": {
-        "types": [
-          "blunt"
-        ],
-        "range": "Range 1",
-        "weight": "heavy",
-        "innate": false,
-        "primaryAttribute": "might",
         "category": "melee",
-        "price": 0,
+        "weight": "heavy",
+        "primaryAttribute": "might",
+        "range": "Range 1",
+        "maxRange": "close",
+        "types": [
+          "melee"
+        ],
+        "typesDisplay": "",
+        "price": 45,
+        "rider": "",
+        "family": "Hammers",
+        "backs": "Threaten",
         "kit": [
           {
-            "name": "Bash",
+            "name": "Strike",
             "skill": "prowess",
-            "effect": "Deals Stress to Might or Finesse."
+            "effect": "Deals Stress to Might or Finesse.",
+            "signature": false
           },
           {
-            "name": "Sweep",
-            "skill": "acuity",
-            "effect": "Applies Prone."
-          },
-          {
-            "name": "Feint Jab",
-            "skill": "guile",
-            "effect": "Applies Reeling."
+            "name": "Stun",
+            "skill": "discipline",
+            "effect": "Applies Stunned. Strain 1.",
+            "signature": true
           }
         ],
-        "description": ""
+        "innate": false,
+        "bonus": 0,
+        "size": "medium",
+        "materials": "2 Metal",
+        "description": "",
+        "location": "equipped"
       },
       "effects": [],
       "folder": null,
@@ -142,31 +148,31 @@
       "img": "icons/svg/claw.svg",
       "system": {
         "types": [
+          "ranged",
           "thrown"
         ],
         "range": "Range 8",
+        "maxRange": "mid",
         "weight": "light",
         "innate": true,
+        "location": "equipped",
         "primaryAttribute": "finesse",
-        "category": "melee",
+        "category": "ranged",
         "price": 0,
         "kit": [
           {
-            "name": "Snare",
+            "name": "Shot",
             "skill": "prowess",
-            "effect": "Applies Grappled."
+            "effect": "Deals Stress to Might or Finesse."
           },
           {
-            "name": "Tumble",
+            "name": "Topple",
             "skill": "acuity",
-            "effect": "Applies Prone."
-          },
-          {
-            "name": "Tangle",
-            "skill": "guile",
-            "effect": "Applies Restrained."
+            "effect": "Applies Prone.",
+            "signature": true
           }
         ],
+        "backs": "Deceive",
         "description": ""
       },
       "effects": [],
@@ -179,13 +185,14 @@
       "_key": "!actors.items!A99bJ2JSJbg5vPms.3pJK9flKqdtc2Nfd"
     },
     {
-      "_id": "8MKkynwXCOHIuQPg",
-      "name": "Break",
+      "_id": "HFEl6pVSzx4JUnbj",
+      "name": "Lasting Weakening Strike",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Break",
       "system": {
         "requires": [
-          "blunt"
+          "melee"
         ],
         "innate": false,
         "skill": "prowess",
@@ -210,7 +217,12 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Break",
+          "Sinew Cut"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, -1 [target Attribute] (1 minute), Strain 1",
         "description": ""
       },
@@ -221,16 +233,17 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!A99bJ2JSJbg5vPms.8MKkynwXCOHIuQPg"
+      "_key": "!actors.items!A99bJ2JSJbg5vPms.HFEl6pVSzx4JUnbj"
     },
     {
-      "_id": "L8BsHBt3crS3qFaX",
-      "name": "Concuss",
+      "_id": "4V7Bu3eAAs6W17TC",
+      "name": "Weakening Strike",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Concuss",
       "system": {
         "requires": [
-          "blunt"
+          "melee"
         ],
         "innate": false,
         "skill": "prowess",
@@ -255,7 +268,12 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Concuss",
+          "Hamstring"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, -1 [target Attribute]",
         "description": ""
       },
@@ -266,7 +284,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!A99bJ2JSJbg5vPms.L8BsHBt3crS3qFaX"
+      "_key": "!actors.items!A99bJ2JSJbg5vPms.4V7Bu3eAAs6W17TC"
     },
     {
       "_id": "fh55YcAsUChPvxAB",
@@ -275,7 +293,7 @@
       "img": "icons/svg/aura.svg",
       "system": {
         "requires": [
-          "blunt"
+          "melee"
         ],
         "innate": false,
         "skill": "prowess",
@@ -300,7 +318,9 @@
           }
         ],
         "floor": false,
+        "formerNames": [],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Prone",
         "description": ""
       },
@@ -320,7 +340,7 @@
       "img": "icons/svg/aura.svg",
       "system": {
         "requires": [
-          "thrown"
+          "ranged"
         ],
         "innate": false,
         "skill": "prowess",
@@ -345,7 +365,9 @@
           }
         ],
         "floor": false,
+        "formerNames": [],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Prone",
         "description": ""
       },

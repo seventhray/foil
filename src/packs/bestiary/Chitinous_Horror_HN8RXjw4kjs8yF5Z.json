@@ -96,31 +96,30 @@
       "img": "icons/svg/claw.svg",
       "system": {
         "types": [
-          "pointed"
+          "melee"
         ],
         "range": "Range 1",
+        "maxRange": "close",
         "weight": "light",
         "innate": true,
+        "location": "equipped",
         "primaryAttribute": "might",
         "category": "melee",
         "price": 0,
         "kit": [
           {
-            "name": "Stab",
+            "name": "Strike",
             "skill": "prowess",
             "effect": "Deals Stress to Might or Finesse."
           },
           {
-            "name": "Vital Strike",
-            "skill": "acuity",
-            "effect": "Applies Weakened [Finesse]."
-          },
-          {
-            "name": "Low Feint",
-            "skill": "guile",
-            "effect": "Applies Reeling."
+            "name": "Weaken",
+            "skill": "discipline",
+            "effect": "Applies Weakened [Finesse].",
+            "signature": true
           }
         ],
+        "backs": "Threaten",
         "description": ""
       },
       "effects": [],
@@ -139,31 +138,30 @@
       "img": "icons/svg/claw.svg",
       "system": {
         "types": [
-          "edged"
+          "melee"
         ],
         "range": "Range 1",
+        "maxRange": "close",
         "weight": "light",
         "innate": true,
+        "location": "equipped",
         "primaryAttribute": "might",
         "category": "melee",
         "price": 0,
         "kit": [
           {
-            "name": "Stab",
+            "name": "Strike",
             "skill": "prowess",
             "effect": "Deals Stress to Might or Finesse."
           },
           {
-            "name": "Vital Strike",
-            "skill": "acuity",
-            "effect": "Applies Weakened [Finesse]."
-          },
-          {
-            "name": "Low Feint",
-            "skill": "guile",
-            "effect": "Applies Reeling."
+            "name": "Bleed",
+            "skill": "discipline",
+            "effect": "Lingering 1.",
+            "signature": true
           }
         ],
+        "backs": "Threaten",
         "description": ""
       },
       "effects": [],
@@ -176,14 +174,14 @@
       "_key": "!actors.items!HN8RXjw4kjs8yF5Z.oC7VhZzk82ncpVJK"
     },
     {
-      "_id": "3IKkH8GuSwgVrtNW",
-      "name": "Rend",
+      "_id": "FG4dqSOvMzpNS00D",
+      "name": "Piercing Strike 2",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Rend",
       "system": {
         "requires": [
-          "edged",
-          "pointed"
+          "melee"
         ],
         "innate": false,
         "skill": "prowess",
@@ -208,7 +206,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Rend"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Pierce 2",
         "description": ""
       },
@@ -219,17 +221,17 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!HN8RXjw4kjs8yF5Z.3IKkH8GuSwgVrtNW"
+      "_key": "!actors.items!HN8RXjw4kjs8yF5Z.FG4dqSOvMzpNS00D"
     },
     {
-      "_id": "ZlEknJAHGLXJqzxy",
-      "name": "Gutting Blow",
+      "_id": "7AIGvEMY4Z2WCymD",
+      "name": "Piercing Weakening Strike 1",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Gutting Blow",
       "system": {
         "requires": [
-          "edged",
-          "pointed"
+          "melee"
         ],
         "innate": false,
         "skill": "prowess",
@@ -262,7 +264,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Gutting Blow"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Pierce 1, -1 [target Attribute]",
         "description": ""
       },
@@ -273,7 +279,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!HN8RXjw4kjs8yF5Z.ZlEknJAHGLXJqzxy"
+      "_key": "!actors.items!HN8RXjw4kjs8yF5Z.7AIGvEMY4Z2WCymD"
     },
     {
       "_id": "ZomEN78D2xIAcuhp",

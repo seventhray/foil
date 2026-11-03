@@ -93,93 +93,7 @@
   },
   "items": [
     {
-      "_id": "vM2btjAqwCoHoxka",
-      "name": "Goat head",
-      "type": "instrument",
-      "img": "icons/svg/claw.svg",
-      "system": {
-        "types": [
-          "blunt"
-        ],
-        "range": "Range 1",
-        "weight": "light",
-        "innate": true,
-        "primaryAttribute": "might",
-        "category": "melee",
-        "price": 0,
-        "kit": [
-          {
-            "name": "Bash",
-            "skill": "prowess",
-            "effect": "Deals Stress to Might or Finesse."
-          },
-          {
-            "name": "Sweep",
-            "skill": "acuity",
-            "effect": "Applies Prone."
-          },
-          {
-            "name": "Feint Jab",
-            "skill": "guile",
-            "effect": "Applies Reeling."
-          }
-        ],
-        "description": ""
-      },
-      "effects": [],
-      "folder": null,
-      "sort": 100000,
-      "ownership": {
-        "default": 0
-      },
-      "flags": {},
-      "_key": "!actors.items!beoB2GKmGn5yCqh1.vM2btjAqwCoHoxka"
-    },
-    {
-      "_id": "vP7D8bnxIxQ58gMt",
-      "name": "Dragon head",
-      "type": "instrument",
-      "img": "icons/svg/claw.svg",
-      "system": {
-        "types": [
-          "kinetic"
-        ],
-        "range": "Range 1",
-        "weight": "light",
-        "innate": true,
-        "primaryAttribute": "wit",
-        "category": "arcane",
-        "price": 0,
-        "kit": [
-          {
-            "name": "Devastating Bolt",
-            "skill": "discipline",
-            "effect": "Deals Stress to Might or Finesse."
-          },
-          {
-            "name": "Disorienting Blast",
-            "skill": "acuity",
-            "effect": "Applies Reeling."
-          },
-          {
-            "name": "Overwhelming Force",
-            "skill": "resonance",
-            "effect": "Applies Prone."
-          }
-        ],
-        "description": ""
-      },
-      "effects": [],
-      "folder": null,
-      "sort": 200000,
-      "ownership": {
-        "default": 0
-      },
-      "flags": {},
-      "_key": "!actors.items!beoB2GKmGn5yCqh1.vP7D8bnxIxQ58gMt"
-    },
-    {
-      "_id": "RHwXMerFFq3r2Cb1",
+      "_id": "YCKzrx45qupJjev4",
       "name": "Fire Breath",
       "type": "technique",
       "img": "icons/svg/aura.svg",
@@ -210,8 +124,89 @@
           }
         ],
         "floor": false,
+        "formerNames": [],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Cone (Range 2)",
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!beoB2GKmGn5yCqh1.YCKzrx45qupJjev4"
+    },
+    {
+      "_id": "KiKLslGDKJNe5mDI",
+      "name": "Lion's Claws",
+      "type": "instrument",
+      "img": "icons/svg/claw.svg",
+      "system": {
+        "types": [
+          "melee"
+        ],
+        "range": "Range 1",
+        "maxRange": "close",
+        "weight": "light",
+        "innate": true,
+        "location": "equipped",
+        "primaryAttribute": "might",
+        "category": "melee",
+        "price": 0,
+        "kit": [
+          {
+            "name": "Strike",
+            "skill": "prowess",
+            "effect": "Deals Stress to Might or Finesse."
+          },
+          {
+            "name": "Bleed",
+            "skill": "discipline",
+            "effect": "Lingering 1.",
+            "signature": true
+          }
+        ],
+        "backs": "Threaten",
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!beoB2GKmGn5yCqh1.KiKLslGDKJNe5mDI"
+    },
+    {
+      "_id": "WXGIapIJHlXhbUnn",
+      "name": "Breath Weapon",
+      "type": "instrument",
+      "img": "icons/svg/claw.svg",
+      "system": {
+        "types": [
+          "arcane",
+          "kinetic"
+        ],
+        "range": "Range 8",
+        "maxRange": "mid",
+        "weight": "light",
+        "innate": true,
+        "location": "equipped",
+        "primaryAttribute": "wit",
+        "category": "arcane",
+        "price": 0,
+        "kit": [
+          {
+            "name": "Breath Weapon",
+            "skill": "discipline",
+            "effect": "Deals Stress to Might or Finesse."
+          }
+        ],
+        "backs": "",
         "description": ""
       },
       "effects": [],
@@ -221,59 +216,16 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!beoB2GKmGn5yCqh1.RHwXMerFFq3r2Cb1"
+      "_key": "!actors.items!beoB2GKmGn5yCqh1.WXGIapIJHlXhbUnn"
     },
     {
-      "_id": "Iyu73NsuE5FOq1NO",
-      "name": "Lion's Claws",
-      "type": "instrument",
-      "img": "icons/svg/claw.svg",
-      "system": {
-        "types": [
-          "edged"
-        ],
-        "range": "Range 1",
-        "weight": "light",
-        "innate": true,
-        "primaryAttribute": "might",
-        "category": "melee",
-        "price": 0,
-        "kit": [
-          {
-            "name": "Stab",
-            "skill": "prowess",
-            "effect": "Deals Stress to Might or Finesse."
-          },
-          {
-            "name": "Vital Strike",
-            "skill": "acuity",
-            "effect": "Applies Weakened [Finesse]."
-          },
-          {
-            "name": "Low Feint",
-            "skill": "guile",
-            "effect": "Applies Reeling."
-          }
-        ],
-        "description": ""
-      },
-      "effects": [],
-      "folder": null,
-      "sort": 400000,
-      "ownership": {
-        "default": 0
-      },
-      "flags": {},
-      "_key": "!actors.items!beoB2GKmGn5yCqh1.Iyu73NsuE5FOq1NO"
-    },
-    {
-      "_id": "j1lk4G9Wm0rrMmtt",
+      "_id": "Mu38bHLtxjdFcOO1",
       "name": "Goat's Charge",
       "type": "technique",
       "img": "icons/svg/aura.svg",
       "system": {
         "requires": [
-          "blunt"
+          "melee"
         ],
         "innate": false,
         "skill": "prowess",
@@ -298,28 +250,30 @@
           }
         ],
         "floor": false,
+        "formerNames": [],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Prone",
         "description": ""
       },
       "effects": [],
       "folder": null,
-      "sort": 500000,
+      "sort": 400000,
       "ownership": {
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!beoB2GKmGn5yCqh1.j1lk4G9Wm0rrMmtt"
+      "_key": "!actors.items!beoB2GKmGn5yCqh1.Mu38bHLtxjdFcOO1"
     },
     {
-      "_id": "VfTFFsdeKy9EyZyV",
-      "name": "Rend",
+      "_id": "bGdNny3RGKAU8gvz",
+      "name": "Piercing Strike 2",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Rend",
       "system": {
         "requires": [
-          "edged",
-          "pointed"
+          "melee"
         ],
         "innate": false,
         "skill": "prowess",
@@ -344,21 +298,25 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Rend"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Pierce 2",
         "description": ""
       },
       "effects": [],
       "folder": null,
-      "sort": 600000,
+      "sort": 500000,
       "ownership": {
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!beoB2GKmGn5yCqh1.VfTFFsdeKy9EyZyV"
+      "_key": "!actors.items!beoB2GKmGn5yCqh1.bGdNny3RGKAU8gvz"
     },
     {
-      "_id": "EYhdmbhOUvOnULg3",
+      "_id": "SwHeiGforrREkqNT",
       "name": "Heavy Hand",
       "type": "feat",
       "img": "icons/svg/upgrade.svg",
@@ -374,15 +332,15 @@
       },
       "effects": [],
       "folder": null,
-      "sort": 700000,
+      "sort": 600000,
       "ownership": {
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!beoB2GKmGn5yCqh1.EYhdmbhOUvOnULg3"
+      "_key": "!actors.items!beoB2GKmGn5yCqh1.SwHeiGforrREkqNT"
     },
     {
-      "_id": "6h6wD2HZ0rCzqcpP",
+      "_id": "OPTE66fFkO3dmE2A",
       "name": "Dread Presence",
       "type": "feat",
       "img": "icons/svg/upgrade.svg",
@@ -398,15 +356,15 @@
       },
       "effects": [],
       "folder": null,
-      "sort": 800000,
+      "sort": 700000,
       "ownership": {
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!beoB2GKmGn5yCqh1.6h6wD2HZ0rCzqcpP"
+      "_key": "!actors.items!beoB2GKmGn5yCqh1.OPTE66fFkO3dmE2A"
     },
     {
-      "_id": "5EFdCsShwdWhzoO2",
+      "_id": "2ykEACrTy15CNAFm",
       "name": "Second Wind",
       "type": "feat",
       "img": "icons/svg/upgrade.svg",
@@ -422,15 +380,15 @@
       },
       "effects": [],
       "folder": null,
-      "sort": 900000,
+      "sort": 800000,
       "ownership": {
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!beoB2GKmGn5yCqh1.5EFdCsShwdWhzoO2"
+      "_key": "!actors.items!beoB2GKmGn5yCqh1.2ykEACrTy15CNAFm"
     },
     {
-      "_id": "Bk1RSv6KmFggkQVT",
+      "_id": "o7vJfgOzjKp26CFr",
       "name": "Ambush Predator",
       "type": "feat",
       "img": "icons/svg/upgrade.svg",
@@ -446,12 +404,12 @@
       },
       "effects": [],
       "folder": null,
-      "sort": 1000000,
+      "sort": 900000,
       "ownership": {
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!beoB2GKmGn5yCqh1.Bk1RSv6KmFggkQVT"
+      "_key": "!actors.items!beoB2GKmGn5yCqh1.o7vJfgOzjKp26CFr"
     }
   ],
   "_key": "!actors!beoB2GKmGn5yCqh1"

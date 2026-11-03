@@ -92,31 +92,30 @@
       "img": "icons/svg/claw.svg",
       "system": {
         "types": [
-          "pointed"
+          "melee"
         ],
         "range": "Range 1",
+        "maxRange": "close",
         "weight": "light",
         "innate": true,
+        "location": "equipped",
         "primaryAttribute": "might",
         "category": "melee",
         "price": 0,
         "kit": [
           {
-            "name": "Stab",
+            "name": "Strike",
             "skill": "prowess",
             "effect": "Deals Stress to Might or Finesse."
           },
           {
-            "name": "Vital Strike",
-            "skill": "acuity",
-            "effect": "Applies Weakened [Finesse]."
-          },
-          {
-            "name": "Low Feint",
-            "skill": "guile",
-            "effect": "Applies Reeling."
+            "name": "Weaken",
+            "skill": "discipline",
+            "effect": "Applies Weakened [Finesse].",
+            "signature": true
           }
         ],
+        "backs": "Threaten",
         "description": ""
       },
       "effects": [],
@@ -129,7 +128,49 @@
       "_key": "!actors.items!XhwWjABpXbcAJ2k3.2qgSIpxmqkAx0RAf"
     },
     {
-      "_id": "Qpq66eXi9Il8uzdw",
+      "_id": "XCafWAD1JmX0L6Tr",
+      "name": "Slow (Melee)",
+      "type": "technique",
+      "img": "icons/svg/aura.svg",
+      "idName": "Hinder",
+      "system": {
+        "requires": [
+          "melee"
+        ],
+        "innate": false,
+        "skill": "prowess",
+        "family": "Melee",
+        "subgroup": "Control",
+        "effects": [
+          {
+            "key": "slowed",
+            "magnitude": 1,
+            "pattern": "single",
+            "bands": 0,
+            "placement": 0,
+            "selectiveR": 0
+          }
+        ],
+        "floor": false,
+        "formerNames": [
+          "Hinder"
+        ],
+        "ancestryGrant": "",
+        "grantedBy": "",
+        "effectText": "Slowed",
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!XhwWjABpXbcAJ2k3.XCafWAD1JmX0L6Tr"
+    },
+    {
+      "_id": "H4sSp3QXq1Sh5cZy",
       "name": "Ambush Predator",
       "type": "feat",
       "img": "icons/svg/upgrade.svg",
@@ -145,36 +186,12 @@
       },
       "effects": [],
       "folder": null,
-      "sort": 200000,
-      "ownership": {
-        "default": 0
-      },
-      "flags": {},
-      "_key": "!actors.items!XhwWjABpXbcAJ2k3.Qpq66eXi9Il8uzdw"
-    },
-    {
-      "_id": "sJhWqUyNndDv9nJ0",
-      "name": "Specialized Resistance",
-      "type": "feat",
-      "img": "icons/svg/upgrade.svg",
-      "system": {
-        "featType": "trait",
-        "xpCost": 4,
-        "requirements": "",
-        "effect": "4 XP, bramble grown through its hide.",
-        "ancestry": "",
-        "grantsTechnique": "",
-        "modifiers": [],
-        "description": ""
-      },
-      "effects": [],
-      "folder": null,
       "sort": 300000,
       "ownership": {
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!XhwWjABpXbcAJ2k3.sJhWqUyNndDv9nJ0"
+      "_key": "!actors.items!XhwWjABpXbcAJ2k3.H4sSp3QXq1Sh5cZy"
     }
   ],
   "_key": "!actors!XhwWjABpXbcAJ2k3"

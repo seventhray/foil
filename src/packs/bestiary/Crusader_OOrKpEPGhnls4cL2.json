@@ -104,35 +104,34 @@
         "range": "Range 1",
         "maxRange": "close",
         "types": [
-          "edged",
-          "pointed",
-          "parry"
+          "melee",
+          "guarding"
         ],
         "typesDisplay": "",
-        "price": 45,
+        "price": 40,
         "rider": "",
+        "family": "Swords",
+        "backs": "Threaten",
         "kit": [
           {
-            "name": "Broad Cut",
+            "name": "Strike",
             "skill": "prowess",
-            "effect": "Deals Stress to Might or Finesse."
+            "effect": "Deals Stress to Might or Finesse.",
+            "signature": false
           },
           {
-            "name": "Wrest",
+            "name": "Disarm",
             "skill": "discipline",
-            "effect": "Disarms."
-          },
-          {
-            "name": "Challenge",
-            "skill": "assertiveness",
-            "effect": "Applies Baited."
+            "effect": "Disarms.",
+            "signature": true
           }
         ],
         "innate": false,
         "bonus": 0,
         "size": "medium",
         "materials": "2 Metal",
-        "description": ""
+        "description": "",
+        "location": "equipped"
       },
       "effects": [],
       "folder": null,
@@ -147,35 +146,49 @@
       "_id": "aULcewQOi4N8ERdg",
       "name": "Shield",
       "type": "instrument",
-      "img": "icons/svg/claw.svg",
+      "img": "icons/svg/shield.svg",
       "system": {
-        "types": [
-          "blocking"
-        ],
-        "range": "Range 1",
+        "category": "shield",
         "weight": "light",
-        "innate": true,
         "primaryAttribute": "might",
-        "category": "melee",
-        "price": 0,
+        "range": "Range 1",
+        "maxRange": "close",
+        "types": [
+          "melee",
+          "guarding"
+        ],
+        "typesDisplay": "",
+        "price": 40,
+        "rider": "",
+        "family": "Shields",
+        "backs": "Threaten",
         "kit": [
           {
-            "name": "Steel the Mind",
+            "name": "Strike",
+            "skill": "prowess",
+            "effect": "Deals Stress to Might or Finesse.",
+            "signature": false
+          },
+          {
+            "name": "Push",
             "skill": "discipline",
-            "effect": "Grants Resistance +1 (Mental) to self or an ally for 1 round."
-          },
-          {
-            "name": "Foresee the Blow",
-            "skill": "acuity",
-            "effect": "Grants +1 to an ally's next Oppose roll before your next turn."
-          },
-          {
-            "name": "Calm the Nerves",
-            "skill": "resonance",
-            "effect": "Removes a Frightened, Wary, or Intimidated Condition from an ally within Range 1."
+            "effect": "Moves the target up to Range 2.",
+            "signature": true
           }
         ],
-        "description": ""
+        "qualities": [
+          {
+            "key": "resistance",
+            "value": 1,
+            "param": "physical"
+          }
+        ],
+        "innate": false,
+        "bonus": 0,
+        "size": "medium",
+        "materials": "1 Wood",
+        "description": "",
+        "location": "equipped"
       },
       "effects": [],
       "folder": null,
@@ -196,28 +209,69 @@
         "weight": "light",
         "primaryAttribute": "presence",
         "range": "Range 8",
+        "maxRange": "mid",
         "types": [
-          "quick",
           "sonic"
         ],
         "typesDisplay": "",
         "price": 0,
         "rider": "Innate: every character has it, free (PHB 2.5.3).",
+        "family": "",
+        "backs": "",
         "kit": [
           {
-            "name": "Browbeat",
+            "name": "Threaten",
             "skill": "assertiveness",
-            "effect": "Deals Stress to Presence or Wit."
+            "effect": "Deals Stress to Wit or Presence.",
+            "signature": false
           },
           {
-            "name": "Mislead",
+            "name": "Threaten",
+            "skill": "assertiveness",
+            "effect": "Applies Intimidated.",
+            "signature": false
+          },
+          {
+            "name": "Threaten",
+            "skill": "assertiveness",
+            "effect": "Applies Frightened.",
+            "signature": false
+          },
+          {
+            "name": "Deceive",
             "skill": "guile",
-            "effect": "Applies Misled."
+            "effect": "Deals Stress to Wit or Presence.",
+            "signature": false
           },
           {
-            "name": "Sway",
+            "name": "Deceive",
+            "skill": "guile",
+            "effect": "Applies Misled.",
+            "signature": false
+          },
+          {
+            "name": "Deceive",
+            "skill": "guile",
+            "effect": "Applies Baited.",
+            "signature": false
+          },
+          {
+            "name": "Persuade",
             "skill": "resonance",
-            "effect": "Applies Swayed."
+            "effect": "Deals Stress to Wit or Presence.",
+            "signature": false
+          },
+          {
+            "name": "Persuade",
+            "skill": "resonance",
+            "effect": "Applies Swayed.",
+            "signature": false
+          },
+          {
+            "name": "Persuade",
+            "skill": "resonance",
+            "effect": "Applies Relaxed.",
+            "signature": false
           }
         ],
         "innate": true,
@@ -236,14 +290,14 @@
       "_key": "!actors.items!OOrKpEPGhnls4cL2.uzJxQg60rnMatu5O"
     },
     {
-      "_id": "42UtURLG9tOA7pgn",
-      "name": "Gutting Blow",
+      "_id": "moWrdbCLmPWKJhLL",
+      "name": "Piercing Weakening Strike 1",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Gutting Blow",
       "system": {
         "requires": [
-          "edged",
-          "pointed"
+          "melee"
         ],
         "innate": false,
         "skill": "prowess",
@@ -276,7 +330,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Gutting Blow"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Pierce 1, -1 [target Attribute]",
         "description": ""
       },
@@ -287,13 +345,14 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!OOrKpEPGhnls4cL2.42UtURLG9tOA7pgn"
+      "_key": "!actors.items!OOrKpEPGhnls4cL2.moWrdbCLmPWKJhLL"
     },
     {
-      "_id": "VVNeA23PkCBgT9pp",
-      "name": "Dread Cry",
+      "_id": "R79mURLwSDENEwBR",
+      "name": "Frightening Cry",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Dread Cry",
       "system": {
         "requires": [
           "sonic"
@@ -321,7 +380,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Dread Cry"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Frightened",
         "description": ""
       },
@@ -332,21 +395,17 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!OOrKpEPGhnls4cL2.VVNeA23PkCBgT9pp"
+      "_key": "!actors.items!OOrKpEPGhnls4cL2.R79mURLwSDENEwBR"
     },
     {
-      "_id": "ewsInE2nsvHc4LHe",
-      "name": "Fluster",
+      "_id": "w5S54jxYJxA6oU97",
+      "name": "Reel (Sonic)",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Fluster",
       "system": {
         "requires": [
-          "sonic",
-          "edged",
-          "pointed",
-          "blunt",
-          "grappling",
-          "parry"
+          "sonic"
         ],
         "innate": false,
         "skill": "guile",
@@ -363,7 +422,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Fluster"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "-1 Oppose",
         "description": ""
       },
@@ -374,7 +437,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!OOrKpEPGhnls4cL2.ewsInE2nsvHc4LHe"
+      "_key": "!actors.items!OOrKpEPGhnls4cL2.w5S54jxYJxA6oU97"
     },
     {
       "_id": "3yo4QGrESF0oJxLj",

@@ -99,31 +99,30 @@
       "img": "icons/svg/claw.svg",
       "system": {
         "types": [
-          "blunt"
+          "melee"
         ],
         "range": "Range 1",
+        "maxRange": "close",
         "weight": "light",
         "innate": true,
+        "location": "equipped",
         "primaryAttribute": "might",
         "category": "melee",
         "price": 0,
         "kit": [
           {
-            "name": "Bash",
+            "name": "Strike",
             "skill": "prowess",
             "effect": "Deals Stress to Might or Finesse."
           },
           {
-            "name": "Sweep",
-            "skill": "acuity",
-            "effect": "Applies Prone."
-          },
-          {
-            "name": "Feint Jab",
-            "skill": "guile",
-            "effect": "Applies Reeling."
+            "name": "Push",
+            "skill": "discipline",
+            "effect": "Moves the target up to Range 2.",
+            "signature": true
           }
         ],
+        "backs": "Threaten",
         "description": ""
       },
       "effects": [],
@@ -142,31 +141,25 @@
       "img": "icons/svg/claw.svg",
       "system": {
         "types": [
+          "arcane",
           "kinetic"
         ],
         "range": "Range 1",
+        "maxRange": "close",
         "weight": "light",
         "innate": true,
+        "location": "equipped",
         "primaryAttribute": "wit",
         "category": "arcane",
         "price": 0,
         "kit": [
           {
-            "name": "Devastating Bolt",
+            "name": "Static Field",
             "skill": "discipline",
             "effect": "Deals Stress to Might or Finesse."
-          },
-          {
-            "name": "Disorienting Blast",
-            "skill": "acuity",
-            "effect": "Applies Reeling."
-          },
-          {
-            "name": "Overwhelming Force",
-            "skill": "resonance",
-            "effect": "Applies Prone."
           }
         ],
+        "backs": "",
         "description": ""
       },
       "effects": [],
@@ -179,10 +172,11 @@
       "_key": "!actors.items!o1W8i6oCIHmTfL9T.kTrk2FD5YKmTit3o"
     },
     {
-      "_id": "oAdVuJ7e7vkhzB8D",
-      "name": "Seismic Slam",
+      "_id": "per47ZggqSY4G0Up",
+      "name": "Bursting Toppling Force",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Seismic Slam",
       "system": {
         "requires": [
           "kinetic"
@@ -218,7 +212,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Seismic Slam"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Prone, Radius (Range 2), Strain 4",
         "description": ""
       },
@@ -229,13 +227,14 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!o1W8i6oCIHmTfL9T.oAdVuJ7e7vkhzB8D"
+      "_key": "!actors.items!o1W8i6oCIHmTfL9T.per47ZggqSY4G0Up"
     },
     {
-      "_id": "CvbsKBnVCmON58z4",
-      "name": "Concussive Repulsion",
+      "_id": "9aFSL0rI5LEVFxGn",
+      "name": "Bursting Pushing Force",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Concussive Repulsion",
       "system": {
         "requires": [
           "kinetic"
@@ -271,7 +270,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Concussive Repulsion"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Radius (Range 2), Move each target up to Range 2, Strain 3",
         "description": ""
       },
@@ -282,16 +285,17 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!o1W8i6oCIHmTfL9T.CvbsKBnVCmON58z4"
+      "_key": "!actors.items!o1W8i6oCIHmTfL9T.9aFSL0rI5LEVFxGn"
     },
     {
-      "_id": "hxpbAGuXRiYRdbxD",
-      "name": "Break",
+      "_id": "h2LlOus01pfVgjHN",
+      "name": "Lasting Weakening Strike",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Break",
       "system": {
         "requires": [
-          "blunt"
+          "melee"
         ],
         "innate": false,
         "skill": "prowess",
@@ -316,7 +320,12 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Break",
+          "Sinew Cut"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, -1 [target Attribute] (1 minute), Strain 1",
         "description": ""
       },
@@ -327,7 +336,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!o1W8i6oCIHmTfL9T.hxpbAGuXRiYRdbxD"
+      "_key": "!actors.items!o1W8i6oCIHmTfL9T.h2LlOus01pfVgjHN"
     },
     {
       "_id": "d5KbMNMzfCixzNJC",

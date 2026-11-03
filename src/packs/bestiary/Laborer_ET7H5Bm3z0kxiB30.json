@@ -93,35 +93,41 @@
       "_id": "CDi5GYK0jRwHL4UN",
       "name": "Cudgel",
       "type": "instrument",
-      "img": "icons/svg/claw.svg",
+      "img": "icons/svg/sword.svg",
       "system": {
-        "types": [
-          "blunt"
-        ],
-        "range": "Range 1",
-        "weight": "medium",
-        "innate": false,
-        "primaryAttribute": "might",
         "category": "melee",
-        "price": 0,
+        "weight": "medium",
+        "primaryAttribute": "might",
+        "range": "Range 1",
+        "maxRange": "close",
+        "types": [
+          "melee"
+        ],
+        "typesDisplay": "",
+        "price": 30,
+        "rider": "",
+        "family": "Hammers",
+        "backs": "Threaten",
         "kit": [
           {
-            "name": "Bash",
+            "name": "Strike",
             "skill": "prowess",
-            "effect": "Deals Stress to Might or Finesse."
+            "effect": "Deals Stress to Might or Finesse.",
+            "signature": false
           },
           {
-            "name": "Sweep",
-            "skill": "acuity",
-            "effect": "Applies Prone."
-          },
-          {
-            "name": "Feint Jab",
-            "skill": "guile",
-            "effect": "Applies Reeling."
+            "name": "Stun",
+            "skill": "discipline",
+            "effect": "Applies Stunned. Strain 1.",
+            "signature": true
           }
         ],
-        "description": ""
+        "innate": false,
+        "bonus": 0,
+        "size": "medium",
+        "materials": "2 Metal",
+        "description": "",
+        "location": "equipped"
       },
       "effects": [],
       "folder": null,
@@ -133,13 +139,14 @@
       "_key": "!actors.items!ET7H5Bm3z0kxiB30.CDi5GYK0jRwHL4UN"
     },
     {
-      "_id": "Iu0HBeBGNxSDp6z7",
-      "name": "Shove",
+      "_id": "PQ3O5zJeaUsXhLPn",
+      "name": "Push (Melee or Grappling)",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Shove",
       "system": {
         "requires": [
-          "blunt",
+          "melee",
           "grappling"
         ],
         "innate": false,
@@ -157,7 +164,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Shove"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Move the target up to Range 2",
         "description": ""
       },
@@ -168,7 +179,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!ET7H5Bm3z0kxiB30.Iu0HBeBGNxSDp6z7"
+      "_key": "!actors.items!ET7H5Bm3z0kxiB30.PQ3O5zJeaUsXhLPn"
     }
   ],
   "_key": "!actors!ET7H5Bm3z0kxiB30"

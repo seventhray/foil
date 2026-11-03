@@ -92,31 +92,30 @@
       "img": "icons/svg/claw.svg",
       "system": {
         "types": [
-          "pointed"
+          "melee"
         ],
         "range": "Range 1",
+        "maxRange": "close",
         "weight": "light",
         "innate": true,
+        "location": "equipped",
         "primaryAttribute": "might",
         "category": "melee",
         "price": 0,
         "kit": [
           {
-            "name": "Stab",
+            "name": "Strike",
             "skill": "prowess",
             "effect": "Deals Stress to Might or Finesse."
           },
           {
-            "name": "Vital Strike",
-            "skill": "acuity",
-            "effect": "Applies Weakened [Finesse]."
-          },
-          {
-            "name": "Low Feint",
-            "skill": "guile",
-            "effect": "Applies Reeling."
+            "name": "Weaken",
+            "skill": "discipline",
+            "effect": "Applies Weakened [Finesse].",
+            "signature": true
           }
         ],
+        "backs": "Threaten",
         "description": ""
       },
       "effects": [],
@@ -129,7 +128,44 @@
       "_key": "!actors.items!LvAv6vOiKQqBWQSj.Tt8Wf6AqGrqT6M4E"
     },
     {
-      "_id": "tjNLrSDoWuVglxE2",
+      "_id": "hVA2XBKUjvV8riSR",
+      "name": "Skitter Clear",
+      "type": "technique",
+      "img": "icons/svg/aura.svg",
+      "system": {
+        "requires": [],
+        "innate": false,
+        "skill": "",
+        "family": "",
+        "subgroup": "",
+        "effects": [
+          {
+            "key": "evade",
+            "magnitude": 1,
+            "pattern": "single",
+            "bands": 0,
+            "placement": 0,
+            "selectiveR": 0
+          }
+        ],
+        "floor": false,
+        "formerNames": [],
+        "ancestryGrant": "",
+        "grantedBy": "",
+        "effectText": "Evade",
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!LvAv6vOiKQqBWQSj.hVA2XBKUjvV8riSR"
+    },
+    {
+      "_id": "StIHfZlzMeJl83MC",
       "name": "Climb",
       "type": "feat",
       "img": "icons/svg/upgrade.svg",
@@ -145,36 +181,12 @@
       },
       "effects": [],
       "folder": null,
-      "sort": 200000,
-      "ownership": {
-        "default": 0
-      },
-      "flags": {},
-      "_key": "!actors.items!LvAv6vOiKQqBWQSj.tjNLrSDoWuVglxE2"
-    },
-    {
-      "_id": "swZ5ZM5z8MxloClK",
-      "name": "Specialized Resistance",
-      "type": "feat",
-      "img": "icons/svg/upgrade.svg",
-      "system": {
-        "featType": "trait",
-        "xpCost": 4,
-        "requirements": "",
-        "effect": "4 XP, a segmented, plated body.",
-        "ancestry": "",
-        "grantsTechnique": "",
-        "modifiers": [],
-        "description": ""
-      },
-      "effects": [],
-      "folder": null,
       "sort": 300000,
       "ownership": {
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!LvAv6vOiKQqBWQSj.swZ5ZM5z8MxloClK"
+      "_key": "!actors.items!LvAv6vOiKQqBWQSj.StIHfZlzMeJl83MC"
     }
   ],
   "_key": "!actors!LvAv6vOiKQqBWQSj"

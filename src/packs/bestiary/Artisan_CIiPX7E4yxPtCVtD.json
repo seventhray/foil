@@ -93,35 +93,41 @@
       "_id": "jxg6vjUB2M7YNBqw",
       "name": "Hammer",
       "type": "instrument",
-      "img": "icons/svg/claw.svg",
+      "img": "icons/svg/sword.svg",
       "system": {
-        "types": [
-          "blunt"
-        ],
-        "range": "Range 1",
-        "weight": "medium",
-        "innate": false,
-        "primaryAttribute": "might",
         "category": "melee",
-        "price": 0,
+        "weight": "medium",
+        "primaryAttribute": "might",
+        "range": "Range 1",
+        "maxRange": "close",
+        "types": [
+          "melee"
+        ],
+        "typesDisplay": "",
+        "price": 30,
+        "rider": "",
+        "family": "Hammers",
+        "backs": "Threaten",
         "kit": [
           {
-            "name": "Bash",
+            "name": "Strike",
             "skill": "prowess",
-            "effect": "Deals Stress to Might or Finesse."
+            "effect": "Deals Stress to Might or Finesse.",
+            "signature": false
           },
           {
-            "name": "Sweep",
-            "skill": "acuity",
-            "effect": "Applies Prone."
-          },
-          {
-            "name": "Feint Jab",
-            "skill": "guile",
-            "effect": "Applies Reeling."
+            "name": "Stun",
+            "skill": "discipline",
+            "effect": "Applies Stunned. Strain 1.",
+            "signature": true
           }
         ],
-        "description": ""
+        "innate": false,
+        "bonus": 0,
+        "size": "medium",
+        "materials": "2 Metal",
+        "description": "",
+        "location": "equipped"
       },
       "effects": [],
       "folder": null,
@@ -145,7 +151,7 @@
         "types": [
           "craft-wood"
         ],
-        "typesDisplay": "Craft [Wood]",
+        "typesDisplay": "Tools [Wood]",
         "price": 16,
         "rider": "",
         "kit": [],
@@ -153,7 +159,8 @@
         "bonus": 0,
         "size": "medium",
         "materials": "Wood",
-        "description": ""
+        "description": "",
+        "location": "equipped"
       },
       "effects": [],
       "folder": null,
@@ -165,23 +172,19 @@
       "_key": "!actors.items!CIiPX7E4yxPtCVtD.gA8LbNu2ZRObgK7D"
     },
     {
-      "_id": "4BFYp1uMmEOYkRiL",
-      "name": "Fluster",
+      "_id": "qT7LNnu89jhWWVpE",
+      "name": "Reel (Melee)",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Fluster",
       "system": {
         "requires": [
-          "sonic",
-          "edged",
-          "pointed",
-          "blunt",
-          "grappling",
-          "parry"
+          "melee"
         ],
         "innate": false,
         "skill": "discipline",
-        "family": "Sonic",
-        "subgroup": "Control & Deception",
+        "family": "Melee",
+        "subgroup": "Control",
         "effects": [
           {
             "key": "reeling",
@@ -193,7 +196,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Fluster"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "-1 Oppose",
         "description": ""
       },
@@ -204,7 +211,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!CIiPX7E4yxPtCVtD.4BFYp1uMmEOYkRiL"
+      "_key": "!actors.items!CIiPX7E4yxPtCVtD.qT7LNnu89jhWWVpE"
     }
   ],
   "_key": "!actors!CIiPX7E4yxPtCVtD"

@@ -93,38 +93,44 @@
   },
   "items": [
     {
-      "_id": "biXWePIEekHQN2DH",
-      "name": "Blast of killing cold",
+      "_id": "Dn7ZrL751UyewtQS",
+      "name": "Greataxe",
       "type": "instrument",
-      "img": "icons/svg/claw.svg",
+      "img": "icons/svg/sword.svg",
       "system": {
-        "types": [
-          "kinetic"
-        ],
+        "category": "melee",
+        "weight": "heavy",
+        "primaryAttribute": "might",
         "range": "Range 1",
-        "weight": "light",
-        "innate": true,
-        "primaryAttribute": "wit",
-        "category": "arcane",
-        "price": 0,
+        "maxRange": "close",
+        "types": [
+          "melee"
+        ],
+        "typesDisplay": "",
+        "price": 45,
+        "rider": "",
+        "family": "Axes",
+        "backs": "Threaten",
         "kit": [
           {
-            "name": "Devastating Bolt",
+            "name": "Strike",
+            "skill": "prowess",
+            "effect": "Deals Stress to Might or Finesse.",
+            "signature": false
+          },
+          {
+            "name": "Topple",
             "skill": "discipline",
-            "effect": "Deals Stress to Might or Finesse."
-          },
-          {
-            "name": "Disorienting Blast",
-            "skill": "acuity",
-            "effect": "Applies Reeling."
-          },
-          {
-            "name": "Overwhelming Force",
-            "skill": "resonance",
-            "effect": "Applies Prone."
+            "effect": "Applies Prone.",
+            "signature": true
           }
         ],
-        "description": ""
+        "innate": false,
+        "bonus": 0,
+        "size": "medium",
+        "materials": "1 Metal, 1 Wood",
+        "description": "",
+        "location": "equipped"
       },
       "effects": [],
       "folder": null,
@@ -133,40 +139,34 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!maTXRHsvL0wrNE6P.biXWePIEekHQN2DH"
+      "_key": "!actors.items!maTXRHsvL0wrNE6P.Dn7ZrL751UyewtQS"
     },
     {
-      "_id": "WHCvEKTgveGy75Ec",
-      "name": "Greataxe",
+      "_id": "3whUpFX0iQZZxJSa",
+      "name": "Freezing Touch",
       "type": "instrument",
       "img": "icons/svg/claw.svg",
       "system": {
         "types": [
-          "edged"
+          "arcane",
+          "kinetic"
         ],
-        "range": "Range 1",
-        "weight": "heavy",
-        "innate": false,
-        "primaryAttribute": "might",
-        "category": "melee",
+        "range": "Range 0",
+        "maxRange": "touching",
+        "weight": "light",
+        "innate": true,
+        "location": "equipped",
+        "primaryAttribute": "wit",
+        "category": "arcane",
         "price": 0,
         "kit": [
           {
-            "name": "Stab",
-            "skill": "prowess",
+            "name": "Freezing Touch",
+            "skill": "discipline",
             "effect": "Deals Stress to Might or Finesse."
-          },
-          {
-            "name": "Vital Strike",
-            "skill": "acuity",
-            "effect": "Applies Weakened [Finesse]."
-          },
-          {
-            "name": "Low Feint",
-            "skill": "guile",
-            "effect": "Applies Reeling."
           }
         ],
+        "backs": "",
         "description": ""
       },
       "effects": [],
@@ -176,7 +176,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!maTXRHsvL0wrNE6P.WHCvEKTgveGy75Ec"
+      "_key": "!actors.items!maTXRHsvL0wrNE6P.3whUpFX0iQZZxJSa"
     },
     {
       "_id": "0dB8Vp3m69yg5PHE",
@@ -210,7 +210,9 @@
           }
         ],
         "floor": false,
+        "formerNames": [],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Cone (Range 2)",
         "description": ""
       },
@@ -224,13 +226,14 @@
       "_key": "!actors.items!maTXRHsvL0wrNE6P.0dB8Vp3m69yg5PHE"
     },
     {
-      "_id": "1iBOIPaLQLBTncFR",
-      "name": "Hamstring",
+      "_id": "IuulY5uSirAkDwIz",
+      "name": "Weakening Strike",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Concuss",
       "system": {
         "requires": [
-          "edged"
+          "melee"
         ],
         "innate": false,
         "skill": "prowess",
@@ -255,7 +258,12 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Concuss",
+          "Hamstring"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, -1 [target Attribute]",
         "description": ""
       },
@@ -266,7 +274,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!maTXRHsvL0wrNE6P.1iBOIPaLQLBTncFR"
+      "_key": "!actors.items!maTXRHsvL0wrNE6P.IuulY5uSirAkDwIz"
     },
     {
       "_id": "xFtprBGRYq3bT0vf",

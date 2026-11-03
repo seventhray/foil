@@ -96,31 +96,30 @@
       "img": "icons/svg/claw.svg",
       "system": {
         "types": [
-          "blunt"
+          "melee"
         ],
         "range": "Range 1",
+        "maxRange": "close",
         "weight": "light",
         "innate": true,
+        "location": "equipped",
         "primaryAttribute": "might",
         "category": "melee",
         "price": 0,
         "kit": [
           {
-            "name": "Bash",
+            "name": "Strike",
             "skill": "prowess",
             "effect": "Deals Stress to Might or Finesse."
           },
           {
-            "name": "Sweep",
-            "skill": "acuity",
-            "effect": "Applies Prone."
-          },
-          {
-            "name": "Feint Jab",
-            "skill": "guile",
-            "effect": "Applies Reeling."
+            "name": "Push",
+            "skill": "discipline",
+            "effect": "Moves the target up to Range 2.",
+            "signature": true
           }
         ],
+        "backs": "Threaten",
         "description": ""
       },
       "effects": [],
@@ -139,31 +138,25 @@
       "img": "icons/svg/claw.svg",
       "system": {
         "types": [
+          "arcane",
           "kinetic"
         ],
         "range": "Range 1",
+        "maxRange": "close",
         "weight": "light",
         "innate": true,
+        "location": "equipped",
         "primaryAttribute": "wit",
         "category": "arcane",
         "price": 0,
         "kit": [
           {
-            "name": "Devastating Bolt",
+            "name": "Static Field",
             "skill": "discipline",
             "effect": "Deals Stress to Might or Finesse."
-          },
-          {
-            "name": "Disorienting Blast",
-            "skill": "acuity",
-            "effect": "Applies Reeling."
-          },
-          {
-            "name": "Overwhelming Force",
-            "skill": "resonance",
-            "effect": "Applies Prone."
           }
         ],
+        "backs": "",
         "description": ""
       },
       "effects": [],
@@ -176,13 +169,14 @@
       "_key": "!actors.items!H9Gsdlpr5FknRefT.AXdDl3GlVVYtHhqm"
     },
     {
-      "_id": "UAdUVJSrkClXUqZV",
-      "name": "Break",
+      "_id": "s54KDWG0VqISFdML",
+      "name": "Lasting Weakening Strike",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Break",
       "system": {
         "requires": [
-          "blunt"
+          "melee"
         ],
         "innate": false,
         "skill": "prowess",
@@ -207,7 +201,12 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Break",
+          "Sinew Cut"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, -1 [target Attribute] (1 minute), Strain 1",
         "description": ""
       },
@@ -218,13 +217,14 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!H9Gsdlpr5FknRefT.UAdUVJSrkClXUqZV"
+      "_key": "!actors.items!H9Gsdlpr5FknRefT.s54KDWG0VqISFdML"
     },
     {
-      "_id": "WFNOFHPKwM6sAqn0",
-      "name": "Shockwave",
+      "_id": "maXyNlcjQYvAcWEC",
+      "name": "Toppling Force",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Shockwave",
       "system": {
         "requires": [
           "kinetic"
@@ -252,7 +252,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Shockwave"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Prone",
         "description": ""
       },
@@ -263,13 +267,14 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!H9Gsdlpr5FknRefT.WFNOFHPKwM6sAqn0"
+      "_key": "!actors.items!H9Gsdlpr5FknRefT.maXyNlcjQYvAcWEC"
     },
     {
-      "_id": "zvWQXFJYihR6kGAC",
-      "name": "Hammer of Force",
+      "_id": "XNyiC4bUaU7KoJmI",
+      "name": "Piercing Pushing Force",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Hammer of Force",
       "system": {
         "requires": [
           "kinetic"
@@ -305,7 +310,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Hammer of Force"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Pierce 1, Move the target up to Range 2",
         "description": ""
       },
@@ -316,13 +325,14 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!H9Gsdlpr5FknRefT.zvWQXFJYihR6kGAC"
+      "_key": "!actors.items!H9Gsdlpr5FknRefT.XNyiC4bUaU7KoJmI"
     },
     {
-      "_id": "rII2Ynd7Ceyr9YMK",
-      "name": "Cataclysmic Wave",
+      "_id": "WOut6Y8SaApvbGj3",
+      "name": "Sweeping Pushing Force",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Cataclysmic Wave",
       "system": {
         "requires": [
           "kinetic"
@@ -358,7 +368,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Cataclysmic Wave"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Cone (Range 2), Move each target up to Range 2",
         "description": ""
       },
@@ -369,7 +383,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!H9Gsdlpr5FknRefT.rII2Ynd7Ceyr9YMK"
+      "_key": "!actors.items!H9Gsdlpr5FknRefT.WOut6Y8SaApvbGj3"
     },
     {
       "_id": "AdvxSTNqx1GqbBR9",

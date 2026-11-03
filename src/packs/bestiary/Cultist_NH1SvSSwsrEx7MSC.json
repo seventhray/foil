@@ -90,56 +90,7 @@
   },
   "items": [
     {
-      "_id": "zi7TsETV1TOlN1P7",
-      "name": "Voice",
-      "type": "instrument",
-      "img": "icons/svg/sound.svg",
-      "system": {
-        "category": "innate",
-        "weight": "light",
-        "primaryAttribute": "presence",
-        "range": "Range 8",
-        "types": [
-          "quick",
-          "sonic"
-        ],
-        "typesDisplay": "",
-        "price": 0,
-        "rider": "Innate: every character has it, free (PHB 2.5.3).",
-        "kit": [
-          {
-            "name": "Browbeat",
-            "skill": "assertiveness",
-            "effect": "Deals Stress to Presence or Wit."
-          },
-          {
-            "name": "Mislead",
-            "skill": "guile",
-            "effect": "Applies Misled."
-          },
-          {
-            "name": "Sway",
-            "skill": "resonance",
-            "effect": "Applies Swayed."
-          }
-        ],
-        "innate": true,
-        "bonus": 0,
-        "size": "medium",
-        "materials": "",
-        "description": ""
-      },
-      "effects": [],
-      "folder": null,
-      "sort": 100000,
-      "ownership": {
-        "default": 0
-      },
-      "flags": {},
-      "_key": "!actors.items!NH1SvSSwsrEx7MSC.zi7TsETV1TOlN1P7"
-    },
-    {
-      "_id": "yw6ybcc0EH0bKDsJ",
+      "_id": "lRx2rc1R0haAOsJR",
       "name": "Dagger",
       "type": "instrument",
       "img": "icons/svg/sword.svg",
@@ -150,34 +101,124 @@
         "range": "Range 1",
         "maxRange": "close",
         "types": [
-          "edged",
-          "pointed",
-          "parry"
+          "melee",
+          "guarding",
+          "thrown"
         ],
         "typesDisplay": "",
-        "price": 30,
+        "price": 35,
         "rider": "",
+        "family": "Knives",
+        "backs": "Deceive",
         "kit": [
           {
-            "name": "Stab",
+            "name": "Strike",
             "skill": "prowess",
-            "effect": "Deals Stress to Might or Finesse."
+            "effect": "Deals Stress to Might or Finesse.",
+            "signature": false
           },
           {
-            "name": "Vital Strike",
+            "name": "Bleed",
             "skill": "acuity",
-            "effect": "Applies Weakened [Finesse]."
-          },
-          {
-            "name": "Low Feint",
-            "skill": "guile",
-            "effect": "Applies Reeling."
+            "effect": "Lingering 1.",
+            "signature": true
           }
         ],
         "innate": false,
         "bonus": 0,
         "size": "small",
         "materials": "1 Metal",
+        "description": "",
+        "location": "equipped"
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!NH1SvSSwsrEx7MSC.lRx2rc1R0haAOsJR"
+    },
+    {
+      "_id": "Bwy8frUheMiAl0Xn",
+      "name": "Voice",
+      "type": "instrument",
+      "img": "icons/svg/sound.svg",
+      "system": {
+        "category": "innate",
+        "weight": "light",
+        "primaryAttribute": "presence",
+        "range": "Range 8",
+        "maxRange": "mid",
+        "types": [
+          "sonic"
+        ],
+        "typesDisplay": "",
+        "price": 0,
+        "rider": "Innate: every character has it, free (PHB 2.5.3).",
+        "family": "",
+        "backs": "",
+        "kit": [
+          {
+            "name": "Threaten",
+            "skill": "assertiveness",
+            "effect": "Deals Stress to Wit or Presence.",
+            "signature": false
+          },
+          {
+            "name": "Threaten",
+            "skill": "assertiveness",
+            "effect": "Applies Intimidated.",
+            "signature": false
+          },
+          {
+            "name": "Threaten",
+            "skill": "assertiveness",
+            "effect": "Applies Frightened.",
+            "signature": false
+          },
+          {
+            "name": "Deceive",
+            "skill": "guile",
+            "effect": "Deals Stress to Wit or Presence.",
+            "signature": false
+          },
+          {
+            "name": "Deceive",
+            "skill": "guile",
+            "effect": "Applies Misled.",
+            "signature": false
+          },
+          {
+            "name": "Deceive",
+            "skill": "guile",
+            "effect": "Applies Baited.",
+            "signature": false
+          },
+          {
+            "name": "Persuade",
+            "skill": "resonance",
+            "effect": "Deals Stress to Wit or Presence.",
+            "signature": false
+          },
+          {
+            "name": "Persuade",
+            "skill": "resonance",
+            "effect": "Applies Swayed.",
+            "signature": false
+          },
+          {
+            "name": "Persuade",
+            "skill": "resonance",
+            "effect": "Applies Relaxed.",
+            "signature": false
+          }
+        ],
+        "innate": true,
+        "bonus": 0,
+        "size": "medium",
+        "materials": "",
         "description": ""
       },
       "effects": [],
@@ -187,13 +228,14 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!NH1SvSSwsrEx7MSC.yw6ybcc0EH0bKDsJ"
+      "_key": "!actors.items!NH1SvSSwsrEx7MSC.Bwy8frUheMiAl0Xn"
     },
     {
-      "_id": "zZjRqS5oa1wHTk39",
-      "name": "Dread Cry",
+      "_id": "FYolB1CV5BkRrekw",
+      "name": "Frightening Cry",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Dread Cry",
       "system": {
         "requires": [
           "sonic"
@@ -221,7 +263,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Dread Cry"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Frightened",
         "description": ""
       },
@@ -232,13 +278,14 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!NH1SvSSwsrEx7MSC.zZjRqS5oa1wHTk39"
+      "_key": "!actors.items!NH1SvSSwsrEx7MSC.FYolB1CV5BkRrekw"
     },
     {
-      "_id": "DMSiF84qca7qoKRB",
-      "name": "Rally",
+      "_id": "OvchUPgv0Ciy7Pym",
+      "name": "Quick Bolstering Cry",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Rally",
       "system": {
         "requires": [
           "sonic"
@@ -266,8 +313,12 @@
             "untriggered": true
           }
         ],
-        "floor": false,
+        "floor": true,
+        "formerNames": [
+          "Rally"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Quick: +1 [Skill] to self or an ally",
         "description": ""
       },
@@ -278,7 +329,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!NH1SvSSwsrEx7MSC.DMSiF84qca7qoKRB"
+      "_key": "!actors.items!NH1SvSSwsrEx7MSC.OvchUPgv0Ciy7Pym"
     },
     {
       "_id": "ZSzmqYmfodjGM0QL",
@@ -302,7 +353,9 @@
           }
         ],
         "floor": false,
+        "formerNames": [],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Evade",
         "description": ""
       },

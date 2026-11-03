@@ -99,31 +99,25 @@
       "img": "icons/svg/claw.svg",
       "system": {
         "types": [
+          "arcane",
           "kinetic"
         ],
         "range": "Range 1",
+        "maxRange": "close",
         "weight": "light",
         "innate": true,
+        "location": "equipped",
         "primaryAttribute": "wit",
         "category": "arcane",
         "price": 0,
         "kit": [
           {
-            "name": "Devastating Bolt",
+            "name": "Static Field",
             "skill": "discipline",
             "effect": "Deals Stress to Might or Finesse."
-          },
-          {
-            "name": "Disorienting Blast",
-            "skill": "acuity",
-            "effect": "Applies Reeling."
-          },
-          {
-            "name": "Overwhelming Force",
-            "skill": "resonance",
-            "effect": "Applies Prone."
           }
         ],
+        "backs": "",
         "description": ""
       },
       "effects": [],
@@ -145,28 +139,27 @@
           "sonic"
         ],
         "range": "Range 8",
+        "maxRange": "mid",
         "weight": "light",
         "innate": true,
+        "location": "equipped",
         "primaryAttribute": "presence",
         "category": "sonic",
         "price": 0,
         "kit": [
           {
-            "name": "Rousing Chord",
-            "skill": "assertiveness",
-            "effect": "Applies Intimidated."
-          },
-          {
-            "name": "Cutting Verse",
-            "skill": "guile",
-            "effect": "Applies Baited."
-          },
-          {
-            "name": "Discordant Note",
-            "skill": "resonance",
+            "name": "Cry",
+            "skill": "prowess",
             "effect": "Deals Stress to Wit or Presence."
+          },
+          {
+            "name": "Reel",
+            "skill": "guile",
+            "effect": "Applies Reeling.",
+            "signature": true
           }
         ],
+        "backs": "",
         "description": "<p>its thunder.</p>"
       },
       "effects": [],
@@ -210,7 +203,9 @@
           }
         ],
         "floor": false,
+        "formerNames": [],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Radius (Range 2), Strain 2",
         "description": ""
       },
@@ -255,7 +250,9 @@
           }
         ],
         "floor": false,
+        "formerNames": [],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Pierce 2",
         "description": ""
       },
@@ -300,7 +297,9 @@
           }
         ],
         "floor": false,
+        "formerNames": [],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Frightened",
         "description": ""
       },

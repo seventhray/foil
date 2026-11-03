@@ -93,36 +93,42 @@
       "_id": "BxTSUUkuKlSQZ9GH",
       "name": "Thorn Blade",
       "type": "instrument",
-      "img": "icons/svg/claw.svg",
+      "img": "icons/svg/sword.svg",
       "system": {
-        "types": [
-          "pointed",
-          "parry"
-        ],
-        "range": "Range 1",
-        "weight": "light",
-        "innate": true,
-        "primaryAttribute": "might",
         "category": "melee",
-        "price": 0,
+        "weight": "light",
+        "primaryAttribute": "finesse",
+        "range": "Range 1",
+        "maxRange": "close",
+        "types": [
+          "melee",
+          "guarding"
+        ],
+        "typesDisplay": "",
+        "price": 25,
+        "rider": "",
+        "family": "Swords",
+        "backs": "Deceive",
         "kit": [
           {
-            "name": "Stab",
+            "name": "Strike",
             "skill": "prowess",
-            "effect": "Deals Stress to Might or Finesse."
+            "effect": "Deals Stress to Might or Finesse.",
+            "signature": false
           },
           {
-            "name": "Vital Strike",
+            "name": "Disarm",
             "skill": "acuity",
-            "effect": "Applies Weakened [Finesse]."
-          },
-          {
-            "name": "Low Feint",
-            "skill": "guile",
-            "effect": "Applies Reeling."
+            "effect": "Disarms.",
+            "signature": true
           }
         ],
-        "description": ""
+        "innate": false,
+        "bonus": 0,
+        "size": "small",
+        "materials": "1 Metal",
+        "description": "",
+        "location": "equipped"
       },
       "effects": [],
       "folder": null,
@@ -134,14 +140,14 @@
       "_key": "!actors.items!ouIBOCiGfFBuwmBn.BxTSUUkuKlSQZ9GH"
     },
     {
-      "_id": "0Np6BQzzmqCbXypD",
-      "name": "Maiming Strike",
+      "_id": "cWCsKCDv3mMZIQcY",
+      "name": "Piercing Weakening Strike 2",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Maiming Strike",
       "system": {
         "requires": [
-          "edged",
-          "pointed"
+          "melee"
         ],
         "innate": false,
         "skill": "prowess",
@@ -174,7 +180,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Maiming Strike"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Pierce 2, -1 [target Attribute]",
         "description": ""
       },
@@ -185,7 +195,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!ouIBOCiGfFBuwmBn.0Np6BQzzmqCbXypD"
+      "_key": "!actors.items!ouIBOCiGfFBuwmBn.cWCsKCDv3mMZIQcY"
     },
     {
       "_id": "eGDXpFrFLHJatZU7",
@@ -194,7 +204,7 @@
       "img": "icons/svg/aura.svg",
       "system": {
         "requires": [
-          "pointed"
+          "melee"
         ],
         "innate": false,
         "skill": "prowess",
@@ -219,7 +229,9 @@
           }
         ],
         "floor": false,
+        "formerNames": [],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, -1 [target Attribute] (1 minute), Strain 1",
         "description": ""
       },
@@ -239,7 +251,7 @@
       "img": "icons/svg/aura.svg",
       "system": {
         "requires": [
-          "pointed"
+          "melee"
         ],
         "innate": false,
         "skill": "prowess",
@@ -264,7 +276,9 @@
           }
         ],
         "floor": false,
+        "formerNames": [],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Lingering 1",
         "description": ""
       },
@@ -278,13 +292,14 @@
       "_key": "!actors.items!ouIBOCiGfFBuwmBn.6Gld80PFx8z7YLsj"
     },
     {
-      "_id": "5wHHiqq8TfQTZZlj",
-      "name": "Riposte",
+      "_id": "k1o7KGniqadtTrAf",
+      "name": "Return Strike",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Riposte",
       "system": {
         "requires": [
-          "parry"
+          "guarding+melee"
         ],
         "innate": false,
         "skill": "",
@@ -301,7 +316,11 @@
           }
         ],
         "floor": true,
+        "formerNames": [
+          "Riposte"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Quick (trigger: a Melee Technique fails against you): use a Melee Technique against that attacker through this Instrument.",
         "description": ""
       },
@@ -312,16 +331,17 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!ouIBOCiGfFBuwmBn.5wHHiqq8TfQTZZlj"
+      "_key": "!actors.items!ouIBOCiGfFBuwmBn.k1o7KGniqadtTrAf"
     },
     {
-      "_id": "C0AOKKncI43uP3pj",
-      "name": "Deflect",
+      "_id": "CBA4zH9ThGZjAOyg",
+      "name": "Counter (Guarding and Melee)",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Deflect",
       "system": {
         "requires": [
-          "parry"
+          "guarding+melee"
         ],
         "innate": false,
         "skill": "prowess",
@@ -338,7 +358,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Deflect"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Counter",
         "description": ""
       },
@@ -349,7 +373,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!ouIBOCiGfFBuwmBn.C0AOKKncI43uP3pj"
+      "_key": "!actors.items!ouIBOCiGfFBuwmBn.CBA4zH9ThGZjAOyg"
     },
     {
       "_id": "7D0QjvdFoE2wHh3d",
@@ -373,7 +397,9 @@
           }
         ],
         "floor": false,
+        "formerNames": [],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Evade",
         "description": ""
       },

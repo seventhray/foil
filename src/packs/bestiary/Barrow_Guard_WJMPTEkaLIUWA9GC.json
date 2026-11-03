@@ -101,35 +101,34 @@
         "range": "Range 1",
         "maxRange": "close",
         "types": [
-          "edged",
-          "pointed",
-          "parry"
+          "melee",
+          "guarding"
         ],
         "typesDisplay": "",
-        "price": 45,
+        "price": 40,
         "rider": "",
+        "family": "Swords",
+        "backs": "Threaten",
         "kit": [
           {
-            "name": "Broad Cut",
+            "name": "Strike",
             "skill": "prowess",
-            "effect": "Deals Stress to Might or Finesse."
+            "effect": "Deals Stress to Might or Finesse.",
+            "signature": false
           },
           {
-            "name": "Wrest",
+            "name": "Disarm",
             "skill": "discipline",
-            "effect": "Disarms."
-          },
-          {
-            "name": "Challenge",
-            "skill": "assertiveness",
-            "effect": "Applies Baited."
+            "effect": "Disarms.",
+            "signature": true
           }
         ],
         "innate": false,
         "bonus": 0,
         "size": "medium",
         "materials": "2 Metal",
-        "description": ""
+        "description": "",
+        "location": "equipped"
       },
       "effects": [],
       "folder": null,
@@ -141,14 +140,14 @@
       "_key": "!actors.items!WJMPTEkaLIUWA9GC.J0wOoYBBUONiC5jq"
     },
     {
-      "_id": "81sKTCYCX3gKx1BS",
-      "name": "Maiming Strike",
+      "_id": "CDq4tQcYVqX2KvpQ",
+      "name": "Piercing Weakening Strike 2",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Maiming Strike",
       "system": {
         "requires": [
-          "edged",
-          "pointed"
+          "melee"
         ],
         "innate": false,
         "skill": "prowess",
@@ -181,7 +180,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Maiming Strike"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Pierce 2, -1 [target Attribute]",
         "description": ""
       },
@@ -192,16 +195,17 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!WJMPTEkaLIUWA9GC.81sKTCYCX3gKx1BS"
+      "_key": "!actors.items!WJMPTEkaLIUWA9GC.CDq4tQcYVqX2KvpQ"
     },
     {
-      "_id": "clRJiHYmrxkYC5Pb",
-      "name": "Sinew Cut",
+      "_id": "3YLMoQnZ819xx1o8",
+      "name": "Lasting Weakening Strike",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Break",
       "system": {
         "requires": [
-          "edged"
+          "melee"
         ],
         "innate": false,
         "skill": "prowess",
@@ -226,7 +230,12 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Break",
+          "Sinew Cut"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, -1 [target Attribute] (1 minute), Strain 1",
         "description": ""
       },
@@ -237,7 +246,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!WJMPTEkaLIUWA9GC.clRJiHYmrxkYC5Pb"
+      "_key": "!actors.items!WJMPTEkaLIUWA9GC.3YLMoQnZ819xx1o8"
     },
     {
       "_id": "i7U51SlLzZxfGoAg",

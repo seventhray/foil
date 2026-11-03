@@ -104,33 +104,33 @@
         "range": "Range 1",
         "maxRange": "close",
         "types": [
-          "blunt"
+          "melee"
         ],
         "typesDisplay": "",
-        "price": 35,
+        "price": 30,
         "rider": "",
+        "family": "Hammers",
+        "backs": "Threaten",
         "kit": [
           {
-            "name": "Crush",
+            "name": "Strike",
             "skill": "prowess",
-            "effect": "Deals Stress to Might or Finesse."
+            "effect": "Deals Stress to Might or Finesse.",
+            "signature": false
           },
           {
-            "name": "Stagger",
+            "name": "Stun",
             "skill": "discipline",
-            "effect": "Applies Prone."
-          },
-          {
-            "name": "Intimidating Blow",
-            "skill": "assertiveness",
-            "effect": "Applies Intimidated."
+            "effect": "Applies Stunned. Strain 1.",
+            "signature": true
           }
         ],
         "innate": false,
         "bonus": 0,
         "size": "medium",
         "materials": "2 Metal",
-        "description": ""
+        "description": "",
+        "location": "equipped"
       },
       "effects": [],
       "folder": null,
@@ -142,13 +142,14 @@
       "_key": "!actors.items!0kTfrejd0xVv31eX.f4jEtE2RUBiSmUWx"
     },
     {
-      "_id": "sn8HUsa1hLynjtr5",
-      "name": "Concuss",
+      "_id": "KbhpNFnAlS606lVN",
+      "name": "Weakening Strike",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Concuss",
       "system": {
         "requires": [
-          "blunt"
+          "melee"
         ],
         "innate": false,
         "skill": "prowess",
@@ -173,7 +174,12 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Concuss",
+          "Hamstring"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, -1 [target Attribute]",
         "description": ""
       },
@@ -184,7 +190,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!0kTfrejd0xVv31eX.sn8HUsa1hLynjtr5"
+      "_key": "!actors.items!0kTfrejd0xVv31eX.KbhpNFnAlS606lVN"
     },
     {
       "_id": "e2TcDzKt1PwVB3GB",

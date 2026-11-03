@@ -101,34 +101,34 @@
         "range": "Range 2",
         "maxRange": "near",
         "types": [
-          "pointed",
-          "parry"
+          "melee",
+          "guarding"
         ],
         "typesDisplay": "",
         "price": 50,
         "rider": "",
+        "family": "Spears",
+        "backs": "Threaten",
         "kit": [
           {
-            "name": "Lunge",
+            "name": "Strike",
             "skill": "prowess",
-            "effect": "Deals Stress to Might or Finesse."
+            "effect": "Deals Stress to Might or Finesse.",
+            "signature": false
           },
           {
-            "name": "Topple",
+            "name": "Push",
             "skill": "discipline",
-            "effect": "Applies Prone."
-          },
-          {
-            "name": "War Cry",
-            "skill": "assertiveness",
-            "effect": "Applies Intimidated."
+            "effect": "Moves the target up to Range 2.",
+            "signature": true
           }
         ],
         "innate": false,
         "bonus": 0,
         "size": "medium",
         "materials": "1 Metal, 1 Wood",
-        "description": ""
+        "description": "",
+        "location": "equipped"
       },
       "effects": [],
       "folder": null,
@@ -140,20 +140,14 @@
       "_key": "!actors.items!QQBfVLSntMunBBGT.TjOxQFBAhNMXGuF5"
     },
     {
-      "_id": "XSQLMCvixkGHECfk",
-      "name": "Hinder",
+      "_id": "J60LGoNQEI1VSyrk",
+      "name": "Slow (Melee)",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Hinder",
       "system": {
         "requires": [
-          "edged",
-          "pointed",
-          "blunt",
-          "grappling",
-          "parry",
-          "thrown",
-          "drawn",
-          "fired"
+          "melee"
         ],
         "innate": false,
         "skill": "prowess",
@@ -170,7 +164,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Hinder"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Slowed",
         "description": ""
       },
@@ -181,7 +179,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!QQBfVLSntMunBBGT.XSQLMCvixkGHECfk"
+      "_key": "!actors.items!QQBfVLSntMunBBGT.J60LGoNQEI1VSyrk"
     }
   ],
   "_key": "!actors!QQBfVLSntMunBBGT"

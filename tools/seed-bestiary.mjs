@@ -44,19 +44,26 @@ export function bestiaryDocs(lib) {
   const moves = lib.instruments.flatMap(i => i.system.kit ?? []);
   const OTHER = { might: "discipline", finesse: "acuity", wit: "acuity", presence: "guile" };
   const BACKS = { might: "Threaten", finesse: "Deceive", wit: "Persuade" };
-  const natural = (name, typesText, { range = "", weight = "light", note = "" } = {}) => {
-    const w = NATURAL_WEAPONS.find(x => x.name === name);
+  // An Arcane one instead comes with one Technique that deals Stress through it (GMG 9.6.0), or Life-Fount's one that mends: a
+  // built-in named for the weapon, on Discipline, harming what its Property harms.
+  const ownMove = (name, types, grants) => grants === "mend"
+    ? { name, skill: "resonance", effect: "Mends 1d4 Stress on an ally's Attribute." }
+    : { name, skill: "discipline", effect: `Deals Stress to ${types.includes("incorporeal") ? "Wit or Presence" : "Might or Finesse"}.` };
+  const natural = (name, typesText, { range = "", weight = "light", note = "", grants = "" } = {}) => {
+    // Its GMG row by name, or by the row's name at the end of its own ("Lion's Claws" is Claws).
+    const w = NATURAL_WEAPONS.find(x => x.name === name) ?? NATURAL_WEAPONS.find(x => new RegExp(`\\b${x.name}$`, "i").test(name));
     const types = typesText ? currentTypes(String(typesText).split(/,\s*/).map(lc)) : w?.types ?? ["melee"];
     const group = w?.group ?? (types.includes("arcane") ? "arcane" : types.includes("sonic") ? "sonic" : types.includes("ranged") ? "ranged" : "melee");
     const primary = PRIMARY_BY_GROUP[group] ?? "might";
-    const kit = (w?.builtins ?? []).map((n, i) => {
+    const free = w?.grants || grants || "";
+    const kit = free ? [ownMove(name, types, free)] : (w?.builtins ?? []).map((n, i) => {
       const effect = moves.find(k => k.name === n)?.effect;
       if (!effect) notes.push(`${name}: no Catalog move named ${n} for its built-ins (GMG 9.6.1)`);
       return { name: n, skill: i === 0 ? (primary === "wit" ? "discipline" : "prowess") : OTHER[primary] ?? "discipline", effect: effect ?? "", ...(i > 0 ? { signature: true } : {}) };
     });
     const band = range ? Object.keys(RANGE_STEP).find(k => RANGE_STEP[k] === Number(range)) : "";
     return { name, type: "instrument", img: "icons/svg/claw.svg",
-      system: { types, range: range ? `Range ${range}` : w?.range ?? "Range 1", ...(band ? { maxRange: band } : {}), weight: lc(weight), innate: true, primaryAttribute: primary,
+      system: { types, range: range ? `Range ${range}` : w?.range ?? "Range 1", ...(band ? { maxRange: band } : {}), weight: lc(weight), innate: true, location: "equipped", primaryAttribute: primary,
         category: group === "sonic" ? "sonic" : group === "arcane" ? "arcane" : group === "ranged" ? "ranged" : "melee", price: 0, kit,
         backs: kit.length && ["melee", "ranged", "grappling"].includes(group) ? BACKS[primary] ?? "" : "",
         description: note ? `<p>${note}.</p>` : "" } };
@@ -96,23 +103,26 @@ export function bestiaryDocs(lib) {
       if (/innate Instrument/.test(rest)) { const d = inst.get(lc(base)); if (d) items.push(clone(d)); continue; }
       // An Instrument: a natural weapon "(GMG 9.6.1): Light Melee, Grappling Instrument, Range 0, ...", or a Catalog one
       // "(PHB 7.4.1[, as a Mace]): ... Instrument, Range 1 ..." under the creature's own name.
-      const held = rest.match(/^ \((GMG 9\.6\.[01]|PHB [\d.]+)(?:, as an? ([^)]+))?\): (?:an? )?(?:(Light|Medium|Heavy) )?(.+?) Instrument, Range (\d+)(?:, built-in Techniques free)?(?: \(([^)]*)\))?\.$/);
+      const held = rest.match(/^ \((GMG 9\.6\.[01]|PHB [\d.]+)(?:, as an? ([^)]+))?\): (?:an? )?(?:(Light|Medium|Heavy) )?(.+?) Instrument, Range (\d+)(?:, built-in Techniques free|, one (\w+) Technique free)?(?: \(([^)]*)\))?\.$/);
       if (held) {
-        const [, source, alias, weight, typesText, range, note] = held;
+        const [, source, alias, weight, typesText, range, grants, note] = held;
         const phb = /^PHB/.test(source) ? inst.get(lc(alias ?? head)) : null;
-        if (phb) { const d = clone(phb); d.name = head.trim(); items.push(d); continue; }
+        // A creature fights with what its stat block lists, ready (PHB 4.1.0).
+        if (phb) { const d = clone(phb); d.name = head.trim(); d.system.location = "equipped"; items.push(d); continue; }
         if (/^PHB/.test(source)) notes.push(`${name}: no Catalog Instrument ${alias ?? head}`);
-        items.push(natural(head.trim(), typesText.replace(/ \[[^\]]*\]/g, ""), { range, weight: weight ?? "light", note: note ?? "" }));
+        items.push(natural(head.trim(), typesText.replace(/ \[[^\]]*\]/g, ""), { range, weight: weight ?? "light", note: note ?? "", grants: lc(grants ?? "") }));
         continue;
       }
       // Specialized Resistance (GMG 9.5.1): a narrow Resistance the rules apply (rules/resist.js), "(Melee +2, 9.5.1)".
-      const narrow = rest.match(/^ \((\w+) \+(\d+), 9\.5\.1\): (\d+) XP, (.+?)\.?$/);
-      if (base === "Specialized Resistance" && narrow) {
-        const key = lc(narrow[1]);
-        if (!RESISTANCE_TYPES.includes(key)) notes.push(`${name}: Specialized Resistance names ${narrow[1]}, which no attack has`);
-        items.push({ name: `Specialized Resistance (${narrow[1]})`, type: "feat", img: "icons/svg/upgrade.svg",
-          system: { featType: "trait", xpCost: Number(narrow[3]), requirements: "", effect: `${narrow[1]} Resistance +${narrow[2]}: ${narrow[4]}.`, ancestry: "", grantsTechnique: "",
-            modifiers: [{ type: "resistance", key, value: Number(narrow[2]) }], description: "" } });
+      // One scope or several on one line: "(Melee +2, 9.5.1)", "(Kinetic +3, Incorporeal +1, 9.5.1)".
+      const narrow = rest.match(/^ \(([^)]*), 9\.5\.1\): (\d+) XP, (.+?)\.?$/);
+      const pairs = narrow ? [...narrow[1].matchAll(/(\w+) \+(\d+)/g)].map(m => [m[1], Number(m[2])]) : [];
+      if (base === "Specialized Resistance" && pairs.length) {
+        for (const [k] of pairs) if (!RESISTANCE_TYPES.includes(lc(k))) notes.push(`${name}: Specialized Resistance names ${k}, which no attack has`);
+        const scopes = pairs.map(([k, n]) => `${k} +${n}`).join(", ");
+        items.push({ name: `Specialized Resistance (${pairs.map(([k]) => k).join(", ")})`, type: "feat", img: "icons/svg/upgrade.svg",
+          system: { featType: "trait", xpCost: Number(narrow[2]), requirements: "", effect: `${scopes} Resistance: ${narrow[3]}.`, ancestry: "", grantsTechnique: "",
+            modifiers: pairs.map(([k, n]) => ({ type: "resistance", key: lc(k), value: n })), description: "" } });
         continue;
       }
       const through = rest.match(/ through an? ([A-Z][A-Za-z ]*?) Instrument(?: with ([A-Z]\w+))?(?: \(([^)]*)\))?, \d+ XP/);
@@ -144,6 +154,10 @@ export function bestiaryDocs(lib) {
       if (t.system.requires.includes("sonic") && inst.get("voice")) { items.unshift(clone(inst.get("voice"))); continue; }
       notes.push(`${name}: ${t.name} needs ${t.system.requires.join(" or ")}, and no Instrument on its stat block has it`);
     }
+    // A Shield's Resistance applies while it is carried (PHB 5.2.4). A stat block whose Resistance line counts it already ("mail and a
+    // shield") has its base lowered by the Shield's, so the total stays the stat block's.
+    if (/shield/i.test(line("Resistance"))) for (const sh of items.filter(i => i.type === "instrument" && i.system.category === "shield"))
+      for (const q of sh.system.qualities ?? []) if (q.key === "resistance" && q.param in resistance) resistance[q.param] -= Number(q.value) || 0;
     if (!items.some(i => i.type === "instrument")) notes.push(`${name}: no Instrument read from its stat block`);
     actors.push({
       name, type: "creature", img: "icons/svg/mystery-man.svg", tier: Number(front("tier")),

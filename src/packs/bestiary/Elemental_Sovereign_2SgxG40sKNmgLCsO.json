@@ -99,31 +99,30 @@
       "img": "icons/svg/claw.svg",
       "system": {
         "types": [
-          "blunt"
+          "melee"
         ],
         "range": "Range 1",
+        "maxRange": "close",
         "weight": "light",
         "innate": true,
+        "location": "equipped",
         "primaryAttribute": "might",
         "category": "melee",
         "price": 0,
         "kit": [
           {
-            "name": "Bash",
+            "name": "Strike",
             "skill": "prowess",
             "effect": "Deals Stress to Might or Finesse."
           },
           {
-            "name": "Sweep",
-            "skill": "acuity",
-            "effect": "Applies Prone."
-          },
-          {
-            "name": "Feint Jab",
-            "skill": "guile",
-            "effect": "Applies Reeling."
+            "name": "Push",
+            "skill": "discipline",
+            "effect": "Moves the target up to Range 2.",
+            "signature": true
           }
         ],
+        "backs": "Threaten",
         "description": ""
       },
       "effects": [],
@@ -142,31 +141,25 @@
       "img": "icons/svg/claw.svg",
       "system": {
         "types": [
+          "arcane",
           "kinetic"
         ],
         "range": "Range 1",
+        "maxRange": "close",
         "weight": "light",
         "innate": true,
+        "location": "equipped",
         "primaryAttribute": "wit",
         "category": "arcane",
         "price": 0,
         "kit": [
           {
-            "name": "Devastating Bolt",
+            "name": "Static Field",
             "skill": "discipline",
             "effect": "Deals Stress to Might or Finesse."
-          },
-          {
-            "name": "Disorienting Blast",
-            "skill": "acuity",
-            "effect": "Applies Reeling."
-          },
-          {
-            "name": "Overwhelming Force",
-            "skill": "resonance",
-            "effect": "Applies Prone."
           }
         ],
+        "backs": "",
         "description": ""
       },
       "effects": [],
@@ -179,10 +172,11 @@
       "_key": "!actors.items!2SgxG40sKNmgLCsO.UVWgfF0O3gifEi0k"
     },
     {
-      "_id": "IG8WVr3w08T8Ke0h",
-      "name": "Seismic Slam",
+      "_id": "MbRx17cItgYnMHOU",
+      "name": "Bursting Toppling Force",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Seismic Slam",
       "system": {
         "requires": [
           "kinetic"
@@ -218,7 +212,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Seismic Slam"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Prone, Radius (Range 2), Strain 4",
         "description": ""
       },
@@ -229,13 +227,14 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!2SgxG40sKNmgLCsO.IG8WVr3w08T8Ke0h"
+      "_key": "!actors.items!2SgxG40sKNmgLCsO.MbRx17cItgYnMHOU"
     },
     {
-      "_id": "1Em3IwHIlbCFUv0n",
-      "name": "Devastating Detonation",
+      "_id": "jnfWMsATG81Spk4N",
+      "name": "Bursting Piercing Force",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Devastating Detonation",
       "system": {
         "requires": [
           "kinetic"
@@ -271,7 +270,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Devastating Detonation"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Radius (Range 2), Pierce 1, Strain 3",
         "description": ""
       },
@@ -282,7 +285,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!2SgxG40sKNmgLCsO.1Em3IwHIlbCFUv0n"
+      "_key": "!actors.items!2SgxG40sKNmgLCsO.jnfWMsATG81Spk4N"
     },
     {
       "_id": "O98m2CkmMbyGUpTP",

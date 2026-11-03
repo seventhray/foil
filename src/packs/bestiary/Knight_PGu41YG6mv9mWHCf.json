@@ -74,7 +74,7 @@
       }
     },
     "resistance": {
-      "physical": 2,
+      "physical": 1,
       "mental": 0
     },
     "notes": "<p><em>A sworn fighter in mail, trained from childhood to hold a line and the one beside it</em></p><p>Guards whoever it is sworn to and fights beside them. It leaves the field when its lord falls or says so.</p>"
@@ -104,35 +104,34 @@
         "range": "Range 1",
         "maxRange": "close",
         "types": [
-          "edged",
-          "pointed",
-          "parry"
+          "melee",
+          "guarding"
         ],
         "typesDisplay": "",
-        "price": 45,
+        "price": 40,
         "rider": "",
+        "family": "Swords",
+        "backs": "Threaten",
         "kit": [
           {
-            "name": "Broad Cut",
+            "name": "Strike",
             "skill": "prowess",
-            "effect": "Deals Stress to Might or Finesse."
+            "effect": "Deals Stress to Might or Finesse.",
+            "signature": false
           },
           {
-            "name": "Wrest",
+            "name": "Disarm",
             "skill": "discipline",
-            "effect": "Disarms."
-          },
-          {
-            "name": "Challenge",
-            "skill": "assertiveness",
-            "effect": "Applies Baited."
+            "effect": "Disarms.",
+            "signature": true
           }
         ],
         "innate": false,
         "bonus": 0,
         "size": "medium",
         "materials": "2 Metal",
-        "description": ""
+        "description": "",
+        "location": "equipped"
       },
       "effects": [],
       "folder": null,
@@ -147,35 +146,49 @@
       "_id": "cVWFioOlPEuxplIN",
       "name": "Shield",
       "type": "instrument",
-      "img": "icons/svg/claw.svg",
+      "img": "icons/svg/shield.svg",
       "system": {
-        "types": [
-          "blocking"
-        ],
-        "range": "Range 1",
+        "category": "shield",
         "weight": "light",
-        "innate": true,
         "primaryAttribute": "might",
-        "category": "melee",
-        "price": 0,
+        "range": "Range 1",
+        "maxRange": "close",
+        "types": [
+          "melee",
+          "guarding"
+        ],
+        "typesDisplay": "",
+        "price": 40,
+        "rider": "",
+        "family": "Shields",
+        "backs": "Threaten",
         "kit": [
           {
-            "name": "Steel the Mind",
+            "name": "Strike",
+            "skill": "prowess",
+            "effect": "Deals Stress to Might or Finesse.",
+            "signature": false
+          },
+          {
+            "name": "Push",
             "skill": "discipline",
-            "effect": "Grants Resistance +1 (Mental) to self or an ally for 1 round."
-          },
-          {
-            "name": "Foresee the Blow",
-            "skill": "acuity",
-            "effect": "Grants +1 to an ally's next Oppose roll before your next turn."
-          },
-          {
-            "name": "Calm the Nerves",
-            "skill": "resonance",
-            "effect": "Removes a Frightened, Wary, or Intimidated Condition from an ally within Range 1."
+            "effect": "Moves the target up to Range 2.",
+            "signature": true
           }
         ],
-        "description": ""
+        "qualities": [
+          {
+            "key": "resistance",
+            "value": 1,
+            "param": "physical"
+          }
+        ],
+        "innate": false,
+        "bonus": 0,
+        "size": "medium",
+        "materials": "1 Wood",
+        "description": "",
+        "location": "equipped"
       },
       "effects": [],
       "folder": null,
@@ -187,17 +200,14 @@
       "_key": "!actors.items!PGu41YG6mv9mWHCf.cVWFioOlPEuxplIN"
     },
     {
-      "_id": "YpOs2lerXHkjEEEf",
-      "name": "Trip",
+      "_id": "6g7w570zKHdOtNtc",
+      "name": "Toppling Strike",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Trip",
       "system": {
         "requires": [
-          "edged",
-          "pointed",
-          "blunt",
-          "grappling",
-          "parry"
+          "melee"
         ],
         "innate": false,
         "skill": "prowess",
@@ -222,7 +232,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Trip"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Prone",
         "description": ""
       },
@@ -233,17 +247,17 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!PGu41YG6mv9mWHCf.YpOs2lerXHkjEEEf"
+      "_key": "!actors.items!PGu41YG6mv9mWHCf.6g7w570zKHdOtNtc"
     },
     {
-      "_id": "sCLEZZKlyIGhvtJg",
-      "name": "Gutting Blow",
+      "_id": "8BYulVfVZYrEDxau",
+      "name": "Piercing Weakening Strike 1",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Gutting Blow",
       "system": {
         "requires": [
-          "edged",
-          "pointed"
+          "melee"
         ],
         "innate": false,
         "skill": "prowess",
@@ -276,7 +290,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Gutting Blow"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Pierce 1, -1 [target Attribute]",
         "description": ""
       },
@@ -287,7 +305,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!PGu41YG6mv9mWHCf.sCLEZZKlyIGhvtJg"
+      "_key": "!actors.items!PGu41YG6mv9mWHCf.8BYulVfVZYrEDxau"
     },
     {
       "_id": "7m3SNG7v7nkF5wt8",

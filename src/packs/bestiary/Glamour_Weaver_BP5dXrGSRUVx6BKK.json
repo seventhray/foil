@@ -104,35 +104,35 @@
         "range": "Range 1",
         "maxRange": "close",
         "types": [
-          "edged",
-          "pointed",
-          "parry"
+          "melee",
+          "guarding",
+          "thrown"
         ],
         "typesDisplay": "",
-        "price": 30,
+        "price": 35,
         "rider": "",
+        "family": "Knives",
+        "backs": "Deceive",
         "kit": [
           {
-            "name": "Stab",
+            "name": "Strike",
             "skill": "prowess",
-            "effect": "Deals Stress to Might or Finesse."
+            "effect": "Deals Stress to Might or Finesse.",
+            "signature": false
           },
           {
-            "name": "Vital Strike",
+            "name": "Bleed",
             "skill": "acuity",
-            "effect": "Applies Weakened [Finesse]."
-          },
-          {
-            "name": "Low Feint",
-            "skill": "guile",
-            "effect": "Applies Reeling."
+            "effect": "Lingering 1.",
+            "signature": true
           }
         ],
         "innate": false,
         "bonus": 0,
         "size": "small",
         "materials": "1 Metal",
-        "description": ""
+        "description": "",
+        "location": "equipped"
       },
       "effects": [],
       "folder": null,
@@ -153,28 +153,69 @@
         "weight": "light",
         "primaryAttribute": "presence",
         "range": "Range 8",
+        "maxRange": "mid",
         "types": [
-          "quick",
           "sonic"
         ],
         "typesDisplay": "",
         "price": 0,
         "rider": "Innate: every character has it, free (PHB 2.5.3).",
+        "family": "",
+        "backs": "",
         "kit": [
           {
-            "name": "Browbeat",
+            "name": "Threaten",
             "skill": "assertiveness",
-            "effect": "Deals Stress to Presence or Wit."
+            "effect": "Deals Stress to Wit or Presence.",
+            "signature": false
           },
           {
-            "name": "Mislead",
+            "name": "Threaten",
+            "skill": "assertiveness",
+            "effect": "Applies Intimidated.",
+            "signature": false
+          },
+          {
+            "name": "Threaten",
+            "skill": "assertiveness",
+            "effect": "Applies Frightened.",
+            "signature": false
+          },
+          {
+            "name": "Deceive",
             "skill": "guile",
-            "effect": "Applies Misled."
+            "effect": "Deals Stress to Wit or Presence.",
+            "signature": false
           },
           {
-            "name": "Sway",
+            "name": "Deceive",
+            "skill": "guile",
+            "effect": "Applies Misled.",
+            "signature": false
+          },
+          {
+            "name": "Deceive",
+            "skill": "guile",
+            "effect": "Applies Baited.",
+            "signature": false
+          },
+          {
+            "name": "Persuade",
             "skill": "resonance",
-            "effect": "Applies Swayed."
+            "effect": "Deals Stress to Wit or Presence.",
+            "signature": false
+          },
+          {
+            "name": "Persuade",
+            "skill": "resonance",
+            "effect": "Applies Swayed.",
+            "signature": false
+          },
+          {
+            "name": "Persuade",
+            "skill": "resonance",
+            "effect": "Applies Relaxed.",
+            "signature": false
           }
         ],
         "innate": true,
@@ -202,28 +243,34 @@
         "weight": "light",
         "primaryAttribute": "wit",
         "range": "Range 2",
+        "maxRange": "near",
         "types": [
-          "quick",
+          "arcane",
           "incorporeal"
         ],
         "typesDisplay": "",
         "price": 0,
         "rider": "Innate: every character has it, free (PHB 2.5.3).",
+        "family": "",
+        "backs": "",
         "kit": [
           {
             "name": "Deduce",
             "skill": "discipline",
-            "effect": "Works out a problem or recalls a fact."
+            "effect": "Solves a problem or recalls a fact.",
+            "signature": false
           },
           {
             "name": "Analyze",
             "skill": "acuity",
-            "effect": "Learns a creature's Attributes, or notices something specific."
+            "effect": "Learns a creature's Attributes, or notices something specific.",
+            "signature": false
           },
           {
             "name": "Intuit",
             "skill": "resonance",
-            "effect": "Applies Foil Exposed, or gives insight into a situation."
+            "effect": "Applies Foil Exposed, or gives insight into a situation.",
+            "signature": false
           }
         ],
         "innate": true,
@@ -242,10 +289,11 @@
       "_key": "!actors.items!BP5dXrGSRUVx6BKK.BpDKOYInMrpR96ta"
     },
     {
-      "_id": "FPZk5RaHyLXanEe0",
-      "name": "Mirror Image",
+      "_id": "h0XFRJQmMZZuRLtH",
+      "name": "Illusion (Incorporeal)",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Glamour",
       "system": {
         "requires": [
           "incorporeal"
@@ -265,7 +313,12 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Glamour",
+          "Mirror Image"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Illusion",
         "description": ""
       },
@@ -276,13 +329,14 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!BP5dXrGSRUVx6BKK.FPZk5RaHyLXanEe0"
+      "_key": "!actors.items!BP5dXrGSRUVx6BKK.h0XFRJQmMZZuRLtH"
     },
     {
-      "_id": "GMCO48rzni01EXe7",
-      "name": "Phantasmal Killer",
+      "_id": "4ZwFCrEaMogGcFsv",
+      "name": "Weakening Illusion Spell",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Phantasmal Killer",
       "system": {
         "requires": [
           "incorporeal"
@@ -318,7 +372,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Phantasmal Killer"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Illusion, -1 [target Attribute]",
         "description": ""
       },
@@ -329,50 +387,14 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!BP5dXrGSRUVx6BKK.GMCO48rzni01EXe7"
+      "_key": "!actors.items!BP5dXrGSRUVx6BKK.4ZwFCrEaMogGcFsv"
     },
     {
-      "_id": "KfwMOujS0lUBi4wD",
-      "name": "Glamour",
+      "_id": "jQuqmGNXfx5fmUf1",
+      "name": "Invisibility (Incorporeal)",
       "type": "technique",
       "img": "icons/svg/aura.svg",
-      "system": {
-        "requires": [
-          "incorporeal"
-        ],
-        "innate": false,
-        "skill": "resonance",
-        "family": "Incorporeal",
-        "subgroup": "Illusion & Deception",
-        "effects": [
-          {
-            "key": "illusion",
-            "magnitude": 1,
-            "pattern": "single",
-            "bands": 0,
-            "placement": 0,
-            "selectiveR": 0
-          }
-        ],
-        "floor": false,
-        "ancestryGrant": "",
-        "effectText": "Illusion",
-        "description": ""
-      },
-      "effects": [],
-      "folder": null,
-      "sort": 600000,
-      "ownership": {
-        "default": 0
-      },
-      "flags": {},
-      "_key": "!actors.items!BP5dXrGSRUVx6BKK.KfwMOujS0lUBi4wD"
-    },
-    {
-      "_id": "dnj5LBPgtybj9tjR",
-      "name": "Veil",
-      "type": "technique",
-      "img": "icons/svg/aura.svg",
+      "idName": "Veil",
       "system": {
         "requires": [
           "incorporeal"
@@ -392,24 +414,30 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Veil",
+          "Vanish"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Invisible",
         "description": ""
       },
       "effects": [],
       "folder": null,
-      "sort": 700000,
+      "sort": 600000,
       "ownership": {
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!BP5dXrGSRUVx6BKK.dnj5LBPgtybj9tjR"
+      "_key": "!actors.items!BP5dXrGSRUVx6BKK.jQuqmGNXfx5fmUf1"
     },
     {
-      "_id": "jg7QlPjDNkZeeHNK",
-      "name": "Blinding Flash",
+      "_id": "EznjXzrBpxrBZBMT",
+      "name": "Blinding Spell",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Blinding Flash",
       "system": {
         "requires": [
           "incorporeal"
@@ -437,24 +465,29 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Blinding Flash"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Blinded",
         "description": ""
       },
       "effects": [],
       "folder": null,
-      "sort": 800000,
+      "sort": 700000,
       "ownership": {
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!BP5dXrGSRUVx6BKK.jg7QlPjDNkZeeHNK"
+      "_key": "!actors.items!BP5dXrGSRUVx6BKK.EznjXzrBpxrBZBMT"
     },
     {
-      "_id": "QNyBrWJBViGcZ7QM",
-      "name": "Beguile",
+      "_id": "nPbovC33obJXPhBS",
+      "name": "Charm (Sonic)",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Beguile",
       "system": {
         "requires": [
           "sonic"
@@ -474,24 +507,29 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Beguile"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Charmed",
         "description": ""
       },
       "effects": [],
       "folder": null,
-      "sort": 900000,
+      "sort": 800000,
       "ownership": {
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!BP5dXrGSRUVx6BKK.QNyBrWJBViGcZ7QM"
+      "_key": "!actors.items!BP5dXrGSRUVx6BKK.nPbovC33obJXPhBS"
     },
     {
-      "_id": "YNE8gq5zHPDzuCVf",
-      "name": "Hobble",
+      "_id": "E4ijI1UXy7LzCnaj",
+      "name": "Weakening Cry",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Hobble",
       "system": {
         "requires": [
           "sonic"
@@ -519,21 +557,25 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Hobble"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, -1 [target Attribute]",
         "description": ""
       },
       "effects": [],
       "folder": null,
-      "sort": 1000000,
+      "sort": 900000,
       "ownership": {
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!BP5dXrGSRUVx6BKK.YNE8gq5zHPDzuCVf"
+      "_key": "!actors.items!BP5dXrGSRUVx6BKK.E4ijI1UXy7LzCnaj"
     },
     {
-      "_id": "gnRLCifM7bp5EphY",
+      "_id": "ATUieD3PXZUgW75e",
       "name": "Step Aside",
       "type": "technique",
       "img": "icons/svg/aura.svg",
@@ -554,18 +596,20 @@
           }
         ],
         "floor": false,
+        "formerNames": [],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Evade",
         "description": ""
       },
       "effects": [],
       "folder": null,
-      "sort": 1100000,
+      "sort": 1000000,
       "ownership": {
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!BP5dXrGSRUVx6BKK.gnRLCifM7bp5EphY"
+      "_key": "!actors.items!BP5dXrGSRUVx6BKK.ATUieD3PXZUgW75e"
     }
   ],
   "_key": "!actors!BP5dXrGSRUVx6BKK"

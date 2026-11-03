@@ -107,13 +107,16 @@ for path in sorted(p for d in CREATURES.split(os.pathsep) for p in glob.glob(os.
             if uses > 5 * per_round:
                 bad.append(f"Legendary Action {uses} uses is more than {5 * per_round} a conflict can use")
         elif base == "Specialized Resistance":
-            sr = re.match(r"\s*\((\w+) \+(\d+), 9\.5\.1\)", rest)
-            if not sr or sr.group(1) not in SR_PRICE:
-                bad.append(f"Specialized Resistance names {sr.group(1) if sr else '?'}, not one of {', '.join(SR_PRICE)} (9.5.1)")
-            elif xp != SR_PRICE[sr.group(1)] * int(sr.group(2)):
-                bad.append(f"Specialized Resistance {sr.group(1)} +{sr.group(2)} costs {SR_PRICE[sr.group(1)] * int(sr.group(2))} (9.5.1), not {xp}")
-            elif int(sr.group(2)) > T["cap"]:
-                bad.append(f"Specialized Resistance {sr.group(1)} +{sr.group(2)} is past its cap +{T['cap']} (9.1.0)")
+            # One scope or several on one line: "(Melee +2, 9.5.1)", "(Kinetic +3, Incorporeal +1, 9.5.1)".
+            head = re.match(r"\s*\(([^)]*), 9\.5\.1\)", rest)
+            pairs = re.findall(r"(\w+) \+(\d+)", head.group(1)) if head else []
+            wrong = [k for k, _ in pairs if k not in SR_PRICE]
+            if not pairs or wrong:
+                bad.append(f"Specialized Resistance names {', '.join(wrong) or '?'}, not one of {', '.join(SR_PRICE)} (9.5.1)")
+            elif xp != sum(SR_PRICE[k] * int(n) for k, n in pairs):
+                bad.append(f"Specialized Resistance {', '.join(f'{k} +{n}' for k, n in pairs)} costs {sum(SR_PRICE[k] * int(n) for k, n in pairs)} (9.5.1), not {xp}")
+            elif any(int(n) > T["cap"] for _, n in pairs):
+                bad.append(f"Specialized Resistance past its cap +{T['cap']} (9.1.0)")
         elif base in TRAITS and xp != TRAITS[base]:
             bad.append(f"Trait {base} costs {TRAITS[base]} (9.5.0), not {xp}")
         elif base in FEATS and FEATS[base].isdigit() and xp != int(FEATS[base]):

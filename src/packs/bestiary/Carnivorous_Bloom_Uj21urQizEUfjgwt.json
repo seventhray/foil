@@ -99,31 +99,30 @@
       "img": "icons/svg/claw.svg",
       "system": {
         "types": [
-          "pointed"
+          "melee"
         ],
         "range": "Range 1",
+        "maxRange": "close",
         "weight": "light",
         "innate": true,
+        "location": "equipped",
         "primaryAttribute": "might",
         "category": "melee",
         "price": 0,
         "kit": [
           {
-            "name": "Stab",
+            "name": "Strike",
             "skill": "prowess",
             "effect": "Deals Stress to Might or Finesse."
           },
           {
-            "name": "Vital Strike",
-            "skill": "acuity",
-            "effect": "Applies Weakened [Finesse]."
-          },
-          {
-            "name": "Low Feint",
-            "skill": "guile",
-            "effect": "Applies Reeling."
+            "name": "Weaken",
+            "skill": "discipline",
+            "effect": "Applies Weakened [Finesse].",
+            "signature": true
           }
         ],
+        "backs": "Threaten",
         "description": "<p>its toothed petals.</p>"
       },
       "effects": [],
@@ -142,31 +141,31 @@
       "img": "icons/svg/claw.svg",
       "system": {
         "types": [
+          "melee",
           "grappling"
         ],
         "range": "Range 2",
+        "maxRange": "near",
         "weight": "light",
         "innate": true,
+        "location": "equipped",
         "primaryAttribute": "might",
         "category": "melee",
         "price": 0,
         "kit": [
           {
-            "name": "Snare",
+            "name": "Strike",
             "skill": "prowess",
-            "effect": "Applies Grappled."
+            "effect": "Deals Stress to Might or Finesse."
           },
           {
-            "name": "Tumble",
-            "skill": "acuity",
-            "effect": "Applies Prone."
-          },
-          {
-            "name": "Tangle",
-            "skill": "guile",
-            "effect": "Applies Restrained."
+            "name": "Restrain",
+            "skill": "discipline",
+            "effect": "Applies Restrained.",
+            "signature": true
           }
         ],
+        "backs": "Threaten",
         "description": "<p>its vines.</p>"
       },
       "effects": [],
@@ -179,10 +178,11 @@
       "_key": "!actors.items!Uj21urQizEUfjgwt.icT7I6N1YOnYsbIi"
     },
     {
-      "_id": "kiM6xURka7HoqNcL",
-      "name": "Reel In",
+      "_id": "G05DGN70HPAUBcDI",
+      "name": "Grapple and Pull",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Reel In",
       "system": {
         "requires": [
           "grappling"
@@ -210,7 +210,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Reel In"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Grappled, Move the target up to Range 2",
         "description": ""
       },
@@ -221,7 +225,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!Uj21urQizEUfjgwt.kiM6xURka7HoqNcL"
+      "_key": "!actors.items!Uj21urQizEUfjgwt.G05DGN70HPAUBcDI"
     },
     {
       "_id": "TLWvc4lNlrGokStA",
@@ -255,7 +259,9 @@
           }
         ],
         "floor": false,
+        "formerNames": [],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Restrained",
         "description": ""
       },
@@ -275,7 +281,7 @@
       "img": "icons/svg/aura.svg",
       "system": {
         "requires": [
-          "pointed"
+          "melee"
         ],
         "innate": false,
         "skill": "prowess",
@@ -300,7 +306,9 @@
           }
         ],
         "floor": false,
+        "formerNames": [],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Lingering 1",
         "description": ""
       },
@@ -314,14 +322,14 @@
       "_key": "!actors.items!Uj21urQizEUfjgwt.RaUiGOkCllmeTDo9"
     },
     {
-      "_id": "G3AFavrFr60kCTX1",
-      "name": "Rend",
+      "_id": "tok2G2MiCNvHX9EM",
+      "name": "Piercing Strike 2",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Rend",
       "system": {
         "requires": [
-          "edged",
-          "pointed"
+          "melee"
         ],
         "innate": false,
         "skill": "prowess",
@@ -346,7 +354,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Rend"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Pierce 2",
         "description": ""
       },
@@ -357,7 +369,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!Uj21urQizEUfjgwt.G3AFavrFr60kCTX1"
+      "_key": "!actors.items!Uj21urQizEUfjgwt.tok2G2MiCNvHX9EM"
     },
     {
       "_id": "aq4HTLWGB7Fpyotm",
@@ -456,18 +468,24 @@
       "_key": "!actors.items!Uj21urQizEUfjgwt.aZVG3ruQlBETD9Xb"
     },
     {
-      "_id": "pgtqxOE61eQa5gq0",
-      "name": "Specialized Resistance",
+      "_id": "Xcn1DvXZNNLEDqDx",
+      "name": "Specialized Resistance (Melee)",
       "type": "feat",
       "img": "icons/svg/upgrade.svg",
       "system": {
         "featType": "trait",
-        "xpCost": 8,
+        "xpCost": 16,
         "requirements": "",
-        "effect": "8 XP, soft stems that give under a blow.",
+        "effect": "Melee +2 Resistance: soft stems that give under a blow.",
         "ancestry": "",
         "grantsTechnique": "",
-        "modifiers": [],
+        "modifiers": [
+          {
+            "type": "resistance",
+            "key": "melee",
+            "value": 2
+          }
+        ],
         "description": ""
       },
       "effects": [],
@@ -477,7 +495,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!Uj21urQizEUfjgwt.pgtqxOE61eQa5gq0"
+      "_key": "!actors.items!Uj21urQizEUfjgwt.Xcn1DvXZNNLEDqDx"
     }
   ],
   "_key": "!actors!Uj21urQizEUfjgwt"

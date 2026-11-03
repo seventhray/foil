@@ -99,31 +99,31 @@
       "img": "icons/svg/claw.svg",
       "system": {
         "types": [
+          "melee",
           "grappling"
         ],
         "range": "Range 2",
+        "maxRange": "near",
         "weight": "light",
         "innate": true,
+        "location": "equipped",
         "primaryAttribute": "might",
         "category": "melee",
         "price": 0,
         "kit": [
           {
-            "name": "Snare",
+            "name": "Strike",
             "skill": "prowess",
-            "effect": "Applies Grappled."
+            "effect": "Deals Stress to Might or Finesse."
           },
           {
-            "name": "Tumble",
-            "skill": "acuity",
-            "effect": "Applies Prone."
-          },
-          {
-            "name": "Tangle",
-            "skill": "guile",
-            "effect": "Applies Restrained."
+            "name": "Restrain",
+            "skill": "discipline",
+            "effect": "Applies Restrained.",
+            "signature": true
           }
         ],
+        "backs": "Threaten",
         "description": ""
       },
       "effects": [],
@@ -142,31 +142,30 @@
       "img": "icons/svg/claw.svg",
       "system": {
         "types": [
-          "pointed"
+          "melee"
         ],
         "range": "Range 1",
+        "maxRange": "close",
         "weight": "light",
         "innate": true,
+        "location": "equipped",
         "primaryAttribute": "might",
         "category": "melee",
         "price": 0,
         "kit": [
           {
-            "name": "Stab",
+            "name": "Strike",
             "skill": "prowess",
             "effect": "Deals Stress to Might or Finesse."
           },
           {
-            "name": "Vital Strike",
-            "skill": "acuity",
-            "effect": "Applies Weakened [Finesse]."
-          },
-          {
-            "name": "Low Feint",
-            "skill": "guile",
-            "effect": "Applies Reeling."
+            "name": "Weaken",
+            "skill": "discipline",
+            "effect": "Applies Weakened [Finesse].",
+            "signature": true
           }
         ],
+        "backs": "Threaten",
         "description": ""
       },
       "effects": [],
@@ -179,10 +178,11 @@
       "_key": "!actors.items!z6xyJtZwwGsGyYFf.H6TmchjwLxvx1naI"
     },
     {
-      "_id": "efkE6itHLbY7Vo3X",
-      "name": "Reel In",
+      "_id": "sSu2dsFLP68NHPDM",
+      "name": "Grapple and Pull",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Reel In",
       "system": {
         "requires": [
           "grappling"
@@ -210,7 +210,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Reel In"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Grappled, Move the target up to Range 2",
         "description": ""
       },
@@ -221,7 +225,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!z6xyJtZwwGsGyYFf.efkE6itHLbY7Vo3X"
+      "_key": "!actors.items!z6xyJtZwwGsGyYFf.sSu2dsFLP68NHPDM"
     },
     {
       "_id": "DPx6q7P5Oe5QPXr9",
@@ -230,7 +234,7 @@
       "img": "icons/svg/aura.svg",
       "system": {
         "requires": [
-          "pointed"
+          "melee"
         ],
         "innate": false,
         "skill": "prowess",
@@ -255,7 +259,9 @@
           }
         ],
         "floor": false,
+        "formerNames": [],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Lingering 1",
         "description": ""
       },

@@ -101,33 +101,33 @@
         "range": "Range 1",
         "maxRange": "close",
         "types": [
-          "blunt"
+          "melee"
         ],
         "typesDisplay": "",
-        "price": 35,
+        "price": 30,
         "rider": "",
+        "family": "Hammers",
+        "backs": "Threaten",
         "kit": [
           {
-            "name": "Crush",
+            "name": "Strike",
             "skill": "prowess",
-            "effect": "Deals Stress to Might or Finesse."
+            "effect": "Deals Stress to Might or Finesse.",
+            "signature": false
           },
           {
-            "name": "Stagger",
+            "name": "Stun",
             "skill": "discipline",
-            "effect": "Applies Prone."
-          },
-          {
-            "name": "Intimidating Blow",
-            "skill": "assertiveness",
-            "effect": "Applies Intimidated."
+            "effect": "Applies Stunned. Strain 1.",
+            "signature": true
           }
         ],
         "innate": false,
         "bonus": 0,
         "size": "medium",
         "materials": "2 Metal",
-        "description": ""
+        "description": "",
+        "location": "equipped"
       },
       "effects": [],
       "folder": null,
@@ -139,13 +139,14 @@
       "_key": "!actors.items!hsnKCwcIyog2XYVD.GnDqNxoDEDdTqlYl"
     },
     {
-      "_id": "NlrcaZGX9NlKhxcL",
-      "name": "Concuss",
+      "_id": "VHtE4kkCmOWR3wfO",
+      "name": "Weakening Strike",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Concuss",
       "system": {
         "requires": [
-          "blunt"
+          "melee"
         ],
         "innate": false,
         "skill": "prowess",
@@ -170,7 +171,12 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Concuss",
+          "Hamstring"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, -1 [target Attribute]",
         "description": ""
       },
@@ -181,20 +187,17 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!hsnKCwcIyog2XYVD.NlrcaZGX9NlKhxcL"
+      "_key": "!actors.items!hsnKCwcIyog2XYVD.VHtE4kkCmOWR3wfO"
     },
     {
-      "_id": "cbcKeq9SudYGElfH",
-      "name": "Trip",
+      "_id": "G4L6SMzEvj8pL5FE",
+      "name": "Toppling Strike",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Trip",
       "system": {
         "requires": [
-          "edged",
-          "pointed",
-          "blunt",
-          "grappling",
-          "parry"
+          "melee"
         ],
         "innate": false,
         "skill": "prowess",
@@ -219,7 +222,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Trip"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Prone",
         "description": ""
       },
@@ -230,7 +237,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!hsnKCwcIyog2XYVD.cbcKeq9SudYGElfH"
+      "_key": "!actors.items!hsnKCwcIyog2XYVD.G4L6SMzEvj8pL5FE"
     },
     {
       "_id": "10CJMvQ1TzFonC1D",
@@ -241,7 +248,7 @@
         "requires": [],
         "innate": false,
         "skill": "",
-        "family": "Guard",
+        "family": "",
         "subgroup": "",
         "effects": [
           {
@@ -251,19 +258,13 @@
             "bands": 0,
             "placement": 0,
             "selectiveR": 0
-          },
-          {
-            "key": "quick",
-            "magnitude": 1,
-            "pattern": "single",
-            "bands": 0,
-            "placement": 0,
-            "selectiveR": 0
           }
         ],
-        "floor": true,
+        "floor": false,
+        "formerNames": [],
         "ancestryGrant": "",
-        "effectText": "Quick (trigger: a hostile's Melee Technique targets you): Evade before it rolls.",
+        "grantedBy": "",
+        "effectText": "Evade",
         "description": ""
       },
       "effects": [],

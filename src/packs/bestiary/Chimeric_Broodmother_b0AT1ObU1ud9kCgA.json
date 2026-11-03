@@ -99,31 +99,30 @@
       "img": "icons/svg/claw.svg",
       "system": {
         "types": [
-          "edged"
+          "melee"
         ],
         "range": "Range 1",
+        "maxRange": "close",
         "weight": "light",
         "innate": true,
+        "location": "equipped",
         "primaryAttribute": "might",
         "category": "melee",
         "price": 0,
         "kit": [
           {
-            "name": "Stab",
+            "name": "Strike",
             "skill": "prowess",
             "effect": "Deals Stress to Might or Finesse."
           },
           {
-            "name": "Vital Strike",
-            "skill": "acuity",
-            "effect": "Applies Weakened [Finesse]."
-          },
-          {
-            "name": "Low Feint",
-            "skill": "guile",
-            "effect": "Applies Reeling."
+            "name": "Bleed",
+            "skill": "discipline",
+            "effect": "Lingering 1.",
+            "signature": true
           }
         ],
+        "backs": "Threaten",
         "description": ""
       },
       "effects": [],
@@ -142,31 +141,30 @@
       "img": "icons/svg/claw.svg",
       "system": {
         "types": [
-          "pointed"
+          "melee"
         ],
         "range": "Range 1",
+        "maxRange": "close",
         "weight": "light",
         "innate": true,
+        "location": "equipped",
         "primaryAttribute": "might",
         "category": "melee",
         "price": 0,
         "kit": [
           {
-            "name": "Stab",
+            "name": "Strike",
             "skill": "prowess",
             "effect": "Deals Stress to Might or Finesse."
           },
           {
-            "name": "Vital Strike",
-            "skill": "acuity",
-            "effect": "Applies Weakened [Finesse]."
-          },
-          {
-            "name": "Low Feint",
-            "skill": "guile",
-            "effect": "Applies Reeling."
+            "name": "Weaken",
+            "skill": "discipline",
+            "effect": "Applies Weakened [Finesse].",
+            "signature": true
           }
         ],
+        "backs": "Threaten",
         "description": ""
       },
       "effects": [],
@@ -188,28 +186,27 @@
           "sonic"
         ],
         "range": "Range 8",
+        "maxRange": "mid",
         "weight": "light",
         "innate": true,
+        "location": "equipped",
         "primaryAttribute": "presence",
         "category": "sonic",
         "price": 0,
         "kit": [
           {
-            "name": "Rousing Chord",
-            "skill": "assertiveness",
-            "effect": "Applies Intimidated."
-          },
-          {
-            "name": "Cutting Verse",
-            "skill": "guile",
-            "effect": "Applies Baited."
-          },
-          {
-            "name": "Discordant Note",
-            "skill": "resonance",
+            "name": "Cry",
+            "skill": "prowess",
             "effect": "Deals Stress to Wit or Presence."
+          },
+          {
+            "name": "Reel",
+            "skill": "guile",
+            "effect": "Applies Reeling.",
+            "signature": true
           }
         ],
+        "backs": "",
         "description": ""
       },
       "effects": [],
@@ -222,10 +219,11 @@
       "_key": "!actors.items!b0AT1ObU1ud9kCgA.2pvUEjZmlJUECAIt"
     },
     {
-      "_id": "3DiFV9Izq6TBMFdY",
-      "name": "Daunting Roar",
+      "_id": "3ldaBXHdQqUKfoGw",
+      "name": "Lasting Reeling Cry",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Daunting Roar",
       "system": {
         "requires": [
           "sonic"
@@ -253,7 +251,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Daunting Roar"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, -1 Oppose (1 minute)",
         "description": ""
       },
@@ -264,17 +266,17 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!b0AT1ObU1ud9kCgA.3DiFV9Izq6TBMFdY"
+      "_key": "!actors.items!b0AT1ObU1ud9kCgA.3ldaBXHdQqUKfoGw"
     },
     {
-      "_id": "jCp8eZmSdJ8FGeiz",
-      "name": "Maiming Strike",
+      "_id": "SGw7zFViYEKgT8mk",
+      "name": "Piercing Weakening Strike 2",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Maiming Strike",
       "system": {
         "requires": [
-          "edged",
-          "pointed"
+          "melee"
         ],
         "innate": false,
         "skill": "prowess",
@@ -307,7 +309,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Maiming Strike"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Pierce 2, -1 [target Attribute]",
         "description": ""
       },
@@ -318,20 +324,17 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!b0AT1ObU1ud9kCgA.jCp8eZmSdJ8FGeiz"
+      "_key": "!actors.items!b0AT1ObU1ud9kCgA.SGw7zFViYEKgT8mk"
     },
     {
-      "_id": "0dnZbxdaCLM9xx1C",
-      "name": "Trip",
+      "_id": "LFct9M7jJUA7s8PK",
+      "name": "Toppling Strike",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Trip",
       "system": {
         "requires": [
-          "edged",
-          "pointed",
-          "blunt",
-          "grappling",
-          "parry"
+          "melee"
         ],
         "innate": false,
         "skill": "prowess",
@@ -356,7 +359,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Trip"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Prone",
         "description": ""
       },
@@ -367,7 +374,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!b0AT1ObU1ud9kCgA.0dnZbxdaCLM9xx1C"
+      "_key": "!actors.items!b0AT1ObU1ud9kCgA.LFct9M7jJUA7s8PK"
     },
     {
       "_id": "wjJ04YZqmmUrSJHW",

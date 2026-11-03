@@ -96,31 +96,30 @@
       "img": "icons/svg/claw.svg",
       "system": {
         "types": [
-          "pointed"
+          "melee"
         ],
         "range": "Range 1",
+        "maxRange": "close",
         "weight": "light",
         "innate": true,
+        "location": "equipped",
         "primaryAttribute": "might",
         "category": "melee",
         "price": 0,
         "kit": [
           {
-            "name": "Stab",
+            "name": "Strike",
             "skill": "prowess",
             "effect": "Deals Stress to Might or Finesse."
           },
           {
-            "name": "Vital Strike",
-            "skill": "acuity",
-            "effect": "Applies Weakened [Finesse]."
-          },
-          {
-            "name": "Low Feint",
-            "skill": "guile",
-            "effect": "Applies Reeling."
+            "name": "Topple",
+            "skill": "discipline",
+            "effect": "Applies Prone.",
+            "signature": true
           }
         ],
+        "backs": "Threaten",
         "description": "<p>its antlers.</p>"
       },
       "effects": [],
@@ -139,31 +138,30 @@
       "img": "icons/svg/claw.svg",
       "system": {
         "types": [
-          "blunt"
+          "melee"
         ],
         "range": "Range 1",
+        "maxRange": "close",
         "weight": "light",
         "innate": true,
+        "location": "equipped",
         "primaryAttribute": "might",
         "category": "melee",
         "price": 0,
         "kit": [
           {
-            "name": "Bash",
+            "name": "Strike",
             "skill": "prowess",
             "effect": "Deals Stress to Might or Finesse."
           },
           {
-            "name": "Sweep",
-            "skill": "acuity",
-            "effect": "Applies Prone."
-          },
-          {
-            "name": "Feint Jab",
-            "skill": "guile",
-            "effect": "Applies Reeling."
+            "name": "Stun",
+            "skill": "discipline",
+            "effect": "Applies Stunned. Strain 1.",
+            "signature": true
           }
         ],
+        "backs": "Threaten",
         "description": ""
       },
       "effects": [],
@@ -176,14 +174,14 @@
       "_key": "!actors.items!SVLAm5CkDOhAEmM1.IjMCax09Wo9WrY4w"
     },
     {
-      "_id": "uqyRNeimBZMElnxb",
-      "name": "Maiming Strike",
+      "_id": "VjsXB2JIxtsBo4F7",
+      "name": "Piercing Weakening Strike 2",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Maiming Strike",
       "system": {
         "requires": [
-          "edged",
-          "pointed"
+          "melee"
         ],
         "innate": false,
         "skill": "prowess",
@@ -216,7 +214,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Maiming Strike"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Pierce 2, -1 [target Attribute]",
         "description": ""
       },
@@ -227,20 +229,17 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!SVLAm5CkDOhAEmM1.uqyRNeimBZMElnxb"
+      "_key": "!actors.items!SVLAm5CkDOhAEmM1.VjsXB2JIxtsBo4F7"
     },
     {
-      "_id": "9DneRjFqJ1reLSXL",
-      "name": "Trip",
+      "_id": "EIjDIHdF3EySC2kn",
+      "name": "Toppling Strike",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Trip",
       "system": {
         "requires": [
-          "edged",
-          "pointed",
-          "blunt",
-          "grappling",
-          "parry"
+          "melee"
         ],
         "innate": false,
         "skill": "prowess",
@@ -265,7 +264,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Trip"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Prone",
         "description": ""
       },
@@ -276,16 +279,17 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!SVLAm5CkDOhAEmM1.9DneRjFqJ1reLSXL"
+      "_key": "!actors.items!SVLAm5CkDOhAEmM1.EIjDIHdF3EySC2kn"
     },
     {
-      "_id": "GKDENsRJSZQwEbmq",
-      "name": "Break",
+      "_id": "3BXrR94K8hVGEoTp",
+      "name": "Lasting Weakening Strike",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Break",
       "system": {
         "requires": [
-          "blunt"
+          "melee"
         ],
         "innate": false,
         "skill": "prowess",
@@ -310,7 +314,12 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Break",
+          "Sinew Cut"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, -1 [target Attribute] (1 minute), Strain 1",
         "description": ""
       },
@@ -321,7 +330,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!SVLAm5CkDOhAEmM1.GKDENsRJSZQwEbmq"
+      "_key": "!actors.items!SVLAm5CkDOhAEmM1.3BXrR94K8hVGEoTp"
     },
     {
       "_id": "seyyOQFjX8Sg12Qf",

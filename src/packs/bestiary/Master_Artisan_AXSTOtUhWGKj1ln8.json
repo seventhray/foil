@@ -96,35 +96,41 @@
       "_id": "TLsqwylhNXkcU6wp",
       "name": "Hammer",
       "type": "instrument",
-      "img": "icons/svg/claw.svg",
+      "img": "icons/svg/sword.svg",
       "system": {
-        "types": [
-          "blunt"
-        ],
-        "range": "Range 1",
-        "weight": "medium",
-        "innate": false,
-        "primaryAttribute": "might",
         "category": "melee",
-        "price": 0,
+        "weight": "medium",
+        "primaryAttribute": "might",
+        "range": "Range 1",
+        "maxRange": "close",
+        "types": [
+          "melee"
+        ],
+        "typesDisplay": "",
+        "price": 30,
+        "rider": "",
+        "family": "Hammers",
+        "backs": "Threaten",
         "kit": [
           {
-            "name": "Bash",
+            "name": "Strike",
             "skill": "prowess",
-            "effect": "Deals Stress to Might or Finesse."
+            "effect": "Deals Stress to Might or Finesse.",
+            "signature": false
           },
           {
-            "name": "Sweep",
-            "skill": "acuity",
-            "effect": "Applies Prone."
-          },
-          {
-            "name": "Feint Jab",
-            "skill": "guile",
-            "effect": "Applies Reeling."
+            "name": "Stun",
+            "skill": "discipline",
+            "effect": "Applies Stunned. Strain 1.",
+            "signature": true
           }
         ],
-        "description": ""
+        "innate": false,
+        "bonus": 0,
+        "size": "medium",
+        "materials": "2 Metal",
+        "description": "",
+        "location": "equipped"
       },
       "effects": [],
       "folder": null,
@@ -149,7 +155,7 @@
           "craft-metal",
           "immobile"
         ],
-        "typesDisplay": "Craft [Metal], Immobile",
+        "typesDisplay": "Tools [Metal], Immobile",
         "price": 20,
         "rider": "",
         "kit": [],
@@ -157,7 +163,8 @@
         "bonus": 0,
         "size": "large",
         "materials": "Metal",
-        "description": ""
+        "description": "",
+        "location": "equipped"
       },
       "effects": [],
       "folder": null,
@@ -169,13 +176,14 @@
       "_key": "!actors.items!AXSTOtUhWGKj1ln8.vSLLOj4yaTtnwh6R"
     },
     {
-      "_id": "nyypoEmGjVLGAQze",
-      "name": "Concuss",
+      "_id": "jKZ9GiivTCERrYsQ",
+      "name": "Weakening Strike",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Concuss",
       "system": {
         "requires": [
-          "blunt"
+          "melee"
         ],
         "innate": false,
         "skill": "prowess",
@@ -200,7 +208,12 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Concuss",
+          "Hamstring"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, -1 [target Attribute]",
         "description": ""
       },
@@ -211,13 +224,14 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!AXSTOtUhWGKj1ln8.nyypoEmGjVLGAQze"
+      "_key": "!actors.items!AXSTOtUhWGKj1ln8.jKZ9GiivTCERrYsQ"
     },
     {
-      "_id": "JMDoxK9qqel6BAEW",
-      "name": "Careful Work",
+      "_id": "vSBvISrrmv0r2TCV",
+      "name": "Lasting Bolstering Work",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Careful Work",
       "system": {
         "requires": [
           "tool"
@@ -237,7 +251,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Careful Work"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "+1 [Skill] (1 minute)",
         "description": ""
       },
@@ -248,7 +266,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!AXSTOtUhWGKj1ln8.JMDoxK9qqel6BAEW"
+      "_key": "!actors.items!AXSTOtUhWGKj1ln8.vSBvISrrmv0r2TCV"
     },
     {
       "_id": "1Jg3yyZJoThQmr7r",

@@ -99,31 +99,31 @@
       "img": "icons/svg/claw.svg",
       "system": {
         "types": [
+          "melee",
           "grappling"
         ],
         "range": "Range 0",
+        "maxRange": "touching",
         "weight": "light",
         "innate": true,
+        "location": "equipped",
         "primaryAttribute": "might",
         "category": "melee",
         "price": 0,
         "kit": [
           {
-            "name": "Snare",
+            "name": "Strike",
             "skill": "prowess",
-            "effect": "Applies Grappled."
+            "effect": "Deals Stress to Might or Finesse."
           },
           {
-            "name": "Tumble",
-            "skill": "acuity",
-            "effect": "Applies Prone."
-          },
-          {
-            "name": "Tangle",
-            "skill": "guile",
-            "effect": "Applies Restrained."
+            "name": "Restrain",
+            "skill": "discipline",
+            "effect": "Applies Restrained.",
+            "signature": true
           }
         ],
+        "backs": "Threaten",
         "description": ""
       },
       "effects": [],
@@ -142,31 +142,31 @@
       "img": "icons/svg/claw.svg",
       "system": {
         "types": [
+          "melee",
           "grappling"
         ],
         "range": "Range 2",
+        "maxRange": "near",
         "weight": "light",
         "innate": true,
+        "location": "equipped",
         "primaryAttribute": "might",
         "category": "melee",
         "price": 0,
         "kit": [
           {
-            "name": "Snare",
+            "name": "Strike",
             "skill": "prowess",
-            "effect": "Applies Grappled."
+            "effect": "Deals Stress to Might or Finesse."
           },
           {
-            "name": "Tumble",
-            "skill": "acuity",
-            "effect": "Applies Prone."
-          },
-          {
-            "name": "Tangle",
-            "skill": "guile",
-            "effect": "Applies Restrained."
+            "name": "Restrain",
+            "skill": "discipline",
+            "effect": "Applies Restrained.",
+            "signature": true
           }
         ],
+        "backs": "Threaten",
         "description": "<p>its runners.</p>"
       },
       "effects": [],
@@ -210,7 +210,9 @@
           }
         ],
         "floor": false,
+        "formerNames": [],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, -1 [target Attribute] (1 minute), Strain 1",
         "description": ""
       },
@@ -224,10 +226,11 @@
       "_key": "!actors.items!qaSKIQNqXVWDJJ7x.swAChZJwbNIwBuiO"
     },
     {
-      "_id": "87tmitVZp4wGrbTn",
-      "name": "Pin",
+      "_id": "DmlFu2coujBIUHkP",
+      "name": "Restraining Hold",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Pin",
       "system": {
         "requires": [
           "grappling"
@@ -255,7 +258,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Pin"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Restrained",
         "description": ""
       },
@@ -266,13 +273,14 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!qaSKIQNqXVWDJJ7x.87tmitVZp4wGrbTn"
+      "_key": "!actors.items!qaSKIQNqXVWDJJ7x.DmlFu2coujBIUHkP"
     },
     {
-      "_id": "AiSdr3rlRdjl4Wde",
-      "name": "Reel In",
+      "_id": "8TwVRIHAy0uzHd5O",
+      "name": "Grapple and Pull",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Reel In",
       "system": {
         "requires": [
           "grappling"
@@ -300,7 +308,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Reel In"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Grappled, Move the target up to Range 2",
         "description": ""
       },
@@ -311,7 +323,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!qaSKIQNqXVWDJJ7x.AiSdr3rlRdjl4Wde"
+      "_key": "!actors.items!qaSKIQNqXVWDJJ7x.8TwVRIHAy0uzHd5O"
     },
     {
       "_id": "tLXkGzIbrMQS6GD4",

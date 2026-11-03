@@ -107,34 +107,34 @@
         "range": "Range 2",
         "maxRange": "near",
         "types": [
-          "blunt",
-          "blocking"
+          "melee",
+          "guarding"
         ],
         "typesDisplay": "",
-        "price": 45,
+        "price": 50,
         "rider": "",
+        "family": "Quarterstaves",
+        "backs": "Deceive",
         "kit": [
           {
-            "name": "Bash",
+            "name": "Strike",
             "skill": "prowess",
-            "effect": "Deals Stress to Might or Finesse."
+            "effect": "Deals Stress to Might or Finesse.",
+            "signature": false
           },
           {
-            "name": "Sweep",
+            "name": "Topple",
             "skill": "acuity",
-            "effect": "Applies Prone."
-          },
-          {
-            "name": "Feint Jab",
-            "skill": "guile",
-            "effect": "Applies Reeling."
+            "effect": "Applies Prone.",
+            "signature": true
           }
         ],
         "innate": false,
         "bonus": 0,
         "size": "medium",
         "materials": "2 Wood",
-        "description": ""
+        "description": "",
+        "location": "equipped"
       },
       "effects": [],
       "folder": null,
@@ -157,33 +157,21 @@
         "range": "Range 8",
         "maxRange": "mid",
         "types": [
-          "fortifying"
+          "arcane",
+          "incorporeal"
         ],
         "typesDisplay": "",
-        "price": 35,
+        "price": 40,
         "rider": "",
-        "kit": [
-          {
-            "name": "Hearten",
-            "skill": "assertiveness",
-            "effect": "Grants an ally +1 [Skill] for 1 round."
-          },
-          {
-            "name": "Reassure",
-            "skill": "guile",
-            "effect": "Removes a Frightened, Wary, or Intimidated Condition from an ally within Range 2."
-          },
-          {
-            "name": "Mending Light",
-            "skill": "resonance",
-            "effect": "Removes 2d4 Stress from an ally's Attribute."
-          }
-        ],
+        "family": "",
+        "backs": "",
+        "kit": [],
         "innate": false,
         "bonus": 0,
         "size": "medium",
         "materials": "2 Wood",
-        "description": ""
+        "description": "",
+        "location": "equipped"
       },
       "effects": [],
       "folder": null,
@@ -204,28 +192,69 @@
         "weight": "light",
         "primaryAttribute": "presence",
         "range": "Range 8",
+        "maxRange": "mid",
         "types": [
-          "quick",
           "sonic"
         ],
         "typesDisplay": "",
         "price": 0,
         "rider": "Innate: every character has it, free (PHB 2.5.3).",
+        "family": "",
+        "backs": "",
         "kit": [
           {
-            "name": "Browbeat",
+            "name": "Threaten",
             "skill": "assertiveness",
-            "effect": "Deals Stress to Presence or Wit."
+            "effect": "Deals Stress to Wit or Presence.",
+            "signature": false
           },
           {
-            "name": "Mislead",
+            "name": "Threaten",
+            "skill": "assertiveness",
+            "effect": "Applies Intimidated.",
+            "signature": false
+          },
+          {
+            "name": "Threaten",
+            "skill": "assertiveness",
+            "effect": "Applies Frightened.",
+            "signature": false
+          },
+          {
+            "name": "Deceive",
             "skill": "guile",
-            "effect": "Applies Misled."
+            "effect": "Deals Stress to Wit or Presence.",
+            "signature": false
           },
           {
-            "name": "Sway",
+            "name": "Deceive",
+            "skill": "guile",
+            "effect": "Applies Misled.",
+            "signature": false
+          },
+          {
+            "name": "Deceive",
+            "skill": "guile",
+            "effect": "Applies Baited.",
+            "signature": false
+          },
+          {
+            "name": "Persuade",
             "skill": "resonance",
-            "effect": "Applies Swayed."
+            "effect": "Deals Stress to Wit or Presence.",
+            "signature": false
+          },
+          {
+            "name": "Persuade",
+            "skill": "resonance",
+            "effect": "Applies Swayed.",
+            "signature": false
+          },
+          {
+            "name": "Persuade",
+            "skill": "resonance",
+            "effect": "Applies Relaxed.",
+            "signature": false
           }
         ],
         "innate": true,
@@ -244,13 +273,14 @@
       "_key": "!actors.items!tahooUU7gDX7RQKG.PRgKk31RXfm7OFlP"
     },
     {
-      "_id": "oPDN89nF4PFg2X2z",
-      "name": "Healing Rain",
+      "_id": "FSK7HqJMRUFPow0N",
+      "name": "Group Mending Warding Spell",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Healing Rain",
       "system": {
         "requires": [
-          "fortifying"
+          "incorporeal"
         ],
         "innate": false,
         "skill": "resonance",
@@ -283,7 +313,11 @@
           }
         ],
         "floor": true,
+        "formerNames": [
+          "Healing Rain"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Mend 2d4, Resistance +1 to chosen allies within Range 2 (Selective), Strain 1",
         "description": ""
       },
@@ -294,16 +328,17 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!tahooUU7gDX7RQKG.oPDN89nF4PFg2X2z"
+      "_key": "!actors.items!tahooUU7gDX7RQKG.FSK7HqJMRUFPow0N"
     },
     {
-      "_id": "LwEBouKLzSBMn7br",
-      "name": "Rite of Blessing",
+      "_id": "Nf5zY8fG4ZPxRRyR",
+      "name": "Group Bolstering Spell",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Rite of Blessing",
       "system": {
         "requires": [
-          "fortifying"
+          "arcane"
         ],
         "innate": false,
         "skill": "resonance",
@@ -328,7 +363,11 @@
           }
         ],
         "floor": true,
+        "formerNames": [
+          "Rite of Blessing"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "+1 [Skill] to chosen allies within Range 2 (Selective)",
         "description": ""
       },
@@ -339,13 +378,14 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!tahooUU7gDX7RQKG.LwEBouKLzSBMn7br"
+      "_key": "!actors.items!tahooUU7gDX7RQKG.Nf5zY8fG4ZPxRRyR"
     },
     {
-      "_id": "bH0o2bEjnoFdJL2H",
-      "name": "Talk Down",
+      "_id": "FOuu7d8YQ71tROy9",
+      "name": "Mending Cry 2d4",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Talk Down",
       "system": {
         "requires": [
           "sonic"
@@ -365,7 +405,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Talk Down"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Mend 2d4",
         "description": ""
       },
@@ -376,7 +420,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!tahooUU7gDX7RQKG.bH0o2bEjnoFdJL2H"
+      "_key": "!actors.items!tahooUU7gDX7RQKG.FOuu7d8YQ71tROy9"
     }
   ],
   "_key": "!actors!tahooUU7gDX7RQKG"

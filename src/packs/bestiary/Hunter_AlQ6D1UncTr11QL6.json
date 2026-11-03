@@ -101,34 +101,34 @@
         "range": "Range 20",
         "maxRange": "long",
         "types": [
-          "pointed",
+          "ranged",
           "drawn"
         ],
         "typesDisplay": "",
-        "price": 75,
+        "price": 50,
         "rider": "Reload Quick Action.",
+        "family": "Bows",
+        "backs": "Threaten",
         "kit": [
           {
-            "name": "Full Draw",
+            "name": "Shot",
             "skill": "prowess",
-            "effect": "Deals Stress to Might or Finesse."
+            "effect": "Deals Stress to Might or Finesse.",
+            "signature": false
           },
           {
-            "name": "Pin Down",
+            "name": "Weaken",
             "skill": "discipline",
-            "effect": "Applies Prone."
-          },
-          {
-            "name": "Warning Shot",
-            "skill": "assertiveness",
-            "effect": "Applies Reeling."
+            "effect": "Applies Weakened [Finesse].",
+            "signature": true
           }
         ],
         "innate": false,
         "bonus": 0,
         "size": "medium",
         "materials": "2 Wood",
-        "description": ""
+        "description": "",
+        "location": "equipped"
       },
       "effects": [],
       "folder": null,
@@ -140,15 +140,14 @@
       "_key": "!actors.items!AlQ6D1UncTr11QL6.VI3ZrFI412gyHCrq"
     },
     {
-      "_id": "VYcyH8bOBUj7QcyZ",
-      "name": "Aim",
+      "_id": "XCEcV10NgqCnR8QJ",
+      "name": "Aimed Shot 2",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Aim",
       "system": {
         "requires": [
-          "thrown",
-          "drawn",
-          "fired"
+          "ranged"
         ],
         "innate": false,
         "skill": "prowess",
@@ -173,7 +172,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Aim"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, +2",
         "description": ""
       },
@@ -184,28 +187,22 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!AlQ6D1UncTr11QL6.VYcyH8bOBUj7QcyZ"
+      "_key": "!actors.items!AlQ6D1UncTr11QL6.XCEcV10NgqCnR8QJ"
     },
     {
-      "_id": "CRZ4GGLUiFUGnXQe",
-      "name": "Hinder",
+      "_id": "rswBadIFTyuASsVl",
+      "name": "Slow (Ranged)",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Hinder",
       "system": {
         "requires": [
-          "edged",
-          "pointed",
-          "blunt",
-          "grappling",
-          "parry",
-          "thrown",
-          "drawn",
-          "fired"
+          "ranged"
         ],
         "innate": false,
         "skill": "prowess",
-        "family": "Melee",
-        "subgroup": "Control",
+        "family": "Ranged",
+        "subgroup": "Control & Area",
         "effects": [
           {
             "key": "slowed",
@@ -217,7 +214,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Hinder"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Slowed",
         "description": ""
       },
@@ -228,7 +229,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!AlQ6D1UncTr11QL6.CRZ4GGLUiFUGnXQe"
+      "_key": "!actors.items!AlQ6D1UncTr11QL6.rswBadIFTyuASsVl"
     }
   ],
   "_key": "!actors!AlQ6D1UncTr11QL6"

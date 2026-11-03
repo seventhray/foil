@@ -90,7 +90,170 @@
   },
   "items": [
     {
-      "_id": "hMf7VOCJp2JqEVIs",
+      "_id": "yc4rLD1e3CGSQA4A",
+      "name": "Bite",
+      "type": "instrument",
+      "img": "icons/svg/claw.svg",
+      "system": {
+        "types": [
+          "melee"
+        ],
+        "range": "Range 1",
+        "maxRange": "close",
+        "weight": "light",
+        "innate": true,
+        "location": "equipped",
+        "primaryAttribute": "might",
+        "category": "melee",
+        "price": 0,
+        "kit": [
+          {
+            "name": "Strike",
+            "skill": "prowess",
+            "effect": "Deals Stress to Might or Finesse."
+          },
+          {
+            "name": "Weaken",
+            "skill": "discipline",
+            "effect": "Applies Weakened [Finesse].",
+            "signature": true
+          }
+        ],
+        "backs": "Threaten",
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!6iBlNedtnIFYk86k.yc4rLD1e3CGSQA4A"
+    },
+    {
+      "_id": "UUbBp9klbDmnfj90",
+      "name": "Claws",
+      "type": "instrument",
+      "img": "icons/svg/claw.svg",
+      "system": {
+        "types": [
+          "melee"
+        ],
+        "range": "Range 1",
+        "maxRange": "close",
+        "weight": "light",
+        "innate": true,
+        "location": "equipped",
+        "primaryAttribute": "might",
+        "category": "melee",
+        "price": 0,
+        "kit": [
+          {
+            "name": "Strike",
+            "skill": "prowess",
+            "effect": "Deals Stress to Might or Finesse."
+          },
+          {
+            "name": "Bleed",
+            "skill": "discipline",
+            "effect": "Lingering 1.",
+            "signature": true
+          }
+        ],
+        "backs": "Threaten",
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!6iBlNedtnIFYk86k.UUbBp9klbDmnfj90"
+    },
+    {
+      "_id": "BrTN94etTYZArG3n",
+      "name": "Breath Weapon",
+      "type": "instrument",
+      "img": "icons/svg/claw.svg",
+      "system": {
+        "types": [
+          "arcane",
+          "kinetic"
+        ],
+        "range": "Range 8",
+        "maxRange": "mid",
+        "weight": "light",
+        "innate": true,
+        "location": "equipped",
+        "primaryAttribute": "wit",
+        "category": "arcane",
+        "price": 0,
+        "kit": [
+          {
+            "name": "Breath Weapon",
+            "skill": "discipline",
+            "effect": "Deals Stress to Might or Finesse."
+          }
+        ],
+        "backs": "",
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 300000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!6iBlNedtnIFYk86k.BrTN94etTYZArG3n"
+    },
+    {
+      "_id": "y8k9wrwVaNu5RgvV",
+      "name": "Tail Strike",
+      "type": "instrument",
+      "img": "icons/svg/claw.svg",
+      "system": {
+        "types": [
+          "melee"
+        ],
+        "range": "Range 1",
+        "maxRange": "close",
+        "weight": "light",
+        "innate": true,
+        "location": "equipped",
+        "primaryAttribute": "might",
+        "category": "melee",
+        "price": 0,
+        "kit": [
+          {
+            "name": "Strike",
+            "skill": "prowess",
+            "effect": "Deals Stress to Might or Finesse."
+          },
+          {
+            "name": "Topple",
+            "skill": "discipline",
+            "effect": "Applies Prone.",
+            "signature": true
+          }
+        ],
+        "backs": "Threaten",
+        "description": ""
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 400000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_key": "!actors.items!6iBlNedtnIFYk86k.y8k9wrwVaNu5RgvV"
+    },
+    {
+      "_id": "OVmkKDmW1z0u8bdR",
       "name": "Voice",
       "type": "instrument",
       "img": "icons/svg/sound.svg",
@@ -99,28 +262,69 @@
         "weight": "light",
         "primaryAttribute": "presence",
         "range": "Range 8",
+        "maxRange": "mid",
         "types": [
-          "quick",
           "sonic"
         ],
         "typesDisplay": "",
         "price": 0,
         "rider": "Innate: every character has it, free (PHB 2.5.3).",
+        "family": "",
+        "backs": "",
         "kit": [
           {
-            "name": "Browbeat",
+            "name": "Threaten",
             "skill": "assertiveness",
-            "effect": "Deals Stress to Presence or Wit."
+            "effect": "Deals Stress to Wit or Presence.",
+            "signature": false
           },
           {
-            "name": "Mislead",
+            "name": "Threaten",
+            "skill": "assertiveness",
+            "effect": "Applies Intimidated.",
+            "signature": false
+          },
+          {
+            "name": "Threaten",
+            "skill": "assertiveness",
+            "effect": "Applies Frightened.",
+            "signature": false
+          },
+          {
+            "name": "Deceive",
             "skill": "guile",
-            "effect": "Applies Misled."
+            "effect": "Deals Stress to Wit or Presence.",
+            "signature": false
           },
           {
-            "name": "Sway",
+            "name": "Deceive",
+            "skill": "guile",
+            "effect": "Applies Misled.",
+            "signature": false
+          },
+          {
+            "name": "Deceive",
+            "skill": "guile",
+            "effect": "Applies Baited.",
+            "signature": false
+          },
+          {
+            "name": "Persuade",
             "skill": "resonance",
-            "effect": "Applies Swayed."
+            "effect": "Deals Stress to Wit or Presence.",
+            "signature": false
+          },
+          {
+            "name": "Persuade",
+            "skill": "resonance",
+            "effect": "Applies Swayed.",
+            "signature": false
+          },
+          {
+            "name": "Persuade",
+            "skill": "resonance",
+            "effect": "Applies Relaxed.",
+            "signature": false
           }
         ],
         "innate": true,
@@ -131,184 +335,12 @@
       },
       "effects": [],
       "folder": null,
-      "sort": 100000,
-      "ownership": {
-        "default": 0
-      },
-      "flags": {},
-      "_key": "!actors.items!6iBlNedtnIFYk86k.hMf7VOCJp2JqEVIs"
-    },
-    {
-      "_id": "BgMuhmhlCiCqVqH8",
-      "name": "Bite",
-      "type": "instrument",
-      "img": "icons/svg/claw.svg",
-      "system": {
-        "types": [
-          "pointed"
-        ],
-        "range": "Range 1",
-        "weight": "light",
-        "innate": true,
-        "primaryAttribute": "might",
-        "category": "melee",
-        "price": 0,
-        "kit": [
-          {
-            "name": "Stab",
-            "skill": "prowess",
-            "effect": "Deals Stress to Might or Finesse."
-          },
-          {
-            "name": "Vital Strike",
-            "skill": "acuity",
-            "effect": "Applies Weakened [Finesse]."
-          },
-          {
-            "name": "Low Feint",
-            "skill": "guile",
-            "effect": "Applies Reeling."
-          }
-        ],
-        "description": ""
-      },
-      "effects": [],
-      "folder": null,
-      "sort": 200000,
-      "ownership": {
-        "default": 0
-      },
-      "flags": {},
-      "_key": "!actors.items!6iBlNedtnIFYk86k.BgMuhmhlCiCqVqH8"
-    },
-    {
-      "_id": "ee6gUIXhdtBlJrpW",
-      "name": "Claws",
-      "type": "instrument",
-      "img": "icons/svg/claw.svg",
-      "system": {
-        "types": [
-          "edged"
-        ],
-        "range": "Range 1",
-        "weight": "light",
-        "innate": true,
-        "primaryAttribute": "might",
-        "category": "melee",
-        "price": 0,
-        "kit": [
-          {
-            "name": "Stab",
-            "skill": "prowess",
-            "effect": "Deals Stress to Might or Finesse."
-          },
-          {
-            "name": "Vital Strike",
-            "skill": "acuity",
-            "effect": "Applies Weakened [Finesse]."
-          },
-          {
-            "name": "Low Feint",
-            "skill": "guile",
-            "effect": "Applies Reeling."
-          }
-        ],
-        "description": ""
-      },
-      "effects": [],
-      "folder": null,
-      "sort": 300000,
-      "ownership": {
-        "default": 0
-      },
-      "flags": {},
-      "_key": "!actors.items!6iBlNedtnIFYk86k.ee6gUIXhdtBlJrpW"
-    },
-    {
-      "_id": "ichsue2RhFbr9GzJ",
-      "name": "Breath Weapon",
-      "type": "instrument",
-      "img": "icons/svg/claw.svg",
-      "system": {
-        "types": [
-          "kinetic"
-        ],
-        "range": "Range 8",
-        "weight": "light",
-        "innate": true,
-        "primaryAttribute": "wit",
-        "category": "arcane",
-        "price": 0,
-        "kit": [
-          {
-            "name": "Devastating Bolt",
-            "skill": "discipline",
-            "effect": "Deals Stress to Might or Finesse."
-          },
-          {
-            "name": "Disorienting Blast",
-            "skill": "acuity",
-            "effect": "Applies Reeling."
-          },
-          {
-            "name": "Overwhelming Force",
-            "skill": "resonance",
-            "effect": "Applies Prone."
-          }
-        ],
-        "description": ""
-      },
-      "effects": [],
-      "folder": null,
-      "sort": 400000,
-      "ownership": {
-        "default": 0
-      },
-      "flags": {},
-      "_key": "!actors.items!6iBlNedtnIFYk86k.ichsue2RhFbr9GzJ"
-    },
-    {
-      "_id": "x1ssKYJJbJ6UUCtU",
-      "name": "Tail Strike",
-      "type": "instrument",
-      "img": "icons/svg/claw.svg",
-      "system": {
-        "types": [
-          "blunt"
-        ],
-        "range": "Range 1",
-        "weight": "light",
-        "innate": true,
-        "primaryAttribute": "might",
-        "category": "melee",
-        "price": 0,
-        "kit": [
-          {
-            "name": "Bash",
-            "skill": "prowess",
-            "effect": "Deals Stress to Might or Finesse."
-          },
-          {
-            "name": "Sweep",
-            "skill": "acuity",
-            "effect": "Applies Prone."
-          },
-          {
-            "name": "Feint Jab",
-            "skill": "guile",
-            "effect": "Applies Reeling."
-          }
-        ],
-        "description": ""
-      },
-      "effects": [],
-      "folder": null,
       "sort": 500000,
       "ownership": {
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!6iBlNedtnIFYk86k.x1ssKYJJbJ6UUCtU"
+      "_key": "!actors.items!6iBlNedtnIFYk86k.OVmkKDmW1z0u8bdR"
     },
     {
       "_id": "yM2fbGQtsXLmHLPc",
@@ -342,7 +374,9 @@
           }
         ],
         "floor": false,
+        "formerNames": [],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Cone (Range 2)",
         "description": ""
       },
@@ -356,14 +390,14 @@
       "_key": "!actors.items!6iBlNedtnIFYk86k.yM2fbGQtsXLmHLPc"
     },
     {
-      "_id": "bjAcnkbHdSGB7JWB",
-      "name": "Rend",
+      "_id": "LgJggW167q5wrDV6",
+      "name": "Piercing Strike 2",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Rend",
       "system": {
         "requires": [
-          "edged",
-          "pointed"
+          "melee"
         ],
         "innate": false,
         "skill": "prowess",
@@ -388,7 +422,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Rend"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Pierce 2",
         "description": ""
       },
@@ -399,7 +437,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!6iBlNedtnIFYk86k.bjAcnkbHdSGB7JWB"
+      "_key": "!actors.items!6iBlNedtnIFYk86k.LgJggW167q5wrDV6"
     },
     {
       "_id": "XZ0tjlkfUxeeFEQP",
@@ -408,7 +446,7 @@
       "img": "icons/svg/aura.svg",
       "system": {
         "requires": [
-          "blunt"
+          "melee"
         ],
         "innate": false,
         "skill": "prowess",
@@ -433,7 +471,9 @@
           }
         ],
         "floor": false,
+        "formerNames": [],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Cone (Range 1)",
         "description": ""
       },
@@ -478,7 +518,9 @@
           }
         ],
         "floor": false,
+        "formerNames": [],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, -1 Oppose (1 minute)",
         "description": ""
       },

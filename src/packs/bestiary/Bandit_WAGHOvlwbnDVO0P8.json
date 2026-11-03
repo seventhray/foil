@@ -101,35 +101,34 @@
         "range": "Range 1",
         "maxRange": "close",
         "types": [
-          "edged",
-          "pointed",
-          "parry"
+          "melee",
+          "guarding"
         ],
         "typesDisplay": "",
-        "price": 30,
+        "price": 25,
         "rider": "",
+        "family": "Swords",
+        "backs": "Deceive",
         "kit": [
           {
-            "name": "Thrust",
+            "name": "Strike",
             "skill": "prowess",
-            "effect": "Deals Stress to Might or Finesse."
+            "effect": "Deals Stress to Might or Finesse.",
+            "signature": false
           },
           {
-            "name": "Precise Cut",
+            "name": "Disarm",
             "skill": "acuity",
-            "effect": "Applies Weakened [Finesse]."
-          },
-          {
-            "name": "Feinted Slash",
-            "skill": "guile",
-            "effect": "Applies Reeling."
+            "effect": "Disarms.",
+            "signature": true
           }
         ],
         "innate": false,
         "bonus": 0,
         "size": "small",
         "materials": "1 Metal",
-        "description": ""
+        "description": "",
+        "location": "equipped"
       },
       "effects": [],
       "folder": null,
@@ -152,33 +151,34 @@
         "range": "Range 8",
         "maxRange": "mid",
         "types": [
+          "ranged",
           "thrown"
         ],
         "typesDisplay": "",
-        "price": 25,
+        "price": 35,
         "rider": "",
+        "family": "Slings",
+        "backs": "Deceive",
         "kit": [
           {
-            "name": "Sling Shot",
+            "name": "Shot",
             "skill": "prowess",
-            "effect": "Deals Stress to Might or Finesse."
+            "effect": "Deals Stress to Might or Finesse.",
+            "signature": false
           },
           {
-            "name": "Ricochet",
+            "name": "Reel",
             "skill": "acuity",
-            "effect": "Applies Weakened [Finesse]."
-          },
-          {
-            "name": "Rattle",
-            "skill": "guile",
-            "effect": "Applies Frightened."
+            "effect": "Applies Reeling.",
+            "signature": true
           }
         ],
         "innate": false,
         "bonus": 0,
         "size": "small",
         "materials": "1 Leather",
-        "description": ""
+        "description": "",
+        "location": "equipped"
       },
       "effects": [],
       "folder": null,
@@ -190,14 +190,14 @@
       "_key": "!actors.items!WAGHOvlwbnDVO0P8.kdClja8m33G6HvOx"
     },
     {
-      "_id": "71WUEyVerQxOmxvH",
-      "name": "Sunder",
+      "_id": "A4qxWDxmovVvSQsr",
+      "name": "Piercing Strike 1",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Sunder",
       "system": {
         "requires": [
-          "edged",
-          "pointed"
+          "melee"
         ],
         "innate": false,
         "skill": "prowess",
@@ -222,7 +222,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Sunder"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Pierce 1",
         "description": ""
       },
@@ -233,7 +237,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!WAGHOvlwbnDVO0P8.71WUEyVerQxOmxvH"
+      "_key": "!actors.items!WAGHOvlwbnDVO0P8.A4qxWDxmovVvSQsr"
     },
     {
       "_id": "eLUmlLxp4MrkhB4P",
@@ -257,7 +261,9 @@
           }
         ],
         "floor": false,
+        "formerNames": [],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Evade",
         "description": ""
       },

@@ -104,34 +104,34 @@
         "range": "Range 1",
         "maxRange": "close",
         "types": [
-          "edged",
-          "parry"
+          "melee",
+          "guarding"
         ],
         "typesDisplay": "",
-        "price": 35,
+        "price": 40,
         "rider": "",
+        "family": "Swords",
+        "backs": "Deceive",
         "kit": [
           {
-            "name": "Slash",
+            "name": "Strike",
             "skill": "prowess",
-            "effect": "Deals Stress to Might or Finesse."
+            "effect": "Deals Stress to Might or Finesse.",
+            "signature": false
           },
           {
-            "name": "Flourish",
+            "name": "Disarm",
             "skill": "acuity",
-            "effect": "Applies Reeling."
-          },
-          {
-            "name": "Taunting Cut",
-            "skill": "guile",
-            "effect": "Applies Baited."
+            "effect": "Disarms.",
+            "signature": true
           }
         ],
         "innate": false,
         "bonus": 0,
         "size": "medium",
         "materials": "2 Metal",
-        "description": ""
+        "description": "",
+        "location": "equipped"
       },
       "effects": [],
       "folder": null,
@@ -152,28 +152,69 @@
         "weight": "light",
         "primaryAttribute": "presence",
         "range": "Range 8",
+        "maxRange": "mid",
         "types": [
-          "quick",
           "sonic"
         ],
         "typesDisplay": "",
         "price": 0,
         "rider": "Innate: every character has it, free (PHB 2.5.3).",
+        "family": "",
+        "backs": "",
         "kit": [
           {
-            "name": "Browbeat",
+            "name": "Threaten",
             "skill": "assertiveness",
-            "effect": "Deals Stress to Presence or Wit."
+            "effect": "Deals Stress to Wit or Presence.",
+            "signature": false
           },
           {
-            "name": "Mislead",
+            "name": "Threaten",
+            "skill": "assertiveness",
+            "effect": "Applies Intimidated.",
+            "signature": false
+          },
+          {
+            "name": "Threaten",
+            "skill": "assertiveness",
+            "effect": "Applies Frightened.",
+            "signature": false
+          },
+          {
+            "name": "Deceive",
             "skill": "guile",
-            "effect": "Applies Misled."
+            "effect": "Deals Stress to Wit or Presence.",
+            "signature": false
           },
           {
-            "name": "Sway",
+            "name": "Deceive",
+            "skill": "guile",
+            "effect": "Applies Misled.",
+            "signature": false
+          },
+          {
+            "name": "Deceive",
+            "skill": "guile",
+            "effect": "Applies Baited.",
+            "signature": false
+          },
+          {
+            "name": "Persuade",
             "skill": "resonance",
-            "effect": "Applies Swayed."
+            "effect": "Deals Stress to Wit or Presence.",
+            "signature": false
+          },
+          {
+            "name": "Persuade",
+            "skill": "resonance",
+            "effect": "Applies Swayed.",
+            "signature": false
+          },
+          {
+            "name": "Persuade",
+            "skill": "resonance",
+            "effect": "Applies Relaxed.",
+            "signature": false
           }
         ],
         "innate": true,
@@ -192,13 +233,14 @@
       "_key": "!actors.items!MjZ75RPzK3lQNjmP.zwOtmUObLEDeSCqH"
     },
     {
-      "_id": "zxjoFwTyA64ASlUz",
-      "name": "Riposte",
+      "_id": "lspVFkpvMbh81T2V",
+      "name": "Return Strike",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Riposte",
       "system": {
         "requires": [
-          "parry"
+          "guarding+melee"
         ],
         "innate": false,
         "skill": "",
@@ -215,7 +257,11 @@
           }
         ],
         "floor": true,
+        "formerNames": [
+          "Riposte"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Quick (trigger: a Melee Technique fails against you): use a Melee Technique against that attacker through this Instrument.",
         "description": ""
       },
@@ -226,13 +272,14 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!MjZ75RPzK3lQNjmP.zxjoFwTyA64ASlUz"
+      "_key": "!actors.items!MjZ75RPzK3lQNjmP.lspVFkpvMbh81T2V"
     },
     {
-      "_id": "UD2BeAeoth4mEF5A",
-      "name": "Rally",
+      "_id": "sFfViNs5cEQqLP8J",
+      "name": "Quick Bolstering Cry",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Rally",
       "system": {
         "requires": [
           "sonic"
@@ -260,8 +307,12 @@
             "untriggered": true
           }
         ],
-        "floor": false,
+        "floor": true,
+        "formerNames": [
+          "Rally"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Quick: +1 [Skill] to self or an ally",
         "description": ""
       },
@@ -272,7 +323,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!MjZ75RPzK3lQNjmP.UD2BeAeoth4mEF5A"
+      "_key": "!actors.items!MjZ75RPzK3lQNjmP.sFfViNs5cEQqLP8J"
     },
     {
       "_id": "3wNBHR5vOr5hDMeW",
@@ -306,7 +357,9 @@
           }
         ],
         "floor": false,
+        "formerNames": [],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, -1 [target Attribute]",
         "description": ""
       },
@@ -320,18 +373,14 @@
       "_key": "!actors.items!MjZ75RPzK3lQNjmP.3wNBHR5vOr5hDMeW"
     },
     {
-      "_id": "kpdvCw07wWaHmzgq",
-      "name": "Fluster",
+      "_id": "yV8O6CBwEckjvFoP",
+      "name": "Reel (Sonic)",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Fluster",
       "system": {
         "requires": [
-          "sonic",
-          "edged",
-          "pointed",
-          "blunt",
-          "grappling",
-          "parry"
+          "sonic"
         ],
         "innate": false,
         "skill": "assertiveness",
@@ -348,7 +397,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Fluster"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "-1 Oppose",
         "description": ""
       },
@@ -359,7 +412,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!MjZ75RPzK3lQNjmP.kpdvCw07wWaHmzgq"
+      "_key": "!actors.items!MjZ75RPzK3lQNjmP.yV8O6CBwEckjvFoP"
     }
   ],
   "_key": "!actors!MjZ75RPzK3lQNjmP"

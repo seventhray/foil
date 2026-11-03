@@ -99,31 +99,30 @@
       "img": "icons/svg/claw.svg",
       "system": {
         "types": [
-          "blunt"
+          "melee"
         ],
         "range": "Range 1",
+        "maxRange": "close",
         "weight": "light",
         "innate": true,
+        "location": "equipped",
         "primaryAttribute": "might",
         "category": "melee",
         "price": 0,
         "kit": [
           {
-            "name": "Bash",
+            "name": "Strike",
             "skill": "prowess",
             "effect": "Deals Stress to Might or Finesse."
           },
           {
-            "name": "Sweep",
-            "skill": "acuity",
-            "effect": "Applies Prone."
-          },
-          {
-            "name": "Feint Jab",
-            "skill": "guile",
-            "effect": "Applies Reeling."
+            "name": "Push",
+            "skill": "discipline",
+            "effect": "Moves the target up to Range 2.",
+            "signature": true
           }
         ],
+        "backs": "Threaten",
         "description": ""
       },
       "effects": [],
@@ -142,31 +141,25 @@
       "img": "icons/svg/claw.svg",
       "system": {
         "types": [
+          "arcane",
           "kinetic"
         ],
         "range": "Range 0",
+        "maxRange": "touching",
         "weight": "light",
         "innate": true,
+        "location": "equipped",
         "primaryAttribute": "wit",
         "category": "arcane",
         "price": 0,
         "kit": [
           {
-            "name": "Devastating Bolt",
+            "name": "Freezing Touch",
             "skill": "discipline",
             "effect": "Deals Stress to Might or Finesse."
-          },
-          {
-            "name": "Disorienting Blast",
-            "skill": "acuity",
-            "effect": "Applies Reeling."
-          },
-          {
-            "name": "Overwhelming Force",
-            "skill": "resonance",
-            "effect": "Applies Prone."
           }
         ],
+        "backs": "",
         "description": ""
       },
       "effects": [],
@@ -179,13 +172,14 @@
       "_key": "!actors.items!kzRMwgijO6ZXPmyW.rLM3QDSh7k6yuHlY"
     },
     {
-      "_id": "tCzZEMGoEtMk7BiM",
-      "name": "Break",
+      "_id": "7N2Lnr9NeSNtqIq3",
+      "name": "Lasting Weakening Strike",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Break",
       "system": {
         "requires": [
-          "blunt"
+          "melee"
         ],
         "innate": false,
         "skill": "prowess",
@@ -210,7 +204,12 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Break",
+          "Sinew Cut"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, -1 [target Attribute] (1 minute), Strain 1",
         "description": ""
       },
@@ -221,13 +220,14 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!kzRMwgijO6ZXPmyW.tCzZEMGoEtMk7BiM"
+      "_key": "!actors.items!kzRMwgijO6ZXPmyW.7N2Lnr9NeSNtqIq3"
     },
     {
-      "_id": "xgpwdBTqpsRrQrYa",
-      "name": "Seismic Slam",
+      "_id": "AmSGobNdwvQVTDhE",
+      "name": "Bursting Toppling Force",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Seismic Slam",
       "system": {
         "requires": [
           "kinetic"
@@ -263,7 +263,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Seismic Slam"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Prone, Radius (Range 2), Strain 4",
         "description": ""
       },
@@ -274,7 +278,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!kzRMwgijO6ZXPmyW.xgpwdBTqpsRrQrYa"
+      "_key": "!actors.items!kzRMwgijO6ZXPmyW.AmSGobNdwvQVTDhE"
     },
     {
       "_id": "DBVNfBFHpRrg3axH",
@@ -308,7 +312,9 @@
           }
         ],
         "floor": false,
+        "formerNames": [],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Restrained",
         "description": ""
       },
@@ -346,18 +352,24 @@
       "_key": "!actors.items!kzRMwgijO6ZXPmyW.pFy5ZuNlkWJLnyNI"
     },
     {
-      "_id": "rMJmTf3AkDgVZgvV",
-      "name": "Specialized Resistance",
+      "_id": "tYsMLVigMBGGNc08",
+      "name": "Specialized Resistance (Kinetic)",
       "type": "feat",
       "img": "icons/svg/upgrade.svg",
       "system": {
         "featType": "trait",
         "xpCost": 16,
         "requirements": "",
-        "effect": "16 XP, a body of ice.",
+        "effect": "Kinetic +4 Resistance: a body of ice.",
         "ancestry": "",
         "grantsTechnique": "",
-        "modifiers": [],
+        "modifiers": [
+          {
+            "type": "resistance",
+            "key": "kinetic",
+            "value": 4
+          }
+        ],
         "description": ""
       },
       "effects": [],
@@ -367,7 +379,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!kzRMwgijO6ZXPmyW.rMJmTf3AkDgVZgvV"
+      "_key": "!actors.items!kzRMwgijO6ZXPmyW.tYsMLVigMBGGNc08"
     }
   ],
   "_key": "!actors!kzRMwgijO6ZXPmyW"

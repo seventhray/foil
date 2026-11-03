@@ -92,31 +92,30 @@
       "img": "icons/svg/claw.svg",
       "system": {
         "types": [
-          "pointed"
+          "melee"
         ],
         "range": "Range 1",
+        "maxRange": "close",
         "weight": "light",
         "innate": true,
+        "location": "equipped",
         "primaryAttribute": "might",
         "category": "melee",
         "price": 0,
         "kit": [
           {
-            "name": "Stab",
+            "name": "Strike",
             "skill": "prowess",
             "effect": "Deals Stress to Might or Finesse."
           },
           {
-            "name": "Vital Strike",
-            "skill": "acuity",
-            "effect": "Applies Weakened [Finesse]."
-          },
-          {
-            "name": "Low Feint",
-            "skill": "guile",
-            "effect": "Applies Reeling."
+            "name": "Weaken",
+            "skill": "discipline",
+            "effect": "Applies Weakened [Finesse].",
+            "signature": true
           }
         ],
+        "backs": "Threaten",
         "description": ""
       },
       "effects": [],
@@ -201,29 +200,24 @@
       "_key": "!actors.items!GKmT1SCiNOcFTyUo.Zp9nRAHR0zgXKJfY"
     },
     {
-      "_id": "VAGcOkYrPKvs8hgz",
-      "name": "Slither Clear",
-      "type": "technique",
-      "img": "icons/svg/aura.svg",
+      "_id": "0sUgDWlkOTOY9lt1",
+      "name": "Specialized Resistance (Melee)",
+      "type": "feat",
+      "img": "icons/svg/upgrade.svg",
       "system": {
-        "requires": [],
-        "innate": false,
-        "skill": "",
-        "family": "",
-        "subgroup": "",
-        "effects": [
+        "featType": "trait",
+        "xpCost": 8,
+        "requirements": "",
+        "effect": "Melee +1 Resistance: a small, quick body.",
+        "ancestry": "",
+        "grantsTechnique": "",
+        "modifiers": [
           {
-            "key": "evade",
-            "magnitude": 1,
-            "pattern": "single",
-            "bands": 0,
-            "placement": 0,
-            "selectiveR": 0
+            "type": "resistance",
+            "key": "melee",
+            "value": 1
           }
         ],
-        "floor": false,
-        "ancestryGrant": "",
-        "effectText": "Evade",
         "description": ""
       },
       "effects": [],
@@ -233,31 +227,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!GKmT1SCiNOcFTyUo.VAGcOkYrPKvs8hgz"
-    },
-    {
-      "_id": "19ikIFX79OWCRizb",
-      "name": "Specialized Resistance",
-      "type": "feat",
-      "img": "icons/svg/upgrade.svg",
-      "system": {
-        "featType": "trait",
-        "xpCost": 4,
-        "requirements": "",
-        "effect": "4 XP, a small, quick body.",
-        "ancestry": "",
-        "grantsTechnique": "",
-        "modifiers": [],
-        "description": ""
-      },
-      "effects": [],
-      "folder": null,
-      "sort": 600000,
-      "ownership": {
-        "default": 0
-      },
-      "flags": {},
-      "_key": "!actors.items!GKmT1SCiNOcFTyUo.19ikIFX79OWCRizb"
+      "_key": "!actors.items!GKmT1SCiNOcFTyUo.0sUgDWlkOTOY9lt1"
     }
   ],
   "_key": "!actors!GKmT1SCiNOcFTyUo"

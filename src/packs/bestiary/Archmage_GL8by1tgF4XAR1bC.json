@@ -104,35 +104,22 @@
         "range": "Range 20",
         "maxRange": "long",
         "types": [
+          "arcane",
           "kinetic",
-          "incorporeal",
-          "fortifying"
+          "incorporeal"
         ],
         "typesDisplay": "",
-        "price": 70,
+        "price": 75,
         "rider": "",
-        "kit": [
-          {
-            "name": "Grand Strike",
-            "skill": "assertiveness",
-            "effect": "Deals Stress to Might or Finesse."
-          },
-          {
-            "name": "Mind Break",
-            "skill": "guile",
-            "effect": "Deals Stress to Wit or Presence."
-          },
-          {
-            "name": "Restorative Surge",
-            "skill": "resonance",
-            "effect": "Removes 3d4 Stress from an ally's Attribute."
-          }
-        ],
+        "family": "",
+        "backs": "",
+        "kit": [],
         "innate": false,
         "bonus": 0,
         "size": "medium",
         "materials": "2 Wood",
-        "description": ""
+        "description": "",
+        "location": "equipped"
       },
       "effects": [],
       "folder": null,
@@ -153,28 +140,34 @@
         "weight": "light",
         "primaryAttribute": "wit",
         "range": "Range 2",
+        "maxRange": "near",
         "types": [
-          "quick",
+          "arcane",
           "incorporeal"
         ],
         "typesDisplay": "",
         "price": 0,
         "rider": "Innate: every character has it, free (PHB 2.5.3).",
+        "family": "",
+        "backs": "",
         "kit": [
           {
             "name": "Deduce",
             "skill": "discipline",
-            "effect": "Works out a problem or recalls a fact."
+            "effect": "Solves a problem or recalls a fact.",
+            "signature": false
           },
           {
             "name": "Analyze",
             "skill": "acuity",
-            "effect": "Learns a creature's Attributes, or notices something specific."
+            "effect": "Learns a creature's Attributes, or notices something specific.",
+            "signature": false
           },
           {
             "name": "Intuit",
             "skill": "resonance",
-            "effect": "Applies Foil Exposed, or gives insight into a situation."
+            "effect": "Applies Foil Exposed, or gives insight into a situation.",
+            "signature": false
           }
         ],
         "innate": true,
@@ -224,7 +217,9 @@
           }
         ],
         "floor": false,
+        "formerNames": [],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Radius (Range 2), Strain 2",
         "description": ""
       },
@@ -238,10 +233,11 @@
       "_key": "!actors.items!GL8by1tgF4XAR1bC.ps1mSPbDzYfI1Pi8"
     },
     {
-      "_id": "vLKxYTqbuJT9odYQ",
-      "name": "Annihilating Beam",
+      "_id": "YyMLlu8aNTczbkwA",
+      "name": "Piercing Force 2",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Annihilating Beam",
       "system": {
         "requires": [
           "kinetic"
@@ -269,7 +265,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Annihilating Beam"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Pierce 2",
         "description": ""
       },
@@ -280,13 +280,14 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!GL8by1tgF4XAR1bC.vLKxYTqbuJT9odYQ"
+      "_key": "!actors.items!GL8by1tgF4XAR1bC.YyMLlu8aNTczbkwA"
     },
     {
-      "_id": "il7T41URVKlXWtwY",
-      "name": "Cage of Force",
+      "_id": "miSVSlt8cp2I4LSs",
+      "name": "Long Restraining Force",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Cage of Force",
       "system": {
         "requires": [
           "kinetic"
@@ -322,7 +323,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Cage of Force"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Restrained, Extend Range",
         "description": ""
       },
@@ -333,7 +338,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!GL8by1tgF4XAR1bC.il7T41URVKlXWtwY"
+      "_key": "!actors.items!GL8by1tgF4XAR1bC.miSVSlt8cp2I4LSs"
     },
     {
       "_id": "HzrrWSKKKqyFjTyp",
@@ -346,8 +351,8 @@
         ],
         "innate": false,
         "skill": "",
-        "family": "Kinetic",
-        "subgroup": "Mobility",
+        "family": "",
+        "subgroup": "",
         "effects": [
           {
             "key": "evade",
@@ -356,19 +361,13 @@
             "bands": 0,
             "placement": 0,
             "selectiveR": 0
-          },
-          {
-            "key": "quick",
-            "magnitude": 1,
-            "pattern": "single",
-            "bands": 0,
-            "placement": 0,
-            "selectiveR": 0
           }
         ],
-        "floor": true,
+        "floor": false,
+        "formerNames": [],
         "ancestryGrant": "",
-        "effectText": "Quick (trigger: a hostile's Melee Technique targets you): Evade before it rolls.",
+        "grantedBy": "",
+        "effectText": "Evade",
         "description": ""
       },
       "effects": [],
@@ -381,10 +380,11 @@
       "_key": "!actors.items!GL8by1tgF4XAR1bC.HzrrWSKKKqyFjTyp"
     },
     {
-      "_id": "cw0wepYIuHIWFvLi",
-      "name": "Guided Bolt",
+      "_id": "Punhe6vFhEN3E4RC",
+      "name": "Aimed Force",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Guided Bolt",
       "system": {
         "requires": [
           "kinetic"
@@ -412,7 +412,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Guided Bolt"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, +2",
         "description": ""
       },
@@ -423,7 +427,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!GL8by1tgF4XAR1bC.cw0wepYIuHIWFvLi"
+      "_key": "!actors.items!GL8by1tgF4XAR1bC.Punhe6vFhEN3E4RC"
     },
     {
       "_id": "ooxpKNDAjHWj4YQ0",

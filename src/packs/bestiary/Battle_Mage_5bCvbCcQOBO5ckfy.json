@@ -104,34 +104,22 @@
         "range": "Range 4",
         "maxRange": "short",
         "types": [
+          "arcane",
           "kinetic",
           "incorporeal"
         ],
         "typesDisplay": "",
-        "price": 25,
+        "price": 35,
         "rider": "",
-        "kit": [
-          {
-            "name": "Force Bolt",
-            "skill": "discipline",
-            "effect": "Deals Stress to Might or Finesse."
-          },
-          {
-            "name": "Mind-Piercing Ray",
-            "skill": "acuity",
-            "effect": "Deals Stress to Wit or Presence."
-          },
-          {
-            "name": "Unsettling Pulse",
-            "skill": "resonance",
-            "effect": "Applies Frightened."
-          }
-        ],
+        "family": "",
+        "backs": "",
+        "kit": [],
         "innate": false,
         "bonus": 0,
         "size": "small",
         "materials": "1 Wood",
-        "description": ""
+        "description": "",
+        "location": "equipped"
       },
       "effects": [],
       "folder": null,
@@ -143,10 +131,11 @@
       "_key": "!actors.items!5bCvbCcQOBO5ckfy.zGeMqcBxc37XYOkk"
     },
     {
-      "_id": "VhYjgVnWAdRb19Rj",
-      "name": "Guided Bolt",
+      "_id": "1gATNC6TX2lGJtWi",
+      "name": "Aimed Force",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Guided Bolt",
       "system": {
         "requires": [
           "kinetic"
@@ -174,7 +163,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Guided Bolt"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, +2",
         "description": ""
       },
@@ -185,13 +178,14 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!5bCvbCcQOBO5ckfy.VhYjgVnWAdRb19Rj"
+      "_key": "!actors.items!5bCvbCcQOBO5ckfy.1gATNC6TX2lGJtWi"
     },
     {
-      "_id": "14f3f6sTwhOlTunz",
-      "name": "Hammer of Force",
+      "_id": "kRSSryW8JMPLoeoW",
+      "name": "Piercing Pushing Force",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Hammer of Force",
       "system": {
         "requires": [
           "kinetic"
@@ -227,7 +221,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Hammer of Force"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Pierce 1, Move the target up to Range 2",
         "description": ""
       },
@@ -238,13 +236,14 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!5bCvbCcQOBO5ckfy.14f3f6sTwhOlTunz"
+      "_key": "!actors.items!5bCvbCcQOBO5ckfy.kRSSryW8JMPLoeoW"
     },
     {
-      "_id": "rS6PzlJJns7tlz7n",
-      "name": "Roaring Fireball",
+      "_id": "LTbM9s5ES4FOXGKA",
+      "name": "Bursting Force",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Roaring Fireball",
       "system": {
         "requires": [
           "kinetic"
@@ -272,7 +271,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Roaring Fireball"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Radius (Range 2), Strain 2",
         "description": ""
       },
@@ -283,7 +286,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!5bCvbCcQOBO5ckfy.rS6PzlJJns7tlz7n"
+      "_key": "!actors.items!5bCvbCcQOBO5ckfy.LTbM9s5ES4FOXGKA"
     },
     {
       "_id": "Fv5VnLiSG0iIx6S4",
@@ -296,8 +299,8 @@
         ],
         "innate": false,
         "skill": "",
-        "family": "Kinetic",
-        "subgroup": "Mobility",
+        "family": "",
+        "subgroup": "",
         "effects": [
           {
             "key": "evade",
@@ -306,19 +309,13 @@
             "bands": 0,
             "placement": 0,
             "selectiveR": 0
-          },
-          {
-            "key": "quick",
-            "magnitude": 1,
-            "pattern": "single",
-            "bands": 0,
-            "placement": 0,
-            "selectiveR": 0
           }
         ],
-        "floor": true,
+        "floor": false,
+        "formerNames": [],
         "ancestryGrant": "",
-        "effectText": "Quick (trigger: a hostile's Melee Technique targets you): Evade before it rolls.",
+        "grantedBy": "",
+        "effectText": "Evade",
         "description": ""
       },
       "effects": [],

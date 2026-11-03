@@ -104,34 +104,34 @@
         "range": "Range 1",
         "maxRange": "close",
         "types": [
-          "edged",
-          "pointed"
+          "melee",
+          "guarding"
         ],
         "typesDisplay": "",
-        "price": 60,
+        "price": 55,
         "rider": "",
+        "family": "Swords",
+        "backs": "Threaten",
         "kit": [
           {
-            "name": "Heavy Swing",
+            "name": "Strike",
             "skill": "prowess",
-            "effect": "Deals Stress to Might or Finesse."
+            "effect": "Deals Stress to Might or Finesse.",
+            "signature": false
           },
           {
-            "name": "Bowl Over",
+            "name": "Disarm",
             "skill": "discipline",
-            "effect": "Applies Prone."
-          },
-          {
-            "name": "Crushing Display",
-            "skill": "assertiveness",
-            "effect": "Applies Intimidated."
+            "effect": "Disarms.",
+            "signature": true
           }
         ],
         "innate": false,
         "bonus": 0,
         "size": "medium",
         "materials": "2 Metal",
-        "description": ""
+        "description": "",
+        "location": "equipped"
       },
       "effects": [],
       "folder": null,
@@ -149,31 +149,25 @@
       "img": "icons/svg/claw.svg",
       "system": {
         "types": [
+          "arcane",
           "kinetic"
         ],
         "range": "Range 8",
+        "maxRange": "mid",
         "weight": "light",
         "innate": true,
+        "location": "equipped",
         "primaryAttribute": "wit",
         "category": "arcane",
         "price": 0,
         "kit": [
           {
-            "name": "Devastating Bolt",
+            "name": "Breath Weapon",
             "skill": "discipline",
             "effect": "Deals Stress to Might or Finesse."
-          },
-          {
-            "name": "Disorienting Blast",
-            "skill": "acuity",
-            "effect": "Applies Reeling."
-          },
-          {
-            "name": "Overwhelming Force",
-            "skill": "resonance",
-            "effect": "Applies Prone."
           }
         ],
+        "backs": "",
         "description": "<p>a built-in fire-thrower.</p>"
       },
       "effects": [],
@@ -186,10 +180,11 @@
       "_key": "!actors.items!9vQBBoK0R4cimHQn.cK1U1wE3hV2FpbTj"
     },
     {
-      "_id": "TcjNMOlluCX2wvcP",
-      "name": "Roaring Fireball",
+      "_id": "2Mhm2jjh3SuE6GFN",
+      "name": "Bursting Force",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Roaring Fireball",
       "system": {
         "requires": [
           "kinetic"
@@ -217,7 +212,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Roaring Fireball"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Radius (Range 2), Strain 2",
         "description": ""
       },
@@ -228,13 +227,14 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!9vQBBoK0R4cimHQn.TcjNMOlluCX2wvcP"
+      "_key": "!actors.items!9vQBBoK0R4cimHQn.2Mhm2jjh3SuE6GFN"
     },
     {
-      "_id": "aH1QkqvIluBkXZdf",
-      "name": "Annihilating Beam",
+      "_id": "DKreoqDXjeUhJOBV",
+      "name": "Piercing Force 2",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Annihilating Beam",
       "system": {
         "requires": [
           "kinetic"
@@ -262,7 +262,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Annihilating Beam"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Pierce 2",
         "description": ""
       },
@@ -273,17 +277,17 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!9vQBBoK0R4cimHQn.aH1QkqvIluBkXZdf"
+      "_key": "!actors.items!9vQBBoK0R4cimHQn.DKreoqDXjeUhJOBV"
     },
     {
-      "_id": "60z9X8douI1870LK",
-      "name": "Maiming Strike",
+      "_id": "pIQEkoLLSqYf4wyR",
+      "name": "Piercing Weakening Strike 2",
       "type": "technique",
       "img": "icons/svg/aura.svg",
+      "idName": "Maiming Strike",
       "system": {
         "requires": [
-          "edged",
-          "pointed"
+          "melee"
         ],
         "innate": false,
         "skill": "prowess",
@@ -316,7 +320,11 @@
           }
         ],
         "floor": false,
+        "formerNames": [
+          "Maiming Strike"
+        ],
         "ancestryGrant": "",
+        "grantedBy": "",
         "effectText": "Stress, Pierce 2, -1 [target Attribute]",
         "description": ""
       },
@@ -327,7 +335,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!9vQBBoK0R4cimHQn.60z9X8douI1870LK"
+      "_key": "!actors.items!9vQBBoK0R4cimHQn.pIQEkoLLSqYf4wyR"
     },
     {
       "_id": "RiBqhC0dApVtcGqy",

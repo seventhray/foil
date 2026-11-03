@@ -92,31 +92,31 @@
       "img": "icons/svg/claw.svg",
       "system": {
         "types": [
+          "melee",
           "grappling"
         ],
         "range": "Range 1",
+        "maxRange": "close",
         "weight": "light",
         "innate": true,
+        "location": "equipped",
         "primaryAttribute": "might",
         "category": "melee",
         "price": 0,
         "kit": [
           {
-            "name": "Snare",
+            "name": "Strike",
             "skill": "prowess",
-            "effect": "Applies Grappled."
+            "effect": "Deals Stress to Might or Finesse."
           },
           {
-            "name": "Tumble",
-            "skill": "acuity",
-            "effect": "Applies Prone."
-          },
-          {
-            "name": "Tangle",
-            "skill": "guile",
-            "effect": "Applies Restrained."
+            "name": "Slow",
+            "skill": "discipline",
+            "effect": "Applies Slowed.",
+            "signature": true
           }
         ],
+        "backs": "Threaten",
         "description": ""
       },
       "effects": [],
@@ -129,18 +129,36 @@
       "_key": "!actors.items!SiGJF6yF3hJC52gY.IrD9u3jey7zp6aOE"
     },
     {
-      "_id": "8DZZqGqnOXvV1uKJ",
-      "name": "Specialized Resistance",
-      "type": "feat",
-      "img": "icons/svg/upgrade.svg",
+      "_id": "nTnCHkHPS4biZFdP",
+      "name": "Reel (Melee)",
+      "type": "technique",
+      "img": "icons/svg/aura.svg",
+      "idName": "Fluster",
       "system": {
-        "featType": "trait",
-        "xpCost": 4,
-        "requirements": "",
-        "effect": "4 XP, a body that parts around a blade and closes again.",
-        "ancestry": "",
-        "grantsTechnique": "",
-        "modifiers": [],
+        "requires": [
+          "melee"
+        ],
+        "innate": false,
+        "skill": "prowess",
+        "family": "Melee",
+        "subgroup": "Control",
+        "effects": [
+          {
+            "key": "reeling",
+            "magnitude": 1,
+            "pattern": "single",
+            "bands": 0,
+            "placement": 0,
+            "selectiveR": 0
+          }
+        ],
+        "floor": false,
+        "formerNames": [
+          "Fluster"
+        ],
+        "ancestryGrant": "",
+        "grantedBy": "",
+        "effectText": "-1 Oppose",
         "description": ""
       },
       "effects": [],
@@ -150,7 +168,7 @@
         "default": 0
       },
       "flags": {},
-      "_key": "!actors.items!SiGJF6yF3hJC52gY.8DZZqGqnOXvV1uKJ"
+      "_key": "!actors.items!SiGJF6yF3hJC52gY.nTnCHkHPS4biZFdP"
     }
   ],
   "_key": "!actors!SiGJF6yF3hJC52gY"
