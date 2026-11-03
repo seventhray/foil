@@ -18,7 +18,6 @@ import { calloutText } from "./creature-block.mjs";
 
 export const CREATURES_DIR = process.env.FOIL_BESTIARY ?? path.join(BOOKS, "..", "Campaign", "Creatures");
 const lc = s => String(s).toLowerCase();
-const PRIMARY_BY_GROUP = { melee: "might", grappling: "might", arcane: "wit", sonic: "presence", ranged: "finesse" };
 const ATTRS = ["might", "finesse", "wit", "presence"];
 
 function diceOf(text) {
@@ -39,27 +38,30 @@ export function bestiaryDocs(lib) {
   const inst = byName(lib.instruments), tech = byName(lib.techniques), feat = byName(lib.feats);
   const clone = d => JSON.parse(JSON.stringify(d));
   // A natural weapon's built-ins are its GMG 9.6.1 row's, by name, each with the effect a Catalog Instrument's move of that name has.
-  // The first sits on Prowess (Discipline for Wit), the second, its signature, on the Primary's other action Skill, and it backs
-  // the Voice Technique its Primary does (PHB 4.1.3): Might Threaten, Finesse Deceive, Wit Persuade.
+  // Each sits on a Skill of the weapon's own Primary, as a Catalog Instrument's of that Primary do: the first on FIRST, the second,
+  // its signature, on SECOND. It backs the Voice Technique its Primary does (PHB 4.1.3): Might Threaten, Finesse Deceive, Wit Persuade.
   const moves = lib.instruments.flatMap(i => i.system.kit ?? []);
-  const OTHER = { might: "discipline", finesse: "acuity", wit: "acuity", presence: "guile" };
+  const FIRST = { might: "prowess", finesse: "prowess", wit: "discipline", presence: "assertiveness" };
+  const SECOND = { might: "discipline", finesse: "acuity", wit: "acuity", presence: "guile" };
   const BACKS = { might: "Threaten", finesse: "Deceive", wit: "Persuade" };
   // An Arcane one instead comes with one Technique that deals Stress through it (GMG 9.6.0), or Life-Fount's one that mends: a
-  // built-in named for the weapon, on Discipline, harming what its Property harms.
-  const ownMove = (name, types, grants) => grants === "mend"
+  // built-in named for the weapon, on Discipline (Resonance for Presence), harming what its Property harms.
+  const ownMove = (name, types, grants, primary) => grants === "mend"
     ? { name, skill: "resonance", effect: "Mends 1d4 Stress on an ally's Attribute." }
-    : { name, skill: "discipline", effect: `Deals Stress to ${types.includes("incorporeal") ? "Wit or Presence" : "Might or Finesse"}.` };
-  const natural = (name, typesText, { range = "", weight = "light", note = "", grants = "" } = {}) => {
+    : { name, skill: primary === "presence" ? "resonance" : "discipline", effect: `Deals Stress to ${types.includes("incorporeal") ? "Wit or Presence" : "Might or Finesse"}.` };
+  const natural = (name, typesText, { range = "", weight = "light", note = "", grants = "", primaryText = "" } = {}) => {
     // Its GMG row by name, or by the row's name at the end of its own ("Lion's Claws" is Claws).
     const w = NATURAL_WEAPONS.find(x => x.name === name) ?? NATURAL_WEAPONS.find(x => new RegExp(`\\b${x.name}$`, "i").test(name));
     const types = typesText ? currentTypes(String(typesText).split(/,\s*/).map(lc)) : w?.types ?? ["melee"];
     const group = w?.group ?? (types.includes("arcane") ? "arcane" : types.includes("sonic") ? "sonic" : types.includes("ranged") ? "ranged" : "melee");
-    const primary = PRIMARY_BY_GROUP[group] ?? "might";
+    // Its stat block names its Primary (GMG 9.6.1).
+    const primary = ATTRS.includes(lc(primaryText)) ? lc(primaryText) : "";
+    if (!primary) notes.push(`${name}: its line names no Primary (GMG 9.6.1)`);
     const free = w?.grants || grants || "";
-    const kit = free ? [ownMove(name, types, free)] : (w?.builtins ?? []).map((n, i) => {
+    const kit = free ? [ownMove(name, types, free, primary)] : (w?.builtins ?? []).map((n, i) => {
       const effect = moves.find(k => k.name === n)?.effect;
       if (!effect) notes.push(`${name}: no Catalog move named ${n} for its built-ins (GMG 9.6.1)`);
-      return { name: n, skill: i === 0 ? (primary === "wit" ? "discipline" : "prowess") : OTHER[primary] ?? "discipline", effect: effect ?? "", ...(i > 0 ? { signature: true } : {}) };
+      return { name: n, skill: (i === 0 ? FIRST : SECOND)[primary] ?? "prowess", effect: effect ?? "", ...(i > 0 ? { signature: true } : {}) };
     });
     const band = range ? Object.keys(RANGE_STEP).find(k => RANGE_STEP[k] === Number(range)) : "";
     return { name, type: "instrument", img: "icons/svg/claw.svg",
@@ -101,11 +103,11 @@ export function bestiaryDocs(lib) {
       const xp = Number(rest.match(/(\d+)\s*XP/)?.[1] ?? 0);
       const strain = rest.match(/Strain (\d+)/);
       if (/innate Instrument/.test(rest)) { const d = inst.get(lc(base)); if (d) items.push(clone(d)); continue; }
-      // An Instrument: a natural weapon "(GMG 9.6.1): Light Melee, Grappling Instrument, Range 0, ...", or a Catalog one
+      // An Instrument: a natural weapon "(GMG 9.6.1): Light Melee, Grappling Instrument, Range 0, Might Primary, ...", or a Catalog one
       // "(PHB 7.4.1[, as a Mace]): ... Instrument, Range 1 ..." under the creature's own name.
-      const held = rest.match(/^ \((GMG 9\.6\.[01]|PHB [\d.]+)(?:, as an? ([^)]+))?\): (?:an? )?(?:(Light|Medium|Heavy) )?(.+?) Instrument, Range (\d+)(?:, built-in Techniques free|, one (\w+) Technique free)?(?: \(([^)]*)\))?\.$/);
+      const held = rest.match(/^ \((GMG 9\.6\.[01]|PHB [\d.]+)(?:, as an? ([^)]+))?\): (?:an? )?(?:(Light|Medium|Heavy) )?(.+?) Instrument, Range (\d+)(?:, (Might|Finesse|Wit|Presence) Primary)?(?:, built-in Techniques free|, one (\w+) Technique free)?(?: \(([^)]*)\))?\.$/);
       if (held) {
-        const [, source, alias, weight, typesText, range, grants, note] = held;
+        const [, source, alias, weight, typesText, range, primaryText, grants, note] = held;
         const phb = /^PHB/.test(source) ? inst.get(lc(alias ?? head)) : null;
         // A creature fights with what its stat block lists, ready (PHB 4.1.0).
         if (phb) {
@@ -117,7 +119,7 @@ export function bestiaryDocs(lib) {
           continue;
         }
         if (/^PHB/.test(source)) notes.push(`${name}: no Catalog Instrument ${alias ?? head}`);
-        items.push(natural(head.trim(), typesText.replace(/ \[[^\]]*\]/g, ""), { range, weight: weight ?? "light", note: note ?? "", grants: lc(grants ?? "") }));
+        items.push(natural(head.trim(), typesText.replace(/ \[[^\]]*\]/g, ""), { range, weight: weight ?? "light", note: note ?? "", grants: lc(grants ?? ""), primaryText: primaryText ?? "" }));
         continue;
       }
       // Specialized Resistance (GMG 9.5.1): a narrow Resistance the rules apply (rules/resist.js), "(Melee +2, 9.5.1)".

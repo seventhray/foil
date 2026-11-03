@@ -104,13 +104,13 @@
         "weight": "light",
         "innate": true,
         "location": "equipped",
-        "primaryAttribute": "wit",
+        "primaryAttribute": "presence",
         "category": "arcane",
         "price": 0,
         "kit": [
           {
             "name": "Chilling Presence",
-            "skill": "discipline",
+            "skill": "resonance",
             "effect": "Deals Stress to Wit or Presence."
           }
         ],
@@ -141,13 +141,13 @@
         "weight": "light",
         "innate": true,
         "location": "equipped",
-        "primaryAttribute": "wit",
+        "primaryAttribute": "presence",
         "category": "arcane",
         "price": 0,
         "kit": [
           {
             "name": "Curse Touch",
-            "skill": "discipline",
+            "skill": "resonance",
             "effect": "Deals Stress to Wit or Presence."
           }
         ],

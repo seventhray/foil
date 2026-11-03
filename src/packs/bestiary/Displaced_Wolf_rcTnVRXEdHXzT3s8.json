@@ -99,7 +99,7 @@
         "weight": "light",
         "innate": true,
         "location": "equipped",
-        "primaryAttribute": "might",
+        "primaryAttribute": "finesse",
         "category": "melee",
         "price": 0,
         "kit": [
@@ -110,12 +110,12 @@
           },
           {
             "name": "Weaken",
-            "skill": "discipline",
+            "skill": "acuity",
             "effect": "Applies Weakened [Finesse].",
             "signature": true
           }
         ],
-        "backs": "Threaten",
+        "backs": "Deceive",
         "description": ""
       },
       "effects": [],

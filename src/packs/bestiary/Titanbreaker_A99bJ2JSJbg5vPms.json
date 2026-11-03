@@ -157,7 +157,7 @@
         "weight": "light",
         "innate": true,
         "location": "equipped",
-        "primaryAttribute": "finesse",
+        "primaryAttribute": "might",
         "category": "ranged",
         "price": 0,
         "kit": [
@@ -168,12 +168,12 @@
           },
           {
             "name": "Topple",
-            "skill": "acuity",
+            "skill": "discipline",
             "effect": "Applies Prone.",
             "signature": true
           }
         ],
-        "backs": "Deceive",
+        "backs": "Threaten",
         "description": ""
       },
       "effects": [],
