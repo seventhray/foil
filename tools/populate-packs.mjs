@@ -246,6 +246,18 @@ function parseEffects(text) {
 const MOVEMENT_TRAITS = new Set(["Fly", "Swim", "Burrow", "Climb"]);
 // Quick-trigger rows where the 8 XP floor hides whether Stress is implied:
 // composed by hand so Stress is never guessed.
+/**
+ * The Technique a Feat's grants_technique links to, by its note's name. A wikilink names the note's file, which keeps its old name
+ * after a rename ([[Trip]] is Catalog/Techniques/Trip.md, named Toppling Strike), and a retired note leads to the one it merged into.
+ * A link to no note is the name itself: a Technique only that Feat grants.
+ */
+function linkedTechnique(link) {
+  const target = String(link ?? "").replace(/^\[\[|\]\]$/g, "").split("|")[0].trim();
+  if (!target) return "";
+  const note = CAT.techniques.find(t => String(t._file ?? "").replace(/\.md$/, "") === target);
+  return note ? (note.retired && note.merged_into ? note.merged_into : note.name) : target;
+}
+
 // Each retired Technique note's name, under the note it merged into (merged_into), so the survivor lists it among its former names.
 const MERGED_INTO = {};
 for (const n of CAT.techniques) if (n.retired && n.merged_into) (MERGED_INTO[n.merged_into] ??= []).push(n.former_name ?? n.name);
@@ -526,7 +538,7 @@ function featModifiers(effect) {
 }
 function featDoc(n) {
   const type = lc(n.feat_type) === "origin" ? "ancestry" : lc(n.feat_type) === "trait" ? "trait" : "learned";
-  const grants = String(n.grants_technique ?? "").replace(/^\[\[|\]\]$/g, "");
+  const grants = linkedTechnique(n.grants_technique);
   const effect = n.effect ?? "";
   return {
     name: n.name, type: "feat", img: "icons/svg/upgrade.svg",
@@ -700,7 +712,7 @@ const byOrder = (a, b) => String(a.family ?? a.category ?? "").localeCompare(Str
 const ancestries = ancestryDocs();
 // A Technique only an Origin Feat grants is defined by that Feat's text and has no Catalog note.
 const grantedTechniques = CAT.feats.flatMap(f => {
-  const name = String(f.grants_technique ?? "").replace(/^\[\[|\]\]$/g, "");
+  const name = linkedTechnique(f.grants_technique);
   if (!name || CAT.techniques.some(t => t.name === name)) return [];
   const m = String(f.effect).match(/^You learn the (.+?) Technique(?: \((\w+)\)[.:]|: (\w+),) ?(.*)$/);
   if (!m) { warnings.push(`${f.name}: cannot read the Technique it grants from "${f.effect}"`); return []; }

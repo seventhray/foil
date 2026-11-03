@@ -9,7 +9,7 @@
     "requirements": "",
     "effect": "You learn the Toppling Strike Technique: Melee, Stress, Prone.",
     "ancestry": "Highlands",
-    "grantsTechnique": "Trip",
+    "grantsTechnique": "Toppling Strike",
     "modifiers": [],
     "description": ""
   },
