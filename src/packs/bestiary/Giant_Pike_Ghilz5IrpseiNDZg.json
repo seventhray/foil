@@ -115,7 +115,7 @@
           {
             "name": "Weaken",
             "skill": "acuity",
-            "effect": "Applies Weakened [Finesse].",
+            "effect": "Deals Stress to Might or Finesse. Applies Weakened -2 [Finesse]. Strain 2.",
             "signature": true
           }
         ],
@@ -158,7 +158,7 @@
           {
             "name": "Restrain",
             "skill": "acuity",
-            "effect": "Applies Restrained.",
+            "effect": "Deals Stress to Might or Finesse. Applies Restrained. Strain 3.",
             "signature": true
           }
         ],

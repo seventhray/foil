@@ -28,7 +28,7 @@
       {
         "name": "Reel",
         "skill": "acuity",
-        "effect": "Applies Reeling.",
+        "effect": "Deals Stress to Might or Finesse. Applies Reeling. Strain 1.",
         "signature": true
       }
     ],

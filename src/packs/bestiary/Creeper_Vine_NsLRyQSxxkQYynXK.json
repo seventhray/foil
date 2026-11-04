@@ -112,7 +112,7 @@
           {
             "name": "Restrain",
             "skill": "discipline",
-            "effect": "Applies Restrained.",
+            "effect": "Deals Stress to Might or Finesse. Applies Restrained. Strain 3.",
             "signature": true
           }
         ],

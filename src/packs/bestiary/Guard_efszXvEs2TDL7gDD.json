@@ -122,7 +122,7 @@
           {
             "name": "Push",
             "skill": "discipline",
-            "effect": "Moves the target up to Range 2.",
+            "effect": "Deals Stress to Might or Finesse. Moves the target up to Range 2. Strain 1.",
             "signature": true
           }
         ],
@@ -172,7 +172,7 @@
           {
             "name": "Push",
             "skill": "discipline",
-            "effect": "Moves the target up to Range 2.",
+            "effect": "Deals Stress to Might or Finesse. Moves the target up to Range 2. Strain 1.",
             "signature": true
           }
         ],

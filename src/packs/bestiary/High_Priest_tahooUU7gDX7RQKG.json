@@ -125,7 +125,7 @@
           {
             "name": "Topple",
             "skill": "acuity",
-            "effect": "Applies Prone.",
+            "effect": "Deals Stress to Might or Finesse. Applies Prone. Strain 2.",
             "signature": true
           }
         ],
@@ -318,7 +318,7 @@
         ],
         "ancestryGrant": "",
         "grantedBy": "",
-        "effectText": "Mend 2d4, Resistance +1 to chosen allies within Range 2 (Selective), Strain 1",
+        "effectText": "Mend 2d4, Resistance +1 to chosen allies within Range 2 (Selective), Strain 2",
         "description": ""
       },
       "effects": [],

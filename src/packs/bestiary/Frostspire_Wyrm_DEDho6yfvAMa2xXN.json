@@ -118,7 +118,7 @@
           {
             "name": "Weaken",
             "skill": "discipline",
-            "effect": "Applies Weakened [Finesse].",
+            "effect": "Deals Stress to Might or Finesse. Applies Weakened -2 [Finesse]. Strain 2.",
             "signature": true
           }
         ],
@@ -160,7 +160,7 @@
           {
             "name": "Bleed",
             "skill": "discipline",
-            "effect": "Lingering 1.",
+            "effect": "Deals Stress to Might or Finesse. Lingering 1. Strain 1.",
             "signature": true
           }
         ],
@@ -239,7 +239,7 @@
           {
             "name": "Topple",
             "skill": "discipline",
-            "effect": "Applies Prone.",
+            "effect": "Deals Stress to Might or Finesse. Applies Prone. Strain 2.",
             "signature": true
           }
         ],
@@ -380,7 +380,7 @@
         "formerNames": [],
         "ancestryGrant": "",
         "grantedBy": "",
-        "effectText": "Stress, Cone (Range 4)",
+        "effectText": "Stress, Cone (Range 4), Strain 1",
         "description": ""
       },
       "effects": [],
@@ -427,7 +427,7 @@
         "formerNames": [],
         "ancestryGrant": "",
         "grantedBy": "",
-        "effectText": "Stress, -1 Oppose (1 minute)",
+        "effectText": "Stress, -1 Oppose (1 minute), Strain 1",
         "description": ""
       },
       "effects": [],
@@ -485,7 +485,7 @@
         ],
         "ancestryGrant": "",
         "grantedBy": "",
-        "effectText": "Stress, Pierce 2, -1 [target Attribute]",
+        "effectText": "Stress, Pierce 2, -1 [target Attribute], Strain 1",
         "description": ""
       },
       "effects": [],

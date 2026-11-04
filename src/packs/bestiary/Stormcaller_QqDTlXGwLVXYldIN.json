@@ -155,7 +155,7 @@
           {
             "name": "Reel",
             "skill": "guile",
-            "effect": "Applies Reeling.",
+            "effect": "Deals Stress to Wit or Presence. Applies Reeling. Strain 1.",
             "signature": true
           }
         ],
@@ -206,7 +206,7 @@
         "formerNames": [],
         "ancestryGrant": "",
         "grantedBy": "",
-        "effectText": "Stress, Radius (Range 2), Strain 2",
+        "effectText": "Stress, Radius (Range 2), Strain 3",
         "description": ""
       },
       "effects": [],

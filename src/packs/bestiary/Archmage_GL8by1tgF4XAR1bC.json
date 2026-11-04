@@ -220,7 +220,7 @@
         "formerNames": [],
         "ancestryGrant": "",
         "grantedBy": "",
-        "effectText": "Stress, Radius (Range 2), Strain 2",
+        "effectText": "Stress, Radius (Range 2), Strain 3",
         "description": ""
       },
       "effects": [],
@@ -328,7 +328,7 @@
         ],
         "ancestryGrant": "",
         "grantedBy": "",
-        "effectText": "Stress, Restrained, Extend Range",
+        "effectText": "Stress, Restrained, Extend Range, Strain 1",
         "description": ""
       },
       "effects": [],

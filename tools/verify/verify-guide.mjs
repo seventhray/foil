@@ -43,7 +43,7 @@ ok("d12 to d20 4 times the Potential as a Transformation; guide prices",
 ok("every Attribute starts at 2d4", /Every Attribute starts at 2d4/.test(phb) && /Every Attribute starts at 2d4/.test(all));
 ok("Training cap is the dice in the two pools", /Training can't exceed the total number of dice in its contributing Attribute pools \(/.test(phb) && /can't pass the number of dice in the Skill's two pools\./.test(all));
 ok("+N Pierce is half the bonus", /Pierce equal to half its bonus, rounded down/.test(phb) && /Pierce equal to half the bonus, rounded down/.test(all));
-ok("Strain is floor((XP - 24) / 8)", /\*\*Strain = floor\(\(XP - 24\) \/ 8\)\*\*/.test(fm) && /floor\(\(XP - 24\) \/ 8\)/.test(all));
+ok("Strain is floor((XP - 16) / 8)", /\*\*Strain = floor\(\(XP - 16\) \/ 8\)\*\*/.test(fm) && /floor\(\(XP - 16\) \/ 8\)/.test(all) && /minus 16, divided by 8/.test(phb));
 ok("Strain lands on the Primary Attribute", /Strain applies to the Instrument's Primary Attribute/.test(phb) && /on the Instrument's Primary Attribute/.test(all));
 ok("margin cap by weight: half Light, all Medium, all Heavy after doubling", /A Heavy Instrument doubles it\. Then cap the margin at the Potential of the Instrument's Primary Attribute: half of it, rounded down, for a Light Instrument, and all of it for Medium or Heavy\. Add the Technique's Effects/.test(phb) && /<strong>all<\/strong> for Medium/.test(all));
 ok("four Instrument Types, each with what it harms, and none adds Stress", /\| Melee \| Might or Finesse \|/.test(phb) && /\| Sonic \| Wit or Presence \|/.test(phb)
@@ -52,8 +52,9 @@ ok("Drawn reloads with the Quick Action, Fired with the Action", /\| Drawn \| It
   && /Reload with the Quick Action \/ the Action/.test(all));
 ok("Guard: the Quick Action, +2 to Oppose for 1 round", /Spend your Quick Action to \*\*Guard\*\* with a Guarding Instrument/.test(phb) && /For 1 round, the guarded character gets \+2 to Oppose/.test(phb)
   && /For 1 round, the guarded character gets \+2 to Oppose/.test(all));
-ok("a signature costs the Action, with Strain past 11 XP", /A signature costs the Action, whatever the Instrument's weight\. A signature priced over 11 XP costs Strain/.test(phb)
-  && /A signature costs the Action at any weight\. A signature priced over 11 XP costs 1 Strain for each full 8 XP over\./.test(all));
+ok("a signature deals Stress, costs the Action, and 1 Strain per full 8 XP", /share a \*\*signature\*\*, a built-in Technique that deals Stress and applies an effect/.test(phb)
+  && /A signature costs the Action\. It costs Strain on the Instrument's Primary Attribute: 1 for each full 8 XP of its price/.test(phb)
+  && /A signature costs the Action, and 1 Strain for each full 8 XP of its price\./.test(all));
 ok("weight classes 15/30/45p, 2/4/8 lbs, Medium full cap, Heavy whole turn with the margin doubled", /Light 15p, Medium 30p, Heavy 45p/.test(phb) && /A Heavy Instrument \| 8 lbs/.test(phb) && /\(15p, 30p, 45p\)/.test(all) && /\(2, 4, 8 lbs\)/.test(all)
   && /A Medium Instrument's margin caps at the full Primary Potential/.test(phb) && /A Heavy Instrument's Stress Technique costs the Action and the Quick Action\. Its margin is doubled, then capped at the full Primary Potential\. It takes both hands/.test(phb)
   && /its margin doubles before the cap/.test(all));

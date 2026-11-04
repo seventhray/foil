@@ -154,7 +154,7 @@
           {
             "name": "Disarm",
             "skill": "discipline",
-            "effect": "Disarms.",
+            "effect": "Deals Stress to Might or Finesse. Disarms. Strain 2.",
             "signature": true
           }
         ],

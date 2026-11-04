@@ -118,7 +118,7 @@
           {
             "name": "Weaken",
             "skill": "acuity",
-            "effect": "Applies Weakened [Finesse].",
+            "effect": "Deals Stress to Might or Finesse. Applies Weakened -2 [Finesse]. Strain 2.",
             "signature": true
           }
         ],
@@ -157,12 +157,12 @@
           {
             "name": "Restrain",
             "skill": "prowess",
-            "effect": "Applies Restrained."
+            "effect": "Deals Stress to Might or Finesse. Applies Restrained. Strain 3."
           },
           {
             "name": "Slow",
             "skill": "acuity",
-            "effect": "Applies Slowed.",
+            "effect": "Deals Stress to Might or Finesse. Applies Slowed. Strain 1.",
             "signature": true
           }
         ],
@@ -213,7 +213,7 @@
         "formerNames": [],
         "ancestryGrant": "",
         "grantedBy": "",
-        "effectText": "Stress, -1 [target Attribute] (1 minute), Strain 1",
+        "effectText": "Stress, -1 [target Attribute] (1 minute), Strain 2",
         "description": ""
       },
       "effects": [],
@@ -260,7 +260,7 @@
         "formerNames": [],
         "ancestryGrant": "",
         "grantedBy": "",
-        "effectText": "Stress, Restrained",
+        "effectText": "Stress, Restrained, Strain 1",
         "description": ""
       },
       "effects": [],

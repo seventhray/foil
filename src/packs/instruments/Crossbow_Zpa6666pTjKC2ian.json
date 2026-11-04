@@ -28,7 +28,7 @@
       {
         "name": "Slow",
         "skill": "acuity",
-        "effect": "Applies Slowed.",
+        "effect": "Deals Stress to Might or Finesse. Applies Slowed. Strain 1.",
         "signature": true
       }
     ],

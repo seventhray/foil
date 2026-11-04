@@ -156,7 +156,7 @@
           {
             "name": "Restrain",
             "skill": "discipline",
-            "effect": "Applies Restrained.",
+            "effect": "Deals Stress to Might or Finesse. Applies Restrained. Strain 3.",
             "signature": true
           }
         ],
@@ -218,7 +218,7 @@
         ],
         "ancestryGrant": "",
         "grantedBy": "",
-        "effectText": "Stress, -1 [target Attribute], Radius (Range 2), Strain 3",
+        "effectText": "Stress, -1 [target Attribute], Radius (Range 2), Strain 4",
         "description": ""
       },
       "effects": [],
@@ -276,7 +276,7 @@
         ],
         "ancestryGrant": "",
         "grantedBy": "",
-        "effectText": "Stress, -1 [target Attribute] (1 minute), Move the target up to Range 2, Strain 2",
+        "effectText": "Stress, -1 [target Attribute] (1 minute), Move the target up to Range 2, Strain 3",
         "description": ""
       },
       "effects": [],
@@ -326,7 +326,7 @@
         ],
         "ancestryGrant": "",
         "grantedBy": "",
-        "effectText": "Controlled, Upkeep, Strain 1",
+        "effectText": "Controlled, Upkeep, Strain 2",
         "description": ""
       },
       "effects": [],
@@ -373,7 +373,7 @@
         "formerNames": [],
         "ancestryGrant": "",
         "grantedBy": "",
-        "effectText": "Stress, -1 [target Attribute] (1 minute), Strain 1",
+        "effectText": "Stress, -1 [target Attribute] (1 minute), Strain 2",
         "description": ""
       },
       "effects": [],

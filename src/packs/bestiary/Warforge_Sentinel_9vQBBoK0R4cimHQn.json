@@ -122,7 +122,7 @@
           {
             "name": "Disarm",
             "skill": "discipline",
-            "effect": "Disarms.",
+            "effect": "Deals Stress to Might or Finesse. Disarms. Strain 2.",
             "signature": true
           }
         ],
@@ -217,7 +217,7 @@
         ],
         "ancestryGrant": "",
         "grantedBy": "",
-        "effectText": "Stress, Radius (Range 2), Strain 2",
+        "effectText": "Stress, Radius (Range 2), Strain 3",
         "description": ""
       },
       "effects": [],
@@ -325,7 +325,7 @@
         ],
         "ancestryGrant": "",
         "grantedBy": "",
-        "effectText": "Stress, Pierce 2, -1 [target Attribute]",
+        "effectText": "Stress, Pierce 2, -1 [target Attribute], Strain 1",
         "description": ""
       },
       "effects": [],

@@ -28,7 +28,7 @@
       {
         "name": "Impress",
         "skill": "guile",
-        "effect": "Applies Impressed.",
+        "effect": "Deals Stress to Wit or Presence. Applies Impressed. Strain 2.",
         "signature": true
       }
     ],

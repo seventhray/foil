@@ -122,7 +122,7 @@
           {
             "name": "Weaken",
             "skill": "discipline",
-            "effect": "Applies Weakened [Finesse].",
+            "effect": "Deals Stress to Might or Finesse. Applies Weakened -2 [Finesse]. Strain 2.",
             "signature": true
           }
         ],
@@ -173,7 +173,7 @@
           {
             "name": "Bleed",
             "skill": "acuity",
-            "effect": "Lingering 1.",
+            "effect": "Deals Stress to Might or Finesse. Lingering 1. Strain 1.",
             "signature": true
           }
         ],

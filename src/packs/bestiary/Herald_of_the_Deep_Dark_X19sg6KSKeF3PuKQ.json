@@ -118,7 +118,7 @@
           {
             "name": "Bleed",
             "skill": "discipline",
-            "effect": "Lingering 1.",
+            "effect": "Deals Stress to Might or Finesse. Lingering 1. Strain 1.",
             "signature": true
           }
         ],
@@ -197,7 +197,7 @@
           {
             "name": "Reel",
             "skill": "guile",
-            "effect": "Applies Reeling.",
+            "effect": "Deals Stress to Wit or Presence. Applies Reeling. Strain 1.",
             "signature": true
           }
         ],
@@ -259,7 +259,7 @@
         ],
         "ancestryGrant": "",
         "grantedBy": "",
-        "effectText": "Stress, -1 [target Attribute], Radius (Range 2), Strain 3",
+        "effectText": "Stress, -1 [target Attribute], Radius (Range 2), Strain 4",
         "description": ""
       },
       "effects": [],
@@ -317,7 +317,7 @@
         ],
         "ancestryGrant": "",
         "grantedBy": "",
-        "effectText": "Stress, Drain, Radius (Range 2), Strain 4",
+        "effectText": "Stress, Drain, Radius (Range 2), Strain 5",
         "description": ""
       },
       "effects": [],
@@ -372,7 +372,7 @@
         "formerNames": [],
         "ancestryGrant": "",
         "grantedBy": "",
-        "effectText": "Stress, Frightened, Radius (Range 2), Strain 4",
+        "effectText": "Stress, Frightened, Radius (Range 2), Strain 5",
         "description": ""
       },
       "effects": [],

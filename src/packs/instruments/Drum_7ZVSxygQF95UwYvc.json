@@ -28,7 +28,7 @@
       {
         "name": "Reel",
         "skill": "guile",
-        "effect": "Applies Reeling.",
+        "effect": "Deals Stress to Wit or Presence. Applies Reeling. Strain 1.",
         "signature": true
       }
     ],

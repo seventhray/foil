@@ -115,7 +115,7 @@
           {
             "name": "Topple",
             "skill": "discipline",
-            "effect": "Applies Prone.",
+            "effect": "Deals Stress to Might or Finesse. Applies Prone. Strain 2.",
             "signature": true
           }
         ],
@@ -157,7 +157,7 @@
           {
             "name": "Stun",
             "skill": "discipline",
-            "effect": "Applies Stunned. Strain 1.",
+            "effect": "Deals Stress to Might or Finesse. Applies Stunned. Strain 4.",
             "signature": true
           }
         ],

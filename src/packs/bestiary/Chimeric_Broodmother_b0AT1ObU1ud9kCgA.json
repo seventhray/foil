@@ -118,7 +118,7 @@
           {
             "name": "Bleed",
             "skill": "discipline",
-            "effect": "Lingering 1.",
+            "effect": "Deals Stress to Might or Finesse. Lingering 1. Strain 1.",
             "signature": true
           }
         ],
@@ -160,7 +160,7 @@
           {
             "name": "Weaken",
             "skill": "discipline",
-            "effect": "Applies Weakened [Finesse].",
+            "effect": "Deals Stress to Might or Finesse. Applies Weakened -2 [Finesse]. Strain 2.",
             "signature": true
           }
         ],
@@ -202,7 +202,7 @@
           {
             "name": "Reel",
             "skill": "guile",
-            "effect": "Applies Reeling.",
+            "effect": "Deals Stress to Wit or Presence. Applies Reeling. Strain 1.",
             "signature": true
           }
         ],
@@ -256,7 +256,7 @@
         ],
         "ancestryGrant": "",
         "grantedBy": "",
-        "effectText": "Stress, -1 Oppose (1 minute)",
+        "effectText": "Stress, -1 Oppose (1 minute), Strain 1",
         "description": ""
       },
       "effects": [],
@@ -314,7 +314,7 @@
         ],
         "ancestryGrant": "",
         "grantedBy": "",
-        "effectText": "Stress, Pierce 2, -1 [target Attribute]",
+        "effectText": "Stress, Pierce 2, -1 [target Attribute], Strain 1",
         "description": ""
       },
       "effects": [],

@@ -10,6 +10,8 @@
  * group reach.
  * Two rules of 2026-11-03 are carried in, marked RULE 2026-11-03: a Strain note leaves out the Sonic reach's 8 XP as it does the
  * Selective premium, and a Melee Instrument with Thrown meets a Ranged Requirement by being thrown (Range 4, a Ranged hit).
+ * RULE 2026-11-04 is carried in: a signature deals Stress and applies its effect, which rides the Stress (a note here, since the
+ * sheet doesn't apply Conditions); Weakened states its N ("Applies Weakened -2 [Finesse]").
  */
 import {
   ATTRIBUTE_KEYS, ATTR_LABEL, SKILL_ATTRS, SKILL_LABEL, MARGIN_CAP, marginCap, CONDITION_OPPOSE, CONDITION_ATTR, EFFECT_CONDITION, conditionAttr, DISARM
@@ -93,19 +95,24 @@ export class RefSheet {
     if (!inst.system.innate && inst.system.location !== "equipped") notes.push(`${esc(inst.name)} isn't equipped: switching to it costs the Quick Action (PHB 4.1.0).`);
     const stress = /Deals Stress/i.test(kit.effect);
     // RULE 2026-11-02: a signature costs the Action at any weight; Heavy's both actions are for Stress (PHB 4.1.3, 4.1.1).
-    if (kit.signature) notes.push("Signature: costs the Action, whatever the weight (PHB 4.1.3).");
+    if (kit.signature) notes.push("Signature: costs the Action (PHB 4.1.3).");
     else if (inst.system.quick) notes.push("Light: after an Action through a Light Instrument, the Quick Action can pay for this (PHB 4.2.2).");
     if (inst.system.doublesMargin && stress) notes.push("Heavy: costs the Action and the Quick Action; the margin doubles (PHB 4.1.1).");
     if (inst.system.reload) notes.push(`Reload: ${inst.system.reload === "quick" ? "Quick Action" : "Action"}.`);
     // RULE 2026-11-01: "Disarms." is Opposed with Might (PHB 4.2.1).
-    const disarms = !stress && /^Disarms\b/i.test(kit.effect);
+    // RULE 2026-11-04: a signature deals Stress and applies its effect.
+    const disarms = /(^|\. )Disarms\b/i.test(kit.effect);
     // RULE 2026-10-23: Weakened [Attribute] is resisted with that Attribute.
-    const match = !stress && !disarms ? kit.effect.match(/^Applies (Foil Exposed|\w+)(?: \[(\w+)\])?/i) : null;
+    const match = !disarms ? kit.effect.match(/(?:^|\. )Applies (Foil Exposed|\w+)(?: -(\d+))?(?: \[(\w+)\])?/i) : null;
     const applied = match?.[1];
-    const named = ATTRIBUTE_KEYS.find(k => ATTR_LABEL[k].toLowerCase() === String(match?.[2] ?? "").toLowerCase()) ?? "";
-    const kitCond = disarms ? { ...DISARM } : applied === "Weakened" ? { name: applied, note: named ? ATTR_LABEL[named] : "", attr: named } : applied ? { name: applied, note: "" } : null;
+    const weakenN = Number(match?.[2] ?? 1);
+    const named = ATTRIBUTE_KEYS.find(k => ATTR_LABEL[k].toLowerCase() === String(match?.[3] ?? "").toLowerCase()) ?? "";
+    const kitCond = disarms ? { ...DISARM } : applied === "Weakened" ? { name: applied, note: `${named ? `${ATTR_LABEL[named]} ` : ""}${weakenN}`, attr: named } : applied ? { name: applied, note: "" } : null;
     const kitResist = kitCond ? conditionAttr(kitCond) : "";
     if (kitResist) notes.push(`The target resists with any ${ATTR_LABEL[kitResist]} Skill (PHB ${disarms ? "4.2.1" : "6.8.0"}).`);
+    if (stress && kitCond) notes.push(`If it lands, the target is also ${kitCond.name}${kitCond.note ? ` (${kitCond.note})` : ""}.`);
+    const rider = stress ? kit.effect.match(/\. (Moves the target up to Range \d+|Lingering \d+)\./i)?.[1] : null;
+    if (rider) notes.push(`If it lands: ${rider}.`);
     const targeted = stress || disarms || /^Applies\b/i.test(kit.effect);
     if (targeted && inst.system.weightDice) notes.push(`${inst.system.weightLabel}: +${inst.system.weightDice}.`);
     notes.push(...this._rangeNotes({ band: inst.system.rangeBand, min: inst.system.minRange }));
@@ -129,7 +136,7 @@ export class RefSheet {
     await this._postRoll(this._skillFormula(kit.skill, kitExtras, kitDice), `${kit.name} (${SKILL_LABEL[kit.skill]})`,
       notes.join("<br>"), roll => ({
         cond: this._condFlag(),
-        ...(kitResist ? this._conditionFlag(kit.name, roll.total, kitCond, { melee: !!inst.system.isMelee }) : {}),
+        ...(kitResist && !stress ? this._conditionFlag(kit.name, roll.total, kitCond, { melee: !!inst.system.isMelee }) : {}),
         ...(stress ? this._stressFlag(inst, kit.name, roll.total, { aim,
           bespoke: [{ label: kit.name, value: bespokeBonus(kit.effect) }, { label: `${inst.name} Enchantment`, value: Number(inst.system.enchantStress ?? 0) }],
           pierce: [{ label: kit.name, value: kitPierce(kit) }, { label: `${inst.name} +${inst.system.bonus}`, value: Number(inst.system.bonusPierce ?? 0) - Number(inst.system.enchantPierce ?? 0) }, { label: `${inst.name} Enchantment`, value: Number(inst.system.enchantPierce ?? 0) }] }) : {})

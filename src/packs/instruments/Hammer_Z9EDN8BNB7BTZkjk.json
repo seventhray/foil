@@ -27,7 +27,7 @@
       {
         "name": "Stun",
         "skill": "acuity",
-        "effect": "Applies Stunned. Strain 1.",
+        "effect": "Deals Stress to Might or Finesse. Applies Stunned. Strain 4.",
         "signature": true
       }
     ],

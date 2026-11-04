@@ -209,7 +209,7 @@
         ],
         "ancestryGrant": "",
         "grantedBy": "",
-        "effectText": "Stress, Drain, Lingering 1",
+        "effectText": "Stress, Drain, Lingering 1, Strain 1",
         "description": ""
       },
       "effects": [],
@@ -259,7 +259,7 @@
         ],
         "ancestryGrant": "",
         "grantedBy": "",
-        "effectText": "Stress, -1 [target Attribute] (1 minute), Strain 1",
+        "effectText": "Stress, -1 [target Attribute] (1 minute), Strain 2",
         "description": ""
       },
       "effects": [],
@@ -309,7 +309,7 @@
         ],
         "ancestryGrant": "",
         "grantedBy": "",
-        "effectText": "Stress, -1 Oppose (1 minute)",
+        "effectText": "Stress, -1 Oppose (1 minute), Strain 1",
         "description": ""
       },
       "effects": [],

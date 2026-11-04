@@ -115,7 +115,7 @@
           {
             "name": "Push",
             "skill": "discipline",
-            "effect": "Moves the target up to Range 2.",
+            "effect": "Deals Stress to Might or Finesse. Moves the target up to Range 2. Strain 1.",
             "signature": true
           }
         ],
@@ -304,7 +304,7 @@
         ],
         "ancestryGrant": "",
         "grantedBy": "",
-        "effectText": "Stress, -1 [target Attribute] (1 minute), Strain 1",
+        "effectText": "Stress, -1 [target Attribute] (1 minute), Strain 2",
         "description": ""
       },
       "effects": [],
@@ -351,7 +351,7 @@
         "formerNames": [],
         "ancestryGrant": "",
         "grantedBy": "",
-        "effectText": "Stress, Radius (Range 2), Strain 2",
+        "effectText": "Stress, Radius (Range 2), Strain 3",
         "description": ""
       },
       "effects": [],

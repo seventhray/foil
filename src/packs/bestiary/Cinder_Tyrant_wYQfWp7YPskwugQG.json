@@ -295,7 +295,7 @@
         "formerNames": [],
         "ancestryGrant": "",
         "grantedBy": "",
-        "effectText": "Stress, Lingering 3",
+        "effectText": "Stress, Lingering 3, Strain 1",
         "description": ""
       },
       "effects": [],
@@ -342,7 +342,7 @@
         "formerNames": [],
         "ancestryGrant": "",
         "grantedBy": "",
-        "effectText": "Stress, Radius (Range 2), Strain 2",
+        "effectText": "Stress, Radius (Range 2), Strain 3",
         "description": ""
       },
       "effects": [],

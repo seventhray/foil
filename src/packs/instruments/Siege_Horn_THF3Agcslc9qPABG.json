@@ -27,7 +27,7 @@
       {
         "name": "Reel",
         "skill": "discipline",
-        "effect": "Applies Reeling.",
+        "effect": "Deals Stress to Wit or Presence. Applies Reeling. Strain 1.",
         "signature": true
       }
     ],

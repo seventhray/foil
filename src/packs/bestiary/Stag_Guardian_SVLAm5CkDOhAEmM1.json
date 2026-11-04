@@ -115,7 +115,7 @@
           {
             "name": "Topple",
             "skill": "discipline",
-            "effect": "Applies Prone.",
+            "effect": "Deals Stress to Might or Finesse. Applies Prone. Strain 2.",
             "signature": true
           }
         ],
@@ -157,7 +157,7 @@
           {
             "name": "Stun",
             "skill": "discipline",
-            "effect": "Applies Stunned. Strain 1.",
+            "effect": "Deals Stress to Might or Finesse. Applies Stunned. Strain 4.",
             "signature": true
           }
         ],
@@ -219,7 +219,7 @@
         ],
         "ancestryGrant": "",
         "grantedBy": "",
-        "effectText": "Stress, Pierce 2, -1 [target Attribute]",
+        "effectText": "Stress, Pierce 2, -1 [target Attribute], Strain 1",
         "description": ""
       },
       "effects": [],
@@ -320,7 +320,7 @@
         ],
         "ancestryGrant": "",
         "grantedBy": "",
-        "effectText": "Stress, -1 [target Attribute] (1 minute), Strain 1",
+        "effectText": "Stress, -1 [target Attribute] (1 minute), Strain 2",
         "description": ""
       },
       "effects": [],

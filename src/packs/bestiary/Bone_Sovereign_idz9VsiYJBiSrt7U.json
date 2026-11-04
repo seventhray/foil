@@ -122,7 +122,7 @@
           {
             "name": "Disarm",
             "skill": "discipline",
-            "effect": "Disarms.",
+            "effect": "Deals Stress to Might or Finesse. Disarms. Strain 2.",
             "signature": true
           }
         ],
@@ -315,7 +315,7 @@
         ],
         "ancestryGrant": "",
         "grantedBy": "",
-        "effectText": "Stress, Drain, Radius (Range 2), Strain 4",
+        "effectText": "Stress, Drain, Radius (Range 2), Strain 5",
         "description": ""
       },
       "effects": [],
@@ -365,7 +365,7 @@
         ],
         "ancestryGrant": "",
         "grantedBy": "",
-        "effectText": "Stress, -1 [target Attribute] (1 minute), Strain 1",
+        "effectText": "Stress, -1 [target Attribute] (1 minute), Strain 2",
         "description": ""
       },
       "effects": [],
@@ -423,7 +423,7 @@
         ],
         "ancestryGrant": "",
         "grantedBy": "",
-        "effectText": "Stress, Pierce 2, -1 [target Attribute]",
+        "effectText": "Stress, Pierce 2, -1 [target Attribute], Strain 1",
         "description": ""
       },
       "effects": [],
@@ -470,7 +470,7 @@
         "formerNames": [],
         "ancestryGrant": "",
         "grantedBy": "",
-        "effectText": "Stress, -1 Oppose (1 minute)",
+        "effectText": "Stress, -1 Oppose (1 minute), Strain 1",
         "description": ""
       },
       "effects": [],

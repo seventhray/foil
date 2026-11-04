@@ -22,7 +22,7 @@ import crypto from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
 import { rangeBandOf, rangeMinOf } from "../src/constants.js";
-import { priceTechnique, strainFor } from "../src/pricing.js";
+import { priceTechnique, strainFor, STRAIN_FREE_XP } from "../src/pricing.js";
 import { GUIDE } from "./guide-content.mjs";
 import {
   SYSTEM_ROOT, SYSTEM_VERSION, readPHB, readCatalog, tableAfter, sectionText, setting
@@ -306,7 +306,7 @@ function techniqueDoc(n) {
   // Strain comes from the XP less the Selective premium and the Sonic reach (PHB 4.2.3).
   const charges = (perTarget ? 8 : 0) + (effects.length && priced(effects).reach ? 8 : 0);
   if (n.strain !== undefined && n.strain !== null && Number(n.strain) !== strainFor(xp - charges)) {
-    warnings.push(`${n.name}: printed Strain ${n.strain}, floor((${xp - charges}-24)/8) = ${strainFor(xp - charges)}`);
+    warnings.push(`${n.name}: printed Strain ${n.strain}, floor((${xp - charges}-${STRAIN_FREE_XP})/8) = ${strainFor(xp - charges)}`);
   }
   const skillMatch = String(n.requires ?? "").match(/\b(Prowess|Discipline|Assertiveness|Acuity|Guile|Resonance)\b/);
   return {
@@ -367,8 +367,10 @@ function typeSlug(t) {
 function builtinsFrom(text) {
   return [...String(text).matchAll(/\*\*(.+?)\*\* \((\w+)\): (.+?)(?=(?:,? and )?\*\*|<br>|$)/g)]
     .map(m => {
-      // Its effect is the first sentence; "Signature." marks the family's signature, and any later sentence is about the row as a whole.
-      const first = m[3].replace(/,\s*$/, "").trim().split(/(?<=\.)\s+/)[0];
+      // Its effect is its sentences up to "Signature.", "X is its signature." or the backing, which are about the row as a whole.
+      const parts = m[3].replace(/,\s*$/, "").trim().split(/(?<=\.)\s+/);
+      const end = parts.findIndex(t => /^(Signature\.|\w+ is its signature\.|It backs\b|Backs\b)/i.test(t));
+      const first = parts.slice(0, end < 0 ? parts.length : Math.max(1, end)).join(" ");
       return { name: m[1], skill: lc(m[2]), effect: /[.!?]$/.test(first) ? first : `${first}.`, signature: /\bSignature\./i.test(m[3]) };
     });
 }

@@ -118,7 +118,7 @@
           {
             "name": "Weaken",
             "skill": "discipline",
-            "effect": "Applies Weakened [Finesse].",
+            "effect": "Deals Stress to Might or Finesse. Applies Weakened -2 [Finesse]. Strain 2.",
             "signature": true
           }
         ],
@@ -161,7 +161,7 @@
           {
             "name": "Restrain",
             "skill": "discipline",
-            "effect": "Applies Restrained.",
+            "effect": "Deals Stress to Might or Finesse. Applies Restrained. Strain 3.",
             "signature": true
           }
         ],
@@ -204,7 +204,7 @@
           {
             "name": "Restrain",
             "skill": "discipline",
-            "effect": "Applies Restrained.",
+            "effect": "Deals Stress to Might or Finesse. Applies Restrained. Strain 3.",
             "signature": true
           }
         ],
@@ -305,7 +305,7 @@
         "formerNames": [],
         "ancestryGrant": "",
         "grantedBy": "",
-        "effectText": "Stress, Restrained",
+        "effectText": "Stress, Restrained, Strain 1",
         "description": ""
       },
       "effects": [],
@@ -363,7 +363,7 @@
         ],
         "ancestryGrant": "",
         "grantedBy": "",
-        "effectText": "Stress, Pierce 2, -1 [target Attribute]",
+        "effectText": "Stress, Pierce 2, -1 [target Attribute], Strain 1",
         "description": ""
       },
       "effects": [],

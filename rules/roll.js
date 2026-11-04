@@ -168,12 +168,14 @@ export function* rollSkillSteps({ actor, skill, fmt = PLAIN }) {
 }
 
 /**
- * Roll one of an Instrument's built-in Techniques (PHB 4.1.3). A signature costs the Action at any weight and takes the Strain it states.
+ * Roll one of an Instrument's built-in Techniques (PHB 4.1.3). A signature deals Stress and applies its effect, costs the Action at any
+ * weight (and the Quick Action too through a Heavy Instrument, like any Stress Technique), and takes the Strain it states. Its effect
+ * rides the Stress (`also`, when the host applies Conditions; a note otherwise), as a learned Technique's does.
  * One of Voice's Techniques lists the ready Instruments that back it (backersOf); the payload carries them for the host to add +2 against
  * each target one reaches. A Sonic Instrument's Condition reaches every hearer its user chooses within its Range, each Opposing on its
  * own (PHB 4.1.1): the payload says so in `group`.
  */
-export function* rollKitSteps({ actor, inst, index, unaware = false, feats = false, fmt = PLAIN }) {
+export function* rollKitSteps({ actor, inst, index, unaware = false, feats = false, conditions = false, fmt = PLAIN }) {
   const { esc, br, arrow } = fmt;
   const sys = actor.system;
   const kit = inst?.system.kit?.[Number(index)];
@@ -183,19 +185,25 @@ export function* rollKitSteps({ actor, inst, index, unaware = false, feats = fal
   if (inst.system.location === "stored") notes.push(storedNote(inst, esc));
   else if (!inst.system.innate && inst.system.location !== "equipped") notes.push(`${esc(inst.name)} isn't equipped: switching to it costs the Quick Action (PHB 4.1.0).`);
   const stress = /Deals Stress/i.test(kit.effect);
-  if (kit.signature) notes.push("Signature: costs the Action, whatever the weight (PHB 4.1.3).");
+  if (kit.signature) notes.push("Signature: costs the Action (PHB 4.1.3).");
   else if (inst.system.quick) notes.push("Light: after an Action through a Light Instrument, the Quick Action can pay for this (PHB 4.2.2).");
   if (inst.system.doublesMargin && stress) notes.push("Heavy: costs the Action and the Quick Action; the margin doubles (PHB 4.1.1).");
   if (inst.system.reload) notes.push(`Reload: ${inst.system.reload === "quick" ? "Quick Action" : "Action"}.`);
   // "Disarms." is Opposed with Might (PHB 4.2.1).
-  const disarms = !stress && /^Disarms\b/i.test(kit.effect);
-  // "Applies Reeling.", or "Applies Weakened [Finesse]." naming the Attribute it weakens and is resisted with (PHB 6.8.4).
-  const match = !stress && !disarms ? kit.effect.match(/^Applies (Foil Exposed|\w+)(?: \[(\w+)\])?/i) : null;
+  const disarms = /(^|\. )Disarms\b/i.test(kit.effect);
+  // "Applies Reeling.", or "Applies Weakened -2 [Finesse]." naming the Attribute it weakens and is resisted with (PHB 6.8.4).
+  const match = !disarms ? kit.effect.match(/(?:^|\. )Applies (Foil Exposed|\w+)(?: -(\d+))?(?: \[(\w+)\])?/i) : null;
   const applied = match?.[1];
-  const named = ATTRIBUTE_KEYS.find(k => ATTR_LABEL[k].toLowerCase() === String(match?.[2] ?? "").toLowerCase()) ?? "";
-  const kitCond = disarms ? { ...DISARM } : applied === "Weakened" ? { name: applied, note: named ? ATTR_LABEL[named] : "", attr: named } : applied ? { name: applied, note: "" } : null;
+  const weakenN = Number(match?.[2] ?? 1);
+  const named = ATTRIBUTE_KEYS.find(k => ATTR_LABEL[k].toLowerCase() === String(match?.[3] ?? "").toLowerCase()) ?? "";
+  const kitCond = disarms ? { ...DISARM } : applied === "Weakened" ? { name: applied, note: `${named ? `${ATTR_LABEL[named]} ` : ""}${weakenN}`, attr: named } : applied ? { name: applied, note: "" } : null;
   const kitResist = kitCond ? conditionAttr(kitCond) : "";
   if (kitResist) notes.push(`The target resists with any ${ATTR_LABEL[kitResist]} Skill (PHB ${disarms ? "4.2.1" : "6.8.0"}).`);
+  // A signature's effect lands with its Stress on the same Oppose (PHB 4.1.3).
+  const alsoKit = stress && kitCond && conditions ? kitCond : null;
+  if (stress && kitCond) notes.push(`If it lands, the target is also ${kitCond.name}${kitCond.note ? ` (${kitCond.note})` : ""}.`);
+  const rider = stress ? kit.effect.match(/\. (Moves the target up to Range \d+|Lingering \d+)\./i)?.[1] : null;
+  if (rider) notes.push(`If it lands: ${rider}.`);
   const targeted = stress || disarms || /^Applies\b/i.test(kit.effect);
   if (targeted && inst.system.weightDice) notes.push(`${inst.system.weightLabel}: +${inst.system.weightDice}.`);
   notes.push(...(yield ["rangeNotes", { band: inst.system.rangeBand, min: inst.system.minRange }]));
@@ -226,10 +234,10 @@ export function* rollKitSteps({ actor, inst, index, unaware = false, feats = fal
     payload: {
       cond: true,
       ...(backers.length ? { backers } : {}),
-      condition: kitResist ? { name: kit.name, condition: kitCond, melee: !!inst.system.isMelee, ...(group ? { group: true } : {}) } : null,
+      condition: kitResist && !stress ? { name: kit.name, condition: kitCond, melee: !!inst.system.isMelee, ...(group ? { group: true } : {}) } : null,
       stress: stress ? { inst, name: kit.name, aim,
         bespoke: [{ label: kit.name, value: bespokeBonus(kit.effect) }, { label: `${inst.name} Enchantment`, value: Number(inst.system.enchantStress ?? 0) }, ...fb.stress],
-        pierce: [{ label: kit.name, value: kitPierce(kit) }, ...enchantPierceParts(inst)] } : null
+        pierce: [{ label: kit.name, value: kitPierce(kit) }, ...enchantPierceParts(inst)], ...(alsoKit ? { also: alsoKit } : {}) } : null
     }
   }]);
 }

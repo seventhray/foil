@@ -59,7 +59,7 @@ p("Instruments, Types, and Properties", `
 <tr><td>Immobile</td><td>Fixed in place</td></tr>
 <tr><td>Tools</td><td>Its rolls are Trades</td></tr>
 </tbody></table>
-<p>A Melee, Ranged, or Sonic Instrument has two <strong>built-in Techniques</strong> (PHB 4.1.3). Most pair a Stress Technique with its family's <strong>signature</strong>. A signature costs the Action at any weight. A signature priced over 11 XP costs 1 Strain for each full 8 XP over. The third Skill <strong>backs</strong> Voice: while the Instrument is ready, Voice's Technique on that Skill gets +2 against a target within its Range. An Arcane Instrument has no built-ins.</p>
+<p>A Melee, Ranged, or Sonic Instrument has two <strong>built-in Techniques</strong> (PHB 4.1.3). One is its family's <strong>signature</strong>, a built-in Technique that deals Stress and applies an effect. A signature costs the Action, and 1 Strain for each full 8 XP of its price. The third Skill <strong>backs</strong> Voice: while the Instrument is ready, Voice's Technique on that Skill gets +2 against a target within its Range. An Arcane Instrument has no built-ins.</p>
 <p>Every character has three innate Instruments, always ready. <strong>Body</strong> is Might Primary, Light, Melee, Grappling, Range 1: Strike and Grapple, and it backs Threaten. <strong>Voice</strong> is Presence Primary, Light, Sonic, Range 8: Threaten, Deceive, and Persuade, each dealing Stress or applying one of two Conditions. <strong>Mind</strong> is Wit Primary, Light, Range 2: Deduce, Analyze, Intuit.</p>
 <p>Light, Medium, and Heavy are weight classes. They set an Instrument's base price (15p, 30p, 45p) and its carried weight (2, 4, 8 lbs). A Heavy Instrument takes both hands. A Stress Technique through it costs the Action and the Quick Action, and its margin doubles before the cap. After an Action through a Light Instrument, the Quick Action can use a Light Instrument's built-in Technique other than a signature.</p>`),
 
@@ -77,7 +77,7 @@ p("Stress, Resistance, and Incapacitation", `
 
 p("Actions and Strain", `
 <p>Each round a character gets one <strong>Action</strong> and one <strong>Quick Action</strong>. The Quick Action is spent on your turn or held to use reactively, one use either way. Moving up to 20 feet is free; another 20 costs the Quick Action. Initiative is an Acuity roll.</p>
-<p>A learned Technique carries <strong>Strain</strong>: floor((XP - 24) / 8) Stress to its own user, on the Instrument's Primary Attribute, whether it lands or not, ignoring Resistance. A Technique under 32 XP carries none. A built-in Technique carries only the Strain it states.</p>`),
+<p>A learned Technique carries <strong>Strain</strong>: floor((XP - 16) / 8) Stress to its own user, on the Instrument's Primary Attribute, whether it lands or not, ignoring Resistance. A Technique under 24 XP carries none. A built-in Technique carries only the Strain it states.</p>`),
 
 p("FOIL and Foil Tokens", `
 <p>Four axes describe how a character responds in the moment: <strong>Faith</strong> (Trusting or Mistrusting), <strong>Order</strong> (Methodical or Intuitive), <strong>Individualism</strong> (Individual or Communal), and <strong>Levity</strong> (Light or Grave). Each leans toward one end or stays Neutral (PHB 3.1.0).</p>
@@ -145,7 +145,7 @@ p("Pricing a Technique", `
 <li>Add 4 XP for every Effect beyond the first. Quick and Upkeep don't count; Upkeep costs a flat 4 XP and Quick 3.</li>
 <li>A Technique that aims only at allies or its user, a ward or bonus lasting 1 round or longer, or a Quick trigger costs at least 8 XP.</li>
 <li>A Sonic Technique with a Condition adds 8 XP for its reach (PHB 4.2.4).</li>
-<li>Strain is floor((XP - 24) / 8), never below 0. A Selective Technique, or a Sonic Technique with a Condition, takes its Strain from its XP less the 8 XP charge.</li>
+<li>Strain is floor((XP - 16) / 8), never below 0. A Selective Technique, or a Sonic Technique with a Condition, takes its Strain from its XP less the 8 XP charge.</li>
 </ol>
 <table><thead><tr><th>Effect</th><th>XP</th></tr></thead><tbody>
 <tr><td>Stress</td><td>4</td></tr>

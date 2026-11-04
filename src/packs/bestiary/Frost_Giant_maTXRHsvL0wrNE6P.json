@@ -121,7 +121,7 @@
           {
             "name": "Topple",
             "skill": "discipline",
-            "effect": "Applies Prone.",
+            "effect": "Deals Stress to Might or Finesse. Applies Prone. Strain 2.",
             "signature": true
           }
         ],

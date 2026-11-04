@@ -124,7 +124,7 @@
           {
             "name": "Stun",
             "skill": "discipline",
-            "effect": "Applies Stunned. Strain 1.",
+            "effect": "Deals Stress to Might or Finesse. Applies Stunned. Strain 4.",
             "signature": true
           }
         ],
@@ -328,7 +328,7 @@
         ],
         "ancestryGrant": "",
         "grantedBy": "",
-        "effectText": "Controlled, Upkeep, Strain 1",
+        "effectText": "Controlled, Upkeep, Strain 2",
         "description": ""
       },
       "effects": [],
@@ -386,7 +386,7 @@
         ],
         "ancestryGrant": "",
         "grantedBy": "",
-        "effectText": "Stress, -1 [target Attribute] (1 minute), Move the target up to Range 2, Strain 2",
+        "effectText": "Stress, -1 [target Attribute] (1 minute), Move the target up to Range 2, Strain 3",
         "description": ""
       },
       "effects": [],
@@ -444,7 +444,7 @@
         ],
         "ancestryGrant": "",
         "grantedBy": "",
-        "effectText": "Stress, -1 [target Attribute], Radius (Range 2), Strain 3",
+        "effectText": "Stress, -1 [target Attribute], Radius (Range 2), Strain 4",
         "description": ""
       },
       "effects": [],

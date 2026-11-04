@@ -213,7 +213,7 @@ const x = (effects, opts) => priceTechnique(effects, REG, opts).xp;
 check("Sunder (Stress, Pierce 1) is 12", () => eq(x([{ key: "stress" }, { key: "pierce", magnitude: 1 }]), 12));
 check("a Technique's price math names each Effect, the premium, and Strain", () => {
   const m = priceTechnique([{ key: "stress" }, { key: "pierce", magnitude: 1 }, { key: "weaken", magnitude: 1 }], REG).math;
-  return eq([/= 22/.test(m), /premium 8 \(2 Effects past the first x4\)/.test(m), /Strain: \(22 - 24\) \/ 8, rounded down, at least 0 = 0/.test(m)], [true, true, true]);
+  return eq([/= 22/.test(m), /premium 8 \(2 Effects past the first x4\)/.test(m), /Strain: \(22 - 16\) \/ 8, rounded down, at least 0 = 0/.test(m)], [true, true, true]);
 });
 check("Gutting Blow (Stress, Pierce 1, -1 Attribute) is 22", () => eq(x([{ key: "stress" }, { key: "pierce", magnitude: 1 }, { key: "weaken", magnitude: 1 }]), 22));
 check("Harrow (Stress, -1 Attribute, Cone Near) is 27", () => eq(x([{ key: "stress" }, { key: "weaken", magnitude: 1 }, { key: "pattern", pattern: "cone", bands: 2 }]), 27));
@@ -226,7 +226,7 @@ check("-2 Oppose for 1 round is 8, a modifier is linear in N", () => eq([x([{ ke
 check("Hexing Bolt (Stress, +2 this roll) is 12", () => eq(x([{ key: "stress" }, { key: "roll-bonus", magnitude: 2 }]), 12));
 check("Warding Stance (+1, Fortifying floor) is 8", () => eq(x([{ key: "skill-mod", magnitude: 1 }], { floor: true }), 8));
 check("pattern and selective costs", () => eq([patternCost("beam", 3), patternCost("cone", 2), patternCost("radius", 2), selectiveCost(3)], [6, 9, 36, 3]));
-check("Strain is floor((XP - 24) / 8), never below 0", () => eq([7, 8, 31, 32, 39, 40, 56, 66].map(strainFor), [0, 0, 0, 1, 1, 2, 4, 5]));
+check("Strain is floor((XP - 16) / 8), never below 0", () => eq([7, 16, 23, 24, 31, 32, 48, 58].map(strainFor), [0, 0, 0, 1, 1, 2, 4, 5]));
 check("Fortifying in its Requirement sets the 8 XP floor on its own", () => {
   globalThis.CONFIG.FOIL.effects = REG;
   const t = new TechniqueData({ requires: ["fortifying"], effects: [{ key: "resistance", magnitude: 1 }] }); t.prepareDerivedData();

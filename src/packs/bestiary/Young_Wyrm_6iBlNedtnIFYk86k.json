@@ -115,7 +115,7 @@
           {
             "name": "Weaken",
             "skill": "acuity",
-            "effect": "Applies Weakened [Finesse].",
+            "effect": "Deals Stress to Might or Finesse. Applies Weakened -2 [Finesse]. Strain 2.",
             "signature": true
           }
         ],
@@ -157,7 +157,7 @@
           {
             "name": "Bleed",
             "skill": "acuity",
-            "effect": "Lingering 1.",
+            "effect": "Deals Stress to Might or Finesse. Lingering 1. Strain 1.",
             "signature": true
           }
         ],
@@ -236,7 +236,7 @@
           {
             "name": "Topple",
             "skill": "acuity",
-            "effect": "Applies Prone.",
+            "effect": "Deals Stress to Might or Finesse. Applies Prone. Strain 2.",
             "signature": true
           }
         ],
@@ -521,7 +521,7 @@
         "formerNames": [],
         "ancestryGrant": "",
         "grantedBy": "",
-        "effectText": "Stress, -1 Oppose (1 minute)",
+        "effectText": "Stress, -1 Oppose (1 minute), Strain 1",
         "description": ""
       },
       "effects": [],

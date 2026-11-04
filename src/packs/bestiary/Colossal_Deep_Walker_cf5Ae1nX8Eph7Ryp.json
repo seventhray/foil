@@ -118,7 +118,7 @@
           {
             "name": "Push",
             "skill": "discipline",
-            "effect": "Moves the target up to Range 2.",
+            "effect": "Deals Stress to Might or Finesse. Moves the target up to Range 2. Strain 1.",
             "signature": true
           }
         ],
@@ -161,7 +161,7 @@
           {
             "name": "Restrain",
             "skill": "discipline",
-            "effect": "Applies Restrained.",
+            "effect": "Deals Stress to Might or Finesse. Applies Restrained. Strain 3.",
             "signature": true
           }
         ],
@@ -204,7 +204,7 @@
           {
             "name": "Slow",
             "skill": "discipline",
-            "effect": "Applies Slowed.",
+            "effect": "Deals Stress to Might or Finesse. Applies Slowed. Strain 1.",
             "signature": true
           }
         ],
@@ -255,7 +255,7 @@
         "formerNames": [],
         "ancestryGrant": "",
         "grantedBy": "",
-        "effectText": "Stress, -1 [target Attribute] (1 minute), Strain 1",
+        "effectText": "Stress, -1 [target Attribute] (1 minute), Strain 2",
         "description": ""
       },
       "effects": [],
@@ -310,7 +310,7 @@
         "formerNames": [],
         "ancestryGrant": "",
         "grantedBy": "",
-        "effectText": "Stress, Prone, -1 [target Attribute] (1 minute), Strain 2",
+        "effectText": "Stress, Prone, -1 [target Attribute] (1 minute), Strain 3",
         "description": ""
       },
       "effects": [],
@@ -360,7 +360,7 @@
         ],
         "ancestryGrant": "",
         "grantedBy": "",
-        "effectText": "Stress, Restrained",
+        "effectText": "Stress, Restrained, Strain 1",
         "description": ""
       },
       "effects": [],
@@ -411,7 +411,7 @@
         ],
         "ancestryGrant": "",
         "grantedBy": "",
-        "effectText": "Stress, -1 [target Attribute] (1 minute), Strain 1",
+        "effectText": "Stress, -1 [target Attribute] (1 minute), Strain 2",
         "description": ""
       },
       "effects": [],

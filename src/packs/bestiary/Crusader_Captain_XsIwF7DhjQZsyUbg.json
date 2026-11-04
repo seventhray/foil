@@ -125,7 +125,7 @@
           {
             "name": "Disarm",
             "skill": "discipline",
-            "effect": "Disarms.",
+            "effect": "Deals Stress to Might or Finesse. Disarms. Strain 2.",
             "signature": true
           }
         ],
@@ -175,7 +175,7 @@
           {
             "name": "Push",
             "skill": "discipline",
-            "effect": "Moves the target up to Range 2.",
+            "effect": "Deals Stress to Might or Finesse. Moves the target up to Range 2. Strain 1.",
             "signature": true
           }
         ],
@@ -339,7 +339,7 @@
         ],
         "ancestryGrant": "",
         "grantedBy": "",
-        "effectText": "Stress, Pierce 2, -1 [target Attribute]",
+        "effectText": "Stress, Pierce 2, -1 [target Attribute], Strain 1",
         "description": ""
       },
       "effects": [],

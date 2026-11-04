@@ -118,7 +118,7 @@
           {
             "name": "Push",
             "skill": "acuity",
-            "effect": "Moves the target up to Range 2.",
+            "effect": "Deals Stress to Might or Finesse. Moves the target up to Range 2. Strain 1.",
             "signature": true
           }
         ],
@@ -161,7 +161,7 @@
           {
             "name": "Slow",
             "skill": "acuity",
-            "effect": "Applies Slowed.",
+            "effect": "Deals Stress to Might or Finesse. Applies Slowed. Strain 1.",
             "signature": true
           }
         ],
@@ -212,7 +212,7 @@
         "formerNames": [],
         "ancestryGrant": "",
         "grantedBy": "",
-        "effectText": "Stress, Restrained",
+        "effectText": "Stress, Restrained, Strain 1",
         "description": ""
       },
       "effects": [],

@@ -118,7 +118,7 @@
           {
             "name": "Weaken",
             "skill": "discipline",
-            "effect": "Applies Weakened [Finesse].",
+            "effect": "Deals Stress to Might or Finesse. Applies Weakened -2 [Finesse]. Strain 2.",
             "signature": true
           }
         ],
@@ -161,7 +161,7 @@
           {
             "name": "Restrain",
             "skill": "discipline",
-            "effect": "Applies Restrained.",
+            "effect": "Deals Stress to Might or Finesse. Applies Restrained. Strain 3.",
             "signature": true
           }
         ],
@@ -203,7 +203,7 @@
           {
             "name": "Topple",
             "skill": "discipline",
-            "effect": "Applies Prone.",
+            "effect": "Deals Stress to Might or Finesse. Applies Prone. Strain 2.",
             "signature": true
           }
         ],
@@ -262,7 +262,7 @@
         "formerNames": [],
         "ancestryGrant": "",
         "grantedBy": "",
-        "effectText": "Stress, Prone, -1 [target Attribute] (1 minute), Strain 2",
+        "effectText": "Stress, Prone, -1 [target Attribute] (1 minute), Strain 3",
         "description": ""
       },
       "effects": [],

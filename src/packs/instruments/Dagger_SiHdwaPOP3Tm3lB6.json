@@ -29,7 +29,7 @@
       {
         "name": "Bleed",
         "skill": "acuity",
-        "effect": "Lingering 1.",
+        "effect": "Deals Stress to Might or Finesse. Lingering 1. Strain 1.",
         "signature": true
       }
     ],

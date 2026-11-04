@@ -43,7 +43,7 @@
     ],
     "ancestryGrant": "",
     "grantedBy": "",
-    "effectText": "Stress, Pierce 2, -1 [target Attribute]",
+    "effectText": "Stress, Pierce 2, -1 [target Attribute], Strain 1",
     "description": ""
   },
   "effects": [],

@@ -123,7 +123,7 @@
           {
             "name": "Bleed",
             "skill": "acuity",
-            "effect": "Lingering 1.",
+            "effect": "Deals Stress to Might or Finesse. Lingering 1. Strain 1.",
             "signature": true
           }
         ],
@@ -377,7 +377,7 @@
         ],
         "ancestryGrant": "",
         "grantedBy": "",
-        "effectText": "Stress, Illusion, -1 [target Attribute]",
+        "effectText": "Stress, Illusion, -1 [target Attribute], Strain 1",
         "description": ""
       },
       "effects": [],
@@ -470,7 +470,7 @@
         ],
         "ancestryGrant": "",
         "grantedBy": "",
-        "effectText": "Stress, Blinded",
+        "effectText": "Stress, Blinded, Strain 1",
         "description": ""
       },
       "effects": [],

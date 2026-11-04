@@ -118,7 +118,7 @@
           {
             "name": "Push",
             "skill": "discipline",
-            "effect": "Moves the target up to Range 2.",
+            "effect": "Deals Stress to Might or Finesse. Moves the target up to Range 2. Strain 1.",
             "signature": true
           }
         ],
@@ -198,7 +198,7 @@
           {
             "name": "Slow",
             "skill": "discipline",
-            "effect": "Applies Slowed.",
+            "effect": "Deals Stress to Might or Finesse. Applies Slowed. Strain 1.",
             "signature": true
           }
         ],
@@ -257,7 +257,7 @@
         "formerNames": [],
         "ancestryGrant": "",
         "grantedBy": "",
-        "effectText": "Stress, Prone, -1 [target Attribute] (1 minute), Strain 2",
+        "effectText": "Stress, Prone, -1 [target Attribute] (1 minute), Strain 3",
         "description": ""
       },
       "effects": [],
@@ -359,7 +359,7 @@
         "formerNames": [],
         "ancestryGrant": "",
         "grantedBy": "",
-        "effectText": "Stress, Radius (Range 2), Pierce 1, Strain 3",
+        "effectText": "Stress, Radius (Range 2), Pierce 1, Strain 4",
         "description": ""
       },
       "effects": [],
