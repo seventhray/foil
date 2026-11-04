@@ -4,13 +4,13 @@
  * raise a Skill's Training, or learn a Technique or Feat from the compendium.
  * Stays open across purchases so a session's award can be spent in one sitting.
  *
- * Costs (PHB 2.3.0): a die one size 8/12/16/20 XP by its size, d12 to d20 100 XP
- * (a Transformation, noted, not enforced; what it gives, PHB 7.3.0, is added by hand), a Know-how 1d4 12 XP plus 4 per die in the pool, +1 Training 8 XP plus 2 per point held
+ * Costs (PHB 2.3.0): a die one size the Attribute's Potential, d12 to d20 4 times it
+ * (a Transformation, noted, not enforced; what it gives, PHB 7.3.0, is added by hand), a Know-how 1d4 2 times it, +1 Training 8 XP plus 2 per point held
  * (capped at the dice in the Skill's two pools, PHB 2.2.1), a Technique or Feat
  * its listed XP. A Feat's Requirements are shown, and checked by the table.
  */
 
-import { ATTRIBUTE_KEYS, ATTR_LABEL, SKILL_KEYS, SKILL_LABEL, XP_COST, trainingCost, knowHowCost } from "../constants.js";
+import { ATTRIBUTE_KEYS, ATTR_LABEL, SKILL_KEYS, SKILL_LABEL, XP_COST, trainingCost, knowHowCost, talentCost, dicePotential } from "../constants.js";
 import { DIE_SIZES } from "../dice.js";
 import { termsIn } from "../glossary-ui.js";
 
@@ -18,8 +18,6 @@ const plain = v => String(v ?? "").replace(/<[^>]*>/g, "").trim();
 /** An entry's full text for the panel under a dropdown: effect, Requirement, description, glossary terms. */
 const detail = (effect, requires, description) => ({ effect: plain(effect), requires, description: plain(description),
   terms: termsIn(plain(effect)).slice(0, 4).map(t => ({ name: t.name, text: t.text })) });
-
-const dieStepCost = size => size >= 12 ? XP_COST.d12ToD20 : XP_COST.talent[size];
 
 
 const { HandlebarsApplicationMixin, ApplicationV2 } = foundry.applications.api;
@@ -55,17 +53,17 @@ export class FoilAdvancement extends HandlebarsApplicationMixin(ApplicationV2) {
     const attributeRows = ATTRIBUTE_KEYS.map(key => {
       const a = attrs[key] ?? {};
       const dice = a.dice ?? {};
+      const pot = dicePotential(dice);
       const steps = DIE_SIZES.slice(0, -1)
         .filter(size => Number(dice[`d${size}`] ?? 0) > 0)
         .map(size => {
           const next = DIE_SIZES[DIE_SIZES.indexOf(size) + 1];
           const note = size >= 12 ? " (a Transformation; add what it gives, PHB 7.3.0)" : "";
-          const math = size >= 12 ? `d12 to d20: ${XP_COST.d12ToD20} XP` : `a d${size} steps up for ${XP_COST.talent[size]} XP (8 per d4, 12 per d6, 16 per d8, 20 per d10)`;
-          return { size, next, cost: dieStepCost(size), label: `d${size} to d${next}${note}`, math };
+          const math = size >= 12 ? `${XP_COST.transformation} x Potential ${pot} = ${talentCost(dice, size)} XP` : `Potential ${pot} = ${talentCost(dice, size)} XP`;
+          return { size, next, cost: talentCost(dice, size), label: `d${size} to d${next}${note}`, math };
         });
-      const held = Object.values(dice).reduce((n, c) => n + (Number(c) || 0), 0);
       return { key, label: ATTR_LABEL[key], diceFormula: a.diceFormula || "none", steps,
-        newDieCost: knowHowCost(dice), newDieMath: `${XP_COST.knowHow.base} + ${XP_COST.knowHow.perDie} x ${held} dice held = ${knowHowCost(dice)} XP` };
+        newDieCost: knowHowCost(dice), newDieMath: `${XP_COST.knowHow} x Potential ${pot} = ${knowHowCost(dice)} XP` };
     });
 
     const skills = sys.skills ?? {};
@@ -116,7 +114,7 @@ export class FoilAdvancement extends HandlebarsApplicationMixin(ApplicationV2) {
     const dice = this.actor.system.attributes?.[key]?.dice ?? {};
     const current = Number(dice[`d${size}`] ?? 0);
     if (!current) return;
-    const ok = await this._spend(dieStepCost(size), {
+    const ok = await this._spend(talentCost(dice, size), {
       [`system.attributes.${key}.dice.d${size}`]: current - 1,
       [`system.attributes.${key}.dice.d${next}`]: Number(dice[`d${next}`] ?? 0) + 1
     });

@@ -243,19 +243,23 @@ export const RATION_LBS = 2;
 export const REST_BLOCK_HOURS = 2;
 export const REST_RATION_HOURS = 8;
 
-// Advancement costs (PHB 2.3.0).
-// Advancement (PHB 2.3.0). A Talent step costs by the die's current size; d12 to d20
-// is a Transformation (PHB 2.3.1, 7.3.0). Training climbs 2 per point already held.
-export const XP_COST = { talent: { 4: 8, 6: 12, 8: 16, 10: 20 }, d12ToD20: 100, knowHow: { base: 12, perDie: 4 }, training: 8, trainingStep: 2 };
+// Advancement (PHB 2.3.0). A Talent step, a Know-how d4, and a Transformation (d12 to d20,
+// PHB 2.3.1, 7.3.0) cost 1, 2, and 4 times the Attribute's Potential before the purchase.
+// Training climbs 2 per point already held.
+export const XP_COST = { talent: 1, knowHow: 2, transformation: 4, training: 8, trainingStep: 2 };
 /** Margin cap as a share of the Primary Attribute's Potential, by weight; Heavy doubles first (PHB 6.7.0). */
 export const MARGIN_CAP = { light: [1, 2, "half"], medium: [1, 1, "all of"], heavy: [1, 1, "all of"] };
 export const marginCap = (potential, key) => {
   const [n, d] = MARGIN_CAP[key] ?? MARGIN_CAP.light;
   return Math.floor((Number(potential) || 0) * n / d);
 };
-/** Know-how: 12 XP plus 4 per die already in the Attribute's pool (PHB 2.3.0). */
-export const knowHowCost = (dice = {}) =>
-  XP_COST.knowHow.base + XP_COST.knowHow.perDie * Object.values(dice).reduce((n, c) => n + (Number(c) || 0), 0);
+/** An Attribute's Potential from its dice, { d4: 2, d12: 1 } -> 20 (PHB 2.1.0). */
+export const dicePotential = (dice = {}) =>
+  Object.entries(dice).reduce((n, [k, c]) => n + (Number(k.replace("d", "")) || 0) * (Number(c) || 0), 0);
+/** Talent step: the Attribute's Potential; d12 to d20 is a Transformation, 4 times it (PHB 2.3.0, 2.3.1). */
+export const talentCost = (dice = {}, size = 4) => (size >= 12 ? XP_COST.transformation : XP_COST.talent) * dicePotential(dice);
+/** Know-how: 2 times the Attribute's Potential (PHB 2.3.0). */
+export const knowHowCost = (dice = {}) => XP_COST.knowHow * dicePotential(dice);
 export const trainingCost = held => XP_COST.training + XP_COST.trainingStep * Math.max(0, Number(held) || 0);
 
 // Behavior Traits (GMG 9.8.0). Declarative, never rolled.
