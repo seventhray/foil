@@ -272,8 +272,10 @@ export function* resolveOpposeSteps({ defender: actor, attacker, flag, fmt = PLA
     }
     if (go && amount) yield* applyStressSteps(actor, aim, amount, halved, from, fmt, { secondWind, spread });
   }
-  // A Stress Technique's Condition lands with it, on the same Oppose (rollTechniqueSteps `conditions`).
-  if (flag.also) yield* landConditionSteps(actor, flag.also, attackerName);
+  // A Stress Technique's or signature's Condition lands with it, on the same Oppose (rollTechniqueSteps, rollKitSteps `conditions`).
+  // A Disarm drops an Instrument (PHB 4.2.1).
+  if (flag.also?.disarm) yield* disarmSteps(actor, flag, versus, lastInstrument);
+  else if (flag.also) yield* landConditionSteps(actor, flag.also, attackerName);
 }
 
 /** The Instruments a Disarm can make the defender drop (PHB 4.2.1): ready ones it holds, so not innate or Immobile. */
