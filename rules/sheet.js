@@ -115,7 +115,7 @@ export function deriveCore(sys, items = [], loads = []) {
     // Where the bonus comes from, each Background or Feat by name, for the math (PHB 2.5.0).
     sk.trainingSources = (mods.trainingSources?.[key] ?? []).map(e => ({ ...e }));
     sk.trainingTotal = sk.trainingBase + sk.trainingBonus;
-    // Gear's +N to a Skill adds to rolls without being Training (PHB 7.9.4).
+    // Gear's +N to a Skill adds to rolls without being Training (PHB 7.7.4).
     sk.skillBonus    = Number(mods.skillBonus?.[key] ?? 0);
     const flat       = sk.trainingTotal + sk.skillBonus;
     // Training can't pass the dice in the Skill's two pools (PHB 2.2.1).

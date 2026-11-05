@@ -113,7 +113,7 @@ export const PROPERTY_PRICE = 10;
 export const REACH_PRICE_PER_BAND = 10;
 
 /**
- * The usual Range for an Instrument's kind; reach past it adds 10p a band (PHB 5.2.2, 7.10.1). Melee Range 1, Thrown or a Net
+ * The usual Range for an Instrument's kind; reach past it adds 10p a band (PHB 5.2.2, 7.8.1). Melee Range 1, Thrown or a Net
  * Range 4, Drawn Range 8, Fired Range 20, a Light arcane focus Range 4, a staff or tome Range 8, Sonic Range 8.
  */
 export function usualRange(type, weight, types = []) {
@@ -139,7 +139,7 @@ export const BONUS_PRICE = {
   large:  [0, 30, 90, 270, 800, 2400]
 };
 
-// Materials (PHB 5.3.1, 7.10.2): Tier price by Scarcity. The named material is description.
+// Materials (PHB 5.3.1, 7.8.2): Tier price by Scarcity. The named material is description.
 export const MATERIAL_CATEGORIES = ["metal", "gemstone", "wood", "textile", "leather", "reagent", "stone"];
 export const MATERIAL_CATEGORY_LABEL = {
   metal: "Metal", gemstone: "Gemstone", wood: "Wood", textile: "Textile",
@@ -161,7 +161,7 @@ export const EQUIPMENT_CATEGORY_LABEL = {
   armor: "Armor", shield: "Shield", ward: "Ward", charm: "Charm", gear: "Gear"
 };
 export const EQUIPMENT_CATEGORIES = Object.keys(EQUIPMENT_CATEGORY_LABEL);
-// Medicine, poisons and throwables were Equipment categories before Consumables became their own item type (PHB 7.9.5,
+// Medicine, poisons and throwables were Equipment categories before Consumables became their own item type (PHB 7.7.5,
 // user 2026-10-27). An Equipment item still holding one of them is a Consumable waiting to be moved over.
 export const LEGACY_CONSUMABLE_CATEGORIES = ["medicine", "potion"];
 

@@ -67,7 +67,7 @@ export function deriveInstrument(sys, registry = {}) {
   sys.materialTier = Math.max(Number(sys.tier ?? 0), Number(sys.bonus ?? 0));
   // Crafting (PHB 5.3.2): the size's batches at the item's Tier (its bonus).
   sys.craftCost = (SIZE[sys.size]?.batches ?? 2) * (MATERIAL_TIER_PRICE[sys.bonus] ?? 0);
-  sys.bonusMath = `+${sys.bonus} on a ${SIZE[sys.size]?.label ?? sys.size} item = ${sys.bonusPrice}p (PHB 7.10.1)`;
+  sys.bonusMath = `+${sys.bonus} on a ${SIZE[sys.size]?.label ?? sys.size} item = ${sys.bonusPrice}p (PHB 7.8.1)`;
   sys.craftMath = `${SIZE[sys.size]?.batches ?? 2} batches (${SIZE[sys.size]?.label ?? sys.size}) x Tier ${sys.bonus} Common ${MATERIAL_TIER_PRICE[sys.bonus] ?? 0}p = ${sys.craftCost}p (PHB 5.3.1, 5.3.2)`;
 
   // What its Type and Properties do (PHB 4.1.1).
@@ -261,7 +261,7 @@ export function deriveEquipment(sys, registry = {}) {
   }
 }
 
-/** A Consumable's derived fields (PHB 7.9.5): the stack's Mass, each one's times its quantity, and its uses as a number. */
+/** A Consumable's derived fields (PHB 7.7.5): the stack's Mass, each one's times its quantity, and its uses as a number. */
 export function deriveConsumable(sys) {
   sys.quantity = Math.max(0, Math.trunc(Number(sys.quantity ?? 1)));
   sys.carriedWeight = (Number(sys.weight) || 0) * sys.quantity;
