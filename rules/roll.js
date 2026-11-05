@@ -29,7 +29,8 @@ import { attackScopes } from "./resist.js";
 import { featBonuses } from "./feats.js";
 import { kitStrain, kitPierce } from "./items.js";
 import { currentRequires, meetsRequirement, thrownFor, THROWN_BAND, typeOf } from "./types.js";
-import { RANGE_STEP } from "./constants.js";
+import { RANGE_BANDS, RANGE_LABEL, RANGE_STEP } from "./constants.js";
+import { STRAIN_DIVISOR, STRAIN_FREE_XP } from "./pricing.js";
 import { driveAsync } from "./flow.js";
 
 /** No Feat bonuses: a host that leaves them to the table (Foundry) passes no `feats`. */
@@ -300,7 +301,13 @@ export function* rollTechniqueSteps({ actor, tech, unaware = false, feats = fals
   if (inst?.system.doublesMargin) notes.push("Heavy: costs the Action and the Quick Action; the margin doubles (PHB 4.1.1).");
 
   const extend = (sys.effects ?? []).filter(e => e.key === "extend-range").reduce((n, e) => n + Number(e.bands || 1), 0);
-  notes.push(...(yield ["rangeNotes", { band: inst ? (thrown ? THROWN_BAND : inst.system.rangeBand) : sys.range, min: sys.minRange || inst?.system.minRange, extend }]));
+  // A Radius with no Placement is centered on the caster (PHB 4.2.4): it reaches as far as the Radius, whatever the Instrument's reach.
+  const around = (sys.effects ?? []).find(e => e.pattern === "radius" && !Number(e.placement));
+  if (around) {
+    const band = RANGE_BANDS[Math.min(RANGE_BANDS.length - 1, Math.max(0, Number(around.bands) || 0))];
+    notes.push(`Radius: ${RANGE_LABEL[band]} around ${esc(actor.name)}, centered on the caster (PHB 4.2.4).`);
+    notes.push(...(yield ["rangeNotes", { band, min: "", extend: 0 }]).filter(l => !/^Range: /.test(l)));
+  } else notes.push(...(yield ["rangeNotes", { band: inst ? (thrown ? THROWN_BAND : inst.system.rangeBand) : sys.range, min: sys.minRange || inst?.system.minRange, extend }]));
   // The Condition it applies, if it deals no Stress. Weakened -N [target Attribute] is aimed like Stress: the Attribute
   // aimed at is the one weakened, and the one the target resists with (PHB 6.8.4).
   const applied = !sys.dealsStress ? (sys.effects ?? []).find(e => CONDITION_OPPOSE[EFFECT_CONDITION[e.key]] || EFFECT_CONDITION[e.key] === "Weakened" || e.key === "disarm") : null;
@@ -319,7 +326,7 @@ export function* rollTechniqueSteps({ actor, tech, unaware = false, feats = fals
     const charges = [sys.perTarget ? "the Selective premium" : "", sys.sonicReach ? "the Sonic reach" : ""].filter(Boolean);
     const xp = Number(sys.xpCost ?? 0) - 8 * charges.length;
     const max = Number(asys.attributes?.[attr]?.potential?.max ?? 0);
-    notes.push(`Strain ${sys.strain} on ${ATTR_LABEL[attr]} (Stress ${max - before} ${arrow} ${max - after} of ${max}): (${xp} XP${charges.length ? ` before ${charges.join(" and ")}` : ""} - 24) / 8, rounded down (PHB 4.2.3).`);
+    notes.push(`Strain ${sys.strain} on ${ATTR_LABEL[attr]} (Stress ${max - before} ${arrow} ${max - after} of ${max}): (${xp} XP${charges.length ? ` before ${charges.join(" and ")}` : ""} - ${STRAIN_FREE_XP}) / ${STRAIN_DIVISOR}, rounded down (PHB 4.2.3).`);
   }
 
   // A Learned Feat's +1s, when the host counts them (rules/feats.js): by the Attribute aimed at, or the one its Condition is resisted with.

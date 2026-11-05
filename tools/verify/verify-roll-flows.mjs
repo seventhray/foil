@@ -241,7 +241,7 @@ if (!pierceSeen) { bad++; console.log("  FAIL  no scenario reached a Technique's
       if (id === "shot1") expect("Toppling Shot through the Dagger is thrown: Range 4, a Ranged hit, not Melee",
         /Thrown: Dagger counts as Ranged for Toppling Shot/.test(text) && /Range 4/.test(text) && st?.melee === false && st?.attackInfo?.types?.join() === "ranged");
       if (id === "strike1") expect("Toppling Strike through the Dagger stays Melee", !/Thrown/.test(text) && st?.melee === true && st?.attackInfo?.types?.join() === "melee");
-      if (id === "cry1") expect("Lasting Weakening Cry's Strain note leaves out the Sonic reach", /\(32 XP before the Sonic reach - 24\) \/ 8/.test(text));
+      if (id === "cry1") expect("Lasting Weakening Cry's Strain note leaves out the Sonic reach", /\(32 XP before the Sonic reach - 16\) \/ 8/.test(text));
     }
   }
 }

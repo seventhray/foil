@@ -11,7 +11,8 @@
  * Two rules of 2026-11-03 are carried in, marked RULE 2026-11-03: a Strain note leaves out the Sonic reach's 8 XP as it does the
  * Selective premium, and a Melee Instrument with Thrown meets a Ranged Requirement by being thrown (Range 4, a Ranged hit).
  * RULE 2026-11-04 is carried in: a signature deals Stress and applies its effect, which rides the Stress (a note here, since the
- * sheet doesn't apply Conditions); Weakened states its N ("Applies Weakened -2 [Finesse]").
+ * sheet doesn't apply Conditions); Weakened states its N ("Applies Weakened -2 [Finesse]"). The Strain allowance is 16 XP, and a
+ * Radius with no Placement reaches as far as the Radius around the caster, whatever the Instrument's reach (PHB 4.2.4).
  */
 import {
   ATTRIBUTE_KEYS, ATTR_LABEL, SKILL_ATTRS, SKILL_LABEL, MARGIN_CAP, marginCap, CONDITION_OPPOSE, CONDITION_ATTR, EFFECT_CONDITION, conditionAttr, DISARM
@@ -21,7 +22,7 @@ import { attackScopes } from "../../rules/resist.js";
 import { currentRequires, meetsRequirement, thrownFor, THROWN_BAND, typeOf } from "../../rules/types.js";
 import { kitStrain, kitPierce } from "../../rules/items.js";
 import { backersOf, BACKING } from "../../rules/roll.js";
-import { RANGE_STEP } from "../../rules/constants.js";
+import { RANGE_BANDS, RANGE_LABEL, RANGE_STEP } from "../../rules/constants.js";
 import { reachBand, reachLine, rangeWarning } from "../../rules/range.js";
 
 /** What the fakes record and what the next dialogs answer. Reset it between cases. */
@@ -304,7 +305,13 @@ export class RefSheet {
     if (inst?.system.doublesMargin) notes.push("Heavy: costs the Action and the Quick Action; the margin doubles (PHB 4.1.1).");
 
     const extend = (sys.effects ?? []).filter(e => e.key === "extend-range").reduce((n, e) => n + Number(e.bands || 1), 0);
-    notes.push(...this._rangeNotes({ band: inst ? (thrown ? THROWN_BAND : inst.system.rangeBand) : sys.range, min: sys.minRange || inst?.system.minRange, extend }));
+    // RULE 2026-11-04: a Radius with no Placement is centered on the caster (PHB 4.2.4).
+    const around = (sys.effects ?? []).find(e => e.pattern === "radius" && !Number(e.placement));
+    if (around) {
+      const band = RANGE_BANDS[Math.min(RANGE_BANDS.length - 1, Math.max(0, Number(around.bands) || 0))];
+      notes.push(`Radius: ${RANGE_LABEL[band]} around ${esc(this.actor.name)}, centered on the caster (PHB 4.2.4).`);
+      notes.push(...this._rangeNotes({ band, min: "", extend: 0 }).filter(l => !/^Range: /.test(l)));
+    } else notes.push(...this._rangeNotes({ band: inst ? (thrown ? THROWN_BAND : inst.system.rangeBand) : sys.range, min: sys.minRange || inst?.system.minRange, extend }));
     // RULE 2026-10-23: a Technique that only weakens is aimed; the Attribute aimed at is weakened and resists.
     // RULE 2026-11-01: a Disarm Effect is Opposed with Might (PHB 4.2.1).
     const applied = !sys.dealsStress ? (sys.effects ?? []).find(e => CONDITION_OPPOSE[EFFECT_CONDITION[e.key]] || EFFECT_CONDITION[e.key] === "Weakened" || e.key === "disarm") : null;
@@ -323,7 +330,7 @@ export class RefSheet {
       const charges = [sys.perTarget ? "the Selective premium" : "", sys.sonicReach ? "the Sonic reach" : ""].filter(Boolean);
       const xp = Number(sys.xpCost ?? 0) - 8 * charges.length;
       const max = Number(this.actor.system.attributes?.[attr]?.potential?.max ?? 0);
-      notes.push(`Strain ${sys.strain} on ${ATTR_LABEL[attr]} (Stress ${max - before} &rarr; ${max - after} of ${max}): (${xp} XP${charges.length ? ` before ${charges.join(" and ")}` : ""} - 24) / 8, rounded down (PHB 4.2.3).`);
+      notes.push(`Strain ${sys.strain} on ${ATTR_LABEL[attr]} (Stress ${max - before} &rarr; ${max - after} of ${max}): (${xp} XP${charges.length ? ` before ${charges.join(" and ")}` : ""} - 16) / 8, rounded down (PHB 4.2.3).`);
     }
 
     const wdice = sys.offensive && inst?.type === "instrument" && inst.system.weightDice ? [{ label: inst.system.weightLabel || "Weight", dice: inst.system.weightDice }] : [];
