@@ -18,7 +18,7 @@ import { ATTRIBUTE_KEYS, ATTR_LABEL, SKILL_KEYS, SKILL_LABEL, FOIL_AXES } from "
 import { poolFromCounts } from "../dice.js";
 import { consumableSummary, equipmentSummary } from "../registry.js";
 import { HABIT_TABLES } from "../habits.js";
-import { STARTING_TIERS, INNATE_INSTRUMENTS, NEXT_SIZE, TALENT_PASSES, TALENT_ROLLS, parseKit, findKitItem, talentDice, nextTalentRoll, startingPools } from "../../rules/chargen.js";
+import { STARTING_TIERS, INNATE_INSTRUMENTS, startingCoin, NEXT_SIZE, TALENT_PASSES, TALENT_ROLLS, parseKit, findKitItem, talentDice, nextTalentRoll, startingPools } from "../../rules/chargen.js";
 export { STARTING_TIERS, parseKit };
 const DIE_KEYS = ["d4", "d6", "d8", "d10", "d12", "d20"];
 
@@ -269,7 +269,7 @@ export class FoilChargen extends HandlebarsApplicationMixin(ApplicationV2) {
     update["system.ancestry"] = ancestry.name;
     update["system.background"] = background.name;
     const tier = STARTING_TIERS.find(t => t.key === data.startingPoint);
-    update["system.coin"] = tier?.coin ?? background.system.coin ?? "";
+    update["system.coin"] = startingCoin(tier, background.system.coin);
     if (tier) update["system.xp.total"] = tier.xp;
     for (const a of FOIL_AXES) {
       update[`system.foil.${a.key}.lean`] = data.foil?.[a.key]?.lean ?? "";

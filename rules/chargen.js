@@ -7,14 +7,20 @@
 import { ATTRIBUTE_KEYS } from "./constants.js";
 
 // Starting Points (PHB 2.3.2): picked for the whole party, sets Starting XP and Starting Coin.
-// The coin is the bottom of the printed range; Fresh Start takes its Background's.
+// The coin is the bottom of the printed range, added to the Background's coin (user, 2026-11-04).
 export const STARTING_TIERS = [
-  { key: "fresh",     label: "Fresh Start (0 XP, Background coin)", xp: 0 },
-  { key: "blooded",   label: "Blooded (175 XP, 175p)",              xp: 175,  coin: "175p" },
-  { key: "hardened",  label: "Hardened (400 XP, 400p)",             xp: 400,  coin: "400p" },
-  { key: "storied",   label: "Storied (825 XP, 825p)",              xp: 825,  coin: "825p" },
-  { key: "legendary", label: "Legendary (1600 XP, 1600p)",          xp: 1600, coin: "1600p" }
+  { key: "fresh",     label: "Fresh Start (0 XP, Background coin)",           xp: 0,    coin: 0 },
+  { key: "blooded",   label: "Blooded (175 XP, Background coin + 175p)",      xp: 175,  coin: 175 },
+  { key: "hardened",  label: "Hardened (400 XP, Background coin + 400p)",     xp: 400,  coin: 400 },
+  { key: "storied",   label: "Storied (825 XP, Background coin + 825p)",      xp: 825,  coin: 825 },
+  { key: "legendary", label: "Legendary (1600 XP, Background coin + 1600p)",  xp: 1600, coin: 1600 }
 ];
+/** Starting Coin: the Background's coin plus the Starting Point's, in whole p ("15p" at Blooded is "190p"). */
+export const startingCoin = (tier, backgroundCoin = "") => {
+  const add = Number(tier?.coin ?? 0);
+  if (!add) return String(backgroundCoin ?? "");
+  return `${Number(String(backgroundCoin ?? "").match(/(\d+)\s*p/)?.[1] ?? 0) + add}p`;
+};
 
 export const INNATE_INSTRUMENTS = ["Body", "Voice", "Mind"];
 export const NEXT_SIZE = { 4: 6, 6: 8, 8: 10, 10: 12 };
