@@ -191,19 +191,19 @@
           {
             "name": "Deduce",
             "skill": "discipline",
-            "effect": "Solves a problem or recalls a fact.",
+            "effect": "Quick. Solves a problem or recalls a fact.",
             "signature": false
           },
           {
             "name": "Analyze",
             "skill": "acuity",
-            "effect": "Learns a creature's Attributes, or notices something specific.",
+            "effect": "Quick. Learns a creature's Attributes, or notices something specific.",
             "signature": false
           },
           {
             "name": "Intuit",
             "skill": "resonance",
-            "effect": "Applies Foil Exposed, or gives insight into a situation.",
+            "effect": "Quick. Applies Foil Exposed, or gives insight into a situation.",
             "signature": false
           }
         ],
