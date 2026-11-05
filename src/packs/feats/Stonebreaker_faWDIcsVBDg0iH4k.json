@@ -1,5 +1,5 @@
 {
-  "_id": "pQF9zWxJCEHAr51B",
+  "_id": "faWDIcsVBDg0iH4k",
   "name": "Stonebreaker",
   "type": "feat",
   "img": "icons/svg/upgrade.svg",
@@ -8,17 +8,17 @@
     "xpCost": 0,
     "requirements": "",
     "effect": "Your Melee Techniques have Pierce 2.",
-    "ancestry": "Deep Stone",
+    "ancestry": "Caverns",
     "grantsTechnique": "",
     "modifiers": [],
     "description": ""
   },
   "effects": [],
-  "folder": "mLHiLoT7JGAmAMX7",
-  "sort": 2000000,
+  "folder": "7X1ByXjqwFbBcwXh",
+  "sort": 1900000,
   "ownership": {
     "default": 0
   },
   "flags": {},
-  "_key": "!items!pQF9zWxJCEHAr51B"
+  "_key": "!items!faWDIcsVBDg0iH4k"
 }

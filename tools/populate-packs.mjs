@@ -590,7 +590,7 @@ function backgroundDocs() {
     const knowHow = [];
     for (const m of r.Attribute.matchAll(/(\d)d4 (\w+)/g)) for (let i = 0; i < +m[1]; i++) knowHow.push(lc(m[2]));
     return { name: r.Background, type: "background", img: "icons/svg/book.svg",
-      system: { training, knowHow, coin: r.Coin, equipmentKit: r.Equipment, description: `<p>${r.Description}</p>` } };
+      system: { training, knowHow, coin: r.Coin, equipmentKit: r.Equipment, description: r.Description ? `<p>${r.Description}</p>` : "" } };
   });
 }
 

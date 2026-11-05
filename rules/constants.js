@@ -213,7 +213,7 @@ export const TECHNIQUE_FAMILIES = {
   Grappling: [], Guard: []
 };
 /** The Origins that ship with the system (PHB 7.8.x). */
-export const ORIGIN_NAMES = ["Riverlands", "Highlands", "Woodlands", "Deep Stone", "Frozen North", "Fenland", "Jungle Canopy",
+export const ORIGIN_NAMES = ["Riverlands", "Highlands", "Woodlands", "Caverns", "Frozen North", "Fenland", "Jungle Canopy",
   "Open Plains", "Island Shores", "Sunbaked Desert", "Crowded City", "Back Alleys", "Quiet Village", "Ruined Lands", "Ashen Badlands"];
 /** Instrument Ranges as the books print them (PHB 4.1.2). */
 export const RANGE_CHOICES = ["Range 0", "Range 1", "Range 2", "Range 4", "Range 8", "Range 20", "Range 60"];

@@ -1,6 +1,6 @@
 {
-  "_id": "F6NHEYPCEbrxpTYs",
-  "name": "Waterman",
+  "_id": "7BvjR3gZGQr3VQL2",
+  "name": "Boatman",
   "type": "background",
   "img": "icons/svg/book.svg",
   "system": {
@@ -18,7 +18,7 @@
     ],
     "coin": "10p",
     "equipmentKit": "Net, Fitted Leathers, Rope (50ft).",
-    "description": "<p>Ferried passengers and cargo along the river, reading currents that would drown anyone who didn't know them, and haggling every fare down to the penny.</p>"
+    "description": ""
   },
   "effects": [],
   "folder": null,
@@ -27,5 +27,5 @@
     "default": 0
   },
   "flags": {},
-  "_key": "!items!F6NHEYPCEbrxpTYs"
+  "_key": "!items!7BvjR3gZGQr3VQL2"
 }
