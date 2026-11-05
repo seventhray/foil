@@ -20,7 +20,7 @@ const INSTRUMENT_CATEGORIES = ["melee", "ranged", "arcane", "sonic", "shield", "
 
 const mapTypes = arr => [...new Set((arr ?? []).map(t => LEGACY_TYPE_KEY[t] ?? t))];
 
-/** A Resistance or Skill bonus an item gives while worn or carried: armor's, a Shield's (PHB 5.2.4, 7.9.1). */
+/** A Resistance or Skill bonus an item gives while worn or carried: armor's, a Shield's (PHB 5.2.4, 7.7.1). */
 const qualitiesSchema = () => new f.ArrayField(new f.SchemaField({
   key: slugField(""),
   value: int(0),
@@ -197,7 +197,7 @@ export class EquipmentData extends foundry.abstract.TypeDataModel {
       price: int(0),
       // Carried weight in pounds (PHB 5.2.4, 5.2.6).
       weight: new f.NumberField({ required: true, initial: 0, min: 0 }),
-      // A Shield's weight class (PHB 7.9.3).
+      // A Shield's weight class (PHB 7.7.3).
       weightClass: new f.StringField({ required: true, blank: true, initial: "", choices: ["", ...WEIGHT_KEYS] }),
       size: sizeField("medium"),
       materials: str(""),
@@ -234,7 +234,7 @@ export class EquipmentData extends foundry.abstract.TypeDataModel {
   }
 }
 
-/** A Consumable (PHB 7.9.5): used up in Uses, with an Effect that lasts its Duration. Medicine, poisons, throwables, a Torch. */
+/** A Consumable (PHB 7.7.5): used up in Uses, with an Effect that lasts its Duration. Medicine, poisons, throwables, a Torch. */
 export class ConsumableData extends foundry.abstract.TypeDataModel {
   static defineSchema() {
     return {
@@ -337,7 +337,7 @@ export class BackgroundData extends foundry.abstract.TypeDataModel {
   }
 }
 
-/** An Origin (PHB 2.5.1, 7.5.0). The document type stays `origin` for existing worlds. */
+/** An Origin (PHB 2.5.1). The document type stays `origin` for existing worlds. */
 export class OriginData extends foundry.abstract.TypeDataModel {
   static defineSchema() {
     return {

@@ -1,6 +1,6 @@
 /**
  * src/migrate-consumables.js
- * Consumables became their own item type (PHB 7.9.5, user 2026-10-27). An Equipment item still in a legacy consumable category
+ * Consumables became their own item type (PHB 7.7.5, user 2026-10-27). An Equipment item still in a legacy consumable category
  * (medicine, potion) is made again as a Consumable and the old item deleted, since an Item's type can't change in place. Its uses
  * and duration come from the Consumables compendium entry of the same name, when there is one. Run once by the active GM.
  */

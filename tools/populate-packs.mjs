@@ -70,7 +70,7 @@ function instrumentTypeDoc([name, key, kind, family, o, desc]) {
     system: { key, kind, family, harms: o.harms ?? "", quick: !!o.quick, reload: o.reload ?? "", isTool: !!o.isTool, description: `<p>${desc}</p>` } };
 }
 
-// ─── Vocabulary: Qualities (PHB 7.9.1, GMG 10.0.0 for Aid, Fundamental Math Passive Properties) ─
+// ─── Vocabulary: Qualities (PHB 7.7.1, GMG 10.0.0 for Aid, Fundamental Math Passive Properties) ─
 const QUALITIES = [
   ["Resistance", "resistance", "resistance", "resistanceKind", "+N physical or mental", "Reduce the Stress of every Technique of that kind by N."],
   ["Skill Bonus", "skill-bonus", "skill", "skill", "+N to a Skill", "Add N to the named Skill's rolls."],
@@ -346,7 +346,7 @@ if (process.argv.includes("--price")) {
   process.exit(0);
 }
 
-// ─── Instruments (Catalog notes, PHB 7.4.x, 7.7.0, 2.5.3) ──────────────────
+// ─── Instruments (Catalog notes, PHB 7.4.x, 7.5.0, 2.5.3) ──────────────────
 const SIZE_TABLE = tableAfter(PHB, /^### 5\.3\.2 Crafting/);
 const sizeOf = {}, materialsOf = {};
 for (const row of SIZE_TABLE) {
@@ -394,18 +394,18 @@ function instrumentDoc(n) {
   };
 }
 
-// Shields (PHB 7.9.3): Melee and Guarding Instruments with Might Primary and Range 1 (PHB 5.2.4). Their built-ins and backing are in
+// Shields (PHB 7.7.3): Melee and Guarding Instruments with Might Primary and Range 1 (PHB 5.2.4). Their built-ins and backing are in
 // the section's opening line, the signature marked "Signature." after it or named in "Push is its signature."; each row gives a weight,
 // a bonus that applies while carried (PHB 5.2.4), and a price.
 function shieldDocs() {
   const lines = PHB.split("\n");
-  const at = lines.findIndex(l => /^### 7\.9\.3 Shields/.test(l));
+  const at = lines.findIndex(l => /^### 7\.7\.3 Shields/.test(l));
   const intro = lines.slice(at + 1).find(l => /built-ins/i.test(l)) ?? "";
   const named = intro.match(/(\w+) is its signature/i)?.[1] ?? "";
   const kit = builtinsFrom(intro).map(k => ({ ...k, signature: k.signature || k.name === named }));
-  if (!kit.some(k => k.signature)) warnings.push("7.9.3: no Shield signature found in the opening line");
+  if (!kit.some(k => k.signature)) warnings.push("7.7.3: no Shield signature found in the opening line");
   const backs = intro.match(/backs (\w+)/i)?.[1] ?? "";
-  return tableAfter(PHB, /^### 7\.9\.3 Shields/).map(r => {
+  return tableAfter(PHB, /^### 7\.7\.3 Shields/).map(r => {
     const quals = [];
     const res = r.Bonus.match(/physical Resistance \+(\d)/i);
     if (res) quals.push(q("resistance", +res[1], "physical"));
@@ -464,7 +464,7 @@ function innateDocs() {
   });
 }
 
-// ─── Equipment (PHB 7.9.x, 7.10.4) ───────────────────────────────────────────
+// ─── Equipment (PHB 7.7.x, 7.8.4) ───────────────────────────────────────────
 const q = (key, value = 0, param = "") => ({ key, value, param });
 const SKILLS = ["prowess", "discipline", "assertiveness", "acuity", "guile", "resonance"];
 const EQUIP_IMG = { armor: "icons/svg/shield.svg", shield: "icons/svg/shield.svg", ward: "icons/svg/holy-shield.svg",
@@ -481,7 +481,7 @@ const equip = (name, category, price, o = {}) => ({
 
 function equipmentDocs() {
   const out = [];
-  for (const r of tableAfter(PHB, /^### 7\.9\.2 Armor/)) {
+  for (const r of tableAfter(PHB, /^### 7\.7\.2 Armor/)) {
     out.push(equip(r.Armor, "armor", num(r.Price), {
       weight: num(r.Mass ?? r.Weight), size: "large", qualities: [q("resistance", num(r.Resistance), "physical")], notes: r.Notes ?? ""
     }));
@@ -501,16 +501,16 @@ function equipmentDocs() {
       else warnings.push(`5.2.4: unknown row "${r.Item}"`);
     }
   }
-  for (const r of tableAfter(PHB, /^### 7\.9\.4 Adventuring Gear/)) {
+  for (const r of tableAfter(PHB, /^### 7\.7\.4 Adventuring Gear/)) {
     out.push(equip(r.Item, "gear", num(r.Price), { effect: r["Helps with"], weight: num(r.Mass), size: "small", materials: "" }));
   }
   return out;
 }
 
-// ─── Consumables (PHB 7.9.5) ────────────────────────────────────────────────
+// ─── Consumables (PHB 7.7.5) ────────────────────────────────────────────────
 // Their own item type (user, 2026-10-27). Poisons and throwables are Reagent; Medicine's Tier is in its name.
 function consumableDocs() {
-  return tableAfter(PHB, /^### 7\.9\.5 Consumables/).map(r => {
+  return tableAfter(PHB, /^### 7\.7\.5 Consumables/).map(r => {
     const thrown = /thrown|coats a weapon/.test(r.Effect), heals = /Stress|poison or sickness/.test(r.Effect);
     const tier = Number(r.Item.match(/^Tier (\d) /)?.[1] ?? 0);
     return {
@@ -521,7 +521,7 @@ function consumableDocs() {
   });
 }
 
-// ─── Materials (PHB 7.10.2) ─────────────────────────────────────────────────
+// ─── Materials (PHB 7.8.2) ─────────────────────────────────────────────────
 // Their own item type (user, 2026-10-27): each example in the table is one Common batch of its category at its Tier.
 const MATERIAL_IMG = {
   metal: "icons/commodities/metal/ingot-engraved-silver.webp", gemstone: "icons/commodities/gems/gem-faceted-asscher-blue.webp",
@@ -530,14 +530,14 @@ const MATERIAL_IMG = {
   reagent: "icons/commodities/flowers/buds-red-green.webp"
 };
 function materialDocs() {
-  const rows = tableAfter(PHB, /^### 7\.10\.2 Example Materials/);
+  const rows = tableAfter(PHB, /^### 7\.8\.2 Example Materials/);
   return MATERIAL_CATEGORIES.flatMap(category => rows.map(r => ({
     name: r[MATERIAL_CATEGORY_LABEL[category]], type: "material", img: MATERIAL_IMG[category],
     system: { category, tier: Number(r.Tier), scarcity: "common", batches: 1, weight: 0, location: "carried", storedAt: "", notes: "", description: "" }
   })).filter(d => d.name));
 }
 
-// ─── Feats (Catalog notes, PHB 7.2.x, 7.5.x) ───────────────────────────────
+// ─── Feats (Catalog notes, PHB 7.2.x, 2.5.1) ───────────────────────────────
 // Flat, always-on grants become sheet modifiers; conditional Feats stay prose.
 function featModifiers(effect) {
   const mods = [];
@@ -562,30 +562,26 @@ function featDoc(n) {
   };
 }
 
-// ─── Origins (PHB 7.5.x) and Backgrounds (PHB 7.6.0) ────────────────────
+// ─── Origins (PHB 2.5.1) and Backgrounds (PHB 2.5.2) ────────────────────
 function ancestryDocs() {
-  const body = sectionText(PHB, /^## 7\.5\.0 Origins/);
-  const out = [];
-  for (const block of body.split(/\n(?=### 7\.5\.\d+ )/).slice(1)) {
-    const head = block.match(/^### (7\.5\.\d+) (.+)$/m);
-    const name = head[2].trim();
-    const desc = (block.match(/^\*(.+)\*$/m) ?? [])[1] ?? "";
-    const feats = [...block.matchAll(/^\*\*Feat:\*\* ([^.]+)\./gm)].map(m => m[1].trim());
-    const featText = [...block.matchAll(/^\*\*Feat:\*\* ([^.]+)\.\s*(.*)$/gm)].map(m => ({ name: m[1].trim(), text: m[2].trim() }));
-    const talentLine = (block.match(/^\*\*Talent:\*\* (.+)$/m)?.[1] ?? "").replace(/\.$/, "");
+  return tableAfter(PHB, /^### 2\.5\.1 Origins/).map(r => {
+    const name = r.Origin;
+    const desc = r.Description.replace(/^\*(.+)\*$/, "$1");
+    const featText = r.Feats.split("<br>").map(f => f.match(/^\*\*([^*]+)\.\*\* (.*)$/)).map(m => ({ name: m[1].trim(), text: m[2].trim() }));
+    const feats = featText.map(f => f.name);
+    const talentLine = r.Talent.replace(/\.$/, "");
     const html = [desc ? `<p><em>${desc}</em></p>` : "",
       talentLine ? `<p><strong>Talent:</strong> ${talentLine}.</p>` : "",
       featText.length ? `<ul>${featText.map(f => `<li><strong>${f.name}.</strong> ${f.text}</li>`).join("")}</ul>` : ""].join("");
-    const talent = [...(block.match(/^\*\*Talent:\*\* (.+)$/m)?.[1] ?? "").matchAll(/(?:one )?(\w+)(?: die)? to d(\d+)/g)]
+    const talent = [...talentLine.matchAll(/(?:one )?(\w+)(?: die)? to d(\d+)/g)]
       .map(m => ({ attribute: lc(m[1]), die: +m[2] }));
-    out.push({ name, type: "origin", img: "icons/svg/village.svg",
-      system: { talent, feats, feat: feats[0] ?? "", section: head[1], description: html } });
-  }
-  return out;
+    return { name, type: "origin", img: "icons/svg/village.svg",
+      system: { talent, feats, feat: feats[0] ?? "", section: "2.5.1", description: html } };
+  });
 }
 
 function backgroundDocs() {
-  return tableAfter(PHB, /^## 7\.6\.0 Backgrounds/).map(r => {
+  return tableAfter(PHB, /^### 2\.5\.2 Backgrounds/).map(r => {
     const training = Object.fromEntries(SKILLS.map(k => [k, 0]));
     for (const s of r.Skills.replace(/^\+1 Training in /, "").split(",").map(x => lc(x))) {
       if (s in training) training[s] = 1;
@@ -769,7 +765,7 @@ for (const bg of backgrounds) {
     if (!known.has(name) && !known.has(bare)) warnings.push(`${bg.name}: kit item "${raw}" not in any pack`);
   }
 }
-// Every Origin Feat named in 7.8.x should exist as a Feat.
+// Every Origin Feat named in 2.5.1 should exist as a Feat.
 const featNames = new Set(feats.map(f => f.name));
 for (const a of ancestries) for (const f of a.system.feats) if (!featNames.has(f)) warnings.push(`${a.name}: Feat "${f}" not in the Catalog`);
 
