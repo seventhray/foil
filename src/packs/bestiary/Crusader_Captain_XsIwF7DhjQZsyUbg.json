@@ -80,7 +80,7 @@
       "physical": 1,
       "mental": 1
     },
-    "notes": "<p><em>The captain of a company of crusaders, whose word decides who burns</em></p><p><strong>Habits</strong> Individualism Communal: My word to the group outweighs my own preference every time. Levity Grave: I carry what's happened to me; I don't set it down to make room for a laugh.</p><p>Leads Crusaders into the worst of it. Its company holds as long as the Captain stands.</p>"
+    "notes": "<p><em>The captain of a company of crusaders, whose word decides who burns</em></p><p><strong>Habits</strong> Individualism Communal: My word to the group comes first, every time. Levity Grave: I carry what's happened to me; it keeps me serious.</p><p>Leads Crusaders into the worst of it. Its company holds as long as the Captain stands.</p>"
   },
   "folder": "20lyztx7vQQXvuEu",
   "sort": 4400000,
@@ -461,7 +461,7 @@
         "featType": "trait",
         "xpCost": 24,
         "requirements": "",
-        "effect": "once per round, when a Technique would apply a Condition, Weakened, or Reeling to this creature, treat the failed Oppose as a success instead: the effect fails to apply. Stress from the same Technique still lands.",
+        "effect": "once per round, when a Technique would apply a Condition, Weakened, or Reeling to this creature, treat the failed Oppose as a success. Stress from the same Technique still lands.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [],

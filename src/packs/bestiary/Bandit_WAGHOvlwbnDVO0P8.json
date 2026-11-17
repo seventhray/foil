@@ -74,7 +74,7 @@
       "physical": 1,
       "mental": 0
     },
-    "notes": "<p><em>A road robber in patched leather who wants the purse more than the fight</em></p><p>Robs from cover in a group of three to six. One good hit on any of them and that one runs.</p>"
+    "notes": "<p><em>A road robber in patched leather who wants the purse and runs once hurt</em></p><p>Robs from cover in a group of three to six. One good hit on any of them and that one runs.</p>"
   },
   "folder": "oestcF1oEEFrxKyA",
   "sort": 1000000,
@@ -285,7 +285,7 @@
         "featType": "trait",
         "xpCost": 8,
         "requirements": "",
-        "effect": "the first Technique this creature lands on a target that hasn't yet acted this conflict deals +2 additional Stress.",
+        "effect": "the first Technique this creature lands on a target that hasn't yet acted this conflict deals +2 Stress.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [],
@@ -309,7 +309,7 @@
         "featType": "trait",
         "xpCost": 6,
         "requirements": "",
-        "effect": "+1 to its Techniques for each other creature bearing this same Feat within Range 1 of its target, up to +1.",
+        "effect": "+1 to this creature's Techniques for each other creature with this Feat within Range 1 of its target, up to +1.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [],

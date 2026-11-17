@@ -77,7 +77,7 @@
       "physical": 2,
       "mental": 0
     },
-    "notes": "<p><em>A slab of a wall built onto four squat legs, standing exactly where it was placed until something worth crushing comes within reach</em></p><p>Stands in a doorway or a gate and is the door. It walks forward only when ordered or when something tries to pass.</p>"
+    "notes": "<p><em>A slab of wall on four squat legs that stays where it was placed and crushes anyone who comes within reach</em></p><p>Stands in a doorway or a gate and is the door. It walks forward only when ordered or when something tries to pass.</p>"
   },
   "folder": "20lyztx7vQQXvuEu",
   "sort": 300000,
@@ -336,7 +336,7 @@
         "featType": "trait",
         "xpCost": 8,
         "requirements": "",
-        "effect": "this creature cannot be Frightened. It has no fear to find.",
+        "effect": "this creature cannot be Frightened. It feels no fear.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [],
@@ -360,7 +360,7 @@
         "featType": "trait",
         "xpCost": 8,
         "requirements": "",
-        "effect": "this creature cannot be Charmed. It has no will to turn.",
+        "effect": "this creature cannot be Charmed. It has no will of its own.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [],

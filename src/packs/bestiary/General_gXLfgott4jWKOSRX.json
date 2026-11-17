@@ -80,7 +80,7 @@
       "physical": 2,
       "mental": 1
     },
-    "notes": "<p><em>A commander of armies who has won more battles than most soldiers have seen</em></p><p><strong>Habits</strong> Order Methodical: I think a plan beats improvising, nine times out of ten. Individualism Individual: I look out for myself first; I can't help anyone if I'm the one who falls.</p><p>Commands from behind its guard. The General withdraws once hurt and lets the army fight on.</p>"
+    "notes": "<p><em>A commander of armies who has won many battles</em></p><p><strong>Habits</strong> Order Methodical: I want a plan before I make a move. Individualism Individual: I look out for myself first, so I'm on my feet when someone needs help.</p><p>Commands from behind its guard. The General withdraws once hurt and lets the army fight on.</p>"
   },
   "folder": "VplDuZOmSvWbeVdo",
   "sort": 6600000,
@@ -424,7 +424,7 @@
         "featType": "trait",
         "xpCost": 24,
         "requirements": "",
-        "effect": "once per round, when a Technique would apply a Condition, Weakened, or Reeling to this creature, treat the failed Oppose as a success instead: the effect fails to apply. Stress from the same Technique still lands.",
+        "effect": "once per round, when a Technique would apply a Condition, Weakened, or Reeling to this creature, treat the failed Oppose as a success. Stress from the same Technique still lands.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [],

@@ -77,7 +77,7 @@
       "physical": 5,
       "mental": 0
     },
-    "notes": "<p><em>The Cinderwyrm grown ancient, same fire, doubled everything else</em></p><p>Resistance is physical +5, spent broad since nothing about this dragon calls for a narrower reason. Set beside the [[Cinderwyrm]], it's the same creature a tier up: every Potential scaled up by roughly half again, the same rough shape underneath.</p>"
+    "notes": "<p><em>The Cinderwyrm grown ancient and far stronger, with the same fire breath</em></p><p>Resistance is physical +5, spent broad since nothing about this dragon calls for a narrower reason. Set beside the [[Cinderwyrm]], it's the same creature a tier up: every Potential scaled up by roughly half again, the same rough shape underneath.</p>"
   },
   "folder": "YGrrf4NUQjIr3ADS",
   "sort": 5400000,
@@ -358,7 +358,7 @@
         "featType": "trait",
         "xpCost": 84,
         "requirements": "",
-        "effect": "immediately after an enemy ends its turn, attacks that enemy, up to twice per round. The bestiary's high-water mark punishes an entire party for standing near it.",
+        "effect": "immediately after an enemy ends its turn, attacks that enemy, up to twice per round.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [],
@@ -382,7 +382,7 @@
         "featType": "trait",
         "xpCost": 24,
         "requirements": "",
-        "effect": "once per round, when a Technique would apply a Condition, Weakened, or Reeling to it, treats the failed Oppose as a success instead; Stress from the same hit still lands.",
+        "effect": "once per round, when a Technique would apply a Condition, Weakened, or Reeling to this creature, treat the failed Oppose as a success. Stress from the same Technique still lands.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [],

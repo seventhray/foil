@@ -77,7 +77,7 @@
       "physical": 3,
       "mental": 0
     },
-    "notes": "<p><em>Acid and ambush, strikes from a swamp and vanishes back into it</em></p><p>A tier below the [[Cinderwyrm]] and it shows: 18 less Health, every Attribute trailing the other's, Might most of all.</p>"
+    "notes": "<p><em>An acid-breathing dragon that strikes from a swamp and sinks back into it</em></p><p>A tier below the [[Cinderwyrm]] and it shows: 18 less Health, every Attribute trailing the other's, Might most of all.</p>"
   },
   "folder": "a6sag5XJHITShA7Q",
   "sort": 10300000,
@@ -405,7 +405,7 @@
         "featType": "trait",
         "xpCost": 70,
         "requirements": "",
-        "effect": "immediately after an enemy ends its turn, attacks that enemy, once per round. The strike-and-vanish ambusher gets its opportunistic follow-up.",
+        "effect": "immediately after an enemy ends its turn, attacks that enemy, once per round.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [],
@@ -453,7 +453,7 @@
         "featType": "trait",
         "xpCost": 12,
         "requirements": "",
-        "effect": "the first time in a conflict this creature takes Stress from a given Instrument Type, it gains Resistance +2 against that Instrument Type for the rest of the conflict. Scaled hide that learns what just bit it.",
+        "effect": "the first time in a conflict this creature takes Stress from a given Instrument Type, it gains Resistance +2 against that Instrument Type for the rest of the conflict.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [],

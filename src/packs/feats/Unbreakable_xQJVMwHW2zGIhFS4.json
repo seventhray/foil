@@ -7,7 +7,7 @@
     "featType": "trait",
     "xpCost": 0,
     "requirements": "Enduring core",
-    "effect": "When a Technique would bring an Attribute's Stress to its Potential, negate it; it deals 0 Stress. Once per conflict.",
+    "effect": "When a Technique would bring an Attribute's Stress to its Potential, it deals 0 Stress. Once per conflict.",
     "ancestry": "",
     "grantsTechnique": "",
     "modifiers": [],

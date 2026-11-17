@@ -74,7 +74,7 @@
       "physical": 2,
       "mental": 0
     },
-    "notes": "<p><em>A dead soldier in rusted mail, still standing the watch it was buried to keep</em></p><p>Stands at the door of the tomb and does not leave it. Past the threshold it stops following.</p>"
+    "notes": "<p><em>A dead soldier in rusted mail who keeps guarding the tomb it was buried in</em></p><p>Stands at the door of the tomb and does not leave it. Past the threshold it stops following.</p>"
   },
   "folder": "Ei2eOqOL5AhHRvrj",
   "sort": 1200000,
@@ -257,7 +257,7 @@
         "featType": "trait",
         "xpCost": 12,
         "requirements": "",
-        "effect": "the first time an Attribute of this creature's would be Incapacitated in a conflict, its Stress stops 1 short of its Potential instead.",
+        "effect": "the first time one of this creature's Attributes would be Incapacitated in a conflict, its Stress stops 1 short of its Potential instead.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [],
@@ -281,7 +281,7 @@
         "featType": "trait",
         "xpCost": 8,
         "requirements": "",
-        "effect": "this creature cannot be Frightened. Nothing is left in it to scare.",
+        "effect": "this creature cannot be Frightened. It has no fear left.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [],

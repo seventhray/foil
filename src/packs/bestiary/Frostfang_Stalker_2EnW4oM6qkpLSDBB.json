@@ -74,7 +74,7 @@
       "physical": 1,
       "mental": 0
     },
-    "notes": "<p><em>A pack hunter that's made a home of magically cold terrain long enough to start looking like it belongs there</em></p><p>Hunts in a pack of four or more. They slow one target, drag it down, and move on.</p>"
+    "notes": "<p><em>A pack hunter changed by years in magically cold land</em></p><p>Hunts in a pack of four or more. They slow one target, drag it down, and move on.</p>"
   },
   "folder": "20lyztx7vQQXvuEu",
   "sort": 6200000,
@@ -333,7 +333,7 @@
         "featType": "trait",
         "xpCost": 8,
         "requirements": "",
-        "effect": "track a creature's trail by scent alone. Within Range 1, sense a hidden or invisible creature without a roll.",
+        "effect": "tracks a creature's trail by scent alone. Within Range 1, it senses a hidden or invisible creature without a roll.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [],
@@ -357,7 +357,7 @@
         "featType": "trait",
         "xpCost": 8,
         "requirements": "",
-        "effect": "see in darkness as though it were lit, as long as some light reaches it.",
+        "effect": "sees in darkness as though it were lit, as long as some light reaches it.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [],
@@ -418,7 +418,7 @@
         "featType": "trait",
         "xpCost": 18,
         "requirements": "",
-        "effect": "+1 to its Techniques for each other creature bearing this same Feat within Range 1 of its target, up to +3.",
+        "effect": "+1 to this creature's Techniques for each other creature with this Feat within Range 1 of its target, up to +3.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [],
@@ -442,7 +442,7 @@
         "featType": "trait",
         "xpCost": 8,
         "requirements": "",
-        "effect": "the first Technique this creature lands on a target that hasn't yet acted this conflict deals +2 additional Stress.",
+        "effect": "the first Technique this creature lands on a target that hasn't yet acted this conflict deals +2 Stress.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [],
@@ -466,7 +466,7 @@
         "featType": "trait",
         "xpCost": 12,
         "requirements": "",
-        "effect": "Kinetic +3 Resistance: a body long since frozen through.",
+        "effect": "Kinetic +3 Resistance: a frozen body.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [

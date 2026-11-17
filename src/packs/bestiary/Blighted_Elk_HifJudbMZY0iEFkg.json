@@ -74,7 +74,7 @@
       "physical": 0,
       "mental": 0
     },
-    "notes": "<p><em>A great elk twisted by corruption, antlers grown wrong and eyes gone flat</em></p><p>Charges the largest group it can see. The first hit barely slows it.</p>"
+    "notes": "<p><em>A great elk twisted by corruption, with warped antlers and dead eyes</em></p><p>Charges the largest group it can see. The first hit barely slows it.</p>"
   },
   "folder": "Ei2eOqOL5AhHRvrj",
   "sort": 1500000,
@@ -284,7 +284,7 @@
         "featType": "trait",
         "xpCost": 12,
         "requirements": "",
-        "effect": "enemies within Range 1 of this creature suffer -1 on Skill rolls made to Oppose it.",
+        "effect": "enemies within Range 1 of this creature take -1 on Skill rolls made to Oppose it.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [],
@@ -308,7 +308,7 @@
         "featType": "trait",
         "xpCost": 8,
         "requirements": "",
-        "effect": "when this creature is Destroyed, everything within Range 2 of it immediately takes Stress equal to this creature's Training bonus, this creature's choice of Attribute among the ones it could normally target.",
+        "effect": "when this creature is Destroyed, everything within Range 2 of it immediately takes Stress equal to this creature's Training bonus. This creature picks the Attribute from those it can target.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [],
@@ -380,7 +380,7 @@
         "featType": "trait",
         "xpCost": 8,
         "requirements": "",
-        "effect": "the first time one of this creature's Attributes is Incapacitated in a conflict, its Training in its attack Skill increases by +2 for the rest of the conflict.",
+        "effect": "the first time one of this creature's Attributes is Incapacitated in a conflict, this creature gains +2 Training in its attack Skill for the rest of the conflict.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [],

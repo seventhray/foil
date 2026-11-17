@@ -77,7 +77,7 @@
       "physical": 1,
       "mental": 0
     },
-    "notes": "<p><em>A sworn fighter in mail, trained from childhood to hold a line and the one beside it</em></p><p>Guards whoever it is sworn to and fights beside them. It leaves the field when its lord falls or says so.</p>"
+    "notes": "<p><em>A sworn fighter in mail, trained from childhood to hold a line and guard whoever stands beside it</em></p><p>Guards whoever it is sworn to and fights beside them. It leaves the field when its lord falls or says so.</p>"
   },
   "folder": "Ei2eOqOL5AhHRvrj",
   "sort": 9200000,
@@ -317,7 +317,7 @@
         "featType": "learned",
         "xpCost": 12,
         "requirements": "12 Might, 12 Finesse",
-        "effect": "When using a Melee Technique that deals Stress to the Target, deal +1 additional Stress.",
+        "effect": "When using a Melee Technique that deals Stress to the Target, deal +1 Stress.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [],

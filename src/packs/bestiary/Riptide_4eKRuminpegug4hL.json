@@ -455,7 +455,7 @@
         "featType": "trait",
         "xpCost": 8,
         "requirements": "",
-        "effect": "this creature cannot be Prone. It has no feet to lose.",
+        "effect": "this creature cannot be Prone. It has no feet.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [],

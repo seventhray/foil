@@ -77,7 +77,7 @@
       "physical": 2,
       "mental": 0
     },
-    "notes": "<p><em>An invasive growth that's quietly taken over an entire ruin, root by root</em></p><p>It is the whole ruin. Every wall the party passes can reach for them.</p>"
+    "notes": "<p><em>A mass of ivy that has slowly grown over an entire ruin and grabs anyone inside</em></p><p>It is the whole ruin. Every wall the party passes can reach for them.</p>"
   },
   "folder": "VplDuZOmSvWbeVdo",
   "sort": 2900000,
@@ -358,7 +358,7 @@
         "featType": "trait",
         "xpCost": 12,
         "requirements": "",
-        "effect": "the first time an Attribute of this creature's would be Incapacitated in a conflict, its Stress stops 1 short of its Potential instead.",
+        "effect": "the first time one of this creature's Attributes would be Incapacitated in a conflict, its Stress stops 1 short of its Potential instead.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [],
@@ -406,7 +406,7 @@
         "featType": "trait",
         "xpCost": 8,
         "requirements": "",
-        "effect": "this creature cannot be Frightened. It has no mind to frighten.",
+        "effect": "this creature cannot be Frightened. It has no mind.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [],

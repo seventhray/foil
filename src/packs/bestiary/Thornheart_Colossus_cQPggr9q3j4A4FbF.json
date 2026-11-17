@@ -77,7 +77,7 @@
       "physical": 4,
       "mental": 0
     },
-    "notes": "<p><em>An ancient beast so old the living thornwood grew into it</em></p><p>Old, slow to anger, and impossible to move once angry.</p>"
+    "notes": "<p><em>A beast so old that living thornwood has grown into it</em></p><p>Old, slow to anger, and impossible to move once angry.</p>"
   },
   "folder": "a6sag5XJHITShA7Q",
   "sort": 14400000,
@@ -432,7 +432,7 @@
         "featType": "trait",
         "xpCost": 12,
         "requirements": "",
-        "effect": "the first time an Attribute of this creature's would be Incapacitated in a conflict, its Stress stops 1 short of its Potential instead.",
+        "effect": "the first time one of this creature's Attributes would be Incapacitated in a conflict, its Stress stops 1 short of its Potential instead.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [],
@@ -456,7 +456,7 @@
         "featType": "learned",
         "xpCost": 12,
         "requirements": "12 Might, 12 Finesse",
-        "effect": "When using a Melee Technique that deals Stress to the Target, deal +1 additional Stress.",
+        "effect": "When using a Melee Technique that deals Stress to the Target, deal +1 Stress.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [],

@@ -7,7 +7,7 @@
     "featType": "learned",
     "xpCost": 12,
     "requirements": "12 Finesse, 12 Presence",
-    "effect": "When using a Sonic Technique that deals Stress to the Target, deal +1 additional Stress.",
+    "effect": "When using a Sonic Technique that deals Stress to the Target, deal +1 Stress.",
     "ancestry": "",
     "grantsTechnique": "",
     "modifiers": [],

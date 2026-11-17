@@ -77,7 +77,7 @@
       "physical": 5,
       "mental": 0
     },
-    "notes": "<p><em>Set-piece controller, control and denial on a light frame</em></p>"
+    "notes": "<p><em>A frail undead caster that holds its enemies in place with magic</em></p>"
   },
   "folder": "YGrrf4NUQjIr3ADS",
   "sort": 9500000,
@@ -408,7 +408,7 @@
         "featType": "trait",
         "xpCost": 24,
         "requirements": "",
-        "effect": "once per round, when a Technique would apply a Condition, Weakened, or Reeling to it, treats the failed Oppose as a success instead; Stress from the same hit still lands.",
+        "effect": "once per round, when a Technique would apply a Condition, Weakened, or Reeling to this creature, treat the failed Oppose as a success. Stress from the same Technique still lands.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [],
@@ -432,7 +432,7 @@
         "featType": "trait",
         "xpCost": 48,
         "requirements": "",
-        "effect": "full Total Potential after a GM-set span (typically 1d10 days) unless the phylactery is destroyed first.",
+        "effect": "if it would be Destroyed, every Attribute's Stress clears instead after a GM-set span (typically 1d10 days) unless the phylactery is destroyed first.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [],

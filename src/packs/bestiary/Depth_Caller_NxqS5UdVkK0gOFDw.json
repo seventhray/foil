@@ -77,7 +77,7 @@
       "physical": 2,
       "mental": 2
     },
-    "notes": "<p><em>Something vast enough that its own presence is enough to make the water forget which way is up</em></p><p>Its presence is the attack. Characters lose track of up, down, and each other long before it touches them.</p>"
+    "notes": "<p><em>A vast creature whose presence makes everyone nearby lose track of which way is up</em></p><p>Its presence is the attack. Characters lose track of up, down, and each other long before it touches them.</p>"
   },
   "folder": "KX1lIH519xqxsrPG",
   "sort": 4900000,
@@ -418,7 +418,7 @@
         "featType": "trait",
         "xpCost": 12,
         "requirements": "",
-        "effect": "enemies within Range 1 of this creature suffer -1 on Skill rolls made to Oppose it.",
+        "effect": "enemies within Range 1 of this creature take -1 on Skill rolls made to Oppose it.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [],

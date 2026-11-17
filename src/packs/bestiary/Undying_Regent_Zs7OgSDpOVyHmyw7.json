@@ -80,7 +80,7 @@
       "physical": 1,
       "mental": 3
     },
-    "notes": "<p><em>Someone who has ruled the same hidden hall for longer than any kingdom has stood, until only the ruling is left</em></p><p>Receives the party as guests and expects manners. It turns guests on each other before it lifts a hand.</p>"
+    "notes": "<p><em>Someone who has ruled the same hidden hall for so long that ruling is all that is left of them</em></p><p>Receives the party as guests and expects manners. It turns guests on each other before it lifts a hand.</p>"
   },
   "folder": "KX1lIH519xqxsrPG",
   "sort": 15200000,
@@ -465,7 +465,7 @@
         "featType": "trait",
         "xpCost": 12,
         "requirements": "",
-        "effect": "enemies within Range 1 of this creature suffer -1 on Skill rolls made to Oppose it.",
+        "effect": "enemies within Range 1 of this creature take -1 on Skill rolls made to Oppose it.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [],

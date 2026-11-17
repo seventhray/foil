@@ -77,7 +77,7 @@
       "physical": 1,
       "mental": 0
     },
-    "notes": "<p><em>A master of a trade with a workshop, apprentices, and a name people ask for</em></p><p><strong>Habits</strong> Order Methodical: I keep my gear in the same place every time, so I can find it in the dark. Levity Grave: Silence sits easier with me than small talk.</p><p>Fights hard inside its own workshop and nowhere else. Outside it, the Master Artisan sends for the law.</p>"
+    "notes": "<p><em>A well-known master of a trade with a workshop and apprentices</em></p><p><strong>Habits</strong> Order Methodical: I keep my gear in the same place every time, so I can find it in the dark. Levity Grave: I'm at ease in silence and skip the small talk.</p><p>Fights hard inside its own workshop and nowhere else. Outside it, the Master Artisan sends for the law.</p>"
   },
   "folder": "lbAiucKhjwD2rzG9",
   "sort": 9800000,
@@ -278,7 +278,7 @@
         "featType": "learned",
         "xpCost": 12,
         "requirements": "12 Might, 12 Finesse",
-        "effect": "When using a Melee Technique that deals Stress to the Target, deal +1 additional Stress.",
+        "effect": "When using a Melee Technique that deals Stress to the Target, deal +1 Stress.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [],

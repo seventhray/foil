@@ -74,7 +74,7 @@
       "physical": 0,
       "mental": 0
     },
-    "notes": "<p><em>A big cat built entirely around the first three seconds of a fight, after that it's just fast and outmatched</em></p><p>Waits above a trail and drops on the last in line. It leaves as soon as the fight turns fair.</p>"
+    "notes": "<p><em>A big cat that pounces from ambush and runs once the fight evens out</em></p><p>Waits above a trail and drops on the last in line. It leaves as soon as the fight turns fair.</p>"
   },
   "folder": "lbAiucKhjwD2rzG9",
   "sort": 8100000,
@@ -304,7 +304,7 @@
         "featType": "trait",
         "xpCost": 8,
         "requirements": "",
-        "effect": "see in darkness as though it were lit, as long as some light reaches it.",
+        "effect": "sees in darkness as though it were lit, as long as some light reaches it.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [],
@@ -365,7 +365,7 @@
         "featType": "trait",
         "xpCost": 8,
         "requirements": "",
-        "effect": "the first Technique this creature lands on a target that hasn't yet acted this conflict deals +2 additional Stress.",
+        "effect": "the first Technique this creature lands on a target that hasn't yet acted this conflict deals +2 Stress.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [],

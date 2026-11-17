@@ -77,7 +77,7 @@
       "physical": 3,
       "mental": 1
     },
-    "notes": "<p><em>An ancient tree-spirit that's protected its grove since before anyone can remember who planted it</em></p><p>Protects the grove and nothing else. It lets a party leave, and stops one that cuts or burns.</p>"
+    "notes": "<p><em>An ancient tree-spirit that guards its grove</em></p><p>Protects the grove and nothing else. It lets a party leave, and stops one that cuts or burns.</p>"
   },
   "folder": "a6sag5XJHITShA7Q",
   "sort": 8200000,
@@ -366,7 +366,7 @@
         "featType": "trait",
         "xpCost": 12,
         "requirements": "",
-        "effect": "the first time an Attribute of this creature's would be Incapacitated in a conflict, its Stress stops 1 short of its Potential instead.",
+        "effect": "the first time one of this creature's Attributes would be Incapacitated in a conflict, its Stress stops 1 short of its Potential instead.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [],

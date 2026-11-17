@@ -74,7 +74,7 @@
       "physical": 0,
       "mental": 0
     },
-    "notes": "<p><em>A creature hollowed out by the void, starving and never filled</em></p><p>Attacks whatever is alive and nearest, feeding as it goes. It never stops on its own.</p>"
+    "notes": "<p><em>A creature hollowed out by the void and always starving</em></p><p>Attacks whatever is alive and nearest, feeding as it goes. It never stops on its own.</p>"
   },
   "folder": "lbAiucKhjwD2rzG9",
   "sort": 8900000,
@@ -274,7 +274,7 @@
         "featType": "trait",
         "xpCost": 8,
         "requirements": "",
-        "effect": "see in darkness as though it were lit, as long as some light reaches it.",
+        "effect": "sees in darkness as though it were lit, as long as some light reaches it.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [],
@@ -298,7 +298,7 @@
         "featType": "trait",
         "xpCost": 8,
         "requirements": "",
-        "effect": "the first time one of this creature's Attributes is Incapacitated in a conflict, its Training in its attack Skill increases by +2 for the rest of the conflict.",
+        "effect": "the first time one of this creature's Attributes is Incapacitated in a conflict, this creature gains +2 Training in its attack Skill for the rest of the conflict.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [],
@@ -322,7 +322,7 @@
         "featType": "trait",
         "xpCost": 12,
         "requirements": "",
-        "effect": "the first time an Attribute of this creature's would be Incapacitated in a conflict, its Stress stops 1 short of its Potential instead.",
+        "effect": "the first time one of this creature's Attributes would be Incapacitated in a conflict, its Stress stops 1 short of its Potential instead.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [],

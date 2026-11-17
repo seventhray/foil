@@ -70,7 +70,7 @@
       "physical": 0,
       "mental": 0
     },
-    "notes": "<p><em>A chattering scatter of animate stones, none dangerous alone</em></p><p>Rolls over whatever is nearest. Blades do little; a hammer or a wide blast scatters it.</p>"
+    "notes": "<p><em>A clattering swarm of small moving stones that attack as one</em></p><p>Rolls over whatever is nearest. Blades do little; a hammer or a wide blast scatters it.</p>"
   },
   "folder": "waHrVCvmZV9sEJ2n",
   "sort": 10900000,
@@ -173,7 +173,7 @@
         "featType": "trait",
         "xpCost": 8,
         "requirements": "",
-        "effect": "area Patterns deal this creature half Stress, rounded down. This creature Opposes single-target attacks at -1.",
+        "effect": "Area Patterns deal this creature half Stress, rounded down. This creature Opposes single-target attacks at -1.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [],

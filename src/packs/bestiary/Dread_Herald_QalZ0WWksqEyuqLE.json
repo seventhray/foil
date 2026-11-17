@@ -77,7 +77,7 @@
       "physical": 2,
       "mental": 2
     },
-    "notes": "<p><em>A creature corrupted by the void to a size and coherence that lets it announce what is coming behind it</em></p><p>Arrives first and loudly. Its voice breaks a party's nerve before its claws arrive.</p>"
+    "notes": "<p><em>A huge creature, corrupted by the void, that arrives first and announces what follows</em></p><p>Arrives first and loudly. Its voice breaks a party's nerve before its claws arrive.</p>"
   },
   "folder": "a6sag5XJHITShA7Q",
   "sort": 5200000,
@@ -364,7 +364,7 @@
         "featType": "trait",
         "xpCost": 12,
         "requirements": "",
-        "effect": "enemies within Range 1 of this creature suffer -1 on Skill rolls made to Oppose it.",
+        "effect": "enemies within Range 1 of this creature take -1 on Skill rolls made to Oppose it.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [],

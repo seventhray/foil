@@ -77,7 +77,7 @@
       "physical": 1,
       "mental": 0
     },
-    "notes": "<p><em>A web-spinner grown past anything that should still be called a spider, patient about which strand gets plucked first</em></p><p>Knows where everything in its web is. It wraps one target, bites it, and leaves it for later.</p>"
+    "notes": "<p><em>An unnaturally huge web-spinner that picks off prey in its web one at a time</em></p><p>Knows where everything in its web is. It wraps one target, bites it, and leaves it for later.</p>"
   },
   "folder": "20lyztx7vQQXvuEu",
   "sort": 7500000,
@@ -355,7 +355,7 @@
         "featType": "trait",
         "xpCost": 8,
         "requirements": "",
-        "effect": "sense anything touching a Web this creature has placed, anywhere on it, without a roll.",
+        "effect": "senses anything touching a Web this creature has placed, anywhere on it, without a roll.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [],
@@ -379,7 +379,7 @@
         "featType": "trait",
         "xpCost": 8,
         "requirements": "",
-        "effect": "see in darkness as though it were lit, as long as some light reaches it.",
+        "effect": "sees in darkness as though it were lit, as long as some light reaches it.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [],
@@ -403,7 +403,7 @@
         "featType": "trait",
         "xpCost": 8,
         "requirements": "",
-        "effect": "the first Technique this creature lands on a target that hasn't yet acted this conflict deals +2 additional Stress.",
+        "effect": "the first Technique this creature lands on a target that hasn't yet acted this conflict deals +2 Stress.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [],

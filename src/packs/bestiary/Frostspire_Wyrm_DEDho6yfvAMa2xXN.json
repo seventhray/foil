@@ -77,7 +77,7 @@
       "physical": 4,
       "mental": 0
     },
-    "notes": "<p><em>A dragon of ice and old silence, nesting somewhere that hasn't thawed in centuries</em></p><p>Fights from above its own ground and never far from the hoard. It answers each attacker in turn.</p>"
+    "notes": "<p><em>An ice dragon that guards its hoard in a place frozen for centuries</em></p><p>Fights from above its own ground and never far from the hoard. It answers each attacker in turn.</p>"
   },
   "folder": "KX1lIH519xqxsrPG",
   "sort": 6300000,
@@ -625,7 +625,7 @@
         "featType": "trait",
         "xpCost": 24,
         "requirements": "",
-        "effect": "once per round, when a Technique would apply a Condition, Weakened, or Reeling to this creature, treat the failed Oppose as a success instead: the effect fails to apply. Stress from the same Technique still lands.",
+        "effect": "once per round, when a Technique would apply a Condition, Weakened, or Reeling to this creature, treat the failed Oppose as a success. Stress from the same Technique still lands.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [],
@@ -649,7 +649,7 @@
         "featType": "trait",
         "xpCost": 16,
         "requirements": "",
-        "effect": "Kinetic +4 Resistance: a body that has never thawed.",
+        "effect": "Kinetic +4 Resistance: a body frozen solid.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [

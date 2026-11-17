@@ -41,7 +41,7 @@ ok("d12 to d20 4 times the Potential as a Transformation; guide prices",
   XP_COST.transformation === 4 && /\*\*Transformation\*\*: a lasting change that advances a d12 Attribute die to d20[^|]*\|\s*4 times the Attribute's Potential \|/.test(phb) && /### 2\.3\.1 Transformations/.test(phb) && /## 7\.3\.0 Transformations/.test(phb)
   && /a die one size the Attribute's Potential, d12 to d20 4 times it as a Transformation \(PHB 2\.3\.1\), a new 1d4 2 times it/.test(all));
 ok("every Attribute starts at 2d4", /Every Attribute starts at 2d4/.test(phb) && /Every Attribute starts at 2d4/.test(all));
-ok("Training cap is the dice in the two pools", /Training can't exceed the total number of dice in its contributing Attribute pools \(/.test(phb) && /can't pass the number of dice in the Skill's two pools\./.test(all));
+ok("Training cap is the dice in the two pools", /Training is at most the number of dice in its two Attribute pools \(/.test(phb) && /can't pass the number of dice in the Skill's two pools\./.test(all));
 ok("+N Pierce is half the bonus", /Pierce equal to half its bonus, rounded down/.test(phb) && /Pierce equal to half the bonus, rounded down/.test(all));
 ok("Strain is floor((XP - 16) / 8)", /\*\*Strain = floor\(\(XP - 16\) \/ 8\)\*\*/.test(fm) && /floor\(\(XP - 16\) \/ 8\)/.test(all) && /minus 16, divided by 8/.test(phb));
 ok("Strain lands on the Primary Attribute", /Strain applies to the Instrument's Primary Attribute/.test(phb) && /on the Instrument's Primary Attribute/.test(all));

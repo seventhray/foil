@@ -77,7 +77,7 @@
       "physical": 1,
       "mental": 0
     },
-    "notes": "<p><em>A hunter of dangerous game, hired when something has started taking people</em></p><p><strong>Habits</strong> Individualism Individual: I look out for myself first; I can't help anyone if I'm the one who falls. Levity Grave: Silence sits easier with me than small talk.</p><p>Marks one target and wears it down from range. The Master Hunter leaves when the quarry is out of reach.</p>"
+    "notes": "<p><em>A hunter of dangerous game, hired when something has started taking people</em></p><p><strong>Habits</strong> Individualism Individual: I look out for myself first, so I'm on my feet when someone needs help. Levity Grave: I'm at ease in silence and skip the small talk.</p><p>Marks one target and wears it down from range. The Master Hunter leaves when the quarry is out of reach.</p>"
   },
   "folder": "Ei2eOqOL5AhHRvrj",
   "sort": 9900000,
@@ -361,7 +361,7 @@
         "featType": "learned",
         "xpCost": 12,
         "requirements": "12 Finesse, 12 Wit",
-        "effect": "When using a Ranged Technique that deals Stress to the Target, deal +1 additional Stress.",
+        "effect": "When using a Ranged Technique that deals Stress to the Target, deal +1 Stress.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [],

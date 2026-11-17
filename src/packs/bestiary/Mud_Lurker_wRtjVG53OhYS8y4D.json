@@ -74,7 +74,7 @@
       "physical": 1,
       "mental": 0
     },
-    "notes": "<p><em>A slow-moving mass of animate wet earth, patient in the way only something that doesn't breathe can be</em></p><p>Lies flat as part of the bank until someone steps on it. It pulls one target down and holds.</p>"
+    "notes": "<p><em>A slow mass of living mud that waits in its mire for someone to step on it</em></p><p>Lies flat as part of the bank until someone steps on it. It pulls one target down and holds.</p>"
   },
   "folder": "lbAiucKhjwD2rzG9",
   "sort": 10600000,
@@ -301,7 +301,7 @@
         "featType": "trait",
         "xpCost": 8,
         "requirements": "",
-        "effect": "the first Technique this creature lands on a target that hasn't yet acted this conflict deals +2 additional Stress.",
+        "effect": "the first Technique this creature lands on a target that hasn't yet acted this conflict deals +2 Stress.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [],

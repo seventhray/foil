@@ -77,7 +77,7 @@
       "physical": 1,
       "mental": 1
     },
-    "notes": "<p><em>A serpent whose stare holds prey as still as carved stone</em></p><p>Its lair is full of things that stopped moving. It holds one target with its stare and bites it at leisure.</p>"
+    "notes": "<p><em>A serpent whose stare holds prey still while it bites</em></p><p>Its lair is full of things that stopped moving. It holds one target with its stare and bites it at leisure.</p>"
   },
   "folder": "VplDuZOmSvWbeVdo",
   "sort": 13600000,
@@ -313,7 +313,7 @@
         "featType": "trait",
         "xpCost": 8,
         "requirements": "",
-        "effect": "see in darkness as though it were lit, as long as some light reaches it.",
+        "effect": "sees in darkness as though it were lit, as long as some light reaches it.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [],
@@ -398,7 +398,7 @@
         "featType": "trait",
         "xpCost": 8,
         "requirements": "",
-        "effect": "the first Technique this creature lands on a target that hasn't yet acted this conflict deals +2 additional Stress.",
+        "effect": "the first Technique this creature lands on a target that hasn't yet acted this conflict deals +2 Stress.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [],

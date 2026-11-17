@@ -70,7 +70,7 @@
       "physical": 0,
       "mental": 0
     },
-    "notes": "<p><em>Fast, fragile skirmisher</em></p>"
+    "notes": "<p><em>A small, quick fighter that strikes first and slips away</em></p>"
   },
   "folder": "waHrVCvmZV9sEJ2n",
   "sort": 7900000,
@@ -181,7 +181,7 @@
         "featType": "trait",
         "xpCost": 8,
         "requirements": "",
-        "effect": "the first Technique this creature lands on a target that hasn't yet acted this conflict deals +2 additional Stress.",
+        "effect": "the first Technique this creature lands on a target that hasn't yet acted this conflict deals +2 Stress.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [],

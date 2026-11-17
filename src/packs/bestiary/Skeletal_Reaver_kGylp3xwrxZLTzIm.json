@@ -70,7 +70,7 @@
       "physical": 0,
       "mental": 0
     },
-    "notes": "<p><em>Old bones bound to old orders, still swinging whatever blade it died holding</em></p><p>Guards one doorway or one grave and attacks whatever crosses it. It never follows far.</p>"
+    "notes": "<p><em>A skeleton bound to old orders, armed with the blade it died holding</em></p><p>Guards one doorway or one grave and attacks whatever crosses it. It never follows far.</p>"
   },
   "folder": "waHrVCvmZV9sEJ2n",
   "sort": 12700000,
@@ -186,7 +186,7 @@
         "featType": "trait",
         "xpCost": 8,
         "requirements": "",
-        "effect": "this creature cannot be Frightened. Nothing is left in it to scare.",
+        "effect": "this creature cannot be Frightened. It has no fear left.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [],

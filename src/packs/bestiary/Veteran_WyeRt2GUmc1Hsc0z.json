@@ -77,7 +77,7 @@
       "physical": 2,
       "mental": 0
     },
-    "notes": "<p><em>An old soldier who has outlived most of the people who trained it</em></p><p><strong>Habits</strong> Faith Mistrusting: I check the exits before I check the menu. Levity Grave: I carry what's happened to me; I don't set it down to make room for a laugh.</p><p>Picks the weakest target and finishes it. The Veteran leaves a fight the moment the odds turn.</p>"
+    "notes": "<p><em>An old soldier who has outlived most of the people who trained it</em></p><p><strong>Habits</strong> Faith Mistrusting: I check the exits before I check the menu. Levity Grave: I carry what's happened to me; it keeps me serious.</p><p>Picks the weakest target and finishes it. The Veteran leaves a fight the moment the odds turn.</p>"
   },
   "folder": "Ei2eOqOL5AhHRvrj",
   "sort": 15600000,
@@ -259,7 +259,7 @@
         "featType": "trait",
         "xpCost": 12,
         "requirements": "",
-        "effect": "the first time an Attribute of this creature's would be Incapacitated in a conflict, its Stress stops 1 short of its Potential instead.",
+        "effect": "the first time one of this creature's Attributes would be Incapacitated in a conflict, its Stress stops 1 short of its Potential instead.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [],

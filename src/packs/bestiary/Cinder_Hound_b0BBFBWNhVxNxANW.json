@@ -74,7 +74,7 @@
       "physical": 1,
       "mental": 0
     },
-    "notes": "<p><em>An ember given a hound's shape and a hound's hunting instinct</em></p><p>Runs in a pack of three or four and sets one target burning before moving to the next.</p>"
+    "notes": "<p><em>A hound made of glowing embers that hunts in packs</em></p><p>Runs in a pack of three or four and sets one target burning before moving to the next.</p>"
   },
   "folder": "lbAiucKhjwD2rzG9",
   "sort": 3100000,
@@ -271,7 +271,7 @@
         "featType": "trait",
         "xpCost": 8,
         "requirements": "",
-        "effect": "track a creature's trail by scent alone. Within Range 1, sense a hidden or invisible creature without a roll.",
+        "effect": "tracks a creature's trail by scent alone. Within Range 1, it senses a hidden or invisible creature without a roll.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [],
@@ -332,7 +332,7 @@
         "featType": "trait",
         "xpCost": 12,
         "requirements": "",
-        "effect": "+1 to its Techniques for each other creature bearing this same Feat within Range 1 of its target, up to +2.",
+        "effect": "+1 to this creature's Techniques for each other creature with this Feat within Range 1 of its target, up to +2.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [],

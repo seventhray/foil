@@ -52,10 +52,13 @@ export function buildGlossary() {
   }
   add("Hasten", "Grant the target an extra Action or Quick Action on its next turn.");
 
-  // Patterns.
-  for (const line of sectionText(PHB, /^### 4\.2\.4 Patterns/).split("\n")) {
-    const m = line.match(/^- \*\*(Beam|Cone|Radius|Wall)\*\*: (.+)$/);
-    if (m) add(m[1], m[2], true);
+  // Patterns: the 4.2.4 table's Area, then the cost line that names the Pattern.
+  const patLines = sectionText(PHB, /^### 4\.2\.4 Patterns/).split("\n");
+  for (const r of tableAfter(PHB, /^### 4\.2\.4 Patterns/)) {
+    const name = clean(r.Pattern);
+    if (!/^(Beam|Cone|Radius|Wall)$/.test(name)) continue;
+    const cost = patLines.find(l => new RegExp(`^- (?:A|You can place and turn a) ${name}\\b`).test(l));
+    add(name, `${clean(r.Area).replace(/\\~/g, "~")}.${cost ? " " + cost.slice(2) : ""}`, true);
   }
 
   const sorted = Object.fromEntries(Object.entries(out).sort(([a], [b]) => a.localeCompare(b)));

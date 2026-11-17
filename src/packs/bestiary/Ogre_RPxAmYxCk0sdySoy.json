@@ -77,7 +77,7 @@
       "physical": 0,
       "mental": 0
     },
-    "notes": "<p><em>Slow and brutal, one big swing at a time</em></p><p>No armor and no defense to speak of. It survives on Health, not Resistance, so it goes down slow and hits like a truck the whole way.</p>"
+    "notes": "<p><em>A slow, brutal giant that swings a heavy club</em></p><p>No armor and no defense to speak of. It survives on Health, not Resistance, so it goes down slow and hits like a truck the whole way.</p>"
   },
   "folder": "lbAiucKhjwD2rzG9",
   "sort": 10700000,
@@ -201,7 +201,7 @@
         "featType": "trait",
         "xpCost": 8,
         "requirements": "",
-        "effect": "the first time one of its Attributes is Incapacitated in a conflict, its Prowess Training increases by +2 for the rest of the conflict. Slow to start, worse once it's hurt.",
+        "effect": "the first time one of this creature's Attributes is Incapacitated in a conflict, this creature gains +2 Training in Prowess for the rest of the conflict.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [],

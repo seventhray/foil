@@ -74,7 +74,7 @@
       "physical": 2,
       "mental": 0
     },
-    "notes": "<p><em>Incorporeal haunt, cold to the touch and unbarred by walls</em></p><p>Its Resistance answers \"how do you even hurt it,\" not \"how armored is it.\" A party without a way past that resistance is in for a long fight.</p>"
+    "notes": "<p><em>A bodiless spirit that is cold to the touch and passes through walls</em></p><p>Its Resistance answers \"how do you even hurt it,\" not \"how armored is it.\" A party without a way past that resistance is in for a long fight.</p>"
   },
   "folder": "VplDuZOmSvWbeVdo",
   "sort": 6700000,
@@ -365,7 +365,7 @@
         "featType": "learned",
         "xpCost": 12,
         "requirements": "12 Wit, 12 Presence",
-        "effect": "When using an Incorporeal Technique that deals Stress to the Target, deal +1 additional Stress.",
+        "effect": "When using an Incorporeal Technique that deals Stress to the Target, deal +1 Stress.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [],
@@ -389,7 +389,7 @@
         "featType": "trait",
         "xpCost": 24,
         "requirements": "",
-        "effect": "once per round, when a Technique would apply a Condition, Weakened, or Reeling to it, treats the failed Oppose as a success instead; Stress from the same hit still lands.",
+        "effect": "once per round, when a Technique would apply a Condition, Weakened, or Reeling to this creature, treat the failed Oppose as a success. Stress from the same Technique still lands.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [],

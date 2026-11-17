@@ -77,7 +77,7 @@
       "physical": 4,
       "mental": 0
     },
-    "notes": "<p><em>A towering column of raw elemental force, barely restrained and worse once it breaks loose</em></p><p>Pick its element when it appears. Every big attack costs it Strain, so it wears itself down as it wears down the party.</p>"
+    "notes": "<p><em>A towering column of raw elemental force, barely contained and more dangerous once it breaks loose</em></p><p>Pick its element when it appears. Every big attack costs it Strain, so it wears itself down as it wears down the party.</p>"
   },
   "folder": "KX1lIH519xqxsrPG",
   "sort": 5700000,
@@ -347,7 +347,7 @@
         "featType": "trait",
         "xpCost": 8,
         "requirements": "",
-        "effect": "when this creature is Destroyed, everything within Range 2 of it immediately takes Stress equal to this creature's Training bonus, this creature's choice of Attribute among the ones it could normally target.",
+        "effect": "when this creature is Destroyed, everything within Range 2 of it immediately takes Stress equal to this creature's Training bonus. This creature picks the Attribute from those it can target.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [],

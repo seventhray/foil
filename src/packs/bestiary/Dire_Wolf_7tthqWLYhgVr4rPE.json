@@ -74,7 +74,7 @@
       "physical": 1,
       "mental": 0
     },
-    "notes": "<p><em>Pack hunter, trips prey before the bite lands</em></p><p>Run two or three together. Pack Tactics is what makes the pack dangerous.</p>"
+    "notes": "<p><em>A pack hunter that trips prey before it bites</em></p><p>Run two or three together. Pack Tactics is what makes the pack dangerous.</p>"
   },
   "folder": "lbAiucKhjwD2rzG9",
   "sort": 5000000,
@@ -251,7 +251,7 @@
         "featType": "trait",
         "xpCost": 12,
         "requirements": "",
-        "effect": "+1 to its Techniques for each other creature bearing this same Feat within Range 1 of its target, up to +2.",
+        "effect": "+1 to this creature's Techniques for each other creature with this Feat within Range 1 of its target, up to +2.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [],
@@ -275,7 +275,7 @@
         "featType": "trait",
         "xpCost": 8,
         "requirements": "",
-        "effect": "the first Technique this creature lands on a target that hasn't yet acted this conflict deals +2 additional Stress.",
+        "effect": "the first Technique this creature lands on a target that hasn't yet acted this conflict deals +2 Stress.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [],

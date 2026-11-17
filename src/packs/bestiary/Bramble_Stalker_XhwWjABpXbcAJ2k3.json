@@ -70,7 +70,7 @@
       "physical": 0,
       "mental": 0
     },
-    "notes": "<p><em>A wolf-shaped thing grown through with thorned bramble, more plant now than animal</em></p><p>Hunts in twos and threes from thick brush. Give it the first strike from cover.</p>"
+    "notes": "<p><em>A wolf that thorny bramble has grown through until it is mostly plant</em></p><p>Hunts in twos and threes from thick brush. Give it the first strike from cover.</p>"
   },
   "folder": "waHrVCvmZV9sEJ2n",
   "sort": 2000000,
@@ -178,7 +178,7 @@
         "featType": "trait",
         "xpCost": 8,
         "requirements": "",
-        "effect": "the first Technique this creature lands on a target that hasn't yet acted this conflict deals +2 additional Stress.",
+        "effect": "the first Technique this creature lands on a target that hasn't yet acted this conflict deals +2 Stress.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [],

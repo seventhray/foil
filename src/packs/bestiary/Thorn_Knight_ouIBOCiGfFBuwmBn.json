@@ -74,7 +74,7 @@
       "physical": 2,
       "mental": 0
     },
-    "notes": "<p><em>A duelist grown through with living thornwood, bound to a code of manners stranger and stricter than any court's</em></p><p>Offers a duel and names the terms. It fights one opponent at a time unless the terms are broken.</p>"
+    "notes": "<p><em>A duelist with living thornwood grown through its body, bound to a strict code of manners</em></p><p>Offers a duel and names the terms. It fights one opponent at a time unless the terms are broken.</p>"
   },
   "folder": "VplDuZOmSvWbeVdo",
   "sort": 14300000,
@@ -422,7 +422,7 @@
         "featType": "trait",
         "xpCost": 12,
         "requirements": "",
-        "effect": "the first time an Attribute of this creature's would be Incapacitated in a conflict, its Stress stops 1 short of its Potential instead.",
+        "effect": "the first time one of this creature's Attributes would be Incapacitated in a conflict, its Stress stops 1 short of its Potential instead.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [],

@@ -74,7 +74,7 @@
       "physical": 0,
       "mental": 0
     },
-    "notes": "<p><em>An acidic mass that eats through metal and wood equally, given enough time</em></p><p>Flows toward metal and whoever is wearing it. Its acid keeps working after it moves on.</p>"
+    "notes": "<p><em>An acidic mass that slowly eats through metal and wood</em></p><p>Flows toward metal and whoever is wearing it. Its acid keeps working after it moves on.</p>"
   },
   "folder": "lbAiucKhjwD2rzG9",
   "sort": 4100000,
@@ -342,7 +342,7 @@
         "featType": "trait",
         "xpCost": 8,
         "requirements": "",
-        "effect": "this creature cannot be Prone. It has no feet to lose.",
+        "effect": "this creature cannot be Prone. It has no feet.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [],

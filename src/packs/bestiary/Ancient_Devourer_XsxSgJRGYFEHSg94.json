@@ -77,7 +77,7 @@
       "physical": 4,
       "mental": 0
     },
-    "notes": "<p><em>An ooze old enough to have consumed entire rooms of a ruin, walls included</em></p><p>Fills rooms. The party fights it a doorway at a time, or not at all.</p>"
+    "notes": "<p><em>An ooze old enough to have eaten entire rooms of a ruin, walls included</em></p><p>Fills rooms. The party fights it a doorway at a time, or not at all.</p>"
   },
   "folder": "a6sag5XJHITShA7Q",
   "sort": 200000,
@@ -380,7 +380,7 @@
         "featType": "trait",
         "xpCost": 12,
         "requirements": "",
-        "effect": "the first time an Attribute of this creature's would be Incapacitated in a conflict, its Stress stops 1 short of its Potential instead.",
+        "effect": "the first time one of this creature's Attributes would be Incapacitated in a conflict, its Stress stops 1 short of its Potential instead.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [],
@@ -452,7 +452,7 @@
         "featType": "trait",
         "xpCost": 8,
         "requirements": "",
-        "effect": "this creature cannot be Prone. It has no feet to lose.",
+        "effect": "this creature cannot be Prone. It has no feet.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [],

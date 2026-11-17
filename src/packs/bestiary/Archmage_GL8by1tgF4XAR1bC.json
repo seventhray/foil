@@ -77,7 +77,7 @@
       "physical": 0,
       "mental": 3
     },
-    "notes": "<p><em>A mind first, a body a distant second</em></p><p>An NPC-track build in a monster-track bestiary: high Wit, unremarkable Might, and defense that comes from a ward rather than a hide. Undaunted is its Legendary-style defensive Feat, the same slot the Lich fills the same way.</p>"
+    "notes": "<p><em>A brilliant master caster with an ordinary body</em></p><p>An NPC-track build in a monster-track bestiary: high Wit, unremarkable Might, and defense that comes from a ward rather than a hide. Undaunted is its Legendary-style defensive Feat, the same slot the Lich fills the same way.</p>"
   },
   "folder": "a6sag5XJHITShA7Q",
   "sort": 600000,
@@ -438,7 +438,7 @@
         "featType": "trait",
         "xpCost": 12,
         "requirements": "",
-        "effect": "enemies within Range 1 of this creature suffer -1 on Skill rolls made to Oppose it.",
+        "effect": "enemies within Range 1 of this creature take -1 on Skill rolls made to Oppose it.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [],
@@ -462,7 +462,7 @@
         "featType": "trait",
         "xpCost": 24,
         "requirements": "",
-        "effect": "once per round, when a Technique would apply a Condition, Weakened, or Reeling to it, treats the failed Oppose as a success instead; Stress from the same hit still lands.",
+        "effect": "once per round, when a Technique would apply a Condition, Weakened, or Reeling to this creature, treat the failed Oppose as a success. Stress from the same Technique still lands.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [],

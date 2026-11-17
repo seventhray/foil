@@ -652,7 +652,7 @@ export const MONSTER_FEATS = [
   "per": "",
   "xpText": "8",
   "requires": "any tier",
-  "effect": "The first time one of this creature's Attributes is Incapacitated in a conflict, its Training in its attack Skill increases by +2 for the rest of the conflict."
+  "effect": "The first time one of this creature's Attributes is Incapacitated in a conflict, this creature gains +2 Training in its attack Skill for the rest of the conflict."
  },
  {
   "name": "Dread Presence",
@@ -660,7 +660,7 @@ export const MONSTER_FEATS = [
   "per": "",
   "xpText": "12",
   "requires": "any tier",
-  "effect": "Enemies within Range 1 of this creature suffer -1 on Skill rolls made to Oppose it."
+  "effect": "Enemies within Range 1 of this creature take -1 on Skill rolls made to Oppose it."
  },
  {
   "name": "Fatal Burst",
@@ -668,7 +668,7 @@ export const MONSTER_FEATS = [
   "per": "",
   "xpText": "8",
   "requires": "any tier",
-  "effect": "When this creature is Destroyed, everything within Range 2 of it immediately takes Stress equal to this creature's Training bonus, this creature's choice of Attribute among the ones it could normally target."
+  "effect": "When this creature is Destroyed, everything within Range 2 of it immediately takes Stress equal to this creature's Training bonus. This creature picks the Attribute from those it can target."
  },
  {
   "name": "Undaunted",
@@ -676,7 +676,7 @@ export const MONSTER_FEATS = [
   "per": "",
   "xpText": "24",
   "requires": "any tier",
-  "effect": "Once per round, when a Technique would apply a Condition, Weakened, or Reeling to this creature, treat the failed Oppose as a success instead: the effect fails to apply. Stress from the same Technique still lands."
+  "effect": "Once per round, when a Technique would apply a Condition, Weakened, or Reeling to this creature, treat the failed Oppose as a success. Stress from the same Technique still lands."
  },
  {
   "name": "Specialized Immunity",
@@ -684,7 +684,7 @@ export const MONSTER_FEATS = [
   "per": "condition",
   "xpText": "8 per Condition",
   "requires": "any tier",
-  "effect": "This creature cannot suffer one named Condition (PHB 4.2.1). Needs a stated reason: a body with no eyes cannot be Blinded, a mindless thing cannot be Charmed."
+  "effect": "This creature is immune to one named Condition (PHB 4.2.1). Needs a stated reason: a body with no eyes cannot be Blinded, a mindless thing cannot be Charmed."
  },
  {
   "name": "Adaptive Hide",
@@ -700,7 +700,7 @@ export const MONSTER_FEATS = [
   "per": "+1",
   "xpText": "6 per +1 (max +3)",
   "requires": "any tier",
-  "effect": "+1 to this creature's Techniques for each other creature bearing this same Feat within Range 1 of its target, up to the bought maximum."
+  "effect": "+1 to this creature's Techniques for each other creature with this Feat within Range 1 of its target, up to the bought maximum."
  },
  {
   "name": "Swarm",
@@ -716,7 +716,7 @@ export const MONSTER_FEATS = [
   "per": "",
   "xpText": "8",
   "requires": "any tier",
-  "effect": "The first Technique this creature lands on a target that hasn't yet acted this conflict deals +2 additional Stress."
+  "effect": "The first Technique this creature lands on a target that hasn't yet acted this conflict deals +2 Stress."
  },
  {
   "name": "Second Wind",
@@ -724,7 +724,7 @@ export const MONSTER_FEATS = [
   "per": "",
   "xpText": "12",
   "requires": "any tier",
-  "effect": "The first time an Attribute of this creature's would be Incapacitated in a conflict, its Stress stops 1 short of its Potential instead."
+  "effect": "The first time one of this creature's Attributes would be Incapacitated in a conflict, its Stress stops 1 short of its Potential instead."
  },
  {
   "name": "Juggernaut",
@@ -772,14 +772,14 @@ export const MONSTER_FEATS = [
   "per": "point",
   "xpText": "8 per point (Melee or Ranged) or 4 per point (Kinetic, Sonic, or Incorporeal)",
   "requires": "any tier",
-  "effect": "Resistance +N (PHB 6.6.0) against Melee or Ranged Techniques, or against Kinetic, Sonic, or Incorporeal ones (PHB 4.1.1), capped at the creature's Resistance cap (9.1.0). Needs a stated reason: a hide that turns one kind of blow, a ward tuned to one kind of dread. Stacks with whatever Broad Resistance the tier's budget (9.3.0) already bought."
+  "effect": "Resistance +N (PHB 6.6.0) against Melee or Ranged Techniques, or against Kinetic, Sonic, or Incorporeal ones (PHB 4.1.1), up to the creature's Resistance cap (9.1.0). Needs a stated reason: a hide that resists one kind of blow, a ward against one kind of mental attack. Stacks with any Broad Resistance bought from the tier's budget (9.3.0)."
  }
 ];
 export const TRAITS = [
  {
   "name": "Fly",
   "xp": 8,
-  "effect": "Moves through open air, ignoring ground-based terrain and any Grappling or Move Effect that requires solid footing beneath the target."
+  "effect": "Moves through open air, ignoring ground-based terrain and any Grappling or Move Effect that needs solid footing under the target."
  },
  {
   "name": "Swim",
@@ -804,7 +804,7 @@ export const TRAITS = [
  {
   "name": "Incorporeal Movement",
   "xp": 8,
-  "effect": "Moves through walls, doors, and other solid barriers as though they weren't there."
+  "effect": "Moves through walls, doors, and other solid barriers at full speed."
  },
  {
   "name": "Darkvision",
@@ -839,7 +839,7 @@ export const TRAITS = [
  {
   "name": "True Sight",
   "xp": 16,
-  "effect": "See through Illusion automatically. Perceive incorporeal or invisible creatures within Range 2 as plainly as anything else."
+  "effect": "See through Illusion automatically. Perceive incorporeal or invisible creatures within Range 2 as you would any other creature."
  },
  {
   "name": "Regeneration",
@@ -854,6 +854,6 @@ export const TRAITS = [
  {
   "name": "Rejuvenation",
   "xp": 48,
-  "effect": "If you would be Destroyed, every Attribute's Stress clears instead after a GM-set span (typically 1d10 days) unless a stated counter-condition (a phylactery destroyed, a body burned and scattered, whatever anchors your return) is met first."
+  "effect": "If you would be Destroyed, every Attribute's Stress clears instead after a GM-set span (typically 1d10 days) unless a stated counter-condition (a phylactery destroyed or a body burned and scattered) is met first."
  }
 ];

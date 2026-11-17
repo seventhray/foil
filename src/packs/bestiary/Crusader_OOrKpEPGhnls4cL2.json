@@ -77,7 +77,7 @@
       "physical": 1,
       "mental": 1
     },
-    "notes": "<p><em>A knight of a fighting order, sworn to burn out wickedness wherever it hides</em></p><p><strong>Habits</strong> Individualism Communal: My word to the group outweighs my own preference every time. Levity Grave: I carry what's happened to me; I don't set it down to make room for a laugh.</p><p>Marches on what its order names as wicked. The Crusader fights until one side is finished.</p>"
+    "notes": "<p><em>A knight of a fighting order, sworn to hunt down evil</em></p><p><strong>Habits</strong> Individualism Communal: My word to the group comes first, every time. Levity Grave: I carry what's happened to me; it keeps me serious.</p><p>Marches on what its order names as wicked. The Crusader fights until one side is finished.</p>"
   },
   "folder": "Ei2eOqOL5AhHRvrj",
   "sort": 4500000,
@@ -473,7 +473,7 @@
         "featType": "trait",
         "xpCost": 8,
         "requirements": "",
-        "effect": "the first time one of this creature's Attributes is Incapacitated in a conflict, its Training in its attack Skill increases by +2 for the rest of the conflict.",
+        "effect": "the first time one of this creature's Attributes is Incapacitated in a conflict, this creature gains +2 Training in its attack Skill for the rest of the conflict.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [],

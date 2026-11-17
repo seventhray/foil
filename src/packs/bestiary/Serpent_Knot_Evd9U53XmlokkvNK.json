@@ -74,7 +74,7 @@
       "physical": 1,
       "mental": 0
     },
-    "notes": "<p><em>A nest of river snakes grown together into one body, each head still hungry on its own</em></p><p>Every head attacks whatever is nearest to it. Fire or acid stops it healing.</p>"
+    "notes": "<p><em>A nest of river snakes grown together into one body, each head biting on its own</em></p><p>Every head attacks whatever is nearest to it. Fire or acid stops it healing.</p>"
   },
   "folder": "20lyztx7vQQXvuEu",
   "sort": 12400000,
@@ -402,7 +402,7 @@
         "featType": "trait",
         "xpCost": 12,
         "requirements": "",
-        "effect": "the first time an Attribute of this creature's would be Incapacitated in a conflict, its Stress stops 1 short of its Potential instead.",
+        "effect": "the first time one of this creature's Attributes would be Incapacitated in a conflict, its Stress stops 1 short of its Potential instead.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [],

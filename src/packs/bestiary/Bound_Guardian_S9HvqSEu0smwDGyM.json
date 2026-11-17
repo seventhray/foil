@@ -74,7 +74,7 @@
       "physical": 2,
       "mental": 0
     },
-    "notes": "<p><em>Stone or old iron given purpose by a binding it doesn't remember agreeing to, standing exactly where it was left</em></p><p>Guards one thing and ignores everything else. It stops the moment its ward is taken past its reach or its binding ends.</p>"
+    "notes": "<p><em>A construct of stone or old iron, bound to guard one thing by an agreement it has forgotten</em></p><p>Guards one thing and ignores everything else. It stops the moment its ward is taken past its reach or its binding ends.</p>"
   },
   "folder": "lbAiucKhjwD2rzG9",
   "sort": 1900000,
@@ -265,7 +265,7 @@
         "featType": "trait",
         "xpCost": 8,
         "requirements": "",
-        "effect": "this creature cannot be Frightened. It has no fear to find.",
+        "effect": "this creature cannot be Frightened. It feels no fear.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [],
@@ -289,7 +289,7 @@
         "featType": "trait",
         "xpCost": 8,
         "requirements": "",
-        "effect": "this creature cannot be Charmed. It has no will to turn.",
+        "effect": "this creature cannot be Charmed. It has no will of its own.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [],

@@ -77,7 +77,7 @@
       "physical": 4,
       "mental": 0
     },
-    "notes": "<p><em>A colossal beast twisted by corrupted magic into something that commands</em></p><p>Built the same brute-force way as the [[Lich]], a tier down: no Wit-led control trick, just steady force across all four, Might leading and Finesse trailing a step behind. Lesser corrupted things fall in line the instant it appears; Emboldening (9.8.0) makes that literal, holding its lesser corrupted allies steady as long as it's still standing.</p>"
+    "notes": "<p><em>A colossal beast twisted by corrupted magic into a leader of lesser creatures</em></p><p>Built the same brute-force way as the [[Lich]], a tier down: no Wit-led control trick, just steady force across all four, Might leading and Finesse trailing a step behind. Lesser corrupted things fall in line the instant it appears; Emboldening (9.8.0) makes that literal, holding its lesser corrupted allies steady as long as it's still standing.</p>"
   },
   "folder": "KX1lIH519xqxsrPG",
   "sort": 3300000,
@@ -340,7 +340,7 @@
         "featType": "trait",
         "xpCost": 12,
         "requirements": "",
-        "effect": "enemies within Range 1 suffer -1 on Skill rolls made to Oppose it. Lesser things fall in line before it even speaks.",
+        "effect": "enemies within Range 1 of this creature take -1 on Skill rolls made to Oppose it.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [],

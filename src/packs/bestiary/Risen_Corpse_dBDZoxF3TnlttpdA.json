@@ -70,7 +70,7 @@
       "physical": 0,
       "mental": 0
     },
-    "notes": "<p><em>A body that got back up and has not been told to lie down again</em></p><p>Slow and hard to stop. It walks straight at the nearest living person and keeps going.</p>"
+    "notes": "<p><em>A corpse that got back up and walks straight at the nearest living person</em></p><p>Slow and hard to stop. It walks straight at the nearest living person and keeps going.</p>"
   },
   "folder": "oestcF1oEEFrxKyA",
   "sort": 11500000,
@@ -160,7 +160,7 @@
         "featType": "trait",
         "xpCost": 8,
         "requirements": "",
-        "effect": "this creature cannot be Frightened. Nothing is left in it to scare.",
+        "effect": "this creature cannot be Frightened. It has no fear left.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [],
@@ -214,7 +214,7 @@
         "featType": "trait",
         "xpCost": 8,
         "requirements": "",
-        "effect": "this creature cannot be Charmed. It has no will to turn.",
+        "effect": "this creature cannot be Charmed. It has no will of its own.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [],

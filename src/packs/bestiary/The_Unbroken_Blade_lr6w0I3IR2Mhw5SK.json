@@ -80,7 +80,7 @@
       "physical": 3,
       "mental": 1
     },
-    "notes": "<p><em>A duelist who's turned a lifetime of fighting into something that stops looking like skill and starts looking like inevitability</em></p><p>One fighter with no tricks. Every missed attack against the Blade is answered.</p>"
+    "notes": "<p><em>A duelist with a lifetime of practice who punishes every missed attack</em></p><p>One fighter with no tricks. Every missed attack against the Blade is answered.</p>"
   },
   "folder": "KX1lIH519xqxsrPG",
   "sort": 14200000,
@@ -445,7 +445,7 @@
         "featType": "learned",
         "xpCost": 12,
         "requirements": "12 Might, 12 Finesse",
-        "effect": "When using a Melee Technique that deals Stress to the Target, deal +1 additional Stress.",
+        "effect": "When using a Melee Technique that deals Stress to the Target, deal +1 Stress.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [],

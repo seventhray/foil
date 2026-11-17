@@ -2,11 +2,11 @@
 export const GLOSSARY = {
   "action": {
     "name": "Action",
-    "text": "The base measure of agency for a being in time sensitive scenes"
+    "text": "The main thing a creature can do each round in time-sensitive scenes"
   },
   "angered": {
     "name": "Angered",
-    "text": "Resisted with Presence. Furious beyond talking down. It won't Flee or Yield, and keeps fighting any conflict that breaks out. It ends when it acts on the anger, or after the duration."
+    "text": "Resisted with Presence. The creature is too angry to be talked down. It won't Flee or Yield, and keeps fighting any conflict that breaks out. It ends when it acts on the anger, or after the duration."
   },
   "arcane": {
     "name": "Arcane",
@@ -14,7 +14,7 @@ export const GLOSSARY = {
   },
   "attribute": {
     "name": "Attribute",
-    "text": "Might, Finesse, Wit, or Presence, the four fundamental building blocks of a being"
+    "text": "Might, Finesse, Wit, or Presence, the four parts that make up a creature"
   },
   "attribute dice (ad)": {
     "name": "Attribute Dice (AD)",
@@ -22,11 +22,11 @@ export const GLOSSARY = {
   },
   "baited": {
     "name": "Baited",
-    "text": "Resisted with Wit. Fixated on the source. In conflict, it targets the source first. It ends when it acts against the source, or after the duration."
+    "text": "Resisted with Wit. The creature is fixated on the source. In conflict, it targets the source first. It ends when it acts against the source, or after the duration."
   },
   "beam": {
     "name": "Beam",
-    "text": "a straight path from the caster. Counting N rungs costs the running sum 1 + 2 + ... + N."
+    "text": "a straight line (~5 ft wide) from the caster. A Beam that counts N rungs costs 1 + 2 + ... + N."
   },
   "blinded": {
     "name": "Blinded",
@@ -38,27 +38,27 @@ export const GLOSSARY = {
   },
   "cone": {
     "name": "Cone",
-    "text": "a 90-degree arc from the caster. Three times the Beam cost for the same Range."
+    "text": "a 90-degree arc from the caster. A Cone costs three times a Beam of the same Range."
   },
   "conflict": {
     "name": "Conflict",
-    "text": "A scene where beings are attempting to harm one another physically, mentally, or socially"
+    "text": "A scene where creatures try to harm each other physically, mentally, or socially"
   },
   "controlled": {
     "name": "Controlled",
-    "text": "Resisted with Presence. The source directs the creature's next turn: its movement, Skill, and target. It won't be made to harm itself. Controlled ends after that turn unless the source Upkeeps it. Each upkeep rolls again, and the creature Opposes again."
+    "text": "Resisted with Presence. The source directs the creature's next turn: its movement, Skill, and target. The source can't make it harm itself. Controlled ends after that turn unless the source Upkeeps it. At each upkeep, the source rolls again and the creature Opposes again."
   },
   "counter": {
     "name": "Counter",
-    "text": "Quick (trigger: a creature within range performs a Technique): contest it with your Skill; on a tie or better, that Technique fails. The Counter roll takes a penalty equal to that Technique's Strain"
+    "text": "Quick (trigger: a creature within range uses a Technique): contest it with your Skill. On a tie or better, that Technique fails. The Counter roll takes a penalty equal to that Technique's Strain"
   },
   "destroyed": {
     "name": "Destroyed",
-    "text": "Destruction is permanent: death, or a mind or self broken past recovering. A creature is Destroyed when all four of its Attributes are Incapacitated at the same time. Destroying an opponent is a choice."
+    "text": "Destruction is permanent. It is death, or a mind or self broken for good. A creature is Destroyed when all four of its Attributes are Incapacitated at the same time. Destroying an opponent is a choice."
   },
   "disarm": {
     "name": "Disarm",
-    "text": "The target Opposes with a Skill built on Might. If it fails, it drops the Instrument it used last; picking it up costs its Quick Action, the same as switching. Innate Instruments can't be dropped"
+    "text": "The target Opposes with a Skill built on Might. If it fails, it drops the Instrument it used last. Picking it up costs its Quick Action. Innate Instruments can't be dropped"
   },
   "drain": {
     "name": "Drain",
@@ -70,11 +70,11 @@ export const GLOSSARY = {
   },
   "enthralled": {
     "name": "Enthralled",
-    "text": "Resisted with Presence. Devoted to the source. The creature agrees eagerly and helps unasked. It may Oppose again to break free at each natural pause in a scene or each of its turns in a conflict. It ends when the source or an ally harms it, or the source leaves."
+    "text": "Resisted with Presence. The creature is devoted to the source. It agrees eagerly and helps without being asked. It may Oppose again to break free at each natural pause in a scene or each of its turns in a conflict. It ends when the source or an ally harms it, or the source leaves."
   },
   "evade": {
     "name": "Evade",
-    "text": "Move up to Range 2 without spending the normal Disengage Quick Action and without provoking an Attack of Opportunity"
+    "text": "Move up to Range 2 without spending the Disengage Quick Action or provoking an Attack of Opportunity"
   },
   "extend range": {
     "name": "Extend Range",
@@ -86,11 +86,11 @@ export const GLOSSARY = {
   },
   "foil exposed": {
     "name": "Foil Exposed",
-    "text": "Resisted with Wit. The source learns one Habit of the creature, which the Technique names. Once, when the creature Opposes the source, the source may give that Oppose roll -2. It ends when used, or when the scene ends. A creature has one Foil Exposed for each of its Habits, from each source. > [!EXAMPLE] > Mira uses Intuit on the captain: Resonance 15 against his Discipline 10. Mira learns his Habit, \"Rules are the first thing to go when it actually matters.\" Mira then threatens the captain through Voice, choosing Intimidated, and spends the Foil Exposed to give his Oppose -2."
+    "text": "Resisted with Wit. The source learns one of the creature's Habits. The Technique names which one. Once, when the creature Opposes the source, the source may give that Oppose roll -2. It ends when used, or when the scene ends. A creature has one Foil Exposed for each of its Habits, from each source. > [!EXAMPLE] > Mira uses Intuit on the captain: Resonance 15 against his Discipline 10. Mira learns his Habit, \"Rules are the first thing to go when it actually matters.\" Mira then threatens the captain through Voice, choosing Intimidated, and spends the Foil Exposed to give his Oppose -2."
   },
   "foil habit": {
     "name": "FOIL Habit",
-    "text": "Four axes, Faith, Order, Individualism, Levity that describe how a character habitually behaves"
+    "text": "Four axes that describe how a character usually acts: Faith, Order, Individualism, and Levity"
   },
   "foil token": {
     "name": "Foil Token",
@@ -114,11 +114,11 @@ export const GLOSSARY = {
   },
   "hasten": {
     "name": "Hasten",
-    "text": "Grant the target an extra Action on its next turn. Holding it past that turn requires the Upkeep Effect"
+    "text": "Give the target an extra Action on its next turn. Keeping it past that turn needs the Upkeep Effect"
   },
   "illusion": {
     "name": "Illusion",
-    "text": "Conjure a convincing false sight or sound. A creature that would act on the truth Opposes with Acuity to see through it; until it does, it treats the illusion as real (the GM adjudicates what it accomplishes)"
+    "text": "Make a convincing false sight or sound. A creature that would act on the truth Opposes with Acuity to see through it. Until it does, it treats the illusion as real (the GM decides what the illusion can do)"
   },
   "immobile": {
     "name": "Immobile",
@@ -126,11 +126,11 @@ export const GLOSSARY = {
   },
   "impressed": {
     "name": "Impressed",
-    "text": "Resisted with Wit. The creature grants the source's next reasonable request that doesn't work against its own interests. It ends once granted, or after the duration."
+    "text": "Resisted with Wit. The creature agrees to the source's next reasonable request that doesn't work against its own interests. It ends once the creature agrees, or after the duration."
   },
   "incapacitated": {
     "name": "Incapacitated",
-    "text": "An Attribute is Incapacitated when its Stress reaches its Potential. It adds no dice to any roll that draws on it. It can still be targeted, by Techniques and by healing. Incapacitation lifts once healing brings its Stress down to half its Potential, rounded down. Healing short of that lowers its Stress, and new Stress fills it again before overflowing. A character with an Incapacitated Attribute stays in the conflict with a full Action, Quick Action, and movement. It can use any Technique whose Skill still has dice. > [!EXAMPLE] > A creature has taken heavy damage: Might, Wit, and Presence are all Incapacitated, leaving only Finesse standing. Prowess (Might + Finesse), Acuity (Finesse + Wit), and Guile (Finesse + Presence) still roll, each on Finesse's dice alone. Discipline, Assertiveness, and Resonance are dead: neither of their Attributes has dice left, so nothing that rolls them can be attempted. | Attribute | Incapacitated looks like | | --------- | ------------------------ | | Might | The body gives out: strength fails, legs buckle, breath won't come. | | Finesse | Control slips: reactions slow, balance falters, hands shake. | | Wit | The mind stalls: thoughts scatter, memory slips, nothing adds up. | | Presence | Words fail: eloquence goes, feelings spill over, reading the room grows hard. | The player calls it first, and the GM steps in only if asked. Show it once, in a sentence, and play on. > [!EXAMPLE] > In round 2 Kessen uses Relentless Blow through the Longsword on the captain's Might: Prowess 23 against his 12, a margin of 11. Pierce 4 clears the Mail, for 11 Stress. His Might reaches 18 of 16 and is Incapacitated, and the extra 2 overflows onto his Presence. The captain's legs buckle and the Mace sags. He fights on."
+    "text": "An Attribute is Incapacitated when its Stress reaches its Potential. It adds no dice to any roll that draws on it. Techniques and healing can target it. Incapacitation ends once healing brings its Stress down to half its Potential, rounded down. Less healing than that lowers its Stress. New Stress fills it again before overflowing. A character with an Incapacitated Attribute stays in the conflict with a full Action, Quick Action, and movement. It can use any Technique whose Skill still has dice. > [!EXAMPLE] > A creature's Might, Wit, and Presence are Incapacitated. Only its Finesse is left. Prowess (Might + Finesse), Acuity (Finesse + Wit), and Guile (Finesse + Presence) roll on Finesse's dice alone. Discipline, Assertiveness, and Resonance are each built on two Incapacitated Attributes. The creature can't attempt anything that rolls them. | Attribute | Incapacitated looks like | | --------- | ------------------------ | | Might | The body gives out. The legs buckle and breathing is hard. | | Finesse | Reactions are slow and the hands shake. Balance is poor. | | Wit | The mind can't follow a thought or remember things. | | Presence | Feelings spill over, the right words won't come, and other people are hard to read. | The player chooses how it looks. The GM steps in only if asked. Describe it once, in one sentence. > [!EXAMPLE] > In round 2 Kessen uses Relentless Blow through the Longsword on the captain's Might: Prowess 23 against his 12, a margin of 11. Pierce 4 clears the Mail, for 11 Stress. His Might fills at 16 of 16 and is Incapacitated, and the extra 2 overflows onto his Presence. The captain's legs buckle and the Mace sags. He fights on."
   },
   "incorporeal": {
     "name": "Incorporeal",
@@ -138,7 +138,7 @@ export const GLOSSARY = {
   },
   "instrument": {
     "name": "Instrument",
-    "text": "The thing a being uses to interact with the world"
+    "text": "The thing a creature acts through"
   },
   "instrument type": {
     "name": "Instrument Type",
@@ -146,11 +146,11 @@ export const GLOSSARY = {
   },
   "intimidated": {
     "name": "Intimidated",
-    "text": "Resisted with Presence. On the source's next turn, it may issue one demand, which the creature obeys. First, the creature may Oppose once at -1 to refuse. A demand to end the conflict follows the Terms. Intimidated ends when the demand is obeyed or refused, or at the end of the source's turn without one."
+    "text": "Resisted with Presence. The source may make one demand on its next turn. The creature obeys it. First, the creature may Oppose once at -1 to refuse. A demand to end the conflict follows the Terms. Intimidated ends when the demand is obeyed or refused, or at the end of the source's turn without one."
   },
   "invisible": {
     "name": "Invisible",
-    "text": "Laid on self or an ally with no roll. Techniques against the creature take -2 and work only at Range 0. It ends when the creature uses a Technique. True Sight, Blindsight, and Keen Scent ignore it."
+    "text": "Given to the caster or an ally with no roll. Techniques against the creature take -2 and work only at Range 0. It ends when the creature uses a Technique. True Sight, Blindsight, and Keen Scent ignore it."
   },
   "kinetic": {
     "name": "Kinetic",
@@ -158,7 +158,7 @@ export const GLOSSARY = {
   },
   "lingering": {
     "name": "Lingering",
-    "text": "The target takes N Stress at the start of its turn for two rounds; this Stress ignores Resistance"
+    "text": "The target takes N Stress at the start of its turn for two rounds. This Stress ignores Resistance"
   },
   "melee": {
     "name": "Melee",
@@ -166,15 +166,15 @@ export const GLOSSARY = {
   },
   "mend": {
     "name": "Mend",
-    "text": "Remove Xd4 Stress from one of an ally's Attributes, with no Medicine and no roll. A creature can be healed by Medicine, Mend, or any other removal of Stress once every 2 hours. Its user takes Strain as normal."
+    "text": "Remove Xd4 Stress from one of an ally's Attributes, with no Medicine and no roll. Once every 2 hours, a creature can be healed by Medicine, Mend, or anything else that removes Stress."
   },
   "misled": {
     "name": "Misled",
-    "text": "Resisted with Wit. Believes one plausible false statement from the source. It ends when given reason to doubt, or after the duration."
+    "text": "Resisted with Wit. The creature accepts one believable lie from the source. It ends when the creature gets a reason to doubt the lie, or after the duration."
   },
   "move": {
     "name": "Move",
-    "text": "Push, pull, or reposition a target up to Range 2"
+    "text": "Move a target up to Range 2 in any direction"
   },
   "oppose": {
     "name": "Oppose",
@@ -182,11 +182,11 @@ export const GLOSSARY = {
   },
   "origin": {
     "name": "Origin",
-    "text": "The environment a character grew in"
+    "text": "The kind of place a character grew up in"
   },
   "overflow": {
     "name": "Overflow",
-    "text": "When Stress is applied to an Incapacitated Attribute and gets reassigned to a different Attribute"
+    "text": "When Stress dealt to an Incapacitated Attribute moves to another Attribute"
   },
   "passive skill": {
     "name": "Passive Skill",
@@ -202,11 +202,11 @@ export const GLOSSARY = {
   },
   "potential": {
     "name": "Potential",
-    "text": "The maximum total of an AD pool, which represents the amount of Stress an Attribute can take"
+    "text": "The highest total an AD pool can roll, and the most Stress its Attribute can take"
   },
   "primary attribute": {
     "name": "Primary Attribute",
-    "text": "A property of an Instrument that reveals how it is used"
+    "text": "A property of an Instrument that shows how it is used"
   },
   "prone": {
     "name": "Prone",
@@ -218,19 +218,19 @@ export const GLOSSARY = {
   },
   "quick": {
     "name": "Quick",
-    "text": "This Technique may be paid for with the Quick Action as well as the Action. An untagged Technique costs the Action only. The Quick Action may be spent on the user's own turn or held and spent reactively instead; a Technique may state its own trigger for reactive use inline, e.g. \"Quick (trigger: X): effect.\""
+    "text": "This Technique may be paid for with the Quick Action as well as the Action. An untagged Technique costs the Action only. The Quick Action may be spent on the user's own turn or held to react. A Technique may state its own trigger, such as \"Quick (trigger: X): effect.\""
   },
   "quick action": {
     "name": "Quick Action",
-    "text": "A way to perform faster actions in time sensitive scenes"
+    "text": "A way to take faster actions in time-sensitive scenes"
   },
   "radius": {
     "name": "Radius",
-    "text": "a circle of the given size. Four times the Cone cost, twelve times the Beam, for the same size."
+    "text": "a circle, centered on the caster unless the Technique states otherwise. A Radius costs four times a Cone and twelve times a Beam of the same size."
   },
   "range": {
     "name": "Range",
-    "text": "A unit of distance equal to 5ft, which measures the distances between points and the distance an Instrument or Technique is effective"
+    "text": "A unit of distance equal to 5 ft. It measures the distance between points and how far an Instrument or Technique works"
   },
   "ranged": {
     "name": "Ranged",
@@ -250,7 +250,7 @@ export const GLOSSARY = {
   },
   "remove": {
     "name": "Remove",
-    "text": "End the named Condition on an ally. Naming several Conditions, it ends one each use and is priced as the costliest"
+    "text": "End the named Condition on an ally. If it names several Conditions, it ends one each use and costs as much as the costliest"
   },
   "resistance": {
     "name": "Resistance",
@@ -258,7 +258,7 @@ export const GLOSSARY = {
   },
   "restrained": {
     "name": "Restrained",
-    "text": "Resisted with Might. The creature's Finesse is Incapacitated as long as it is Restrained and it cannot move. It breaks free by spending its Action and beating the roll that Restrained it."
+    "text": "Resisted with Might. The creature can't move. Its Finesse is Incapacitated while it is Restrained. It breaks free by spending its Action and beating the roll that Restrained it."
   },
   "selective": {
     "name": "Selective",
@@ -278,23 +278,23 @@ export const GLOSSARY = {
   },
   "strain": {
     "name": "Strain",
-    "text": "Stress that a being inflicts on itself through great effort, performing difficult or costly Techniques"
+    "text": "Stress a creature deals to itself by using hard or costly Techniques"
   },
   "stress": {
     "name": "Stress",
-    "text": "Damage (physical, mental, social) that is applied to each Attribute separately"
+    "text": "Damage (physical, mental, social) dealt to each Attribute separately"
   },
   "stunned": {
     "name": "Stunned",
-    "text": "Resisted with Might. The creature spends no Action or Quick Action. It ends at the end of its next turn."
+    "text": "Resisted with Might. The creature loses its Action and Quick Action. It ends at the end of its next turn."
   },
   "swayed": {
     "name": "Swayed",
-    "text": "Resisted with Wit. Leans toward trusting and helping the source, short of acting against its own interests. It ends after the duration."
+    "text": "Resisted with Wit. The creature leans toward trusting and helping the source, unless that works against its own interests. It ends after the duration."
   },
   "technique": {
     "name": "Technique",
-    "text": "The abilities or moves a being performs through an Instrument"
+    "text": "The abilities or moves a creature uses through an Instrument"
   },
   "thrown": {
     "name": "Thrown",
@@ -302,7 +302,7 @@ export const GLOSSARY = {
   },
   "toil": {
     "name": "Toil",
-    "text": "Effort sustained over 8-hour stretches, such as travel or labor. Toil for N Strain is N Strain on every Attribute"
+    "text": "Hard work done in 8-hour stretches, such as travel or labor. Toil for N Strain is N Strain on every Attribute"
   },
   "tools": {
     "name": "Tools",
@@ -314,18 +314,18 @@ export const GLOSSARY = {
   },
   "upkeep": {
     "name": "Upkeep",
-    "text": "You may reapply the effects on your turn with a Quick Action and paying the Strain. Affected creatures may Oppose again each Upkeep. An area kept this way is a Zone."
+    "text": "You may reapply the effects on your turn by spending a Quick Action and paying the Strain. Affected creatures may Oppose again each Upkeep. An area kept this way is a Zone."
   },
   "wall": {
     "name": "Wall",
-    "text": "a straight barrier of the given length, placed and oriented freely. Same cost as a Beam of that length."
+    "text": "a straight barrier, anchored at the caster unless the Technique states otherwise. You can place and turn a Wall freely. It costs the same as a Beam of its length."
   },
   "wary": {
     "name": "Wary",
-    "text": "Laid on an ally with no roll. On guard against a named creature. An ally with Wary won't take that creature's word, advice, or request without confirming it. It ends when the caster says so, or after the duration."
+    "text": "Given to an ally with no roll. The ally is on guard against a named creature. It checks anything that creature says or asks for before accepting it. It ends when the caster says so, or after the duration."
   },
   "weakened": {
     "name": "Weakened",
-    "text": "Resisted with any Skill built on the named Attribute. The named Attribute's rolls take -N for the duration. Instances stack, each tracked separately."
+    "text": "Resisted with the named Attribute. The named Attribute's rolls take -N for the duration. Instances stack, each tracked separately."
   }
 };

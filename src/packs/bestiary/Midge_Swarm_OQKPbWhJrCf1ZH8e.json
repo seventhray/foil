@@ -70,7 +70,7 @@
       "physical": 1,
       "mental": 0
     },
-    "notes": "<p><em>A glittering cloud of corrosion midges that hungers for rust and iron</em></p><p>Descends on whoever carries the most iron. After it has landed 1d4 + 2 hits it settles and cannot bite for 24 hours.</p>"
+    "notes": "<p><em>A glittering cloud of corrosion midges that eats rust and iron</em></p><p>Descends on whoever carries the most iron. After it has landed 1d4 + 2 hits it settles and cannot bite for 24 hours.</p>"
   },
   "folder": "oestcF1oEEFrxKyA",
   "sort": 10200000,
@@ -184,7 +184,7 @@
         "featType": "trait",
         "xpCost": 8,
         "requirements": "",
-        "effect": "the first Technique this creature lands on a target that hasn't yet acted this conflict deals +2 additional Stress.",
+        "effect": "the first Technique this creature lands on a target that hasn't yet acted this conflict deals +2 Stress.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [],
@@ -208,7 +208,7 @@
         "featType": "trait",
         "xpCost": 12,
         "requirements": "",
-        "effect": "+1 to its Techniques for each other creature bearing this same Feat within Range 1 of its target, up to +2.",
+        "effect": "+1 to this creature's Techniques for each other creature with this Feat within Range 1 of its target, up to +2.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [],

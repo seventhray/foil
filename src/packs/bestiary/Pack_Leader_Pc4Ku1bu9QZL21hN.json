@@ -74,7 +74,7 @@
       "physical": 0,
       "mental": 0
     },
-    "notes": "<p><em>The biggest dog of a feral pack, the one the rest watch before they move</em></p><p>Run it with a Vermin Pack or Displaced Wolves. The pack fights harder while it stands.</p>"
+    "notes": "<p><em>The biggest dog of a feral pack, which the rest follow</em></p><p>Run it with a Vermin Pack or Displaced Wolves. The pack fights harder while it stands.</p>"
   },
   "folder": "oestcF1oEEFrxKyA",
   "sort": 10800000,
@@ -140,7 +140,7 @@
         "featType": "trait",
         "xpCost": 8,
         "requirements": "",
-        "effect": "track a creature's trail by scent alone. Within Range 1, sense a hidden or invisible creature without a roll.",
+        "effect": "tracks a creature's trail by scent alone. Within Range 1, it senses a hidden or invisible creature without a roll.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [],
@@ -164,7 +164,7 @@
         "featType": "trait",
         "xpCost": 12,
         "requirements": "",
-        "effect": "+1 to its Techniques for each other creature bearing this same Feat within Range 1 of its target, up to +2.",
+        "effect": "+1 to this creature's Techniques for each other creature with this Feat within Range 1 of its target, up to +2.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [],

@@ -17,7 +17,7 @@ export const HABIT_TABLES = {
     },
     {
       "roll": 3,
-      "habit": "I take a promise at face value until it's broken, not before.",
+      "habit": "I take a promise at face value until it's broken.",
       "lean": "high"
     },
     {
@@ -42,7 +42,7 @@ export const HABIT_TABLES = {
     },
     {
       "roll": 8,
-      "habit": "I trust what I can verify, not what I'm told.",
+      "habit": "I trust what I can check for myself.",
       "lean": "low"
     }
   ],
@@ -54,22 +54,22 @@ export const HABIT_TABLES = {
     },
     {
       "roll": 2,
-      "habit": "I think a plan beats improvising, nine times out of ten.",
+      "habit": "I want a plan before I make a move.",
       "lean": "high"
     },
     {
       "roll": 3,
-      "habit": "Rules exist because someone already learned the hard way; I'd rather not relearn it.",
+      "habit": "Rules exist because someone already learned the hard way, so I follow them.",
       "lean": "high"
     },
     {
       "roll": 4,
-      "habit": "I'd rather lose by the rules than win by breaking them.",
+      "habit": "I follow the rules, win or lose.",
       "lean": "high"
     },
     {
       "roll": 5,
-      "habit": "I've never met a plan that survived contact with anything.",
+      "habit": "Every plan falls apart, so I make it up as I go.",
       "lean": "low"
     },
     {
@@ -91,12 +91,12 @@ export const HABIT_TABLES = {
   "individualism": [
     {
       "roll": 1,
-      "habit": "I look out for myself first; I can't help anyone if I'm the one who falls.",
+      "habit": "I look out for myself first, so I'm on my feet when someone needs help.",
       "lean": "high"
     },
     {
       "roll": 2,
-      "habit": "I'd rather succeed alone than share credit for a group effort.",
+      "habit": "I like to succeed on my own and keep the credit.",
       "lean": "high"
     },
     {
@@ -106,7 +106,7 @@ export const HABIT_TABLES = {
     },
     {
       "roll": 4,
-      "habit": "I take what I've earned and don't feel guilty about it.",
+      "habit": "I take what I've earned and feel good about it.",
       "lean": "high"
     },
     {
@@ -116,17 +116,17 @@ export const HABIT_TABLES = {
     },
     {
       "roll": 6,
-      "habit": "My word to the group outweighs my own preference every time.",
+      "habit": "My word to the group comes first, every time.",
       "lean": "low"
     },
     {
       "roll": 7,
-      "habit": "I've given up things I wanted because the group needed them more.",
+      "habit": "I've given up things I wanted so the group could have them.",
       "lean": "low"
     },
     {
       "roll": 8,
-      "habit": "I put myself between danger and whoever's behind me, without being asked.",
+      "habit": "I'm the first to step between danger and whoever's behind me.",
       "lean": "low"
     }
   ],
@@ -138,37 +138,37 @@ export const HABIT_TABLES = {
     },
     {
       "roll": 2,
-      "habit": "I'd rather defuse a tense moment with a laugh than let it sit.",
+      "habit": "I defuse a tense moment with a laugh.",
       "lean": "high"
     },
     {
       "roll": 3,
-      "habit": "I tease the people I care about; it's how I say it without saying it.",
+      "habit": "I tease the people I care about; it's how I show it.",
       "lean": "high"
     },
     {
       "roll": 4,
-      "habit": "I take the work seriously and myself not at all.",
+      "habit": "I take the work seriously and laugh at myself.",
       "lean": "high"
     },
     {
       "roll": 5,
-      "habit": "I've stopped finding most things funny, and I'm not sorry about it.",
+      "habit": "I've stopped finding most things funny, and I'm fine with that.",
       "lean": "low"
     },
     {
       "roll": 6,
-      "habit": "I carry what's happened to me; I don't set it down to make room for a laugh.",
+      "habit": "I carry what's happened to me; it keeps me serious.",
       "lean": "low"
     },
     {
       "roll": 7,
-      "habit": "I don't perform lightness I don't feel.",
+      "habit": "I save my smiles for when I mean them.",
       "lean": "low"
     },
     {
       "roll": 8,
-      "habit": "Silence sits easier with me than small talk.",
+      "habit": "I'm at ease in silence and skip the small talk.",
       "lean": "low"
     }
   ]

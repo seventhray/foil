@@ -567,7 +567,8 @@ function ancestryDocs() {
   return tableAfter(PHB, /^### 2\.5\.1 Origins/).map(r => {
     const name = r.Origin;
     const desc = r.Description.replace(/^\*(.+)\*$/, "$1");
-    const featText = r.Feats.split("<br>").map(f => f.match(/^\*\*([^*]+)\.\*\* (.*)$/)).map(m => ({ name: m[1].trim(), text: m[2].trim() }));
+    // Each Feat prints as "Name: effect" (before 2026-11-16, "**Name.** effect").
+    const featText = r.Feats.split("<br>").map(f => f.match(/^(?:\*\*([^*]+)\.\*\*|([^:*]+):) (.*)$/)).map(m => ({ name: (m[1] ?? m[2]).trim(), text: m[3].trim() }));
     const feats = featText.map(f => f.name);
     const talentLine = r.Talent.replace(/\.$/, "");
     const html = [desc ? `<p><em>${desc}</em></p>` : "",

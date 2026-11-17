@@ -23,8 +23,8 @@
     "formerNames": [],
     "ancestryGrant": "",
     "grantedBy": "",
-    "effectText": "Move through open air, ignoring ground-based terrain and any Grappling or Move Effect that requires solid footing beneath the target, for the duration of Upkeep",
-    "description": "<p>Move through open air, ignoring ground-based terrain and any Grappling or Move Effect that requires solid footing beneath the target, for the duration of Upkeep.</p>"
+    "effectText": "Move through open air, ignoring ground-based terrain and any Grappling or Move Effect that needs solid footing under the target, for the duration of Upkeep",
+    "description": "<p>Move through open air, ignoring ground-based terrain and any Grappling or Move Effect that needs solid footing under the target, for the duration of Upkeep.</p>"
   },
   "effects": [],
   "folder": "Rh0DnkQdSreto5kG",

@@ -70,7 +70,7 @@
       "physical": 0,
       "mental": 0
     },
-    "notes": "<p><em>A spore-choked mass of fungus wearing the shape of whatever it grew over first</em></p><p>Lies still under its own spore mat until something living steps close, then lashes out at whatever has not yet moved.</p>"
+    "notes": "<p><em>A spore-choked mass of fungus in the shape of whatever it first grew over</em></p><p>Lies still under its own spore mat until something living steps close, then lashes out at whatever has not yet moved.</p>"
   },
   "folder": "waHrVCvmZV9sEJ2n",
   "sort": 6400000,
@@ -215,7 +215,7 @@
         "featType": "trait",
         "xpCost": 8,
         "requirements": "",
-        "effect": "the first Technique this creature lands on a target that hasn't yet acted this conflict deals +2 additional Stress.",
+        "effect": "the first Technique this creature lands on a target that hasn't yet acted this conflict deals +2 Stress.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [],

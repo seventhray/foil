@@ -77,7 +77,7 @@
       "physical": 0,
       "mental": 1
     },
-    "notes": "<p><em>A sworn fighter of a faith, sure that the fight in front of it is holy</em></p><p><strong>Habits</strong> Individualism Communal: My word to the group outweighs my own preference every time. Levity Grave: I carry what's happened to me; I don't set it down to make room for a laugh.</p><p>Charges whatever its faith names as wicked. The Zealot fights on long after sense says stop.</p>"
+    "notes": "<p><em>A sworn fighter of a faith, sure that the fight in front of it is holy</em></p><p><strong>Habits</strong> Individualism Communal: My word to the group comes first, every time. Levity Grave: I carry what's happened to me; it keeps me serious.</p><p>Charges whatever its faith names as wicked. The Zealot fights on long after sense says stop.</p>"
   },
   "folder": "oestcF1oEEFrxKyA",
   "sort": 16500000,
@@ -201,7 +201,7 @@
         "featType": "trait",
         "xpCost": 8,
         "requirements": "",
-        "effect": "the first time one of this creature's Attributes is Incapacitated in a conflict, its Training in its attack Skill increases by +2 for the rest of the conflict.",
+        "effect": "the first time one of this creature's Attributes is Incapacitated in a conflict, this creature gains +2 Training in its attack Skill for the rest of the conflict.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [],

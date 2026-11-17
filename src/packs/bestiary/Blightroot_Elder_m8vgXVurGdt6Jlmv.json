@@ -77,7 +77,7 @@
       "physical": 2,
       "mental": 0
     },
-    "notes": "<p><em>An ancient tree gone wrong, roots drinking something they shouldn't have found</em></p><p>It cannot leave its ground. Its roots reach Range 2 and hold whoever comes close enough for the limbs.</p>"
+    "notes": "<p><em>An ancient tree twisted by something its roots drank</em></p><p>It cannot leave its ground. Its roots reach Range 2 and hold whoever comes close enough for the limbs.</p>"
   },
   "folder": "20lyztx7vQQXvuEu",
   "sort": 1600000,
@@ -355,7 +355,7 @@
         "featType": "trait",
         "xpCost": 8,
         "requirements": "",
-        "effect": "this creature cannot be Frightened. It has no fear to find.",
+        "effect": "this creature cannot be Frightened. It feels no fear.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [],

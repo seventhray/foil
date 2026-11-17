@@ -77,7 +77,7 @@
       "physical": 2,
       "mental": 0
     },
-    "notes": "<p><em>Its voice holds a line together until it falls</em></p>"
+    "notes": "<p><em>A leader whose voice keeps its thralls fighting until it falls</em></p>"
   },
   "folder": "20lyztx7vQQXvuEu",
   "sort": 3000000,
@@ -465,7 +465,7 @@
         "featType": "learned",
         "xpCost": 12,
         "requirements": "12 Finesse, 12 Presence",
-        "effect": "When using a Sonic Technique that deals Stress to the Target, deal +1 additional Stress.",
+        "effect": "When using a Sonic Technique that deals Stress to the Target, deal +1 Stress.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [],
@@ -489,7 +489,7 @@
         "featType": "learned",
         "xpCost": 12,
         "requirements": "12 Wit, 12 Presence",
-        "effect": "When using an Incorporeal Technique that deals Stress to the Target, deal +1 additional Stress.",
+        "effect": "When using an Incorporeal Technique that deals Stress to the Target, deal +1 Stress.",
         "ancestry": "",
         "grantsTechnique": "",
         "modifiers": [],
